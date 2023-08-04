@@ -10,6 +10,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import static java.lang.Double.parseDouble;
+import static java.util.Arrays.stream;
 import static java.util.Optional.empty;
 import static java.util.stream.IntStream.range;
 

@@ -101,32 +101,37 @@ public abstract class AbstractPloughingFuelInfoSearchingServices extends Abstrac
 
     private static Optional<List<XWPFTableRow>> findRowsByTractor(final List<XWPFTableRow> rows,
                                                                   final FuelInfoSpecification specification) {
-        return findUnitedRowsByContent(
+        //TODO: remove variable
+        Optional<List<XWPFTableRow>> unitedRowsByContent = findUnitedRowsByContent(
                 rows,
                 CELL_INDEX_WITH_TRACTOR,
                 UNITED_ROWS_COUNT_IN_TRACTOR_COLUMN,
                 extractTractor(specification)
         );
+        return unitedRowsByContent;
     }
 
     private static Optional<List<XWPFTableRow>> findRowsByPloughMark(final List<XWPFTableRow> rows,
                                                                      final FuelInfoSpecification specification) {
-        return findUnitedRowsByContent(
+        //TODO: remove variable
+        Optional<List<XWPFTableRow>> unitedRowsByContent = findUnitedRowsByContent(
                 rows,
                 CELL_INDEX_WITH_PLOUGH_MARK,
                 UNITED_ROWS_COUNT_IN_PLOUGH_MARK_COLUMN,
                 extractPloughMark(specification)
         );
+        return unitedRowsByContent;
     }
 
     private static Optional<List<XWPFTableRow>> findRowsByCorpusCount(final List<XWPFTableRow> rows,
                                                                       final FuelInfoSpecification specification) {
-        return findUnitedRowsByContent(
+        Optional<List<XWPFTableRow>> unitedRowsByContent = findUnitedRowsByContent(
                 rows,
                 CELL_INDEX_WITH_CORPUS_COUNT,
                 UNITED_ROWS_COUNT_IN_CORPUS_COUNT_COLUMN,
                 extractCorpusCount(specification)
         );
+        return unitedRowsByContent;
     }
 
     private static Optional<XWPFTableRow> findRowByPloughingDepth(final List<XWPFTableRow> rows,

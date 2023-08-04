@@ -29,6 +29,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
 
     private static Stream<Arguments> fuelInfoSearchingArgumentProvider() {
         return Stream.of(
+                //---------------FOR TABLE #1
                 Arguments.of(
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
@@ -56,6 +57,31 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                 Arguments.of(
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
+                                .tractor("Кировец К-744 Р4")
+                                .ploughMark("ППО-8-40")
+                                .corpusCount("8")
+                                .ploughingDepth("23–25")
+                                .routingLength("Менее 150")
+                                .specificResistance("Удельное сопротивление 54...59 кПа")
+                                .build(),
+                        createFuelInfoWrappedByOptional(9., 21.5)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
+                                .tractor("Кировец K744P2")
+                                //TODO: do without nbsp symbol
+                                .ploughMark("Vari Titan 10\u00A07+3 L100")
+                                .corpusCount("10")
+                                .ploughingDepth("23–25")
+                                .routingLength("Менее 150")
+                                .specificResistance("Удельное сопротивление 54...59 кПа")
+                                .build(),
+                        createFuelInfoWrappedByOptional(10.1, 24.8)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("К744Р3")
                                 .ploughMark("Kverneland RW 110")
                                 .corpusCount("12")
@@ -65,6 +91,19 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                                 .specificResistance("Удельное сопротивление плуга 60…65 кПа")
                                 .build(),
                         createFuelInfoWrappedByOptional(11.3, 29.1)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
+                                .tractor("Кировец K744P2")
+                                //TODO: do without nbsp symbol
+                                .ploughMark("Vari Titan 10\u00A07+3 L100")
+                                .corpusCount("10")
+                                .ploughingDepth("18–20")
+                                .routingLength("Менее 150")
+                                .specificResistance("Удельное сопротивление 54...59 кПа")
+                                .build(),
+                        createFuelInfoWrappedByOptional(10.9, 22.3)
                 ),
                 //not existing tractor
                 Arguments.of(
@@ -156,7 +195,126 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                                 .specificResistance("Удельное сопротивление плуга 60…65 кПа")
                                 .build(),
                         empty()
+                ),
+
+                //---------------FOR TABLE #2
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА СТЕРНИ")
+                                .tractor("CASE II Steiger 550")
+                                //TODO: do without nbsp symbol
+                                .ploughMark("Lemken EuroTitan 10\u00A08+3+1")
+                                .corpusCount("12")
+                                .ploughingDepth("18–20")
+                                .routingLength("Менее 150")
+                                .specificResistance("Удельное сопротивление 36...41 кПа")
+                                .build(),
+                        createFuelInfoWrappedByOptional(13.8, 20.9)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА СТЕРНИ")
+                                .tractor("Кировец К-744 Р4")
+                                .ploughMark("Lemken EuroTitan 10")
+                                .corpusCount("10")
+                                .ploughingDepth("21–22")
+                                .routingLength("601–1000")
+                                .specificResistance("Удельное сопротивление 36...41 кПа")
+                                .build(),
+                        createFuelInfoWrappedByOptional(25.6, 15.0)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА СТЕРНИ")
+                                .tractor("Кировец К-744 Р4")
+                                .ploughMark("Lemken EuroTitan 10")
+                                .corpusCount("10")
+                                .ploughingDepth("21–22")
+                                .routingLength("Менее 150")
+                                .specificResistance("Удельное сопротивление 36...41 кПа")
+                                .build(),
+                        empty()
+                ),
+                //not existing tractor
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА СТЕРНИ")
+                                .tractor("not exist")
+                                .ploughMark("Lemken EuroTitan 10")
+                                .corpusCount("10")
+                                .ploughingDepth("21–22")
+                                .routingLength("601–1000")
+                                .specificResistance("Удельное сопротивление 36...41 кПа")
+                                .build(),
+                        empty()
+                ),
+                //not exist plough mark
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА СТЕРНИ")
+                                .tractor("Кировец К-744 Р4")
+                                .ploughMark("not exist")
+                                .corpusCount("10")
+                                .ploughingDepth("21–22")
+                                .routingLength("601–1000")
+                                .specificResistance("Удельное сопротивление 36...41 кПа")
+                                .build(),
+                        empty()
+                ),
+                //not exist corpus count
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА СТЕРНИ")
+                                .tractor("Кировец К-744 Р4")
+                                .ploughMark("Lemken EuroTitan 10")
+                                .corpusCount("-1")
+                                .ploughingDepth("21–22")
+                                .routingLength("601–1000")
+                                .specificResistance("Удельное сопротивление 36...41 кПа")
+                                .build(),
+                        empty()
+                ),
+                //not exist ploughing depth
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА СТЕРНИ")
+                                .tractor("Кировец К-744 Р4")
+                                .ploughMark("Lemken EuroTitan 10")
+                                .corpusCount("10")
+                                .ploughingDepth("100000000-200000000")
+                                .routingLength("601–1000")
+                                .specificResistance("Удельное сопротивление 36...41 кПа")
+                                .build(),
+                        empty()
+                ),
+                //not exist routing length
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА СТЕРНИ")
+                                .tractor("Кировец К-744 Р4")
+                                .ploughMark("Lemken EuroTitan 10")
+                                .corpusCount("10")
+                                .ploughingDepth("21–22")
+                                .routingLength("10000000-20000000")
+                                .specificResistance("Удельное сопротивление 36...41 кПа")
+                                .build(),
+                        empty()
+                ),
+                //not exist specific resistance
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА СТЕРНИ")
+                                .tractor("Кировец К-744 Р4")
+                                .ploughMark("Lemken EuroTitan 10")
+                                .corpusCount("10")
+                                .ploughingDepth("21–22")
+                                .routingLength("601–1000")
+                                .specificResistance("Удельное сопротивление -5...-1 кПа")
+                                .build(),
+                        empty()
                 )
+
+                //for table #3
         );
     }
 
