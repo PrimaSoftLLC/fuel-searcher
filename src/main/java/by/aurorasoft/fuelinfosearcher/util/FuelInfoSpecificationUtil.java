@@ -15,6 +15,7 @@ public final class FuelInfoSpecificationUtil {
     private static final String PROPERTY_NAME_OF_PLOUGHING_DEPTH = "ploughingDepth";
     private static final String PROPERTY_NAME_OF_ROUTING_LENGTH = "routingLength";
     private static final String PROPERTY_NAME_OF_SPECIFIC_RESISTANCE = "specificResistance";
+    private static final String PROPERTY_NAME_OF_SOIL_TYPE = "soilType";
 
     public static String extractTableName(final FuelInfoSpecification specification) {
         return extractProperty(
@@ -69,6 +70,14 @@ public final class FuelInfoSpecificationUtil {
                 specification,
                 FuelInfoSpecification::findSpecificResistance,
                 PROPERTY_NAME_OF_SPECIFIC_RESISTANCE
+        );
+    }
+
+    public static String extractSoilType(final FuelInfoSpecification specification) {
+        return extractProperty(
+                specification,
+                FuelInfoSpecification::findSoilType,
+                PROPERTY_NAME_OF_SOIL_TYPE
         );
     }
 

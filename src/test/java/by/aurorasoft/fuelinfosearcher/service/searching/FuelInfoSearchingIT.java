@@ -312,9 +312,111 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                                 .specificResistance("Удельное сопротивление -5...-1 кПа")
                                 .build(),
                         empty()
-                )
+                ),
 
                 //for table #3
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
+                                .tractor("Беларус-3522")
+                                .ploughMark("ПБН-6-50А")
+                                .corpusCount("6")
+                                .ploughingDepth("20–22")
+                                .routingLength("Менее 150")
+                                .soilType("Минеральные почвы")
+                                .build(),
+                        createFuelInfoWrappedByOptional(8.5, 23.7)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
+                                .tractor("Беларус-3022")
+                                .ploughMark("ПБН-6-50А")
+                                .corpusCount("6")
+                                .ploughingDepth("25–27")
+                                .routingLength("Более 1000")
+                                .soilType("Торфяные почвы")
+                                .build(),
+                        createFuelInfoWrappedByOptional(11.4, 20.5)
+                ),
+                //not existing tractor
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
+                                .tractor("not exist")
+                                .ploughMark("ПБН-6-50А")
+                                .corpusCount("6")
+                                .ploughingDepth("25–27")
+                                .routingLength("Более 1000")
+                                .soilType("Торфяные почвы")
+                                .build(),
+                        empty()
+                ),
+                //not existing plough mark
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
+                                .tractor("Беларус-3022")
+                                .ploughMark("not exist")
+                                .corpusCount("6")
+                                .ploughingDepth("25–27")
+                                .routingLength("Более 1000")
+                                .soilType("Торфяные почвы")
+                                .build(),
+                        empty()
+                ),
+                //not existing corpus count
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
+                                .tractor("Беларус-3022")
+                                .ploughMark("ПБН-6-50А")
+                                .corpusCount("-1")
+                                .ploughingDepth("25–27")
+                                .routingLength("Более 1000")
+                                .soilType("Торфяные почвы")
+                                .build(),
+                        empty()
+                ),
+                //not existing ploughing depth
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
+                                .tractor("Беларус-3022")
+                                .ploughMark("ПБН-6-50А")
+                                .corpusCount("6")
+                                .ploughingDepth("1500-2000")
+                                .routingLength("Более 1000")
+                                .soilType("Торфяные почвы")
+                                .build(),
+                        empty()
+                ),
+                //not existing routing length
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
+                                .tractor("Беларус-3022")
+                                .ploughMark("ПБН-6-50А")
+                                .corpusCount("6")
+                                .ploughingDepth("25–27")
+                                .routingLength("5000-5001")
+                                .soilType("Торфяные почвы")
+                                .build(),
+                        empty()
+                ),
+                //not existing soil type
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
+                                .tractor("Беларус-3022")
+                                .ploughMark("ПБН-6-50А")
+                                .corpusCount("6")
+                                .ploughingDepth("25–27")
+                                .routingLength("Более 1000")
+                                .soilType("Несуществующие почвы")
+                                .build(),
+                        empty()
+                )
         );
     }
 

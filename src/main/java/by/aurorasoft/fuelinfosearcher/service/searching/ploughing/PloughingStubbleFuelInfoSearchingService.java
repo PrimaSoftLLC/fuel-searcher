@@ -5,7 +5,7 @@ import by.aurorasoft.fuelinfosearcher.model.FuelInfoOffsetFromRoutingLengthStora
 import org.springframework.stereotype.Service;
 
 @Service
-public final class PloughingStubbleFuelInfoSearchingService extends AbstractPloughingFuelInfoSearchingServices {
+public final class PloughingStubbleFuelInfoSearchingService extends AbstractPloughingFuelInfoSearchingBySpecificResistanceServices {
     private static final String TABLE_NAME = "ВСПАШКА СТЕРНИ";
 
     public PloughingStubbleFuelInfoSearchingService(final FuelInfoOffsetFromRoutingLengthStorage offsetStorage,

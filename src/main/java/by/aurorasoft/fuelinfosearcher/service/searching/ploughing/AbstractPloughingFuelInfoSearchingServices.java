@@ -18,7 +18,7 @@ import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findIndexFirstCellByC
 
 //for tables #1, #2, #3
 public abstract class AbstractPloughingFuelInfoSearchingServices extends AbstractFuelInfoSearchingService {
-    private static final int CELL_INDEX_WITH_SPECIFIC_RESISTANCE = 0;
+    private static final int CELL_INDEX_WITH_GROUP_VALUE = 0;
     private static final int CELL_INDEX_WITH_TRACTOR = 1;
     private static final int CELL_INDEX_WITH_PLOUGH_MARK = 2;
     private static final int CELL_INDEX_WITH_CORPUS_COUNT = 3;
@@ -27,8 +27,6 @@ public abstract class AbstractPloughingFuelInfoSearchingServices extends Abstrac
     private static final int UNITED_ROWS_COUNT_IN_TRACTOR_COLUMN = 4;
     private static final int UNITED_ROWS_COUNT_IN_PLOUGH_MARK_COLUMN = 4;
     private static final int UNITED_ROWS_COUNT_IN_CORPUS_COUNT_COLUMN = 4;
-
-    private static final String REGEX_CONTENT_SPECIFIC_RESISTANCE = "Удельное сопротивление (плуга )?\\d+...\\d+ кПа";
 
     private static final int INDEX_ROUTING_LENGTH_ROW = 1;
 
@@ -42,13 +40,18 @@ public abstract class AbstractPloughingFuelInfoSearchingServices extends Abstrac
     protected final Optional<FuelInfo> find(final FuelTable fuelTable, final FuelInfoSpecification specification) {
         final List<XWPFTableRow> elementTableRows = extractElementTableRows(fuelTable);
         final XWPFTableRow routingLengthRow = elementTableRows.get(INDEX_ROUTING_LENGTH_ROW);
-        return findRowsBySpecificResistance(elementTableRows, specification)
+        return findRowsByGroupValue(elementTableRows, specification)
                 .flatMap(rows -> findRowsByTractor(rows, specification))
                 .flatMap(rows -> findRowsByPloughMark(rows, specification))
                 .flatMap(rows -> findRowsByCorpusCount(rows, specification))
                 .flatMap(rows -> findRowByPloughingDepth(rows, specification))
                 .flatMap(row -> this.findFuelInfo(routingLengthRow, row, specification));
     }
+
+    //Группа - это удельное сопротивление для таблиц #1 и #2 и тип почвы для таблицы #3
+    protected abstract String extractGroupValue(final FuelInfoSpecification specification);
+    protected abstract String findGroupValueRegex();
+
 
     private static List<XWPFTableRow> extractElementTableRows(final FuelTable fuelTable) {
         final XWPFTable elementTable = extractElementTable(fuelTable);
@@ -61,35 +64,35 @@ public abstract class AbstractPloughingFuelInfoSearchingServices extends Abstrac
         return (XWPFTable) firstElement;
     }
 
-    private static Optional<List<XWPFTableRow>> findRowsBySpecificResistance(final List<XWPFTableRow> rows,
-                                                                             final FuelInfoSpecification specification) {
-        return findIndexRowBySpecificResistance(rows, specification)
+    private Optional<List<XWPFTableRow>> findRowsByGroupValue(final List<XWPFTableRow> rows,
+                                                              final FuelInfoSpecification specification) {
+        return findIndexRowByGroupValue(rows, specification)
                 .stream()
-                .map(indexRowWithSpecificResistance -> indexRowWithSpecificResistance + 1)
+                .map(indexRowWithGroupValue -> indexRowWithGroupValue + 1)
                 .mapToObj(indexFirstMatchingRow -> findIndexBordersRowsMatchingSpecificResistance(indexFirstMatchingRow, rows))
                 .map(borderRowIndexes -> extractRows(rows, borderRowIndexes))
                 .findFirst();
     }
 
-    private static OptionalInt findIndexRowBySpecificResistance(final List<XWPFTableRow> rows,
-                                                                final FuelInfoSpecification specification) {
-        final String specificResistance = extractSpecificResistance(specification);
-        return findIndexFirstRowByContent(rows, CELL_INDEX_WITH_SPECIFIC_RESISTANCE, specificResistance);
+    private OptionalInt findIndexRowByGroupValue(final List<XWPFTableRow> rows,
+                                                 final FuelInfoSpecification specification) {
+        final String groupValue = this.extractGroupValue(specification);
+        return findIndexFirstRowByContent(rows, CELL_INDEX_WITH_GROUP_VALUE, groupValue);
     }
 
-    private static IntPair findIndexBordersRowsMatchingSpecificResistance(final int indexFirstMatchingRow,
-                                                                          final List<XWPFTableRow> rows) {
+    private IntPair findIndexBordersRowsMatchingSpecificResistance(final int indexFirstMatchingRow,
+                                                                   final List<XWPFTableRow> rows) {
         final int nextIndexLastMatchingRow = findIndexRowNextSpecificResistanceOrLastRow(rows, indexFirstMatchingRow);
         return new IntPair(indexFirstMatchingRow, nextIndexLastMatchingRow);
     }
 
-    private static int findIndexRowNextSpecificResistanceOrLastRow(final List<XWPFTableRow> rows,
-                                                                   final int startSearchingIndex) {
+    private int findIndexRowNextSpecificResistanceOrLastRow(final List<XWPFTableRow> rows,
+                                                            final int startSearchingIndex) {
         return findIndexFirstRowByContentRegex(
                 rows,
                 startSearchingIndex,
-                CELL_INDEX_WITH_SPECIFIC_RESISTANCE,
-                REGEX_CONTENT_SPECIFIC_RESISTANCE
+                CELL_INDEX_WITH_GROUP_VALUE,
+                this.findGroupValueRegex()
         ).orElse(rows.size());
     }
 

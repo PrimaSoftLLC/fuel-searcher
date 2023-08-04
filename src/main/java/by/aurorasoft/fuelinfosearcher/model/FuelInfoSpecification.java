@@ -24,6 +24,7 @@ public class FuelInfoSpecification {
     //длина гона
     String routingLength;
     String specificResistance;
+    String soilType;
 
     public Optional<String> findTableName() {
         return ofNullable(this.tableName);
@@ -51,5 +52,9 @@ public class FuelInfoSpecification {
 
     public Optional<String> findSpecificResistance() {
         return ofNullable(this.specificResistance);
+    }
+
+    public Optional<String> findSoilType() {
+        return ofNullable(this.soilType);
     }
 }
