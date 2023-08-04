@@ -10,6 +10,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import static java.lang.Double.parseDouble;
+import static java.util.Optional.empty;
 import static java.util.stream.IntStream.range;
 
 //TODO: refactor
@@ -60,15 +61,16 @@ public final class XWPFUtil {
     }
 
     //returns several united rows
-    public static List<XWPFTableRow> findUnitedRowsByContent(final List<XWPFTableRow> rows,
-                                                             final int cellIndexWithContent,
-                                                             final int unitedRowsCount,
-                                                             final String content) {
-        return range(0, rows.size())
+    public static Optional<List<XWPFTableRow>> findUnitedRowsByContent(final List<XWPFTableRow> rows,
+                                                                       final int cellIndexWithContent,
+                                                                       final int unitedRowsCount,
+                                                                       final String content) {
+        final List<XWPFTableRow> foundRows = range(0, rows.size())
                 .filter(i -> isCellContentMatch(rows.get(i), cellIndexWithContent, content))
                 .mapToObj(indexFirstRow -> rows.subList(indexFirstRow, indexFirstRow + unitedRowsCount))
                 .flatMap(Collection::stream)
                 .toList();
+        return !foundRows.isEmpty() ? Optional.of(foundRows) : empty();
     }
 
     public static Optional<XWPFTableRow> findFirstRowByContent(final List<XWPFTableRow> rows,

@@ -32,7 +32,7 @@ public final class PloughingFuelInfoSearchingService extends AbstractFuelInfoSea
 
     private static final String REGEX_CONTENT_SPECIFIC_RESISTANCE = "Удельное сопротивление (плуга )?\\d+...\\d+ кПа";
 
-    private static final int ROW_INDEX_WITH_ROUTING_LENGTHS = 1;
+    private static final int INDEX_ROUTING_LENGTH_ROW = 1;
 
     public PloughingFuelInfoSearchingService(final FuelInfoOffsetFromRoutingLengthStorage offsetStorage,
                                              final FuelDocument fuelDocument) {
@@ -41,38 +41,25 @@ public final class PloughingFuelInfoSearchingService extends AbstractFuelInfoSea
 
     @Override
     protected Optional<FuelInfo> find(final FuelTable fuelTable, final FuelInfoSpecification specification) {
-        return extractElementTable(fuelTable)
-                .map(XWPFTable::getRows)
-                .flatMap(rows -> findRowsBySpecificResistance(rows, specification))
+        final List<XWPFTableRow> elementTableRows = extractElementTableRows(fuelTable);
+        final XWPFTableRow routingLengthRow = elementTableRows.get(INDEX_ROUTING_LENGTH_ROW);
+        return findRowsBySpecificResistance(elementTableRows, specification)
                 .flatMap(rows -> findRowsByTractor(rows, specification))
                 .flatMap(rows -> findRowsByPloughMark(rows, specification))
                 .flatMap(rows -> findRowsByCorpusCount(rows, specification))
                 .flatMap(rows -> findRowByPloughingDepth(rows, specification))
-                .map(row -> this.findFuelInfo(null, row, specification));
-
-        final XWPFTable elementTable = extractElementTable(fuelTable);
-        final List<XWPFTableRow> allRows = elementTable.getRows();
-
-
-        final Optional<List<XWPFTableRow>> optionalRowsFoundBySpecificResistance = findRowsBySpecificResistance(
-                allRows, specification
-        );
-        if (optionalRowsFoundBySpecificResistance.isEmpty()) {
-            return empty();
-        }
-        final List<XWPFTableRow> rowsFoundBySpecificResistance = optionalRowsFoundBySpecificResistance.get();
-        final List<XWPFTableRow> rowsFoundByTractor = findRowsByTractor(rowsFoundBySpecificResistance, specification);
-        final List<XWPFTableRow> rowsFoundByPloughMark = findRowsByPloughMark(rowsFoundByTractor, specification);
-        final List<XWPFTableRow> rowsFoundByCorpusCount = findRowsByCorpusCount(rowsFoundByPloughMark, specification);
-        final XWPFTableRow rowFoundByPloughingDepth = findRowByPloughingDepth(rowsFoundByCorpusCount, specification);
-
-        final XWPFTableRow rowWithRoutingLengths = allRows.get(ROW_INDEX_WITH_ROUTING_LENGTHS);
-        return this.findFuelInfo(rowWithRoutingLengths, rowFoundByPloughingDepth, specification);
+                .map(row -> this.findFuelInfo(routingLengthRow, row, specification));
     }
 
-    private static Optional<XWPFTable> extractElementTable(final FuelTable fuelTable) {
+    private static List<XWPFTableRow> extractElementTableRows(final FuelTable fuelTable) {
+        final XWPFTable elementTable = extractElementTable(fuelTable);
+        return elementTable.getRows();
+    }
+
+    private static XWPFTable extractElementTable(final FuelTable fuelTable) {
         final List<IBodyElement> elements = fuelTable.getElements();
-        return (elements.isEmpty() || !(elements.get(0) instanceof final XWPFTable table)) ? empty() : Optional.of(table);
+        final IBodyElement firstElement = elements.get(0);
+        return (XWPFTable) firstElement;
     }
 
     private static Optional<List<XWPFTableRow>> findRowsBySpecificResistance(final List<XWPFTableRow> rows,
@@ -129,17 +116,12 @@ public final class PloughingFuelInfoSearchingService extends AbstractFuelInfoSea
     private static Optional<XWPFTableRow> findRowByPloughingDepth(final List<XWPFTableRow> rows,
                                                                   final FuelInfoSpecification specification) {
         final String ploughingDepth = extractPloughingDepth(specification);
-        return findFirstRowByContent(rows, CELL_INDEX_WITH_PLOUGHING_DEPTH, ploughingDepth)
-                .orElseThrow(
-                        () -> new FuelInfoSearchingException(
-                                "There is no row with ploughing depth '%s'".formatted(ploughingDepth)
-                        )
-                );
+        return findFirstRowByContent(rows, CELL_INDEX_WITH_PLOUGHING_DEPTH, ploughingDepth);
     }
 
     private FuelInfo findFuelInfo(final XWPFTableRow routingLengthRow,
-                                            final XWPFTableRow dataRow,
-                                            final FuelInfoSpecification specification) {
+                                  final XWPFTableRow dataRow,
+                                  final FuelInfoSpecification specification) {
         final FuelInfoLocation location = this.findFuelInfoLocation(routingLengthRow, specification, dataRow);
         return extractFuelInfo(location);
     }
