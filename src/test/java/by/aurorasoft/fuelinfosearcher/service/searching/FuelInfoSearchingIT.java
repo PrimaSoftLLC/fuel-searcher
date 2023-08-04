@@ -22,8 +22,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
     @ParameterizedTest
     @MethodSource("fuelInfoSearchingArgumentProvider")
     @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-    public void fuelInfoShouldBeFound(final FuelInfoSpecification specification,
-                                      final Optional<FuelInfo> expected) {
+    public void fuelInfoShouldBeFound(final FuelInfoSpecification specification, final Optional<FuelInfo> expected) {
         final Optional<FuelInfo> actual = this.searchingManager.find(specification);
         assertEquals(expected, actual);
     }

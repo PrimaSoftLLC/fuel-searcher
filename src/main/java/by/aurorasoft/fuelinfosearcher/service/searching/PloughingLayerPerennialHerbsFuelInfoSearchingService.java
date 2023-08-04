@@ -15,7 +15,7 @@ import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.*;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
 
 @Service
-public final class PloughingFuelInfoSearchingService extends AbstractFuelInfoSearchingService {
+public final class PloughingLayerPerennialHerbsFuelInfoSearchingService extends AbstractFuelInfoSearchingService {
     private static final String TABLE_NAME = "ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ";
 
     private static final int CELL_INDEX_WITH_SPECIFIC_RESISTANCE = 0;
@@ -32,8 +32,8 @@ public final class PloughingFuelInfoSearchingService extends AbstractFuelInfoSea
 
     private static final int INDEX_ROUTING_LENGTH_ROW = 1;
 
-    public PloughingFuelInfoSearchingService(final FuelInfoOffsetFromRoutingLengthStorage offsetStorage,
-                                             final FuelDocument fuelDocument) {
+    public PloughingLayerPerennialHerbsFuelInfoSearchingService(final FuelInfoOffsetFromRoutingLengthStorage offsetStorage,
+                                                                final FuelDocument fuelDocument) {
         super(offsetStorage, fuelDocument, TABLE_NAME);
     }
 
