@@ -67,6 +67,72 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                                 .build(),
                         createFuelInfoWrappedByOptional(11.3, 29.1)
                 ),
+                //not existing tractor
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
+                                .tractor("not exist tractor")
+                                .ploughMark("Lemken Diamand 11")
+                                .corpusCount("9")
+                                .ploughingDepth("18–20")
+                                .routingLength("Менее 150")
+                                .specificResistance("Удельное сопротивление 48...53 кПа")
+                                .build(),
+                        empty()
+                ),
+                //not existing plough mark
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
+                                .tractor("FENDT 1050")
+                                .ploughMark("not existing plough mark")
+                                .corpusCount("9")
+                                .ploughingDepth("18–20")
+                                .routingLength("Менее 150")
+                                .specificResistance("Удельное сопротивление 48...53 кПа")
+                                .build(),
+                        empty()
+                ),
+                //not existing corpus count
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
+                                .tractor("FENDT 1050")
+                                .ploughMark("Lemken Diamand 11")
+                                .corpusCount("-1")
+                                .ploughingDepth("18–20")
+                                .routingLength("Менее 150")
+                                .specificResistance("Удельное сопротивление 48...53 кПа")
+                                .build(),
+                        empty()
+                ),
+                //not existing ploughing depth
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
+                                .tractor("FENDT 1050")
+                                .ploughMark("Lemken Diamand 11")
+                                .corpusCount("9")
+                                .ploughingDepth("1000000-2000000")
+                                .routingLength("Менее 150")
+                                .specificResistance("Удельное сопротивление 48...53 кПа")
+                                .build(),
+                        empty()
+                ),
+                //not existing routing length
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
+                                .tractor("FENDT 1050")
+                                .ploughMark("Lemken Diamand 11")
+                                .corpusCount("9")
+                                .ploughingDepth("18–20")
+                                .routingLength("1000000-2000000")
+                                .specificResistance("Удельное сопротивление 48...53 кПа")
+                                .build(),
+                        empty()
+                ),
+                //not existing specific resistance
                 Arguments.of(
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
@@ -78,32 +144,20 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                                 .specificResistance("Удельное сопротивление плуга 100000000…200000000 кПа")
                                 .build(),
                         empty()
+                ),
+                //'–' as fuel info
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
+                                .tractor("К 744Р3")
+                                .ploughMark("ППУ-13")
+                                .corpusCount("13")
+                                .ploughingDepth("25–27")
+                                .routingLength("201–300")
+                                .specificResistance("Удельное сопротивление плуга 60…65 кПа")
+                                .build(),
+                        empty()
                 )
-
-//                Arguments.of(
-//                        FuelInfoSpecification.builder()
-//                                .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
-//                                .tractor("К 744Р3")
-//                                .ploughMark("ППУ-13")
-//                                .corpusCount("13")
-//                                .ploughingDepth("25–27")
-//                                .routingLength("201–300")
-//                                .specificResistance("Удельное сопротивление плуга 60…65 кПа")
-//                                .build(),
-//                        empty()
-//                ),
-//                Arguments.of(
-//                        FuelInfoSpecification.builder()
-//                                .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
-//                                .tractor("not exist")
-//                                .ploughMark("ППУ-13")
-//                                .corpusCount("13")
-//                                .ploughingDepth("25–27")
-//                                .routingLength("201–300")
-//                                .specificResistance("Удельное сопротивление плуга 60…65 кПа")
-//                                .build(),
-//                        empty()
-//                )
         );
     }
 

@@ -89,7 +89,7 @@ public final class XWPFUtil {
                 .findFirst();
     }
 
-    public static double extractDoubleValue(final XWPFTableRow row, final int cellIndex) {
+    public static OptionalDouble extractDoubleValue(final XWPFTableRow row, final int cellIndex) {
         return extractValue(row, cellIndex, XWPFUtil::extractDoubleValue);
     }
 
@@ -108,9 +108,12 @@ public final class XWPFUtil {
         return valueParser.apply(actual);
     }
 
-    private static double extractDoubleValue(final String content) {
+    private static OptionalDouble extractDoubleValue(final String content) {
         final String contentToBeParsed = content.replaceAll(COMMA, POINT);
-        return parseDouble(contentToBeParsed);
+        if (contentToBeParsed.equals("–")) {
+            return OptionalDouble.empty();
+        }
+        return OptionalDouble.of(parseDouble(contentToBeParsed));
     }
 
     private static OptionalInt findIndexFirstMatchingContentRow(final List<XWPFTableRow> rows,

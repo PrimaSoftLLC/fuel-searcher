@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching;
 
 import by.aurorasoft.fuelinfosearcher.model.*;
-import by.aurorasoft.fuelinfosearcher.service.searching.exception.FuelInfoSearchingException;
+import by.aurorasoft.fuelinfosearcher.util.FuelInfoUtil;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
@@ -12,9 +12,7 @@ import java.util.Optional;
 import java.util.OptionalInt;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.*;
-import static by.aurorasoft.fuelinfosearcher.util.FuelInfoUtil.extractFuelInfo;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
-import static java.util.Optional.empty;
 
 @Service
 public final class PloughingFuelInfoSearchingService extends AbstractFuelInfoSearchingService {
@@ -48,7 +46,7 @@ public final class PloughingFuelInfoSearchingService extends AbstractFuelInfoSea
                 .flatMap(rows -> findRowsByPloughMark(rows, specification))
                 .flatMap(rows -> findRowsByCorpusCount(rows, specification))
                 .flatMap(rows -> findRowByPloughingDepth(rows, specification))
-                .map(row -> this.findFuelInfo(routingLengthRow, row, specification));
+                .flatMap(row -> this.findFuelInfo(routingLengthRow, row, specification));
     }
 
     private static List<XWPFTableRow> extractElementTableRows(final FuelTable fuelTable) {
@@ -64,23 +62,40 @@ public final class PloughingFuelInfoSearchingService extends AbstractFuelInfoSea
 
     private static Optional<List<XWPFTableRow>> findRowsBySpecificResistance(final List<XWPFTableRow> rows,
                                                                              final FuelInfoSpecification specification) {
-        final OptionalInt optionalIndexRowWithGivenSpecificResistance = findIndexRowWithGivenSpecificResistance(
-                rows, specification
-        );
-        if (optionalIndexRowWithGivenSpecificResistance.isEmpty()) {
-            return empty();
-        }
-        final int indexFirstMatchingRow = optionalIndexRowWithGivenSpecificResistance.getAsInt() + 1;
-        final int nextIndexLastMatchingRow = findIndexFirstRowByContentRegex(
-                rows, indexFirstMatchingRow, CELL_INDEX_WITH_SPECIFIC_RESISTANCE, REGEX_CONTENT_SPECIFIC_RESISTANCE
-        ).orElse(rows.size());
-        return Optional.of(rows.subList(indexFirstMatchingRow, nextIndexLastMatchingRow));
+        return findIndexRowBySpecificResistance(rows, specification)
+                .stream()
+                .map(indexRowWithSpecificResistance -> indexRowWithSpecificResistance + 1)
+                .mapToObj(indexFirstMatchingRow -> findIndexBordersRowsMatchingSpecificResistance(indexFirstMatchingRow, rows))
+                .map(borderRowIndexes -> extractRows(rows, borderRowIndexes))
+                .findFirst();
     }
 
-    private static OptionalInt findIndexRowWithGivenSpecificResistance(final List<XWPFTableRow> rows,
-                                                                       final FuelInfoSpecification specification) {
+    private static OptionalInt findIndexRowBySpecificResistance(final List<XWPFTableRow> rows,
+                                                                final FuelInfoSpecification specification) {
         final String specificResistance = extractSpecificResistance(specification);
         return findIndexFirstRowByContent(rows, CELL_INDEX_WITH_SPECIFIC_RESISTANCE, specificResistance);
+    }
+
+    private static IntPair findIndexBordersRowsMatchingSpecificResistance(final int indexFirstMatchingRow,
+                                                                          final List<XWPFTableRow> rows) {
+        final int nextIndexLastMatchingRow = findIndexRowNextSpecificResistanceOrLastRow(rows, indexFirstMatchingRow);
+        return new IntPair(indexFirstMatchingRow, nextIndexLastMatchingRow);
+    }
+
+    private static int findIndexRowNextSpecificResistanceOrLastRow(final List<XWPFTableRow> rows,
+                                                                   final int startSearchingIndex) {
+        return findIndexFirstRowByContentRegex(
+                rows,
+                startSearchingIndex,
+                CELL_INDEX_WITH_SPECIFIC_RESISTANCE,
+                REGEX_CONTENT_SPECIFIC_RESISTANCE
+        ).orElse(rows.size());
+    }
+
+    private static List<XWPFTableRow> extractRows(final List<XWPFTableRow> rows, final IntPair borders) {
+        final int indexFirstRow = borders.getFirst();
+        final int nextIndexLastRow = borders.getSecond();
+        return rows.subList(indexFirstRow, nextIndexLastRow);
     }
 
     private static Optional<List<XWPFTableRow>> findRowsByTractor(final List<XWPFTableRow> rows,
@@ -119,30 +134,34 @@ public final class PloughingFuelInfoSearchingService extends AbstractFuelInfoSea
         return findFirstRowByContent(rows, CELL_INDEX_WITH_PLOUGHING_DEPTH, ploughingDepth);
     }
 
-    private FuelInfo findFuelInfo(final XWPFTableRow routingLengthRow,
-                                  final XWPFTableRow dataRow,
-                                  final FuelInfoSpecification specification) {
-        final FuelInfoLocation location = this.findFuelInfoLocation(routingLengthRow, specification, dataRow);
-        return extractFuelInfo(location);
+    private Optional<FuelInfo> findFuelInfo(final XWPFTableRow routingLengthRow,
+                                            final XWPFTableRow dataRow,
+                                            final FuelInfoSpecification specification) {
+        final Optional<FuelInfoLocation> optionalLocation = this.findFuelInfoLocation(
+                routingLengthRow, specification, dataRow
+        );
+        return optionalLocation.flatMap(FuelInfoUtil::extractFuelInfo);
     }
 
-    private FuelInfoLocation findFuelInfoLocation(final XWPFTableRow routingLengthRow,
-                                                  final FuelInfoSpecification specification,
-                                                  final XWPFTableRow dataRow) {
-        final int cellIndexWithRoutingLength = findIndexCellWithRoutingLength(routingLengthRow, specification);
-        final int cellIndexGenerationNorm = cellIndexWithRoutingLength + super.findFuelInfoOffset(specification);
+    private Optional<FuelInfoLocation> findFuelInfoLocation(final XWPFTableRow routingLengthRow,
+                                                            final FuelInfoSpecification specification,
+                                                            final XWPFTableRow dataRow) {
+        return findIndexCellWithRoutingLength(routingLengthRow, specification)
+                .stream()
+                .map(cellIndexWithRoutingLength -> cellIndexWithRoutingLength + super.findFuelInfoOffset(specification))
+                .mapToObj(cellIndexGenerationNorm -> createFuelInfoLocation(dataRow, cellIndexGenerationNorm))
+                .findFirst();
+    }
+
+    private static OptionalInt findIndexCellWithRoutingLength(final XWPFTableRow routingLengthRow,
+                                                              final FuelInfoSpecification specification) {
+        final String routingLength = extractRoutingLength(specification);
+        return findIndexFirstCellByContent(routingLengthRow, routingLength);
+    }
+
+    private static FuelInfoLocation createFuelInfoLocation(final XWPFTableRow dataRow,
+                                                           final int cellIndexGenerationNorm) {
         final int cellIndexConsumption = cellIndexGenerationNorm + 1;
         return new FuelInfoLocation(dataRow, cellIndexGenerationNorm, cellIndexConsumption);
-    }
-
-    private static int findIndexCellWithRoutingLength(final XWPFTableRow routingLengthRow,
-                                                      final FuelInfoSpecification specification) {
-        final String routingLength = extractRoutingLength(specification);
-        return findIndexFirstCellByContent(routingLengthRow, routingLength)
-                .orElseThrow(
-                        () -> new FuelInfoSearchingException(
-                                "There is no cell with given routing length: %s".formatted(routingLength)
-                        )
-                );
     }
 }
