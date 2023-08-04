@@ -1,23 +1,23 @@
-package by.aurorasoft.fuelinfosearcher.service.searching;
+package by.aurorasoft.fuelinfosearcher.service.searching.ploughing;
 
 import by.aurorasoft.fuelinfosearcher.model.*;
+import by.aurorasoft.fuelinfosearcher.service.searching.AbstractFuelInfoSearchingService;
 import by.aurorasoft.fuelinfosearcher.util.FuelInfoUtil;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.*;
+import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractRoutingLength;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
+import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findIndexFirstCellByContent;
 
-@Service
-public final class PloughingLayerPerennialHerbsFuelInfoSearchingService extends AbstractFuelInfoSearchingService {
-    private static final String TABLE_NAME = "ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ";
-
+//for tables #1, #2, #3
+public abstract class AbstractPloughingFuelInfoSearchingServices extends AbstractFuelInfoSearchingService {
     private static final int CELL_INDEX_WITH_SPECIFIC_RESISTANCE = 0;
     private static final int CELL_INDEX_WITH_TRACTOR = 1;
     private static final int CELL_INDEX_WITH_PLOUGH_MARK = 2;
@@ -32,13 +32,14 @@ public final class PloughingLayerPerennialHerbsFuelInfoSearchingService extends 
 
     private static final int INDEX_ROUTING_LENGTH_ROW = 1;
 
-    public PloughingLayerPerennialHerbsFuelInfoSearchingService(final FuelInfoOffsetFromRoutingLengthStorage offsetStorage,
-                                                                final FuelDocument fuelDocument) {
-        super(offsetStorage, fuelDocument, TABLE_NAME);
+    public AbstractPloughingFuelInfoSearchingServices(final FuelInfoOffsetFromRoutingLengthStorage offsetStorage,
+                                                      final FuelDocument fuelDocument,
+                                                      final String fuelTableName) {
+        super(offsetStorage, fuelDocument, fuelTableName);
     }
 
     @Override
-    protected Optional<FuelInfo> find(final FuelTable fuelTable, final FuelInfoSpecification specification) {
+    protected final Optional<FuelInfo> find(final FuelTable fuelTable, final FuelInfoSpecification specification) {
         final List<XWPFTableRow> elementTableRows = extractElementTableRows(fuelTable);
         final XWPFTableRow routingLengthRow = elementTableRows.get(INDEX_ROUTING_LENGTH_ROW);
         return findRowsBySpecificResistance(elementTableRows, specification)
@@ -164,4 +165,5 @@ public final class PloughingLayerPerennialHerbsFuelInfoSearchingService extends 
         final int cellIndexConsumption = cellIndexGenerationNorm + 1;
         return new FuelInfoLocation(dataRow, cellIndexGenerationNorm, cellIndexConsumption);
     }
+
 }
