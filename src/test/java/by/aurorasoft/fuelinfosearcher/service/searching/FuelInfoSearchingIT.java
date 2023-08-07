@@ -724,6 +724,386 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                                 .processingDepth("Глубина обработки 666666666666666…766666666666666 см")
                                 .build(),
                         empty()
+                ),
+
+                //For table #7
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ПОСЕВОМ СЕЛЬСКОХОЗЯЙСТВЕННЫХ КУЛЬТУР: ПШЕНИЦЫ, РЖИ, ЯЧМЕНЯ, ОВСА, ГОРОХА, ЛЮПИНА, ВИКИ, ВИКООВСЯНОЙ СМЕСИ, ЛЬНА")
+                                .tractor("Кировец К-744 Р3")
+                                .machinery("Horsch Serto 12 SC")
+                                .workingWidth("12,0")
+                                .routingLength("Менее 150")
+                                .sowingNorm("Норма высева 120–180 кг/га")
+                                .build(),
+                        createFuelInfoWrappedByOptional(28.9, 8.2)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ПОСЕВОМ СЕЛЬСКОХОЗЯЙСТВЕННЫХ КУЛЬТУР: ПШЕНИЦЫ, РЖИ, ЯЧМЕНЯ, ОВСА, ГОРОХА, ЛЮПИНА, ВИКИ, ВИКООВСЯНОЙ СМЕСИ, ЛЬНА")
+                                .tractor("Беларус 3022")
+                                .machinery("Horsch Pronto 6 DS")
+                                .workingWidth("6,0")
+                                .routingLength("150–200")
+                                .sowingNorm("Норма высева 240–280 кг/га")
+                                .build(),
+                        createFuelInfoWrappedByOptional(18.4, 9.3)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ПОСЕВОМ СЕЛЬСКОХОЗЯЙСТВЕННЫХ КУЛЬТУР: ПШЕНИЦЫ, РЖИ, ЯЧМЕНЯ, ОВСА, ГОРОХА, ЛЮПИНА, ВИКИ, ВИКООВСЯНОЙ СМЕСИ, ЛЬНА")
+                                .tractor("Беларус 1221")
+                                .machinery("Horsch Sprinter 4 ST")
+                                .workingWidth("4,0")
+                                .routingLength("Более 1000")
+                                .sowingNorm("Норма высева 240–280 кг/га")
+                                .build(),
+                        createFuelInfoWrappedByOptional(15.9, 7.0)
+                ),
+                //not existing tractor
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ПОСЕВОМ СЕЛЬСКОХОЗЯЙСТВЕННЫХ КУЛЬТУР: ПШЕНИЦЫ, РЖИ, ЯЧМЕНЯ, ОВСА, ГОРОХА, ЛЮПИНА, ВИКИ, ВИКООВСЯНОЙ СМЕСИ, ЛЬНА")
+                                .tractor("not existing")
+                                .machinery("Horsch Sprinter 4 ST")
+                                .workingWidth("4,0")
+                                .routingLength("Более 1000")
+                                .sowingNorm("Норма высева 240–280 кг/га")
+                                .build(),
+                        empty()
+                ),
+                //not existing machinery
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ПОСЕВОМ СЕЛЬСКОХОЗЯЙСТВЕННЫХ КУЛЬТУР: ПШЕНИЦЫ, РЖИ, ЯЧМЕНЯ, ОВСА, ГОРОХА, ЛЮПИНА, ВИКИ, ВИКООВСЯНОЙ СМЕСИ, ЛЬНА")
+                                .tractor("Беларус 1221")
+                                .machinery("not existing")
+                                .workingWidth("4,0")
+                                .routingLength("Более 1000")
+                                .sowingNorm("Норма высева 240–280 кг/га")
+                                .build(),
+                        empty()
+                ),
+                //not existing working width
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ПОСЕВОМ СЕЛЬСКОХОЗЯЙСТВЕННЫХ КУЛЬТУР: ПШЕНИЦЫ, РЖИ, ЯЧМЕНЯ, ОВСА, ГОРОХА, ЛЮПИНА, ВИКИ, ВИКООВСЯНОЙ СМЕСИ, ЛЬНА")
+                                .tractor("Беларус 1221")
+                                .machinery("Horsch Sprinter 4 ST")
+                                .workingWidth("-1,0")
+                                .routingLength("Более 1000")
+                                .sowingNorm("Норма высева 240–280 кг/га")
+                                .build(),
+                        empty()
+                ),
+                //not existing routing length
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ПОСЕВОМ СЕЛЬСКОХОЗЯЙСТВЕННЫХ КУЛЬТУР: ПШЕНИЦЫ, РЖИ, ЯЧМЕНЯ, ОВСА, ГОРОХА, ЛЮПИНА, ВИКИ, ВИКООВСЯНОЙ СМЕСИ, ЛЬНА")
+                                .tractor("Беларус 1221")
+                                .machinery("Horsch Sprinter 4 ST")
+                                .workingWidth("4,0")
+                                .routingLength("1000-1500")
+                                .sowingNorm("Норма высева 240–280 кг/га")
+                                .build(),
+                        empty()
+                ),
+                //not existing sowing norm
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ПОСЕВОМ СЕЛЬСКОХОЗЯЙСТВЕННЫХ КУЛЬТУР: ПШЕНИЦЫ, РЖИ, ЯЧМЕНЯ, ОВСА, ГОРОХА, ЛЮПИНА, ВИКИ, ВИКООВСЯНОЙ СМЕСИ, ЛЬНА")
+                                .tractor("Беларус 1221")
+                                .machinery("Horsch Sprinter 4 ST")
+                                .workingWidth("4,0")
+                                .routingLength("Более 1000")
+                                .sowingNorm("Норма высева 66666666–76666666 кг/га")
+                                .build(),
+                        empty()
+                ),
+
+                //For table #8
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА")
+                                .tractor("Беларус 3522")
+                                .machinery("Horsch Maestro 24 S")
+                                .workingWidth("16,8")
+                                .routingLength("Менее 150")
+                                .sowingNorm("Норма высева 15 кг/га")
+                                .build(),
+                        createFuelInfoWrappedByOptional(32.9, 8.2)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА")
+                                .tractor("Беларус 1221")
+                                .machinery("Ферабокс Футура Макси 8")
+                                .workingWidth("5,6")
+                                .routingLength("150–200")
+                                .sowingNorm("Норма высева 30 кг/га")
+                                .build(),
+                        createFuelInfoWrappedByOptional(13.6, 3.6)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА")
+                                .tractor("Беларус 1221")
+                                .machinery("NC Tehnik Mojnjsem")
+                                .workingWidth("5,6")
+                                .routingLength("Более 1000")
+                                .sowingNorm("Норма высева 45 кг/га")
+                                .build(),
+                        createFuelInfoWrappedByOptional(18.8, 3.1)
+                ),
+                //not existing tractor
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА")
+                                .tractor("not existing")
+                                .machinery("NC Tehnik Mojnjsem")
+                                .workingWidth("5,6")
+                                .routingLength("Более 1000")
+                                .sowingNorm("Норма высева 45 кг/га")
+                                .build(),
+                        empty()
+                ),
+                //not existing machinery
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА")
+                                .tractor("Беларус 1221")
+                                .machinery("not existing")
+                                .workingWidth("5,6")
+                                .routingLength("Более 1000")
+                                .sowingNorm("Норма высева 45 кг/га")
+                                .build(),
+                        empty()
+                ),
+                //not existing working width
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА")
+                                .tractor("Беларус 1221")
+                                .machinery("NC Tehnik Mojnjsem")
+                                .workingWidth("-5,6")
+                                .routingLength("Более 1000")
+                                .sowingNorm("Норма высева 45 кг/га")
+                                .build(),
+                        empty()
+                ),
+                //not existing routing length
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА")
+                                .tractor("Беларус 1221")
+                                .machinery("NC Tehnik Mojnjsem")
+                                .workingWidth("5,6")
+                                .routingLength("1000-1500")
+                                .sowingNorm("Норма высева 45 кг/га")
+                                .build(),
+                        empty()
+                ),
+                //not existing sowing norm
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА")
+                                .tractor("Беларус 1221")
+                                .machinery("NC Tehnik Mojnjsem")
+                                .workingWidth("5,6")
+                                .routingLength("Более 1000")
+                                .sowingNorm("Норма высева 1000000000 кг/га")
+                                .build(),
+                        empty()
+                ),
+
+                //For table #9
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПОСЕВ САХАРНОЙ СВЕКЛЫ")
+                                .tractor("John Deere 8400")
+                                .machinery("Tempo V-18")
+                                .workingWidth("8,1")
+                                .routingLength("Менее 150")
+                                .sowingNorm("Норма высева семян 15 кг/га")
+                                .build(),
+                        createFuelInfoWrappedByOptional(17.9, 3.45)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПОСЕВ САХАРНОЙ СВЕКЛЫ")
+                                .tractor("Беларус 1221")
+                                .machinery("Meca V-4")
+                                .workingWidth("5,4")
+                                .routingLength("601–1000")
+                                .sowingNorm("Норма высева семян 30 кг/га")
+                                .build(),
+                        createFuelInfoWrappedByOptional(15.6, 2.72)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПОСЕВ САХАРНОЙ СВЕКЛЫ")
+                                .tractor("Беларус 80/82")
+                                .machinery("Tehnic NC")
+                                .workingWidth("3,6")
+                                .routingLength("601–1000")
+                                .sowingNorm("Норма высева семян 45 кг/га")
+                                .build(),
+                        createFuelInfoWrappedByOptional(10.3, 2.64)
+                ),
+                //not existing tractor
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПОСЕВ САХАРНОЙ СВЕКЛЫ")
+                                .tractor("not existing")
+                                .machinery("Tehnic NC")
+                                .workingWidth("3,6")
+                                .routingLength("601–1000")
+                                .sowingNorm("Норма высева семян 45 кг/га")
+                                .build(),
+                        empty()
+                ),
+                //not existing machinery
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПОСЕВ САХАРНОЙ СВЕКЛЫ")
+                                .tractor("Беларус 80/82")
+                                .machinery("not existing")
+                                .workingWidth("3,6")
+                                .routingLength("601–1000")
+                                .sowingNorm("Норма высева семян 45 кг/га")
+                                .build(),
+                        empty()
+                ),
+                //not existing working width
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПОСЕВ САХАРНОЙ СВЕКЛЫ")
+                                .tractor("Беларус 80/82")
+                                .machinery("Tehnic NC")
+                                .workingWidth("-3,6")
+                                .routingLength("601–1000")
+                                .sowingNorm("Норма высева семян 45 кг/га")
+                                .build(),
+                        empty()
+                ),
+                //not existing routing length
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПОСЕВ САХАРНОЙ СВЕКЛЫ")
+                                .tractor("Беларус 80/82")
+                                .machinery("Tehnic NC")
+                                .workingWidth("3,6")
+                                .routingLength("1000-1500")
+                                .sowingNorm("Норма высева семян 45 кг/га")
+                                .build(),
+                        empty()
+                ),
+                //not existing sowing norm
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПОСЕВ САХАРНОЙ СВЕКЛЫ")
+                                .tractor("Беларус 80/82")
+                                .machinery("Tehnic NC")
+                                .workingWidth("3,6")
+                                .routingLength("601–1000")
+                                .sowingNorm("Норма высева семян 99999999999999999 кг/га")
+                                .build(),
+                        empty()
+                ),
+
+                //For table #10
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ОДНОВРЕМЕННЫМ ПОСЕВОМ РАПСА")
+                                .tractor("Беларус 3522")
+                                .machinery("Амкодор «Veras» 12000")
+                                .workingWidth("12,0")
+                                .routingLength("Менее 150")
+                                .sowingNorm("Норма высева семян 3 кг/га")
+                                .build(),
+                        createFuelInfoWrappedByOptional(24.5, 9.3)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ОДНОВРЕМЕННЫМ ПОСЕВОМ РАПСА")
+                                .tractor("Беларус 3522")
+                                .machinery("Amazone Avant 6001-2")
+                                .workingWidth("6,0")
+                                .routingLength("601–1000")
+                                .sowingNorm("Норма высева семян 8 кг/га")
+                                .build(),
+                        createFuelInfoWrappedByOptional(28.1, 7.9)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ОДНОВРЕМЕННЫМ ПОСЕВОМ РАПСА")
+                                .tractor("Беларус 1221")
+                                .machinery("Horsch Maestro DV")
+                                .workingWidth("6,0")
+                                .routingLength("601–1000")
+                                .sowingNorm("Норма высева семян 8 кг/га")
+                                .build(),
+                        createFuelInfoWrappedByOptional(21.3, 5.5)
+                ),
+                //not existing tractor
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ОДНОВРЕМЕННЫМ ПОСЕВОМ РАПСА")
+                                .tractor("not existing")
+                                .machinery("Horsch Maestro DV")
+                                .workingWidth("6,0")
+                                .routingLength("601–1000")
+                                .sowingNorm("Норма высева семян 8 кг/га")
+                                .build(),
+                        empty()
+                ),
+                //not existing machinery
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ОДНОВРЕМЕННЫМ ПОСЕВОМ РАПСА")
+                                .tractor("Беларус 1221")
+                                .machinery("not existing machinery")
+                                .workingWidth("6,0")
+                                .routingLength("601–1000")
+                                .sowingNorm("Норма высева семян 8 кг/га")
+                                .build(),
+                        empty()
+                ),
+                //nit existing working width
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ОДНОВРЕМЕННЫМ ПОСЕВОМ РАПСА")
+                                .tractor("Беларус 1221")
+                                .machinery("Horsch Maestro DV")
+                                .workingWidth("-6,0")
+                                .routingLength("601–1000")
+                                .sowingNorm("Норма высева семян 8 кг/га")
+                                .build(),
+                        empty()
+                ),
+                //not existing routing length
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ОДНОВРЕМЕННЫМ ПОСЕВОМ РАПСА")
+                                .tractor("Беларус 1221")
+                                .machinery("Horsch Maestro DV")
+                                .workingWidth("6,0")
+                                .routingLength("1500–2000")
+                                .sowingNorm("Норма высева семян 8 кг/га")
+                                .build(),
+                        empty()
+                ),
+                //not existing sowing norm
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ОДНОВРЕМЕННЫМ ПОСЕВОМ РАПСА")
+                                .tractor("Беларус 1221")
+                                .machinery("Horsch Maestro DV")
+                                .workingWidth("6,0")
+                                .routingLength("601–1000")
+                                .sowingNorm("Норма высева семян 99999999999999 кг/га")
+                                .build(),
+                        empty()
                 )
         );
     }

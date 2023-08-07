@@ -19,6 +19,10 @@ public class FuelInfoConfiguration {
     private static final String NAME_FOURTH_TABLE = "СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ";
     private static final String NAME_FIFTH_TABLE = "ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ";
     private static final String NAME_SIXTH_TABLE = "ЛУЩЕНИЕ И ДИСКОВАНИЕ МНОГОЛЕТНИХ ТРАВ";
+    private static final String NAME_SEVENTH_TABLE = "ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ПОСЕВОМ СЕЛЬСКОХОЗЯЙСТВЕННЫХ КУЛЬТУР: ПШЕНИЦЫ, РЖИ, ЯЧМЕНЯ, ОВСА, ГОРОХА, ЛЮПИНА, ВИКИ, ВИКООВСЯНОЙ СМЕСИ, ЛЬНА";
+    private static final String NAME_EIGHTH_TABLE = "ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА";
+    private static final String NAME_NINTH_TABLE = "ПОСЕВ САХАРНОЙ СВЕКЛЫ";
+    private static final String NAME_TENTH_TABLE = "ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ОДНОВРЕМЕННЫМ ПОСЕВОМ РАПСА";
 
     @Bean
     public FuelDocument document(final FuelDocumentLoadingService loadingService) {
@@ -34,7 +38,11 @@ public class FuelInfoConfiguration {
                         entry(NAME_THIRD_TABLE, createThirdTableFuelInfoOffsetsByRoutingLengths()),
                         entry(NAME_FOURTH_TABLE, createFourthTableFuelInfoOffsetsByRoutingLengths()),
                         entry(NAME_FIFTH_TABLE, createFifthTableFuelInfoOffsetsByRoutingLengths()),
-                        entry(NAME_SIXTH_TABLE, createSixthTableFuelInfoOffsetsByRoutingLengths())
+                        entry(NAME_SIXTH_TABLE, createSixthTableFuelInfoOffsetsByRoutingLengths()),
+                        entry(NAME_SEVENTH_TABLE, createSeventhTableFuelInfoOffsetsByRoutingLengths()),
+                        entry(NAME_EIGHTH_TABLE, createEighthTableFuelInfoOffsetsByRoutingLengths()),
+                        entry(NAME_NINTH_TABLE, createNinthTableFuelInfoOffsetsByRoutingLengths()),
+                        entry(NAME_TENTH_TABLE, createTenthTableFuelInfoOffsetsByRoutingLengths())
                 )
         );
     }
@@ -104,6 +112,54 @@ public class FuelInfoConfiguration {
 
     //'Состав аггрегата' по-другому стоит - не как в первой таблице => смещения другие
     private static Map<String, Integer> createSixthTableFuelInfoOffsetsByRoutingLengths() {
+        return Map.of(
+                "Менее 150", 0,
+                "150–200", 1,
+                "201–300", 2,
+                "301–400", 3,
+                "401–600", 4,
+                "601–1000", 5,
+                "Более 1000", 6
+        );
+    }
+
+    private static Map<String, Integer> createSeventhTableFuelInfoOffsetsByRoutingLengths() {
+        return Map.of(
+                "Менее 150", 0,
+                "150–200", 1,
+                "201–300", 2,
+                "301–400", 3,
+                "401–600", 4,
+                "601–1000", 5,
+                "Более 1000", 6
+        );
+    }
+
+    private static Map<String, Integer> createEighthTableFuelInfoOffsetsByRoutingLengths() {
+        return Map.of(
+                "Менее 150", 0,
+                "150–200", 1,
+                "201–300", 2,
+                "301–400", 3,
+                "401–600", 4,
+                "601–1000", 5,
+                "Более 1000", 6
+        );
+    }
+
+    private static Map<String, Integer> createNinthTableFuelInfoOffsetsByRoutingLengths() {
+        return Map.of(
+                "Менее 150", 0,
+                "150–200", 1,
+                "201–300", 2,
+                "301–400", 3,
+                "401–600", 4,
+                "601–1000", 5,
+                "Более 1000", 6
+        );
+    }
+
+    private static Map<String, Integer> createTenthTableFuelInfoOffsetsByRoutingLengths() {
         return Map.of(
                 "Менее 150", 0,
                 "150–200", 1,

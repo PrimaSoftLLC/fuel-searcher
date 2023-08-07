@@ -18,6 +18,7 @@ public final class FuelInfoSpecificationUtil {
     private static final String PROPERTY_NAME_OF_SOIL_TYPE = "soilType";
     private static final String PROPERTY_NAME_OF_PROCESSING_DEPTH = "processingDepth";
     private static final String PROPERTY_NAME_OF_WORKING_WIDTH = "workingWidth";
+    private static final String PROPERTY_NAME_OF_SOWING_NORM = "sowingNorm";
 
     public static String extractTableName(final FuelInfoSpecification specification) {
         return extractProperty(
@@ -96,6 +97,14 @@ public final class FuelInfoSpecificationUtil {
                 specification,
                 FuelInfoSpecification::findWorkingWidth,
                 PROPERTY_NAME_OF_WORKING_WIDTH
+        );
+    }
+
+    public static String extractSowingNorm(final FuelInfoSpecification specification) {
+        return extractProperty(
+                specification,
+                FuelInfoSpecification::findSowingNorm,
+                PROPERTY_NAME_OF_SOWING_NORM
         );
     }
 

@@ -34,6 +34,8 @@ public class FuelInfoSpecification {
     //Ширина захвата
     String workingWidth;
 
+    String sowingNorm;
+
     public Optional<String> findTableName() {
         return ofNullable(this.tableName);
     }
@@ -72,5 +74,9 @@ public class FuelInfoSpecification {
 
     public Optional<String> findWorkingWidth() {
         return ofNullable(this.workingWidth);
+    }
+
+    public Optional<String> findSowingNorm() {
+        return ofNullable(this.sowingNorm);
     }
 }

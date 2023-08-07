@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelinfosearcher.service.searching.soiltreatment;
+package by.aurorasoft.fuelinfosearcher.service.searching.sowing;
 
 import by.aurorasoft.fuelinfosearcher.model.*;
 import by.aurorasoft.fuelinfosearcher.service.searching.AbstractFuelInfoSearchingService;
@@ -13,28 +13,29 @@ import java.util.OptionalInt;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.*;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
+import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findIndexFirstCellByContent;
 
-public abstract class AbstractSoilTreatmentFuelInfoSearchingService extends AbstractFuelInfoSearchingService {
+public abstract class AbstractSowingFuelInfoSearchingService extends AbstractFuelInfoSearchingService {
     private static final int INDEX_ROUTING_LENGTH_ROW = 1;
 
-    private static final int CELL_INDEX_WITH_PROCESSING_DEPTH = 0;
+    private static final int CELL_INDEX_WITH_SOWING_NORM = 0;
     private static final int CELL_INDEX_WITH_TRACTOR = 1;
     private static final int CELL_INDEX_WITH_MACHINERY = 2;
     private static final int CELL_INDEX_WITH_WORKING_WIDTH = 3;
 
-    private static final String REGEX_CONTENT_PROCESSING_DEPTH = "Глубина обработки \\d+((…)|(...))\\d+ см";
+    private static final String REGEX_CONTENT_SOWING_NORM = "Норма высева (семян )?\\d+(–\\d+)? кг/га";
 
-    public AbstractSoilTreatmentFuelInfoSearchingService(final FuelInfoOffsetFromRoutingLengthStorage offsetStorage,
-                                                         final FuelDocument fuelDocument,
-                                                         final String fuelTableName) {
+    public AbstractSowingFuelInfoSearchingService(final FuelInfoOffsetFromRoutingLengthStorage offsetStorage,
+                                                  final FuelDocument fuelDocument,
+                                                  final String fuelTableName) {
         super(offsetStorage, fuelDocument, fuelTableName);
     }
 
     @Override
-    protected Optional<FuelInfo> find(final FuelTable fuelTable, final FuelInfoSpecification specification) {
+    protected final Optional<FuelInfo> find(final FuelTable fuelTable, final FuelInfoSpecification specification) {
         final List<XWPFTableRow> elementTableRows = extractElementTableRows(fuelTable);
         final XWPFTableRow routingLengthRow = elementTableRows.get(INDEX_ROUTING_LENGTH_ROW);
-        Optional<FuelInfo> fuelInfo = findRowsByProcessingDepth(elementTableRows, specification)
+        Optional<FuelInfo> fuelInfo = findRowsBySowingNorm(elementTableRows, specification)
                 .flatMap(rows -> findRowsByTractor(rows, specification))
                 .flatMap(rows -> findRowsByMachinery(rows, specification))
                 .flatMap(rows -> findRowByWorkingWidth(rows, specification))
@@ -53,35 +54,36 @@ public abstract class AbstractSoilTreatmentFuelInfoSearchingService extends Abst
         return (XWPFTable) firstElement;
     }
 
-    private static Optional<List<XWPFTableRow>> findRowsByProcessingDepth(final List<XWPFTableRow> rows,
-                                                                          final FuelInfoSpecification specification) {
-        return findIndexRowByProcessingDepth(rows, specification)
+    private static Optional<List<XWPFTableRow>> findRowsBySowingNorm(final List<XWPFTableRow> rows,
+                                                                     final FuelInfoSpecification specification) {
+        Optional<List<XWPFTableRow>> first = findIndexRowBySowingNorm(rows, specification)
                 .stream()
-                .map(indexRowWithProcessingDepth -> indexRowWithProcessingDepth + 1)
-                .mapToObj(indexFirstMatchingRow -> findIndexBordersRowsMatchingPloughingDepth(indexFirstMatchingRow, rows))
+                .map(indexRowWithSowingNorm -> indexRowWithSowingNorm + 1)
+                .mapToObj(indexFirstMatchingRow -> findIndexBordersRowsMatchingSowingNorm(indexFirstMatchingRow, rows))
                 .map(borderRowIndexes -> extractRows(rows, borderRowIndexes))
                 .findFirst();
+        return first;
     }
 
-    private static OptionalInt findIndexRowByProcessingDepth(final List<XWPFTableRow> rows,
-                                                             final FuelInfoSpecification specification) {
-        final String processingDepth = extractProcessingDepth(specification);
-        return findIndexFirstRowByContent(rows, CELL_INDEX_WITH_PROCESSING_DEPTH, processingDepth);
+    private static OptionalInt findIndexRowBySowingNorm(final List<XWPFTableRow> rows,
+                                                        final FuelInfoSpecification specification) {
+        final String sowingNorm = extractSowingNorm(specification);
+        return findIndexFirstRowByContent(rows, CELL_INDEX_WITH_SOWING_NORM, sowingNorm);
     }
 
-    private static IntPair findIndexBordersRowsMatchingPloughingDepth(final int indexFirstMatchingRow,
-                                                                      final List<XWPFTableRow> rows) {
-        final int nextIndexLastMatchingRow = findIndexRowNextProcessingDepthOrLastRow(rows, indexFirstMatchingRow);
+    private static IntPair findIndexBordersRowsMatchingSowingNorm(final int indexFirstMatchingRow,
+                                                                  final List<XWPFTableRow> rows) {
+        final int nextIndexLastMatchingRow = findIndexRowNextSowingNormOrLastRow(rows, indexFirstMatchingRow);
         return new IntPair(indexFirstMatchingRow, nextIndexLastMatchingRow);
     }
 
-    private static int findIndexRowNextProcessingDepthOrLastRow(final List<XWPFTableRow> rows,
-                                                                final int startSearchingIndex) {
+    private static int findIndexRowNextSowingNormOrLastRow(final List<XWPFTableRow> rows,
+                                                           final int startSearchingIndex) {
         return findIndexFirstRowByContentRegex(
                 rows,
                 startSearchingIndex,
-                CELL_INDEX_WITH_PROCESSING_DEPTH,
-                REGEX_CONTENT_PROCESSING_DEPTH
+                CELL_INDEX_WITH_SOWING_NORM,
+                REGEX_CONTENT_SOWING_NORM
         ).orElse(rows.size());
     }
 
