@@ -108,7 +108,6 @@ public abstract class AbstractPloughingFuelInfoSearchingServices extends Abstrac
         Optional<List<XWPFTableRow>> unitedRowsByContent = findUnitedRowsByContent(
                 rows,
                 CELL_INDEX_WITH_TRACTOR,
-                UNITED_ROWS_COUNT_IN_TRACTOR_COLUMN,
                 extractTractor(specification)
         );
         return unitedRowsByContent;
@@ -120,7 +119,6 @@ public abstract class AbstractPloughingFuelInfoSearchingServices extends Abstrac
         Optional<List<XWPFTableRow>> unitedRowsByContent = findUnitedRowsByContent(
                 rows,
                 CELL_INDEX_WITH_MACHINERY,
-                UNITED_ROWS_COUNT_IN_MACHINERY_COLUMN,
                 extractMachinery(specification)
         );
         return unitedRowsByContent;
@@ -131,7 +129,6 @@ public abstract class AbstractPloughingFuelInfoSearchingServices extends Abstrac
         Optional<List<XWPFTableRow>> unitedRowsByContent = findUnitedRowsByContent(
                 rows,
                 CELL_INDEX_WITH_CORPUS_COUNT,
-                UNITED_ROWS_COUNT_IN_CORPUS_COUNT_COLUMN,
                 extractCorpusCount(specification)
         );
         return unitedRowsByContent;

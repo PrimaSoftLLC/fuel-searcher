@@ -106,11 +106,10 @@ public abstract class AbstractSowingFuelInfoSearchingService extends AbstractFue
 
     private static Optional<List<XWPFTableRow>> findRowsByMachinery(final List<XWPFTableRow> rows,
                                                                     final FuelInfoSpecification specification) {
-        //TODO: remove variable
+        //TODO: remove variable, maybe call other method: there is no united rows
         Optional<List<XWPFTableRow>> unitedRowsByContent = findUnitedRowsByContent(
                 rows,
                 CELL_INDEX_WITH_MACHINERY,
-                1,
                 extractMachinery(specification)
         );
         return unitedRowsByContent;

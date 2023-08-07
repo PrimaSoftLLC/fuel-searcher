@@ -18,6 +18,7 @@ import static java.util.stream.IntStream.range;
 public final class XWPFUtil {
     private static final String COMMA = ",";
     private static final String POINT = ".";
+    private static final String EMPTY_STRING = "";
 
     public static boolean isCellContentMatch(final XWPFTableRow row, final int cellNumber, final String expected) {
         return isCellContentMatch(row, cellNumber, expected, Objects::equals);
@@ -27,12 +28,6 @@ public final class XWPFUtil {
                                                   final int cellNumber,
                                                   final String expectedRegex) {
         return isCellContentMatch(row, cellNumber, expectedRegex, String::matches);
-    }
-
-    public static String extractCellContent(final XWPFTableRow row, final int cellNumber) {
-        final XWPFTableCell cell = row.getCell(cellNumber);
-        final String content = cell.getText();
-        return content.trim();
     }
 
     public static OptionalInt findIndexFirstRowByContent(final List<XWPFTableRow> rows,
@@ -60,31 +55,13 @@ public final class XWPFUtil {
         );
     }
 
-    public static Optional<List<XWPFTableRow>> findUnitedRowsByContent(final List<XWPFTableRow> rows,
-                                                                       final int cellIndexWithContent,
-                                                                       final String content) {
-        final List<XWPFTableRow> foundRows = range(0, rows.size())
-                .filter(i -> isCellContentMatch(rows.get(i), cellIndexWithContent, content))
-                .mapToObj(indexFirstRow -> {
-                    int indexLastRow = indexFirstRow + 1;
-                    while (indexLastRow < rows.size() && (rows.get(indexLastRow).getCell(cellIndexWithContent) == null || rows.get(indexLastRow).getCell(cellIndexWithContent).getText().trim().equals(""))) {
-                        indexLastRow++;
-                    }
-                    return rows.subList(indexFirstRow, indexLastRow);
-                })
-                .flatMap(Collection::stream)
-                .toList();
-        return !foundRows.isEmpty() ? Optional.of(foundRows) : empty();
-    }
-
     //returns several united rows
     public static Optional<List<XWPFTableRow>> findUnitedRowsByContent(final List<XWPFTableRow> rows,
                                                                        final int cellIndexWithContent,
-                                                                       final int unitedRowsCount,
                                                                        final String content) {
         final List<XWPFTableRow> foundRows = range(0, rows.size())
                 .filter(i -> isCellContentMatch(rows.get(i), cellIndexWithContent, content))
-                .mapToObj(indexFirstRow -> rows.subList(indexFirstRow, indexFirstRow + unitedRowsCount))
+                .mapToObj(indexFirstRow -> extractUnitedRows(rows, indexFirstRow, cellIndexWithContent))
                 .flatMap(Collection::stream)
                 .toList();
         return !foundRows.isEmpty() ? Optional.of(foundRows) : empty();
@@ -118,6 +95,17 @@ public final class XWPFUtil {
         return matchingFunction.apply(actual, compared);
     }
 
+    private static String extractCellContent(final XWPFTableRow row, final int cellNumber) {
+        final XWPFTableCell cell = row.getCell(cellNumber);
+        final String content = cell.getText();
+        return content.trim();
+    }
+
+    private static String extractContent(final XWPFTableCell cell) {
+        final String content = cell.getText();
+        return content.trim();
+    }
+
     private static <V> V extractValue(final XWPFTableRow row,
                                       final int cellIndex,
                                       final Function<String, V> valueParser) {
@@ -141,5 +129,26 @@ public final class XWPFUtil {
         return range(startFindingIndex, rows.size())
                 .filter(i -> predicateToMatch.test(rows.get(i), cellIndexWithContent, content))
                 .findFirst();
+    }
+
+    private static List<XWPFTableRow> extractUnitedRows(final List<XWPFTableRow> rows,
+                                                        final int indexFirstRow,
+                                                        final int cellIndexWithContent) {
+        final int nextIndexLastRow = findNextIndexLastRowOfUnitedRows(rows, indexFirstRow, cellIndexWithContent);
+        return rows.subList(indexFirstRow, nextIndexLastRow);
+    }
+
+    private static int findNextIndexLastRowOfUnitedRows(final List<XWPFTableRow> rows,
+                                                        final int indexFirstRow,
+                                                        final int cellIndexWithContent) {
+        return range(indexFirstRow + 1, rows.size())
+                .dropWhile(rowIndex -> isRowOfUnitedRows(rows.get(rowIndex), cellIndexWithContent))
+                .findFirst()
+                .orElse(rows.size());
+    }
+
+    private static boolean isRowOfUnitedRows(final XWPFTableRow row, final int cellIndexWithContent) {
+        final XWPFTableCell cellWithContent = row.getCell(cellIndexWithContent);
+        return cellWithContent == null || Objects.equals(extractContent(cellWithContent), EMPTY_STRING);
     }
 }
