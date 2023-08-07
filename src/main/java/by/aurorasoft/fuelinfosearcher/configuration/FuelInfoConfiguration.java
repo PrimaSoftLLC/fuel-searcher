@@ -16,6 +16,9 @@ public class FuelInfoConfiguration {
     private static final String NAME_FIRST_TABLE = "ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ";
     private static final String NAME_SECOND_TABLE = "ВСПАШКА СТЕРНИ";
     private static final String NAME_THIRD_TABLE = "ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ";
+    private static final String NAME_FOURTH_TABLE = "СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ";
+    private static final String NAME_FIFTH_TABLE = "ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ";
+    private static final String NAME_SIXTH_TABLE = "ЛУЩЕНИЕ И ДИСКОВАНИЕ МНОГОЛЕТНИХ ТРАВ";
 
     @Bean
     public FuelDocument document(final FuelDocumentLoadingService loadingService) {
@@ -28,7 +31,10 @@ public class FuelInfoConfiguration {
                 ofEntries(
                         entry(NAME_FIRST_TABLE, createFirstTableFuelInfoOffsetsByRoutingLengths()),
                         entry(NAME_SECOND_TABLE, createSecondTableFuelInfoOffsetsByRoutingLengths()),
-                        entry(NAME_THIRD_TABLE, createThirdTableFuelInfoOffsetsByRoutingLengths())
+                        entry(NAME_THIRD_TABLE, createThirdTableFuelInfoOffsetsByRoutingLengths()),
+                        entry(NAME_FOURTH_TABLE, createFourthTableFuelInfoOffsetsByRoutingLengths()),
+                        entry(NAME_FIFTH_TABLE, createFifthTableFuelInfoOffsetsByRoutingLengths()),
+                        entry(NAME_SIXTH_TABLE, createSixthTableFuelInfoOffsetsByRoutingLengths())
                 )
         );
     }
@@ -67,6 +73,45 @@ public class FuelInfoConfiguration {
                 "401–600", 6,
                 "601–1000", 7,
                 "Более 1000", 8
+        );
+    }
+
+    //'Состав аггрегата' по-другому стоит - не как в первой таблице => смещения другие
+    private static Map<String, Integer> createFourthTableFuelInfoOffsetsByRoutingLengths() {
+        return Map.of(
+                "Менее 150", 0,
+                "150–200", 1,
+                "201–300", 2,
+                "301–400", 3,
+                "401–600", 4,
+                "601–1000", 5,
+                "Более 1000", 6
+        );
+    }
+
+    //'Состав аггрегата' по-другому стоит - не как в первой таблице => смещения другие
+    private static Map<String, Integer> createFifthTableFuelInfoOffsetsByRoutingLengths() {
+        return Map.of(
+                "Менее 150", 0,
+                "150–200", 1,
+                "201–300", 2,
+                "301–400", 3,
+                "401–600", 4,
+                "601–1000", 5,
+                "Более 1000", 6
+        );
+    }
+
+    //'Состав аггрегата' по-другому стоит - не как в первой таблице => смещения другие
+    private static Map<String, Integer> createSixthTableFuelInfoOffsetsByRoutingLengths() {
+        return Map.of(
+                "Менее 150", 0,
+                "150–200", 1,
+                "201–300", 2,
+                "301–400", 3,
+                "401–600", 4,
+                "601–1000", 5,
+                "Более 1000", 6
         );
     }
 }

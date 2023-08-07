@@ -34,7 +34,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("FENDT 1050")
-                                .ploughMark("Lemken Diamand 11")
+                                .machinery("Lemken Diamand 11")
                                 .corpusCount("9")
                                 .ploughingDepth("18–20")
                                 .routingLength("Менее 150")
@@ -46,7 +46,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("Кировец К-744 Р3")
-                                .ploughMark("Kverneland RW 110")
+                                .machinery("Kverneland RW 110")
                                 .corpusCount("12")
                                 .ploughingDepth("23–25")
                                 .routingLength("Более 1000")
@@ -58,7 +58,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("Кировец К-744 Р4")
-                                .ploughMark("ППО-8-40")
+                                .machinery("ППО-8-40")
                                 .corpusCount("8")
                                 .ploughingDepth("23–25")
                                 .routingLength("Менее 150")
@@ -71,7 +71,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("Кировец K744P2")
                                 //TODO: do without nbsp symbol
-                                .ploughMark("Vari Titan 10\u00A07+3 L100")
+                                .machinery("Vari Titan 10\u00A07+3 L100")
                                 .corpusCount("10")
                                 .ploughingDepth("23–25")
                                 .routingLength("Менее 150")
@@ -83,7 +83,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("К744Р3")
-                                .ploughMark("Kverneland RW 110")
+                                .machinery("Kverneland RW 110")
                                 .corpusCount("12")
                                 .ploughingDepth("23–25")
                                 .routingLength("201–300")
@@ -97,7 +97,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("Кировец K744P2")
                                 //TODO: do without nbsp symbol
-                                .ploughMark("Vari Titan 10\u00A07+3 L100")
+                                .machinery("Vari Titan 10\u00A07+3 L100")
                                 .corpusCount("10")
                                 .ploughingDepth("18–20")
                                 .routingLength("Менее 150")
@@ -110,7 +110,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("not exist tractor")
-                                .ploughMark("Lemken Diamand 11")
+                                .machinery("Lemken Diamand 11")
                                 .corpusCount("9")
                                 .ploughingDepth("18–20")
                                 .routingLength("Менее 150")
@@ -123,7 +123,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("FENDT 1050")
-                                .ploughMark("not existing plough mark")
+                                .machinery("not existing plough mark")
                                 .corpusCount("9")
                                 .ploughingDepth("18–20")
                                 .routingLength("Менее 150")
@@ -136,7 +136,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("FENDT 1050")
-                                .ploughMark("Lemken Diamand 11")
+                                .machinery("Lemken Diamand 11")
                                 .corpusCount("-1")
                                 .ploughingDepth("18–20")
                                 .routingLength("Менее 150")
@@ -149,7 +149,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("FENDT 1050")
-                                .ploughMark("Lemken Diamand 11")
+                                .machinery("Lemken Diamand 11")
                                 .corpusCount("9")
                                 .ploughingDepth("1000000-2000000")
                                 .routingLength("Менее 150")
@@ -162,7 +162,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("FENDT 1050")
-                                .ploughMark("Lemken Diamand 11")
+                                .machinery("Lemken Diamand 11")
                                 .corpusCount("9")
                                 .ploughingDepth("18–20")
                                 .routingLength("1000000-2000000")
@@ -175,7 +175,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("К 744Р3")
-                                .ploughMark("ППУ-13")
+                                .machinery("ППУ-13")
                                 .corpusCount("13")
                                 .ploughingDepth("25–27")
                                 .routingLength("201–300")
@@ -188,7 +188,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("К 744Р3")
-                                .ploughMark("ППУ-13")
+                                .machinery("ППУ-13")
                                 .corpusCount("13")
                                 .ploughingDepth("25–27")
                                 .routingLength("201–300")
@@ -203,7 +203,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("CASE II Steiger 550")
                                 //TODO: do without nbsp symbol
-                                .ploughMark("Lemken EuroTitan 10\u00A08+3+1")
+                                .machinery("Lemken EuroTitan 10\u00A08+3+1")
                                 .corpusCount("12")
                                 .ploughingDepth("18–20")
                                 .routingLength("Менее 150")
@@ -215,7 +215,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("Кировец К-744 Р4")
-                                .ploughMark("Lemken EuroTitan 10")
+                                .machinery("Lemken EuroTitan 10")
                                 .corpusCount("10")
                                 .ploughingDepth("21–22")
                                 .routingLength("601–1000")
@@ -227,7 +227,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("Кировец К-744 Р4")
-                                .ploughMark("Lemken EuroTitan 10")
+                                .machinery("Lemken EuroTitan 10")
                                 .corpusCount("10")
                                 .ploughingDepth("21–22")
                                 .routingLength("Менее 150")
@@ -240,7 +240,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("not exist")
-                                .ploughMark("Lemken EuroTitan 10")
+                                .machinery("Lemken EuroTitan 10")
                                 .corpusCount("10")
                                 .ploughingDepth("21–22")
                                 .routingLength("601–1000")
@@ -253,7 +253,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("Кировец К-744 Р4")
-                                .ploughMark("not exist")
+                                .machinery("not exist")
                                 .corpusCount("10")
                                 .ploughingDepth("21–22")
                                 .routingLength("601–1000")
@@ -266,7 +266,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("Кировец К-744 Р4")
-                                .ploughMark("Lemken EuroTitan 10")
+                                .machinery("Lemken EuroTitan 10")
                                 .corpusCount("-1")
                                 .ploughingDepth("21–22")
                                 .routingLength("601–1000")
@@ -279,7 +279,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("Кировец К-744 Р4")
-                                .ploughMark("Lemken EuroTitan 10")
+                                .machinery("Lemken EuroTitan 10")
                                 .corpusCount("10")
                                 .ploughingDepth("100000000-200000000")
                                 .routingLength("601–1000")
@@ -292,7 +292,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("Кировец К-744 Р4")
-                                .ploughMark("Lemken EuroTitan 10")
+                                .machinery("Lemken EuroTitan 10")
                                 .corpusCount("10")
                                 .ploughingDepth("21–22")
                                 .routingLength("10000000-20000000")
@@ -305,7 +305,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("Кировец К-744 Р4")
-                                .ploughMark("Lemken EuroTitan 10")
+                                .machinery("Lemken EuroTitan 10")
                                 .corpusCount("10")
                                 .ploughingDepth("21–22")
                                 .routingLength("601–1000")
@@ -319,7 +319,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("Беларус-3522")
-                                .ploughMark("ПБН-6-50А")
+                                .machinery("ПБН-6-50А")
                                 .corpusCount("6")
                                 .ploughingDepth("20–22")
                                 .routingLength("Менее 150")
@@ -331,7 +331,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("Беларус-3022")
-                                .ploughMark("ПБН-6-50А")
+                                .machinery("ПБН-6-50А")
                                 .corpusCount("6")
                                 .ploughingDepth("25–27")
                                 .routingLength("Более 1000")
@@ -344,7 +344,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("not exist")
-                                .ploughMark("ПБН-6-50А")
+                                .machinery("ПБН-6-50А")
                                 .corpusCount("6")
                                 .ploughingDepth("25–27")
                                 .routingLength("Более 1000")
@@ -357,7 +357,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("Беларус-3022")
-                                .ploughMark("not exist")
+                                .machinery("not exist")
                                 .corpusCount("6")
                                 .ploughingDepth("25–27")
                                 .routingLength("Более 1000")
@@ -370,7 +370,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("Беларус-3022")
-                                .ploughMark("ПБН-6-50А")
+                                .machinery("ПБН-6-50А")
                                 .corpusCount("-1")
                                 .ploughingDepth("25–27")
                                 .routingLength("Более 1000")
@@ -383,7 +383,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("Беларус-3022")
-                                .ploughMark("ПБН-6-50А")
+                                .machinery("ПБН-6-50А")
                                 .corpusCount("6")
                                 .ploughingDepth("1500-2000")
                                 .routingLength("Более 1000")
@@ -396,7 +396,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("Беларус-3022")
-                                .ploughMark("ПБН-6-50А")
+                                .machinery("ПБН-6-50А")
                                 .corpusCount("6")
                                 .ploughingDepth("25–27")
                                 .routingLength("5000-5001")
@@ -409,11 +409,319 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("Беларус-3022")
-                                .ploughMark("ПБН-6-50А")
+                                .machinery("ПБН-6-50А")
                                 .corpusCount("6")
                                 .ploughingDepth("25–27")
                                 .routingLength("Более 1000")
                                 .soilType("Несуществующие почвы")
+                                .build(),
+                        empty()
+                ),
+
+                //FOR TABLE #4
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
+                                .tractor("Clas Xerion 5000")
+                                .machinery("Köckerling Allrounder 1200")
+                                .workingWidth("12,0")
+                                .routingLength("Менее 150")
+                                .processingDepth("Глубина обработки 6…8 см")
+                                .build(),
+                        createFuelInfoWrappedByOptional(26.4, 14.1)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
+                                .tractor("Clas Xerion 5000")
+                                .machinery("Köckerling Allrounder 1200")
+                                .workingWidth("12,0")
+                                .routingLength("Более 1000")
+                                .processingDepth("Глубина обработки 6…8 см")
+                                .build(),
+                        createFuelInfoWrappedByOptional(58.2, 7.5)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
+                                .tractor("Беларус 3522")
+                                .machinery("АПМ-8")
+                                .workingWidth("8,0")
+                                .routingLength("150–200")
+                                .processingDepth("Глубина обработки 6…8 см")
+                                .build(),
+                        createFuelInfoWrappedByOptional(24.0, 11.1)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
+                                .tractor("Беларус 3022")
+                                .machinery("КФУ-7,3")
+                                .workingWidth("7,3")
+                                .routingLength("Менее 150")
+                                .processingDepth("Глубина обработки 6…8 см")
+                                .build(),
+                        createFuelInfoWrappedByOptional(17.3, 12.7)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
+                                .tractor("Беларус 1522")
+                                .machinery("Horsch Terrano 4FX")
+                                .workingWidth("4,0")
+                                .routingLength("Менее 150")
+                                .processingDepth("Глубина обработки 14…20 см")
+                                .build(),
+                        createFuelInfoWrappedByOptional(10.5, 8.7)
+                ),
+                //not existing tractor
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
+                                .tractor("not existing tractor")
+                                .machinery("Horsch Terrano 4FX")
+                                .workingWidth("4,0")
+                                .routingLength("Менее 150")
+                                .processingDepth("Глубина обработки 14…20 см")
+                                .build(),
+                        empty()
+                ),
+                //not existing machinery
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
+                                .tractor("Беларус 1522")
+                                .machinery("not existing")
+                                .workingWidth("4,0")
+                                .routingLength("Менее 150")
+                                .processingDepth("Глубина обработки 14…20 см")
+                                .build(),
+                        empty()
+                ),
+                //not existing working width
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
+                                .tractor("Беларус 1522")
+                                .machinery("Horsch Terrano 4FX")
+                                .workingWidth("-1.0")
+                                .routingLength("Менее 150")
+                                .processingDepth("Глубина обработки 14…20 см")
+                                .build(),
+                        empty()
+                ),
+                //not existing routing length
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
+                                .tractor("Беларус 1522")
+                                .machinery("Horsch Terrano 4FX")
+                                .workingWidth("4,0")
+                                .routingLength("20-21")
+                                .processingDepth("Глубина обработки 14…20 см")
+                                .build(),
+                        empty()
+                ),
+                //not existing processing depth
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
+                                .tractor("Беларус 1522")
+                                .machinery("Horsch Terrano 4FX")
+                                .workingWidth("4,0")
+                                .routingLength("Менее 150")
+                                .processingDepth("Глубина обработки 66666666666…76666666666 см")
+                                .build(),
+                        empty()
+                ),
+
+                //For table #5
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
+                                .tractor("Кировец К-744Р4")
+                                .machinery("Доминанта Д-880")
+                                .workingWidth("8,8")
+                                .routingLength("Менее 150")
+                                .processingDepth("Глубина обработки 6…8 см")
+                                .build(),
+                        createFuelInfoWrappedByOptional(23.7, 12.0)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
+                                .tractor("Беларус 3022")
+                                .machinery("АПД-7,5")
+                                .workingWidth("7,5")
+                                .routingLength("150–200")
+                                .processingDepth("Глубина обработки 6…8 см")
+                                .build(),
+                        createFuelInfoWrappedByOptional(20.4, 8.6)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
+                                .tractor("Беларус 2022")
+                                .machinery("АКЧ-6,0")
+                                .workingWidth("6,0")
+                                .routingLength("150–200")
+                                .processingDepth("Глубина обработки 10…14 см")
+                                .build(),
+                        createFuelInfoWrappedByOptional(16.2, 7.3)
+                ),
+                //not existing tractor
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
+                                .tractor("not existing")
+                                .machinery("АКЧ-6,0")
+                                .workingWidth("6,0")
+                                .routingLength("150–200")
+                                .processingDepth("Глубина обработки 10…14 см")
+                                .build(),
+                        empty()
+                ),
+                //not existing machinery
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
+                                .tractor("Беларус 2022")
+                                .machinery("not existing")
+                                .workingWidth("6,0")
+                                .routingLength("150–200")
+                                .processingDepth("Глубина обработки 10…14 см")
+                                .build(),
+                        empty()
+                ),
+                //not existing working width
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
+                                .tractor("Беларус 2022")
+                                .machinery("АКЧ-6,0")
+                                .workingWidth("-1,0")
+                                .routingLength("150–200")
+                                .processingDepth("Глубина обработки 10…14 см")
+                                .build(),
+                        empty()
+                ),
+                //not existing routing length
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
+                                .tractor("Беларус 2022")
+                                .machinery("АКЧ-6,0")
+                                .workingWidth("6,0")
+                                .routingLength("20-21")
+                                .processingDepth("Глубина обработки 10…14 см")
+                                .build(),
+                        empty()
+                ),
+                //not existing processing depth
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
+                                .tractor("Беларус 2022")
+                                .machinery("АКЧ-6,0")
+                                .workingWidth("6,0")
+                                .routingLength("150–200")
+                                .processingDepth("Глубина обработки 66666666666666666666…76666666666666666666 см")
+                                .build(),
+                        empty()
+                ),
+
+                //For table #6
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ МНОГОЛЕТНИХ ТРАВ")
+                                .tractor("Кировец К-744Р4")
+                                .machinery("Доминанта Д-880")
+                                .workingWidth("8,8")
+                                .routingLength("Менее 150")
+                                .processingDepth("Глубина обработки 6…8 см")
+                                .build(),
+                        createFuelInfoWrappedByOptional(22.9, 12.5)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ МНОГОЛЕТНИХ ТРАВ")
+                                .tractor("Кировец К-744Р4")
+                                .machinery("АДС-6,0")
+                                .workingWidth("6,0")
+                                .routingLength("Менее 150")
+                                .processingDepth("Глубина обработки 6…8 см")
+                                .build(),
+                        createFuelInfoWrappedByOptional(15.5, 12.8)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ МНОГОЛЕТНИХ ТРАВ")
+                                .tractor("Беларус 2022")
+                                .machinery("АКЧ-6,0")
+                                .workingWidth("6,0")
+                                .routingLength("150–200")
+                                .processingDepth("Глубина обработки 10…14 см")
+                                .build(),
+                        createFuelInfoWrappedByOptional(15.4, 7.7)
+                ),
+
+                //not existing tractor
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ МНОГОЛЕТНИХ ТРАВ")
+                                .tractor("not existing")
+                                .machinery("АКЧ-6,0")
+                                .workingWidth("6,0")
+                                .routingLength("150–200")
+                                .processingDepth("Глубина обработки 10…14 см")
+                                .build(),
+                        empty()
+                ),
+                //not existing machinery
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ МНОГОЛЕТНИХ ТРАВ")
+                                .tractor("Беларус 2022")
+                                .machinery("not existing")
+                                .workingWidth("6,0")
+                                .routingLength("150–200")
+                                .processingDepth("Глубина обработки 10…14 см")
+                                .build(),
+                        empty()
+                ),
+                //not existing working width
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ МНОГОЛЕТНИХ ТРАВ")
+                                .tractor("Беларус 2022")
+                                .machinery("АКЧ-6,0")
+                                .workingWidth("-1,0")
+                                .routingLength("150–200")
+                                .processingDepth("Глубина обработки 10…14 см")
+                                .build(),
+                        empty()
+                ),
+                //not existing routing length
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ МНОГОЛЕТНИХ ТРАВ")
+                                .tractor("Беларус 2022")
+                                .machinery("АКЧ-6,0")
+                                .workingWidth("6,0")
+                                .routingLength("10–20")
+                                .processingDepth("Глубина обработки 10…14 см")
+                                .build(),
+                        empty()
+                ),
+                //not existing processing depth
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ МНОГОЛЕТНИХ ТРАВ")
+                                .tractor("Беларус 2022")
+                                .machinery("АКЧ-6,0")
+                                .workingWidth("6,0")
+                                .routingLength("150–200")
+                                .processingDepth("Глубина обработки 666666666666666…766666666666666 см")
                                 .build(),
                         empty()
                 )

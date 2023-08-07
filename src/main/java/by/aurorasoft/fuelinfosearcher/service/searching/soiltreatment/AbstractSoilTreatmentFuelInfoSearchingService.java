@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelinfosearcher.service.searching.ploughing;
+package by.aurorasoft.fuelinfosearcher.service.searching.soiltreatment;
 
 import by.aurorasoft.fuelinfosearcher.model.*;
 import by.aurorasoft.fuelinfosearcher.service.searching.AbstractFuelInfoSearchingService;
@@ -12,46 +12,38 @@ import java.util.Optional;
 import java.util.OptionalInt;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.*;
-import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractRoutingLength;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
-import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findIndexFirstCellByContent;
 
-//for tables #1, #2, #3
-public abstract class AbstractPloughingFuelInfoSearchingServices extends AbstractFuelInfoSearchingService {
-    private static final int CELL_INDEX_WITH_GROUP_VALUE = 0;
+public abstract class AbstractSoilTreatmentFuelInfoSearchingService extends AbstractFuelInfoSearchingService {
+    private static final int INDEX_ROUTING_LENGTH_ROW = 1;
+
+    private static final int CELL_INDEX_WITH_PROCESSING_DEPTH = 0;
     private static final int CELL_INDEX_WITH_TRACTOR = 1;
     private static final int CELL_INDEX_WITH_MACHINERY = 2;
-    private static final int CELL_INDEX_WITH_CORPUS_COUNT = 3;
-    private static final int CELL_INDEX_WITH_PLOUGHING_DEPTH = 4;
+    private static final int CELL_INDEX_WITH_WORKING_WIDTH = 3;
 
     private static final int UNITED_ROWS_COUNT_IN_TRACTOR_COLUMN = 4;
     private static final int UNITED_ROWS_COUNT_IN_MACHINERY_COLUMN = 4;
-    private static final int UNITED_ROWS_COUNT_IN_CORPUS_COUNT_COLUMN = 4;
 
-    private static final int INDEX_ROUTING_LENGTH_ROW = 1;
+    private static final String REGEX_CONTENT_PROCESSING_DEPTH = "Глубина обработки \\d+((…)|(...))\\d+ см";
 
-    public AbstractPloughingFuelInfoSearchingServices(final FuelInfoOffsetFromRoutingLengthStorage offsetStorage,
-                                                      final FuelDocument fuelDocument,
-                                                      final String fuelTableName) {
+    public AbstractSoilTreatmentFuelInfoSearchingService(final FuelInfoOffsetFromRoutingLengthStorage offsetStorage,
+                                                         final FuelDocument fuelDocument,
+                                                         final String fuelTableName) {
         super(offsetStorage, fuelDocument, fuelTableName);
     }
 
     @Override
-    protected final Optional<FuelInfo> find(final FuelTable fuelTable, final FuelInfoSpecification specification) {
+    protected Optional<FuelInfo> find(final FuelTable fuelTable, final FuelInfoSpecification specification) {
         final List<XWPFTableRow> elementTableRows = extractElementTableRows(fuelTable);
         final XWPFTableRow routingLengthRow = elementTableRows.get(INDEX_ROUTING_LENGTH_ROW);
-        return this.findRowsByGroupValue(elementTableRows, specification)
+        Optional<FuelInfo> fuelInfo = findRowsByProcessingDepth(elementTableRows, specification)
                 .flatMap(rows -> findRowsByTractor(rows, specification))
                 .flatMap(rows -> findRowsByMachinery(rows, specification))
-                .flatMap(rows -> findRowsByCorpusCount(rows, specification))
-                .flatMap(rows -> findRowByPloughingDepth(rows, specification))
+                .flatMap(rows -> findRowByWorkingWidth(rows, specification))
                 .flatMap(row -> this.findFuelInfo(routingLengthRow, row, specification));
+        return fuelInfo;
     }
-
-    //Группа - это удельное сопротивление для таблиц #1 и #2 и тип почвы для таблицы #3
-    protected abstract String extractGroupValue(final FuelInfoSpecification specification);
-    protected abstract String findGroupValueRegex();
-
 
     private static List<XWPFTableRow> extractElementTableRows(final FuelTable fuelTable) {
         final XWPFTable elementTable = extractElementTable(fuelTable);
@@ -64,35 +56,35 @@ public abstract class AbstractPloughingFuelInfoSearchingServices extends Abstrac
         return (XWPFTable) firstElement;
     }
 
-    private Optional<List<XWPFTableRow>> findRowsByGroupValue(final List<XWPFTableRow> rows,
-                                                              final FuelInfoSpecification specification) {
-        return findIndexRowByGroupValue(rows, specification)
+    private static Optional<List<XWPFTableRow>> findRowsByProcessingDepth(final List<XWPFTableRow> rows,
+                                                                          final FuelInfoSpecification specification) {
+        return findIndexRowByProcessingDepth(rows, specification)
                 .stream()
-                .map(indexRowWithGroupValue -> indexRowWithGroupValue + 1)
-                .mapToObj(indexFirstMatchingRow -> this.findIndexBordersRowsMatchingSpecificResistance(indexFirstMatchingRow, rows))
+                .map(indexRowWithProcessingDepth -> indexRowWithProcessingDepth + 1)
+                .mapToObj(indexFirstMatchingRow -> findIndexBordersRowsMatchingPloughingDepth(indexFirstMatchingRow, rows))
                 .map(borderRowIndexes -> extractRows(rows, borderRowIndexes))
                 .findFirst();
     }
 
-    private OptionalInt findIndexRowByGroupValue(final List<XWPFTableRow> rows,
-                                                 final FuelInfoSpecification specification) {
-        final String groupValue = this.extractGroupValue(specification);
-        return findIndexFirstRowByContent(rows, CELL_INDEX_WITH_GROUP_VALUE, groupValue);
+    private static OptionalInt findIndexRowByProcessingDepth(final List<XWPFTableRow> rows,
+                                                             final FuelInfoSpecification specification) {
+        final String processingDepth = extractProcessingDepth(specification);
+        return findIndexFirstRowByContent(rows, CELL_INDEX_WITH_PROCESSING_DEPTH, processingDepth);
     }
 
-    private IntPair findIndexBordersRowsMatchingSpecificResistance(final int indexFirstMatchingRow,
-                                                                   final List<XWPFTableRow> rows) {
-        final int nextIndexLastMatchingRow = findIndexRowNextSpecificResistanceOrLastRow(rows, indexFirstMatchingRow);
+    private static IntPair findIndexBordersRowsMatchingPloughingDepth(final int indexFirstMatchingRow,
+                                                                      final List<XWPFTableRow> rows) {
+        final int nextIndexLastMatchingRow = findIndexRowNextProcessingDepthOrLastRow(rows, indexFirstMatchingRow);
         return new IntPair(indexFirstMatchingRow, nextIndexLastMatchingRow);
     }
 
-    private int findIndexRowNextSpecificResistanceOrLastRow(final List<XWPFTableRow> rows,
-                                                            final int startSearchingIndex) {
+    private static int findIndexRowNextProcessingDepthOrLastRow(final List<XWPFTableRow> rows,
+                                                                final int startSearchingIndex) {
         return findIndexFirstRowByContentRegex(
                 rows,
                 startSearchingIndex,
-                CELL_INDEX_WITH_GROUP_VALUE,
-                this.findGroupValueRegex()
+                CELL_INDEX_WITH_PROCESSING_DEPTH,
+                REGEX_CONTENT_PROCESSING_DEPTH
         ).orElse(rows.size());
     }
 
@@ -108,7 +100,6 @@ public abstract class AbstractPloughingFuelInfoSearchingServices extends Abstrac
         Optional<List<XWPFTableRow>> unitedRowsByContent = findUnitedRowsByContent(
                 rows,
                 CELL_INDEX_WITH_TRACTOR,
-                UNITED_ROWS_COUNT_IN_TRACTOR_COLUMN,
                 extractTractor(specification)
         );
         return unitedRowsByContent;
@@ -120,27 +111,17 @@ public abstract class AbstractPloughingFuelInfoSearchingServices extends Abstrac
         Optional<List<XWPFTableRow>> unitedRowsByContent = findUnitedRowsByContent(
                 rows,
                 CELL_INDEX_WITH_MACHINERY,
-                UNITED_ROWS_COUNT_IN_MACHINERY_COLUMN,
+                1,
                 extractMachinery(specification)
         );
         return unitedRowsByContent;
     }
 
-    private static Optional<List<XWPFTableRow>> findRowsByCorpusCount(final List<XWPFTableRow> rows,
-                                                                      final FuelInfoSpecification specification) {
-        Optional<List<XWPFTableRow>> unitedRowsByContent = findUnitedRowsByContent(
-                rows,
-                CELL_INDEX_WITH_CORPUS_COUNT,
-                UNITED_ROWS_COUNT_IN_CORPUS_COUNT_COLUMN,
-                extractCorpusCount(specification)
-        );
-        return unitedRowsByContent;
-    }
-
-    private static Optional<XWPFTableRow> findRowByPloughingDepth(final List<XWPFTableRow> rows,
-                                                                  final FuelInfoSpecification specification) {
-        final String ploughingDepth = extractPloughingDepth(specification);
-        return findFirstRowByContent(rows, CELL_INDEX_WITH_PLOUGHING_DEPTH, ploughingDepth);
+    private static Optional<XWPFTableRow> findRowByWorkingWidth(final List<XWPFTableRow> rows,
+                                                                final FuelInfoSpecification specification) {
+        final String workingWidth = extractWorkingWidth(specification);
+        Optional<XWPFTableRow> firstRowByContent = findFirstRowByContent(rows, CELL_INDEX_WITH_WORKING_WIDTH, workingWidth);
+        return firstRowByContent;
     }
 
     private Optional<FuelInfo> findFuelInfo(final XWPFTableRow routingLengthRow,
@@ -149,7 +130,8 @@ public abstract class AbstractPloughingFuelInfoSearchingServices extends Abstrac
         final Optional<FuelInfoLocation> optionalLocation = this.findFuelInfoLocation(
                 routingLengthRow, specification, dataRow
         );
-        return optionalLocation.flatMap(FuelInfoUtil::extractFuelInfo);
+        Optional<FuelInfo> fuelInfo = optionalLocation.flatMap(FuelInfoUtil::extractFuelInfo);
+        return fuelInfo;
     }
 
     private Optional<FuelInfoLocation> findFuelInfoLocation(final XWPFTableRow routingLengthRow,
@@ -173,5 +155,4 @@ public abstract class AbstractPloughingFuelInfoSearchingServices extends Abstrac
         final int cellIndexConsumption = cellIndexGenerationNorm + 1;
         return new FuelInfoLocation(dataRow, cellIndexGenerationNorm, cellIndexConsumption);
     }
-
 }

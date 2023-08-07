@@ -18,13 +18,21 @@ import static lombok.AccessLevel.PRIVATE;
 public class FuelInfoSpecification {
     String tableName;
     String tractor;
-    String ploughMark;
+
+    //Марка плуга, сельскохозяйственная машина
+    String machinery;
     String corpusCount;
     String ploughingDepth;
     //длина гона
     String routingLength;
     String specificResistance;
     String soilType;
+
+    //Глубина обработки
+    String processingDepth;
+
+    //Ширина захвата
+    String workingWidth;
 
     public Optional<String> findTableName() {
         return ofNullable(this.tableName);
@@ -34,8 +42,8 @@ public class FuelInfoSpecification {
         return ofNullable(this.tractor);
     }
 
-    public Optional<String> findPloughMark() {
-        return ofNullable(this.ploughMark);
+    public Optional<String> findMachinery() {
+        return ofNullable(this.machinery);
     }
 
     public Optional<String> findCorpusCount() {
@@ -56,5 +64,13 @@ public class FuelInfoSpecification {
 
     public Optional<String> findSoilType() {
         return ofNullable(this.soilType);
+    }
+
+    public Optional<String> findProcessingDepth() {
+        return ofNullable(this.processingDepth);
+    }
+
+    public Optional<String> findWorkingWidth() {
+        return ofNullable(this.workingWidth);
     }
 }

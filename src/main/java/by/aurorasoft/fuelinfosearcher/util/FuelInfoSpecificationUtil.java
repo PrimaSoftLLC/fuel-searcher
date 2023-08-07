@@ -10,12 +10,14 @@ import java.util.function.Function;
 public final class FuelInfoSpecificationUtil {
     private static final String PROPERTY_NAME_OF_TABLE_NAME = "tableName";
     private static final String PROPERTY_NAME_OF_TRACTOR = "tractor";
-    private static final String PROPERTY_NAME_OF_PLOUGH_MARK = "ploughMark";
+    private static final String PROPERTY_NAME_OF_MACHINERY = "ploughMark";
     private static final String PROPERTY_NAME_OF_CORPUS_COUNT = "corpusCount";
     private static final String PROPERTY_NAME_OF_PLOUGHING_DEPTH = "ploughingDepth";
     private static final String PROPERTY_NAME_OF_ROUTING_LENGTH = "routingLength";
     private static final String PROPERTY_NAME_OF_SPECIFIC_RESISTANCE = "specificResistance";
     private static final String PROPERTY_NAME_OF_SOIL_TYPE = "soilType";
+    private static final String PROPERTY_NAME_OF_PROCESSING_DEPTH = "processingDepth";
+    private static final String PROPERTY_NAME_OF_WORKING_WIDTH = "workingWidth";
 
     public static String extractTableName(final FuelInfoSpecification specification) {
         return extractProperty(
@@ -33,11 +35,11 @@ public final class FuelInfoSpecificationUtil {
         );
     }
 
-    public static String extractPloughMark(final FuelInfoSpecification specification) {
+    public static String extractMachinery(final FuelInfoSpecification specification) {
         return extractProperty(
                 specification,
-                FuelInfoSpecification::findPloughMark,
-                PROPERTY_NAME_OF_PLOUGH_MARK
+                FuelInfoSpecification::findMachinery,
+                PROPERTY_NAME_OF_MACHINERY
         );
     }
 
@@ -78,6 +80,22 @@ public final class FuelInfoSpecificationUtil {
                 specification,
                 FuelInfoSpecification::findSoilType,
                 PROPERTY_NAME_OF_SOIL_TYPE
+        );
+    }
+
+    public static String extractProcessingDepth(final FuelInfoSpecification specification) {
+        return extractProperty(
+                specification,
+                FuelInfoSpecification::findProcessingDepth,
+                PROPERTY_NAME_OF_PROCESSING_DEPTH
+        );
+    }
+
+    public static String extractWorkingWidth(final FuelInfoSpecification specification) {
+        return extractProperty(
+                specification,
+                FuelInfoSpecification::findWorkingWidth,
+                PROPERTY_NAME_OF_WORKING_WIDTH
         );
     }
 

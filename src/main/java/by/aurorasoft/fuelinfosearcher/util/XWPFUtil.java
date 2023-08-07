@@ -10,7 +10,6 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import static java.lang.Double.parseDouble;
-import static java.util.Arrays.stream;
 import static java.util.Optional.empty;
 import static java.util.stream.IntStream.range;
 
@@ -59,6 +58,23 @@ public final class XWPFUtil {
                 regex,
                 XWPFUtil::isCellContentMatchRegex
         );
+    }
+
+    public static Optional<List<XWPFTableRow>> findUnitedRowsByContent(final List<XWPFTableRow> rows,
+                                                                       final int cellIndexWithContent,
+                                                                       final String content) {
+        final List<XWPFTableRow> foundRows = range(0, rows.size())
+                .filter(i -> isCellContentMatch(rows.get(i), cellIndexWithContent, content))
+                .mapToObj(indexFirstRow -> {
+                    int indexLastRow = indexFirstRow + 1;
+                    while (indexLastRow < rows.size() && (rows.get(indexLastRow).getCell(cellIndexWithContent) == null || rows.get(indexLastRow).getCell(cellIndexWithContent).getText().trim().equals(""))) {
+                        indexLastRow++;
+                    }
+                    return rows.subList(indexFirstRow, indexLastRow);
+                })
+                .flatMap(Collection::stream)
+                .toList();
+        return !foundRows.isEmpty() ? Optional.of(foundRows) : empty();
     }
 
     //returns several united rows
