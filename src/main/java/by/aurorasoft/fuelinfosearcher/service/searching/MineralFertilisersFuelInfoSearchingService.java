@@ -42,7 +42,11 @@ public final class MineralFertilisersFuelInfoSearchingService extends AbstractFu
 
     @Override
     protected Optional<FuelInfo> find(final FuelTable fuelTable, final FuelInfoSpecification specification) {
-        final List<XWPFTableRow> elementTableRows = extractElementTableRows(fuelTable, specification);
+        final Optional<List<XWPFTableRow>> optionalRows = extractElementTableRows(fuelTable, specification);
+        if (optionalRows.isEmpty()) {
+            return Optional.empty();
+        }
+        final List<XWPFTableRow> elementTableRows = optionalRows.get();
         final XWPFTableRow routingLengthRow = elementTableRows.get(INDEX_ROUTING_LENGTH_ROW);
         Optional<FuelInfo> fuelInfo = findRowsByFertilizerType(elementTableRows, specification)
                 .flatMap(rows -> findRowsByChargingMethodAndTransportDistance(rows, specification))
@@ -51,19 +55,23 @@ public final class MineralFertilisersFuelInfoSearchingService extends AbstractFu
         return fuelInfo;
     }
 
-    private static List<XWPFTableRow> extractElementTableRows(final FuelTable fuelTable, final FuelInfoSpecification specification) {
-        final XWPFTable elementTable = extractElementTable(fuelTable, specification);
-        return elementTable.getRows();
+    private static Optional<List<XWPFTableRow>> extractElementTableRows(final FuelTable fuelTable, final FuelInfoSpecification specification) {
+        final Optional<XWPFTable> elementTable = extractElementTable(fuelTable, specification);
+        return elementTable.map(XWPFTable::getRows);
     }
 
-    private static XWPFTable extractElementTable(final FuelTable fuelTable, final FuelInfoSpecification specification) {
-        final int foundParagraphIndex = findIndexParagraphByMachineryAndTractor(fuelTable, specification);
+    private static Optional<XWPFTable> extractElementTable(final FuelTable fuelTable, final FuelInfoSpecification specification) {
+        final OptionalInt optionalFoundParagraphIndex = findIndexParagraphByMachineryAndTractor(fuelTable, specification);
+        if (optionalFoundParagraphIndex.isEmpty()) {
+            return Optional.empty();
+        }
+        final int foundParagraphIndex = optionalFoundParagraphIndex.getAsInt();
         final int elementTableIndex = foundParagraphIndex + 1;
-        return (XWPFTable) fuelTable.getElements().get(elementTableIndex);
+        return Optional.of((XWPFTable) fuelTable.getElements().get(elementTableIndex));
     }
 
-    private static int findIndexParagraphByMachineryAndTractor(final FuelTable fuelTable,
-                                                               final FuelInfoSpecification specification) {
+    private static OptionalInt findIndexParagraphByMachineryAndTractor(final FuelTable fuelTable,
+                                                                       final FuelInfoSpecification specification) {
         final String machinery = extractMachinery(specification);
         final String tractor = extractTractor(specification);
         final String contentOfResultParagraph = TEMPLATE_PARAGRAPH_CONTENT_WITH_MACHINERY_AND_TRACTOR.formatted(machinery, tractor);
@@ -72,9 +80,7 @@ public final class MineralFertilisersFuelInfoSearchingService extends AbstractFu
         return iterate(0, i -> i < elements.size(), i -> i + 2)
 //                .peek(i -> System.out.println(((XWPFParagraph) elements.get(i)).getText()))
                 .filter(i -> ((XWPFParagraph) elements.get(i)).getText().equals(contentOfResultParagraph))
-                .findFirst()
-                //TODO: replace exception
-                .orElseThrow(FuelInfoSearchingException::new);
+                .findFirst();
     }
 
     private static Optional<List<XWPFTableRow>> findRowsByFertilizerType(final List<XWPFTableRow> rows,
