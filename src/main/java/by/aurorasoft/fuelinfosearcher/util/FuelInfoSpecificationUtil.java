@@ -19,6 +19,10 @@ public final class FuelInfoSpecificationUtil {
     private static final String PROPERTY_NAME_OF_PROCESSING_DEPTH = "processingDepth";
     private static final String PROPERTY_NAME_OF_WORKING_WIDTH = "workingWidth";
     private static final String PROPERTY_NAME_OF_SOWING_NORM = "sowingNorm";
+    private static final String PROPERTY_NAME_OF_FERTILIZER_TYPE = "fertilizerType";
+    private static final String PROPERTY_NAME_OF_CHARGING_METHOD_AND_TRANSPORT_DISTANCE
+            = "chargingMethodAndTransportDistance";
+    private static final String PROPERTY_NAME_OF_SPREAD_RATE = "spreadRate";
 
     public static String extractTableName(final FuelInfoSpecification specification) {
         return extractProperty(
@@ -105,6 +109,30 @@ public final class FuelInfoSpecificationUtil {
                 specification,
                 FuelInfoSpecification::findSowingNorm,
                 PROPERTY_NAME_OF_SOWING_NORM
+        );
+    }
+
+    public static String extractFertilizerType(final FuelInfoSpecification specification) {
+        return extractProperty(
+                specification,
+                FuelInfoSpecification::findFertilizerType,
+                PROPERTY_NAME_OF_FERTILIZER_TYPE
+        );
+    }
+
+    public static String extractChargingMethodAndTransportDistance(final FuelInfoSpecification specification) {
+        return extractProperty(
+                specification,
+                FuelInfoSpecification::findChargingMethodAndTransportDistance,
+                PROPERTY_NAME_OF_CHARGING_METHOD_AND_TRANSPORT_DISTANCE
+        );
+    }
+
+    public static String extractSpreadRate(final FuelInfoSpecification specification) {
+        return extractProperty(
+                specification,
+                FuelInfoSpecification::findSpreadRate,
+                PROPERTY_NAME_OF_SPREAD_RATE
         );
     }
 

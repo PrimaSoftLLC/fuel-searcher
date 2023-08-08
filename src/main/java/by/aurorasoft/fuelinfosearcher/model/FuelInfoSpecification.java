@@ -34,7 +34,17 @@ public class FuelInfoSpecification {
     //Ширина захвата
     String workingWidth;
 
+    //Норма высева
     String sowingNorm;
+
+    //Тип удобрения
+    String fertilizerType;
+
+    //Способ загрузки удобрений и расстояние транспортировки
+    String chargingMethodAndTransportDistance;
+
+    //Норма внесения
+    String spreadRate;
 
     public Optional<String> findTableName() {
         return ofNullable(this.tableName);
@@ -78,5 +88,17 @@ public class FuelInfoSpecification {
 
     public Optional<String> findSowingNorm() {
         return ofNullable(this.sowingNorm);
+    }
+
+    public Optional<String> findFertilizerType() {
+        return ofNullable(this.fertilizerType);
+    }
+
+    public Optional<String> findChargingMethodAndTransportDistance() {
+        return ofNullable(this.chargingMethodAndTransportDistance);
+    }
+
+    public Optional<String> findSpreadRate(){
+        return ofNullable(this.spreadRate);
     }
 }

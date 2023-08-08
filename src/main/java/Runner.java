@@ -15,8 +15,9 @@ public final class Runner {
             throws IOException {
         final FuelDocument document1 = new FuelDocumentLoadingService().load();
 
-        XWPFTable table = (XWPFTable) document1.getTables().get(22).getElements().get(0);
-        out.println(table.getRow(1).getCell(3).getText());
+        IBodyElement element = document1.getTables().get(10).getElements().get(0);
+        out.println(element);
+//        out.println(table.getRow(1).getCell(3).getText());
 
 //        out.println(document1);
     }

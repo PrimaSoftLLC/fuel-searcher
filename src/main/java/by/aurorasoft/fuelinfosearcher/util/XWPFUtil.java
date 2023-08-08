@@ -87,6 +87,7 @@ public final class XWPFUtil {
         return extractValue(row, cellIndex, XWPFUtil::extractDoubleValue);
     }
 
+
     private static boolean isCellContentMatch(final XWPFTableRow row,
                                               final int cellNumber,
                                               final String compared,

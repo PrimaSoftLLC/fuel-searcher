@@ -1,28 +1,28 @@
 package by.aurorasoft.fuelinfosearcher.service.documentloading;
 
 import by.aurorasoft.fuelinfosearcher.service.documentloading.exception.FuelDocumentLoadingException;
+import by.aurorasoft.fuelinfosearcher.util.XWPFParagraphUtil;
 import lombok.Value;
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import static by.aurorasoft.fuelinfosearcher.util.XWPFParagraphUtil.isEmptyParagraph;
+import static by.aurorasoft.fuelinfosearcher.util.XWPFParagraphUtil.isMultilineParagraph;
 import static java.nio.file.Files.newInputStream;
 import static java.util.Arrays.stream;
 import static java.util.Optional.empty;
@@ -72,12 +72,12 @@ public final class FuelDocumentLoadingService {
         return new FuelTable(name, elements);
     }
 
+    //TODO: put methods in XWPFParagraphUtil
     private static final class ElementBoundedToTableNameIterator implements Iterator<ElementBoundedToTableTitle> {
         private static final String TABLE_TITLE_REGEX = "\\d+\\.\\p{Z}([А-Я\\s:,]+)";
         private static final Pattern TABLE_TITLE_PATTERN = compile(TABLE_TITLE_REGEX);
         private static final int TABLE_NAME_GROUP_NUMBER = 1;
         private static final String NEW_LINE = "\n";
-        private static final String NBSP_SYMBOL_REGEX = "\\p{Z}";
 
         private final Iterator<IBodyElement> elementIterator;
         private String currentTableName;
@@ -99,28 +99,31 @@ public final class FuelDocumentLoadingService {
         }
 
         private static Iterator<IBodyElement> createElementIterator(final XWPFDocument document) {
-            final List<IBodyElement> elements = findElementsWithoutEmptyParagraphs(document);
-            return elements.iterator();
-        }
-
-        private static List<IBodyElement> findElementsWithoutEmptyParagraphs(final XWPFDocument document) {
-            return document.getBodyElements()
-                    .stream()
+            return extractElementsSplittingMultilineParagraphs(document)
                     .filter(element -> !isEmptyParagraph(element))
-                    .toList();
+                    .iterator();
         }
 
-        private static boolean isEmptyParagraph(final IBodyElement element) {
-            if (!(element instanceof final XWPFParagraph paragraph)) {
-                return false;
+        private static Stream<IBodyElement> extractElementsSplittingMultilineParagraphs(final XWPFDocument document) {
+            //coping to avoid ConcurrentModificationException
+            final List<IBodyElement> copiedElements = new ArrayList<>(document.getBodyElements());
+            return copiedElements.stream()
+                    .flatMap(element -> splitMultilineParagraph(element, document));
+        }
+
+        private static Stream<IBodyElement> splitMultilineParagraph(final IBodyElement element, final XWPFDocument document) {
+            if (!isMultilineParagraph(element)) {
+                return Stream.of(element);
             }
-            final String paragraphText = extractTextWithoutNBSPSymbol(paragraph);
-            return paragraphText.isBlank();
+            final XWPFParagraph paragraph = (XWPFParagraph) element;
+            final String[] paragraphLines = paragraph.getText().split("\n");
+            return stream(paragraphLines).map(line -> createParagraph(line, document));
         }
 
-        private static String extractTextWithoutNBSPSymbol(final XWPFParagraph paragraph) {
-            final String paragraphText = paragraph.getText();
-            return paragraphText.replaceAll(NBSP_SYMBOL_REGEX, "");
+        private static XWPFParagraph createParagraph(final String content, final XWPFDocument document) {
+            final XWPFParagraph paragraph = document.createParagraph();
+            paragraph.createRun().setText(content);
+            return paragraph;
         }
 
         private void iterateToFirstTableTitle() {
