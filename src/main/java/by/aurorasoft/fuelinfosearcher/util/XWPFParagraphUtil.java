@@ -2,9 +2,14 @@ package by.aurorasoft.fuelinfosearcher.util;
 
 import lombok.experimental.UtilityClass;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
 
 import java.util.function.Predicate;
+import java.util.stream.Stream;
+
+import static java.util.Arrays.stream;
 
 @UtilityClass
 public final class XWPFParagraphUtil {
@@ -23,10 +28,18 @@ public final class XWPFParagraphUtil {
         return isMatchingParagraph(element, XWPFParagraphUtil::isEmptyParagraph);
     }
 
+    public static Stream<IBodyElement> splitIfMultilineParagraph(final IBodyElement element) {
+        return isMultilineParagraph(element) ? splitMultilineParagraph(element) : Stream.of(element);
+    }
+
+    public static Stream<String> extractParagraphLines(final XWPFParagraph paragraph) {
+        final String text = paragraph.getText();
+        final String[] lines = text.split(NEW_LINE);
+        return stream(lines);
+    }
+
     private static boolean isMultilineParagraph(final XWPFParagraph paragraph) {
-        final String paragraphText = paragraph.getText();
-        final String[] lines = paragraphText.split(NEW_LINE);
-        return lines.length > 1;
+        return extractParagraphLines(paragraph).count() > 1;
     }
 
     private static boolean isEmptyParagraph(final XWPFParagraph paragraph) {
@@ -46,6 +59,18 @@ public final class XWPFParagraphUtil {
         return paragraphText
                 .replaceAll(NBSP_SYMBOLS_IN_START_STRING_REGEX, EMPTY_STRING)
                 .replaceAll(NBSP_SYMBOLS_IN_END_STRING_REGEX, EMPTY_STRING);
+    }
 
+    private static XWPFParagraph createParagraph(final String content, final XWPFDocument document) {
+        final XWPFParagraph paragraph = document.createParagraph();
+        final XWPFRun run = paragraph.createRun();
+        run.setText(content);
+        return paragraph;
+    }
+
+    private static Stream<IBodyElement> splitMultilineParagraph(final IBodyElement element) {
+        final XWPFParagraph paragraph = (XWPFParagraph) element;
+        final XWPFDocument document = paragraph.getDocument();
+        return extractParagraphLines(paragraph).map(line -> createParagraph(line, document));
     }
 }

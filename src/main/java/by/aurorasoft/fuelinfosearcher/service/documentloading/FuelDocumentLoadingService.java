@@ -1,10 +1,9 @@
 package by.aurorasoft.fuelinfosearcher.service.documentloading;
 
-import by.aurorasoft.fuelinfosearcher.service.documentloading.exception.FuelDocumentLoadingException;
-import by.aurorasoft.fuelinfosearcher.util.XWPFParagraphUtil;
-import lombok.Value;
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
+import by.aurorasoft.fuelinfosearcher.service.documentloading.exception.FuelDocumentLoadingException;
+import lombok.Value;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -14,21 +13,22 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
-import java.util.function.Predicate;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
+import static by.aurorasoft.fuelinfosearcher.util.StreamUtil.asStream;
+import static by.aurorasoft.fuelinfosearcher.util.XWPFDocumentUtil.extractElementsSplittingMultilineParagraphs;
+import static by.aurorasoft.fuelinfosearcher.util.XWPFParagraphUtil.extractParagraphLines;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFParagraphUtil.isEmptyParagraph;
-import static by.aurorasoft.fuelinfosearcher.util.XWPFParagraphUtil.isMultilineParagraph;
 import static java.nio.file.Files.newInputStream;
-import static java.util.Arrays.stream;
 import static java.util.Optional.empty;
 import static java.util.regex.Pattern.compile;
 import static java.util.stream.Collectors.*;
-import static by.aurorasoft.fuelinfosearcher.util.StreamUtil.asStream;
 
 @Service
 public final class FuelDocumentLoadingService {
@@ -72,12 +72,10 @@ public final class FuelDocumentLoadingService {
         return new FuelTable(name, elements);
     }
 
-    //TODO: put methods in XWPFParagraphUtil
     private static final class ElementBoundedToTableNameIterator implements Iterator<ElementBoundedToTableTitle> {
         private static final String TABLE_TITLE_REGEX = "\\d+\\.\\p{Z}([А-Я\\s:,]+)";
         private static final Pattern TABLE_TITLE_PATTERN = compile(TABLE_TITLE_REGEX);
         private static final int TABLE_NAME_GROUP_NUMBER = 1;
-        private static final String NEW_LINE = "\n";
 
         private final Iterator<IBodyElement> elementIterator;
         private String currentTableName;
@@ -104,28 +102,6 @@ public final class FuelDocumentLoadingService {
                     .iterator();
         }
 
-        private static Stream<IBodyElement> extractElementsSplittingMultilineParagraphs(final XWPFDocument document) {
-            //coping to avoid ConcurrentModificationException
-            final List<IBodyElement> copiedElements = new ArrayList<>(document.getBodyElements());
-            return copiedElements.stream()
-                    .flatMap(element -> splitMultilineParagraph(element, document));
-        }
-
-        private static Stream<IBodyElement> splitMultilineParagraph(final IBodyElement element, final XWPFDocument document) {
-            if (!isMultilineParagraph(element)) {
-                return Stream.of(element);
-            }
-            final XWPFParagraph paragraph = (XWPFParagraph) element;
-            final String[] paragraphLines = paragraph.getText().split("\n");
-            return stream(paragraphLines).map(line -> createParagraph(line, document));
-        }
-
-        private static XWPFParagraph createParagraph(final String content, final XWPFDocument document) {
-            final XWPFParagraph paragraph = document.createParagraph();
-            paragraph.createRun().setText(content);
-            return paragraph;
-        }
-
         private void iterateToFirstTableTitle() {
             Optional<String> optionalCurrentTableTitle;
             do {
@@ -149,17 +125,11 @@ public final class FuelDocumentLoadingService {
         }
 
         private static Optional<String> extractTableNameIfContain(final XWPFParagraph paragraph) {
-            return findParagraphLinesAsStream(paragraph)
+            return extractParagraphLines(paragraph)
                     .map(ElementBoundedToTableNameIterator::extractTableNameIfItIsTitle)
                     .filter(Optional::isPresent)
                     .findFirst()
                     .orElseGet(Optional::empty);
-        }
-
-        private static Stream<String> findParagraphLinesAsStream(final XWPFParagraph paragraph) {
-            final String text = paragraph.getText();
-            final String[] lines = text.split(NEW_LINE);
-            return stream(lines);
         }
 
         private static Optional<String> extractTableNameIfItIsTitle(final String source) {
