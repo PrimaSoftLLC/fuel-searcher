@@ -1203,8 +1203,55 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
                                 .fertilizerType("Кристаллические удобрения")
                                 .build(),
                         createFuelInfoWrappedByOptional(40.8, 1.25)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ")
+                                .tractor("Беларус 82")
+                                .machinery("Amazone ZA-M-900")
+                                .chargingMethodAndTransportDistance("Механизированный с подъездом 11,1…13,0")
+                                .spreadRate("8,1…10,0")
+                                .routingLength("201–300")
+                                .fertilizerType("Кристаллические удобрения")
+                                .build(),
+                        createFuelInfoWrappedByOptional(5.1, 9.05)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ")
+                                .tractor("Беларус 82")
+                                .machinery("Tornado 1300")
+                                .chargingMethodAndTransportDistance("Механизированный с подъездом 5,1…7,0")
+                                .spreadRate("6,1…8,0")
+                                .routingLength("150–200")
+                                .fertilizerType("Гранулированные удобрения")
+                                .build(),
+                        createFuelInfoWrappedByOptional(13.1, 3.91)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ")
+                                .tractor("Беларус 82")
+                                .machinery("SULKY XT 100 Polivrac")
+                                .chargingMethodAndTransportDistance("Механизированный с загрузкой в конце гона")
+                                .spreadRate("до 2,0")
+                                .routingLength("201–300")
+                                .fertilizerType("Гранулированные удобрения")
+                                .build(),
+                        createFuelInfoWrappedByOptional(75.5, 0.9)
+                ),
+                Arguments.of(
+                        FuelInfoSpecification.builder()
+                                .tableName("ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ")
+                                .tractor("Беларус 82")
+                                .machinery("SULKY DX 20 c")
+                                .chargingMethodAndTransportDistance("Механизированный с подъездом 3,51…5,0")
+                                .spreadRate("6,1…8,0")
+                                .routingLength("150–200")
+                                .fertilizerType("Гранулированные удобрения")
+                                .build(),
+                        createFuelInfoWrappedByOptional(20., 2.85)
                 )
-
         );
     }
 
