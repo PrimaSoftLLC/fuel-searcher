@@ -7,6 +7,7 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 
 import java.util.function.Predicate;
+import java.util.regex.Matcher;
 import java.util.stream.Stream;
 
 import static java.util.Arrays.stream;
@@ -48,6 +49,13 @@ public final class XWPFParagraphUtil {
         final XWPFRun run = paragraph.createRun();
         run.setText(content);
         return paragraph;
+    }
+
+    public static XWPFParagraph createParagraphByGroupContent(final Matcher matcher,
+                                                              final int groupNumber,
+                                                              final XWPFDocument document) {
+        final String content = matcher.group(groupNumber);
+        return createParagraph(content, document);
     }
 
     private static boolean isMultilineParagraph(final XWPFParagraph paragraph) {

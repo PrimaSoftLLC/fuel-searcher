@@ -16,9 +16,7 @@ public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService ext
     private static final int INDEX_ROUTING_LENGTH_ROW = 1;
 
     private static final int CELL_INDEX_WITH_TRACTOR = 1;
-    private static final int CELL_INDEX_WITH_MACHINERY = 2;
-    private static final int CELL_INDEX_WITH_YIELD = 3;
-    private static final int CELL_INDEX_WITH_WORKING_WIDTH = 4;
+    private static final int CELL_INDEX_WITH_MACHINERY = 2;;
 
     public AbstractMovingAndMouldingTableFuelInfoSearchingService(final FuelInfoOffsetFromRoutingLengthStorage offsetStorage,
                                                                   final FuelDocument fuelDocument,
@@ -36,6 +34,10 @@ public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService ext
                 .flatMap(rows -> findRowByYield(rows, specification))
                 .flatMap(row -> this.findFuelInfo(routingLengthRow, row, specification));
     }
+
+    protected abstract int findIndexCellOfWorkingWidth();
+
+    protected abstract int findIndexCellOfYield();
 
     private static Optional<List<XWPFTableRow>> findRowsByTractor(final List<XWPFTableRow> rows,
                                                                   final FuelInfoSpecification specification) {
@@ -58,20 +60,20 @@ public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService ext
         return unitedRowsByContent;
     }
 
-    private static Optional<List<XWPFTableRow>> findRowsByWorkingWidth(final List<XWPFTableRow> rows,
-                                                                       final FuelInfoSpecification specification) {
+    private Optional<List<XWPFTableRow>> findRowsByWorkingWidth(final List<XWPFTableRow> rows,
+                                                                final FuelInfoSpecification specification) {
         Optional<List<XWPFTableRow>> unitedRowsByContent = findUnitedRowsByContent(
                 rows,
-                CELL_INDEX_WITH_WORKING_WIDTH,
+                this.findIndexCellOfWorkingWidth(),
                 extractWorkingWidth(specification)
         );
         return unitedRowsByContent;
     }
 
-    private static Optional<XWPFTableRow> findRowByYield(final List<XWPFTableRow> rows,
-                                                         final FuelInfoSpecification specification) {
+    private Optional<XWPFTableRow> findRowByYield(final List<XWPFTableRow> rows,
+                                                  final FuelInfoSpecification specification) {
         final String yield = extractYield(specification);
-        Optional<XWPFTableRow> firstRowByContent = findFirstRowByContent(rows, CELL_INDEX_WITH_YIELD, yield);
+        Optional<XWPFTableRow> firstRowByContent = findFirstRowByContent(rows, this.findIndexCellOfYield(), yield);
         return firstRowByContent;
     }
 

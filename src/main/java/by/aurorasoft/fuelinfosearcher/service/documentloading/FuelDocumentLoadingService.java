@@ -32,8 +32,7 @@ public final class FuelDocumentLoadingService {
 
     public FuelDocument load() {
         try (final XWPFDocument document = new XWPFDocument(createFileInputStream())) {
-            final FuelDocument fuelDocument = this.load(document);
-            return fuelDocument;
+            return this.load(document);
         } catch (final IOException cause) {
             throw new FuelDocumentLoadingException(cause);
         }
@@ -99,27 +98,39 @@ public final class FuelDocumentLoadingService {
         }
 
         private static Iterator<IBodyElement> createElementIterator(final XWPFDocument document) {
+            //copying to avoid ConcurrentModificationException
             final List<IBodyElement> copiedElements = new ArrayList<>(document.getBodyElements());
             return copiedElements.stream()
-                    .flatMap(ElementBoundedToTableNameIterator::splitIfParagraphContainsTitleWithOtherContent)
+                    .flatMap(ElementBoundedToTableNameIterator::splitIfIsParagraphAndContainsTitleWithOtherContent)
                     .filter(element -> !isEmptyParagraph(element))
                     .iterator();
         }
 
-        //TODO: refactor
-        private static Stream<IBodyElement> splitIfParagraphContainsTitleWithOtherContent(final IBodyElement element) {
+        private static Stream<IBodyElement> splitIfIsParagraphAndContainsTitleWithOtherContent(final IBodyElement element) {
             if (!(element instanceof final XWPFParagraph paragraph)) {
                 return Stream.of(element);
             }
+            return splitIfContainsTitleWithOtherContent(paragraph);
+        }
+
+        private static Stream<IBodyElement> splitIfContainsTitleWithOtherContent(final XWPFParagraph paragraph) {
             final String paragraphText = paragraph.getText();
             final Matcher matcher = TABLE_TITLE_WITH_OTHER_CONTENT_PATTERN.matcher(paragraphText);
             if (!matcher.matches()) {
                 return Stream.of(paragraph);
             }
-            final String tableTitle = matcher.group(TABLE_TITLE_GROUP_NUMBER);
-            final String otherContent = matcher.group(OTHER_CONTENT_GROUP_NUMBER);
             final XWPFDocument document = paragraph.getDocument();
-            return Stream.of(createParagraph(tableTitle, document), createParagraph(otherContent, document));
+            final XWPFParagraph paragraphWithTableTitle = createParagraphWithTableTitle(matcher, document);
+            final XWPFParagraph paragraphWithOtherContent = createParagraphWithOtherContent(matcher, document);
+            return Stream.of(paragraphWithTableTitle, paragraphWithOtherContent);
+        }
+
+        private static XWPFParagraph createParagraphWithTableTitle(final Matcher matcher, final XWPFDocument document) {
+            return createParagraphByGroupContent(matcher, TABLE_TITLE_GROUP_NUMBER, document);
+        }
+
+        private static XWPFParagraph createParagraphWithOtherContent(final Matcher matcher, final XWPFDocument document) {
+            return createParagraphByGroupContent(matcher, OTHER_CONTENT_GROUP_NUMBER, document);
         }
 
         private void iterateToFirstTableTitle() {
