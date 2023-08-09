@@ -46,6 +46,18 @@ public class FuelInfoSpecification {
     //Норма внесения
     String spreadRate;
 
+    //Группа дорог
+    String roadGroup;
+
+    //расстояние транспортировки
+    String transportDistance;
+
+    //Класс груза
+    String cargoClass;
+
+    //Урожайность
+    String yield;
+
     public Optional<String> findTableName() {
         return ofNullable(this.tableName);
     }
@@ -98,7 +110,23 @@ public class FuelInfoSpecification {
         return ofNullable(this.chargingMethodAndTransportDistance);
     }
 
-    public Optional<String> findSpreadRate(){
+    public Optional<String> findSpreadRate() {
         return ofNullable(this.spreadRate);
+    }
+
+    public Optional<String> findRoadGroup() {
+        return ofNullable(this.roadGroup);
+    }
+
+    public Optional<String> findTransportDistance() {
+        return ofNullable(this.transportDistance);
+    }
+
+    public Optional<String> findCargoClass() {
+        return ofNullable(this.cargoClass);
+    }
+
+    public Optional<String> findYield() {
+        return ofNullable(this.yield);
     }
 }

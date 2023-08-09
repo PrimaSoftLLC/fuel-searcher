@@ -23,6 +23,10 @@ public final class FuelInfoSpecificationUtil {
     private static final String PROPERTY_NAME_OF_CHARGING_METHOD_AND_TRANSPORT_DISTANCE
             = "chargingMethodAndTransportDistance";
     private static final String PROPERTY_NAME_OF_SPREAD_RATE = "spreadRate";
+    private static final String PROPERTY_NAME_OF_ROAD_GROUP = "roadGroup";
+    private static final String PROPERTY_NAME_OF_TRANSPORT_DISTANCE = "transportDistance";
+    private static final String PROPERTY_NAME_OF_CARGO_CLASS = "cargoClass";
+    private static final String PROPERTY_NAME_OF_YIELD = "yield";
 
     public static String extractTableName(final FuelInfoSpecification specification) {
         return extractProperty(
@@ -133,6 +137,38 @@ public final class FuelInfoSpecificationUtil {
                 specification,
                 FuelInfoSpecification::findSpreadRate,
                 PROPERTY_NAME_OF_SPREAD_RATE
+        );
+    }
+
+    public static String extractRoadGroup(final FuelInfoSpecification specification) {
+        return extractProperty(
+                specification,
+                FuelInfoSpecification::findRoadGroup,
+                PROPERTY_NAME_OF_ROAD_GROUP
+        );
+    }
+
+    public static String extractTransportDistance(final FuelInfoSpecification specification) {
+        return extractProperty(
+                specification,
+                FuelInfoSpecification::findTransportDistance,
+                PROPERTY_NAME_OF_TRANSPORT_DISTANCE
+        );
+    }
+
+    public static String extractCargoClass(final FuelInfoSpecification specification) {
+        return extractProperty(
+                specification,
+                FuelInfoSpecification::findCargoClass,
+                PROPERTY_NAME_OF_CARGO_CLASS
+        );
+    }
+
+    public static String extractYield(final FuelInfoSpecification specification) {
+        return extractProperty(
+                specification,
+                FuelInfoSpecification::findYield,
+                PROPERTY_NAME_OF_YIELD
         );
     }
 

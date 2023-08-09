@@ -28,6 +28,7 @@ public abstract class AbstractCompositeTableFuelInfoSearchingService extends Abs
         super(offsetStorage, fuelDocument, fuelTableName);
     }
 
+    @Override
     protected final Optional<XWPFTable> findElementTable(final FuelTable fuelTable,
                                                          final FuelInfoSpecification specification) {
         final List<IBodyElement> fuelTableElements = fuelTable.getElements();

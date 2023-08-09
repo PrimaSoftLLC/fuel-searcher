@@ -25,6 +25,7 @@ public class FuelInfoConfiguration {
     private static final String NAME_TENTH_TABLE = "ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ОДНОВРЕМЕННЫМ ПОСЕВОМ РАПСА";
     private static final String NAME_ELEVENTH_TABLE = "ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ";
     private static final String NAME_TWELFTH_TABLE = "ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ И СРЕДСТВ ЗАЩИТЫ РАСТЕНИЙ";
+    private static final String NAME_FIFTEENTH_TABLE = "КОШЕНИЕ СЕЯНЫХ И ЕСТЕСТВЕННЫХ ТРАВ";
 
     @Bean
     public FuelDocument document(final FuelDocumentLoadingService loadingService) {
@@ -46,7 +47,9 @@ public class FuelInfoConfiguration {
                         entry(NAME_NINTH_TABLE, createNinthTableFuelInfoOffsetsByRoutingLengths()),
                         entry(NAME_TENTH_TABLE, createTenthTableFuelInfoOffsetsByRoutingLengths()),
                         entry(NAME_ELEVENTH_TABLE, createEleventhTableFuelInfoOffsetsByRoutingLengths()),
-                        entry(NAME_TWELFTH_TABLE, createTwelfthTableFuelInfoOffsetsByRoutingLengths())
+                        entry(NAME_TWELFTH_TABLE, createTwelfthTableFuelInfoOffsetsByRoutingLengths()),
+                        //TODO 13, 14
+                        entry(NAME_FIFTEENTH_TABLE, createFifteenthTableFuelInfoOffsetsByRoutingLengths())
                 )
         );
     }
@@ -195,6 +198,18 @@ public class FuelInfoConfiguration {
                 "301–400", 3,
                 "401–600", 4,
                 "601–1000", 5,
+                "Более 1000", 6
+        );
+    }
+
+    private static Map<String, Integer> createFifteenthTableFuelInfoOffsetsByRoutingLengths() {
+        return Map.of(
+                "Менее 150", 0,
+                "151…200", 1,
+                "201…300", 2,
+                "301…400", 3,
+                "401…600", 4,
+                "601…1000", 5,
                 "Более 1000", 6
         );
     }
