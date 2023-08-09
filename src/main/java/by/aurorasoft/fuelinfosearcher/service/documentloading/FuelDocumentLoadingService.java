@@ -97,10 +97,13 @@ public final class FuelDocumentLoadingService {
         }
 
         private static Iterator<IBodyElement> createElementIterator(final XWPFDocument document) {
+
             return extractElementsSplittingMultilineParagraphs(document)
                     .filter(element -> !isEmptyParagraph(element))
                     .iterator();
         }
+
+
 
         private void iterateToFirstTableTitle() {
             Optional<String> optionalCurrentTableTitle;
