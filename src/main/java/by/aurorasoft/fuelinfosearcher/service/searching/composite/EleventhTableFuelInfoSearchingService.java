@@ -1,23 +1,22 @@
-package by.aurorasoft.fuelinfosearcher.service.searching;
+package by.aurorasoft.fuelinfosearcher.service.searching.composite;
 
 import by.aurorasoft.fuelinfosearcher.model.*;
+import by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil;
 import by.aurorasoft.fuelinfosearcher.util.FuelInfoUtil;
-import org.apache.poi.xwpf.usermodel.IBodyElement;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.*;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
-import static java.util.stream.IntStream.iterate;
 
 @Service
-public final class EleventhTableFuelInfoSearchingService extends AbstractTableFuelInfoSearchingService {
+public final class EleventhTableFuelInfoSearchingService extends AbstractCompositeTableFuelInfoSearchingService {
     private static final String TABLE_NAME = "ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ";
 
     private static final String TEMPLATE_PARAGRAPH_CONTENT_WITH_MACHINERY_AND_TRACTOR = "РАЗБРАСЫВАТЕЛЕМ %s (трактор %s)";
@@ -37,12 +36,7 @@ public final class EleventhTableFuelInfoSearchingService extends AbstractTableFu
     }
 
     @Override
-    protected Optional<FuelInfo> find(final FuelTable fuelTable, final FuelInfoSpecification specification) {
-        final Optional<List<XWPFTableRow>> optionalRows = extractElementTableRows(fuelTable, specification);
-        if (optionalRows.isEmpty()) {
-            return Optional.empty();
-        }
-        final List<XWPFTableRow> elementTableRows = optionalRows.get();
+    protected Optional<FuelInfo> find(final List<XWPFTableRow> elementTableRows, final FuelInfoSpecification specification) {
         final XWPFTableRow routingLengthRow = elementTableRows.get(INDEX_ROUTING_LENGTH_ROW);
         Optional<FuelInfo> fuelInfo = findRowsByFertilizerType(elementTableRows, specification)
                 .flatMap(rows -> findRowsByChargingMethodAndTransportDistance(rows, specification))
@@ -51,32 +45,17 @@ public final class EleventhTableFuelInfoSearchingService extends AbstractTableFu
         return fuelInfo;
     }
 
-    private static Optional<List<XWPFTableRow>> extractElementTableRows(final FuelTable fuelTable, final FuelInfoSpecification specification) {
-        final Optional<XWPFTable> elementTable = extractElementTable(fuelTable, specification);
-        return elementTable.map(XWPFTable::getRows);
+    @Override
+    protected String findElementTableTitleTemplate() {
+        return TEMPLATE_PARAGRAPH_CONTENT_WITH_MACHINERY_AND_TRACTOR;
     }
 
-    private static Optional<XWPFTable> extractElementTable(final FuelTable fuelTable, final FuelInfoSpecification specification) {
-        final OptionalInt optionalFoundParagraphIndex = findIndexParagraphByMachineryAndTractor(fuelTable, specification);
-        if (optionalFoundParagraphIndex.isEmpty()) {
-            return Optional.empty();
-        }
-        final int foundParagraphIndex = optionalFoundParagraphIndex.getAsInt();
-        final int elementTableIndex = foundParagraphIndex + 1;
-        return Optional.of((XWPFTable) fuelTable.getElements().get(elementTableIndex));
-    }
-
-    private static OptionalInt findIndexParagraphByMachineryAndTractor(final FuelTable fuelTable,
-                                                                       final FuelInfoSpecification specification) {
-        final String machinery = extractMachinery(specification);
-        final String tractor = extractTractor(specification);
-        final String contentOfResultParagraph = TEMPLATE_PARAGRAPH_CONTENT_WITH_MACHINERY_AND_TRACTOR.formatted(machinery, tractor);
-        final List<IBodyElement> elements = fuelTable.getElements();
-        //предполагается что 1 элемент - параграф, 2 - таблица и т.д.
-        return iterate(0, i -> i < elements.size(), i -> i + 2)
-//                .peek(i -> System.out.println(((XWPFParagraph) elements.get(i)).getText()))
-                .filter(i -> ((XWPFParagraph) elements.get(i)).getText().equals(contentOfResultParagraph))
-                .findFirst();
+    @Override
+    protected Stream<Function<FuelInfoSpecification, String>> findElementTableTitleTemplateArgumentExtractors() {
+        return Stream.of(
+                FuelInfoSpecificationUtil::extractMachinery,
+                FuelInfoSpecificationUtil::extractTractor
+        );
     }
 
     private static Optional<List<XWPFTableRow>> findRowsByFertilizerType(final List<XWPFTableRow> rows,

@@ -1,7 +1,8 @@
-package by.aurorasoft.fuelinfosearcher.service.searching.soiltreatment;
+package by.aurorasoft.fuelinfosearcher.service.searching.simple.soiltreatment;
 
 import by.aurorasoft.fuelinfosearcher.model.*;
 import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelInfoSearchingService;
+import by.aurorasoft.fuelinfosearcher.service.searching.simple.AbstractSimpleTableFuelInfoSearchingService;
 import by.aurorasoft.fuelinfosearcher.util.FuelInfoUtil;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
@@ -14,7 +15,7 @@ import java.util.OptionalInt;
 import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.*;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
 
-public abstract class AbstractSoilTreatmentFuelInfoSearchingService extends AbstractTableFuelInfoSearchingService {
+public abstract class AbstractSoilTreatmentFuelInfoSearchingService extends AbstractSimpleTableFuelInfoSearchingService {
     private static final int INDEX_ROUTING_LENGTH_ROW = 1;
 
     private static final int CELL_INDEX_WITH_PROCESSING_DEPTH = 0;
@@ -31,8 +32,7 @@ public abstract class AbstractSoilTreatmentFuelInfoSearchingService extends Abst
     }
 
     @Override
-    protected Optional<FuelInfo> find(final FuelTable fuelTable, final FuelInfoSpecification specification) {
-        final List<XWPFTableRow> elementTableRows = extractElementTableRows(fuelTable);
+    protected Optional<FuelInfo> find(final List<XWPFTableRow> elementTableRows, final FuelInfoSpecification specification) {
         final XWPFTableRow routingLengthRow = elementTableRows.get(INDEX_ROUTING_LENGTH_ROW);
         Optional<FuelInfo> fuelInfo = findRowsByProcessingDepth(elementTableRows, specification)
                 .flatMap(rows -> findRowsByTractor(rows, specification))
@@ -40,17 +40,6 @@ public abstract class AbstractSoilTreatmentFuelInfoSearchingService extends Abst
                 .flatMap(rows -> findRowByWorkingWidth(rows, specification))
                 .flatMap(row -> this.findFuelInfo(routingLengthRow, row, specification));
         return fuelInfo;
-    }
-
-    private static List<XWPFTableRow> extractElementTableRows(final FuelTable fuelTable) {
-        final XWPFTable elementTable = extractElementTable(fuelTable);
-        return elementTable.getRows();
-    }
-
-    private static XWPFTable extractElementTable(final FuelTable fuelTable) {
-        final List<IBodyElement> elements = fuelTable.getElements();
-        final IBodyElement firstElement = elements.get(0);
-        return (XWPFTable) firstElement;
     }
 
     private static Optional<List<XWPFTableRow>> findRowsByProcessingDepth(final List<XWPFTableRow> rows,

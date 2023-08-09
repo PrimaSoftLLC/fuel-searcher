@@ -1,7 +1,8 @@
-package by.aurorasoft.fuelinfosearcher.service.searching.ploughing;
+package by.aurorasoft.fuelinfosearcher.service.searching.simple.ploughing;
 
 import by.aurorasoft.fuelinfosearcher.model.*;
 import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelInfoSearchingService;
+import by.aurorasoft.fuelinfosearcher.service.searching.simple.AbstractSimpleTableFuelInfoSearchingService;
 import by.aurorasoft.fuelinfosearcher.util.FuelInfoUtil;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
@@ -16,7 +17,7 @@ import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extr
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findIndexFirstCellByContent;
 
-public abstract class AbstractPloughingFuelInfoSearchingServices extends AbstractTableFuelInfoSearchingService {
+public abstract class AbstractPloughingFuelInfoSearchingServices extends AbstractSimpleTableFuelInfoSearchingService {
     private static final int CELL_INDEX_WITH_GROUP_VALUE = 0;
     private static final int CELL_INDEX_WITH_TRACTOR = 1;
     private static final int CELL_INDEX_WITH_MACHINERY = 2;
@@ -32,8 +33,8 @@ public abstract class AbstractPloughingFuelInfoSearchingServices extends Abstrac
     }
 
     @Override
-    protected final Optional<FuelInfo> find(final FuelTable fuelTable, final FuelInfoSpecification specification) {
-        final List<XWPFTableRow> elementTableRows = extractElementTableRows(fuelTable);
+    protected final Optional<FuelInfo> find(final List<XWPFTableRow> elementTableRows,
+                                            final FuelInfoSpecification specification) {
         final XWPFTableRow routingLengthRow = elementTableRows.get(INDEX_ROUTING_LENGTH_ROW);
         return this.findRowsByGroupValue(elementTableRows, specification)
                 .flatMap(rows -> findRowsByTractor(rows, specification))
@@ -46,18 +47,6 @@ public abstract class AbstractPloughingFuelInfoSearchingServices extends Abstrac
     //Группа - это удельное сопротивление для таблиц #1 и #2 и тип почвы для таблицы #3
     protected abstract String extractGroupValue(final FuelInfoSpecification specification);
     protected abstract String findGroupValueRegex();
-
-
-    private static List<XWPFTableRow> extractElementTableRows(final FuelTable fuelTable) {
-        final XWPFTable elementTable = extractElementTable(fuelTable);
-        return elementTable.getRows();
-    }
-
-    private static XWPFTable extractElementTable(final FuelTable fuelTable) {
-        final List<IBodyElement> elements = fuelTable.getElements();
-        final IBodyElement firstElement = elements.get(0);
-        return (XWPFTable) firstElement;
-    }
 
     private Optional<List<XWPFTableRow>> findRowsByGroupValue(final List<XWPFTableRow> rows,
                                                               final FuelInfoSpecification specification) {

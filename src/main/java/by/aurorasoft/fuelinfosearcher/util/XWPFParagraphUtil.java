@@ -38,6 +38,11 @@ public final class XWPFParagraphUtil {
         return stream(lines);
     }
 
+    public static String extractParagraphText(final IBodyElement element) {
+        final XWPFParagraph paragraph = (XWPFParagraph) element;
+        return paragraph.getText();
+    }
+
     private static boolean isMultilineParagraph(final XWPFParagraph paragraph) {
         return extractParagraphLines(paragraph).count() > 1;
     }

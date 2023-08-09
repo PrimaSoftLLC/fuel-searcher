@@ -2,7 +2,10 @@ package by.aurorasoft.fuelinfosearcher.service.searching;
 
 import by.aurorasoft.fuelinfosearcher.model.*;
 import by.aurorasoft.fuelinfosearcher.service.searching.exception.FuelTableNotExistException;
+import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -20,14 +23,19 @@ public abstract class AbstractTableFuelInfoSearchingService {
     }
 
     public final Optional<FuelInfo> find(final FuelInfoSpecification specification) {
-        return this.find(this.fuelTable, specification);
+        return this.findElementTable(this.fuelTable, specification)
+                .map(XWPFTable::getRows)
+                .flatMap(elementTableRows -> this.find(elementTableRows, specification));
     }
 
     public final String findTableName() {
         return this.fuelTable.getName();
     }
 
-    protected abstract Optional<FuelInfo> find(final FuelTable fuelTable, final FuelInfoSpecification specification);
+    protected abstract Optional<XWPFTable> findElementTable(final FuelTable fuelTable,
+                                                            final FuelInfoSpecification specification);
+    protected abstract Optional<FuelInfo> find(final List<XWPFTableRow> elementTableRows,
+                                               final FuelInfoSpecification specification);
 
     protected final int findFuelInfoOffset(final FuelInfoSpecification specification) {
         final String tableName = this.fuelTable.getName();

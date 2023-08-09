@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelinfosearcher.service.searching.soiltreatment;
+package by.aurorasoft.fuelinfosearcher.service.searching.simple.soiltreatment;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelInfoOffsetFromRoutingLengthStorage;
