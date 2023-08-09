@@ -34,8 +34,11 @@ public abstract class AbstractTableFuelInfoSearchingService {
 
     protected abstract Optional<XWPFTable> findElementTable(final FuelTable fuelTable,
                                                             final FuelInfoSpecification specification);
+
     protected abstract Optional<FuelInfo> find(final List<XWPFTableRow> elementTableRows,
                                                final FuelInfoSpecification specification);
+
+    protected abstract
 
     protected final int findFuelInfoOffset(final FuelInfoSpecification specification) {
         final String tableName = this.fuelTable.getName();
@@ -53,5 +56,9 @@ public abstract class AbstractTableFuelInfoSearchingService {
                                 "Table '%s' doesn't exist".formatted(fuelTableName)
                         )
                 );
+    }
+
+    private Optional<FuelInfo> findFuelInfo() {
+
     }
 }

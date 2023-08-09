@@ -50,7 +50,7 @@ public final class TwelfthTableFuelInfoSearchingService extends AbstractComposit
     }
 
     @Override
-    protected Stream<Function<FuelInfoSpecification, String>> findElementTableTitleTemplateArgumentExtractors() {
+    protected Stream<Function<FuelInfoSpecification, String>> findElementTableTitleTemplateArguments() {
         return Stream.of(
                 FuelInfoSpecificationUtil::extractMachinery
         );
