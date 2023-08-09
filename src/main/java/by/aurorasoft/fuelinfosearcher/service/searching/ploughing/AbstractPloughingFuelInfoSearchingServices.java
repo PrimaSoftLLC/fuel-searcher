@@ -16,17 +16,12 @@ import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extr
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findIndexFirstCellByContent;
 
-//for tables #1, #2, #3
 public abstract class AbstractPloughingFuelInfoSearchingServices extends AbstractFuelInfoSearchingService {
     private static final int CELL_INDEX_WITH_GROUP_VALUE = 0;
     private static final int CELL_INDEX_WITH_TRACTOR = 1;
     private static final int CELL_INDEX_WITH_MACHINERY = 2;
     private static final int CELL_INDEX_WITH_CORPUS_COUNT = 3;
     private static final int CELL_INDEX_WITH_PLOUGHING_DEPTH = 4;
-
-    private static final int UNITED_ROWS_COUNT_IN_TRACTOR_COLUMN = 4;
-    private static final int UNITED_ROWS_COUNT_IN_MACHINERY_COLUMN = 4;
-    private static final int UNITED_ROWS_COUNT_IN_CORPUS_COUNT_COLUMN = 4;
 
     private static final int INDEX_ROUTING_LENGTH_ROW = 1;
 

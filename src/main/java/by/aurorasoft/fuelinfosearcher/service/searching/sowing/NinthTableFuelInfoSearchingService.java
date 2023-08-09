@@ -5,12 +5,11 @@ import by.aurorasoft.fuelinfosearcher.model.FuelInfoOffsetFromRoutingLengthStora
 import org.springframework.stereotype.Service;
 
 @Service
-public final class SowingSugarBeetFuelInfoSearchingService extends AbstractSowingFuelInfoSearchingService {
+public final class NinthTableFuelInfoSearchingService extends AbstractSowingFuelInfoSearchingService {
     private static final String TABLE_NAME = "ПОСЕВ САХАРНОЙ СВЕКЛЫ";
 
-
-    public SowingSugarBeetFuelInfoSearchingService(final FuelInfoOffsetFromRoutingLengthStorage offsetStorage,
-                                                   final FuelDocument fuelDocument) {
+    public NinthTableFuelInfoSearchingService(final FuelInfoOffsetFromRoutingLengthStorage offsetStorage,
+                                              final FuelDocument fuelDocument) {
         super(offsetStorage, fuelDocument, TABLE_NAME);
     }
 }
