@@ -8,13 +8,13 @@ import java.util.Optional;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractRoutingLength;
 
-public abstract class AbstractFuelInfoSearchingService {
+public abstract class AbstractTableFuelInfoSearchingService {
     private final FuelInfoOffsetFromRoutingLengthStorage offsetStorage;
     private final FuelTable fuelTable;
 
-    public AbstractFuelInfoSearchingService(final FuelInfoOffsetFromRoutingLengthStorage offsetStorage,
-                                            final FuelDocument fuelDocument,
-                                            final String fuelTableName) {
+    public AbstractTableFuelInfoSearchingService(final FuelInfoOffsetFromRoutingLengthStorage offsetStorage,
+                                                 final FuelDocument fuelDocument,
+                                                 final String fuelTableName) {
         this.offsetStorage = offsetStorage;
         this.fuelTable = findTableByName(fuelDocument, fuelTableName);
     }

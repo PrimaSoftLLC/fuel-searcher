@@ -15,7 +15,6 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 public final class FuelInfoSearchingIT extends AbstractContextTest {
     private static final List<AbstractTableFuelInfoSeacrhingArgumentsProvider> ARGUMENTS_PROVIDERS = List.of(
             new FirstTableFuelInfoSearchingArgumentsProvider(),
@@ -28,7 +27,8 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
             new EighthTableFuelInfoSearchingArgumentsProvider(),
             new NinthTableFuelInfoSearchingArgumentsProvider(),
             new TenthTableFuelInfoSearchingArgumentsProvider(),
-            new EleventhTableFuelInfoSearchingArgumentsProvider()
+            new EleventhTableFuelInfoSearchingArgumentsProvider(),
+            new TwelfthTableFuelInfoSearchingArgumentsProvider()
     );
 
     private final FuelInfoSearchingManager searchingManager = findBean(FuelInfoSearchingManager.class);

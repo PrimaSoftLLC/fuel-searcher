@@ -1,8 +1,6 @@
 package by.aurorasoft.fuelinfosearcher.service.searching;
 
 import by.aurorasoft.fuelinfosearcher.model.*;
-import by.aurorasoft.fuelinfosearcher.service.searching.exception.FuelInfoSearchingException;
-import by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil;
 import by.aurorasoft.fuelinfosearcher.util.FuelInfoUtil;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -13,15 +11,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
-import java.util.stream.IntStream;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.*;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
 import static java.util.stream.IntStream.iterate;
-import static java.util.stream.IntStream.range;
 
 @Service
-public final class MineralFertilisersFuelInfoSearchingService extends AbstractFuelInfoSearchingService {
+public final class EleventhTableFuelInfoSearchingService extends AbstractTableFuelInfoSearchingService {
     private static final String TABLE_NAME = "ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ";
 
     private static final String TEMPLATE_PARAGRAPH_CONTENT_WITH_MACHINERY_AND_TRACTOR = "РАЗБРАСЫВАТЕЛЕМ %s (трактор %s)";
@@ -35,8 +31,8 @@ public final class MineralFertilisersFuelInfoSearchingService extends AbstractFu
     private static final int CELL_INDEX_WITH_SPREAD_RATE = 2;
 
 
-    public MineralFertilisersFuelInfoSearchingService(final FuelInfoOffsetFromRoutingLengthStorage offsetStorage,
-                                                      final FuelDocument fuelDocument) {
+    public EleventhTableFuelInfoSearchingService(final FuelInfoOffsetFromRoutingLengthStorage offsetStorage,
+                                                 final FuelDocument fuelDocument) {
         super(offsetStorage, fuelDocument, TABLE_NAME);
     }
 

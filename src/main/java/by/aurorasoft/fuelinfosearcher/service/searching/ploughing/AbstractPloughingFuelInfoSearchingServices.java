@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.ploughing;
 
 import by.aurorasoft.fuelinfosearcher.model.*;
-import by.aurorasoft.fuelinfosearcher.service.searching.AbstractFuelInfoSearchingService;
+import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelInfoSearchingService;
 import by.aurorasoft.fuelinfosearcher.util.FuelInfoUtil;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
@@ -16,7 +16,7 @@ import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extr
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findIndexFirstCellByContent;
 
-public abstract class AbstractPloughingFuelInfoSearchingServices extends AbstractFuelInfoSearchingService {
+public abstract class AbstractPloughingFuelInfoSearchingServices extends AbstractTableFuelInfoSearchingService {
     private static final int CELL_INDEX_WITH_GROUP_VALUE = 0;
     private static final int CELL_INDEX_WITH_TRACTOR = 1;
     private static final int CELL_INDEX_WITH_MACHINERY = 2;

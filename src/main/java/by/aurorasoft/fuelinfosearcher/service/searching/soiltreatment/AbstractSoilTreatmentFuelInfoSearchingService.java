@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.soiltreatment;
 
 import by.aurorasoft.fuelinfosearcher.model.*;
-import by.aurorasoft.fuelinfosearcher.service.searching.AbstractFuelInfoSearchingService;
+import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelInfoSearchingService;
 import by.aurorasoft.fuelinfosearcher.util.FuelInfoUtil;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
@@ -14,7 +14,7 @@ import java.util.OptionalInt;
 import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.*;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
 
-public abstract class AbstractSoilTreatmentFuelInfoSearchingService extends AbstractFuelInfoSearchingService {
+public abstract class AbstractSoilTreatmentFuelInfoSearchingService extends AbstractTableFuelInfoSearchingService {
     private static final int INDEX_ROUTING_LENGTH_ROW = 1;
 
     private static final int CELL_INDEX_WITH_PROCESSING_DEPTH = 0;
