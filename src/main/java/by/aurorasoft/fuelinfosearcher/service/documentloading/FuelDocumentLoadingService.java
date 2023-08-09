@@ -13,18 +13,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelinfosearcher.util.StreamUtil.asStream;
-import static by.aurorasoft.fuelinfosearcher.util.XWPFDocumentUtil.extractElementsSplittingMultilineParagraphs;
-import static by.aurorasoft.fuelinfosearcher.util.XWPFParagraphUtil.extractParagraphLines;
-import static by.aurorasoft.fuelinfosearcher.util.XWPFParagraphUtil.isEmptyParagraph;
+import static by.aurorasoft.fuelinfosearcher.util.XWPFParagraphUtil.*;
 import static java.nio.file.Files.newInputStream;
 import static java.util.Optional.empty;
 import static java.util.regex.Pattern.compile;
@@ -36,7 +32,8 @@ public final class FuelDocumentLoadingService {
 
     public FuelDocument load() {
         try (final XWPFDocument document = new XWPFDocument(createFileInputStream())) {
-            return this.load(document);
+            final FuelDocument fuelDocument = this.load(document);
+            return fuelDocument;
         } catch (final IOException cause) {
             throw new FuelDocumentLoadingException(cause);
         }
@@ -73,9 +70,14 @@ public final class FuelDocumentLoadingService {
     }
 
     private static final class ElementBoundedToTableNameIterator implements Iterator<ElementBoundedToTableTitle> {
-        private static final String TABLE_TITLE_REGEX = "\\d+\\.\\p{Z}([А-Я\\s:,]+)";
+        private static final String TABLE_TITLE_REGEX = "(\\d+\\.\\p{Z}([А-Я\\s:,]+))";
         private static final Pattern TABLE_TITLE_PATTERN = compile(TABLE_TITLE_REGEX);
-        private static final int TABLE_NAME_GROUP_NUMBER = 1;
+        private static final int TABLE_TITLE_GROUP_NUMBER = 1;
+        private static final int TABLE_NAME_GROUP_NUMBER = 2;
+
+        private static final String TABLE_TITLE_WITH_OTHER_CONTENT_REGEX = TABLE_TITLE_REGEX + "\n(.*)";
+        private static final Pattern TABLE_TITLE_WITH_OTHER_CONTENT_PATTERN = compile(TABLE_TITLE_WITH_OTHER_CONTENT_REGEX);
+        private static final int OTHER_CONTENT_GROUP_NUMBER = 3;
 
         private final Iterator<IBodyElement> elementIterator;
         private String currentTableName;
@@ -97,13 +99,28 @@ public final class FuelDocumentLoadingService {
         }
 
         private static Iterator<IBodyElement> createElementIterator(final XWPFDocument document) {
-
-            return extractElementsSplittingMultilineParagraphs(document)
+            final List<IBodyElement> copiedElements = new ArrayList<>(document.getBodyElements());
+            return copiedElements.stream()
+                    .flatMap(ElementBoundedToTableNameIterator::splitIfParagraphContainsTitleWithOtherContent)
                     .filter(element -> !isEmptyParagraph(element))
                     .iterator();
         }
 
-
+        //TODO: refactor
+        private static Stream<IBodyElement> splitIfParagraphContainsTitleWithOtherContent(final IBodyElement element) {
+            if (!(element instanceof final XWPFParagraph paragraph)) {
+                return Stream.of(element);
+            }
+            final String paragraphText = paragraph.getText();
+            final Matcher matcher = TABLE_TITLE_WITH_OTHER_CONTENT_PATTERN.matcher(paragraphText);
+            if (!matcher.matches()) {
+                return Stream.of(paragraph);
+            }
+            final String tableTitle = matcher.group(TABLE_TITLE_GROUP_NUMBER);
+            final String otherContent = matcher.group(OTHER_CONTENT_GROUP_NUMBER);
+            final XWPFDocument document = paragraph.getDocument();
+            return Stream.of(createParagraph(tableTitle, document), createParagraph(otherContent, document));
+        }
 
         private void iterateToFirstTableTitle() {
             Optional<String> optionalCurrentTableTitle;

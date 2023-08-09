@@ -43,6 +43,13 @@ public final class XWPFParagraphUtil {
         return paragraph.getText();
     }
 
+    public static XWPFParagraph createParagraph(final String content, final XWPFDocument document) {
+        final XWPFParagraph paragraph = document.createParagraph();
+        final XWPFRun run = paragraph.createRun();
+        run.setText(content);
+        return paragraph;
+    }
+
     private static boolean isMultilineParagraph(final XWPFParagraph paragraph) {
         return extractParagraphLines(paragraph).count() > 1;
     }
@@ -64,13 +71,6 @@ public final class XWPFParagraphUtil {
         return paragraphText
                 .replaceAll(NBSP_SYMBOLS_IN_START_STRING_REGEX, EMPTY_STRING)
                 .replaceAll(NBSP_SYMBOLS_IN_END_STRING_REGEX, EMPTY_STRING);
-    }
-
-    private static XWPFParagraph createParagraph(final String content, final XWPFDocument document) {
-        final XWPFParagraph paragraph = document.createParagraph();
-        final XWPFRun run = paragraph.createRun();
-        run.setText(content);
-        return paragraph;
     }
 
     private static Stream<IBodyElement> splitMultilineParagraph(final IBodyElement element) {
