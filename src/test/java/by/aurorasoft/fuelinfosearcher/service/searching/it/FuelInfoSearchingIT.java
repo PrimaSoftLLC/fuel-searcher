@@ -30,7 +30,8 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
             new EleventhTableFuelInfoSearchingArgumentsProvider(),
             new TwelfthTableFuelInfoSearchingArgumentsProvider(),
             //TODO: 13, 14
-            new FifteenthTableFuelInfoSearchingArgumentsProvider()
+            new FifteenthTableFuelInfoSearchingArgumentsProvider(),
+            new SixteenthTableFuelInfoSearchingArgumentProvider()
     );
 
     private final FuelInfoSearchingManager searchingManager = findBean(FuelInfoSearchingManager.class);
