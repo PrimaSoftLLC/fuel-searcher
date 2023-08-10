@@ -8,9 +8,7 @@ import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extr
 
 public abstract class AbstractPloughingFuelInfoSearchingBySpecificResistanceService
         extends AbstractPloughingFuelInfoSearchingService {
-
     private static final String REGEX_CONTENT_SPECIFIC_RESISTANCE = "Удельное сопротивление (плуга )?\\d+...\\d+ кПа";
-
 
     public AbstractPloughingFuelInfoSearchingBySpecificResistanceService(final FuelDocument fuelDocument,
                                                                          final String fuelTableName,
