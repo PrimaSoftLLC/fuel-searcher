@@ -1,6 +1,8 @@
 package by.aurorasoft.fuelinfosearcher.util;
 
 import by.aurorasoft.fuelinfosearcher.functionalinterface.ThreeArgumentPredicate;
+import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
+import by.aurorasoft.fuelinfosearcher.model.IntPair;
 import lombok.experimental.UtilityClass;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
@@ -67,6 +69,36 @@ public final class XWPFUtil {
         return !foundRows.isEmpty() ? Optional.of(foundRows) : empty();
     }
 
+    public static Optional<List<XWPFTableRow>> findUnitedRowsByContent(final List<XWPFTableRow> rows,
+                                                                       final int cellIndexWithContent,
+                                                                       final FuelInfoSpecification specification,
+                                                                       final Function<FuelInfoSpecification, String> contentExtractor) {
+        final String content = contentExtractor.apply(specification);
+        return findUnitedRowsByContent(rows, cellIndexWithContent, content);
+    }
+
+    public static Optional<List<XWPFTableRow>> findRowsByContent(final List<XWPFTableRow> rows,
+                                                                 final int cellIndexWithContent,
+                                                                 final String content) {
+        List<XWPFTableRow> tableRows = range(0, rows.size())
+                .filter(i -> isCellContentMatch(rows.get(i), cellIndexWithContent, content))
+                .mapToObj(i -> rows.get(i))
+                .toList();
+        return !tableRows.isEmpty() ? Optional.of(tableRows) : empty();
+    }
+
+    public static Optional<List<XWPFTableRow>> findRowsByContent(final List<XWPFTableRow> rows,
+                                                                 final int cellIndexWithContent,
+                                                                 final FuelInfoSpecification specification,
+                                                                 final Function<FuelInfoSpecification, String> contentExtractor) {
+        final String content = contentExtractor.apply(specification);
+        return findRowsByContent(
+                rows,
+                cellIndexWithContent,
+                content
+        );
+    }
+
     public static Optional<XWPFTableRow> findFirstRowByContent(final List<XWPFTableRow> rows,
                                                                final int cellIndexWithContent,
                                                                final String content) {
@@ -74,6 +106,18 @@ public final class XWPFUtil {
                 .stream()
                 .mapToObj(rows::get)
                 .findFirst();
+    }
+
+    public static Optional<XWPFTableRow> findFirstRowByContent(final List<XWPFTableRow> rows,
+                                                               final int cellIndexWithContent,
+                                                               final FuelInfoSpecification specification,
+                                                               final Function<FuelInfoSpecification, String> contentExtractor) {
+        final String content = contentExtractor.apply(specification);
+        return findFirstRowByContent(
+                rows,
+                cellIndexWithContent,
+                content
+        );
     }
 
     public static OptionalInt findIndexFirstCellByContent(final XWPFTableRow row, final String content) {
@@ -87,6 +131,11 @@ public final class XWPFUtil {
         return extractValue(row, cellIndex, XWPFUtil::extractDoubleValue);
     }
 
+    public static List<XWPFTableRow> extractRows(final List<XWPFTableRow> rows, final IntPair borders) {
+        final int indexFirstRow = borders.getFirst();
+        final int nextIndexLastRow = borders.getSecond();
+        return rows.subList(indexFirstRow, nextIndexLastRow);
+    }
 
     private static boolean isCellContentMatch(final XWPFTableRow row,
                                               final int cellNumber,
