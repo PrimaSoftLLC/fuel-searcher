@@ -13,6 +13,8 @@ import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
 
 @UtilityClass
 public final class FuelDocumentRowFilterUtil {
+    //TODO: дописать все группы в комментарии
+    //Группа - это удельное сопротивление для таблиц #1 и #2 и тип почвы для таблицы #3
     private static final int CELL_INDEX_GROUP_VALUE = 0;
     private static final int CELL_INDEX_TRACTOR = 1;
     private static final int CELL_INDEX_MACHINERY = 2;

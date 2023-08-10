@@ -31,7 +31,6 @@ public abstract class AbstractPloughingFuelInfoSearchingService extends Abstract
                 .flatMap(rows -> findRowByPloughingDepth(rows, specification));
     }
 
-    //Группа - это удельное сопротивление для таблиц #1 и #2 и тип почвы для таблицы #3
     protected abstract String extractGroupValue(final FuelInfoSpecification specification);
 
     protected abstract String findGroupValueRegex();
