@@ -26,6 +26,7 @@ public final class FuelDocumentRowFilterUtil {
     private static final String REGEX_CONTENT_PROCESSING_DEPTH = "Глубина обработки \\d+((…)|(...))\\d+ см";
     private static final String REGEX_SOIL_TYPE_CONTENT = "(Минеральные почвы)|(Торфяные почвы)";
     private static final String REGEX_CONTENT_SPECIFIC_RESISTANCE = "Удельное сопротивление (плуга )?\\d+...\\d+ кПа";
+    private static final String REGEX_CONTENT_SOWING_NORM = "Норма высева (семян )?\\d+(–\\d+)? кг/га";
 
     public static Optional<List<XWPFTableRow>> findRowsByTractor(final List<XWPFTableRow> rows,
                                                                  final FuelInfoSpecification specification) {
@@ -126,6 +127,16 @@ public final class FuelDocumentRowFilterUtil {
                 specification,
                 FuelInfoSpecificationUtil::extractSpecificResistance,
                 REGEX_CONTENT_SPECIFIC_RESISTANCE
+        );
+    }
+
+    public static Optional<List<XWPFTableRow>> findRowsBySowingNorm(final List<XWPFTableRow> rows,
+                                                                    final FuelInfoSpecification specification) {
+        return findRowsByGroupValue(
+                rows,
+                specification,
+                FuelInfoSpecificationUtil::extractSowingNorm,
+                REGEX_CONTENT_SOWING_NORM
         );
     }
 
