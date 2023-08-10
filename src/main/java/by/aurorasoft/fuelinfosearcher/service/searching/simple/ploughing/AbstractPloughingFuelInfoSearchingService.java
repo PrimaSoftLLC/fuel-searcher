@@ -11,11 +11,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
 
+import static by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil.findRowsByTractor;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
 
 public abstract class AbstractPloughingFuelInfoSearchingService extends AbstractSimpleTableFuelInfoSearchingService {
     private static final int CELL_INDEX_GROUP_VALUE = 0;
-    private static final int CELL_INDEX_TRACTOR = 1;
     private static final int CELL_INDEX_MACHINERY = 2;
     private static final int CELL_INDEX_CORPUS_COUNT = 3;
     private static final int CELL_INDEX_PLOUGHING_DEPTH = 4;
@@ -76,16 +76,6 @@ public abstract class AbstractPloughingFuelInfoSearchingService extends Abstract
                 CELL_INDEX_GROUP_VALUE,
                 this.findGroupValueRegex()
         ).orElse(rows.size());
-    }
-
-    private static Optional<List<XWPFTableRow>> findRowsByTractor(final List<XWPFTableRow> rows,
-                                                                  final FuelInfoSpecification specification) {
-        return findUnitedRowsByContent(
-                rows,
-                CELL_INDEX_TRACTOR,
-                specification,
-                FuelInfoSpecificationUtil::extractTractor
-        );
     }
 
     private static Optional<List<XWPFTableRow>> findRowsByMachinery(final List<XWPFTableRow> rows,

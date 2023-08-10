@@ -12,7 +12,6 @@ import java.util.Optional;
 
 public abstract class AbstractSimpleTableFuelInfoSearchingService extends AbstractTableFuelInfoSearchingService {
 
-
     public AbstractSimpleTableFuelInfoSearchingService(final FuelDocument fuelDocument,
                                                        final String fuelTableName,
                                                        final String[] routingLengths,

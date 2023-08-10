@@ -9,11 +9,11 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import java.util.List;
 import java.util.Optional;
 
+import static by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil.findRowsByTractor;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findFirstRowByContent;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findUnitedRowsByContent;
 
 public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService extends AbstractSimpleTableFuelInfoSearchingService {
-    private static final int CELL_INDEX_TRACTOR = 1;
     private static final int CELL_INDEX_MACHINERY = 2;
 
     public AbstractMovingAndMouldingTableFuelInfoSearchingService(final FuelDocument fuelDocument,
@@ -35,16 +35,6 @@ public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService ext
     protected abstract int findIndexCellOfWorkingWidth();
 
     protected abstract int findIndexCellOfYield();
-
-    private static Optional<List<XWPFTableRow>> findRowsByTractor(final List<XWPFTableRow> rows,
-                                                                  final FuelInfoSpecification specification) {
-        return findUnitedRowsByContent(
-                rows,
-                CELL_INDEX_TRACTOR,
-                specification,
-                FuelInfoSpecificationUtil::extractTractor
-        );
-    }
 
     private static Optional<List<XWPFTableRow>> findRowsByMachinery(final List<XWPFTableRow> rows,
                                                                     final FuelInfoSpecification specification) {
