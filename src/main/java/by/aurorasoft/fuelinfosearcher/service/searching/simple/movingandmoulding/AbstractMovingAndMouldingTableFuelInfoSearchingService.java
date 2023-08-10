@@ -1,26 +1,26 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.simple.movingandmoulding;
 
-import by.aurorasoft.fuelinfosearcher.model.*;
+import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
+import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
 import by.aurorasoft.fuelinfosearcher.service.searching.simple.AbstractSimpleTableFuelInfoSearchingService;
-import by.aurorasoft.fuelinfosearcher.util.FuelInfoUtil;
+import by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.OptionalInt;
 
-import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.*;
-import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
+import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findFirstRowByContent;
+import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findUnitedRowsByContent;
 
 public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService extends AbstractSimpleTableFuelInfoSearchingService {
-    private static final int CELL_INDEX_WITH_TRACTOR = 1;
-    private static final int CELL_INDEX_WITH_MACHINERY = 2;
-    ;
+    private static final int CELL_INDEX_TRACTOR = 1;
+    private static final int CELL_INDEX_MACHINERY = 2;
 
-    public AbstractMovingAndMouldingTableFuelInfoSearchingService(final FuelInfoOffsetFromRoutingLengthStorage offsetStorage,
-                                                                  final FuelDocument fuelDocument,
-                                                                  final String fuelTableName) {
-        super(offsetStorage, fuelDocument, fuelTableName);
+    public AbstractMovingAndMouldingTableFuelInfoSearchingService(final FuelDocument fuelDocument,
+                                                                  final String fuelTableName,
+                                                                  final String[] routingLengths,
+                                                                  final int firstFuelInfoOffset) {
+        super(fuelDocument, fuelTableName, routingLengths, firstFuelInfoOffset);
     }
 
     @Override
@@ -38,39 +38,41 @@ public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService ext
 
     private static Optional<List<XWPFTableRow>> findRowsByTractor(final List<XWPFTableRow> rows,
                                                                   final FuelInfoSpecification specification) {
-        //TODO: remove variable
-        Optional<List<XWPFTableRow>> unitedRowsByContent = findUnitedRowsByContent(
+        return findUnitedRowsByContent(
                 rows,
-                CELL_INDEX_WITH_TRACTOR,
-                extractTractor(specification)
+                CELL_INDEX_TRACTOR,
+                specification,
+                FuelInfoSpecificationUtil::extractTractor
         );
-        return unitedRowsByContent;
     }
 
     private static Optional<List<XWPFTableRow>> findRowsByMachinery(final List<XWPFTableRow> rows,
                                                                     final FuelInfoSpecification specification) {
-        Optional<List<XWPFTableRow>> unitedRowsByContent = findUnitedRowsByContent(
+        return findUnitedRowsByContent(
                 rows,
-                CELL_INDEX_WITH_MACHINERY,
-                extractMachinery(specification)
+                CELL_INDEX_MACHINERY,
+                specification,
+                FuelInfoSpecificationUtil::extractMachinery
         );
-        return unitedRowsByContent;
     }
 
     private Optional<List<XWPFTableRow>> findRowsByWorkingWidth(final List<XWPFTableRow> rows,
                                                                 final FuelInfoSpecification specification) {
-        Optional<List<XWPFTableRow>> unitedRowsByContent = findUnitedRowsByContent(
+        return findUnitedRowsByContent(
                 rows,
                 this.findIndexCellOfWorkingWidth(),
-                extractWorkingWidth(specification)
+                specification,
+                FuelInfoSpecificationUtil::extractWorkingWidth
         );
-        return unitedRowsByContent;
     }
 
     private Optional<XWPFTableRow> findRowByYield(final List<XWPFTableRow> rows,
                                                   final FuelInfoSpecification specification) {
-        final String yield = extractYield(specification);
-        Optional<XWPFTableRow> firstRowByContent = findFirstRowByContent(rows, this.findIndexCellOfYield(), yield);
-        return firstRowByContent;
+        return findFirstRowByContent(
+                rows,
+                this.findIndexCellOfYield(),
+                specification,
+                FuelInfoSpecificationUtil::extractYield
+        );
     }
 }

@@ -44,6 +44,18 @@ public final class XWPFUtil {
         );
     }
 
+    public static OptionalInt findIndexFirstRowByContent(final List<XWPFTableRow> rows,
+                                                         final int cellIndexWithContent,
+                                                         final FuelInfoSpecification specification,
+                                                         final Function<FuelInfoSpecification, String> contentExtractor) {
+        final String content = contentExtractor.apply(specification);
+        return findIndexFirstRowByContent(
+                rows,
+                cellIndexWithContent,
+                content
+        );
+    }
+
     public static OptionalInt findIndexFirstRowByContentRegex(final List<XWPFTableRow> rows,
                                                               final int startFindingIndex,
                                                               final int cellIndexWithContent,

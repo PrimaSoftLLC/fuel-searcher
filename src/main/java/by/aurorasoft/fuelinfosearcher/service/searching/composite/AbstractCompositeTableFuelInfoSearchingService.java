@@ -22,10 +22,11 @@ import static java.util.stream.IntStream.iterate;
  */
 public abstract class AbstractCompositeTableFuelInfoSearchingService extends AbstractTableFuelInfoSearchingService {
 
-    public AbstractCompositeTableFuelInfoSearchingService(final FuelInfoOffsetFromRoutingLengthStorage offsetStorage,
-                                                          final FuelDocument fuelDocument,
-                                                          final String fuelTableName) {
-        super(offsetStorage, fuelDocument, fuelTableName);
+    public AbstractCompositeTableFuelInfoSearchingService(final FuelDocument fuelDocument,
+                                                          final String fuelTableName,
+                                                          final String[] routingLengths,
+                                                          final int firstFuelInfoOffset) {
+        super(fuelDocument, fuelTableName, routingLengths, firstFuelInfoOffset);
     }
 
     @Override

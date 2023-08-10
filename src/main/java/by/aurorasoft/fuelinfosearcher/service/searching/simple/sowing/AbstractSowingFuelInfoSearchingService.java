@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
 
-import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.*;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
 
 public abstract class AbstractSowingFuelInfoSearchingService extends AbstractSimpleTableFuelInfoSearchingService {
@@ -23,8 +22,8 @@ public abstract class AbstractSowingFuelInfoSearchingService extends AbstractSim
     public AbstractSowingFuelInfoSearchingService(final FuelDocument fuelDocument,
                                                   final String fuelTableName,
                                                   final String[] routingLengths,
-                                                  final int firstRoutingLengthOffset) {
-        super(fuelDocument, fuelTableName, routingLengths, firstRoutingLengthOffset);
+                                                  final int firstFuelInfoOffset) {
+        super(fuelDocument, fuelTableName, routingLengths, firstFuelInfoOffset);
     }
 
     @Override
@@ -40,7 +39,7 @@ public abstract class AbstractSowingFuelInfoSearchingService extends AbstractSim
                                                                      final FuelInfoSpecification specification) {
         return findIndexRowBySowingNorm(rows, specification)
                 .stream()
-                .map(indexRowWithSowingNorm -> indexRowWithSowingNorm + 1)
+                .map(indexRowSowingNorm -> indexRowSowingNorm + 1)
                 .mapToObj(indexFirstMatchingRow -> findIndexBordersRowsMatchingSowingNorm(indexFirstMatchingRow, rows))
                 .map(borderRowIndexes -> extractRows(rows, borderRowIndexes))
                 .findFirst();
@@ -48,8 +47,12 @@ public abstract class AbstractSowingFuelInfoSearchingService extends AbstractSim
 
     private static OptionalInt findIndexRowBySowingNorm(final List<XWPFTableRow> rows,
                                                         final FuelInfoSpecification specification) {
-        final String sowingNorm = extractSowingNorm(specification);
-        return findIndexFirstRowByContent(rows, CELL_INDEX_SOWING_NORM, sowingNorm);
+        return findIndexFirstRowByContent(
+                rows,
+                CELL_INDEX_SOWING_NORM,
+                specification,
+                FuelInfoSpecificationUtil::extractSowingNorm
+        );
     }
 
     private static IntPair findIndexBordersRowsMatchingSowingNorm(final int indexFirstMatchingRow,

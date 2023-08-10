@@ -24,10 +24,10 @@ public abstract class AbstractTableFuelInfoSearchingService {
     public AbstractTableFuelInfoSearchingService(final FuelDocument fuelDocument,
                                                  final String fuelTableName,
                                                  final String[] routingLengths,
-                                                 final int firstRoutingLengthOffset) {
+                                                 final int firstFuelInfoOffset) {
         this.fuelTable = findTableByName(fuelDocument, fuelTableName);
         this.fuelInfoOffsetsByRoutingLengths = createFuelInfoOffsetsByRoutingLengths(
-                routingLengths, firstRoutingLengthOffset
+                routingLengths, firstFuelInfoOffset
         );
     }
 
@@ -60,10 +60,10 @@ public abstract class AbstractTableFuelInfoSearchingService {
     }
 
     private static Map<String, Integer> createFuelInfoOffsetsByRoutingLengths(final String[] routingLengths,
-                                                                              final int firstRoutingLengthOffset) {
+                                                                              final int firstFuelInfoOffset) {
         return range(0, routingLengths.length)
                 .boxed()
-                .collect(toMap(i -> routingLengths[i], i -> i + firstRoutingLengthOffset));
+                .collect(toMap(i -> routingLengths[i], i -> i + firstFuelInfoOffset));
     }
 
     private Optional<FuelInfo> findFuelInfo(final List<XWPFTableRow> elementTableRows,
@@ -78,12 +78,16 @@ public abstract class AbstractTableFuelInfoSearchingService {
                                                             final FuelInfoSpecification specification,
                                                             final XWPFTableRow dataRow) {
         final String routingLength = extractRoutingLength(specification);
-        final int fuelInfoOffset = this.fuelInfoOffsetsByRoutingLengths.get(routingLength);
         return findIndexFirstCellByContent(routingLengthRow, routingLength)
                 .stream()
-                .map(cellIndexWithRoutingLength -> cellIndexWithRoutingLength + fuelInfoOffset)
+                .map(cellIndexRoutingLength -> this.findCellIndexGenerationNorm(cellIndexRoutingLength, routingLength))
                 .mapToObj(cellIndexGenerationNorm -> createFuelInfoLocation(dataRow, cellIndexGenerationNorm))
                 .findFirst();
+    }
+
+    private int findCellIndexGenerationNorm(final int cellIndexRoutingLength, final String routingLength) {
+        final int fuelInfoOffset = this.fuelInfoOffsetsByRoutingLengths.get(routingLength);
+        return cellIndexRoutingLength + fuelInfoOffset;
     }
 
     private static FuelInfoLocation createFuelInfoLocation(final XWPFTableRow dataRow,

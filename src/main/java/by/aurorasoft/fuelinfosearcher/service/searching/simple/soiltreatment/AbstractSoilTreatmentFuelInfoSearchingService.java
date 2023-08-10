@@ -1,36 +1,35 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.simple.soiltreatment;
 
 import by.aurorasoft.fuelinfosearcher.model.*;
-import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelInfoSearchingService;
 import by.aurorasoft.fuelinfosearcher.service.searching.simple.AbstractSimpleTableFuelInfoSearchingService;
-import by.aurorasoft.fuelinfosearcher.util.FuelInfoUtil;
-import org.apache.poi.xwpf.usermodel.IBodyElement;
-import org.apache.poi.xwpf.usermodel.XWPFTable;
+import by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
 
-import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.*;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
+import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findFirstRowByContent;
 
 public abstract class AbstractSoilTreatmentFuelInfoSearchingService extends AbstractSimpleTableFuelInfoSearchingService {
-    private static final int CELL_INDEX_WITH_PROCESSING_DEPTH = 0;
-    private static final int CELL_INDEX_WITH_TRACTOR = 1;
-    private static final int CELL_INDEX_WITH_MACHINERY = 2;
-    private static final int CELL_INDEX_WITH_WORKING_WIDTH = 3;
+    private static final int CELL_INDEX_PROCESSING_DEPTH = 0;
+    private static final int CELL_INDEX_TRACTOR = 1;
+    private static final int CELL_INDEX_MACHINERY = 2;
+    private static final int CELL_INDEX_WORKING_WIDTH = 3;
 
     private static final String REGEX_CONTENT_PROCESSING_DEPTH = "Глубина обработки \\d+((…)|(...))\\d+ см";
 
-    public AbstractSoilTreatmentFuelInfoSearchingService(final FuelInfoOffsetFromRoutingLengthStorage offsetStorage,
-                                                         final FuelDocument fuelDocument,
-                                                         final String fuelTableName) {
-        super(offsetStorage, fuelDocument, fuelTableName);
+    public AbstractSoilTreatmentFuelInfoSearchingService(final FuelDocument fuelDocument,
+                                                         final String fuelTableName,
+                                                         final String[] routingLengths,
+                                                         final int firstFuelInfoOffset) {
+        super(fuelDocument, fuelTableName, routingLengths, firstFuelInfoOffset);
     }
 
     @Override
-    protected Optional<XWPFTableRow> findAppropriateRow(final List<XWPFTableRow> elementTableRows, final FuelInfoSpecification specification) {
+    protected final Optional<XWPFTableRow> findAppropriateRow(final List<XWPFTableRow> elementTableRows,
+                                                              final FuelInfoSpecification specification) {
         return findRowsByProcessingDepth(elementTableRows, specification)
                 .flatMap(rows -> findRowsByTractor(rows, specification))
                 .flatMap(rows -> findRowsByMachinery(rows, specification))
@@ -41,7 +40,7 @@ public abstract class AbstractSoilTreatmentFuelInfoSearchingService extends Abst
                                                                           final FuelInfoSpecification specification) {
         return findIndexRowByProcessingDepth(rows, specification)
                 .stream()
-                .map(indexRowWithProcessingDepth -> indexRowWithProcessingDepth + 1)
+                .map(indexRowProcessingDepth -> indexRowProcessingDepth + 1)
                 .mapToObj(indexFirstMatchingRow -> findIndexBordersRowsMatchingPloughingDepth(indexFirstMatchingRow, rows))
                 .map(borderRowIndexes -> extractRows(rows, borderRowIndexes))
                 .findFirst();
@@ -49,8 +48,12 @@ public abstract class AbstractSoilTreatmentFuelInfoSearchingService extends Abst
 
     private static OptionalInt findIndexRowByProcessingDepth(final List<XWPFTableRow> rows,
                                                              final FuelInfoSpecification specification) {
-        final String processingDepth = extractProcessingDepth(specification);
-        return findIndexFirstRowByContent(rows, CELL_INDEX_WITH_PROCESSING_DEPTH, processingDepth);
+        return findIndexFirstRowByContent(
+                rows,
+                CELL_INDEX_PROCESSING_DEPTH,
+                specification,
+                FuelInfoSpecificationUtil::extractProcessingDepth
+        );
     }
 
     private static IntPair findIndexBordersRowsMatchingPloughingDepth(final int indexFirstMatchingRow,
@@ -64,43 +67,38 @@ public abstract class AbstractSoilTreatmentFuelInfoSearchingService extends Abst
         return findIndexFirstRowByContentRegex(
                 rows,
                 startSearchingIndex,
-                CELL_INDEX_WITH_PROCESSING_DEPTH,
+                CELL_INDEX_PROCESSING_DEPTH,
                 REGEX_CONTENT_PROCESSING_DEPTH
         ).orElse(rows.size());
     }
 
-    private static List<XWPFTableRow> extractRows(final List<XWPFTableRow> rows, final IntPair borders) {
-        final int indexFirstRow = borders.getFirst();
-        final int nextIndexLastRow = borders.getSecond();
-        return rows.subList(indexFirstRow, nextIndexLastRow);
-    }
-
     private static Optional<List<XWPFTableRow>> findRowsByTractor(final List<XWPFTableRow> rows,
                                                                   final FuelInfoSpecification specification) {
-        //TODO: remove variable
-        Optional<List<XWPFTableRow>> unitedRowsByContent = findUnitedRowsByContent(
+        return findUnitedRowsByContent(
                 rows,
-                CELL_INDEX_WITH_TRACTOR,
-                extractTractor(specification)
+                CELL_INDEX_TRACTOR,
+                specification,
+                FuelInfoSpecificationUtil::extractTractor
         );
-        return unitedRowsByContent;
     }
 
     private static Optional<List<XWPFTableRow>> findRowsByMachinery(final List<XWPFTableRow> rows,
                                                                     final FuelInfoSpecification specification) {
-        //TODO: remove variable, maybe call other method: there is no united rows
-        Optional<List<XWPFTableRow>> unitedRowsByContent = findUnitedRowsByContent(
+        return findRowsByContent(
                 rows,
-                CELL_INDEX_WITH_MACHINERY,
-                extractMachinery(specification)
+                CELL_INDEX_MACHINERY,
+                specification,
+                FuelInfoSpecificationUtil::extractMachinery
         );
-        return unitedRowsByContent;
     }
 
     private static Optional<XWPFTableRow> findRowByWorkingWidth(final List<XWPFTableRow> rows,
                                                                 final FuelInfoSpecification specification) {
-        final String workingWidth = extractWorkingWidth(specification);
-        Optional<XWPFTableRow> firstRowByContent = findFirstRowByContent(rows, CELL_INDEX_WITH_WORKING_WIDTH, workingWidth);
-        return firstRowByContent;
+        return findFirstRowByContent(
+                rows,
+                CELL_INDEX_WORKING_WIDTH,
+                specification,
+                FuelInfoSpecificationUtil::extractWorkingWidth
+        );
     }
 }

@@ -1,7 +1,6 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.composite;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
-import by.aurorasoft.fuelinfosearcher.model.FuelInfoOffsetFromRoutingLengthStorage;
 import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
 import by.aurorasoft.fuelinfosearcher.model.IntPair;
 import by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil;
@@ -20,6 +19,10 @@ import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
 @Service
 public final class EleventhTableFuelInfoSearchingService extends AbstractCompositeTableFuelInfoSearchingService {
     private static final String TABLE_NAME = "ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ";
+    private static final String[] ROUTING_LENGTHS = new String[]{
+            "Менее 150", "150–200", "201–300", "301–400", "401–600", "601–1000", "Более 1000"
+    };
+    private static final int FIRST_FUEL_INFO_OFFSET = 0;
 
     private static final String TEMPLATE_PARAGRAPH_CONTENT_WITH_MACHINERY_AND_TRACTOR = "РАЗБРАСЫВАТЕЛЕМ %s (трактор %s)";
 
@@ -30,9 +33,8 @@ public final class EleventhTableFuelInfoSearchingService extends AbstractComposi
     private static final int CELL_INDEX_WITH_SPREAD_RATE = 2;
 
 
-    public EleventhTableFuelInfoSearchingService(final FuelInfoOffsetFromRoutingLengthStorage offsetStorage,
-                                                 final FuelDocument fuelDocument) {
-        super(offsetStorage, fuelDocument, TABLE_NAME);
+    public EleventhTableFuelInfoSearchingService(final FuelDocument fuelDocument) {
+        super(fuelDocument, TABLE_NAME, ROUTING_LENGTHS, FIRST_FUEL_INFO_OFFSET);
     }
 
     @Override
