@@ -6,35 +6,39 @@ import by.aurorasoft.fuelinfosearcher.util.FuelInfoUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.OptionalInt;
+import java.util.*;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractRoutingLength;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findIndexFirstCellByContent;
+import static java.util.stream.Collectors.toMap;
+import static java.util.stream.IntStream.range;
 
 public abstract class AbstractTableFuelInfoSearchingService {
     private static final int INDEX_ROUTING_LENGTH_ROW = 1;
 
-    private final FuelInfoOffsetFromRoutingLengthStorage offsetStorage;
     private final FuelTable fuelTable;
 
-    public AbstractTableFuelInfoSearchingService(final FuelInfoOffsetFromRoutingLengthStorage offsetStorage,
-                                                 final FuelDocument fuelDocument,
-                                                 final String fuelTableName) {
-        this.offsetStorage = offsetStorage;
+    //cell's indexes of generation norm by routing lengths
+    private final Map<String, Integer> fuelInfoOffsetsByRoutingLengths;
+
+    public AbstractTableFuelInfoSearchingService(final FuelDocument fuelDocument,
+                                                 final String fuelTableName,
+                                                 final String[] routingLengths,
+                                                 final int firstRoutingLengthOffset) {
         this.fuelTable = findTableByName(fuelDocument, fuelTableName);
+        this.fuelInfoOffsetsByRoutingLengths = createFuelInfoOffsetsByRoutingLengths(
+                routingLengths, firstRoutingLengthOffset
+        );
+    }
+
+    public final String findTableName() {
+        return this.fuelTable.getName();
     }
 
     public final Optional<FuelInfo> find(final FuelInfoSpecification specification) {
         return this.findElementTable(this.fuelTable, specification)
                 .map(XWPFTable::getRows)
                 .flatMap(elementTableRows -> this.findFuelInfo(elementTableRows, specification));
-    }
-
-    public final String findTableName() {
-        return this.fuelTable.getName();
     }
 
     protected abstract Optional<XWPFTable> findElementTable(final FuelTable fuelTable,
@@ -53,6 +57,13 @@ public abstract class AbstractTableFuelInfoSearchingService {
                                 "Table '%s' doesn't exist".formatted(fuelTableName)
                         )
                 );
+    }
+
+    private static Map<String, Integer> createFuelInfoOffsetsByRoutingLengths(final String[] routingLengths,
+                                                                              final int firstRoutingLengthOffset) {
+        return range(0, routingLengths.length)
+                .boxed()
+                .collect(toMap(i -> routingLengths[i], i -> i + firstRoutingLengthOffset));
     }
 
     private Optional<FuelInfo> findFuelInfo(final List<XWPFTableRow> elementTableRows,
@@ -80,9 +91,8 @@ public abstract class AbstractTableFuelInfoSearchingService {
     }
 
     private int findFuelInfoOffset(final FuelInfoSpecification specification) {
-        final String tableName = this.fuelTable.getName();
         final String routingLength = extractRoutingLength(specification);
-        return this.offsetStorage.findOffset(tableName, routingLength);
+        return this.fuelInfoOffsetsByRoutingLengths.get(routingLength);
     }
 
     private static FuelInfoLocation createFuelInfoLocation(final XWPFTableRow dataRow,

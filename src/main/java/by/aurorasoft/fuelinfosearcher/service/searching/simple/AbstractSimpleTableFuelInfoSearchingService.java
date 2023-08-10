@@ -1,7 +1,6 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.simple;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
-import by.aurorasoft.fuelinfosearcher.model.FuelInfoOffsetFromRoutingLengthStorage;
 import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
 import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelInfoSearchingService;
@@ -14,10 +13,11 @@ import java.util.Optional;
 public abstract class AbstractSimpleTableFuelInfoSearchingService extends AbstractTableFuelInfoSearchingService {
 
 
-    public AbstractSimpleTableFuelInfoSearchingService(final FuelInfoOffsetFromRoutingLengthStorage offsetStorage,
-                                                       final FuelDocument fuelDocument,
-                                                       final String fuelTableName) {
-        super(offsetStorage, fuelDocument, fuelTableName);
+    public AbstractSimpleTableFuelInfoSearchingService(final FuelDocument fuelDocument,
+                                                       final String fuelTableName,
+                                                       final String[] routingLengths,
+                                                       final int firstRoutingLengthOffset) {
+        super(fuelDocument, fuelTableName, routingLengths, firstRoutingLengthOffset);
     }
 
     @Override

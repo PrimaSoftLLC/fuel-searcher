@@ -14,7 +14,8 @@ import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
 
 public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService extends AbstractSimpleTableFuelInfoSearchingService {
     private static final int CELL_INDEX_WITH_TRACTOR = 1;
-    private static final int CELL_INDEX_WITH_MACHINERY = 2;;
+    private static final int CELL_INDEX_WITH_MACHINERY = 2;
+    ;
 
     public AbstractMovingAndMouldingTableFuelInfoSearchingService(final FuelInfoOffsetFromRoutingLengthStorage offsetStorage,
                                                                   final FuelDocument fuelDocument,
@@ -24,7 +25,7 @@ public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService ext
 
     @Override
     protected final Optional<XWPFTableRow> findAppropriateRow(final List<XWPFTableRow> elementTableRows,
-                                                          final FuelInfoSpecification specification) {
+                                                              final FuelInfoSpecification specification) {
         return findRowsByTractor(elementTableRows, specification)
                 .flatMap(rows -> findRowsByMachinery(rows, specification))
                 .flatMap(rows -> findRowsByWorkingWidth(rows, specification))

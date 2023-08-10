@@ -14,7 +14,6 @@ import java.util.OptionalInt;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.*;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
-import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findIndexFirstCellByContent;
 
 public abstract class AbstractSowingFuelInfoSearchingService extends AbstractSimpleTableFuelInfoSearchingService {
     private static final int CELL_INDEX_WITH_SOWING_NORM = 0;
