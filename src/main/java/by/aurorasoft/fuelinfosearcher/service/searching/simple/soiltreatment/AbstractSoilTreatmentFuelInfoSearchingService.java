@@ -9,13 +9,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
 
+import static by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil.findRowsByMachinery;
 import static by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil.findRowsByTractor;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findFirstRowByContent;
 
 public abstract class AbstractSoilTreatmentFuelInfoSearchingService extends AbstractSimpleTableFuelInfoSearchingService {
     private static final int CELL_INDEX_PROCESSING_DEPTH = 0;
-    private static final int CELL_INDEX_MACHINERY = 2;
     private static final int CELL_INDEX_WORKING_WIDTH = 3;
 
     private static final String REGEX_CONTENT_PROCESSING_DEPTH = "Глубина обработки \\d+((…)|(...))\\d+ см";
@@ -70,16 +70,6 @@ public abstract class AbstractSoilTreatmentFuelInfoSearchingService extends Abst
                 CELL_INDEX_PROCESSING_DEPTH,
                 REGEX_CONTENT_PROCESSING_DEPTH
         ).orElse(rows.size());
-    }
-
-    private static Optional<List<XWPFTableRow>> findRowsByMachinery(final List<XWPFTableRow> rows,
-                                                                    final FuelInfoSpecification specification) {
-        return findRowsByContent(
-                rows,
-                CELL_INDEX_MACHINERY,
-                specification,
-                FuelInfoSpecificationUtil::extractMachinery
-        );
     }
 
     private static Optional<XWPFTableRow> findRowByWorkingWidth(final List<XWPFTableRow> rows,

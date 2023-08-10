@@ -4,8 +4,8 @@ import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.service.searching.simple.movingandmoulding.AbstractMovingAndMouldingTableFuelInfoSearchingService;
 
 public abstract class AbstractMovingTableFuelInfoSearchingService extends AbstractMovingAndMouldingTableFuelInfoSearchingService {
-    private static final int CELL_INDEX_WITH_YIELD = 3;
-    private static final int CELL_INDEX_WITH_WORKING_WIDTH = 4;
+    private static final int CELL_INDEX_YIELD = 3;
+    private static final int CELL_INDEX_WORKING_WIDTH = 4;
 
     public AbstractMovingTableFuelInfoSearchingService(final FuelDocument fuelDocument,
                                                        final String fuelTableName,
@@ -15,13 +15,13 @@ public abstract class AbstractMovingTableFuelInfoSearchingService extends Abstra
     }
 
     @Override
-    protected final int findIndexCellOfWorkingWidth() {
-        return CELL_INDEX_WITH_WORKING_WIDTH;
+    protected final int findCellIndexWorkingWidth() {
+        return CELL_INDEX_WORKING_WIDTH;
     }
 
     @Override
-    protected final int findIndexCellOfYield() {
-        return CELL_INDEX_WITH_YIELD;
+    protected final int findCellIndexYield() {
+        return CELL_INDEX_YIELD;
     }
 
 }
