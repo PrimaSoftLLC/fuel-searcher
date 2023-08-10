@@ -22,16 +22,13 @@ public abstract class AbstractPloughingFuelInfoSearchingService extends Abstract
     @Override
     protected final Optional<XWPFTableRow> findAppropriateRow(final List<XWPFTableRow> elementTableRows,
                                                               final FuelInfoSpecification specification) {
-        final String groupValue = this.extractGroupValue(specification);
-        final String groupValueRegex = this.findGroupValueRegex();
-        return findRowsByGroupValue(elementTableRows, groupValue, groupValueRegex)
+        return this.findRowsByGroupValue(elementTableRows, specification)
                 .flatMap(rows -> findRowsByTractor(rows, specification))
                 .flatMap(rows -> findRowsByMachinery(rows, specification))
                 .flatMap(rows -> findRowsByCorpusCount(rows, specification))
                 .flatMap(rows -> findRowByPloughingDepth(rows, specification));
     }
 
-    protected abstract String extractGroupValue(final FuelInfoSpecification specification);
-
-    protected abstract String findGroupValueRegex();
+    protected abstract Optional<List<XWPFTableRow>> findRowsByGroupValue(final List<XWPFTableRow> elementTableRows,
+                                                                         final FuelInfoSpecification specification);
 }

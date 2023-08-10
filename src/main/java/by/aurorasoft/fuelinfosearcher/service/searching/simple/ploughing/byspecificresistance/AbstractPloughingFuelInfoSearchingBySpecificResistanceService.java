@@ -3,12 +3,15 @@ package by.aurorasoft.fuelinfosearcher.service.searching.simple.ploughing.byspec
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
 import by.aurorasoft.fuelinfosearcher.service.searching.simple.ploughing.AbstractPloughingFuelInfoSearchingService;
+import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
-import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractSpecificResistance;
+import java.util.List;
+import java.util.Optional;
+
+import static by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil.findRowsBySpecificResistance;
 
 public abstract class AbstractPloughingFuelInfoSearchingBySpecificResistanceService
         extends AbstractPloughingFuelInfoSearchingService {
-    private static final String REGEX_CONTENT_SPECIFIC_RESISTANCE = "Удельное сопротивление (плуга )?\\d+...\\d+ кПа";
 
     public AbstractPloughingFuelInfoSearchingBySpecificResistanceService(final FuelDocument fuelDocument,
                                                                          final String fuelTableName,
@@ -18,12 +21,8 @@ public abstract class AbstractPloughingFuelInfoSearchingBySpecificResistanceServ
     }
 
     @Override
-    protected final String extractGroupValue(final FuelInfoSpecification specification) {
-        return extractSpecificResistance(specification);
-    }
-
-    @Override
-    protected final String findGroupValueRegex() {
-        return REGEX_CONTENT_SPECIFIC_RESISTANCE;
+    protected final Optional<List<XWPFTableRow>> findRowsByGroupValue(final List<XWPFTableRow> elementTableRows,
+                                                                      final FuelInfoSpecification specification) {
+        return findRowsBySpecificResistance(elementTableRows, specification);
     }
 }

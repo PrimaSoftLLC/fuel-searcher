@@ -8,6 +8,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
+import java.util.function.Function;
 
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
 
@@ -21,6 +22,10 @@ public final class FuelDocumentRowFilterUtil {
     private static final int CELL_INDEX_CORPUS_COUNT = 3;
     private static final int CELL_INDEX_PLOUGHING_DEPTH = 4;
     private static final int CELL_INDEX_WORKING_WIDTH = 3;
+
+    private static final String REGEX_CONTENT_PROCESSING_DEPTH = "Глубина обработки \\d+((…)|(...))\\d+ см";
+    private static final String REGEX_SOIL_TYPE_CONTENT = "(Минеральные почвы)|(Торфяные почвы)";
+    private static final String REGEX_CONTENT_SPECIFIC_RESISTANCE = "Удельное сопротивление (плуга )?\\d+...\\d+ кПа";
 
     public static Optional<List<XWPFTableRow>> findRowsByTractor(final List<XWPFTableRow> rows,
                                                                  final FuelInfoSpecification specification) {
@@ -84,17 +89,6 @@ public final class FuelDocumentRowFilterUtil {
         );
     }
 
-    public static Optional<List<XWPFTableRow>> findRowsByGroupValue(final List<XWPFTableRow> rows,
-                                                                    final String groupValue,
-                                                                    final String groupValueRegex) {
-        return findIndexRowByGroupValue(rows, groupValue)
-                .stream()
-                .map(indexRowGroupValue -> indexRowGroupValue + 1)
-                .mapToObj(indexFirstMatchingRow -> findIndexBordersRowsMatchingGroupValue(indexFirstMatchingRow, rows, groupValueRegex))
-                .map(borderRowIndexes -> extractRows(rows, borderRowIndexes))
-                .findFirst();
-    }
-
     public static Optional<XWPFTableRow> findRowByWorkingWidth(final List<XWPFTableRow> rows,
                                                                final FuelInfoSpecification specification) {
         return findFirstRowByContent(
@@ -103,6 +97,49 @@ public final class FuelDocumentRowFilterUtil {
                 specification,
                 FuelInfoSpecificationUtil::extractWorkingWidth
         );
+    }
+
+    public static Optional<List<XWPFTableRow>> findRowsByProcessingDepth(final List<XWPFTableRow> rows,
+                                                                         final FuelInfoSpecification specification) {
+        return findRowsByGroupValue(
+                rows,
+                specification,
+                FuelInfoSpecificationUtil::extractProcessingDepth,
+                REGEX_CONTENT_PROCESSING_DEPTH
+        );
+    }
+
+    public static Optional<List<XWPFTableRow>> findRowsBySoilType(final List<XWPFTableRow> rows,
+                                                                  final FuelInfoSpecification specification) {
+        return findRowsByGroupValue(
+                rows,
+                specification,
+                FuelInfoSpecificationUtil::extractSoilType,
+                REGEX_SOIL_TYPE_CONTENT
+        );
+    }
+
+    public static Optional<List<XWPFTableRow>> findRowsBySpecificResistance(final List<XWPFTableRow> rows,
+                                                                            final FuelInfoSpecification specification) {
+        return findRowsByGroupValue(
+                rows,
+                specification,
+                FuelInfoSpecificationUtil::extractSpecificResistance,
+                REGEX_CONTENT_SPECIFIC_RESISTANCE
+        );
+    }
+
+    private static Optional<List<XWPFTableRow>> findRowsByGroupValue(final List<XWPFTableRow> rows,
+                                                                     final FuelInfoSpecification specification,
+                                                                     final Function<FuelInfoSpecification, String> groupValueExtractor,
+                                                                     final String groupValueRegex) {
+        final String groupValue = groupValueExtractor.apply(specification);
+        return findIndexRowByGroupValue(rows, groupValue)
+                .stream()
+                .map(indexRowGroupValue -> indexRowGroupValue + 1)
+                .mapToObj(indexFirstMatchingRow -> findIndexBordersRowsMatchingGroupValue(indexFirstMatchingRow, rows, groupValueRegex))
+                .map(borderRowIndexes -> extractRows(rows, borderRowIndexes))
+                .findFirst();
     }
 
     private static OptionalInt findIndexRowByGroupValue(final List<XWPFTableRow> rows, final String groupValue) {

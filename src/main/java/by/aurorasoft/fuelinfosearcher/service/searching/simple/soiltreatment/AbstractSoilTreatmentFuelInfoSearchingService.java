@@ -9,10 +9,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil.*;
-import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractProcessingDepth;
 
 public abstract class AbstractSoilTreatmentFuelInfoSearchingService extends AbstractSimpleTableFuelInfoSearchingService {
-    private static final String REGEX_CONTENT_PROCESSING_DEPTH = "Глубина обработки \\d+((…)|(...))\\d+ см";
 
     public AbstractSoilTreatmentFuelInfoSearchingService(final FuelDocument fuelDocument,
                                                          final String fuelTableName,
@@ -24,8 +22,7 @@ public abstract class AbstractSoilTreatmentFuelInfoSearchingService extends Abst
     @Override
     protected final Optional<XWPFTableRow> findAppropriateRow(final List<XWPFTableRow> elementTableRows,
                                                               final FuelInfoSpecification specification) {
-        final String groupValue = extractProcessingDepth(specification);
-        return findRowsByGroupValue(elementTableRows, groupValue, REGEX_CONTENT_PROCESSING_DEPTH)
+        return findRowsByProcessingDepth(elementTableRows, specification)
                 .flatMap(rows -> findRowsByTractor(rows, specification))
                 .flatMap(rows -> findRowsByMachinery(rows, specification))
                 .flatMap(rows -> findRowByWorkingWidth(rows, specification));
