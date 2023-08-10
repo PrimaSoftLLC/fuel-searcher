@@ -20,6 +20,7 @@ public final class FuelDocumentRowFilterUtil {
     private static final int CELL_INDEX_MACHINERY = 2;
     private static final int CELL_INDEX_CORPUS_COUNT = 3;
     private static final int CELL_INDEX_PLOUGHING_DEPTH = 4;
+    private static final int CELL_INDEX_WORKING_WIDTH = 3;
 
     public static Optional<List<XWPFTableRow>> findRowsByTractor(final List<XWPFTableRow> rows,
                                                                  final FuelInfoSpecification specification) {
@@ -92,6 +93,16 @@ public final class FuelDocumentRowFilterUtil {
                 .mapToObj(indexFirstMatchingRow -> findIndexBordersRowsMatchingGroupValue(indexFirstMatchingRow, rows, groupValueRegex))
                 .map(borderRowIndexes -> extractRows(rows, borderRowIndexes))
                 .findFirst();
+    }
+
+    public static Optional<XWPFTableRow> findRowByWorkingWidth(final List<XWPFTableRow> rows,
+                                                               final FuelInfoSpecification specification) {
+        return findFirstRowByContent(
+                rows,
+                CELL_INDEX_WORKING_WIDTH,
+                specification,
+                FuelInfoSpecificationUtil::extractWorkingWidth
+        );
     }
 
     private static OptionalInt findIndexRowByGroupValue(final List<XWPFTableRow> rows, final String groupValue) {
