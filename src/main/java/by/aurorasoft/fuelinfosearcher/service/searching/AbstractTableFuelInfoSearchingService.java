@@ -77,22 +77,13 @@ public abstract class AbstractTableFuelInfoSearchingService {
     private Optional<FuelInfoLocation> findFuelInfoLocation(final XWPFTableRow routingLengthRow,
                                                             final FuelInfoSpecification specification,
                                                             final XWPFTableRow dataRow) {
-        return findIndexCellWithRoutingLength(routingLengthRow, specification)
+        final String routingLength = extractRoutingLength(specification);
+        final int fuelInfoOffset = this.fuelInfoOffsetsByRoutingLengths.get(routingLength);
+        return findIndexFirstCellByContent(routingLengthRow, routingLength)
                 .stream()
-                .map(cellIndexWithRoutingLength -> cellIndexWithRoutingLength + this.findFuelInfoOffset(specification))
+                .map(cellIndexWithRoutingLength -> cellIndexWithRoutingLength + fuelInfoOffset)
                 .mapToObj(cellIndexGenerationNorm -> createFuelInfoLocation(dataRow, cellIndexGenerationNorm))
                 .findFirst();
-    }
-
-    private static OptionalInt findIndexCellWithRoutingLength(final XWPFTableRow routingLengthRow,
-                                                              final FuelInfoSpecification specification) {
-        final String routingLength = extractRoutingLength(specification);
-        return findIndexFirstCellByContent(routingLengthRow, routingLength);
-    }
-
-    private int findFuelInfoOffset(final FuelInfoSpecification specification) {
-        final String routingLength = extractRoutingLength(specification);
-        return this.fuelInfoOffsetsByRoutingLengths.get(routingLength);
     }
 
     private static FuelInfoLocation createFuelInfoLocation(final XWPFTableRow dataRow,
