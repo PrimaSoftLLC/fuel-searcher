@@ -27,6 +27,7 @@ public final class FuelInfoSpecificationUtil {
     private static final String PROPERTY_NAME_OF_TRANSPORT_DISTANCE = "transportDistance";
     private static final String PROPERTY_NAME_OF_CARGO_CLASS = "cargoClass";
     private static final String PROPERTY_NAME_OF_YIELD = "yield";
+    private static final String PROPERTY_NAME_OF_ROW_WIDTH = "rowWidth";
 
     public static String extractTableName(final FuelInfoSpecification specification) {
         return extractProperty(
@@ -169,6 +170,14 @@ public final class FuelInfoSpecificationUtil {
                 specification,
                 FuelInfoSpecification::findYield,
                 PROPERTY_NAME_OF_YIELD
+        );
+    }
+
+    public static String extractRowWidth(final FuelInfoSpecification specification) {
+        return extractProperty(
+                specification,
+                FuelInfoSpecification::findRowWidth,
+                PROPERTY_NAME_OF_ROW_WIDTH
         );
     }
 

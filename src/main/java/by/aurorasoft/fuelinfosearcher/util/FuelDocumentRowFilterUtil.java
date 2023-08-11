@@ -5,6 +5,7 @@ import by.aurorasoft.fuelinfosearcher.model.IntPair;
 import lombok.experimental.UtilityClass;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
@@ -12,6 +13,8 @@ import java.util.function.Function;
 
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
 
+//TODO: refactor
+//TODO: возможно стоит вообще все индексы хранить в срвисах а не здесь
 @UtilityClass
 public final class FuelDocumentRowFilterUtil {
     //TODO: дописать все группы в комментарии
@@ -22,10 +25,11 @@ public final class FuelDocumentRowFilterUtil {
     private static final int CELL_INDEX_PLOUGHING_DEPTH = 4;
     private static final int CELL_INDEX_WORKING_WIDTH = 3;
     private static final int CELL_INDEX_CHARGING_METHOD_AND_TRANSPORT_DISTANCE = 1;
-    private static final int CELL_INDEX_WITH_SPREAD_RATE = 2;
+    private static final int CELL_INDEX_SPREAD_RATE = 2;
+    private static final int CELL_INDEX_ROW_WIDTH = 3;
 
     private static final String REGEX_CONTENT_PROCESSING_DEPTH = "Глубина обработки \\d+((…)|(...))\\d+ см";
-    private static final String REGEX_SOIL_TYPE_CONTENT = "(Минеральные почвы)|(Торфяные почвы)";
+    private static final String REGEX_SOIL_TYPE_CONTENT = "(Минеральные почвы)|(Торфяные почвы)|(Легкие почвы)|(Средние почвы)|(Тяжелые почвы)";
     private static final String REGEX_CONTENT_SPECIFIC_RESISTANCE = "Удельное сопротивление (плуга )?\\d+...\\d+ кПа";
     private static final String REGEX_CONTENT_SOWING_NORM = "Норма высева (семян )?\\d+(–\\d+)? кг/га";
     private static final String REGEX_CONTENT_FERTILIZER_TYPE = "(Гранулированные удобрений)|(Кристаллические удобрения)|(Пылевидные удобрения)";
@@ -168,9 +172,19 @@ public final class FuelDocumentRowFilterUtil {
                                                              final FuelInfoSpecification specification) {
         return findFirstRowByContent(
                 rows,
-                CELL_INDEX_WITH_SPREAD_RATE,
+                CELL_INDEX_SPREAD_RATE,
                 specification,
                 FuelInfoSpecificationUtil::extractSpreadRate
+        );
+    }
+
+    public static Optional<List<XWPFTableRow>> findRowsByRowWidth(final List<XWPFTableRow> rows,
+                                                                  final FuelInfoSpecification specification) {
+        return findUnitedRowsByContent(
+                rows,
+                CELL_INDEX_ROW_WIDTH,
+                specification,
+                FuelInfoSpecificationUtil::extractRowWidth
         );
     }
 
@@ -179,12 +193,13 @@ public final class FuelDocumentRowFilterUtil {
                                                                      final Function<FuelInfoSpecification, String> groupValueExtractor,
                                                                      final String groupValueRegex) {
         final String groupValue = groupValueExtractor.apply(specification);
-        return findIndexRowByGroupValue(rows, groupValue)
-                .stream()
+        List<XWPFTableRow> list = findRowIndexesByContent(rows, CELL_INDEX_GROUP_VALUE, groupValue)
                 .map(indexRowGroupValue -> indexRowGroupValue + 1)
                 .mapToObj(indexFirstMatchingRow -> findIndexBordersRowsMatchingGroupValue(indexFirstMatchingRow, rows, groupValueRegex))
                 .map(borderRowIndexes -> extractRows(rows, borderRowIndexes))
-                .findFirst();
+                .flatMap(Collection::stream)
+                .toList();
+        return !list.isEmpty() ? Optional.of(list) : Optional.empty();
     }
 
     private static OptionalInt findIndexRowByGroupValue(final List<XWPFTableRow> rows, final String groupValue) {

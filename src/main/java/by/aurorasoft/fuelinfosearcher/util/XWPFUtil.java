@@ -10,6 +10,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.stream.IntStream;
 
 import static java.lang.Double.parseDouble;
 import static java.util.Optional.empty;
@@ -97,6 +98,13 @@ public final class XWPFUtil {
                 .mapToObj(i -> rows.get(i))
                 .toList();
         return !tableRows.isEmpty() ? Optional.of(tableRows) : empty();
+    }
+
+    public static IntStream findRowIndexesByContent(final List<XWPFTableRow> rows,
+                                                    final int cellIndexWithContent,
+                                                    final String content) {
+        return range(0, rows.size())
+                .filter(i -> rows.get(i).getCell(cellIndexWithContent).getText().equals(content));
     }
 
     public static Optional<List<XWPFTableRow>> findRowsByContent(final List<XWPFTableRow> rows,

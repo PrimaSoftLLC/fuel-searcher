@@ -58,6 +58,9 @@ public class FuelInfoSpecification {
     //Урожайность
     String yield;
 
+    //Ширина междурядий
+    String rowWidth;
+
     public Optional<String> findTableName() {
         return ofNullable(this.tableName);
     }
@@ -128,5 +131,9 @@ public class FuelInfoSpecification {
 
     public Optional<String> findYield() {
         return ofNullable(this.yield);
+    }
+
+    public Optional<String> findRowWidth() {
+        return ofNullable(this.rowWidth);
     }
 }
