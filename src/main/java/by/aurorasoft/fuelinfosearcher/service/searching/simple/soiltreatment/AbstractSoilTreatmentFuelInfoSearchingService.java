@@ -11,6 +11,7 @@ import java.util.Optional;
 import static by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil.*;
 
 public abstract class AbstractSoilTreatmentFuelInfoSearchingService extends AbstractSimpleTableFuelInfoSearchingService {
+    private static final int CELL_INDEX_MACHINERY = 2;
 
     public AbstractSoilTreatmentFuelInfoSearchingService(final FuelDocument fuelDocument,
                                                          final String fuelTableName,
@@ -24,7 +25,7 @@ public abstract class AbstractSoilTreatmentFuelInfoSearchingService extends Abst
                                                               final FuelInfoSpecification specification) {
         return findRowsByProcessingDepth(elementTableRows, specification)
                 .flatMap(rows -> findRowsByTractor(rows, specification))
-                .flatMap(rows -> findRowsByMachinery(rows, specification))
+                .flatMap(rows -> findRowsByMachinery(rows, specification, CELL_INDEX_MACHINERY))
                 .flatMap(rows -> findRowByWorkingWidth(rows, specification));
     }
 }

@@ -18,7 +18,6 @@ public final class FuelDocumentRowFilterUtil {
     //Группа - это удельное сопротивление для таблиц #1 и #2 и тип почвы для таблицы #3
     private static final int CELL_INDEX_GROUP_VALUE = 0;
     private static final int CELL_INDEX_TRACTOR = 1;
-    private static final int CELL_INDEX_MACHINERY = 2;
     private static final int CELL_INDEX_CORPUS_COUNT = 3;
     private static final int CELL_INDEX_PLOUGHING_DEPTH = 4;
     private static final int CELL_INDEX_WORKING_WIDTH = 3;
@@ -43,10 +42,11 @@ public final class FuelDocumentRowFilterUtil {
     }
 
     public static Optional<List<XWPFTableRow>> findRowsByMachinery(final List<XWPFTableRow> rows,
-                                                                   final FuelInfoSpecification specification) {
+                                                                   final FuelInfoSpecification specification,
+                                                                   final int cellIndexMachinery) {
         return findUnitedRowsByContent(
                 rows,
-                CELL_INDEX_MACHINERY,
+                cellIndexMachinery,
                 specification,
                 FuelInfoSpecificationUtil::extractMachinery
         );
