@@ -22,11 +22,15 @@ public final class FuelDocumentRowFilterUtil {
     private static final int CELL_INDEX_CORPUS_COUNT = 3;
     private static final int CELL_INDEX_PLOUGHING_DEPTH = 4;
     private static final int CELL_INDEX_WORKING_WIDTH = 3;
+    private static final int CELL_INDEX_CHARGING_METHOD_AND_TRANSPORT_DISTANCE = 1;
+    private static final int CELL_INDEX_WITH_SPREAD_RATE = 2;
 
     private static final String REGEX_CONTENT_PROCESSING_DEPTH = "Глубина обработки \\d+((…)|(...))\\d+ см";
     private static final String REGEX_SOIL_TYPE_CONTENT = "(Минеральные почвы)|(Торфяные почвы)";
     private static final String REGEX_CONTENT_SPECIFIC_RESISTANCE = "Удельное сопротивление (плуга )?\\d+...\\d+ кПа";
     private static final String REGEX_CONTENT_SOWING_NORM = "Норма высева (семян )?\\d+(–\\d+)? кг/га";
+    private static final String REGEX_CONTENT_FERTILIZER_TYPE = "(Гранулированные удобрений)|(Кристаллические удобрения)|(Пылевидные удобрения)";
+
 
     public static Optional<List<XWPFTableRow>> findRowsByTractor(final List<XWPFTableRow> rows,
                                                                  final FuelInfoSpecification specification) {
@@ -140,6 +144,36 @@ public final class FuelDocumentRowFilterUtil {
         );
     }
 
+    public static Optional<List<XWPFTableRow>> findRowsByFertilizerType(final List<XWPFTableRow> rows,
+                                                                        final FuelInfoSpecification specification) {
+        return findRowsByGroupValue(
+                rows,
+                specification,
+                FuelInfoSpecificationUtil::extractFertilizerType,
+                REGEX_CONTENT_FERTILIZER_TYPE
+        );
+    }
+
+    public static Optional<List<XWPFTableRow>> findRowsByChargingMethodAndTransportDistance(final List<XWPFTableRow> rows,
+                                                                                            final FuelInfoSpecification specification) {
+        return findUnitedRowsByContent(
+                rows,
+                CELL_INDEX_CHARGING_METHOD_AND_TRANSPORT_DISTANCE,
+                specification,
+                FuelInfoSpecificationUtil::extractChargingMethodAndTransportDistance
+        );
+    }
+
+    public static Optional<XWPFTableRow> findRowBySpreadRate(final List<XWPFTableRow> rows,
+                                                             final FuelInfoSpecification specification) {
+        return findFirstRowByContent(
+                rows,
+                CELL_INDEX_WITH_SPREAD_RATE,
+                specification,
+                FuelInfoSpecificationUtil::extractSpreadRate
+        );
+    }
+
     private static Optional<List<XWPFTableRow>> findRowsByGroupValue(final List<XWPFTableRow> rows,
                                                                      final FuelInfoSpecification specification,
                                                                      final Function<FuelInfoSpecification, String> groupValueExtractor,
@@ -180,5 +214,4 @@ public final class FuelDocumentRowFilterUtil {
                 groupValueRegex
         ).orElse(rows.size());
     }
-
 }
