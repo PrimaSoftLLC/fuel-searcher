@@ -19,6 +19,7 @@ public abstract class AbstractTableFuelInfoSearchingService {
     private final FuelTable fuelTable;
 
     //cell's indexes of generation norm by routing lengths
+    //TODO: rename
     private final Map<String, Integer> fuelInfoOffsetsByRoutingLengths;
 
     public AbstractTableFuelInfoSearchingService(final FuelDocument fuelDocument,
@@ -46,6 +47,9 @@ public abstract class AbstractTableFuelInfoSearchingService {
 
     protected abstract Optional<XWPFTableRow> findAppropriateRow(final List<XWPFTableRow> elementTableRows,
                                                                  final FuelInfoSpecification specification);
+
+    //к этому прибавляется offset
+    protected abstract OptionalInt findFuelInfoCellIndex(final FuelInfoSpecification specification);
 
     private static FuelTable findTableByName(final FuelDocument fuelDocument, final String fuelTableName) {
         return fuelDocument.getTables()

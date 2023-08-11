@@ -28,6 +28,7 @@ public final class FuelDocumentRowFilterUtil {
     private static final int CELL_INDEX_SPREAD_RATE = 2;
     private static final int CELL_INDEX_ROW_WIDTH = 3;
     private static final int CELL_INDEX_COMBINE = 1;
+    private static final int CELL_INDEX_TRANSPORT_DISTANCE = 1;
 
     private static final String REGEX_CONTENT_PROCESSING_DEPTH = "Глубина обработки \\d+((…)|(...))\\d+ см";
     private static final String REGEX_SOIL_TYPE_CONTENT = "(Минеральные почвы)|(Торфяные почвы)|(Легкие почвы)|(Средние почвы)|(Тяжелые почвы)";
@@ -106,6 +107,16 @@ public final class FuelDocumentRowFilterUtil {
                 CELL_INDEX_PLOUGHING_DEPTH,
                 specification,
                 FuelInfoSpecificationUtil::extractPloughingDepth
+        );
+    }
+
+    public static Optional<XWPFTableRow> findRowByTransportDistance(final List<XWPFTableRow> rows,
+                                                                    final FuelInfoSpecification specification) {
+        return findFirstRowByContent(
+                rows,
+                CELL_INDEX_TRANSPORT_DISTANCE,
+                specification,
+                FuelInfoSpecificationUtil::extractTransportDistance
         );
     }
 
