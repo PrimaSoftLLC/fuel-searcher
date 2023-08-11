@@ -61,6 +61,10 @@ public class FuelInfoSpecification {
     //Ширина междурядий
     String rowWidth;
 
+    //TODO: объединить с трактором
+    //Марка комбайна
+    String combine;
+
     public Optional<String> findTableName() {
         return ofNullable(this.tableName);
     }
@@ -135,5 +139,9 @@ public class FuelInfoSpecification {
 
     public Optional<String> findRowWidth() {
         return ofNullable(this.rowWidth);
+    }
+
+    public Optional<String> findCombine() {
+        return ofNullable(this.combine);
     }
 }
