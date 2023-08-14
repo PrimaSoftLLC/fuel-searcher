@@ -17,6 +17,8 @@ public abstract class AbstractTableFuelInfoSearchingService {
     private static final int INDEX_HEADER_ROW = 1;
 
     private final FuelTable fuelTable;
+
+    //TODO: если можно подправить файл, чтобы избрежать смещений, удалить
     private final Map<String, Integer> fuelInfoOffsetsByHeaders;
 
     public AbstractTableFuelInfoSearchingService(final FuelDocument fuelDocument,

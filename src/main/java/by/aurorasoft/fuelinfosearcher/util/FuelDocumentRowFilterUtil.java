@@ -221,6 +221,8 @@ public final class FuelDocumentRowFilterUtil {
         );
     }
 
+
+
     private static Optional<List<XWPFTableRow>> findRowsByGroupValue(final List<XWPFTableRow> rows,
                                                                      final FuelInfoSpecification specification,
                                                                      final Function<FuelInfoSpecification, String> groupValueExtractor,
