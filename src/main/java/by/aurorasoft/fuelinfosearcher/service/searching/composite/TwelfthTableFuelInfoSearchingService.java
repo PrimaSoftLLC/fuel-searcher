@@ -12,19 +12,19 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil.*;
+import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractRoutingLength;
 
 @Service
 public final class TwelfthTableFuelInfoSearchingService extends AbstractCompositeTableFuelInfoSearchingService {
     private static final String TABLE_NAME = "ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ И СРЕДСТВ ЗАЩИТЫ РАСТЕНИЙ";
-    private static final String[] ROUTING_LENGTHS = new String[]{
+    private static final String[] FUEL_INFO_HEADERS = new String[]{
             "Менее 150", "150–200", "201–300", "301–400", "401–600", "601–1000", "Более 1000"
     };
     private static final int FIRST_FUEL_INFO_OFFSET = 0;
-
     private static final String TEMPLATE_PARAGRAPH_CONTENT_WITH_MACHINERY = "Опрыскивателем %s";
 
     public TwelfthTableFuelInfoSearchingService(final FuelDocument fuelDocument) {
-        super(fuelDocument, TABLE_NAME, ROUTING_LENGTHS, FIRST_FUEL_INFO_OFFSET);
+        super(fuelDocument, TABLE_NAME, FUEL_INFO_HEADERS, FIRST_FUEL_INFO_OFFSET);
     }
 
     @Override
@@ -32,6 +32,11 @@ public final class TwelfthTableFuelInfoSearchingService extends AbstractComposit
         return findRowsByFertilizerType(elementTableRows, specification)
                 .flatMap(rows -> findRowsByChargingMethodAndTransportDistance(rows, specification))
                 .flatMap(rows -> findRowBySpreadRate(rows, specification));
+    }
+
+    @Override
+    protected String extractFuelInfoHeaderCellValue(final FuelInfoSpecification specification) {
+        return extractRoutingLength(specification);
     }
 
     @Override
