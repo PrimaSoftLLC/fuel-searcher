@@ -41,6 +41,7 @@ public abstract class AbstractCompositeTableFuelInfoSearchingService extends Abs
 
     protected abstract String findElementTableTitleTemplate();
 
+    //TODO: do result as String[]
     protected abstract Stream<Function<FuelInfoSpecification, String>> findElementTableTitleTemplateArgumentExtractors();
 
     private OptionalInt findTitleIndex(final List<IBodyElement> fuelTableElements,
