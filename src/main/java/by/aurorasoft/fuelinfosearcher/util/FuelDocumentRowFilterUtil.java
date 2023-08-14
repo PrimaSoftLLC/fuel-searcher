@@ -36,6 +36,7 @@ public final class FuelDocumentRowFilterUtil {
     private static final String REGEX_CONTENT_SOWING_NORM = "Норма высева (семян )?\\d+(–\\d+)? кг/га";
     private static final String REGEX_CONTENT_FERTILIZER_TYPE = "(Гранулированные удобрений)|(Кристаллические удобрения)|(Пылевидные удобрения)";
     private static final String REGEX_CONTENT_CARGO_CLASS = "Грузы (I|II|III|IV) класса";
+    private static final String REGEX_CONTENT_ROAD_GROUP = "((Первая)|(Вторая)|(Третья)) группа дорог";
 
 
     public static Optional<List<XWPFTableRow>> findRowsByTractor(final List<XWPFTableRow> rows,
@@ -199,6 +200,16 @@ public final class FuelDocumentRowFilterUtil {
                 specification,
                 FuelInfoSpecificationUtil::extractCargoClass,
                 REGEX_CONTENT_CARGO_CLASS
+        );
+    }
+
+    public static Optional<List<XWPFTableRow>> findRowsByRoadGroup(final List<XWPFTableRow> rows,
+                                                                   final FuelInfoSpecification specification) {
+        return findRowsByGroupValue(
+                rows,
+                specification,
+                FuelInfoSpecificationUtil::extractRoadGroup,
+                REGEX_CONTENT_ROAD_GROUP
         );
     }
 
