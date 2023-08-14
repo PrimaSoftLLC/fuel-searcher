@@ -91,6 +91,17 @@ public final class FuelDocumentRowFilterUtil {
         );
     }
 
+    public static Optional<XWPFTableRow> findRowByWorkingWidth(final List<XWPFTableRow> rows,
+                                                               final FuelInfoSpecification specification,
+                                                               final int cellIndexWorkingWidth) {
+        return findFirstRowByContent(
+                rows,
+                cellIndexWorkingWidth,
+                specification,
+                FuelInfoSpecificationUtil::extractWorkingWidth
+        );
+    }
+
     public static Optional<List<XWPFTableRow>> findRowsByCorpusCount(final List<XWPFTableRow> rows,
                                                                      final FuelInfoSpecification specification) {
         return findUnitedRowsByContent(
@@ -220,7 +231,6 @@ public final class FuelDocumentRowFilterUtil {
                 FuelInfoSpecificationUtil::extractRowWidth
         );
     }
-
 
 
     private static Optional<List<XWPFTableRow>> findRowsByGroupValue(final List<XWPFTableRow> rows,
