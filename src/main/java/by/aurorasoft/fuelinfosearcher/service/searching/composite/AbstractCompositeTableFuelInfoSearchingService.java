@@ -24,9 +24,9 @@ public abstract class AbstractCompositeTableFuelInfoSearchingService extends Abs
 
     public AbstractCompositeTableFuelInfoSearchingService(final FuelDocument fuelDocument,
                                                           final String fuelTableName,
-                                                          final String[] routingLengths,
+                                                          final String[] fuelInfoHeaders,
                                                           final int firstFuelInfoOffset) {
-        super(fuelDocument, fuelTableName, routingLengths, firstFuelInfoOffset);
+        super(fuelDocument, fuelTableName, fuelInfoHeaders, firstFuelInfoOffset);
     }
 
     @Override
