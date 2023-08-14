@@ -12,6 +12,7 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil.findRowByTransportDistance;
+import static by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil.findRowsByCargoClass;
 import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractRoadGroup;
 
 @Service
@@ -28,7 +29,8 @@ public final class TwentySeventhTableFuelInfoSearchingService extends AbstractCo
     @Override
     protected Optional<XWPFTableRow> findAppropriateRow(final List<XWPFTableRow> elementTableRows,
                                                         final FuelInfoSpecification specification) {
-        return findRowByTransportDistance(elementTableRows, specification);
+        return findRowsByCargoClass(elementTableRows, specification)
+                .flatMap(rows -> findRowByTransportDistance(rows, specification));
     }
 
     @Override
