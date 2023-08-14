@@ -3,6 +3,7 @@ package by.aurorasoft.fuelinfosearcher.service.searching.composite;
 import by.aurorasoft.fuelinfosearcher.model.*;
 import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelInfoSearchingService;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 
 import java.util.List;

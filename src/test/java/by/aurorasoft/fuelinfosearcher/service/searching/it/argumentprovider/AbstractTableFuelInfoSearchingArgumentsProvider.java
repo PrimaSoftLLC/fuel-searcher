@@ -7,11 +7,11 @@ import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
-public abstract class AbstractTableFuelInfoSeacrhingArgumentsProvider {
+public abstract class AbstractTableFuelInfoSearchingArgumentsProvider {
 
     public final Stream<Arguments> provide() {
         final BiFunction<Double, Double, Optional<FuelInfo>> optionalFuelInfoFactory
-                = AbstractTableFuelInfoSeacrhingArgumentsProvider::createFuelInfoWrappedByOptional;
+                = AbstractTableFuelInfoSearchingArgumentsProvider::createFuelInfoWrappedByOptional;
         return this.provide(optionalFuelInfoFactory);
     }
 

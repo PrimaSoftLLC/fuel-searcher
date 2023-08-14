@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 import static java.util.Optional.empty;
 
-public final class SecondTableFuelInfoSearchingArgumentsProvider extends AbstractTableFuelInfoSeacrhingArgumentsProvider {
+public final class SecondTableFuelInfoSearchingArgumentsProvider extends AbstractTableFuelInfoSearchingArgumentsProvider {
 
     @Override
     protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<FuelInfo>> optionalFuelInfoFactory) {
