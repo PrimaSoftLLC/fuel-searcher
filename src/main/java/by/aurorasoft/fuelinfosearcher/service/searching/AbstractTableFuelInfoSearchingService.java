@@ -45,7 +45,8 @@ public abstract class AbstractTableFuelInfoSearchingService {
 
     protected abstract String extractFuelInfoHeaderCellValue(final FuelInfoSpecification specification);
 
-    protected abstract OptionalInt findFuelInfoHeaderCellIndex(final FuelInfoSpecification specification);
+    //TODO
+//    protected abstract OptionalInt findFuelInfoHeaderCellIndex(final FuelInfoSpecification specification);
 
     private static FuelTable findTableByName(final FuelDocument fuelDocument, final String fuelTableName) {
         return fuelDocument.getTables()
