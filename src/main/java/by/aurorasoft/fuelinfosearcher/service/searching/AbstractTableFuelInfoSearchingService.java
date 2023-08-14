@@ -8,28 +8,23 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.util.*;
 
-import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractRoutingLength;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findIndexFirstCellByContent;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.IntStream.range;
 
+//TODO: put FuelInfoLocation as inner class
 public abstract class AbstractTableFuelInfoSearchingService {
-    private static final int INDEX_ROUTING_LENGTH_ROW = 1;
+    private static final int INDEX_HEADER_ROW = 1;
 
     private final FuelTable fuelTable;
-
-    //cell's indexes of generation norm by routing lengths
-    //TODO: rename
-    private final Map<String, Integer> fuelInfoOffsetsByRoutingLengths;
+    private final Map<String, Integer> fuelInfoOffsetsByHeaders;
 
     public AbstractTableFuelInfoSearchingService(final FuelDocument fuelDocument,
                                                  final String fuelTableName,
-                                                 final String[] routingLengths,
+                                                 final String[] fuelInfoHeaders,
                                                  final int firstFuelInfoOffset) {
         this.fuelTable = findTableByName(fuelDocument, fuelTableName);
-        this.fuelInfoOffsetsByRoutingLengths = createFuelInfoOffsetsByRoutingLengths(
-                routingLengths, firstFuelInfoOffset
-        );
+        this.fuelInfoOffsetsByHeaders = createFuelInfoOffsetsByHeaders(fuelInfoHeaders, firstFuelInfoOffset);
     }
 
     public final String findTableName() {
@@ -48,8 +43,9 @@ public abstract class AbstractTableFuelInfoSearchingService {
     protected abstract Optional<XWPFTableRow> findAppropriateRow(final List<XWPFTableRow> elementTableRows,
                                                                  final FuelInfoSpecification specification);
 
-    //к этому прибавляется offset
-    protected abstract OptionalInt findFuelInfoCellIndex(final FuelInfoSpecification specification);
+    protected abstract String extractFuelInfoHeaderCellValue(final FuelInfoSpecification specification);
+
+    protected abstract OptionalInt findFuelInfoHeaderCellIndex(final FuelInfoSpecification specification);
 
     private static FuelTable findTableByName(final FuelDocument fuelDocument, final String fuelTableName) {
         return fuelDocument.getTables()
@@ -63,40 +59,40 @@ public abstract class AbstractTableFuelInfoSearchingService {
                 );
     }
 
-    private static Map<String, Integer> createFuelInfoOffsetsByRoutingLengths(final String[] routingLengths,
-                                                                              final int firstFuelInfoOffset) {
-        return range(0, routingLengths.length)
+    private static Map<String, Integer> createFuelInfoOffsetsByHeaders(final String[] fuelInfoHeaders,
+                                                                       final int firstFuelInfoOffset) {
+        return range(0, fuelInfoHeaders.length)
                 .boxed()
-                .collect(toMap(i -> routingLengths[i], i -> i + firstFuelInfoOffset));
+                .collect(toMap(i -> fuelInfoHeaders[i], i -> i + firstFuelInfoOffset));
     }
 
     private Optional<FuelInfo> findFuelInfo(final List<XWPFTableRow> elementTableRows,
                                             final FuelInfoSpecification specification) {
-        final XWPFTableRow routingLengthRow = elementTableRows.get(INDEX_ROUTING_LENGTH_ROW);
+        final XWPFTableRow fuelInfoHeaderRow = elementTableRows.get(INDEX_HEADER_ROW);
         return this.findAppropriateRow(elementTableRows, specification)
-                .flatMap(row -> this.findFuelInfoLocation(routingLengthRow, specification, row))
+                .flatMap(row -> this.findFuelInfoLocation(fuelInfoHeaderRow, specification, row))
                 .flatMap(FuelInfoUtil::extractFuelInfo);
     }
 
-    private Optional<FuelInfoLocation> findFuelInfoLocation(final XWPFTableRow routingLengthRow,
+    private Optional<FuelInfoLocation> findFuelInfoLocation(final XWPFTableRow fuelInfoHeaderRow,
                                                             final FuelInfoSpecification specification,
                                                             final XWPFTableRow dataRow) {
-        final String routingLength = extractRoutingLength(specification);
-        return findIndexFirstCellByContent(routingLengthRow, routingLength)
+        final String fuelInfoHeaderCellValue = this.extractFuelInfoHeaderCellValue(specification);
+        return findIndexFirstCellByContent(fuelInfoHeaderRow, fuelInfoHeaderCellValue)
                 .stream()
-                .map(cellIndexRoutingLength -> this.findCellIndexGenerationNorm(cellIndexRoutingLength, routingLength))
-                .mapToObj(cellIndexGenerationNorm -> createFuelInfoLocation(dataRow, cellIndexGenerationNorm))
+                .map(fuelInfoHeaderCellIndex -> this.findCellIndexGenerationNorm(fuelInfoHeaderCellIndex, fuelInfoHeaderCellValue))
+                .mapToObj(generationNormCellIndex -> createFuelInfoLocation(dataRow, generationNormCellIndex))
                 .findFirst();
     }
 
-    private int findCellIndexGenerationNorm(final int cellIndexRoutingLength, final String routingLength) {
-        final int fuelInfoOffset = this.fuelInfoOffsetsByRoutingLengths.get(routingLength);
-        return cellIndexRoutingLength + fuelInfoOffset;
+    private int findCellIndexGenerationNorm(final int fuelInfoHeaderCellIndex, final String fuelInfoHeaderCellValue) {
+        final int fuelInfoOffset = this.fuelInfoOffsetsByHeaders.get(fuelInfoHeaderCellValue);
+        return fuelInfoHeaderCellIndex + fuelInfoOffset;
     }
 
     private static FuelInfoLocation createFuelInfoLocation(final XWPFTableRow dataRow,
-                                                           final int cellIndexGenerationNorm) {
-        final int cellIndexConsumption = cellIndexGenerationNorm + 1;
-        return new FuelInfoLocation(dataRow, cellIndexGenerationNorm, cellIndexConsumption);
+                                                           final int generationNormCellIndex) {
+        final int consumptionCellIndex = generationNormCellIndex + 1;
+        return new FuelInfoLocation(dataRow, generationNormCellIndex, consumptionCellIndex);
     }
 }

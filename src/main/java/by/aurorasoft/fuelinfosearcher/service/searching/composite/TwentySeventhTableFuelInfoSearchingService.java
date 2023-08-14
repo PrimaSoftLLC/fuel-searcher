@@ -36,7 +36,7 @@ public final class TwentySeventhTableFuelInfoSearchingService extends AbstractCo
     }
 
     @Override
-    protected OptionalInt findFuelInfoCellIndex(final FuelInfoSpecification specification) {
+    protected OptionalInt findFuelInfoHeaderCellIndex(final FuelInfoSpecification specification) {
         return null;
     }
 
