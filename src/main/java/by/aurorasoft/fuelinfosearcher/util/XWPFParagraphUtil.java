@@ -6,11 +6,13 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.stream.Stream;
 
 import static java.util.Arrays.stream;
+import static java.util.stream.IntStream.range;
 
 @UtilityClass
 public final class XWPFParagraphUtil {
@@ -58,6 +60,13 @@ public final class XWPFParagraphUtil {
         return createParagraph(content, document);
     }
 
+    public static void replaceText(final XWPFParagraph paragraph, final String replacement) {
+        final List<XWPFRun> runs = paragraph.getRuns();
+        final XWPFRun firstRun = runs.get(0);
+        firstRun.setText(replacement, 0);
+        removeAllRunsExceptFirst(paragraph);
+    }
+
     private static boolean isMultilineParagraph(final XWPFParagraph paragraph) {
         return extractParagraphLines(paragraph).count() > 1;
     }
@@ -85,5 +94,10 @@ public final class XWPFParagraphUtil {
         final XWPFParagraph paragraph = (XWPFParagraph) element;
         final XWPFDocument document = paragraph.getDocument();
         return extractParagraphLines(paragraph).map(line -> createParagraph(line, document));
+    }
+
+    private static void removeAllRunsExceptFirst(final XWPFParagraph paragraph) {
+        final List<XWPFRun> runs = paragraph.getRuns();
+        range(1, runs.size()).forEach(paragraph::removeRun);
     }
 }

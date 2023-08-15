@@ -3,22 +3,23 @@ package by.aurorasoft.fuelinfosearcher.service.contentcorrector;
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
 import by.aurorasoft.fuelinfosearcher.service.contentcorrector.component.AbstractContentFuelDocumentComponentCorrector;
-import lombok.RequiredArgsConstructor;
 import org.apache.poi.xwpf.usermodel.*;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-import static java.util.stream.IntStream.range;
+import static by.aurorasoft.fuelinfosearcher.util.XWPFParagraphUtil.replaceText;
+import static by.aurorasoft.fuelinfosearcher.util.XWPFTableCellUtil.isEmpty;
 
-//TODO: refactor
 @Service
-@RequiredArgsConstructor
 public final class FuelDocumentContentCorrector {
-    private final List<AbstractContentFuelDocumentComponentCorrector> componentCorrectors;
+    private final Function<String, String> contentCorrector;
+
+    public FuelDocumentContentCorrector(final List<AbstractContentFuelDocumentComponentCorrector> componentCorrectors) {
+        this.contentCorrector = createContentCorrector(componentCorrectors);
+    }
 
     public void correct(final FuelDocument document) {
         document.getTables()
@@ -28,13 +29,20 @@ public final class FuelDocumentContentCorrector {
                 .forEach(this::correctContent);
     }
 
+    private static Function<String, String> createContentCorrector(final List<AbstractContentFuelDocumentComponentCorrector> componentCorrectors) {
+        return componentCorrectors.stream()
+                .map(componentCorrector -> (Function<String, String>) componentCorrector::correct)
+                .reduce(Function::andThen)
+                .orElseThrow(() -> new IllegalArgumentException("There are no component correctors"));
+    }
+
     private void correctContent(final IBodyElement element) {
         if (element instanceof final XWPFTable table) {
             this.correctContent(table);
         } else if (element instanceof final XWPFParagraph paragraph) {
             this.correctContent(paragraph);
         } else {
-            throw new IllegalArgumentException("Given element isn't table or paragraph.");
+            throw new IllegalArgumentException("Given element isn't table or paragraph");
         }
     }
 
@@ -43,49 +51,22 @@ public final class FuelDocumentContentCorrector {
                 .stream()
                 .map(XWPFTableRow::getTableCells)
                 .flatMap(Collection::stream)
+                .filter(cell -> !isEmpty(cell))
                 .forEach(this::correctContent);
     }
 
     private void correctContent(final XWPFTableCell cell) {
-        this.correctContent(
-                cell,
-                XWPFTableCell::getText,
-                XWPFTableCell::setText
-        );
+        cell
+                .getParagraphs()
+                .forEach(this::correctContent);
     }
 
     private void correctContent(final XWPFParagraph paragraph) {
-        this.correctContent(
-                paragraph,
-                XWPFParagraph::getText,
-                FuelDocumentContentCorrector::replaceText
-        );
-    }
-
-    private <T> void correctContent(final T documentElement,
-                                    final Function<T, String> contentExtractor,
-                                    final BiConsumer<T, String> contentSetter) {
-        final String content = contentExtractor.apply(documentElement);
-        final String correctedContent = this.correctContent(content);
-        contentSetter.accept(documentElement, correctedContent);
-    }
-
-    private String correctContent(String content) {
-        for (final AbstractContentFuelDocumentComponentCorrector componentCorrector : this.componentCorrectors) {
-            content = componentCorrector.correct(content);
+        final String content = paragraph.getText();
+        final String correctedContent = this.contentCorrector.apply(content);
+        if (!content.equals(correctedContent)) {
+            System.out.println();
         }
-        return content;
-    }
-
-    private static void replaceText(final XWPFParagraph paragraph, final String replacement) {
-        final List<XWPFRun> runs = paragraph.getRuns();
-        final XWPFRun firstRun = runs.get(0);
-        firstRun.setText(replacement, 0);
-        removeAllRunsExceptFirst(paragraph);
-    }
-
-    private static void removeAllRunsExceptFirst(final XWPFParagraph paragraph) {
-        final List<XWPFRun> runs = paragraph.getRuns();
-        range(1, runs.size()).forEach(paragraph::removeRun);
+        replaceText(paragraph, correctedContent);
     }
 }

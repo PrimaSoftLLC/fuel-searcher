@@ -21,7 +21,7 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .tractor("FENDT 1050")
                                 .machinery("Lemken Diamand 11")
                                 .corpusCount("9")
-                                .ploughingDepth("18–20")
+                                .ploughingDepth("18-20")
                                 .routingLength("Менее 150")
                                 .specificResistance("Удельное сопротивление 48...53 кПа")
                                 .build(),
@@ -33,7 +33,7 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .tractor("Кировец К-744 Р3")
                                 .machinery("Kverneland RW 110")
                                 .corpusCount("12")
-                                .ploughingDepth("23–25")
+                                .ploughingDepth("23-25")
                                 .routingLength("Более 1000")
                                 .specificResistance("Удельное сопротивление 48...53 кПа")
                                 .build(),
@@ -45,7 +45,7 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .tractor("Кировец К-744 Р4")
                                 .machinery("ППО-8-40")
                                 .corpusCount("8")
-                                .ploughingDepth("23–25")
+                                .ploughingDepth("23-25")
                                 .routingLength("Менее 150")
                                 .specificResistance("Удельное сопротивление 54...59 кПа")
                                 .build(),
@@ -55,10 +55,9 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("Кировец K744P2")
-                                //TODO: do without nbsp symbol
-                                .machinery("Vari Titan 10\u00A07+3 L100")
+                                .machinery("Vari Titan 107+3 L100")
                                 .corpusCount("10")
-                                .ploughingDepth("23–25")
+                                .ploughingDepth("23-25")
                                 .routingLength("Менее 150")
                                 .specificResistance("Удельное сопротивление 54...59 кПа")
                                 .build(),
@@ -70,10 +69,10 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .tractor("К744Р3")
                                 .machinery("Kverneland RW 110")
                                 .corpusCount("12")
-                                .ploughingDepth("23–25")
-                                .routingLength("201–300")
-                                //TODO: сделать так, чтобы можно было не писать 'Плуга' и тут другое троеточие
-                                .specificResistance("Удельное сопротивление плуга 60…65 кПа")
+                                .ploughingDepth("23-25")
+                                .routingLength("201-300")
+                                //TODO: сделать так, чтобы можно было не писать 'Плуга'
+                                .specificResistance("Удельное сопротивление плуга 60...65 кПа")
                                 .build(),
                         optionalFuelInfoFactory.apply(11.3, 29.1)
                 ),
@@ -81,10 +80,9 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("Кировец K744P2")
-                                //TODO: do without nbsp symbol
-                                .machinery("Vari Titan 10\u00A07+3 L100")
+                                .machinery("Vari Titan 107+3 L100")
                                 .corpusCount("10")
-                                .ploughingDepth("18–20")
+                                .ploughingDepth("18-20")
                                 .routingLength("Менее 150")
                                 .specificResistance("Удельное сопротивление 54...59 кПа")
                                 .build(),
@@ -94,10 +92,10 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                 Arguments.of(
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
-                                .tractor("not exist tractor")
+                                .tractor("not existing")
                                 .machinery("Lemken Diamand 11")
                                 .corpusCount("9")
-                                .ploughingDepth("18–20")
+                                .ploughingDepth("18-20")
                                 .routingLength("Менее 150")
                                 .specificResistance("Удельное сопротивление 48...53 кПа")
                                 .build(),
@@ -108,9 +106,9 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("FENDT 1050")
-                                .machinery("not existing plough mark")
+                                .machinery("not existing")
                                 .corpusCount("9")
-                                .ploughingDepth("18–20")
+                                .ploughingDepth("18-20")
                                 .routingLength("Менее 150")
                                 .specificResistance("Удельное сопротивление 48...53 кПа")
                                 .build(),
@@ -122,8 +120,8 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("FENDT 1050")
                                 .machinery("Lemken Diamand 11")
-                                .corpusCount("-1")
-                                .ploughingDepth("18–20")
+                                .corpusCount("not existing")
+                                .ploughingDepth("18-20")
                                 .routingLength("Менее 150")
                                 .specificResistance("Удельное сопротивление 48...53 кПа")
                                 .build(),
@@ -136,7 +134,7 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .tractor("FENDT 1050")
                                 .machinery("Lemken Diamand 11")
                                 .corpusCount("9")
-                                .ploughingDepth("1000000-2000000")
+                                .ploughingDepth("not existing")
                                 .routingLength("Менее 150")
                                 .specificResistance("Удельное сопротивление 48...53 кПа")
                                 .build(),
@@ -149,8 +147,8 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .tractor("FENDT 1050")
                                 .machinery("Lemken Diamand 11")
                                 .corpusCount("9")
-                                .ploughingDepth("18–20")
-                                .routingLength("1000000-2000000")
+                                .ploughingDepth("18-20")
+                                .routingLength("not existing")
                                 .specificResistance("Удельное сопротивление 48...53 кПа")
                                 .build(),
                         empty()
@@ -162,9 +160,9 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .tractor("К 744Р3")
                                 .machinery("ППУ-13")
                                 .corpusCount("13")
-                                .ploughingDepth("25–27")
-                                .routingLength("201–300")
-                                .specificResistance("Удельное сопротивление плуга 100000000…200000000 кПа")
+                                .ploughingDepth("25-27")
+                                .routingLength("201-300")
+                                .specificResistance("not existing")
                                 .build(),
                         empty()
                 ),
@@ -175,9 +173,9 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .tractor("К 744Р3")
                                 .machinery("ППУ-13")
                                 .corpusCount("13")
-                                .ploughingDepth("25–27")
-                                .routingLength("201–300")
-                                .specificResistance("Удельное сопротивление плуга 60…65 кПа")
+                                .ploughingDepth("25-27")
+                                .routingLength("201-300")
+                                .specificResistance("Удельное сопротивление плуга 60...65 кПа")
                                 .build(),
                         empty()
                 )
