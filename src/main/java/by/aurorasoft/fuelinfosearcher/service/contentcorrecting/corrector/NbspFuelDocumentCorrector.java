@@ -3,11 +3,11 @@ package by.aurorasoft.fuelinfosearcher.service.contentcorrecting.corrector;
 import org.springframework.stereotype.Component;
 
 @Component
-public final class ThreePointsFuelDocumentCorrector extends AbstractContentFuelDocumentCorrector {
-    private static final String REPLACED_REGEX = "…";
-    private static final String REPLACEMENT = "...";
+public final class NbspFuelDocumentCorrector extends AbstractContentFuelDocumentCorrector {
+    private static final String REPLACED_REGEX = "\u00A0+";
+    private static final String REPLACEMENT = " ";
 
-    public ThreePointsFuelDocumentCorrector() {
+    public NbspFuelDocumentCorrector() {
         super(REPLACED_REGEX);
     }
 
@@ -15,4 +15,5 @@ public final class ThreePointsFuelDocumentCorrector extends AbstractContentFuelD
     protected String createReplacement(final String existing) {
         return REPLACEMENT;
     }
+
 }

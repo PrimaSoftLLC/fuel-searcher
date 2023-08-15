@@ -5,19 +5,15 @@ import java.util.regex.Pattern;
 
 import static java.util.regex.Pattern.compile;
 
-public abstract class AbstractFuelDocumentContentCorrector {
+public abstract class AbstractContentFuelDocumentCorrector {
     private final Pattern patternReplacedRegex;
-    private final AbstractFuelDocumentContentCorrector nextCorrector;
 
-    public AbstractFuelDocumentContentCorrector(final String replacedRegex,
-                                                final AbstractFuelDocumentContentCorrector nextCorrector) {
+    public AbstractContentFuelDocumentCorrector(final String replacedRegex) {
         this.patternReplacedRegex = compile(replacedRegex);
-        this.nextCorrector = nextCorrector;
     }
 
-    public final String correct(final StringBuilder contentBuilder) {
+    public final void correct(final StringBuilder contentBuilder) {
         this.replaceMatchesByReplacements(contentBuilder);
-        return this.nextCorrector.correct(contentBuilder);
     }
 
     protected abstract String createReplacement(final String existing);
