@@ -16,7 +16,7 @@ public abstract class AbstractContentFuelDocumentCorrector {
         this.replaceMatchesByReplacements(contentBuilder);
     }
 
-    protected abstract String createReplacement(final String existing);
+    protected abstract String createReplacement(final MatchResult matchResult);
 
     private void replaceMatchesByReplacements(final StringBuilder contentBuilder) {
         this.patternReplacedRegex.matcher(contentBuilder)
@@ -25,8 +25,7 @@ public abstract class AbstractContentFuelDocumentCorrector {
     }
 
     private void replaceMatchByReplacement(final MatchResult matchResult, final StringBuilder contentBuilder) {
-        final String existing = matchResult.group();
-        final String replacement = this.createReplacement(existing);
+        final String replacement = this.createReplacement(matchResult);
         final int startMatchIndex = matchResult.start();
         final int endMatchNextIndex = matchResult.end();
         contentBuilder.replace(startMatchIndex, endMatchNextIndex, replacement);
