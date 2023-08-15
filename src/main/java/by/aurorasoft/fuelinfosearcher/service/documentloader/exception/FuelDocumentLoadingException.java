@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelinfosearcher.service.documentloading.exception;
+package by.aurorasoft.fuelinfosearcher.service.documentloader.exception;
 
 public final class FuelDocumentLoadingException extends RuntimeException {
     public FuelDocumentLoadingException() {

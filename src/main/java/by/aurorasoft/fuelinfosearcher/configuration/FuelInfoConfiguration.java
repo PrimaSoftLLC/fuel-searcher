@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.configuration;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
-import by.aurorasoft.fuelinfosearcher.service.documentloading.FuelDocumentLoadingService;
+import by.aurorasoft.fuelinfosearcher.service.documentcreating.FuelDocumentCreatingService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 public class FuelInfoConfiguration {
 
     @Bean
-    public FuelDocument document(final FuelDocumentLoadingService loadingService) {
-        return loadingService.load();
+    public FuelDocument document(final FuelDocumentCreatingService creatingService) {
+        return creatingService.create();
     }
 
 }

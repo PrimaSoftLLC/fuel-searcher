@@ -1,15 +1,15 @@
-package by.aurorasoft.fuelinfosearcher.service.contentcorrecting.corrector;
+package by.aurorasoft.fuelinfosearcher.service.contentcorrector.component;
 
 import org.springframework.stereotype.Component;
 
 import java.util.regex.MatchResult;
 
 @Component
-public final class DashFuelDocumentCorrector extends AbstractContentFuelDocumentCorrector {
+public final class DashFuelDocumentComponentCorrector extends AbstractContentFuelDocumentComponentCorrector {
     private static final String REPLACED_REGEX = "…";
     private static final String REPLACEMENT = "...";
 
-    public DashFuelDocumentCorrector() {
+    public DashFuelDocumentComponentCorrector() {
         super(REPLACED_REGEX);
     }
 

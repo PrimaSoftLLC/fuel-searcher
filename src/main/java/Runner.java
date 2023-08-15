@@ -1,9 +1,8 @@
-import by.aurorasoft.fuelinfosearcher.service.documentloading.FuelDocumentLoadingService;
+import by.aurorasoft.fuelinfosearcher.service.documentloader.FuelDocumentLoader;
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.apache.poi.xwpf.usermodel.XWPFTable;
 
 import java.io.IOException;
 
@@ -13,7 +12,7 @@ public final class Runner {
 
     public static void main(final String... args)
             throws IOException {
-        final FuelDocument document1 = new FuelDocumentLoadingService().load();
+        final FuelDocument document1 = new FuelDocumentLoader().load();
 
         IBodyElement element = document1.getTables().get(10).getElements().get(0);
         out.println(element);

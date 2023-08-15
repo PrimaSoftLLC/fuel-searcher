@@ -1,14 +1,14 @@
-package by.aurorasoft.fuelinfosearcher.service.contentcorrecting.corrector;
+package by.aurorasoft.fuelinfosearcher.service.contentcorrector.component;
 
 import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
 import static java.util.regex.Pattern.compile;
 
-public abstract class AbstractContentFuelDocumentCorrector {
+public abstract class AbstractContentFuelDocumentComponentCorrector {
     private final Pattern patternReplacedRegex;
 
-    public AbstractContentFuelDocumentCorrector(final String replacedRegex) {
+    public AbstractContentFuelDocumentComponentCorrector(final String replacedRegex) {
         this.patternReplacedRegex = compile(replacedRegex);
     }
 

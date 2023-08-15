@@ -1,13 +1,13 @@
-package by.aurorasoft.fuelinfosearcher.service.documentloading;
+package by.aurorasoft.fuelinfosearcher.service.documentloader;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
-import by.aurorasoft.fuelinfosearcher.service.documentloading.exception.FuelDocumentLoadingException;
+import by.aurorasoft.fuelinfosearcher.service.documentloader.exception.FuelDocumentLoadingException;
 import lombok.Value;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,8 +26,8 @@ import static java.util.Optional.empty;
 import static java.util.regex.Pattern.compile;
 import static java.util.stream.Collectors.*;
 
-@Service
-public final class FuelDocumentLoadingService {
+@Component
+public final class FuelDocumentLoader {
     private static final String FILE_PATH = "postanovlenie128.2022.docx";
 
     public FuelDocument load() {
@@ -48,7 +48,7 @@ public final class FuelDocumentLoadingService {
         return findElementsGroupedByTableNames(document)
                 .entrySet()
                 .stream()
-                .map(FuelDocumentLoadingService::createTable)
+                .map(FuelDocumentLoader::createTable)
                 .collect(collectingAndThen(toList(), FuelDocument::new));
     }
 
