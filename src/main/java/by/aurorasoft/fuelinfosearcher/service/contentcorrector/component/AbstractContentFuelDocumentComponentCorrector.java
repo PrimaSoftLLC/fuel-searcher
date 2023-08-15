@@ -1,6 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.contentcorrector.component;
 
 import java.util.regex.MatchResult;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static java.util.regex.Pattern.compile;
@@ -12,22 +13,14 @@ public abstract class AbstractContentFuelDocumentComponentCorrector {
         this.patternReplacedRegex = compile(replacedRegex);
     }
 
-    public final void correct(final StringBuilder contentBuilder) {
-        this.replaceMatchesByReplacements(contentBuilder);
+    public final String correct(final String content) {
+        return this.replaceMatchesByReplacements(content);
     }
 
     protected abstract String createReplacement(final MatchResult matchResult);
 
-    private void replaceMatchesByReplacements(final StringBuilder contentBuilder) {
-        this.patternReplacedRegex.matcher(contentBuilder)
-                .results()
-                .forEach(matchResult -> this.replaceMatchByReplacement(matchResult, contentBuilder));
-    }
-
-    private void replaceMatchByReplacement(final MatchResult matchResult, final StringBuilder contentBuilder) {
-        final String replacement = this.createReplacement(matchResult);
-        final int startMatchIndex = matchResult.start();
-        final int endMatchNextIndex = matchResult.end();
-        contentBuilder.replace(startMatchIndex, endMatchNextIndex, replacement);
+    private String replaceMatchesByReplacements(final String content) {
+        final Matcher matcher = this.patternReplacedRegex.matcher(content);
+        return matcher.replaceAll(this::createReplacement);
     }
 }

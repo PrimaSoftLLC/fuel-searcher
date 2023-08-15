@@ -14,6 +14,7 @@ import java.util.function.Function;
 
 import static java.util.stream.IntStream.range;
 
+//TODO: refactor
 @Service
 @RequiredArgsConstructor
 public final class FuelDocumentContentCorrector {
@@ -33,7 +34,7 @@ public final class FuelDocumentContentCorrector {
         } else if (element instanceof final XWPFParagraph paragraph) {
             this.correctContent(paragraph);
         } else {
-            throw new IllegalArgumentException("Given element isn't table and paragraph.");
+            throw new IllegalArgumentException("Given element isn't table or paragraph.");
         }
     }
 
@@ -46,7 +47,7 @@ public final class FuelDocumentContentCorrector {
     }
 
     private void correctContent(final XWPFTableCell cell) {
-        correctContent(
+        this.correctContent(
                 cell,
                 XWPFTableCell::getText,
                 XWPFTableCell::setText
@@ -54,7 +55,7 @@ public final class FuelDocumentContentCorrector {
     }
 
     private void correctContent(final XWPFParagraph paragraph) {
-        correctContent(
+        this.correctContent(
                 paragraph,
                 XWPFParagraph::getText,
                 FuelDocumentContentCorrector::replaceText
@@ -65,20 +66,26 @@ public final class FuelDocumentContentCorrector {
                                     final Function<T, String> contentExtractor,
                                     final BiConsumer<T, String> contentSetter) {
         final String content = contentExtractor.apply(documentElement);
-        final StringBuilder contentBuilder = new StringBuilder(content);
-        this.componentCorrectors.forEach(componentCorrector -> componentCorrector.correct(contentBuilder));
-        final String correctedContent = contentBuilder.toString();
+        final String correctedContent = this.correctContent(content);
         contentSetter.accept(documentElement, correctedContent);
+    }
+
+    private String correctContent(String content) {
+        for (final AbstractContentFuelDocumentComponentCorrector componentCorrector : this.componentCorrectors) {
+            content = componentCorrector.correct(content);
+        }
+        return content;
     }
 
     private static void replaceText(final XWPFParagraph paragraph, final String replacement) {
         final List<XWPFRun> runs = paragraph.getRuns();
         final XWPFRun firstRun = runs.get(0);
         firstRun.setText(replacement, 0);
-        removeAllExceptFirst(runs);
+        removeAllRunsExceptFirst(paragraph);
     }
 
-    private static void removeAllExceptFirst(final List<XWPFRun> runs) {
-        range(1, runs.size()).forEach(runs::remove);
+    private static void removeAllRunsExceptFirst(final XWPFParagraph paragraph) {
+        final List<XWPFRun> runs = paragraph.getRuns();
+        range(1, runs.size()).forEach(paragraph::removeRun);
     }
 }
