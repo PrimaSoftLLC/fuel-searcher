@@ -20,15 +20,6 @@ public final class FuelDocumentRowFilterUtil {
     //TODO: дописать все группы в комментарии
     //Группа - это удельное сопротивление для таблиц #1 и #2 и тип почвы для таблицы #3
     private static final int CELL_INDEX_GROUP_VALUE = 0;
-    private static final int CELL_INDEX_TRACTOR = 1;
-    private static final int CELL_INDEX_CORPUS_COUNT = 3;
-    private static final int CELL_INDEX_PLOUGHING_DEPTH = 4;
-    private static final int CELL_INDEX_WORKING_WIDTH = 3;
-    private static final int CELL_INDEX_CHARGING_METHOD_AND_TRANSPORT_DISTANCE = 1;
-    private static final int CELL_INDEX_SPREAD_RATE = 2;
-    private static final int CELL_INDEX_ROW_WIDTH = 3;
-    private static final int CELL_INDEX_COMBINE = 1;
-    private static final int CELL_INDEX_TRANSPORT_DISTANCE = 1;
 
     private static final String REGEX_CONTENT_PROCESSING_DEPTH = "Глубина обработки \\d+...\\d+ см";
     private static final String REGEX_SOIL_TYPE_CONTENT = "(Минеральные почвы)|(Торфяные почвы)|(Легкие почвы)|(Средние почвы)|(Тяжелые почвы)";
@@ -40,20 +31,22 @@ public final class FuelDocumentRowFilterUtil {
 
 
     public static Optional<List<XWPFTableRow>> findRowsByTractor(final List<XWPFTableRow> rows,
-                                                                 final FuelInfoSpecification specification) {
+                                                                 final FuelInfoSpecification specification,
+                                                                 final int cellIndexTractor) {
         return findUnitedRowsByContent(
                 rows,
-                CELL_INDEX_TRACTOR,
+                cellIndexTractor,
                 specification,
                 FuelInfoSpecificationUtil::extractTractor
         );
     }
 
     public static Optional<List<XWPFTableRow>> findRowsByCombine(final List<XWPFTableRow> rows,
-                                                                 final FuelInfoSpecification specification) {
+                                                                 final FuelInfoSpecification specification,
+                                                                 final int cellIndexCombine) {
         return findUnitedRowsByContent(
                 rows,
-                CELL_INDEX_COMBINE,
+                cellIndexCombine,
                 specification,
                 FuelInfoSpecificationUtil::extractCombine
         );
@@ -72,10 +65,10 @@ public final class FuelDocumentRowFilterUtil {
 
     public static Optional<List<XWPFTableRow>> findRowsByWorkingWidth(final List<XWPFTableRow> rows,
                                                                       final FuelInfoSpecification specification,
-                                                                      final int indexCellOfWorkingWidth) {
+                                                                      final int cellIndexWorkingWidth) {
         return findUnitedRowsByContent(
                 rows,
-                indexCellOfWorkingWidth,
+                cellIndexWorkingWidth,
                 specification,
                 FuelInfoSpecificationUtil::extractWorkingWidth
         );
@@ -83,10 +76,10 @@ public final class FuelDocumentRowFilterUtil {
 
     public static Optional<XWPFTableRow> findRowByYield(final List<XWPFTableRow> rows,
                                                         final FuelInfoSpecification specification,
-                                                        final int indexCellOfYield) {
+                                                        final int cellIndexYield) {
         return findFirstRowByContent(
                 rows,
-                indexCellOfYield,
+                cellIndexYield,
                 specification,
                 FuelInfoSpecificationUtil::extractYield
         );
@@ -104,42 +97,35 @@ public final class FuelDocumentRowFilterUtil {
     }
 
     public static Optional<List<XWPFTableRow>> findRowsByCorpusCount(final List<XWPFTableRow> rows,
-                                                                     final FuelInfoSpecification specification) {
+                                                                     final FuelInfoSpecification specification,
+                                                                     final int cellIndexCorpusCount) {
         return findUnitedRowsByContent(
                 rows,
-                CELL_INDEX_CORPUS_COUNT,
+                cellIndexCorpusCount,
                 specification,
                 FuelInfoSpecificationUtil::extractCorpusCount
         );
     }
 
     public static Optional<XWPFTableRow> findRowByPloughingDepth(final List<XWPFTableRow> rows,
-                                                                 final FuelInfoSpecification specification) {
+                                                                 final FuelInfoSpecification specification,
+                                                                 final int cellIndexPloughingDepth) {
         return findFirstRowByContent(
                 rows,
-                CELL_INDEX_PLOUGHING_DEPTH,
+                cellIndexPloughingDepth,
                 specification,
                 FuelInfoSpecificationUtil::extractPloughingDepth
         );
     }
 
     public static Optional<XWPFTableRow> findRowByTransportDistance(final List<XWPFTableRow> rows,
-                                                                    final FuelInfoSpecification specification) {
+                                                                    final FuelInfoSpecification specification,
+                                                                    final int cellIndexTransportDistance) {
         return findFirstRowByContent(
                 rows,
-                CELL_INDEX_TRANSPORT_DISTANCE,
+                cellIndexTransportDistance,
                 specification,
                 FuelInfoSpecificationUtil::extractTransportDistance
-        );
-    }
-
-    public static Optional<XWPFTableRow> findRowByWorkingWidth(final List<XWPFTableRow> rows,
-                                                               final FuelInfoSpecification specification) {
-        return findFirstRowByContent(
-                rows,
-                CELL_INDEX_WORKING_WIDTH,
-                specification,
-                FuelInfoSpecificationUtil::extractWorkingWidth
         );
     }
 
@@ -214,30 +200,33 @@ public final class FuelDocumentRowFilterUtil {
     }
 
     public static Optional<List<XWPFTableRow>> findRowsByChargingMethodAndTransportDistance(final List<XWPFTableRow> rows,
-                                                                                            final FuelInfoSpecification specification) {
+                                                                                            final FuelInfoSpecification specification,
+                                                                                            final int cellIndexChargingMethodAndTransportDistance) {
         return findUnitedRowsByContent(
                 rows,
-                CELL_INDEX_CHARGING_METHOD_AND_TRANSPORT_DISTANCE,
+                cellIndexChargingMethodAndTransportDistance,
                 specification,
                 FuelInfoSpecificationUtil::extractChargingMethodAndTransportDistance
         );
     }
 
     public static Optional<XWPFTableRow> findRowBySpreadRate(final List<XWPFTableRow> rows,
-                                                             final FuelInfoSpecification specification) {
+                                                             final FuelInfoSpecification specification,
+                                                             final int cellIndexSpreadRate) {
         return findFirstRowByContent(
                 rows,
-                CELL_INDEX_SPREAD_RATE,
+                cellIndexSpreadRate,
                 specification,
                 FuelInfoSpecificationUtil::extractSpreadRate
         );
     }
 
     public static Optional<List<XWPFTableRow>> findRowsByRowWidth(final List<XWPFTableRow> rows,
-                                                                  final FuelInfoSpecification specification) {
+                                                                  final FuelInfoSpecification specification,
+                                                                  final int cellIndexRowWidth) {
         return findUnitedRowsByContent(
                 rows,
-                CELL_INDEX_ROW_WIDTH,
+                cellIndexRowWidth,
                 specification,
                 FuelInfoSpecificationUtil::extractRowWidth
         );

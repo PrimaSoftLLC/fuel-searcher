@@ -22,6 +22,9 @@ public final class TwelfthTableFuelInfoSearchingService extends AbstractComposit
     };
     private static final String TEMPLATE_PARAGRAPH_CONTENT_WITH_MACHINERY = "Опрыскивателем %s";
 
+    private static final int CELL_INDEX_CHARGING_METHOD_AND_TRANSPORT_DISTANCE = 1;
+    private static final int CELL_INDEX_SPREAD_RATE = 2;
+
     public TwelfthTableFuelInfoSearchingService(final FuelDocument fuelDocument) {
         super(fuelDocument, TABLE_NAME, FUEL_INFO_HEADERS);
     }
@@ -29,8 +32,8 @@ public final class TwelfthTableFuelInfoSearchingService extends AbstractComposit
     @Override
     protected Optional<XWPFTableRow> findAppropriateRow(final List<XWPFTableRow> elementTableRows, final FuelInfoSpecification specification) {
         return findRowsByFertilizerType(elementTableRows, specification)
-                .flatMap(rows -> findRowsByChargingMethodAndTransportDistance(rows, specification))
-                .flatMap(rows -> findRowBySpreadRate(rows, specification));
+                .flatMap(rows -> findRowsByChargingMethodAndTransportDistance(rows, specification, CELL_INDEX_CHARGING_METHOD_AND_TRANSPORT_DISTANCE))
+                .flatMap(rows -> findRowBySpreadRate(rows, specification, CELL_INDEX_SPREAD_RATE));
     }
 
     @Override

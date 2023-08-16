@@ -18,6 +18,7 @@ public final class TwentySixthTableFuelInfoSearchingService extends AbstractSimp
             "Менее 150", "151...200", "201...300", "301...400", "401...600", "601...1000", "Более 1000"
     };
 
+    private static final int CELL_INDEX_COMBINE = 1;
     private static final int CELL_INDEX_WORKING_WIDTH = 3;
     private static final int CELL_INDEX_YIELD = 2;
 
@@ -28,7 +29,7 @@ public final class TwentySixthTableFuelInfoSearchingService extends AbstractSimp
     @Override
     protected Optional<XWPFTableRow> findAppropriateRow(final List<XWPFTableRow> elementTableRows,
                                                         final FuelInfoSpecification specification) {
-        return findRowsByCombine(elementTableRows, specification)
+        return findRowsByCombine(elementTableRows, specification, CELL_INDEX_COMBINE)
                 .flatMap(rows -> findRowsByWorkingWidth(rows, specification, CELL_INDEX_WORKING_WIDTH))
                 .flatMap(rows -> findRowByYield(rows, specification, CELL_INDEX_YIELD));
     }

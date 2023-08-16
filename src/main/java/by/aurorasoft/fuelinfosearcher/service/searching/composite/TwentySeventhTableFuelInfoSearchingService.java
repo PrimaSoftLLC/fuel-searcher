@@ -21,6 +21,8 @@ public final class TwentySeventhTableFuelInfoSearchingService extends AbstractCo
     private static final String[] FUEL_INFO_HEADERS = new String[]{"I", "II", "III"};
     private static final String TEMPLATE_PARAGRAPH_CONTENT_WITH_TRACTOR_AND_MACHINERY = "ТРАКТОР %s + %s. При механизированной погрузке и разгрузке";
 
+    private static final int CELL_INDEX_TRANSPORT_DISTANCE = 1;
+
     public TwentySeventhTableFuelInfoSearchingService(final FuelDocument fuelDocument) {
         super(fuelDocument, TABLE_NAME, FUEL_INFO_HEADERS);
     }
@@ -29,7 +31,7 @@ public final class TwentySeventhTableFuelInfoSearchingService extends AbstractCo
     protected Optional<XWPFTableRow> findAppropriateRow(final List<XWPFTableRow> elementTableRows,
                                                         final FuelInfoSpecification specification) {
         return findRowsByCargoClass(elementTableRows, specification)
-                .flatMap(rows -> findRowByTransportDistance(rows, specification));
+                .flatMap(rows -> findRowByTransportDistance(rows, specification, CELL_INDEX_TRANSPORT_DISTANCE));
     }
 
     @Override

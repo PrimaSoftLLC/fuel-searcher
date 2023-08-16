@@ -18,7 +18,9 @@ public final class TwentyFifthTableFuelInfoSearchingService extends AbstractSimp
             "Менее 150", "151...200", "201...300", "301...400", "401...600", "601...1000", "Более 1000"
     };
 
+    private static final int CELL_INDEX_TRACTOR = 1;
     private static final int CELL_INDEX_MACHINERY = 2;
+    private static final int CELL_INDEX_ROW_WIDTH = 3;
     private static final int CELL_INDEX_YIELD = 4;
 
 
@@ -30,9 +32,9 @@ public final class TwentyFifthTableFuelInfoSearchingService extends AbstractSimp
     protected Optional<XWPFTableRow> findAppropriateRow(final List<XWPFTableRow> elementTableRows,
                                                         final FuelInfoSpecification specification) {
         return findRowsBySoilType(elementTableRows, specification)
-                .flatMap(rows -> findRowsByTractor(rows, specification))
+                .flatMap(rows -> findRowsByTractor(rows, specification, CELL_INDEX_TRACTOR))
                 .flatMap(rows -> findRowsByMachinery(rows, specification, CELL_INDEX_MACHINERY))
-                .flatMap(rows -> findRowsByRowWidth(rows, specification))
+                .flatMap(rows -> findRowsByRowWidth(rows, specification, CELL_INDEX_ROW_WIDTH))
                 .flatMap(rows -> findRowByYield(rows, specification, CELL_INDEX_YIELD));
     }
 

@@ -22,6 +22,8 @@ public final class FourteenthTableFuelInfoSearchingService extends AbstractCompo
 
     private static final String TEMPLATE_PARAGRAPH_CONTENT_WITH_TRACTOR_AND_MACHINERY = "%s с %s";
 
+    private static final int CELL_INDEX_TRANSPORT_DISTANCE = 1;
+
     public FourteenthTableFuelInfoSearchingService(final FuelDocument fuelDocument) {
         super(fuelDocument, TABLE_NAME, FUEL_INFO_HEADERS);
     }
@@ -43,7 +45,7 @@ public final class FourteenthTableFuelInfoSearchingService extends AbstractCompo
     protected Optional<XWPFTableRow> findAppropriateRow(final List<XWPFTableRow> elementTableRows,
                                                         final FuelInfoSpecification specification) {
         return findRowsByRoadGroup(elementTableRows, specification)
-                .flatMap(rows -> findRowByTransportDistance(rows, specification));
+                .flatMap(rows -> findRowByTransportDistance(rows, specification, CELL_INDEX_TRANSPORT_DISTANCE));
     }
 
     @Override

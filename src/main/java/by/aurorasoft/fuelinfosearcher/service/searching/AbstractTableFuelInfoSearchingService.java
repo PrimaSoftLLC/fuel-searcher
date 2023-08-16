@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findIndexFirstCellByContent;
 import static java.util.function.Function.identity;
@@ -43,8 +45,17 @@ public abstract class AbstractTableFuelInfoSearchingService {
     protected abstract Optional<XWPFTable> findElementTable(final FuelTable fuelTable,
                                                             final FuelInfoSpecification specification);
 
-    protected abstract Optional<XWPFTableRow> findAppropriateRow(final List<XWPFTableRow> elementTableRows,
-                                                                 final FuelInfoSpecification specification);
+    protected abstract Stream<Function<List<XWPFTableRow>, Optional<List<XWPFTableRow>>>> findRowFilters();
+
+    protected abstract Function<List<XWPFTableRow>, XWPFTableRow> findFinalRowFilter();
+
+    private XWPFTableRow findAppropriateRow(final List<XWPFTableRow> elementTableRows,
+                                            final FuelInfoSpecification specification) {
+
+    }
+
+//    protected abstract Optional<XWPFTableRow> findAppropriateRow(final List<XWPFTableRow> elementTableRows,
+//                                                                 final FuelInfoSpecification specification);
 
     protected abstract String extractFuelInfoHeaderCellValue(final FuelInfoSpecification specification);
 

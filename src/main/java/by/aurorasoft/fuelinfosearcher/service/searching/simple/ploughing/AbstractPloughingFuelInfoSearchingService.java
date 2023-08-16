@@ -15,7 +15,11 @@ public abstract class AbstractPloughingFuelInfoSearchingService extends Abstract
     private static final String[] FUEL_INFO_HEADERS = new String[]{
             "Менее 150", "150-200", "201-300", "301-400", "401-600", "601-1000", "Более 1000"
     };
+
+    private static final int CELL_INDEX_TRACTOR = 1;
     private static final int CELL_INDEX_MACHINERY = 2;
+    private static final int CELL_INDEX_CORPUS_COUNT = 3;
+    private static final int CELL_INDEX_PLOUGHING_DEPTH = 4;
 
     public AbstractPloughingFuelInfoSearchingService(final FuelDocument fuelDocument, final String fuelTableName) {
         super(fuelDocument, fuelTableName, FUEL_INFO_HEADERS);
@@ -25,10 +29,10 @@ public abstract class AbstractPloughingFuelInfoSearchingService extends Abstract
     protected final Optional<XWPFTableRow> findAppropriateRow(final List<XWPFTableRow> elementTableRows,
                                                               final FuelInfoSpecification specification) {
         return this.findRowsByGroupValue(elementTableRows, specification)
-                .flatMap(rows -> findRowsByTractor(rows, specification))
+                .flatMap(rows -> findRowsByTractor(rows, specification, CELL_INDEX_TRACTOR))
                 .flatMap(rows -> findRowsByMachinery(rows, specification, CELL_INDEX_MACHINERY))
-                .flatMap(rows -> findRowsByCorpusCount(rows, specification))
-                .flatMap(rows -> findRowByPloughingDepth(rows, specification));
+                .flatMap(rows -> findRowsByCorpusCount(rows, specification, CELL_INDEX_CORPUS_COUNT))
+                .flatMap(rows -> findRowByPloughingDepth(rows, specification, CELL_INDEX_PLOUGHING_DEPTH));
     }
 
     @Override

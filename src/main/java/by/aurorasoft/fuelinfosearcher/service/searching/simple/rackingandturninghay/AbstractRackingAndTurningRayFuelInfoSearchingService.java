@@ -19,6 +19,7 @@ public abstract class AbstractRackingAndTurningRayFuelInfoSearchingService exten
 
     private static final int ROW_INDEX_YIELD = 4;
 
+    private static final int CELL_INDEX_TRACTOR = 1;
     private static final int CELL_INDEX_MACHINERY = 2;
     private static final int CELL_INDEX_WORKING_WIDTH = 3;
 
@@ -31,7 +32,7 @@ public abstract class AbstractRackingAndTurningRayFuelInfoSearchingService exten
     protected Optional<XWPFTableRow> findAppropriateRow(final List<XWPFTableRow> elementTableRows,
                                                         final FuelInfoSpecification specification) {
         final List<XWPFTableRow> rowsWithoutYieldRow = copyWithoutYieldRow(elementTableRows);
-        return findRowsByTractor(rowsWithoutYieldRow, specification)
+        return findRowsByTractor(rowsWithoutYieldRow, specification, CELL_INDEX_TRACTOR)
                 .flatMap(rows -> findRowsByMachinery(rows, specification, CELL_INDEX_MACHINERY))
                 .flatMap(rows -> findRowByWorkingWidth(rows, specification, CELL_INDEX_WORKING_WIDTH));
     }

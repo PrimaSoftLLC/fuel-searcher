@@ -15,6 +15,8 @@ public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService ext
     private static final String[] FUEL_INFO_HEADERS = new String[]{
             "Менее 150", "151...200", "201...300", "301...400", "401...600", "601...1000", "Более 1000"
     };
+
+    private static final int CELL_INDEX_TRACTOR = 1;
     private static final int CELL_INDEX_MACHINERY = 2;
 
     public AbstractMovingAndMouldingTableFuelInfoSearchingService(final FuelDocument fuelDocument,
@@ -27,7 +29,7 @@ public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService ext
                                                               final FuelInfoSpecification specification) {
         final int cellIndexWorkingWidth = this.findCellIndexWorkingWidth();
         final int cellIndexYield = this.findCellIndexYield();
-        return findRowsByTractor(elementTableRows, specification)
+        return findRowsByTractor(elementTableRows, specification, CELL_INDEX_TRACTOR)
                 .flatMap(rows -> findRowsByMachinery(rows, specification, CELL_INDEX_MACHINERY))
                 .flatMap(rows -> findRowsByWorkingWidth(rows, specification, cellIndexWorkingWidth))
                 .flatMap(rows -> findRowByYield(rows, specification, cellIndexYield));
