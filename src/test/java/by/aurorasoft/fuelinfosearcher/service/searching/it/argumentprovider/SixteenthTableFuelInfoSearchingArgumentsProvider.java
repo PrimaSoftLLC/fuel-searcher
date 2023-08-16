@@ -21,7 +21,7 @@ public final class SixteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .tractor("Fendt-933")
                                 .machinery("Krone-B 1000 CV Collet")
                                 .workingWidth("9,7")
-                                .yield("до 10,0")
+                                .yield("до 10")
                                 .routingLength("Менее 150")
                                 .build(),
                         optionalFuelInfoFactory.apply(31.5, 4.7)
@@ -29,12 +29,11 @@ public final class SixteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                 Arguments.of(
                         FuelInfoSpecification.builder()
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
-                                //TODO: do without \n
-                                .tractor("Беларус\n3022")
+                                .tractor("Беларус 3022")
                                 .machinery("КМР-9П")
-                                .workingWidth("9,0")
-                                .yield("свыше 35,0")
-                                .routingLength("151…200")
+                                .workingWidth("9")
+                                .yield("свыше 35")
+                                .routingLength("151...200")
                                 .build(),
                         optionalFuelInfoFactory.apply(27.9, 7.4)
                 ),
@@ -44,7 +43,7 @@ public final class SixteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .tractor("Беларус 920.2")
                                 .machinery("KRONE EC-280")
                                 .workingWidth("2,8")
-                                .yield("свыше 35,0")
+                                .yield("свыше 35")
                                 .routingLength("Менее 150")
                                 .build(),
                         optionalFuelInfoFactory.apply(7.5, 5.6)
@@ -56,7 +55,7 @@ public final class SixteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .tractor("not existing")
                                 .machinery("KRONE EC-280")
                                 .workingWidth("2,8")
-                                .yield("свыше 35,0")
+                                .yield("свыше 35")
                                 .routingLength("Менее 150")
                                 .build(),
                         empty()
@@ -68,7 +67,7 @@ public final class SixteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .tractor("Беларус 920.2")
                                 .machinery("not existing")
                                 .workingWidth("2,8")
-                                .yield("свыше 35,0")
+                                .yield("свыше 35")
                                 .routingLength("Менее 150")
                                 .build(),
                         empty()
@@ -80,7 +79,7 @@ public final class SixteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .tractor("Беларус 920.2")
                                 .machinery("KRONE EC-280")
                                 .workingWidth("not exsting")
-                                .yield("свыше 35,0")
+                                .yield("свыше 35")
                                 .routingLength("Менее 150")
                                 .build(),
                         empty()
@@ -104,7 +103,7 @@ public final class SixteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .tractor("Беларус 920.2")
                                 .machinery("KRONE EC-280")
                                 .workingWidth("2,8")
-                                .yield("свыше 35,0")
+                                .yield("свыше 35")
                                 .routingLength("not existing")
                                 .build(),
                         empty()
