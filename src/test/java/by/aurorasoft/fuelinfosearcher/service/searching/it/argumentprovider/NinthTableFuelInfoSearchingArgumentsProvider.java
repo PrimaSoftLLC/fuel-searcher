@@ -32,7 +32,7 @@ public final class NinthTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .tractor("Беларус 1221")
                                 .machinery("Meca V-4")
                                 .workingWidth("5,4")
-                                .routingLength("601–1000")
+                                .routingLength("601-1000")
                                 .sowingNorm("Норма высева семян 30 кг/га")
                                 .build(),
                         optionalFuelInfoFactory.apply(15.6, 2.72)
@@ -43,7 +43,7 @@ public final class NinthTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .tractor("Беларус 80/82")
                                 .machinery("Tehnic NC")
                                 .workingWidth("3,6")
-                                .routingLength("601–1000")
+                                .routingLength("601-1000")
                                 .sowingNorm("Норма высева семян 45 кг/га")
                                 .build(),
                         optionalFuelInfoFactory.apply(10.3, 2.64)
@@ -55,7 +55,7 @@ public final class NinthTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .tractor("not existing")
                                 .machinery("Tehnic NC")
                                 .workingWidth("3,6")
-                                .routingLength("601–1000")
+                                .routingLength("601-1000")
                                 .sowingNorm("Норма высева семян 45 кг/га")
                                 .build(),
                         empty()
@@ -67,7 +67,7 @@ public final class NinthTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .tractor("Беларус 80/82")
                                 .machinery("not existing")
                                 .workingWidth("3,6")
-                                .routingLength("601–1000")
+                                .routingLength("601-1000")
                                 .sowingNorm("Норма высева семян 45 кг/га")
                                 .build(),
                         empty()
@@ -78,8 +78,8 @@ public final class NinthTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .tableName("ПОСЕВ САХАРНОЙ СВЕКЛЫ")
                                 .tractor("Беларус 80/82")
                                 .machinery("Tehnic NC")
-                                .workingWidth("-3,6")
-                                .routingLength("601–1000")
+                                .workingWidth("not existing")
+                                .routingLength("601-1000")
                                 .sowingNorm("Норма высева семян 45 кг/га")
                                 .build(),
                         empty()
@@ -91,7 +91,7 @@ public final class NinthTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .tractor("Беларус 80/82")
                                 .machinery("Tehnic NC")
                                 .workingWidth("3,6")
-                                .routingLength("1000-1500")
+                                .routingLength("not existing")
                                 .sowingNorm("Норма высева семян 45 кг/га")
                                 .build(),
                         empty()
@@ -103,8 +103,8 @@ public final class NinthTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .tractor("Беларус 80/82")
                                 .machinery("Tehnic NC")
                                 .workingWidth("3,6")
-                                .routingLength("601–1000")
-                                .sowingNorm("Норма высева семян 99999999999999999 кг/га")
+                                .routingLength("601-1000")
+                                .sowingNorm("not existing")
                                 .build(),
                         empty()
                 )
