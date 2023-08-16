@@ -17,13 +17,12 @@ public final class TwentySixthTableFuelInfoSearchingService extends AbstractSimp
     private static final String[] FUEL_INFO_HEADERS = new String[]{
             "Менее 150", "151...200", "201...300", "301...400", "401...600", "601...1000", "Более 1000"
     };
-    private static final int FIRST_FUEL_INFO_OFFSET = 0;
 
     private static final int CELL_INDEX_WORKING_WIDTH = 3;
     private static final int CELL_INDEX_YIELD = 2;
 
     public TwentySixthTableFuelInfoSearchingService(final FuelDocument fuelDocument) {
-        super(fuelDocument, TABLE_NAME, FUEL_INFO_HEADERS, FIRST_FUEL_INFO_OFFSET);
+        super(fuelDocument, TABLE_NAME, FUEL_INFO_HEADERS);
     }
 
     @Override

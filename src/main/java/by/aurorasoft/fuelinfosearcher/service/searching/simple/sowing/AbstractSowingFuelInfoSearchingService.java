@@ -17,10 +17,8 @@ public abstract class AbstractSowingFuelInfoSearchingService extends AbstractSim
     };
     private static final int CELL_INDEX_MACHINERY = 2;
 
-    public AbstractSowingFuelInfoSearchingService(final FuelDocument fuelDocument,
-                                                  final String fuelTableName,
-                                                  final int firstFuelInfoOffset) {
-        super(fuelDocument, fuelTableName, FUEL_INFO_HEADERS, firstFuelInfoOffset);
+    public AbstractSowingFuelInfoSearchingService(final FuelDocument fuelDocument, final String fuelTableName) {
+        super(fuelDocument, fuelTableName, FUEL_INFO_HEADERS);
     }
 
     @Override

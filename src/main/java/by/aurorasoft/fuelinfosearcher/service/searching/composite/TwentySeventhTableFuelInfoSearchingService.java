@@ -19,11 +19,10 @@ import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extr
 public final class TwentySeventhTableFuelInfoSearchingService extends AbstractCompositeTableFuelInfoSearchingService {
     private static final String TABLE_NAME = "ТРАНСПОРТИРОВКА ГРУЗОВ ТРАКТОРАМИ С ОДНИМ ПРИЦЕПОМ";
     private static final String[] FUEL_INFO_HEADERS = new String[]{"I", "II", "III"};
-    private static final int FIRST_FUEL_INFO_OFFSET = 0;
     private static final String TEMPLATE_PARAGRAPH_CONTENT_WITH_TRACTOR_AND_MACHINERY = "ТРАКТОР %s + %s. При механизированной погрузке и разгрузке";
 
     public TwentySeventhTableFuelInfoSearchingService(final FuelDocument fuelDocument) {
-        super(fuelDocument, TABLE_NAME, FUEL_INFO_HEADERS, FIRST_FUEL_INFO_OFFSET);
+        super(fuelDocument, TABLE_NAME, FUEL_INFO_HEADERS);
     }
 
     @Override

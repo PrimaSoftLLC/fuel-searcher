@@ -8,9 +8,8 @@ public abstract class AbstractMouldingTableFuelInfoSearchingService extends Abst
     private static final int CELL_INDEX_WORKING_WIDTH = 3;
 
     public AbstractMouldingTableFuelInfoSearchingService(final FuelDocument fuelDocument,
-                                                         final String fuelTableName,
-                                                         final int firstFuelInfoOffset) {
-        super(fuelDocument, fuelTableName, firstFuelInfoOffset);
+                                                         final String fuelTableName) {
+        super(fuelDocument, fuelTableName);
     }
 
     @Override

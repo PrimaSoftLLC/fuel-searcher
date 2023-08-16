@@ -14,9 +14,8 @@ public abstract class AbstractSimpleTableFuelInfoSearchingService extends Abstra
 
     public AbstractSimpleTableFuelInfoSearchingService(final FuelDocument fuelDocument,
                                                        final String fuelTableName,
-                                                       final String[] fuelInfoHeaders,
-                                                       final int firstFuelInfoOffset) {
-        super(fuelDocument, fuelTableName, fuelInfoHeaders, firstFuelInfoOffset);
+                                                       final String[] fuelInfoHeaders) {
+        super(fuelDocument, fuelTableName, fuelInfoHeaders);
     }
 
     @Override

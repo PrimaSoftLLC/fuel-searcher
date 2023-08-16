@@ -23,9 +23,8 @@ public abstract class AbstractRackingAndTurningRayFuelInfoSearchingService exten
     private static final int CELL_INDEX_WORKING_WIDTH = 3;
 
     public AbstractRackingAndTurningRayFuelInfoSearchingService(final FuelDocument fuelDocument,
-                                                                final String fuelTableName,
-                                                                final int firstFuelInfoOffset) {
-        super(fuelDocument, fuelTableName, FUEL_INFO_HEADERS, firstFuelInfoOffset);
+                                                                final String fuelTableName) {
+        super(fuelDocument, fuelTableName, FUEL_INFO_HEADERS);
     }
 
     @Override

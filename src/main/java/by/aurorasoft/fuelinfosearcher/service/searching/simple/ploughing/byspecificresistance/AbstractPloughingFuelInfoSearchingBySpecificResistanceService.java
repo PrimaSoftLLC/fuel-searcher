@@ -14,9 +14,8 @@ public abstract class AbstractPloughingFuelInfoSearchingBySpecificResistanceServ
         extends AbstractPloughingFuelInfoSearchingService {
 
     public AbstractPloughingFuelInfoSearchingBySpecificResistanceService(final FuelDocument fuelDocument,
-                                                                         final String fuelTableName,
-                                                                         final int firstFuelInfoOffset) {
-        super(fuelDocument, fuelTableName, firstFuelInfoOffset);
+                                                                         final String fuelTableName) {
+        super(fuelDocument, fuelTableName);
     }
 
     @Override

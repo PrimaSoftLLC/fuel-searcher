@@ -13,10 +13,9 @@ import static by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil.find
 @Service
 public final class ThirdTableFuelInfoSearchingService extends AbstractPloughingFuelInfoSearchingService {
     private static final String TABLE_NAME = "ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ";
-    private static final int FIRST_FUEL_INFO_OFFSET = 2;
 
     public ThirdTableFuelInfoSearchingService(final FuelDocument fuelDocument) {
-        super(fuelDocument, TABLE_NAME, FIRST_FUEL_INFO_OFFSET);
+        super(fuelDocument, TABLE_NAME);
     }
 
     @Override

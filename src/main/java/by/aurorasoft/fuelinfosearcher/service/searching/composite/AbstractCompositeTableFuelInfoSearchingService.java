@@ -1,9 +1,10 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.composite;
 
-import by.aurorasoft.fuelinfosearcher.model.*;
+import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
+import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
+import by.aurorasoft.fuelinfosearcher.model.FuelTable;
 import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelInfoSearchingService;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 
 import java.util.List;
@@ -25,9 +26,8 @@ public abstract class AbstractCompositeTableFuelInfoSearchingService extends Abs
 
     public AbstractCompositeTableFuelInfoSearchingService(final FuelDocument fuelDocument,
                                                           final String fuelTableName,
-                                                          final String[] fuelInfoHeaders,
-                                                          final int firstFuelInfoOffset) {
-        super(fuelDocument, fuelTableName, fuelInfoHeaders, firstFuelInfoOffset);
+                                                          final String[] fuelInfoHeaders) {
+        super(fuelDocument, fuelTableName, fuelInfoHeaders);
     }
 
     @Override

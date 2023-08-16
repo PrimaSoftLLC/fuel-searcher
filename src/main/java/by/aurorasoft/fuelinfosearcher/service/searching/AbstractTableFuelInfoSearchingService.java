@@ -6,9 +6,13 @@ import by.aurorasoft.fuelinfosearcher.util.FuelInfoUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findIndexFirstCellByContent;
+import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.IntStream.range;
 
@@ -17,16 +21,13 @@ public abstract class AbstractTableFuelInfoSearchingService {
     private static final int INDEX_ROW_FUEL_INFO_HEADER = 1;
 
     private final FuelTable fuelTable;
-
-    //TODO: если можно подправить файл, чтобы избрежать смещений, удалить
     private final Map<String, Integer> fuelInfoOffsetsByHeaders;
 
     public AbstractTableFuelInfoSearchingService(final FuelDocument fuelDocument,
                                                  final String fuelTableName,
-                                                 final String[] fuelInfoHeaders,
-                                                 final int firstFuelInfoOffset) {
+                                                 final String[] fuelInfoHeaders) {
         this.fuelTable = findTableByName(fuelDocument, fuelTableName);
-        this.fuelInfoOffsetsByHeaders = createFuelInfoOffsetsByHeaders(fuelInfoHeaders, firstFuelInfoOffset);
+        this.fuelInfoOffsetsByHeaders = createFuelInfoOffsetsByHeaders(fuelInfoHeaders);
     }
 
     public final String findTableName() {
@@ -61,11 +62,10 @@ public abstract class AbstractTableFuelInfoSearchingService {
                 );
     }
 
-    private static Map<String, Integer> createFuelInfoOffsetsByHeaders(final String[] fuelInfoHeaders,
-                                                                       final int firstFuelInfoOffset) {
+    private static Map<String, Integer> createFuelInfoOffsetsByHeaders(final String[] fuelInfoHeaders) {
         return range(0, fuelInfoHeaders.length)
                 .boxed()
-                .collect(toMap(i -> fuelInfoHeaders[i], i -> i + firstFuelInfoOffset));
+                .collect(toMap(i -> fuelInfoHeaders[i], identity()));
     }
 
     private Optional<FuelInfo> findFuelInfo(final List<XWPFTableRow> elementTableRows,

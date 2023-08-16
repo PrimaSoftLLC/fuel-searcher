@@ -6,10 +6,9 @@ import org.springframework.stereotype.Service;
 @Service
 public final class FifteenthTableFuelInfoSearchingService extends AbstractMovingTableFuelInfoSearchingService {
     private static final String TABLE_NAME = "КОШЕНИЕ СЕЯНЫХ И ЕСТЕСТВЕННЫХ ТРАВ";
-    private static final int FIRST_FUEL_INFO_OFFSET = 0;
 
     public FifteenthTableFuelInfoSearchingService(final FuelDocument fuelDocument) {
-        super(fuelDocument, TABLE_NAME, FIRST_FUEL_INFO_OFFSET);
+        super(fuelDocument, TABLE_NAME);
     }
 
 }

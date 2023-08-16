@@ -33,7 +33,7 @@ public final class ParagraphContentCorrectingService {
         return componentCorrectors.stream()
                 .map(componentCorrector -> (Function<String, String>) componentCorrector::correct)
                 .reduce(Function::andThen)
-                .orElseThrow(() -> new IllegalArgumentException("There are no component correctors"));
+                .orElseThrow(() -> new IllegalArgumentException("There are no correctors"));
     }
 
     private void correctContent(final IBodyElement element) {

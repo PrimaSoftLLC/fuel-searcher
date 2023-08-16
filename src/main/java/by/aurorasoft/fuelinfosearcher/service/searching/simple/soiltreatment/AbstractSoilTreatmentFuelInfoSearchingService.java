@@ -17,10 +17,8 @@ public abstract class AbstractSoilTreatmentFuelInfoSearchingService extends Abst
     };
     private static final int CELL_INDEX_MACHINERY = 2;
 
-    public AbstractSoilTreatmentFuelInfoSearchingService(final FuelDocument fuelDocument,
-                                                         final String fuelTableName,
-                                                         final int firstFuelInfoOffset) {
-        super(fuelDocument, fuelTableName, FUEL_INFO_HEADERS, firstFuelInfoOffset);
+    public AbstractSoilTreatmentFuelInfoSearchingService(final FuelDocument fuelDocument, final String fuelTableName) {
+        super(fuelDocument, fuelTableName, FUEL_INFO_HEADERS);
     }
 
     @Override
