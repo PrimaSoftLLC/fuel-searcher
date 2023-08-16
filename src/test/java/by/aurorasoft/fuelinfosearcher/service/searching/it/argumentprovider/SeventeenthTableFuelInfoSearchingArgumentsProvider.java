@@ -30,8 +30,8 @@ public final class SeventeenthTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .tableName("ВОРОШЕНИЕ СЕНА")
                                 .tractor("Беларус 1221")
                                 .machinery("Spider 600/6 ALP")
-                                .workingWidth("6,0")
-                                .routingLength("401–600")
+                                .workingWidth("6")
+                                .routingLength("401-600")
                                 .build(),
                         optionalFuelInfoFactory.apply(32.2, 1.9)
                 ),

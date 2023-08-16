@@ -14,7 +14,7 @@ import static java.util.stream.IntStream.range;
 
 public abstract class AbstractRackingAndTurningRayFuelInfoSearchingService extends AbstractSimpleTableFuelInfoSearchingService {
     private static final String[] FUEL_INFO_HEADERS = {
-            "Менее 150", "150–200", "201–300", "301–400", "401–600", "601–1000", "Более 1000"
+            "Менее 150", "150-200", "201-300", "301-400", "401-600", "601-1000", "Более 1000"
     };
 
     private static final int ROW_INDEX_YIELD = 4;
