@@ -32,7 +32,7 @@ public final class EighthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .tractor("Беларус 1221")
                                 .machinery("Ферабокс Футура Макси 8")
                                 .workingWidth("5,6")
-                                .routingLength("150–200")
+                                .routingLength("150-200")
                                 .sowingNorm("Норма высева 30 кг/га")
                                 .build(),
                         optionalFuelInfoFactory.apply(13.6, 3.6)
@@ -78,7 +78,7 @@ public final class EighthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .tableName("ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА")
                                 .tractor("Беларус 1221")
                                 .machinery("NC Tehnik Mojnjsem")
-                                .workingWidth("-5,6")
+                                .workingWidth("not existing")
                                 .routingLength("Более 1000")
                                 .sowingNorm("Норма высева 45 кг/га")
                                 .build(),
@@ -91,7 +91,7 @@ public final class EighthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .tractor("Беларус 1221")
                                 .machinery("NC Tehnik Mojnjsem")
                                 .workingWidth("5,6")
-                                .routingLength("1000-1500")
+                                .routingLength("not existing")
                                 .sowingNorm("Норма высева 45 кг/га")
                                 .build(),
                         empty()
@@ -104,7 +104,7 @@ public final class EighthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .machinery("NC Tehnik Mojnjsem")
                                 .workingWidth("5,6")
                                 .routingLength("Более 1000")
-                                .sowingNorm("Норма высева 1000000000 кг/га")
+                                .sowingNorm("not existing")
                                 .build(),
                         empty()
                 )
