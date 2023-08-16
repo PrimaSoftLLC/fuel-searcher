@@ -5,11 +5,11 @@ import org.springframework.stereotype.Component;
 import java.util.regex.MatchResult;
 
 @Component
-public final class NbspFuelDocumentComponentCorrector extends AbstractContentFuelDocumentComponentCorrector {
-    private static final String REPLACED_REGEX = "\u00A0+";
+public final class NewLineParagraphCorrector extends AbstractContentParagraphCorrector {
+    private static final String REPLACED_REGEX = "\n+";
     private static final String REPLACEMENT = " ";
 
-    public NbspFuelDocumentComponentCorrector() {
+    public NewLineParagraphCorrector() {
         super(REPLACED_REGEX);
     }
 

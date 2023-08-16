@@ -6,12 +6,12 @@ import java.util.function.Predicate;
 import java.util.regex.MatchResult;
 
 @Component
-public final class NumberWithFractionalPartEndedByZeroFuelDocumentComponentCorrector extends AbstractContentFuelDocumentComponentCorrector {
+public final class NumberWithFractionalPartEndedByZeroParagraphCorrector extends AbstractContentParagraphCorrector {
     private static final char ZERO_CHARACTER = '0';
     private static final char COMMA_CHARACTER = ',';
     private static final String REPLACED_REGEX = "\\d+,\\d+";
 
-    public NumberWithFractionalPartEndedByZeroFuelDocumentComponentCorrector() {
+    public NumberWithFractionalPartEndedByZeroParagraphCorrector() {
         super(REPLACED_REGEX);
     }
 
@@ -31,14 +31,14 @@ public final class NumberWithFractionalPartEndedByZeroFuelDocumentComponentCorre
     private static void removeLastZeros(final StringBuilder contentBuilder) {
         removeLastCharactersIfMatch(
                 contentBuilder,
-                NumberWithFractionalPartEndedByZeroFuelDocumentComponentCorrector::isZero
+                NumberWithFractionalPartEndedByZeroParagraphCorrector::isZero
         );
     }
 
     private static void removeLastComma(final StringBuilder contentBuilder) {
         removeLastCharactersIfMatch(
                 contentBuilder,
-                NumberWithFractionalPartEndedByZeroFuelDocumentComponentCorrector::isLastCharacterComma
+                NumberWithFractionalPartEndedByZeroParagraphCorrector::isLastCharacterComma
         );
     }
 

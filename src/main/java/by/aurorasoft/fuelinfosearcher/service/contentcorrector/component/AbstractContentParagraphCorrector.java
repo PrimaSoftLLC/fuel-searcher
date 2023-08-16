@@ -6,10 +6,10 @@ import java.util.regex.Pattern;
 
 import static java.util.regex.Pattern.compile;
 
-public abstract class AbstractContentFuelDocumentComponentCorrector {
+public abstract class AbstractContentParagraphCorrector {
     private final Pattern patternReplacedRegex;
 
-    public AbstractContentFuelDocumentComponentCorrector(final String replacedRegex) {
+    public AbstractContentParagraphCorrector(final String replacedRegex) {
         this.patternReplacedRegex = compile(replacedRegex);
     }
 

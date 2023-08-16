@@ -24,7 +24,7 @@ public final class XWPFUtil {
     private static final String EMPTY_STRING = "";
 
     public static boolean isCellContentMatch(final XWPFTableRow row, final int cellNumber, final String expected) {
-        return isCellContentMatch(row, cellNumber, expected, Objects::equals);
+        return isCellContentMatch(row, cellNumber, expected, String::equalsIgnoreCase);
     }
 
     public static boolean isCellContentMatchRegex(final XWPFTableRow row,

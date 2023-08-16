@@ -5,11 +5,11 @@ import org.springframework.stereotype.Component;
 import java.util.regex.MatchResult;
 
 @Component
-public final class ThreePointsFuelDocumentComponentCorrector extends AbstractContentFuelDocumentComponentCorrector {
-    private static final String REPLACED_REGEX = "…";
-    private static final String REPLACEMENT = "...";
+public final class DashParagraphCorrector extends AbstractContentParagraphCorrector {
+    private static final String REPLACED_REGEX = "–";
+    private static final String REPLACEMENT = "-";
 
-    public ThreePointsFuelDocumentComponentCorrector() {
+    public DashParagraphCorrector() {
         super(REPLACED_REGEX);
     }
 
@@ -17,4 +17,5 @@ public final class ThreePointsFuelDocumentComponentCorrector extends AbstractCon
     protected String createReplacement(final MatchResult matchResult) {
         return REPLACEMENT;
     }
+
 }

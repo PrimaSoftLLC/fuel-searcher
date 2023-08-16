@@ -2,7 +2,7 @@ package by.aurorasoft.fuelinfosearcher.service.contentcorrector;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
-import by.aurorasoft.fuelinfosearcher.service.contentcorrector.component.AbstractContentFuelDocumentComponentCorrector;
+import by.aurorasoft.fuelinfosearcher.service.contentcorrector.component.AbstractContentParagraphCorrector;
 import org.apache.poi.xwpf.usermodel.*;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +14,10 @@ import static by.aurorasoft.fuelinfosearcher.util.XWPFParagraphUtil.replaceText;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFTableCellUtil.isEmpty;
 
 @Service
-public final class FuelDocumentContentCorrector {
+public final class ParagraphContentCorrectingService {
     private final Function<String, String> contentCorrector;
 
-    public FuelDocumentContentCorrector(final List<AbstractContentFuelDocumentComponentCorrector> componentCorrectors) {
+    public ParagraphContentCorrectingService(final List<AbstractContentParagraphCorrector> componentCorrectors) {
         this.contentCorrector = createContentCorrector(componentCorrectors);
     }
 
@@ -29,7 +29,7 @@ public final class FuelDocumentContentCorrector {
                 .forEach(this::correctContent);
     }
 
-    private static Function<String, String> createContentCorrector(final List<AbstractContentFuelDocumentComponentCorrector> componentCorrectors) {
+    private static Function<String, String> createContentCorrector(final List<AbstractContentParagraphCorrector> componentCorrectors) {
         return componentCorrectors.stream()
                 .map(componentCorrector -> (Function<String, String>) componentCorrector::correct)
                 .reduce(Function::andThen)

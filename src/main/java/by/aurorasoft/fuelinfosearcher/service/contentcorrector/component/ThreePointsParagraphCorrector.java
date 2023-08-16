@@ -5,11 +5,11 @@ import org.springframework.stereotype.Component;
 import java.util.regex.MatchResult;
 
 @Component
-public final class NewLinesFuelDocumentComponentCorrector extends AbstractContentFuelDocumentComponentCorrector {
-    private static final String REPLACED_REGEX = "\n+";
-    private static final String REPLACEMENT = " ";
+public final class ThreePointsParagraphCorrector extends AbstractContentParagraphCorrector {
+    private static final String REPLACED_REGEX = "…";
+    private static final String REPLACEMENT = "...";
 
-    public NewLinesFuelDocumentComponentCorrector() {
+    public ThreePointsParagraphCorrector() {
         super(REPLACED_REGEX);
     }
 
@@ -17,5 +17,4 @@ public final class NewLinesFuelDocumentComponentCorrector extends AbstractConten
     protected String createReplacement(final MatchResult matchResult) {
         return REPLACEMENT;
     }
-
 }
