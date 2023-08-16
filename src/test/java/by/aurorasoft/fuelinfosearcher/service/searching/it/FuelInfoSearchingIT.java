@@ -5,6 +5,7 @@ import by.aurorasoft.fuelinfosearcher.model.FuelInfo;
 import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
 import by.aurorasoft.fuelinfosearcher.service.searching.it.argumentprovider.AbstractTableFuelInfoSearchingArgumentsProvider;
 import by.aurorasoft.fuelinfosearcher.service.searching.it.argumentprovider.FirstTableFuelInfoSearchingArgumentsProvider;
+import by.aurorasoft.fuelinfosearcher.service.searching.it.argumentprovider.SecondTableFuelInfoSearchingArgumentsProvider;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.FuelInfoSearchingManager;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -18,8 +19,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class FuelInfoSearchingIT extends AbstractContextTest {
     private static final List<AbstractTableFuelInfoSearchingArgumentsProvider> ARGUMENTS_PROVIDERS = List.of(
-            new FirstTableFuelInfoSearchingArgumentsProvider()
-//            new SecondTableFuelInfoSearchingArgumentsProvider(),
+            new FirstTableFuelInfoSearchingArgumentsProvider(),
+            new SecondTableFuelInfoSearchingArgumentsProvider()
 //            new ThirdTableFuelInfoSearchingArgumentsProvider(),
 //            new FourthTableFuelInfoSearchingArgumentsProvider(),
 //            new FifthTableFuelInfoSearchingArgumentsProvider(),
