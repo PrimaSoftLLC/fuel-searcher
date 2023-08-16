@@ -15,7 +15,7 @@ import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extr
 public final class TwentyThirdTableFuelInfoSearchingService extends AbstractSimpleTableFuelInfoSearchingService {
     private static final String TABLE_NAME = "ПОДБОР ПРОВЯЛЕННЫХ ТРАВ ИЗ ВАЛКОВ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА";
     private static final String[] FUEL_INFO_HEADERS = new String[]{
-            "Менее 150", "151…200", "201…300", "301…400", "401…600", "601…1000", "Более 1000"
+            "Менее 150", "151...200", "201...300", "301...400", "401...600", "601...1000", "Более 1000"
     };
     private static final int FIRST_FUEL_INFO_OFFSET = 0;
 

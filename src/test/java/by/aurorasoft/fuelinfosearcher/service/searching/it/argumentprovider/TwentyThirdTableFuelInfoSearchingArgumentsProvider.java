@@ -20,7 +20,7 @@ public final class TwentyThirdTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .tableName("ПОДБОР ПРОВЯЛЕННЫХ ТРАВ ИЗ ВАЛКОВ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .machinery("BIG X 770")
                                 .workingWidth("3,8")
-                                .yield("5,0–7,5")
+                                .yield("5-7,5")
                                 .routingLength("Менее 150")
                                 .build(),
                         optionalFuelInfoFactory.apply(55.6, 1.97)
@@ -29,9 +29,9 @@ public final class TwentyThirdTableFuelInfoSearchingArgumentsProvider extends Ab
                         FuelInfoSpecification.builder()
                                 .tableName("ПОДБОР ПРОВЯЛЕННЫХ ТРАВ ИЗ ВАЛКОВ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .machinery("BIG X 700")
-                                .workingWidth("3,0")
-                                .yield("16,5–17,5")
-                                .routingLength("151…200")
+                                .workingWidth("3")
+                                .yield("16,5-17,5")
+                                .routingLength("151...200")
                                 .build(),
                         optionalFuelInfoFactory.apply(108.1, 0.98)
                 ),
@@ -39,9 +39,9 @@ public final class TwentyThirdTableFuelInfoSearchingArgumentsProvider extends Ab
                         FuelInfoSpecification.builder()
                                 .tableName("ПОДБОР ПРОВЯЛЕННЫХ ТРАВ ИЗ ВАЛКОВ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .machinery("КВК 800")
-                                .workingWidth("3,0")
-                                .yield("16,5–17,5")
-                                .routingLength("151…200")
+                                .workingWidth("3")
+                                .yield("16,5-17,5")
+                                .routingLength("151...200")
                                 .build(),
                         optionalFuelInfoFactory.apply(84.6, 1.17)
                 ),
@@ -50,9 +50,9 @@ public final class TwentyThirdTableFuelInfoSearchingArgumentsProvider extends Ab
                         FuelInfoSpecification.builder()
                                 .tableName("ПОДБОР ПРОВЯЛЕННЫХ ТРАВ ИЗ ВАЛКОВ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .machinery("not existing")
-                                .workingWidth("3,0")
-                                .yield("16,5–17,5")
-                                .routingLength("151…200")
+                                .workingWidth("3")
+                                .yield("16,5-17,5")
+                                .routingLength("151...200")
                                 .build(),
                         empty()
                 ),
@@ -62,8 +62,8 @@ public final class TwentyThirdTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .tableName("ПОДБОР ПРОВЯЛЕННЫХ ТРАВ ИЗ ВАЛКОВ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .machinery("КВК 800")
                                 .workingWidth("not existing")
-                                .yield("16,5–17,5")
-                                .routingLength("151…200")
+                                .yield("16,5-17,5")
+                                .routingLength("151...200")
                                 .build(),
                         empty()
                 ),
@@ -72,9 +72,9 @@ public final class TwentyThirdTableFuelInfoSearchingArgumentsProvider extends Ab
                         FuelInfoSpecification.builder()
                                 .tableName("ПОДБОР ПРОВЯЛЕННЫХ ТРАВ ИЗ ВАЛКОВ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .machinery("КВК 800")
-                                .workingWidth("3,0")
+                                .workingWidth("3")
                                 .yield("not existing")
-                                .routingLength("151…200")
+                                .routingLength("151...200")
                                 .build(),
                         empty()
                 ),
@@ -83,8 +83,8 @@ public final class TwentyThirdTableFuelInfoSearchingArgumentsProvider extends Ab
                         FuelInfoSpecification.builder()
                                 .tableName("ПОДБОР ПРОВЯЛЕННЫХ ТРАВ ИЗ ВАЛКОВ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .machinery("КВК 800")
-                                .workingWidth("3,0")
-                                .yield("16,5–17,5")
+                                .workingWidth("3")
+                                .yield("16,5-17,5")
                                 .routingLength("not existing")
                                 .build(),
                         empty()
