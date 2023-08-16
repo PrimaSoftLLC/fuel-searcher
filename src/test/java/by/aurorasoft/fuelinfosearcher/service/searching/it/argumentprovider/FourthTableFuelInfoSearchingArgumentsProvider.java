@@ -20,9 +20,9 @@ public final class FourthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
                                 .tractor("Clas Xerion 5000")
                                 .machinery("Köckerling Allrounder 1200")
-                                .workingWidth("12,0")
+                                .workingWidth("12")
                                 .routingLength("Менее 150")
-                                .processingDepth("Глубина обработки 6…8 см")
+                                .processingDepth("Глубина обработки 6...8 см")
                                 .build(),
                         optionalFuelInfoFactory.apply(26.4, 14.1)
                 ),
@@ -31,9 +31,9 @@ public final class FourthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
                                 .tractor("Clas Xerion 5000")
                                 .machinery("Köckerling Allrounder 1200")
-                                .workingWidth("12,0")
+                                .workingWidth("12")
                                 .routingLength("Более 1000")
-                                .processingDepth("Глубина обработки 6…8 см")
+                                .processingDepth("Глубина обработки 6...8 см")
                                 .build(),
                         optionalFuelInfoFactory.apply(58.2, 7.5)
                 ),
@@ -42,9 +42,9 @@ public final class FourthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
                                 .tractor("Беларус 3522")
                                 .machinery("АПМ-8")
-                                .workingWidth("8,0")
-                                .routingLength("150–200")
-                                .processingDepth("Глубина обработки 6…8 см")
+                                .workingWidth("8")
+                                .routingLength("150-200")
+                                .processingDepth("Глубина обработки 6...8 см")
                                 .build(),
                         optionalFuelInfoFactory.apply(24.0, 11.1)
                 ),
@@ -55,7 +55,7 @@ public final class FourthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .machinery("КФУ-7,3")
                                 .workingWidth("7,3")
                                 .routingLength("Менее 150")
-                                .processingDepth("Глубина обработки 6…8 см")
+                                .processingDepth("Глубина обработки 6...8 см")
                                 .build(),
                         optionalFuelInfoFactory.apply(17.3, 12.7)
                 ),
@@ -64,9 +64,9 @@ public final class FourthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
                                 .tractor("Беларус 1522")
                                 .machinery("Horsch Terrano 4FX")
-                                .workingWidth("4,0")
+                                .workingWidth("4")
                                 .routingLength("Менее 150")
-                                .processingDepth("Глубина обработки 14…20 см")
+                                .processingDepth("Глубина обработки 14...20 см")
                                 .build(),
                         optionalFuelInfoFactory.apply(10.5, 8.7)
                 ),
@@ -74,7 +74,7 @@ public final class FourthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                 Arguments.of(
                         FuelInfoSpecification.builder()
                                 .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
-                                .tractor("not existing tractor")
+                                .tractor("not existing")
                                 .machinery("Horsch Terrano 4FX")
                                 .workingWidth("4,0")
                                 .routingLength("Менее 150")
@@ -90,7 +90,7 @@ public final class FourthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .machinery("not existing")
                                 .workingWidth("4,0")
                                 .routingLength("Менее 150")
-                                .processingDepth("Глубина обработки 14…20 см")
+                                .processingDepth("Глубина обработки 14...20 см")
                                 .build(),
                         empty()
                 ),
@@ -100,9 +100,9 @@ public final class FourthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
                                 .tractor("Беларус 1522")
                                 .machinery("Horsch Terrano 4FX")
-                                .workingWidth("-1.0")
+                                .workingWidth("not existing")
                                 .routingLength("Менее 150")
-                                .processingDepth("Глубина обработки 14…20 см")
+                                .processingDepth("Глубина обработки 14...20 см")
                                 .build(),
                         empty()
                 ),
@@ -113,8 +113,8 @@ public final class FourthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .tractor("Беларус 1522")
                                 .machinery("Horsch Terrano 4FX")
                                 .workingWidth("4,0")
-                                .routingLength("20-21")
-                                .processingDepth("Глубина обработки 14…20 см")
+                                .routingLength("not existing")
+                                .processingDepth("Глубина обработки 14...20 см")
                                 .build(),
                         empty()
                 ),
@@ -126,7 +126,7 @@ public final class FourthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .machinery("Horsch Terrano 4FX")
                                 .workingWidth("4,0")
                                 .routingLength("Менее 150")
-                                .processingDepth("Глубина обработки 66666666666…76666666666 см")
+                                .processingDepth("not existing")
                                 .build(),
                         empty()
                 )

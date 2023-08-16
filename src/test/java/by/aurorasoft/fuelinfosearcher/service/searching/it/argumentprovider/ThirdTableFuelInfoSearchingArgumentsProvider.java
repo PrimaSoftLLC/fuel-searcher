@@ -21,7 +21,7 @@ public final class ThirdTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .tractor("Беларус-3522")
                                 .machinery("ПБН-6-50А")
                                 .corpusCount("6")
-                                .ploughingDepth("20–22")
+                                .ploughingDepth("20-22")
                                 .routingLength("Менее 150")
                                 .soilType("Минеральные почвы")
                                 .build(),
@@ -33,7 +33,7 @@ public final class ThirdTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .tractor("Беларус-3022")
                                 .machinery("ПБН-6-50А")
                                 .corpusCount("6")
-                                .ploughingDepth("25–27")
+                                .ploughingDepth("25-27")
                                 .routingLength("Более 1000")
                                 .soilType("Торфяные почвы")
                                 .build(),
@@ -43,10 +43,10 @@ public final class ThirdTableFuelInfoSearchingArgumentsProvider extends Abstract
                 Arguments.of(
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
-                                .tractor("not exist")
+                                .tractor("not existing")
                                 .machinery("ПБН-6-50А")
                                 .corpusCount("6")
-                                .ploughingDepth("25–27")
+                                .ploughingDepth("25-27")
                                 .routingLength("Более 1000")
                                 .soilType("Торфяные почвы")
                                 .build(),
@@ -57,9 +57,9 @@ public final class ThirdTableFuelInfoSearchingArgumentsProvider extends Abstract
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("Беларус-3022")
-                                .machinery("not exist")
+                                .machinery("not existing")
                                 .corpusCount("6")
-                                .ploughingDepth("25–27")
+                                .ploughingDepth("25-27")
                                 .routingLength("Более 1000")
                                 .soilType("Торфяные почвы")
                                 .build(),
@@ -71,8 +71,8 @@ public final class ThirdTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("Беларус-3022")
                                 .machinery("ПБН-6-50А")
-                                .corpusCount("-1")
-                                .ploughingDepth("25–27")
+                                .corpusCount("not existing")
+                                .ploughingDepth("25-27")
                                 .routingLength("Более 1000")
                                 .soilType("Торфяные почвы")
                                 .build(),
@@ -85,7 +85,7 @@ public final class ThirdTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .tractor("Беларус-3022")
                                 .machinery("ПБН-6-50А")
                                 .corpusCount("6")
-                                .ploughingDepth("1500-2000")
+                                .ploughingDepth("not existing")
                                 .routingLength("Более 1000")
                                 .soilType("Торфяные почвы")
                                 .build(),
@@ -98,8 +98,8 @@ public final class ThirdTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .tractor("Беларус-3022")
                                 .machinery("ПБН-6-50А")
                                 .corpusCount("6")
-                                .ploughingDepth("25–27")
-                                .routingLength("5000-5001")
+                                .ploughingDepth("25-27")
+                                .routingLength("not existing")
                                 .soilType("Торфяные почвы")
                                 .build(),
                         empty()
@@ -111,9 +111,9 @@ public final class ThirdTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .tractor("Беларус-3022")
                                 .machinery("ПБН-6-50А")
                                 .corpusCount("6")
-                                .ploughingDepth("25–27")
+                                .ploughingDepth("25-27")
                                 .routingLength("Более 1000")
-                                .soilType("Несуществующие почвы")
+                                .soilType("not existing")
                                 .build(),
                         empty()
                 )
