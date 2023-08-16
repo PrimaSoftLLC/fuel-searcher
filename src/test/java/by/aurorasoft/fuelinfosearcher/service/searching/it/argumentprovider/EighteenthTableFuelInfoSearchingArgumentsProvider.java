@@ -31,7 +31,7 @@ public final class EighteenthTableFuelInfoSearchingArgumentsProvider extends Abs
                                 .tractor("Беларус 80/82.1+")
                                 .machinery("MILLENNIUM V18-7GW")
                                 .workingWidth("10,5")
-                                .routingLength("401–600")
+                                .routingLength("401-600")
                                 .build(),
                         optionalFuelInfoFactory.apply(39.6, 1.28)
                 ),

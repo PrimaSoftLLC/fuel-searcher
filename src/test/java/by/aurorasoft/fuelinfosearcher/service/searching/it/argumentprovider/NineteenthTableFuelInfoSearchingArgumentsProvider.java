@@ -21,7 +21,7 @@ public final class NineteenthTableFuelInfoSearchingArgumentsProvider extends Abs
                                 .tractor("Fendt 515c")
                                 .machinery("KRONE Comprima CV 150 XC")
                                 .workingWidth("5,5")
-                                .yield("До 1,0")
+                                .yield("До 1")
                                 .routingLength("Менее 150")
                                 .build(),
                         optionalFuelInfoFactory.apply(12.8, 4.35)
@@ -32,8 +32,8 @@ public final class NineteenthTableFuelInfoSearchingArgumentsProvider extends Abs
                                 .tractor("Fendt 515c")
                                 .machinery("KRONE Comprima CV 150 XC")
                                 .workingWidth("5,5")
-                                .yield("4,6–5,0")
-                                .routingLength("151…200")
+                                .yield("4,6-5")
+                                .routingLength("151...200")
                                 .build(),
                         optionalFuelInfoFactory.apply(50.7, 1.17)
                 ),
@@ -43,8 +43,8 @@ public final class NineteenthTableFuelInfoSearchingArgumentsProvider extends Abs
                                 .tractor("Fendt 515c")
                                 .machinery("KRONE Comprima CV 150 XC")
                                 .workingWidth("5,5")
-                                .yield("4,1–4,5")
-                                .routingLength("151…200")
+                                .yield("4,1-4,5")
+                                .routingLength("151...200")
                                 .build(),
                         optionalFuelInfoFactory.apply(48.6, 1.21)
                 ),
@@ -55,8 +55,8 @@ public final class NineteenthTableFuelInfoSearchingArgumentsProvider extends Abs
                                 .tractor("not existing")
                                 .machinery("KRONE Comprima CV 150 XC")
                                 .workingWidth("5,5")
-                                .yield("4,1–4,5")
-                                .routingLength("151…200")
+                                .yield("4,1-4,5")
+                                .routingLength("151...200")
                                 .build(),
                         empty()
                 ),
@@ -67,8 +67,8 @@ public final class NineteenthTableFuelInfoSearchingArgumentsProvider extends Abs
                                 .tractor("Fendt 515c")
                                 .machinery("not existing")
                                 .workingWidth("5,5")
-                                .yield("4,1–4,5")
-                                .routingLength("151…200")
+                                .yield("4,1-4,5")
+                                .routingLength("151...200")
                                 .build(),
                         empty()
                 ),
@@ -79,8 +79,8 @@ public final class NineteenthTableFuelInfoSearchingArgumentsProvider extends Abs
                                 .tractor("Fendt 515c")
                                 .machinery("KRONE Comprima CV 150 XC")
                                 .workingWidth("not existing")
-                                .yield("4,1–4,5")
-                                .routingLength("151…200")
+                                .yield("4,1-4,5")
+                                .routingLength("151...200")
                                 .build(),
                         empty()
                 ),
@@ -92,7 +92,7 @@ public final class NineteenthTableFuelInfoSearchingArgumentsProvider extends Abs
                                 .machinery("KRONE Comprima CV 150 XC")
                                 .workingWidth("5,5")
                                 .yield("not existing")
-                                .routingLength("151…200")
+                                .routingLength("151...200")
                                 .build(),
                         empty()
                 ),
@@ -103,7 +103,7 @@ public final class NineteenthTableFuelInfoSearchingArgumentsProvider extends Abs
                                 .tractor("Fendt 515c")
                                 .machinery("KRONE Comprima CV 150 XC")
                                 .workingWidth("5,5")
-                                .yield("4,1–4,5")
+                                .yield("4,1-4,5")
                                 .routingLength("not existing")
                                 .build(),
                         empty()
