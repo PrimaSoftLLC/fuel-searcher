@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -45,21 +46,11 @@ public abstract class AbstractTableFuelInfoSearchingService {
     protected abstract Optional<XWPFTable> findElementTable(final FuelTable fuelTable,
                                                             final FuelInfoSpecification specification);
 
-    protected abstract Stream<Function<List<XWPFTableRow>, Optional<List<XWPFTableRow>>>> findRowFilters();
+    protected abstract Stream<BiFunction<List<XWPFTableRow>, FuelInfoSpecification, List<XWPFTableRow>>> createStartRowFilters();
 
-    protected abstract Function<List<XWPFTableRow>, XWPFTableRow> findFinalRowFilter();
-
-    private XWPFTableRow findAppropriateRow(final List<XWPFTableRow> elementTableRows,
-                                            final FuelInfoSpecification specification) {
-
-    }
-
-//    protected abstract Optional<XWPFTableRow> findAppropriateRow(final List<XWPFTableRow> elementTableRows,
-//                                                                 final FuelInfoSpecification specification);
+    protected abstract BiFunction<List<XWPFTableRow>, FuelInfoSpecification, Optional<XWPFTableRow>> createFinalRowFilter();
 
     protected abstract String extractFuelInfoHeaderCellValue(final FuelInfoSpecification specification);
-
-//    protected abstract OptionalInt findFuelInfoHeaderCellIndex(final FuelInfoSpecification specification);
 
     private static FuelTable findTableByName(final FuelDocument fuelDocument, final String fuelTableName) {
         return fuelDocument.getTables()
@@ -85,6 +76,40 @@ public abstract class AbstractTableFuelInfoSearchingService {
         return this.findAppropriateRow(elementTableRows, specification)
                 .flatMap(row -> this.findFuelInfoLocation(fuelInfoHeaderRow, specification, row))
                 .flatMap(FuelInfoUtil::extractFuelInfo);
+    }
+
+    private Optional<XWPFTableRow> findAppropriateRow(final List<XWPFTableRow> elementTableRows,
+                                                      final FuelInfoSpecification specification) {
+        final Function<List<XWPFTableRow>, Optional<XWPFTableRow>> filteringFunction = this.createFilteringFunction(
+                specification
+        );
+        return filteringFunction.apply(elementTableRows);
+    }
+
+    private Function<List<XWPFTableRow>, Optional<XWPFTableRow>> createFilteringFunction(
+            final FuelInfoSpecification specification) {
+        final Function<List<XWPFTableRow>, Optional<XWPFTableRow>> finalRowFilter = this.createFinalRowFilter(specification);
+        return this.createStartRowFilters(specification)
+                .reduce(Function::andThen)
+                .map(filteringFunction -> filteringFunction.andThen(finalRowFilter))
+                .orElse(finalRowFilter);
+    }
+
+    private Stream<Function<List<XWPFTableRow>, List<XWPFTableRow>>> createStartRowFilters(final FuelInfoSpecification specification) {
+        return this.createStartRowFilters()
+                .map(startRowFilter -> createFunctionRowFilter(startRowFilter, specification));
+    }
+
+    private Function<List<XWPFTableRow>, Optional<XWPFTableRow>> createFinalRowFilter(final FuelInfoSpecification specification) {
+        return createFunctionRowFilter(
+                this.createFinalRowFilter(),
+                specification
+        );
+    }
+
+    private static <T> Function<List<XWPFTableRow>, T> createFunctionRowFilter(final BiFunction<List<XWPFTableRow>, FuelInfoSpecification, T> source,
+                                                                               final FuelInfoSpecification specification) {
+        return rows -> source.apply(rows, specification);
     }
 
     private Optional<FuelInfoLocation> findFuelInfoLocation(final XWPFTableRow fuelInfoHeaderRow,

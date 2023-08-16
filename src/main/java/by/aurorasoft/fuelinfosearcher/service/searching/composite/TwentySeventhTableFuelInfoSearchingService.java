@@ -2,17 +2,17 @@ package by.aurorasoft.fuelinfosearcher.service.searching.composite;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
+import by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil;
 import by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil.findRowByTransportDistance;
-import static by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil.findRowsByCargoClass;
 import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractRoadGroup;
 
 @Service
@@ -28,10 +28,15 @@ public final class TwentySeventhTableFuelInfoSearchingService extends AbstractCo
     }
 
     @Override
-    protected Optional<XWPFTableRow> findAppropriateRow(final List<XWPFTableRow> elementTableRows,
-                                                        final FuelInfoSpecification specification) {
-        return findRowsByCargoClass(elementTableRows, specification)
-                .flatMap(rows -> findRowByTransportDistance(rows, specification, CELL_INDEX_TRANSPORT_DISTANCE));
+    protected Stream<BiFunction<List<XWPFTableRow>, FuelInfoSpecification, List<XWPFTableRow>>> createStartRowFilters() {
+        return Stream.of(
+                FuelDocumentRowFilterUtil::findRowsByCargoClass
+        );
+    }
+
+    @Override
+    protected BiFunction<List<XWPFTableRow>, FuelInfoSpecification, Optional<XWPFTableRow>> createFinalRowFilter() {
+        return TwentySeventhTableFuelInfoSearchingService::findRowByTransportDistance;
     }
 
     @Override
@@ -49,6 +54,15 @@ public final class TwentySeventhTableFuelInfoSearchingService extends AbstractCo
         return Stream.of(
                 FuelInfoSpecificationUtil::extractTractor,
                 FuelInfoSpecificationUtil::extractMachinery
+        );
+    }
+
+    private static Optional<XWPFTableRow> findRowByTransportDistance(final List<XWPFTableRow> rows,
+                                                                     final FuelInfoSpecification specification) {
+        return FuelDocumentRowFilterUtil.findRowByTransportDistance(
+                rows,
+                specification,
+                CELL_INDEX_TRANSPORT_DISTANCE
         );
     }
 }

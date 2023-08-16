@@ -169,8 +169,8 @@ public final class FuelDocumentRowFilterUtil {
         );
     }
 
-    public static Optional<List<XWPFTableRow>> findRowsByFertilizerType(final List<XWPFTableRow> rows,
-                                                                        final FuelInfoSpecification specification) {
+    public static List<XWPFTableRow> findRowsByFertilizerType(final List<XWPFTableRow> rows,
+                                                              final FuelInfoSpecification specification) {
         return findRowsByGroupValue(
                 rows,
                 specification,
@@ -179,7 +179,7 @@ public final class FuelDocumentRowFilterUtil {
         );
     }
 
-    public static Optional<List<XWPFTableRow>> findRowsByCargoClass(final List<XWPFTableRow> rows,
+    public static List<XWPFTableRow> findRowsByCargoClass(final List<XWPFTableRow> rows,
                                                                     final FuelInfoSpecification specification) {
         return findRowsByGroupValue(
                 rows,
@@ -189,8 +189,8 @@ public final class FuelDocumentRowFilterUtil {
         );
     }
 
-    public static Optional<List<XWPFTableRow>> findRowsByRoadGroup(final List<XWPFTableRow> rows,
-                                                                   final FuelInfoSpecification specification) {
+    public static List<XWPFTableRow> findRowsByRoadGroup(final List<XWPFTableRow> rows,
+                                                         final FuelInfoSpecification specification) {
         return findRowsByGroupValue(
                 rows,
                 specification,
@@ -199,9 +199,9 @@ public final class FuelDocumentRowFilterUtil {
         );
     }
 
-    public static Optional<List<XWPFTableRow>> findRowsByChargingMethodAndTransportDistance(final List<XWPFTableRow> rows,
-                                                                                            final FuelInfoSpecification specification,
-                                                                                            final int cellIndexChargingMethodAndTransportDistance) {
+    public static List<XWPFTableRow> findRowsByChargingMethodAndTransportDistance(final List<XWPFTableRow> rows,
+                                                                                  final FuelInfoSpecification specification,
+                                                                                  final int cellIndexChargingMethodAndTransportDistance) {
         return findUnitedRowsByContent(
                 rows,
                 cellIndexChargingMethodAndTransportDistance,
