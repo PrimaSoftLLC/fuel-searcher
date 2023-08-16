@@ -22,7 +22,7 @@ public final class SixthTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .machinery("Доминанта Д-880")
                                 .workingWidth("8,8")
                                 .routingLength("Менее 150")
-                                .processingDepth("Глубина обработки 6…8 см")
+                                .processingDepth("Глубина обработки 6...8 см")
                                 .build(),
                         optionalFuelInfoFactory.apply(22.9, 12.5)
                 ),
@@ -30,10 +30,10 @@ public final class SixthTableFuelInfoSearchingArgumentsProvider extends Abstract
                         FuelInfoSpecification.builder()
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("Кировец К-744Р4")
-                                .machinery("АДС-6,0")
-                                .workingWidth("6,0")
+                                .machinery("АДС-6")
+                                .workingWidth("6")
                                 .routingLength("Менее 150")
-                                .processingDepth("Глубина обработки 6…8 см")
+                                .processingDepth("Глубина обработки 6...8 см")
                                 .build(),
                         optionalFuelInfoFactory.apply(15.5, 12.8)
                 ),
@@ -41,10 +41,10 @@ public final class SixthTableFuelInfoSearchingArgumentsProvider extends Abstract
                         FuelInfoSpecification.builder()
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("Беларус 2022")
-                                .machinery("АКЧ-6,0")
-                                .workingWidth("6,0")
-                                .routingLength("150–200")
-                                .processingDepth("Глубина обработки 10…14 см")
+                                .machinery("АКЧ-6")
+                                .workingWidth("6")
+                                .routingLength("150-200")
+                                .processingDepth("Глубина обработки 10...14 см")
                                 .build(),
                         optionalFuelInfoFactory.apply(15.4, 7.7)
                 ),
@@ -53,10 +53,10 @@ public final class SixthTableFuelInfoSearchingArgumentsProvider extends Abstract
                         FuelInfoSpecification.builder()
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("not existing")
-                                .machinery("АКЧ-6,0")
-                                .workingWidth("6,0")
-                                .routingLength("150–200")
-                                .processingDepth("Глубина обработки 10…14 см")
+                                .machinery("АКЧ-6")
+                                .workingWidth("6")
+                                .routingLength("150-200")
+                                .processingDepth("Глубина обработки 10...14 см")
                                 .build(),
                         empty()
                 ),
@@ -66,9 +66,9 @@ public final class SixthTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("Беларус 2022")
                                 .machinery("not existing")
-                                .workingWidth("6,0")
-                                .routingLength("150–200")
-                                .processingDepth("Глубина обработки 10…14 см")
+                                .workingWidth("6")
+                                .routingLength("150-200")
+                                .processingDepth("Глубина обработки 10...14 см")
                                 .build(),
                         empty()
                 ),
@@ -77,10 +77,10 @@ public final class SixthTableFuelInfoSearchingArgumentsProvider extends Abstract
                         FuelInfoSpecification.builder()
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("Беларус 2022")
-                                .machinery("АКЧ-6,0")
-                                .workingWidth("-1,0")
-                                .routingLength("150–200")
-                                .processingDepth("Глубина обработки 10…14 см")
+                                .machinery("АКЧ-6")
+                                .workingWidth("not existing")
+                                .routingLength("150-200")
+                                .processingDepth("Глубина обработки 10...14 см")
                                 .build(),
                         empty()
                 ),
@@ -89,10 +89,10 @@ public final class SixthTableFuelInfoSearchingArgumentsProvider extends Abstract
                         FuelInfoSpecification.builder()
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("Беларус 2022")
-                                .machinery("АКЧ-6,0")
-                                .workingWidth("6,0")
-                                .routingLength("10–20")
-                                .processingDepth("Глубина обработки 10…14 см")
+                                .machinery("АКЧ-6")
+                                .workingWidth("6")
+                                .routingLength("not existing")
+                                .processingDepth("Глубина обработки 10...14 см")
                                 .build(),
                         empty()
                 ),
@@ -101,10 +101,10 @@ public final class SixthTableFuelInfoSearchingArgumentsProvider extends Abstract
                         FuelInfoSpecification.builder()
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("Беларус 2022")
-                                .machinery("АКЧ-6,0")
-                                .workingWidth("6,0")
-                                .routingLength("150–200")
-                                .processingDepth("Глубина обработки 666666666666666…766666666666666 см")
+                                .machinery("АКЧ-6")
+                                .workingWidth("6")
+                                .routingLength("150-200")
+                                .processingDepth("not existing")
                                 .build(),
                         empty()
                 )

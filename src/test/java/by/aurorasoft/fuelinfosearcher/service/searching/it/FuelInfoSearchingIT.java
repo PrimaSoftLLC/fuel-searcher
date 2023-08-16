@@ -21,8 +21,8 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
             new SecondTableFuelInfoSearchingArgumentsProvider(),
             new ThirdTableFuelInfoSearchingArgumentsProvider(),
             new FourthTableFuelInfoSearchingArgumentsProvider(),
-            new FifthTableFuelInfoSearchingArgumentsProvider()
-//            new SixthTableFuelInfoSearchingArgumentsProvider(),
+            new FifthTableFuelInfoSearchingArgumentsProvider(),
+            new SixthTableFuelInfoSearchingArgumentsProvider()
 //            new SeventhTableFuelInfoSearchingArgumentsProvider(),
 //            new EighthTableFuelInfoSearchingArgumentsProvider(),
 //            new NinthTableFuelInfoSearchingArgumentsProvider(),
