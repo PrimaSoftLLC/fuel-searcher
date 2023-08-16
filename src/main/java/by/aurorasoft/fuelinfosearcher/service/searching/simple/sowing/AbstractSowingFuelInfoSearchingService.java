@@ -13,7 +13,7 @@ import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extr
 
 public abstract class AbstractSowingFuelInfoSearchingService extends AbstractSimpleTableFuelInfoSearchingService {
     private static final String[] FUEL_INFO_HEADERS = new String[]{
-            "Менее 150", "150–200", "201–300", "301–400", "401–600", "601–1000", "Более 1000"
+            "Менее 150", "150-200", "201-300", "301-400", "401-600", "601-1000", "Более 1000"
     };
     private static final int CELL_INDEX_MACHINERY = 2;
 

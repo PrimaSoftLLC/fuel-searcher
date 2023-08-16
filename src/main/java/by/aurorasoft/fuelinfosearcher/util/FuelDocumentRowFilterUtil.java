@@ -30,10 +30,10 @@ public final class FuelDocumentRowFilterUtil {
     private static final int CELL_INDEX_COMBINE = 1;
     private static final int CELL_INDEX_TRANSPORT_DISTANCE = 1;
 
-    private static final String REGEX_CONTENT_PROCESSING_DEPTH = "Глубина обработки \\d+((…)|(...))\\d+ см";
+    private static final String REGEX_CONTENT_PROCESSING_DEPTH = "Глубина обработки \\d+...\\d+ см";
     private static final String REGEX_SOIL_TYPE_CONTENT = "(Минеральные почвы)|(Торфяные почвы)|(Легкие почвы)|(Средние почвы)|(Тяжелые почвы)";
     private static final String REGEX_CONTENT_SPECIFIC_RESISTANCE = "Удельное сопротивление (плуга )?\\d+...\\d+ кПа";
-    private static final String REGEX_CONTENT_SOWING_NORM = "Норма высева (семян )?\\d+(–\\d+)? кг/га";
+    private static final String REGEX_CONTENT_SOWING_NORM = "Норма высева (семян )?\\d+(-\\d+)? кг/га";
     private static final String REGEX_CONTENT_FERTILIZER_TYPE = "(Гранулированные удобрений)|(Кристаллические удобрения)|(Пылевидные удобрения)";
     private static final String REGEX_CONTENT_CARGO_CLASS = "Грузы (I|II|III|IV) класса";
     private static final String REGEX_CONTENT_ROAD_GROUP = "((Первая)|(Вторая)|(Третья)) группа дорог";

@@ -20,9 +20,9 @@ public final class SeventhTableFuelInfoSearchingArgumentsProvider extends Abstra
                                 .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ПОСЕВОМ СЕЛЬСКОХОЗЯЙСТВЕННЫХ КУЛЬТУР: ПШЕНИЦЫ, РЖИ, ЯЧМЕНЯ, ОВСА, ГОРОХА, ЛЮПИНА, ВИКИ, ВИКООВСЯНОЙ СМЕСИ, ЛЬНА")
                                 .tractor("Кировец К-744 Р3")
                                 .machinery("Horsch Serto 12 SC")
-                                .workingWidth("12,0")
+                                .workingWidth("12")
                                 .routingLength("Менее 150")
-                                .sowingNorm("Норма высева 120–180 кг/га")
+                                .sowingNorm("Норма высева 120-180 кг/га")
                                 .build(),
                         optionalFuelInfoFactory.apply(28.9, 8.2)
                 ),
@@ -31,9 +31,9 @@ public final class SeventhTableFuelInfoSearchingArgumentsProvider extends Abstra
                                 .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ПОСЕВОМ СЕЛЬСКОХОЗЯЙСТВЕННЫХ КУЛЬТУР: ПШЕНИЦЫ, РЖИ, ЯЧМЕНЯ, ОВСА, ГОРОХА, ЛЮПИНА, ВИКИ, ВИКООВСЯНОЙ СМЕСИ, ЛЬНА")
                                 .tractor("Беларус 3022")
                                 .machinery("Horsch Pronto 6 DS")
-                                .workingWidth("6,0")
-                                .routingLength("150–200")
-                                .sowingNorm("Норма высева 240–280 кг/га")
+                                .workingWidth("6")
+                                .routingLength("150-200")
+                                .sowingNorm("Норма высева 240-280 кг/га")
                                 .build(),
                         optionalFuelInfoFactory.apply(18.4, 9.3)
                 ),
@@ -42,9 +42,9 @@ public final class SeventhTableFuelInfoSearchingArgumentsProvider extends Abstra
                                 .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ПОСЕВОМ СЕЛЬСКОХОЗЯЙСТВЕННЫХ КУЛЬТУР: ПШЕНИЦЫ, РЖИ, ЯЧМЕНЯ, ОВСА, ГОРОХА, ЛЮПИНА, ВИКИ, ВИКООВСЯНОЙ СМЕСИ, ЛЬНА")
                                 .tractor("Беларус 1221")
                                 .machinery("Horsch Sprinter 4 ST")
-                                .workingWidth("4,0")
+                                .workingWidth("4")
                                 .routingLength("Более 1000")
-                                .sowingNorm("Норма высева 240–280 кг/га")
+                                .sowingNorm("Норма высева 240-280 кг/га")
                                 .build(),
                         optionalFuelInfoFactory.apply(15.9, 7.0)
                 ),
@@ -54,9 +54,9 @@ public final class SeventhTableFuelInfoSearchingArgumentsProvider extends Abstra
                                 .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ПОСЕВОМ СЕЛЬСКОХОЗЯЙСТВЕННЫХ КУЛЬТУР: ПШЕНИЦЫ, РЖИ, ЯЧМЕНЯ, ОВСА, ГОРОХА, ЛЮПИНА, ВИКИ, ВИКООВСЯНОЙ СМЕСИ, ЛЬНА")
                                 .tractor("not existing")
                                 .machinery("Horsch Sprinter 4 ST")
-                                .workingWidth("4,0")
+                                .workingWidth("4")
                                 .routingLength("Более 1000")
-                                .sowingNorm("Норма высева 240–280 кг/га")
+                                .sowingNorm("Норма высева 240-280 кг/га")
                                 .build(),
                         empty()
                 ),
@@ -66,9 +66,9 @@ public final class SeventhTableFuelInfoSearchingArgumentsProvider extends Abstra
                                 .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ПОСЕВОМ СЕЛЬСКОХОЗЯЙСТВЕННЫХ КУЛЬТУР: ПШЕНИЦЫ, РЖИ, ЯЧМЕНЯ, ОВСА, ГОРОХА, ЛЮПИНА, ВИКИ, ВИКООВСЯНОЙ СМЕСИ, ЛЬНА")
                                 .tractor("Беларус 1221")
                                 .machinery("not existing")
-                                .workingWidth("4,0")
+                                .workingWidth("4")
                                 .routingLength("Более 1000")
-                                .sowingNorm("Норма высева 240–280 кг/га")
+                                .sowingNorm("Норма высева 240-280 кг/га")
                                 .build(),
                         empty()
                 ),
@@ -78,9 +78,9 @@ public final class SeventhTableFuelInfoSearchingArgumentsProvider extends Abstra
                                 .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ПОСЕВОМ СЕЛЬСКОХОЗЯЙСТВЕННЫХ КУЛЬТУР: ПШЕНИЦЫ, РЖИ, ЯЧМЕНЯ, ОВСА, ГОРОХА, ЛЮПИНА, ВИКИ, ВИКООВСЯНОЙ СМЕСИ, ЛЬНА")
                                 .tractor("Беларус 1221")
                                 .machinery("Horsch Sprinter 4 ST")
-                                .workingWidth("-1,0")
+                                .workingWidth("not existing")
                                 .routingLength("Более 1000")
-                                .sowingNorm("Норма высева 240–280 кг/га")
+                                .sowingNorm("Норма высева 240-280 кг/га")
                                 .build(),
                         empty()
                 ),
@@ -90,9 +90,9 @@ public final class SeventhTableFuelInfoSearchingArgumentsProvider extends Abstra
                                 .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ПОСЕВОМ СЕЛЬСКОХОЗЯЙСТВЕННЫХ КУЛЬТУР: ПШЕНИЦЫ, РЖИ, ЯЧМЕНЯ, ОВСА, ГОРОХА, ЛЮПИНА, ВИКИ, ВИКООВСЯНОЙ СМЕСИ, ЛЬНА")
                                 .tractor("Беларус 1221")
                                 .machinery("Horsch Sprinter 4 ST")
-                                .workingWidth("4,0")
-                                .routingLength("1000-1500")
-                                .sowingNorm("Норма высева 240–280 кг/га")
+                                .workingWidth("4")
+                                .routingLength("not existing")
+                                .sowingNorm("Норма высева 240-280 кг/га")
                                 .build(),
                         empty()
                 ),
@@ -102,9 +102,9 @@ public final class SeventhTableFuelInfoSearchingArgumentsProvider extends Abstra
                                 .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ПОСЕВОМ СЕЛЬСКОХОЗЯЙСТВЕННЫХ КУЛЬТУР: ПШЕНИЦЫ, РЖИ, ЯЧМЕНЯ, ОВСА, ГОРОХА, ЛЮПИНА, ВИКИ, ВИКООВСЯНОЙ СМЕСИ, ЛЬНА")
                                 .tractor("Беларус 1221")
                                 .machinery("Horsch Sprinter 4 ST")
-                                .workingWidth("4,0")
+                                .workingWidth("4")
                                 .routingLength("Более 1000")
-                                .sowingNorm("Норма высева 66666666–76666666 кг/га")
+                                .sowingNorm("not existing")
                                 .build(),
                         empty()
                 )
