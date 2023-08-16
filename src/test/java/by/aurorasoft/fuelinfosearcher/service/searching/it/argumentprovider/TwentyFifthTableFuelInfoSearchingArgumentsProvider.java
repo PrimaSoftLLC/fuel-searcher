@@ -34,8 +34,8 @@ public final class TwentyFifthTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .tractor("New Holland TL 80")
                                 .machinery("Grimme 1500 dr")
                                 .rowWidth("70")
-                                .yield("25–30")
-                                .routingLength("151…200")
+                                .yield("25-30")
+                                .routingLength("151...200")
                                 .build(),
                         optionalFuelInfoFactory.apply(64.7, 0.76)
                 ),
@@ -46,8 +46,8 @@ public final class TwentyFifthTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .tractor("New Holland TL 80")
                                 .machinery("Grimme 1500 dr")
                                 .rowWidth("70")
-                                .yield("30–35")
-                                .routingLength("151…200")
+                                .yield("30-35")
+                                .routingLength("151...200")
                                 .build(),
                         optionalFuelInfoFactory.apply(69.8, 0.7)
                 ),
@@ -59,7 +59,7 @@ public final class TwentyFifthTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .machinery("Grimme 1500 dr")
                                 .rowWidth("70")
                                 .yield("Свыше 35")
-                                .routingLength("151…200")
+                                .routingLength("151...200")
                                 .build(),
                         optionalFuelInfoFactory.apply(72.8, 0.68)
                 ),
@@ -72,7 +72,7 @@ public final class TwentyFifthTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .machinery("Grimme 1500 dr")
                                 .rowWidth("70")
                                 .yield("Свыше 35")
-                                .routingLength("151…200")
+                                .routingLength("151...200")
                                 .build(),
                         empty()
                 ),
@@ -85,7 +85,7 @@ public final class TwentyFifthTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .machinery("Grimme 1500 dr")
                                 .rowWidth("70")
                                 .yield("Свыше 35")
-                                .routingLength("151…200")
+                                .routingLength("151...200")
                                 .build(),
                         empty()
                 ),
@@ -98,7 +98,7 @@ public final class TwentyFifthTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .machinery("not existing")
                                 .rowWidth("70")
                                 .yield("Свыше 35")
-                                .routingLength("151…200")
+                                .routingLength("151...200")
                                 .build(),
                         empty()
                 ),
@@ -111,7 +111,7 @@ public final class TwentyFifthTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .machinery("Grimme 1500 dr")
                                 .rowWidth("not existing")
                                 .yield("Свыше 35")
-                                .routingLength("151…200")
+                                .routingLength("151...200")
                                 .build(),
                         empty()
                 ),
@@ -124,7 +124,7 @@ public final class TwentyFifthTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .machinery("Grimme 1500 dr")
                                 .rowWidth("70")
                                 .yield("not existing")
-                                .routingLength("151…200")
+                                .routingLength("151...200")
                                 .build(),
                         empty()
                 ),
