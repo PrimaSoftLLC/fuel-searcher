@@ -55,7 +55,7 @@ public final class TwentiethTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .tractor("not existing")
                                 .machinery("Krone CAMPRIMA CF 125")
                                 .workingWidth("5,5")
-                                .yield("3,6-4,0")
+                                .yield("3,6-4")
                                 .routingLength("151...200")
                                 .build(),
                         empty()

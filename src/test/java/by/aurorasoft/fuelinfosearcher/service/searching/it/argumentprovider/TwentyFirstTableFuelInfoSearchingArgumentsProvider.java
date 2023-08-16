@@ -43,8 +43,8 @@ public final class TwentyFirstTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .tractor("Беларус 1221")
                                 .machinery("KRONE CF Ultima 155 XC")
                                 .workingWidth("5")
-                                .yield("14,5–15,5")
-                                .routingLength("401…600")
+                                .yield("14,5-15,5")
+                                .routingLength("401...600")
                                 .build(),
                         optionalFuelInfoFactory.apply(140.9, 0.78)
                 ),
@@ -55,8 +55,8 @@ public final class TwentyFirstTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .tractor("not existing")
                                 .machinery("KRONE CF Ultima 155 XC")
                                 .workingWidth("5")
-                                .yield("14,5–15,5")
-                                .routingLength("401…600")
+                                .yield("14,5-15,5")
+                                .routingLength("401...600")
                                 .build(),
                         empty()
                 ),
@@ -67,8 +67,8 @@ public final class TwentyFirstTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .tractor("Беларус 1221")
                                 .machinery("not existing")
                                 .workingWidth("5")
-                                .yield("14,5–15,5")
-                                .routingLength("401…600")
+                                .yield("14,5-15,5")
+                                .routingLength("401...600")
                                 .build(),
                         empty()
                 ),
@@ -79,8 +79,8 @@ public final class TwentyFirstTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .tractor("Беларус 1221")
                                 .machinery("KRONE CF Ultima 155 XC")
                                 .workingWidth("not existing")
-                                .yield("14,5–15,5")
-                                .routingLength("401…600")
+                                .yield("14,5-15,5")
+                                .routingLength("401...600")
                                 .build(),
                         empty()
                 ),
@@ -92,7 +92,7 @@ public final class TwentyFirstTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .machinery("KRONE CF Ultima 155 XC")
                                 .workingWidth("5")
                                 .yield("not existing")
-                                .routingLength("401…600")
+                                .routingLength("401...600")
                                 .build(),
                         empty()
                 ),
@@ -103,7 +103,7 @@ public final class TwentyFirstTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .tractor("Беларус 1221")
                                 .machinery("KRONE CF Ultima 155 XC")
                                 .workingWidth("5")
-                                .yield("14,5–15,5")
+                                .yield("14,5-15,5")
                                 .routingLength("not existing")
                                 .build(),
                         empty()
