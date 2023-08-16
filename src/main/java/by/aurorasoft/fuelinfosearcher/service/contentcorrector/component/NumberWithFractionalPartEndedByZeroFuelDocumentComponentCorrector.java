@@ -24,7 +24,7 @@ public final class NumberWithFractionalPartEndedByZeroFuelDocumentComponentCorre
     private static String removeLastZerosAndCommas(final String content) {
         final StringBuilder contentBuilder = new StringBuilder(content);
         removeLastZeros(contentBuilder);
-        removeLastCommas(contentBuilder);
+        removeLastComma(contentBuilder);
         return contentBuilder.toString();
     }
 
@@ -35,7 +35,7 @@ public final class NumberWithFractionalPartEndedByZeroFuelDocumentComponentCorre
         );
     }
 
-    private static void removeLastCommas(final StringBuilder contentBuilder) {
+    private static void removeLastComma(final StringBuilder contentBuilder) {
         removeLastCharactersIfMatch(
                 contentBuilder,
                 NumberWithFractionalPartEndedByZeroFuelDocumentComponentCorrector::isLastCharacterComma

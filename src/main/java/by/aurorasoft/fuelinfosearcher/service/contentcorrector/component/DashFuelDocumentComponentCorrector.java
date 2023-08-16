@@ -6,8 +6,8 @@ import java.util.regex.MatchResult;
 
 @Component
 public final class DashFuelDocumentComponentCorrector extends AbstractContentFuelDocumentComponentCorrector {
-    private static final String REPLACED_REGEX = "…";
-    private static final String REPLACEMENT = "...";
+    private static final String REPLACED_REGEX = "–";
+    private static final String REPLACEMENT = "-";
 
     public DashFuelDocumentComponentCorrector() {
         super(REPLACED_REGEX);

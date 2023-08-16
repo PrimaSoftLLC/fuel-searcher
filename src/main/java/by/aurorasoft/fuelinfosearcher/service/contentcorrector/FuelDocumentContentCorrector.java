@@ -27,6 +27,17 @@ public final class FuelDocumentContentCorrector {
                 .map(FuelTable::getElements)
                 .flatMap(Collection::stream)
                 .forEach(this::correctContent);
+        document.getTables()
+                .stream()
+                .map(FuelTable::getElements)
+                .flatMap(Collection::stream)
+                .filter(XWPFTable.class::isInstance)
+                .map(element -> (XWPFTable)element)
+                .map(XWPFTable::getRows)
+                .flatMap(Collection::stream)
+                .map(XWPFTableRow::getTableCells)
+                .flatMap(Collection::stream)
+                .forEach(cell -> System.out.println(cell.getText()));
     }
 
     private static Function<String, String> createContentCorrector(final List<AbstractContentFuelDocumentComponentCorrector> componentCorrectors) {
@@ -64,9 +75,6 @@ public final class FuelDocumentContentCorrector {
     private void correctContent(final XWPFParagraph paragraph) {
         final String content = paragraph.getText();
         final String correctedContent = this.contentCorrector.apply(content);
-        if (!content.equals(correctedContent)) {
-            System.out.println();
-        }
         replaceText(paragraph, correctedContent);
     }
 }

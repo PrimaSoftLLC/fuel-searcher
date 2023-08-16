@@ -55,7 +55,7 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("Кировец K744P2")
-                                .machinery("Vari Titan 107+3 L100")
+                                .machinery("Vari Titan 10 7+3 L100")
                                 .corpusCount("10")
                                 .ploughingDepth("23-25")
                                 .routingLength("Менее 150")
@@ -71,8 +71,7 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .corpusCount("12")
                                 .ploughingDepth("23-25")
                                 .routingLength("201-300")
-                                //TODO: сделать так, чтобы можно было не писать 'Плуга'
-                                .specificResistance("Удельное сопротивление плуга 60...65 кПа")
+                                .specificResistance("Удельное сопротивление 60...65 кПа")
                                 .build(),
                         optionalFuelInfoFactory.apply(11.3, 29.1)
                 ),
@@ -80,7 +79,7 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                         FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("Кировец K744P2")
-                                .machinery("Vari Titan 107+3 L100")
+                                .machinery("Vari Titan 10 7+3 L100")
                                 .corpusCount("10")
                                 .ploughingDepth("18-20")
                                 .routingLength("Менее 150")

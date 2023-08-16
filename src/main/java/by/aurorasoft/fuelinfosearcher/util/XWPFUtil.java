@@ -185,7 +185,7 @@ public final class XWPFUtil {
 
     private static OptionalDouble extractDoubleValue(final String content) {
         final String contentToBeParsed = content.replaceAll(COMMA, POINT);
-        if (contentToBeParsed.equals("–")) {
+        if (contentToBeParsed.equals("-")) {
             return OptionalDouble.empty();
         }
         return OptionalDouble.of(parseDouble(contentToBeParsed));
