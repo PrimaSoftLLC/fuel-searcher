@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.simple.ploughing;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
-import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
+import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ public final class ThirdTableFuelInfoSearchingService extends AbstractPloughingF
 
     @Override
     protected List<XWPFTableRow> findRowsByGroupValue(final List<XWPFTableRow> rows,
-                                                      final FuelInfoSpecification specification) {
+                                                      final FuelSpecification specification) {
         return findRowsBySoilType(rows, specification);
     }
 }

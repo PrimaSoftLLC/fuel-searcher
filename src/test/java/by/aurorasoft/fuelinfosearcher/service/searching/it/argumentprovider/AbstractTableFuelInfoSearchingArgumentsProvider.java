@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.it.argumentprovider;
 
-import by.aurorasoft.fuelinfosearcher.model.FuelInfo;
+import by.aurorasoft.fuelinfosearcher.model.Fuel;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -10,16 +10,16 @@ import java.util.stream.Stream;
 public abstract class AbstractTableFuelInfoSearchingArgumentsProvider {
 
     public final Stream<Arguments> provide() {
-        final BiFunction<Double, Double, Optional<FuelInfo>> optionalFuelInfoFactory
+        final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory
                 = AbstractTableFuelInfoSearchingArgumentsProvider::createFuelInfoWrappedByOptional;
         return this.provide(optionalFuelInfoFactory);
     }
 
-    protected abstract Stream<Arguments> provide(final BiFunction<Double, Double, Optional<FuelInfo>> optionalFuelInfoFactory);
+    protected abstract Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory);
 
-    private static Optional<FuelInfo> createFuelInfoWrappedByOptional(final double generationNorm,
-                                                                      final double consumption) {
-        final FuelInfo fuelInfo = new FuelInfo(generationNorm, consumption);
+    private static Optional<Fuel> createFuelInfoWrappedByOptional(final double generationNorm,
+                                                                  final double consumption) {
+        final Fuel fuelInfo = new Fuel(generationNorm, consumption);
         return Optional.of(fuelInfo);
     }
 }

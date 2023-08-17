@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.util;
 
-import by.aurorasoft.fuelinfosearcher.model.FuelInfo;
-import by.aurorasoft.fuelinfosearcher.model.FuelInfoLocation;
+import by.aurorasoft.fuelinfosearcher.model.Fuel;
+import by.aurorasoft.fuelinfosearcher.model.FuelLocation;
 import lombok.experimental.UtilityClass;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
@@ -12,9 +12,9 @@ import java.util.function.ToIntFunction;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.extractDoubleValue;
 
 @UtilityClass
-public final class FuelInfoUtil {
+public final class FuelUtil {
 
-    public static Optional<FuelInfo> extractFuelInfo(final FuelInfoLocation location) {
+    public static Optional<Fuel> extractFuel(final FuelLocation location) {
         final OptionalDouble optionalGenerationNorm = extractGenerationNorm(location);
         final OptionalDouble optionalConsumption = extractConsumption(location);
         if (optionalGenerationNorm.isEmpty() || optionalConsumption.isEmpty()) {
@@ -22,19 +22,19 @@ public final class FuelInfoUtil {
         }
         final double generationNorm = optionalGenerationNorm.getAsDouble();
         final double consumption = optionalConsumption.getAsDouble();
-        return Optional.of(new FuelInfo(generationNorm, consumption));
+        return Optional.of(new Fuel(generationNorm, consumption));
     }
 
-    private static OptionalDouble extractGenerationNorm(final FuelInfoLocation location) {
-        return extractFuelInfoComponent(location, FuelInfoLocation::getCellIndexGenerationNorm);
+    private static OptionalDouble extractGenerationNorm(final FuelLocation location) {
+        return extractFuelInfoComponent(location, FuelLocation::getCellIndexGenerationNorm);
     }
 
-    private static OptionalDouble extractConsumption(final FuelInfoLocation location) {
-        return extractFuelInfoComponent(location, FuelInfoLocation::getCellIndexConsumption);
+    private static OptionalDouble extractConsumption(final FuelLocation location) {
+        return extractFuelInfoComponent(location, FuelLocation::getCellIndexConsumption);
     }
 
-    private static OptionalDouble extractFuelInfoComponent(final FuelInfoLocation location,
-                                                           final ToIntFunction<FuelInfoLocation> cellIndexGetter) {
+    private static OptionalDouble extractFuelInfoComponent(final FuelLocation location,
+                                                           final ToIntFunction<FuelLocation> cellIndexGetter) {
         final XWPFTableRow row = location.getRow();
         final int cellIndex = cellIndexGetter.applyAsInt(location);
         return extractDoubleValue(row, cellIndex);

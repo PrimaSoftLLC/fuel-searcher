@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.it.argumentprovider;
 
-import by.aurorasoft.fuelinfosearcher.model.FuelInfo;
-import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
+import by.aurorasoft.fuelinfosearcher.model.Fuel;
+import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -13,10 +13,10 @@ import static java.util.Optional.empty;
 public final class NineteenthTableFuelInfoSearchingArgumentsProvider extends AbstractTableFuelInfoSearchingArgumentsProvider {
 
     @Override
-    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<FuelInfo>> optionalFuelInfoFactory) {
+    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
         return Stream.of(
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ СЕНА ПОСЛЕ КОМБАЙНА")
                                 .tractor("Fendt 515c")
                                 .machinery("KRONE Comprima CV 150 XC")
@@ -27,7 +27,7 @@ public final class NineteenthTableFuelInfoSearchingArgumentsProvider extends Abs
                         optionalFuelInfoFactory.apply(12.8, 4.35)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ СЕНА ПОСЛЕ КОМБАЙНА")
                                 .tractor("Fendt 515c")
                                 .machinery("KRONE Comprima CV 150 XC")
@@ -38,7 +38,7 @@ public final class NineteenthTableFuelInfoSearchingArgumentsProvider extends Abs
                         optionalFuelInfoFactory.apply(50.7, 1.17)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ СЕНА ПОСЛЕ КОМБАЙНА")
                                 .tractor("Fendt 515c")
                                 .machinery("KRONE Comprima CV 150 XC")
@@ -50,7 +50,7 @@ public final class NineteenthTableFuelInfoSearchingArgumentsProvider extends Abs
                 ),
                 //not existing tractor
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ СЕНА ПОСЛЕ КОМБАЙНА")
                                 .tractor("not existing")
                                 .machinery("KRONE Comprima CV 150 XC")
@@ -62,7 +62,7 @@ public final class NineteenthTableFuelInfoSearchingArgumentsProvider extends Abs
                 ),
                 //not existing machinery
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ СЕНА ПОСЛЕ КОМБАЙНА")
                                 .tractor("Fendt 515c")
                                 .machinery("not existing")
@@ -74,7 +74,7 @@ public final class NineteenthTableFuelInfoSearchingArgumentsProvider extends Abs
                 ),
                 //not existing working width
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ СЕНА ПОСЛЕ КОМБАЙНА")
                                 .tractor("Fendt 515c")
                                 .machinery("KRONE Comprima CV 150 XC")
@@ -86,7 +86,7 @@ public final class NineteenthTableFuelInfoSearchingArgumentsProvider extends Abs
                 ),
                 //not existing yield
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ СЕНА ПОСЛЕ КОМБАЙНА")
                                 .tractor("Fendt 515c")
                                 .machinery("KRONE Comprima CV 150 XC")
@@ -98,7 +98,7 @@ public final class NineteenthTableFuelInfoSearchingArgumentsProvider extends Abs
                 ),
                 //not existing routing length
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ СЕНА ПОСЛЕ КОМБАЙНА")
                                 .tractor("Fendt 515c")
                                 .machinery("KRONE Comprima CV 150 XC")

@@ -1,8 +1,8 @@
 package by.aurorasoft.fuelinfosearcher.service.documentcreating;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
-import by.aurorasoft.fuelinfosearcher.service.documentcreating.contentcorrector.ParagraphContentCorrectingService;
-import by.aurorasoft.fuelinfosearcher.service.documentcreating.documentloader.FuelDocumentLoader;
+import by.aurorasoft.fuelinfosearcher.service.contentcorrector.FuelDocumentContentCorrector;
+import by.aurorasoft.fuelinfosearcher.service.documentloader.FuelDocumentLoader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public final class FuelDocumentCreatingService {
     private final FuelDocumentLoader documentLoader;
-    private final ParagraphContentCorrectingService contentCorrector;
+    private final FuelDocumentContentCorrector contentCorrector;
 
     public FuelDocument create() {
         final FuelDocument fuelDocument = this.documentLoader.load();

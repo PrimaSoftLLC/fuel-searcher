@@ -4,7 +4,7 @@ import lombok.Value;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 @Value
-public class FuelInfoLocation {
+public class FuelLocation {
     XWPFTableRow row;
     int cellIndexGenerationNorm;
     int cellIndexConsumption;

@@ -1,7 +1,9 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.composite;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
-import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
+import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
+import by.aurorasoft.fuelinfosearcher.service.searching.filter.FinalRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.filter.StartRowFilter;
 import by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil;
 import by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
@@ -9,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -28,19 +29,19 @@ public final class TwentySeventhTableFuelInfoSearchingService extends AbstractCo
     }
 
     @Override
-    protected Stream<BiFunction<List<XWPFTableRow>, FuelInfoSpecification, List<XWPFTableRow>>> createStartRowFilters() {
+    protected Stream<StartRowFilter> createStartRowFilters() {
         return Stream.of(
                 FuelDocumentRowFilterUtil::findRowsByCargoClass
         );
     }
 
     @Override
-    protected BiFunction<List<XWPFTableRow>, FuelInfoSpecification, Optional<XWPFTableRow>> createFinalRowFilter() {
+    protected FinalRowFilter createFinalRowFilter() {
         return TwentySeventhTableFuelInfoSearchingService::findRowByTransportDistance;
     }
 
     @Override
-    protected String extractFuelInfoHeaderCellValue(final FuelInfoSpecification specification) {
+    protected String extractFuelHeaderCellValue(final FuelSpecification specification) {
         return extractRoadGroup(specification);
     }
 
@@ -50,7 +51,7 @@ public final class TwentySeventhTableFuelInfoSearchingService extends AbstractCo
     }
 
     @Override
-    protected Stream<Function<FuelInfoSpecification, String>> findElementTableTitleTemplateArgumentExtractors() {
+    protected Stream<Function<FuelSpecification, String>> findElementTableTitleTemplateArgumentExtractors() {
         return Stream.of(
                 FuelInfoSpecificationUtil::extractTractor,
                 FuelInfoSpecificationUtil::extractMachinery
@@ -58,7 +59,7 @@ public final class TwentySeventhTableFuelInfoSearchingService extends AbstractCo
     }
 
     private static Optional<XWPFTableRow> findRowByTransportDistance(final List<XWPFTableRow> rows,
-                                                                     final FuelInfoSpecification specification) {
+                                                                     final FuelSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowByTransportDistance(
                 rows,
                 specification,

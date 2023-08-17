@@ -1,14 +1,15 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.simple.ploughing;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
-import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
+import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
+import by.aurorasoft.fuelinfosearcher.service.searching.filter.FinalRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.filter.StartRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.simple.AbstractSimpleTableFuelInfoSearchingService;
 import by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractRoutingLength;
@@ -28,7 +29,7 @@ public abstract class AbstractPloughingFuelInfoSearchingService extends Abstract
     }
 
     @Override
-    protected final Stream<BiFunction<List<XWPFTableRow>, FuelInfoSpecification, List<XWPFTableRow>>> createStartRowFilters() {
+    protected final Stream<StartRowFilter> createStartRowFilters() {
         return Stream.of(
                 this::findRowsByGroupValue,
                 AbstractPloughingFuelInfoSearchingService::findRowsByTractor,
@@ -38,20 +39,20 @@ public abstract class AbstractPloughingFuelInfoSearchingService extends Abstract
     }
 
     @Override
-    protected final BiFunction<List<XWPFTableRow>, FuelInfoSpecification, Optional<XWPFTableRow>> createFinalRowFilter() {
+    protected final FinalRowFilter createFinalRowFilter() {
         return AbstractPloughingFuelInfoSearchingService::findRowByPloughingDepth;
     }
 
     @Override
-    protected final String extractFuelInfoHeaderCellValue(final FuelInfoSpecification specification) {
+    protected final String extractFuelHeaderCellValue(final FuelSpecification specification) {
         return extractRoutingLength(specification);
     }
 
     protected abstract List<XWPFTableRow> findRowsByGroupValue(final List<XWPFTableRow> rows,
-                                                               final FuelInfoSpecification specification);
+                                                               final FuelSpecification specification);
 
     private static List<XWPFTableRow> findRowsByTractor(final List<XWPFTableRow> rows,
-                                                        final FuelInfoSpecification specification) {
+                                                        final FuelSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowsByTractor(
                 rows,
                 specification,
@@ -60,7 +61,7 @@ public abstract class AbstractPloughingFuelInfoSearchingService extends Abstract
     }
 
     private static List<XWPFTableRow> findRowsByMachinery(final List<XWPFTableRow> rows,
-                                                          final FuelInfoSpecification specification) {
+                                                          final FuelSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowsByMachinery(
                 rows,
                 specification,
@@ -69,7 +70,7 @@ public abstract class AbstractPloughingFuelInfoSearchingService extends Abstract
     }
 
     private static List<XWPFTableRow> findRowsByCorpusCount(final List<XWPFTableRow> rows,
-                                                            final FuelInfoSpecification specification) {
+                                                            final FuelSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowsByCorpusCount(
                 rows,
                 specification,
@@ -78,7 +79,7 @@ public abstract class AbstractPloughingFuelInfoSearchingService extends Abstract
     }
 
     private static Optional<XWPFTableRow> findRowByPloughingDepth(final List<XWPFTableRow> rows,
-                                                                  final FuelInfoSpecification specification) {
+                                                                  final FuelSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowByPloughingDepth(
                 rows,
                 specification,

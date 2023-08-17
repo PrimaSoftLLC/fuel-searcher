@@ -3,7 +3,7 @@ package by.aurorasoft.fuelinfosearcher.model;
 import lombok.Value;
 
 @Value
-public class FuelInfo {
+public class Fuel {
     double generationNorm;
     double consumption;
 }

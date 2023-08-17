@@ -1,8 +1,8 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.it;
 
 import by.aurorasoft.fuelinfosearcher.base.AbstractContextTest;
-import by.aurorasoft.fuelinfosearcher.model.FuelInfo;
-import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
+import by.aurorasoft.fuelinfosearcher.model.Fuel;
+import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import by.aurorasoft.fuelinfosearcher.service.searching.it.argumentprovider.*;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.FuelInfoSearchingManager;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -51,8 +51,8 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
     @ParameterizedTest
     @MethodSource("fuelInfoSearchingArgumentProvider")
     @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-    public void fuelInfoShouldBeFound(final FuelInfoSpecification specification, final Optional<FuelInfo> expected) {
-        final Optional<FuelInfo> actual = this.searchingManager.find(specification);
+    public void fuelInfoShouldBeFound(final FuelSpecification specification, final Optional<Fuel> expected) {
+        final Optional<Fuel> actual = this.searchingManager.find(specification);
         assertEquals(expected, actual);
     }
 

@@ -1,14 +1,15 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.simple.movingandmoulding;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
-import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
+import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
+import by.aurorasoft.fuelinfosearcher.service.searching.filter.FinalRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.filter.StartRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.simple.AbstractSimpleTableFuelInfoSearchingService;
 import by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractRoutingLength;
@@ -27,7 +28,7 @@ public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService ext
     }
 
     @Override
-    protected final Stream<BiFunction<List<XWPFTableRow>, FuelInfoSpecification, List<XWPFTableRow>>> createStartRowFilters() {
+    protected final Stream<StartRowFilter> createStartRowFilters() {
         return Stream.of(
                 AbstractMovingAndMouldingTableFuelInfoSearchingService::findRowsByTractor,
                 AbstractMovingAndMouldingTableFuelInfoSearchingService::findRowsByMachinery,
@@ -36,12 +37,12 @@ public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService ext
     }
 
     @Override
-    protected final BiFunction<List<XWPFTableRow>, FuelInfoSpecification, Optional<XWPFTableRow>> createFinalRowFilter() {
+    protected final FinalRowFilter createFinalRowFilter() {
         return this::findRowByYield;
     }
 
     @Override
-    protected final String extractFuelInfoHeaderCellValue(final FuelInfoSpecification specification) {
+    protected final String extractFuelHeaderCellValue(final FuelSpecification specification) {
         return extractRoutingLength(specification);
     }
 
@@ -50,7 +51,7 @@ public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService ext
     protected abstract int findCellIndexYield();
 
     private static List<XWPFTableRow> findRowsByTractor(final List<XWPFTableRow> rows,
-                                                        final FuelInfoSpecification specification) {
+                                                        final FuelSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowsByTractor(
                 rows,
                 specification,
@@ -59,7 +60,7 @@ public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService ext
     }
 
     private static List<XWPFTableRow> findRowsByMachinery(final List<XWPFTableRow> rows,
-                                                          final FuelInfoSpecification specification) {
+                                                          final FuelSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowsByMachinery(
                 rows,
                 specification,
@@ -68,7 +69,7 @@ public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService ext
     }
 
     private List<XWPFTableRow> findRowsByWorkingWidth(final List<XWPFTableRow> rows,
-                                                      final FuelInfoSpecification specification) {
+                                                      final FuelSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowsByWorkingWidth(
                 rows,
                 specification,
@@ -77,7 +78,7 @@ public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService ext
     }
 
     private Optional<XWPFTableRow> findRowByYield(final List<XWPFTableRow> rows,
-                                                  final FuelInfoSpecification specification) {
+                                                  final FuelSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowByYield(
                 rows,
                 specification,

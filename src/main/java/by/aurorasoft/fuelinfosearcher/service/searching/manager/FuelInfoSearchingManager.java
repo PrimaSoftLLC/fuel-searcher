@@ -1,8 +1,8 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.manager;
 
-import by.aurorasoft.fuelinfosearcher.model.FuelInfo;
-import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
-import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelInfoSearchingService;
+import by.aurorasoft.fuelinfosearcher.model.Fuel;
+import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
+import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelSearchingService;
 import by.aurorasoft.fuelinfosearcher.service.searching.exception.FuelInfoSearchingServiceNotExistException;
 import org.springframework.stereotype.Service;
 
@@ -16,29 +16,29 @@ import static java.util.stream.Collectors.toMap;
 
 @Service
 public final class FuelInfoSearchingManager {
-    private final Map<String, AbstractTableFuelInfoSearchingService> searchingServicesByTableNames;
+    private final Map<String, AbstractTableFuelSearchingService> searchingServicesByTableNames;
 
-    public FuelInfoSearchingManager(final List<AbstractTableFuelInfoSearchingService> searchingServices) {
+    public FuelInfoSearchingManager(final List<AbstractTableFuelSearchingService> searchingServices) {
         this.searchingServicesByTableNames = findSearchingServicesByTableNames(searchingServices);
     }
 
-    public Optional<FuelInfo> find(final FuelInfoSpecification specification) {
-        final AbstractTableFuelInfoSearchingService searchingService = this.findSearchingService(specification);
+    public Optional<Fuel> find(final FuelSpecification specification) {
+        final AbstractTableFuelSearchingService searchingService = this.findSearchingService(specification);
         return searchingService.find(specification);
     }
 
-    private static Map<String, AbstractTableFuelInfoSearchingService> findSearchingServicesByTableNames(
-            final List<AbstractTableFuelInfoSearchingService> searchingServices) {
+    private static Map<String, AbstractTableFuelSearchingService> findSearchingServicesByTableNames(
+            final List<AbstractTableFuelSearchingService> searchingServices) {
         return searchingServices.stream()
                 .collect(
                         toMap(
-                                AbstractTableFuelInfoSearchingService::findTableName,
+                                AbstractTableFuelSearchingService::findTableName,
                                 identity()
                         )
                 );
     }
 
-    private AbstractTableFuelInfoSearchingService findSearchingService(final FuelInfoSpecification specification) {
+    private AbstractTableFuelSearchingService findSearchingService(final FuelSpecification specification) {
         final String tableName = extractTableName(specification);
         return this.searchingServicesByTableNames.computeIfAbsent(
                 tableName,
@@ -46,7 +46,7 @@ public final class FuelInfoSearchingManager {
         );
     }
 
-    private static AbstractTableFuelInfoSearchingService throwNotExistServiceException(final String tableName) {
+    private static AbstractTableFuelSearchingService throwNotExistServiceException(final String tableName) {
         throw new FuelInfoSearchingServiceNotExistException(
                 "There is no searching service for table '%s'".formatted(tableName)
         );

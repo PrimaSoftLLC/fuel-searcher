@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.it.argumentprovider;
 
-import by.aurorasoft.fuelinfosearcher.model.FuelInfo;
-import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
+import by.aurorasoft.fuelinfosearcher.model.Fuel;
+import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -13,10 +13,10 @@ import static java.util.Optional.empty;
 public final class TwentySixthTableFuelInfoSearchingArgumentsProvider extends AbstractTableFuelInfoSearchingArgumentsProvider {
 
     @Override
-    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<FuelInfo>> optionalFuelInfoFactory) {
+    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
         return Stream.of(
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .combine("JAGUAR 970")
                                 .workingWidth("9")
@@ -26,7 +26,7 @@ public final class TwentySixthTableFuelInfoSearchingArgumentsProvider extends Ab
                         optionalFuelInfoFactory.apply(102.5, 2.95)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .combine("BIG X850")
                                 .workingWidth("9")
@@ -36,7 +36,7 @@ public final class TwentySixthTableFuelInfoSearchingArgumentsProvider extends Ab
                         optionalFuelInfoFactory.apply(240.2, 1.24)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .combine("JOHN DEERE 8400")
                                 .workingWidth("6")
@@ -47,7 +47,7 @@ public final class TwentySixthTableFuelInfoSearchingArgumentsProvider extends Ab
                 ),
                 //not existing combine
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .combine("not existing")
                                 .workingWidth("6")
@@ -58,7 +58,7 @@ public final class TwentySixthTableFuelInfoSearchingArgumentsProvider extends Ab
                 ),
                 //not existing working width
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .combine("JOHN DEERE 8400")
                                 .workingWidth("not existing")
@@ -69,7 +69,7 @@ public final class TwentySixthTableFuelInfoSearchingArgumentsProvider extends Ab
                 ),
                 //not existing yield
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .combine("JOHN DEERE 8400")
                                 .workingWidth("6")
@@ -80,7 +80,7 @@ public final class TwentySixthTableFuelInfoSearchingArgumentsProvider extends Ab
                 ),
                 //not existing routing length
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .combine("JOHN DEERE 8400")
                                 .workingWidth("6")

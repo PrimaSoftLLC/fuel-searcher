@@ -1,10 +1,10 @@
-package by.aurorasoft.fuelinfosearcher.service.documentcreating.contentcorrector;
+package by.aurorasoft.fuelinfosearcher.service.contentcorrector;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
-import by.aurorasoft.fuelinfosearcher.service.documentcreating.contentcorrector.component.AbstractContentParagraphCorrector;
+import by.aurorasoft.fuelinfosearcher.service.contentcorrector.component.AbstractContentParagraphCorrector;
 import org.apache.poi.xwpf.usermodel.*;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.List;
@@ -13,11 +13,11 @@ import java.util.function.Function;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFParagraphUtil.replaceText;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFTableCellUtil.isEmpty;
 
-@Service
-public final class ParagraphContentCorrectingService {
+@Component
+public final class FuelDocumentContentCorrector {
     private final Function<String, String> contentCorrector;
 
-    public ParagraphContentCorrectingService(final List<AbstractContentParagraphCorrector> componentCorrectors) {
+    public FuelDocumentContentCorrector(final List<AbstractContentParagraphCorrector> componentCorrectors) {
         this.contentCorrector = createContentCorrector(componentCorrectors);
     }
 

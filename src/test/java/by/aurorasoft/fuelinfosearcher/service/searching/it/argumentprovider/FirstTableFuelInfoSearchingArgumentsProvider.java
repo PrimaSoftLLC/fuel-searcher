@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.it.argumentprovider;
 
-import by.aurorasoft.fuelinfosearcher.model.FuelInfo;
-import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
+import by.aurorasoft.fuelinfosearcher.model.Fuel;
+import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -13,10 +13,10 @@ import static java.util.Optional.empty;
 public final class FirstTableFuelInfoSearchingArgumentsProvider extends AbstractTableFuelInfoSearchingArgumentsProvider {
 
     @Override
-    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<FuelInfo>> optionalFuelInfoFactory) {
+    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
         return Stream.of(
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("FENDT 1050")
                                 .machinery("Lemken Diamand 11")
@@ -28,7 +28,7 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                         optionalFuelInfoFactory.apply(11.9, 21.7)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("Кировец К-744 Р3")
                                 .machinery("Kverneland RW 110")
@@ -40,7 +40,7 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                         optionalFuelInfoFactory.apply(16.8, 21.3)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("Кировец К-744 Р4")
                                 .machinery("ППО-8-40")
@@ -52,7 +52,7 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                         optionalFuelInfoFactory.apply(9., 21.5)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("Кировец K744P2")
                                 .machinery("Vari Titan 10 7+3 L100")
@@ -64,7 +64,7 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                         optionalFuelInfoFactory.apply(10.1, 24.8)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("К744Р3")
                                 .machinery("Kverneland RW 110")
@@ -76,7 +76,7 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                         optionalFuelInfoFactory.apply(11.3, 29.1)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("Кировец K744P2")
                                 .machinery("Vari Titan 10 7+3 L100")
@@ -89,7 +89,7 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                 ),
                 //not existing tractor
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("not existing")
                                 .machinery("Lemken Diamand 11")
@@ -102,7 +102,7 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                 ),
                 //not existing plough mark
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("FENDT 1050")
                                 .machinery("not existing")
@@ -115,7 +115,7 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                 ),
                 //not existing corpus count
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("FENDT 1050")
                                 .machinery("Lemken Diamand 11")
@@ -128,7 +128,7 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                 ),
                 //not existing ploughing depth
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("FENDT 1050")
                                 .machinery("Lemken Diamand 11")
@@ -141,7 +141,7 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                 ),
                 //not existing routing length
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("FENDT 1050")
                                 .machinery("Lemken Diamand 11")
@@ -154,7 +154,7 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                 ),
                 //not existing specific resistance
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("К 744Р3")
                                 .machinery("ППУ-13")
@@ -167,7 +167,7 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                 ),
                 //'–' as fuel info
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("К 744Р3")
                                 .machinery("ППУ-13")

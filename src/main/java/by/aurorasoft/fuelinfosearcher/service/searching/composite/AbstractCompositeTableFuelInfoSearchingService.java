@@ -1,9 +1,9 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.composite;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
-import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
+import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
-import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelInfoSearchingService;
+import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelSearchingService;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 
@@ -22,7 +22,7 @@ import static java.util.stream.IntStream.iterate;
 /**
  * For tables with several element-tables
  */
-public abstract class AbstractCompositeTableFuelInfoSearchingService extends AbstractTableFuelInfoSearchingService {
+public abstract class AbstractCompositeTableFuelInfoSearchingService extends AbstractTableFuelSearchingService {
 
     public AbstractCompositeTableFuelInfoSearchingService(final FuelDocument fuelDocument,
                                                           final String fuelTableName,
@@ -32,7 +32,7 @@ public abstract class AbstractCompositeTableFuelInfoSearchingService extends Abs
 
     @Override
     protected final Optional<XWPFTable> findElementTable(final FuelTable fuelTable,
-                                                         final FuelInfoSpecification specification) {
+                                                         final FuelSpecification specification) {
         final List<IBodyElement> fuelTableElements = fuelTable.getElements();
         return this.findTitleIndex(fuelTableElements, specification)
                 .stream()
@@ -43,23 +43,23 @@ public abstract class AbstractCompositeTableFuelInfoSearchingService extends Abs
     protected abstract String findElementTableTitleTemplate();
 
     //TODO: do result as String[]
-    protected abstract Stream<Function<FuelInfoSpecification, String>> findElementTableTitleTemplateArgumentExtractors();
+    protected abstract Stream<Function<FuelSpecification, String>> findElementTableTitleTemplateArgumentExtractors();
 
     private OptionalInt findTitleIndex(final List<IBodyElement> fuelTableElements,
-                                       final FuelInfoSpecification specification) {
+                                       final FuelSpecification specification) {
         final String titleContent = this.findTitleContent(specification);
         return findTitleIndexes(fuelTableElements)
                 .filter(i -> Objects.equals(extractParagraphText(fuelTableElements.get(i)), titleContent))
                 .findFirst();
     }
 
-    private String findTitleContent(final FuelInfoSpecification specification) {
+    private String findTitleContent(final FuelSpecification specification) {
         final String titleTemplate = this.findElementTableTitleTemplate();
         final Object[] titleTemplateArguments = this.extractTitleTemplateArguments(specification);
         return format(titleTemplate, titleTemplateArguments);
     }
 
-    private Object[] extractTitleTemplateArguments(final FuelInfoSpecification specification) {
+    private Object[] extractTitleTemplateArguments(final FuelSpecification specification) {
         return this.findElementTableTitleTemplateArgumentExtractors()
                 .map(extractor -> extractor.apply(specification))
                 .toArray(Object[]::new);
