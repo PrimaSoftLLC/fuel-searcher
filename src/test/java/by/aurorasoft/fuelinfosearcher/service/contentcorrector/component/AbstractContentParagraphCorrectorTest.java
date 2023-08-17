@@ -1,6 +1,5 @@
-package by.aurorasoft.fuelinfosearcher.service.contentcorrector;
+package by.aurorasoft.fuelinfosearcher.service.contentcorrector.component;
 
-import by.aurorasoft.fuelinfosearcher.service.contentcorrector.component.AbstractContentParagraphCorrector;
 import org.junit.Test;
 
 import java.util.regex.MatchResult;
