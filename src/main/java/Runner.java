@@ -1,4 +1,4 @@
-import by.aurorasoft.fuelinfosearcher.service.documentloader.FuelDocumentLoader;
+import by.aurorasoft.fuelinfosearcher.service.documentcreating.documentloader.FuelDocumentLoader;
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
 import org.apache.poi.xwpf.usermodel.IBodyElement;

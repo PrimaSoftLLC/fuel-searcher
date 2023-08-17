@@ -1,15 +1,15 @@
-package by.aurorasoft.fuelinfosearcher.service.contentcorrector.component;
+package by.aurorasoft.fuelinfosearcher.service.documentcreating.contentcorrector.component;
 
 import org.springframework.stereotype.Component;
 
 import java.util.regex.MatchResult;
 
 @Component
-public final class NewLineParagraphCorrector extends AbstractContentParagraphCorrector {
-    private static final String REPLACED_REGEX = "\n+";
+public final class NbspParagraphCorrector extends AbstractContentParagraphCorrector {
+    private static final String REPLACED_REGEX = "\u00A0+";
     private static final String REPLACEMENT = " ";
 
-    public NewLineParagraphCorrector() {
+    public NbspParagraphCorrector() {
         super(REPLACED_REGEX);
     }
 
