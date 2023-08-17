@@ -2,13 +2,15 @@ package by.aurorasoft.fuelinfosearcher.service.searching.simple;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
+import by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiFunction;
+import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil.*;
 import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractRoutingLength;
 
 @Service
@@ -29,17 +31,58 @@ public final class TwentyFifthTableFuelInfoSearchingService extends AbstractSimp
     }
 
     @Override
-    protected Optional<XWPFTableRow> findAppropriateRow(final List<XWPFTableRow> elementTableRows,
-                                                        final FuelInfoSpecification specification) {
-        return findRowsBySoilType(elementTableRows, specification)
-                .flatMap(rows -> findRowsByTractor(rows, specification, CELL_INDEX_TRACTOR))
-                .flatMap(rows -> findRowsByMachinery(rows, specification, CELL_INDEX_MACHINERY))
-                .flatMap(rows -> findRowsByRowWidth(rows, specification, CELL_INDEX_ROW_WIDTH))
-                .flatMap(rows -> findRowByYield(rows, specification, CELL_INDEX_YIELD));
+    protected Stream<BiFunction<List<XWPFTableRow>, FuelInfoSpecification, List<XWPFTableRow>>> createStartRowFilters() {
+        return Stream.of(
+                FuelDocumentRowFilterUtil::findRowsBySoilType,
+                TwentyFifthTableFuelInfoSearchingService::findRowsByTractor,
+                TwentyFifthTableFuelInfoSearchingService::findRowsByMachinery,
+                TwentyFifthTableFuelInfoSearchingService::findRowsByRowWidth
+        );
+    }
+
+    @Override
+    protected BiFunction<List<XWPFTableRow>, FuelInfoSpecification, Optional<XWPFTableRow>> createFinalRowFilter() {
+        return TwentyFifthTableFuelInfoSearchingService::findRowByYield;
     }
 
     @Override
     protected String extractFuelInfoHeaderCellValue(final FuelInfoSpecification specification) {
         return extractRoutingLength(specification);
+    }
+
+    private static List<XWPFTableRow> findRowsByTractor(final List<XWPFTableRow> rows,
+                                                        final FuelInfoSpecification specification) {
+        return FuelDocumentRowFilterUtil.findRowsByTractor(
+                rows,
+                specification,
+                CELL_INDEX_TRACTOR
+        );
+    }
+
+    private static List<XWPFTableRow> findRowsByMachinery(final List<XWPFTableRow> rows,
+                                                          final FuelInfoSpecification specification) {
+        return FuelDocumentRowFilterUtil.findRowsByMachinery(
+                rows,
+                specification,
+                CELL_INDEX_MACHINERY
+        );
+    }
+
+    private static List<XWPFTableRow> findRowsByRowWidth(final List<XWPFTableRow> rows,
+                                                         final FuelInfoSpecification specification) {
+        return FuelDocumentRowFilterUtil.findRowsByRowWidth(
+                rows,
+                specification,
+                CELL_INDEX_ROW_WIDTH
+        );
+    }
+
+    private static Optional<XWPFTableRow> findRowByYield(final List<XWPFTableRow> rows,
+                                                         final FuelInfoSpecification specification) {
+        return FuelDocumentRowFilterUtil.findRowByYield(
+                rows,
+                specification,
+                CELL_INDEX_YIELD
+        );
     }
 }

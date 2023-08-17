@@ -3,12 +3,14 @@ package by.aurorasoft.fuelinfosearcher.service.searching.simple.movingandmouldin
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
 import by.aurorasoft.fuelinfosearcher.service.searching.simple.AbstractSimpleTableFuelInfoSearchingService;
+import by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiFunction;
+import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil.*;
 import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractRoutingLength;
 
 public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService extends AbstractSimpleTableFuelInfoSearchingService {
@@ -25,14 +27,17 @@ public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService ext
     }
 
     @Override
-    protected final Optional<XWPFTableRow> findAppropriateRow(final List<XWPFTableRow> elementTableRows,
-                                                              final FuelInfoSpecification specification) {
-        final int cellIndexWorkingWidth = this.findCellIndexWorkingWidth();
-        final int cellIndexYield = this.findCellIndexYield();
-        return findRowsByTractor(elementTableRows, specification, CELL_INDEX_TRACTOR)
-                .flatMap(rows -> findRowsByMachinery(rows, specification, CELL_INDEX_MACHINERY))
-                .flatMap(rows -> findRowsByWorkingWidth(rows, specification, cellIndexWorkingWidth))
-                .flatMap(rows -> findRowByYield(rows, specification, cellIndexYield));
+    protected final Stream<BiFunction<List<XWPFTableRow>, FuelInfoSpecification, List<XWPFTableRow>>> createStartRowFilters() {
+        return Stream.of(
+                AbstractMovingAndMouldingTableFuelInfoSearchingService::findRowsByTractor,
+                AbstractMovingAndMouldingTableFuelInfoSearchingService::findRowsByMachinery,
+                this::findRowsByWorkingWidth
+        );
+    }
+
+    @Override
+    protected final BiFunction<List<XWPFTableRow>, FuelInfoSpecification, Optional<XWPFTableRow>> createFinalRowFilter() {
+        return this::findRowByYield;
     }
 
     @Override
@@ -43,4 +48,40 @@ public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService ext
     protected abstract int findCellIndexWorkingWidth();
 
     protected abstract int findCellIndexYield();
+
+    private static List<XWPFTableRow> findRowsByTractor(final List<XWPFTableRow> rows,
+                                                        final FuelInfoSpecification specification) {
+        return FuelDocumentRowFilterUtil.findRowsByTractor(
+                rows,
+                specification,
+                CELL_INDEX_TRACTOR
+        );
+    }
+
+    private static List<XWPFTableRow> findRowsByMachinery(final List<XWPFTableRow> rows,
+                                                          final FuelInfoSpecification specification) {
+        return FuelDocumentRowFilterUtil.findRowsByMachinery(
+                rows,
+                specification,
+                CELL_INDEX_MACHINERY
+        );
+    }
+
+    private List<XWPFTableRow> findRowsByWorkingWidth(final List<XWPFTableRow> rows,
+                                                      final FuelInfoSpecification specification) {
+        return FuelDocumentRowFilterUtil.findRowsByWorkingWidth(
+                rows,
+                specification,
+                this.findCellIndexWorkingWidth()
+        );
+    }
+
+    private Optional<XWPFTableRow> findRowByYield(final List<XWPFTableRow> rows,
+                                                  final FuelInfoSpecification specification) {
+        return FuelDocumentRowFilterUtil.findRowByYield(
+                rows,
+                specification,
+                this.findCellIndexYield()
+        );
+    }
 }

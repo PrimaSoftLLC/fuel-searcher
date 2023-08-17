@@ -3,12 +3,14 @@ package by.aurorasoft.fuelinfosearcher.service.searching.simple.ploughing;
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
 import by.aurorasoft.fuelinfosearcher.service.searching.simple.AbstractSimpleTableFuelInfoSearchingService;
+import by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiFunction;
+import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil.*;
 import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractRoutingLength;
 
 public abstract class AbstractPloughingFuelInfoSearchingService extends AbstractSimpleTableFuelInfoSearchingService {
@@ -26,13 +28,18 @@ public abstract class AbstractPloughingFuelInfoSearchingService extends Abstract
     }
 
     @Override
-    protected final Optional<XWPFTableRow> findAppropriateRow(final List<XWPFTableRow> elementTableRows,
-                                                              final FuelInfoSpecification specification) {
-        return this.findRowsByGroupValue(elementTableRows, specification)
-                .flatMap(rows -> findRowsByTractor(rows, specification, CELL_INDEX_TRACTOR))
-                .flatMap(rows -> findRowsByMachinery(rows, specification, CELL_INDEX_MACHINERY))
-                .flatMap(rows -> findRowsByCorpusCount(rows, specification, CELL_INDEX_CORPUS_COUNT))
-                .flatMap(rows -> findRowByPloughingDepth(rows, specification, CELL_INDEX_PLOUGHING_DEPTH));
+    protected final Stream<BiFunction<List<XWPFTableRow>, FuelInfoSpecification, List<XWPFTableRow>>> createStartRowFilters() {
+        return Stream.of(
+                this::findRowsByGroupValue,
+                AbstractPloughingFuelInfoSearchingService::findRowsByTractor,
+                AbstractPloughingFuelInfoSearchingService::findRowsByMachinery,
+                AbstractPloughingFuelInfoSearchingService::findRowsByCorpusCount
+        );
+    }
+
+    @Override
+    protected final BiFunction<List<XWPFTableRow>, FuelInfoSpecification, Optional<XWPFTableRow>> createFinalRowFilter() {
+        return AbstractPloughingFuelInfoSearchingService::findRowByPloughingDepth;
     }
 
     @Override
@@ -40,6 +47,42 @@ public abstract class AbstractPloughingFuelInfoSearchingService extends Abstract
         return extractRoutingLength(specification);
     }
 
-    protected abstract Optional<List<XWPFTableRow>> findRowsByGroupValue(final List<XWPFTableRow> elementTableRows,
-                                                                         final FuelInfoSpecification specification);
+    protected abstract List<XWPFTableRow> findRowsByGroupValue(final List<XWPFTableRow> rows,
+                                                               final FuelInfoSpecification specification);
+
+    private static List<XWPFTableRow> findRowsByTractor(final List<XWPFTableRow> rows,
+                                                        final FuelInfoSpecification specification) {
+        return FuelDocumentRowFilterUtil.findRowsByTractor(
+                rows,
+                specification,
+                CELL_INDEX_TRACTOR
+        );
+    }
+
+    private static List<XWPFTableRow> findRowsByMachinery(final List<XWPFTableRow> rows,
+                                                          final FuelInfoSpecification specification) {
+        return FuelDocumentRowFilterUtil.findRowsByMachinery(
+                rows,
+                specification,
+                CELL_INDEX_MACHINERY
+        );
+    }
+
+    private static List<XWPFTableRow> findRowsByCorpusCount(final List<XWPFTableRow> rows,
+                                                            final FuelInfoSpecification specification) {
+        return FuelDocumentRowFilterUtil.findRowsByCorpusCount(
+                rows,
+                specification,
+                CELL_INDEX_CORPUS_COUNT
+        );
+    }
+
+    private static Optional<XWPFTableRow> findRowByPloughingDepth(final List<XWPFTableRow> rows,
+                                                                  final FuelInfoSpecification specification) {
+        return FuelDocumentRowFilterUtil.findRowByPloughingDepth(
+                rows,
+                specification,
+                CELL_INDEX_PLOUGHING_DEPTH
+        );
+    }
 }

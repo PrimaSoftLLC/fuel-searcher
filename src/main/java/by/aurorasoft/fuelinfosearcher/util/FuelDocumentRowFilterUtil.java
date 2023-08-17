@@ -30,9 +30,9 @@ public final class FuelDocumentRowFilterUtil {
     private static final String REGEX_CONTENT_ROAD_GROUP = "((Первая)|(Вторая)|(Третья)) группа дорог";
 
 
-    public static Optional<List<XWPFTableRow>> findRowsByTractor(final List<XWPFTableRow> rows,
-                                                                 final FuelInfoSpecification specification,
-                                                                 final int cellIndexTractor) {
+    public static List<XWPFTableRow> findRowsByTractor(final List<XWPFTableRow> rows,
+                                                       final FuelInfoSpecification specification,
+                                                       final int cellIndexTractor) {
         return findUnitedRowsByContent(
                 rows,
                 cellIndexTractor,
@@ -41,9 +41,9 @@ public final class FuelDocumentRowFilterUtil {
         );
     }
 
-    public static Optional<List<XWPFTableRow>> findRowsByCombine(final List<XWPFTableRow> rows,
-                                                                 final FuelInfoSpecification specification,
-                                                                 final int cellIndexCombine) {
+    public static List<XWPFTableRow> findRowsByCombine(final List<XWPFTableRow> rows,
+                                                       final FuelInfoSpecification specification,
+                                                       final int cellIndexCombine) {
         return findUnitedRowsByContent(
                 rows,
                 cellIndexCombine,
@@ -52,9 +52,9 @@ public final class FuelDocumentRowFilterUtil {
         );
     }
 
-    public static Optional<List<XWPFTableRow>> findRowsByMachinery(final List<XWPFTableRow> rows,
-                                                                   final FuelInfoSpecification specification,
-                                                                   final int cellIndexMachinery) {
+    public static List<XWPFTableRow> findRowsByMachinery(final List<XWPFTableRow> rows,
+                                                         final FuelInfoSpecification specification,
+                                                         final int cellIndexMachinery) {
         return findUnitedRowsByContent(
                 rows,
                 cellIndexMachinery,
@@ -63,9 +63,9 @@ public final class FuelDocumentRowFilterUtil {
         );
     }
 
-    public static Optional<List<XWPFTableRow>> findRowsByWorkingWidth(final List<XWPFTableRow> rows,
-                                                                      final FuelInfoSpecification specification,
-                                                                      final int cellIndexWorkingWidth) {
+    public static List<XWPFTableRow> findRowsByWorkingWidth(final List<XWPFTableRow> rows,
+                                                            final FuelInfoSpecification specification,
+                                                            final int cellIndexWorkingWidth) {
         return findUnitedRowsByContent(
                 rows,
                 cellIndexWorkingWidth,
@@ -96,7 +96,7 @@ public final class FuelDocumentRowFilterUtil {
         );
     }
 
-    public static Optional<List<XWPFTableRow>> findRowsByCorpusCount(final List<XWPFTableRow> rows,
+    public static List<XWPFTableRow> findRowsByCorpusCount(final List<XWPFTableRow> rows,
                                                                      final FuelInfoSpecification specification,
                                                                      final int cellIndexCorpusCount) {
         return findUnitedRowsByContent(
@@ -129,7 +129,7 @@ public final class FuelDocumentRowFilterUtil {
         );
     }
 
-    public static Optional<List<XWPFTableRow>> findRowsByProcessingDepth(final List<XWPFTableRow> rows,
+    public static List<XWPFTableRow> findRowsByProcessingDepth(final List<XWPFTableRow> rows,
                                                                          final FuelInfoSpecification specification) {
         return findRowsByGroupValue(
                 rows,
@@ -139,8 +139,8 @@ public final class FuelDocumentRowFilterUtil {
         );
     }
 
-    public static Optional<List<XWPFTableRow>> findRowsBySoilType(final List<XWPFTableRow> rows,
-                                                                  final FuelInfoSpecification specification) {
+    public static List<XWPFTableRow> findRowsBySoilType(final List<XWPFTableRow> rows,
+                                                        final FuelInfoSpecification specification) {
         return findRowsByGroupValue(
                 rows,
                 specification,
@@ -149,7 +149,7 @@ public final class FuelDocumentRowFilterUtil {
         );
     }
 
-    public static Optional<List<XWPFTableRow>> findRowsBySpecificResistance(final List<XWPFTableRow> rows,
+    public static List<XWPFTableRow> findRowsBySpecificResistance(final List<XWPFTableRow> rows,
                                                                             final FuelInfoSpecification specification) {
         return findRowsByGroupValue(
                 rows,
@@ -159,7 +159,7 @@ public final class FuelDocumentRowFilterUtil {
         );
     }
 
-    public static Optional<List<XWPFTableRow>> findRowsBySowingNorm(final List<XWPFTableRow> rows,
+    public static List<XWPFTableRow> findRowsBySowingNorm(final List<XWPFTableRow> rows,
                                                                     final FuelInfoSpecification specification) {
         return findRowsByGroupValue(
                 rows,
@@ -180,7 +180,7 @@ public final class FuelDocumentRowFilterUtil {
     }
 
     public static List<XWPFTableRow> findRowsByCargoClass(final List<XWPFTableRow> rows,
-                                                                    final FuelInfoSpecification specification) {
+                                                          final FuelInfoSpecification specification) {
         return findRowsByGroupValue(
                 rows,
                 specification,
@@ -221,9 +221,9 @@ public final class FuelDocumentRowFilterUtil {
         );
     }
 
-    public static Optional<List<XWPFTableRow>> findRowsByRowWidth(final List<XWPFTableRow> rows,
-                                                                  final FuelInfoSpecification specification,
-                                                                  final int cellIndexRowWidth) {
+    public static List<XWPFTableRow> findRowsByRowWidth(final List<XWPFTableRow> rows,
+                                                        final FuelInfoSpecification specification,
+                                                        final int cellIndexRowWidth) {
         return findUnitedRowsByContent(
                 rows,
                 cellIndexRowWidth,
@@ -233,18 +233,17 @@ public final class FuelDocumentRowFilterUtil {
     }
 
 
-    private static Optional<List<XWPFTableRow>> findRowsByGroupValue(final List<XWPFTableRow> rows,
+    private static List<XWPFTableRow> findRowsByGroupValue(final List<XWPFTableRow> rows,
                                                                      final FuelInfoSpecification specification,
                                                                      final Function<FuelInfoSpecification, String> groupValueExtractor,
                                                                      final String groupValueRegex) {
         final String groupValue = groupValueExtractor.apply(specification);
-        List<XWPFTableRow> list = findRowIndexesByContent(rows, CELL_INDEX_GROUP_VALUE, groupValue)
+        return findRowIndexesByContent(rows, CELL_INDEX_GROUP_VALUE, groupValue)
                 .map(indexRowGroupValue -> indexRowGroupValue + 1)
                 .mapToObj(indexFirstMatchingRow -> findIndexBordersRowsMatchingGroupValue(indexFirstMatchingRow, rows, groupValueRegex))
                 .map(borderRowIndexes -> extractRows(rows, borderRowIndexes))
                 .flatMap(Collection::stream)
                 .toList();
-        return !list.isEmpty() ? Optional.of(list) : Optional.empty();
     }
 
     private static OptionalInt findIndexRowByGroupValue(final List<XWPFTableRow> rows, final String groupValue) {

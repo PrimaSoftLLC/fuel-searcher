@@ -3,12 +3,14 @@ package by.aurorasoft.fuelinfosearcher.service.searching.simple.rackingandturnin
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
 import by.aurorasoft.fuelinfosearcher.service.searching.simple.AbstractSimpleTableFuelInfoSearchingService;
+import by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiFunction;
+import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil.*;
 import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractRoutingLength;
 import static java.util.stream.IntStream.range;
 
@@ -29,12 +31,17 @@ public abstract class AbstractRackingAndTurningRayFuelInfoSearchingService exten
     }
 
     @Override
-    protected Optional<XWPFTableRow> findAppropriateRow(final List<XWPFTableRow> elementTableRows,
-                                                        final FuelInfoSpecification specification) {
-        final List<XWPFTableRow> rowsWithoutYieldRow = copyWithoutYieldRow(elementTableRows);
-        return findRowsByTractor(rowsWithoutYieldRow, specification, CELL_INDEX_TRACTOR)
-                .flatMap(rows -> findRowsByMachinery(rows, specification, CELL_INDEX_MACHINERY))
-                .flatMap(rows -> findRowByWorkingWidth(rows, specification, CELL_INDEX_WORKING_WIDTH));
+    protected final Stream<BiFunction<List<XWPFTableRow>, FuelInfoSpecification, List<XWPFTableRow>>> createStartRowFilters() {
+        return Stream.of(
+                AbstractRackingAndTurningRayFuelInfoSearchingService::findRowsWithoutYieldRow,
+                AbstractRackingAndTurningRayFuelInfoSearchingService::findRowsByTractor,
+                AbstractRackingAndTurningRayFuelInfoSearchingService::findRowsByMachinery
+        );
+    }
+
+    @Override
+    protected final BiFunction<List<XWPFTableRow>, FuelInfoSpecification, Optional<XWPFTableRow>> createFinalRowFilter() {
+        return AbstractRackingAndTurningRayFuelInfoSearchingService::findRowByWorkingWidth;
     }
 
     @Override
@@ -42,10 +49,39 @@ public abstract class AbstractRackingAndTurningRayFuelInfoSearchingService exten
         return extractRoutingLength(specification);
     }
 
-    private static List<XWPFTableRow> copyWithoutYieldRow(final List<XWPFTableRow> elementTableRows) {
-        return range(0, elementTableRows.size())
+    @SuppressWarnings("unused")
+    private static List<XWPFTableRow> findRowsWithoutYieldRow(final List<XWPFTableRow> rows,
+                                                              final FuelInfoSpecification specification) {
+        return range(0, rows.size())
                 .filter(i -> i != ROW_INDEX_YIELD)
-                .mapToObj(elementTableRows::get)
+                .mapToObj(rows::get)
                 .toList();
+    }
+
+    private static List<XWPFTableRow> findRowsByTractor(final List<XWPFTableRow> rows,
+                                                        final FuelInfoSpecification specification) {
+        return FuelDocumentRowFilterUtil.findRowsByTractor(
+                rows,
+                specification,
+                CELL_INDEX_TRACTOR
+        );
+    }
+
+    private static List<XWPFTableRow> findRowsByMachinery(final List<XWPFTableRow> rows,
+                                                          final FuelInfoSpecification specification) {
+        return FuelDocumentRowFilterUtil.findRowsByMachinery(
+                rows,
+                specification,
+                CELL_INDEX_MACHINERY
+        );
+    }
+
+    private static Optional<XWPFTableRow> findRowByWorkingWidth(final List<XWPFTableRow> rows,
+                                                                final FuelInfoSpecification specification) {
+        return FuelDocumentRowFilterUtil.findRowByWorkingWidth(
+                rows,
+                specification,
+                CELL_INDEX_WORKING_WIDTH
+        );
     }
 }

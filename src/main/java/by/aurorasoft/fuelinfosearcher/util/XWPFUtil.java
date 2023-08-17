@@ -71,18 +71,17 @@ public final class XWPFUtil {
     }
 
     //returns several united rows
-    public static Optional<List<XWPFTableRow>> findUnitedRowsByContent(final List<XWPFTableRow> rows,
+    public static List<XWPFTableRow> findUnitedRowsByContent(final List<XWPFTableRow> rows,
                                                                        final int cellIndexWithContent,
                                                                        final String content) {
-        final List<XWPFTableRow> foundRows = range(0, rows.size())
+        return range(0, rows.size())
                 .filter(i -> isCellContentMatch(rows.get(i), cellIndexWithContent, content))
                 .mapToObj(indexFirstRow -> extractUnitedRows(rows, indexFirstRow, cellIndexWithContent))
                 .flatMap(Collection::stream)
                 .toList();
-        return !foundRows.isEmpty() ? Optional.of(foundRows) : empty();
     }
 
-    public static Optional<List<XWPFTableRow>> findUnitedRowsByContent(final List<XWPFTableRow> rows,
+    public static List<XWPFTableRow> findUnitedRowsByContent(final List<XWPFTableRow> rows,
                                                                        final int cellIndexWithContent,
                                                                        final FuelInfoSpecification specification,
                                                                        final Function<FuelInfoSpecification, String> contentExtractor) {

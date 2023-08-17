@@ -6,7 +6,6 @@ import by.aurorasoft.fuelinfosearcher.service.searching.simple.ploughing.Abstrac
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.util.List;
-import java.util.Optional;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil.findRowsBySpecificResistance;
 
@@ -19,8 +18,8 @@ public abstract class AbstractPloughingFuelInfoSearchingBySpecificResistanceServ
     }
 
     @Override
-    protected final Optional<List<XWPFTableRow>> findRowsByGroupValue(final List<XWPFTableRow> elementTableRows,
-                                                                      final FuelInfoSpecification specification) {
-        return findRowsBySpecificResistance(elementTableRows, specification);
+    protected final List<XWPFTableRow> findRowsByGroupValue(final List<XWPFTableRow> rows,
+                                                            final FuelInfoSpecification specification) {
+        return findRowsBySpecificResistance(rows, specification);
     }
 }
