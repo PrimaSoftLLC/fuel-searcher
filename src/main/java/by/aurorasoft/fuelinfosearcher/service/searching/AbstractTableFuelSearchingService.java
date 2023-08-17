@@ -22,7 +22,7 @@ import static java.util.stream.IntStream.range;
 
 //TODO: put FuelInfoLocation as inner class
 public abstract class AbstractTableFuelSearchingService {
-    private static final int INDEX_ROW_FUEL_HEADER = 1;
+    private static final int ROW_INDEX_FUEL_HEADER = 1;
 
     private final FuelTable fuelTable;
     private final Map<String, Integer> fuelOffsetsByHeaders;
@@ -72,7 +72,7 @@ public abstract class AbstractTableFuelSearchingService {
     }
 
     private Optional<Fuel> findFuel(final List<XWPFTableRow> elementTableRows, final FuelSpecification specification) {
-        final XWPFTableRow fuelHeaderRow = elementTableRows.get(INDEX_ROW_FUEL_HEADER);
+        final XWPFTableRow fuelHeaderRow = elementTableRows.get(ROW_INDEX_FUEL_HEADER);
         return this.findAppropriateRow(elementTableRows, specification)
                 .flatMap(row -> this.findFuelLocation(fuelHeaderRow, specification, row))
                 .flatMap(FuelUtil::extractFuel);
