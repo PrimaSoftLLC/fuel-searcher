@@ -44,7 +44,9 @@ public final class FourteenthTableFuelInfoSearchingService extends AbstractCompo
 
     @Override
     protected Stream<StartRowFilter> createStartRowFilters() {
-        return Stream.of(FuelDocumentRowFilterUtil::findRowsByRoadGroup);
+        return Stream.of(
+                FuelDocumentRowFilterUtil::findRowsByRoadGroup
+        );
     }
 
     @Override

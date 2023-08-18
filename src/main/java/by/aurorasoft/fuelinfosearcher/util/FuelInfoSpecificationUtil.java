@@ -29,6 +29,7 @@ public final class FuelInfoSpecificationUtil {
     private static final String PROPERTY_NAME_OF_YIELD = "yield";
     private static final String PROPERTY_NAME_OF_ROW_WIDTH = "rowWidth";
     private static final String PROPERTY_NAME_OF_COMBINE = "combine";
+    private static final String PROPERTY_NAME_OF_WEIGHT_RATIO_GRAIN_TO_STRAW = "weightRatioGrainToStraw";
 
     public static String extractTableName(final FuelSpecification specification) {
         return extractProperty(
@@ -187,6 +188,14 @@ public final class FuelInfoSpecificationUtil {
                 specification,
                 FuelSpecification::findCombine,
                 PROPERTY_NAME_OF_COMBINE
+        );
+    }
+
+    public static String extractWeightRatioGrainToStraw(final FuelSpecification specification) {
+        return extractProperty(
+                specification,
+                FuelSpecification::findWeightRatioGrainToStraw,
+                PROPERTY_NAME_OF_WEIGHT_RATIO_GRAIN_TO_STRAW
         );
     }
 

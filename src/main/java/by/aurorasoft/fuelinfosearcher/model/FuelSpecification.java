@@ -65,6 +65,9 @@ public class FuelSpecification {
     //Марка комбайна
     String combine;
 
+    //соотношение массы зерна к массе соломы
+    String weightRatioGrainToStraw;
+
     public Optional<String> findTableName() {
         return ofNullable(this.tableName);
     }
@@ -143,5 +146,9 @@ public class FuelSpecification {
 
     public Optional<String> findCombine() {
         return ofNullable(this.combine);
+    }
+
+    public Optional<String> findWeightRatioGrainToStraw() {
+        return ofNullable(this.weightRatioGrainToStraw);
     }
 }
