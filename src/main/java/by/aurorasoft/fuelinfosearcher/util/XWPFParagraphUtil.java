@@ -61,10 +61,9 @@ public final class XWPFParagraphUtil {
     }
 
     public static void replaceText(final XWPFParagraph paragraph, final String replacement) {
-        final List<XWPFRun> runs = paragraph.getRuns();
-        final XWPFRun firstRun = runs.get(0);
-        firstRun.setText(replacement, 0);
-        removeAllRunsExceptFirst(paragraph);
+        removeAllRuns(paragraph);
+        final XWPFRun run = paragraph.createRun();
+        run.setText(replacement, 0);
     }
 
     private static boolean isMultilineParagraph(final XWPFParagraph paragraph) {
@@ -96,8 +95,13 @@ public final class XWPFParagraphUtil {
         return extractParagraphLines(paragraph).map(line -> createParagraph(line, document));
     }
 
-    private static void removeAllRunsExceptFirst(final XWPFParagraph paragraph) {
+    private static void removeAllRuns(final XWPFParagraph paragraph) {
         final List<XWPFRun> runs = paragraph.getRuns();
-        range(1, runs.size()).forEach(paragraph::removeRun);
+        range(0, runs.size()).forEach(i -> removeFirstRun(paragraph));
+    }
+
+    private static void removeFirstRun(final XWPFParagraph paragraph) {
+        //TODO: throw exception if failed
+        paragraph.removeRun(0);
     }
 }

@@ -17,33 +17,33 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class FuelInfoSearchingIT extends AbstractContextTest {
     private static final List<AbstractTableFuelInfoSearchingArgumentsProvider> ARGUMENTS_PROVIDERS = List.of(
-//            new FirstTableFuelInfoSearchingArgumentsProvider(),
-//            new SecondTableFuelInfoSearchingArgumentsProvider(),
-//            new ThirdTableFuelInfoSearchingArgumentsProvider(),
-//            new FourthTableFuelInfoSearchingArgumentsProvider(),
-//            new FifthTableFuelInfoSearchingArgumentsProvider(),
-//            new SixthTableFuelInfoSearchingArgumentsProvider(),
-//            new SeventhTableFuelInfoSearchingArgumentsProvider(),
-//            new EighthTableFuelInfoSearchingArgumentsProvider(),
-//            new NinthTableFuelInfoSearchingArgumentsProvider(),
-//            new TenthTableFuelInfoSearchingArgumentsProvider(),
-//            new EleventhTableFuelInfoSearchingArgumentsProvider(),
-//            new TwelfthTableFuelInfoSearchingArgumentsProvider(),
-            new ThirteenTableFuelInfoSearchingArgumentsProvider()
-//            new FourteenthTableFuelInfoSearchingArgumentProvider(),
-//            new FifteenthTableFuelInfoSearchingArgumentsProvider(),
-//            new SixteenthTableFuelInfoSearchingArgumentsProvider(),
-//            new SeventeenthTableFuelInfoSearchingArgumentsProvider(),
-//            new EighteenthTableFuelInfoSearchingArgumentsProvider(),
-//            new NineteenthTableFuelInfoSearchingArgumentsProvider(),
-//            new TwentiethTableFuelInfoSearchingArgumentsProvider(),
-//            new TwentyFirstTableFuelInfoSearchingArgumentsProvider(),
-//            new TwentySecondTableFuelInfoSearchingArgumentsProvider(),
-//            new TwentyThirdTableFuelInfoSearchingArgumentsProvider(),
-//            //TODO 24
-//            new TwentyFifthTableFuelInfoSearchingArgumentsProvider(),
-//            new TwentySixthTableFuelInfoSearchingArgumentsProvider(),
-//            new TwentySeventhTableFuelInfoSearchingArgumentsProvider()
+            new FirstTableFuelInfoSearchingArgumentsProvider(),
+            new SecondTableFuelInfoSearchingArgumentsProvider(),
+            new ThirdTableFuelInfoSearchingArgumentsProvider(),
+            new FourthTableFuelInfoSearchingArgumentsProvider(),
+            new FifthTableFuelInfoSearchingArgumentsProvider(),
+            new SixthTableFuelInfoSearchingArgumentsProvider(),
+            new SeventhTableFuelInfoSearchingArgumentsProvider(),
+            new EighthTableFuelInfoSearchingArgumentsProvider(),
+            new NinthTableFuelInfoSearchingArgumentsProvider(),
+            new TenthTableFuelInfoSearchingArgumentsProvider(),
+            new EleventhTableFuelInfoSearchingArgumentsProvider(),
+            new TwelfthTableFuelInfoSearchingArgumentsProvider(),
+            new ThirteenTableFuelInfoSearchingArgumentsProvider(),
+            new FourteenthTableFuelInfoSearchingArgumentProvider(),
+            new FifteenthTableFuelInfoSearchingArgumentsProvider(),
+            new SixteenthTableFuelInfoSearchingArgumentsProvider(),
+            new SeventeenthTableFuelInfoSearchingArgumentsProvider(),
+            new EighteenthTableFuelInfoSearchingArgumentsProvider(),
+            new NineteenthTableFuelInfoSearchingArgumentsProvider(),
+            new TwentiethTableFuelInfoSearchingArgumentsProvider(),
+            new TwentyFirstTableFuelInfoSearchingArgumentsProvider(),
+            new TwentySecondTableFuelInfoSearchingArgumentsProvider(),
+            new TwentyThirdTableFuelInfoSearchingArgumentsProvider(),
+            //TODO 24
+            new TwentyFifthTableFuelInfoSearchingArgumentsProvider(),
+            new TwentySixthTableFuelInfoSearchingArgumentsProvider(),
+            new TwentySeventhTableFuelInfoSearchingArgumentsProvider()
     );
 
     private final FuelInfoSearchingManager searchingManager = findBean(FuelInfoSearchingManager.class);
