@@ -4,9 +4,13 @@ import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import by.aurorasoft.fuelinfosearcher.service.searching.filter.FinalRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.filter.StartRowFilter;
+import by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil;
 import by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil;
+import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -20,19 +24,24 @@ public final class TwentyFourthTableFuelInfoSearchingService extends AbstractCom
     };
     private static final String ELEMENT_TABLE_TITLE_TEMPLATE = "%s. Соотношение массы зерна к массе соломы %s";
 
-    public TwentyFourthTableFuelInfoSearchingService(FuelDocument fuelDocument, String fuelTableName, String[] fuelInfoHeaders) {
-        super(fuelDocument, fuelTableName, fuelInfoHeaders);
+    private static final int CELL_INDEX_WORKING_WIDTH = 2;
+    private static final int CELL_INDEX_YIELD = 1;
+
+    public TwentyFourthTableFuelInfoSearchingService(final FuelDocument fuelDocument) {
+        super(fuelDocument, TABLE_NAME, FUEL_INFO_HEADERS);
     }
 
 
     @Override
     protected Stream<StartRowFilter> createStartRowFilters() {
-        return null;
+        return Stream.of(
+                TwentyFourthTableFuelInfoSearchingService::findRowsByWorkingWidth
+        );
     }
 
     @Override
     protected FinalRowFilter createFinalRowFilter() {
-        return null;
+        return TwentyFourthTableFuelInfoSearchingService::findRowByYield;
     }
 
     @Override
@@ -50,6 +59,24 @@ public final class TwentyFourthTableFuelInfoSearchingService extends AbstractCom
         return Stream.of(
                 FuelInfoSpecificationUtil::extractCombine,
                 FuelInfoSpecificationUtil::extractWeightRatioGrainToStraw
+        );
+    }
+
+    private static List<XWPFTableRow> findRowsByWorkingWidth(final List<XWPFTableRow> rows,
+                                                             final FuelSpecification specification) {
+        return FuelDocumentRowFilterUtil.findRowsByWorkingWidth(
+                rows,
+                specification,
+                CELL_INDEX_WORKING_WIDTH
+        );
+    }
+
+    private static Optional<XWPFTableRow> findRowByYield(final List<XWPFTableRow> rows,
+                                                         final FuelSpecification specification) {
+        return FuelDocumentRowFilterUtil.findRowByYield(
+                rows,
+                specification,
+                CELL_INDEX_YIELD
         );
     }
 }

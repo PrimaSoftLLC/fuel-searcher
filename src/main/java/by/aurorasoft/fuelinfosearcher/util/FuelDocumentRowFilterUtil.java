@@ -74,6 +74,8 @@ public final class FuelDocumentRowFilterUtil {
         );
     }
 
+
+
     public static Optional<XWPFTableRow> findRowByYield(final List<XWPFTableRow> rows,
                                                         final FuelSpecification specification,
                                                         final int cellIndexYield) {
