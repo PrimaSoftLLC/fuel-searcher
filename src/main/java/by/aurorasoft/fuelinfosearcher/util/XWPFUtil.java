@@ -19,6 +19,8 @@ import static java.util.stream.IntStream.range;
 //TODO: refactor
 @UtilityClass
 public final class XWPFUtil {
+
+    //TODO: replace after loading in digits
     private static final String COMMA = ",";
     private static final String POINT = ".";
     private static final String EMPTY_STRING = "";
