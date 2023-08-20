@@ -6,12 +6,12 @@ import java.util.function.Predicate;
 import java.util.regex.MatchResult;
 
 @Component
-public final class NumberWithFractionalPartEndedByZeroParagraphCorrector extends AbstractContentParagraphCorrector {
+public final class RealNumberParagraphCorrector extends AbstractContentParagraphCorrector {
     private static final char ZERO_CHARACTER = '0';
     private static final char COMMA_CHARACTER = ',';
     private static final String REPLACED_REGEX = "\\d+,\\d+";
 
-    public NumberWithFractionalPartEndedByZeroParagraphCorrector() {
+    public RealNumberParagraphCorrector() {
         super(REPLACED_REGEX);
     }
 
@@ -23,22 +23,22 @@ public final class NumberWithFractionalPartEndedByZeroParagraphCorrector extends
 
     private static String removeLastZerosAndCommas(final String content) {
         final StringBuilder contentBuilder = new StringBuilder(content);
-        removeLastZeros(contentBuilder);
-        removeLastComma(contentBuilder);
+        removeLastZerosIfExist(contentBuilder);
+        removeLastCommasIfExist(contentBuilder);
         return contentBuilder.toString();
     }
 
-    private static void removeLastZeros(final StringBuilder contentBuilder) {
+    private static void removeLastZerosIfExist(final StringBuilder contentBuilder) {
         removeLastCharactersIfMatch(
                 contentBuilder,
-                NumberWithFractionalPartEndedByZeroParagraphCorrector::isZero
+                RealNumberParagraphCorrector::isZero
         );
     }
 
-    private static void removeLastComma(final StringBuilder contentBuilder) {
+    private static void removeLastCommasIfExist(final StringBuilder contentBuilder) {
         removeLastCharactersIfMatch(
                 contentBuilder,
-                NumberWithFractionalPartEndedByZeroParagraphCorrector::isLastCharacterComma
+                RealNumberParagraphCorrector::isLastCharacterComma
         );
     }
 
