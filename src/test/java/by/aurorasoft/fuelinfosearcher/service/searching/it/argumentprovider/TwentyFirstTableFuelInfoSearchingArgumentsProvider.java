@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.it.argumentprovider;
 
 import by.aurorasoft.fuelinfosearcher.model.Fuel;
-import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
+import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -16,7 +16,7 @@ public final class TwentyFirstTableFuelInfoSearchingArgumentsProvider extends Ab
     protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
         return Stream.of(
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ ПРОВЯЛЕННОЙ МАССЫ ПОСЛЕ КОМБАЙНА")
                                 .tractor("Беларус 1221")
                                 .machinery("KRONE CF Ultima 155 XC")
@@ -27,7 +27,7 @@ public final class TwentyFirstTableFuelInfoSearchingArgumentsProvider extends Ab
                         optionalFuelInfoFactory.apply(46.1, 1.87)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ ПРОВЯЛЕННОЙ МАССЫ ПОСЛЕ КОМБАЙНА")
                                 .tractor("Беларус 1221")
                                 .machinery("KRONE CF Ultima 155 XC")
@@ -38,7 +38,7 @@ public final class TwentyFirstTableFuelInfoSearchingArgumentsProvider extends Ab
                         optionalFuelInfoFactory.apply(155.6, 0.74)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ ПРОВЯЛЕННОЙ МАССЫ ПОСЛЕ КОМБАЙНА")
                                 .tractor("Беларус 1221")
                                 .machinery("KRONE CF Ultima 155 XC")
@@ -50,7 +50,7 @@ public final class TwentyFirstTableFuelInfoSearchingArgumentsProvider extends Ab
                 ),
                 //not existing tractor
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ ПРОВЯЛЕННОЙ МАССЫ ПОСЛЕ КОМБАЙНА")
                                 .tractor("not existing")
                                 .machinery("KRONE CF Ultima 155 XC")
@@ -62,7 +62,7 @@ public final class TwentyFirstTableFuelInfoSearchingArgumentsProvider extends Ab
                 ),
                 //not existing machinery
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ ПРОВЯЛЕННОЙ МАССЫ ПОСЛЕ КОМБАЙНА")
                                 .tractor("Беларус 1221")
                                 .machinery("not existing")
@@ -74,7 +74,7 @@ public final class TwentyFirstTableFuelInfoSearchingArgumentsProvider extends Ab
                 ),
                 //not existing working width
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ ПРОВЯЛЕННОЙ МАССЫ ПОСЛЕ КОМБАЙНА")
                                 .tractor("Беларус 1221")
                                 .machinery("KRONE CF Ultima 155 XC")
@@ -86,7 +86,7 @@ public final class TwentyFirstTableFuelInfoSearchingArgumentsProvider extends Ab
                 ),
                 //not existing yield
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ ПРОВЯЛЕННОЙ МАССЫ ПОСЛЕ КОМБАЙНА")
                                 .tractor("Беларус 1221")
                                 .machinery("KRONE CF Ultima 155 XC")
@@ -98,7 +98,7 @@ public final class TwentyFirstTableFuelInfoSearchingArgumentsProvider extends Ab
                 ),
                 //not existing routing length
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ ПРОВЯЛЕННОЙ МАССЫ ПОСЛЕ КОМБАЙНА")
                                 .tractor("Беларус 1221")
                                 .machinery("KRONE CF Ultima 155 XC")

@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.it.argumentprovider;
 
 import by.aurorasoft.fuelinfosearcher.model.Fuel;
-import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
+import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -16,7 +16,7 @@ public final class SecondTableFuelInfoSearchingArgumentsProvider extends Abstrac
     protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
         return Stream.of(
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("CASE II Steiger 550")
                                 .machinery("Lemken EuroTitan 10 8+3+1")
@@ -28,7 +28,7 @@ public final class SecondTableFuelInfoSearchingArgumentsProvider extends Abstrac
                         optionalFuelInfoFactory.apply(13.8, 20.9)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("Кировец К-744 Р4")
                                 .machinery("Lemken EuroTitan 10")
@@ -40,7 +40,7 @@ public final class SecondTableFuelInfoSearchingArgumentsProvider extends Abstrac
                         optionalFuelInfoFactory.apply(25.6, 15.0)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("Кировец К-744 Р4")
                                 .machinery("Lemken EuroTitan 10")
@@ -53,7 +53,7 @@ public final class SecondTableFuelInfoSearchingArgumentsProvider extends Abstrac
                 ),
                 //not existing tractor
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("not existing")
                                 .machinery("Lemken EuroTitan 10")
@@ -66,7 +66,7 @@ public final class SecondTableFuelInfoSearchingArgumentsProvider extends Abstrac
                 ),
                 //not exist plough mark
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("Кировец К-744 Р4")
                                 .machinery("not existint")
@@ -79,7 +79,7 @@ public final class SecondTableFuelInfoSearchingArgumentsProvider extends Abstrac
                 ),
                 //not exist corpus count
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("Кировец К-744 Р4")
                                 .machinery("Lemken EuroTitan 10")
@@ -92,7 +92,7 @@ public final class SecondTableFuelInfoSearchingArgumentsProvider extends Abstrac
                 ),
                 //not exist ploughing depth
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("Кировец К-744 Р4")
                                 .machinery("Lemken EuroTitan 10")
@@ -105,7 +105,7 @@ public final class SecondTableFuelInfoSearchingArgumentsProvider extends Abstrac
                 ),
                 //not exist routing length
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("Кировец К-744 Р4")
                                 .machinery("Lemken EuroTitan 10")
@@ -118,7 +118,7 @@ public final class SecondTableFuelInfoSearchingArgumentsProvider extends Abstrac
                 ),
                 //not exist specific resistance
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("Кировец К-744 Р4")
                                 .machinery("Lemken EuroTitan 10")

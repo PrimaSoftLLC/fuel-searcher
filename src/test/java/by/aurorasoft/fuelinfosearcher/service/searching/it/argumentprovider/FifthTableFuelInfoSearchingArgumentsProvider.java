@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.it.argumentprovider;
 
 import by.aurorasoft.fuelinfosearcher.model.Fuel;
-import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
+import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -16,7 +16,7 @@ public final class FifthTableFuelInfoSearchingArgumentsProvider extends Abstract
     protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
         return Stream.of(
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
                                 .tractor("Кировец К-744Р4")
                                 .machinery("Доминанта Д-880")
@@ -27,7 +27,7 @@ public final class FifthTableFuelInfoSearchingArgumentsProvider extends Abstract
                         optionalFuelInfoFactory.apply(23.7, 12.0)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
                                 .tractor("Беларус 3022")
                                 .machinery("АПД-7,5")
@@ -38,7 +38,7 @@ public final class FifthTableFuelInfoSearchingArgumentsProvider extends Abstract
                         optionalFuelInfoFactory.apply(20.4, 8.6)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
                                 .tractor("Беларус 2022")
                                 .machinery("АКЧ-6")
@@ -50,7 +50,7 @@ public final class FifthTableFuelInfoSearchingArgumentsProvider extends Abstract
                 ),
                 //not existing tractor
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
                                 .tractor("not existing")
                                 .machinery("АКЧ-6")
@@ -62,7 +62,7 @@ public final class FifthTableFuelInfoSearchingArgumentsProvider extends Abstract
                 ),
                 //not existing machinery
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
                                 .tractor("Беларус 2022")
                                 .machinery("not existing")
@@ -74,7 +74,7 @@ public final class FifthTableFuelInfoSearchingArgumentsProvider extends Abstract
                 ),
                 //not existing working width
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
                                 .tractor("Беларус 2022")
                                 .machinery("АКЧ-6")
@@ -86,7 +86,7 @@ public final class FifthTableFuelInfoSearchingArgumentsProvider extends Abstract
                 ),
                 //not existing routing length
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
                                 .tractor("Беларус 2022")
                                 .machinery("АКЧ-6")
@@ -98,7 +98,7 @@ public final class FifthTableFuelInfoSearchingArgumentsProvider extends Abstract
                 ),
                 //not existing processing depth
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
                                 .tractor("Беларус 2022")
                                 .machinery("АКЧ-6")

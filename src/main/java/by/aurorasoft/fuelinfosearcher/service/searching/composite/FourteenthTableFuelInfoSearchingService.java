@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.composite;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
-import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
+import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
 import by.aurorasoft.fuelinfosearcher.service.searching.filter.FinalRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.filter.StartRowFilter;
 import by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil;
@@ -35,7 +35,7 @@ public final class FourteenthTableFuelInfoSearchingService extends AbstractCompo
     }
 
     @Override
-    protected Stream<Function<FuelSpecification, String>> findElementTableTitleTemplateArgumentExtractors() {
+    protected Stream<Function<FuelInfoSpecification, String>> findElementTableTitleTemplateArgumentExtractors() {
         return Stream.of(
                 FuelInfoSpecificationUtil::extractTractor,
                 FuelInfoSpecificationUtil::extractMachinery
@@ -55,12 +55,12 @@ public final class FourteenthTableFuelInfoSearchingService extends AbstractCompo
     }
 
     @Override
-    protected String extractFuelHeaderCellValue(final FuelSpecification specification) {
+    protected String extractFuelHeaderCellValue(final FuelInfoSpecification specification) {
         return extractSpreadRate(specification);
     }
 
     private static Optional<XWPFTableRow> findRowByTransportDistance(final List<XWPFTableRow> rows,
-                                                                     final FuelSpecification specification) {
+                                                                     final FuelInfoSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowByTransportDistance(
                 rows,
                 specification,

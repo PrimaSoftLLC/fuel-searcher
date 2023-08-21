@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.it.argumentprovider;
 
 import by.aurorasoft.fuelinfosearcher.model.Fuel;
-import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
+import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -16,7 +16,7 @@ public final class EighthTableFuelInfoSearchingArgumentsProvider extends Abstrac
     protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
         return Stream.of(
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА")
                                 .tractor("Беларус 3522")
                                 .machinery("Horsch Maestro 24 S")
@@ -27,7 +27,7 @@ public final class EighthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                         optionalFuelInfoFactory.apply(32.9, 8.2)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА")
                                 .tractor("Беларус 1221")
                                 .machinery("Ферабокс Футура Макси 8")
@@ -38,7 +38,7 @@ public final class EighthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                         optionalFuelInfoFactory.apply(13.6, 3.6)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА")
                                 .tractor("Беларус 1221")
                                 .machinery("NC Tehnik Mojnjsem")
@@ -50,7 +50,7 @@ public final class EighthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                 ),
                 //not existing tractor
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА")
                                 .tractor("not existing")
                                 .machinery("NC Tehnik Mojnjsem")
@@ -62,7 +62,7 @@ public final class EighthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                 ),
                 //not existing machinery
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА")
                                 .tractor("Беларус 1221")
                                 .machinery("not existing")
@@ -74,7 +74,7 @@ public final class EighthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                 ),
                 //not existing working width
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА")
                                 .tractor("Беларус 1221")
                                 .machinery("NC Tehnik Mojnjsem")
@@ -86,7 +86,7 @@ public final class EighthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                 ),
                 //not existing routing length
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА")
                                 .tractor("Беларус 1221")
                                 .machinery("NC Tehnik Mojnjsem")
@@ -98,7 +98,7 @@ public final class EighthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                 ),
                 //not existing sowing norm
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА")
                                 .tractor("Беларус 1221")
                                 .machinery("NC Tehnik Mojnjsem")

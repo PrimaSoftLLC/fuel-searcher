@@ -11,11 +11,12 @@ import static java.util.Optional.ofNullable;
 import static lombok.AccessLevel.NONE;
 import static lombok.AccessLevel.PRIVATE;
 
+//TODO: rename without info
 @Value
 @AllArgsConstructor(access = PRIVATE)
 @Getter(value = NONE)
 @Builder
-public class FuelSpecification {
+public class FuelInfoSpecification {
     String tableName;
     String tractor;
 

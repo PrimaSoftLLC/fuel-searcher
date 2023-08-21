@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.simple;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
-import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
+import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
 import by.aurorasoft.fuelinfosearcher.service.searching.filter.FinalRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.filter.StartRowFilter;
 import by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil;
@@ -43,12 +43,12 @@ public final class TwentyThirdTableFuelInfoSearchingService extends AbstractSimp
     }
 
     @Override
-    protected String extractFuelHeaderCellValue(final FuelSpecification specification) {
+    protected String extractFuelHeaderCellValue(final FuelInfoSpecification specification) {
         return extractRoutingLength(specification);
     }
 
     private static List<XWPFTableRow> findRowsByMachinery(final List<XWPFTableRow> rows,
-                                                          final FuelSpecification specification) {
+                                                          final FuelInfoSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowsByMachinery(
                 rows,
                 specification,
@@ -57,7 +57,7 @@ public final class TwentyThirdTableFuelInfoSearchingService extends AbstractSimp
     }
 
     private static List<XWPFTableRow> findRowsByWorkingWidth(final List<XWPFTableRow> rows,
-                                                             final FuelSpecification specification) {
+                                                             final FuelInfoSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowsByWorkingWidth(
                 rows,
                 specification,
@@ -66,7 +66,7 @@ public final class TwentyThirdTableFuelInfoSearchingService extends AbstractSimp
     }
 
     private static Optional<XWPFTableRow> findRowByYield(final List<XWPFTableRow> rows,
-                                                         final FuelSpecification specification) {
+                                                         final FuelInfoSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowByYield(
                 rows,
                 specification,

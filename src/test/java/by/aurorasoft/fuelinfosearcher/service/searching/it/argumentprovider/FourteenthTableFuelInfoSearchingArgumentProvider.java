@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.it.argumentprovider;
 
 import by.aurorasoft.fuelinfosearcher.model.Fuel;
-import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
+import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -17,7 +17,7 @@ public final class FourteenthTableFuelInfoSearchingArgumentProvider extends Abst
     protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
         return Stream.of(
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ЖИДКИХ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("FENDT 936")
                                 .machinery("МЖТ-20")
@@ -40,7 +40,7 @@ public final class FourteenthTableFuelInfoSearchingArgumentProvider extends Abst
 //                        optionalFuelInfoFactory.apply(37.9, 4.49)
 //                ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ЖИДКИХ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("МЖТ-16")
@@ -52,7 +52,7 @@ public final class FourteenthTableFuelInfoSearchingArgumentProvider extends Abst
                 ),
                 //not existing tractor
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ЖИДКИХ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("not existing")
                                 .machinery("МЖТ-16")
@@ -64,7 +64,7 @@ public final class FourteenthTableFuelInfoSearchingArgumentProvider extends Abst
                 ),
                 //not existing machinery
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ЖИДКИХ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("not existing")
@@ -76,7 +76,7 @@ public final class FourteenthTableFuelInfoSearchingArgumentProvider extends Abst
                 ),
                 //not existing transport distance
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ЖИДКИХ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("МЖТ-16")
@@ -88,7 +88,7 @@ public final class FourteenthTableFuelInfoSearchingArgumentProvider extends Abst
                 ),
                 //not existing spread rate
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ЖИДКИХ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("МЖТ-16")
@@ -100,7 +100,7 @@ public final class FourteenthTableFuelInfoSearchingArgumentProvider extends Abst
                 ),
                 //not existing road group
                 Arguments.of(
-                        FuelSpecification.builder()
+                        FuelInfoSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ЖИДКИХ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("МЖТ-16")
