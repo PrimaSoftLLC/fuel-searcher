@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.composite;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
-import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
+import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import by.aurorasoft.fuelinfosearcher.service.searching.filter.FinalRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.filter.StartRowFilter;
 import by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil;
@@ -45,7 +45,7 @@ public final class TwelfthTableFuelInfoSearchingService extends AbstractComposit
     }
 
     @Override
-    protected String extractFuelHeaderCellValue(final FuelInfoSpecification specification) {
+    protected String extractFuelHeaderCellValue(final FuelSpecification specification) {
         return extractRoutingLength(specification);
     }
 
@@ -55,14 +55,14 @@ public final class TwelfthTableFuelInfoSearchingService extends AbstractComposit
     }
 
     @Override
-    protected Stream<Function<FuelInfoSpecification, String>> findElementTableTitleTemplateArgumentExtractors() {
+    protected Stream<Function<FuelSpecification, String>> findElementTableTitleTemplateArgumentExtractors() {
         return Stream.of(
                 FuelInfoSpecificationUtil::extractMachinery
         );
     }
 
     private static List<XWPFTableRow> findRowsByChargingMethodAndTransportDistance(final List<XWPFTableRow> rows,
-                                                                                   final FuelInfoSpecification specification) {
+                                                                                   final FuelSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowsByChargingMethodAndTransportDistance(
                 rows,
                 specification,
@@ -71,7 +71,7 @@ public final class TwelfthTableFuelInfoSearchingService extends AbstractComposit
     }
 
     private static Optional<XWPFTableRow> findRowBySpreadRate(final List<XWPFTableRow> rows,
-                                                              final FuelInfoSpecification specification) {
+                                                              final FuelSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowBySpreadRate(
                 rows,
                 specification,

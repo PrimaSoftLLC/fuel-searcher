@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.it.argumentprovider;
 
 import by.aurorasoft.fuelinfosearcher.model.Fuel;
-import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
+import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -16,7 +16,7 @@ public final class SeventeenthTableFuelInfoSearchingArgumentsProvider extends Ab
     protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
         return Stream.of(
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВОРОШЕНИЕ СЕНА")
                                 .tractor("Беларус 1221")
                                 .machinery("ГРЛ-9,6")
@@ -26,7 +26,7 @@ public final class SeventeenthTableFuelInfoSearchingArgumentsProvider extends Ab
                         optionalFuelInfoFactory.apply(27.8, 2.3)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВОРОШЕНИЕ СЕНА")
                                 .tractor("Беларус 1221")
                                 .machinery("Spider 600/6 ALP")
@@ -36,7 +36,7 @@ public final class SeventeenthTableFuelInfoSearchingArgumentsProvider extends Ab
                         optionalFuelInfoFactory.apply(32.2, 1.9)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВОРОШЕНИЕ СЕНА")
                                 .tractor("Беларус 82")
                                 .machinery("Tonutti Millennium V16")
@@ -47,7 +47,7 @@ public final class SeventeenthTableFuelInfoSearchingArgumentsProvider extends Ab
                 ),
                 //not existing tractor
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВОРОШЕНИЕ СЕНА")
                                 .tractor("not existing")
                                 .machinery("Tonutti Millennium V16")
@@ -58,7 +58,7 @@ public final class SeventeenthTableFuelInfoSearchingArgumentsProvider extends Ab
                 ),
                 //not existing machinery
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВОРОШЕНИЕ СЕНА")
                                 .tractor("Беларус 82")
                                 .machinery("not existing")
@@ -69,7 +69,7 @@ public final class SeventeenthTableFuelInfoSearchingArgumentsProvider extends Ab
                 ),
                 //not existing working width
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВОРОШЕНИЕ СЕНА")
                                 .tractor("Беларус 82")
                                 .machinery("Tonutti Millennium V16")
@@ -80,7 +80,7 @@ public final class SeventeenthTableFuelInfoSearchingArgumentsProvider extends Ab
                 ),
                 //not existing routing length
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВОРОШЕНИЕ СЕНА")
                                 .tractor("Беларус 82")
                                 .machinery("Tonutti Millennium V16")

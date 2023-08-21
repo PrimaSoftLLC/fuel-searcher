@@ -16,7 +16,7 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor(access = PRIVATE)
 @Getter(value = NONE)
 @Builder
-public class FuelInfoSpecification {
+public class FuelSpecification {
     String tableName;
     String tractor;
 

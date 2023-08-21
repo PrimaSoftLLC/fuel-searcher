@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.simple.soiltreatment;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
-import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
+import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import by.aurorasoft.fuelinfosearcher.service.searching.filter.FinalRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.filter.StartRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.simple.AbstractSimpleTableFuelInfoSearchingService;
@@ -42,12 +42,12 @@ public abstract class AbstractSoilTreatmentFuelInfoSearchingService extends Abst
     }
 
     @Override
-    protected final String extractFuelHeaderCellValue(final FuelInfoSpecification specification) {
+    protected final String extractFuelHeaderCellValue(final FuelSpecification specification) {
         return extractRoutingLength(specification);
     }
 
     private static List<XWPFTableRow> findRowsByTractor(final List<XWPFTableRow> rows,
-                                                        final FuelInfoSpecification specification) {
+                                                        final FuelSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowsByTractor(
                 rows,
                 specification,
@@ -56,7 +56,7 @@ public abstract class AbstractSoilTreatmentFuelInfoSearchingService extends Abst
     }
 
     private static List<XWPFTableRow> findRowsByMachinery(final List<XWPFTableRow> rows,
-                                                          final FuelInfoSpecification specification) {
+                                                          final FuelSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowsByMachinery(
                 rows,
                 specification,
@@ -65,7 +65,7 @@ public abstract class AbstractSoilTreatmentFuelInfoSearchingService extends Abst
     }
 
     private static Optional<XWPFTableRow> findRowByWorkingWidth(final List<XWPFTableRow> rows,
-                                                                final FuelInfoSpecification specification) {
+                                                                final FuelSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowByWorkingWidth(
                 rows,
                 specification,

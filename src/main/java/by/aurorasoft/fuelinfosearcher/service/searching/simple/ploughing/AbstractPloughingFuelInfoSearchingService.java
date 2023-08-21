@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.simple.ploughing;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
-import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
+import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import by.aurorasoft.fuelinfosearcher.service.searching.filter.FinalRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.filter.StartRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.simple.AbstractSimpleTableFuelInfoSearchingService;
@@ -44,15 +44,15 @@ public abstract class AbstractPloughingFuelInfoSearchingService extends Abstract
     }
 
     @Override
-    protected final String extractFuelHeaderCellValue(final FuelInfoSpecification specification) {
+    protected final String extractFuelHeaderCellValue(final FuelSpecification specification) {
         return extractRoutingLength(specification);
     }
 
     protected abstract List<XWPFTableRow> findRowsByGroupValue(final List<XWPFTableRow> rows,
-                                                               final FuelInfoSpecification specification);
+                                                               final FuelSpecification specification);
 
     private static List<XWPFTableRow> findRowsByTractor(final List<XWPFTableRow> rows,
-                                                        final FuelInfoSpecification specification) {
+                                                        final FuelSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowsByTractor(
                 rows,
                 specification,
@@ -61,7 +61,7 @@ public abstract class AbstractPloughingFuelInfoSearchingService extends Abstract
     }
 
     private static List<XWPFTableRow> findRowsByMachinery(final List<XWPFTableRow> rows,
-                                                          final FuelInfoSpecification specification) {
+                                                          final FuelSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowsByMachinery(
                 rows,
                 specification,
@@ -70,7 +70,7 @@ public abstract class AbstractPloughingFuelInfoSearchingService extends Abstract
     }
 
     private static List<XWPFTableRow> findRowsByCorpusCount(final List<XWPFTableRow> rows,
-                                                            final FuelInfoSpecification specification) {
+                                                            final FuelSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowsByCorpusCount(
                 rows,
                 specification,
@@ -79,7 +79,7 @@ public abstract class AbstractPloughingFuelInfoSearchingService extends Abstract
     }
 
     private static Optional<XWPFTableRow> findRowByPloughingDepth(final List<XWPFTableRow> rows,
-                                                                  final FuelInfoSpecification specification) {
+                                                                  final FuelSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowByPloughingDepth(
                 rows,
                 specification,

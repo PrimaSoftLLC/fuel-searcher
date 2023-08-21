@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.it.argumentprovider;
 
 import by.aurorasoft.fuelinfosearcher.model.Fuel;
-import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
+import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -16,7 +16,7 @@ public final class TwentiethTableFuelInfoSearchingArgumentsProvider extends Abst
     protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
         return Stream.of(
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ СОЛОМЫ ПОСЛЕ КОМБАЙНА")
                                 .tractor("Беларус 2022")
                                 .machinery("CAMPRIMA CF 155 XC")
@@ -27,7 +27,7 @@ public final class TwentiethTableFuelInfoSearchingArgumentsProvider extends Abst
                         optionalFuelInfoFactory.apply(13.9, 6.24)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ СОЛОМЫ ПОСЛЕ КОМБАЙНА")
                                 .tractor("Беларус 1221")
                                 .machinery("Krone CAMPRIMA CF 155 XC")
@@ -38,7 +38,7 @@ public final class TwentiethTableFuelInfoSearchingArgumentsProvider extends Abst
                         optionalFuelInfoFactory.apply(45., 1.37)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ СОЛОМЫ ПОСЛЕ КОМБАЙНА")
                                 .tractor("Беларус 82")
                                 .machinery("Krone CAMPRIMA CF 125")
@@ -50,7 +50,7 @@ public final class TwentiethTableFuelInfoSearchingArgumentsProvider extends Abst
                 ),
                 //not existing tractor
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ СОЛОМЫ ПОСЛЕ КОМБАЙНА")
                                 .tractor("not existing")
                                 .machinery("Krone CAMPRIMA CF 125")
@@ -62,7 +62,7 @@ public final class TwentiethTableFuelInfoSearchingArgumentsProvider extends Abst
                 ),
                 //not existing machinery
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ СОЛОМЫ ПОСЛЕ КОМБАЙНА")
                                 .tractor("Беларус 82")
                                 .machinery("not existing")
@@ -74,7 +74,7 @@ public final class TwentiethTableFuelInfoSearchingArgumentsProvider extends Abst
                 ),
                 //not existing working width
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ СОЛОМЫ ПОСЛЕ КОМБАЙНА")
                                 .tractor("Беларус 82")
                                 .machinery("Krone CAMPRIMA CF 125")
@@ -86,7 +86,7 @@ public final class TwentiethTableFuelInfoSearchingArgumentsProvider extends Abst
                 ),
                 //not existing yield
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ СОЛОМЫ ПОСЛЕ КОМБАЙНА")
                                 .tractor("Беларус 82")
                                 .machinery("Krone CAMPRIMA CF 125")
@@ -98,7 +98,7 @@ public final class TwentiethTableFuelInfoSearchingArgumentsProvider extends Abst
                 ),
                 //not existing routing length
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ СОЛОМЫ ПОСЛЕ КОМБАЙНА")
                                 .tractor("Беларус 82")
                                 .machinery("Krone CAMPRIMA CF 125")

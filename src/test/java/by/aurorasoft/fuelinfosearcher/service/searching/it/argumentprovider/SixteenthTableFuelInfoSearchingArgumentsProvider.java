@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.it.argumentprovider;
 
 import by.aurorasoft.fuelinfosearcher.model.Fuel;
-import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
+import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -16,7 +16,7 @@ public final class SixteenthTableFuelInfoSearchingArgumentsProvider extends Abst
     protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
         return Stream.of(
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Fendt-933")
                                 .machinery("Krone-B 1000 CV Collet")
@@ -27,7 +27,7 @@ public final class SixteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                         optionalFuelInfoFactory.apply(31.5, 4.7)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Беларус 3022")
                                 .machinery("КМР-9П")
@@ -38,7 +38,7 @@ public final class SixteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                         optionalFuelInfoFactory.apply(27.9, 7.4)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Беларус 920.2")
                                 .machinery("KRONE EC-280")
@@ -50,7 +50,7 @@ public final class SixteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                 ),
                 //not existing tractor
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("not existing")
                                 .machinery("KRONE EC-280")
@@ -62,7 +62,7 @@ public final class SixteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                 ),
                 //not existing machinery
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Беларус 920.2")
                                 .machinery("not existing")
@@ -74,7 +74,7 @@ public final class SixteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                 ),
                 //not existing working width
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Беларус 920.2")
                                 .machinery("KRONE EC-280")
@@ -86,7 +86,7 @@ public final class SixteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                 ),
                 //not existing yield
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Беларус 920.2")
                                 .machinery("KRONE EC-280")
@@ -98,7 +98,7 @@ public final class SixteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                 ),
                 //not existing routing length
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Беларус 920.2")
                                 .machinery("KRONE EC-280")

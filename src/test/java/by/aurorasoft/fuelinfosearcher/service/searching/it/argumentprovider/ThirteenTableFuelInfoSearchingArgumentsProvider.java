@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.it.argumentprovider;
 
 import by.aurorasoft.fuelinfosearcher.model.Fuel;
-import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
+import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -16,7 +16,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
     protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
         return Stream.of(
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("БЕЛАРУС 3522")
                                 .machinery("РОУМ-24")
@@ -28,7 +28,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                         optionalFuelInfoFactory.apply(259.8, 0.4)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("БЕЛАРУС 3522")
                                 .machinery("РОУМ-24")
@@ -40,7 +40,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                         optionalFuelInfoFactory.apply(143.5, 1.17)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("БЕЛАРУС 3522")
                                 .machinery("РОУМ-24")
@@ -52,7 +52,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                         optionalFuelInfoFactory.apply(255.1, 0.4)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("БЕЛАРУС 3522")
                                 .machinery("РОУМ-24")
@@ -64,7 +64,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                         optionalFuelInfoFactory.apply(65.3, 2.83)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("БЕЛАРУС 3522")
                                 .machinery("РОУМ-24")
@@ -76,7 +76,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                         optionalFuelInfoFactory.apply(225.7, 0.39)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("БЕЛАРУС 3522")
                                 .machinery("РОУМ-24")
@@ -88,7 +88,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                         optionalFuelInfoFactory.apply(47.6, 4.6)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("JOHN DEERE 8430")
                                 .machinery("МТУ-24")
@@ -100,7 +100,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                         optionalFuelInfoFactory.apply(253.9, 0.39)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("JOHN DEERE 8430")
                                 .machinery("МТУ-24")
@@ -112,7 +112,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                         optionalFuelInfoFactory.apply(56.7, 3.53)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("JOHN DEERE 8430")
                                 .machinery("МТУ-24")
@@ -124,7 +124,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                         optionalFuelInfoFactory.apply(125.9, 1.36)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("JOHN DEERE 8430")
                                 .machinery("МТУ-24")
@@ -136,7 +136,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                         optionalFuelInfoFactory.apply(139.3, 0.93)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("JOHN DEERE 8430")
                                 .machinery("МТУ-24")
@@ -148,7 +148,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                         optionalFuelInfoFactory.apply(65.7, 2.76)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("JOHN DEERE 8430")
                                 .machinery("МТУ-24")
@@ -160,7 +160,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                         optionalFuelInfoFactory.apply(30.9, 6.94)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("БЕЛАРУС 3022")
                                 .machinery("МТУ-20")
@@ -172,7 +172,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                         optionalFuelInfoFactory.apply(198., 0.49)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("БЕЛАРУС 3022")
                                 .machinery("МТУ-20")
@@ -184,7 +184,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                         optionalFuelInfoFactory.apply(188.6, 0.55)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("БЕЛАРУС 3022")
                                 .machinery("МТУ-20")
@@ -196,7 +196,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                         optionalFuelInfoFactory.apply(50.5, 3.7)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("БЕЛАРУС 3022")
                                 .machinery("МТУ-20")
@@ -208,7 +208,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                         optionalFuelInfoFactory.apply(139.8, 0.76)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("БЕЛАРУС 3022")
                                 .machinery("МТУ-20")
@@ -220,7 +220,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                         optionalFuelInfoFactory.apply(82.9, 1.72)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("БЕЛАРУС 3022")
                                 .machinery("МТУ-20")
@@ -232,7 +232,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                         optionalFuelInfoFactory.apply(38.9, 4.58)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("РОУМ-14")
@@ -244,7 +244,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                         optionalFuelInfoFactory.apply(139.1, 0.59)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("РОУМ-14")
@@ -256,7 +256,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                         optionalFuelInfoFactory.apply(57.7, 2.23)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("РОУМ-14")
@@ -268,7 +268,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                         optionalFuelInfoFactory.apply(26.5, 5.7)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("РОУМ-14")
@@ -280,7 +280,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                         optionalFuelInfoFactory.apply(66.7, 1.62)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("РОУМ-14")
@@ -292,7 +292,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                         optionalFuelInfoFactory.apply(59., 1.95)
                 ),
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("РОУМ-14")
@@ -305,7 +305,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                 ),
                 //not existing tractor
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("not existing")
                                 .machinery("РОУМ-14")
@@ -318,7 +318,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                 ),
                 //not existing machinery
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("not existing")
@@ -331,7 +331,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                 ),
                 //not existing cargo class
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("РОУМ-14")
@@ -344,7 +344,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                 ),
                 //not existing road group
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("РОУМ-14")
@@ -357,7 +357,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                 ),
                 //not existing transport distance
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("РОУМ-14")
@@ -370,7 +370,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                 ),
                 //not existing routing length
                 Arguments.of(
-                        FuelInfoSpecification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("РОУМ-14")

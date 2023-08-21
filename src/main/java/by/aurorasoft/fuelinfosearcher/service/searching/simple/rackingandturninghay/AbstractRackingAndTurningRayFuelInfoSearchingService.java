@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.simple.rackingandturninghay;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
-import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
+import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import by.aurorasoft.fuelinfosearcher.service.searching.filter.FinalRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.filter.StartRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.simple.AbstractSimpleTableFuelInfoSearchingService;
@@ -46,13 +46,13 @@ public abstract class AbstractRackingAndTurningRayFuelInfoSearchingService exten
     }
 
     @Override
-    protected String extractFuelHeaderCellValue(final FuelInfoSpecification specification) {
+    protected String extractFuelHeaderCellValue(final FuelSpecification specification) {
         return extractRoutingLength(specification);
     }
 
     @SuppressWarnings("unused")
     private static List<XWPFTableRow> findRowsWithoutYieldRow(final List<XWPFTableRow> rows,
-                                                              final FuelInfoSpecification specification) {
+                                                              final FuelSpecification specification) {
         return range(0, rows.size())
                 .filter(i -> i != ROW_INDEX_YIELD)
                 .mapToObj(rows::get)
@@ -60,7 +60,7 @@ public abstract class AbstractRackingAndTurningRayFuelInfoSearchingService exten
     }
 
     private static List<XWPFTableRow> findRowsByTractor(final List<XWPFTableRow> rows,
-                                                        final FuelInfoSpecification specification) {
+                                                        final FuelSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowsByTractor(
                 rows,
                 specification,
@@ -69,7 +69,7 @@ public abstract class AbstractRackingAndTurningRayFuelInfoSearchingService exten
     }
 
     private static List<XWPFTableRow> findRowsByMachinery(final List<XWPFTableRow> rows,
-                                                          final FuelInfoSpecification specification) {
+                                                          final FuelSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowsByMachinery(
                 rows,
                 specification,
@@ -78,7 +78,7 @@ public abstract class AbstractRackingAndTurningRayFuelInfoSearchingService exten
     }
 
     private static Optional<XWPFTableRow> findRowByWorkingWidth(final List<XWPFTableRow> rows,
-                                                                final FuelInfoSpecification specification) {
+                                                                final FuelSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowByWorkingWidth(
                 rows,
                 specification,

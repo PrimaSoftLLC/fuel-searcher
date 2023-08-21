@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.manager;
 
 import by.aurorasoft.fuelinfosearcher.model.Fuel;
-import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
+import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelSearchingService;
 import by.aurorasoft.fuelinfosearcher.service.searching.exception.FuelInfoSearchingServiceNotExistException;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public final class FuelInfoSearchingManager {
         this.searchingServicesByTableNames = findSearchingServicesByTableNames(searchingServices);
     }
 
-    public Optional<Fuel> find(final FuelInfoSpecification specification) {
+    public Optional<Fuel> find(final FuelSpecification specification) {
         final AbstractTableFuelSearchingService searchingService = this.findSearchingService(specification);
         return searchingService.find(specification);
     }
@@ -38,7 +38,7 @@ public final class FuelInfoSearchingManager {
                 );
     }
 
-    private AbstractTableFuelSearchingService findSearchingService(final FuelInfoSpecification specification) {
+    private AbstractTableFuelSearchingService findSearchingService(final FuelSpecification specification) {
         final String tableName = extractTableName(specification);
         return this.searchingServicesByTableNames.computeIfAbsent(
                 tableName,

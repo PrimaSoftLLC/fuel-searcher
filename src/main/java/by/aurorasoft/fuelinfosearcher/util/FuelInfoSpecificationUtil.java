@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelinfosearcher.util;
 
-import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
+import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import lombok.experimental.UtilityClass;
 
 import java.util.Optional;
@@ -31,176 +31,176 @@ public final class FuelInfoSpecificationUtil {
     private static final String PROPERTY_NAME_OF_COMBINE = "combine";
     private static final String PROPERTY_NAME_OF_WEIGHT_RATIO_GRAIN_TO_STRAW = "weightRatioGrainToStraw";
 
-    public static String extractTableName(final FuelInfoSpecification specification) {
+    public static String extractTableName(final FuelSpecification specification) {
         return extractProperty(
                 specification,
-                FuelInfoSpecification::findTableName,
+                FuelSpecification::findTableName,
                 PROPERTY_NAME_OF_TABLE_NAME
         );
     }
 
-    public static String extractTractor(final FuelInfoSpecification specification) {
+    public static String extractTractor(final FuelSpecification specification) {
         return extractProperty(
                 specification,
-                FuelInfoSpecification::findTractor,
+                FuelSpecification::findTractor,
                 PROPERTY_NAME_OF_TRACTOR
         );
     }
 
-    public static String extractMachinery(final FuelInfoSpecification specification) {
+    public static String extractMachinery(final FuelSpecification specification) {
         return extractProperty(
                 specification,
-                FuelInfoSpecification::findMachinery,
+                FuelSpecification::findMachinery,
                 PROPERTY_NAME_OF_MACHINERY
         );
     }
 
-    public static String extractCorpusCount(final FuelInfoSpecification specification) {
+    public static String extractCorpusCount(final FuelSpecification specification) {
         return extractProperty(
                 specification,
-                FuelInfoSpecification::findCorpusCount,
+                FuelSpecification::findCorpusCount,
                 PROPERTY_NAME_OF_CORPUS_COUNT
         );
     }
 
-    public static String extractPloughingDepth(final FuelInfoSpecification specification) {
+    public static String extractPloughingDepth(final FuelSpecification specification) {
         return extractProperty(
                 specification,
-                FuelInfoSpecification::findPloughingDepth,
+                FuelSpecification::findPloughingDepth,
                 PROPERTY_NAME_OF_PLOUGHING_DEPTH
         );
     }
 
-    public static String extractRoutingLength(final FuelInfoSpecification specification) {
+    public static String extractRoutingLength(final FuelSpecification specification) {
         return extractProperty(
                 specification,
-                FuelInfoSpecification::findRoutingLength,
+                FuelSpecification::findRoutingLength,
                 PROPERTY_NAME_OF_ROUTING_LENGTH
         );
     }
 
-    public static String extractSpecificResistance(final FuelInfoSpecification specification) {
+    public static String extractSpecificResistance(final FuelSpecification specification) {
         return extractProperty(
                 specification,
-                FuelInfoSpecification::findSpecificResistance,
+                FuelSpecification::findSpecificResistance,
                 PROPERTY_NAME_OF_SPECIFIC_RESISTANCE
         );
     }
 
-    public static String extractSoilType(final FuelInfoSpecification specification) {
+    public static String extractSoilType(final FuelSpecification specification) {
         return extractProperty(
                 specification,
-                FuelInfoSpecification::findSoilType,
+                FuelSpecification::findSoilType,
                 PROPERTY_NAME_OF_SOIL_TYPE
         );
     }
 
-    public static String extractProcessingDepth(final FuelInfoSpecification specification) {
+    public static String extractProcessingDepth(final FuelSpecification specification) {
         return extractProperty(
                 specification,
-                FuelInfoSpecification::findProcessingDepth,
+                FuelSpecification::findProcessingDepth,
                 PROPERTY_NAME_OF_PROCESSING_DEPTH
         );
     }
 
-    public static String extractWorkingWidth(final FuelInfoSpecification specification) {
+    public static String extractWorkingWidth(final FuelSpecification specification) {
         return extractProperty(
                 specification,
-                FuelInfoSpecification::findWorkingWidth,
+                FuelSpecification::findWorkingWidth,
                 PROPERTY_NAME_OF_WORKING_WIDTH
         );
     }
 
-    public static String extractSowingNorm(final FuelInfoSpecification specification) {
+    public static String extractSowingNorm(final FuelSpecification specification) {
         return extractProperty(
                 specification,
-                FuelInfoSpecification::findSowingNorm,
+                FuelSpecification::findSowingNorm,
                 PROPERTY_NAME_OF_SOWING_NORM
         );
     }
 
-    public static String extractFertilizerType(final FuelInfoSpecification specification) {
+    public static String extractFertilizerType(final FuelSpecification specification) {
         return extractProperty(
                 specification,
-                FuelInfoSpecification::findFertilizerType,
+                FuelSpecification::findFertilizerType,
                 PROPERTY_NAME_OF_FERTILIZER_TYPE
         );
     }
 
-    public static String extractChargingMethodAndTransportDistance(final FuelInfoSpecification specification) {
+    public static String extractChargingMethodAndTransportDistance(final FuelSpecification specification) {
         return extractProperty(
                 specification,
-                FuelInfoSpecification::findChargingMethodAndTransportDistance,
+                FuelSpecification::findChargingMethodAndTransportDistance,
                 PROPERTY_NAME_OF_CHARGING_METHOD_AND_TRANSPORT_DISTANCE
         );
     }
 
-    public static String extractSpreadRate(final FuelInfoSpecification specification) {
+    public static String extractSpreadRate(final FuelSpecification specification) {
         return extractProperty(
                 specification,
-                FuelInfoSpecification::findSpreadRate,
+                FuelSpecification::findSpreadRate,
                 PROPERTY_NAME_OF_SPREAD_RATE
         );
     }
 
-    public static String extractRoadGroup(final FuelInfoSpecification specification) {
+    public static String extractRoadGroup(final FuelSpecification specification) {
         return extractProperty(
                 specification,
-                FuelInfoSpecification::findRoadGroup,
+                FuelSpecification::findRoadGroup,
                 PROPERTY_NAME_OF_ROAD_GROUP
         );
     }
 
-    public static String extractTransportDistance(final FuelInfoSpecification specification) {
+    public static String extractTransportDistance(final FuelSpecification specification) {
         return extractProperty(
                 specification,
-                FuelInfoSpecification::findTransportDistance,
+                FuelSpecification::findTransportDistance,
                 PROPERTY_NAME_OF_TRANSPORT_DISTANCE
         );
     }
 
-    public static String extractCargoClass(final FuelInfoSpecification specification) {
+    public static String extractCargoClass(final FuelSpecification specification) {
         return extractProperty(
                 specification,
-                FuelInfoSpecification::findCargoClass,
+                FuelSpecification::findCargoClass,
                 PROPERTY_NAME_OF_CARGO_CLASS
         );
     }
 
-    public static String extractYield(final FuelInfoSpecification specification) {
+    public static String extractYield(final FuelSpecification specification) {
         return extractProperty(
                 specification,
-                FuelInfoSpecification::findYield,
+                FuelSpecification::findYield,
                 PROPERTY_NAME_OF_YIELD
         );
     }
 
-    public static String extractRowWidth(final FuelInfoSpecification specification) {
+    public static String extractRowWidth(final FuelSpecification specification) {
         return extractProperty(
                 specification,
-                FuelInfoSpecification::findRowWidth,
+                FuelSpecification::findRowWidth,
                 PROPERTY_NAME_OF_ROW_WIDTH
         );
     }
 
-    public static String extractCombine(final FuelInfoSpecification specification) {
+    public static String extractCombine(final FuelSpecification specification) {
         return extractProperty(
                 specification,
-                FuelInfoSpecification::findCombine,
+                FuelSpecification::findCombine,
                 PROPERTY_NAME_OF_COMBINE
         );
     }
 
-    public static String extractWeightRatioGrainToStraw(final FuelInfoSpecification specification) {
+    public static String extractWeightRatioGrainToStraw(final FuelSpecification specification) {
         return extractProperty(
                 specification,
-                FuelInfoSpecification::findWeightRatioGrainToStraw,
+                FuelSpecification::findWeightRatioGrainToStraw,
                 PROPERTY_NAME_OF_WEIGHT_RATIO_GRAIN_TO_STRAW
         );
     }
 
-    private static String extractProperty(final FuelInfoSpecification specification,
-                                          final Function<FuelInfoSpecification, Optional<String>> propertyExtractor,
+    private static String extractProperty(final FuelSpecification specification,
+                                          final Function<FuelSpecification, Optional<String>> propertyExtractor,
                                           final String propertyName) {
         final Optional<String> optionalProperty = propertyExtractor.apply(specification);
         return optionalProperty.orElseThrow(

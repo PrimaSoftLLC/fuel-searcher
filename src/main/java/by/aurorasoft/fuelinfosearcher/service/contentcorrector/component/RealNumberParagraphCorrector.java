@@ -2,14 +2,19 @@ package by.aurorasoft.fuelinfosearcher.service.contentcorrector.component;
 
 import org.springframework.stereotype.Component;
 
-import java.util.function.Predicate;
+import java.util.Optional;
 import java.util.regex.MatchResult;
+
+import static java.util.Optional.empty;
 
 @Component
 public final class RealNumberParagraphCorrector extends AbstractContentParagraphCorrector {
     private static final char ZERO_CHARACTER = '0';
-    private static final char COMMA_CHARACTER = ',';
-    private static final String REPLACED_REGEX = "\\d+,\\d+";
+    private static final char POINT_CHARACTER = '.';
+
+    private static final String REPLACED_REGEX = "(\\d+),(\\d+)";
+    private static final int GROUP_NUMBER_INTEGER_PART = 1;
+    private static final int GROUP_NUMBER_FRACTIONAL_PART = 2;
 
     public RealNumberParagraphCorrector() {
         super(REPLACED_REGEX);
@@ -17,48 +22,47 @@ public final class RealNumberParagraphCorrector extends AbstractContentParagraph
 
     @Override
     protected String createReplacement(final MatchResult matchResult) {
-        final String content = matchResult.group();
-        return removeLastZerosAndCommas(content);
+        final String integerPart = extractIntegerPart(matchResult);
+        return extractReducedFractionalPart(matchResult)
+                .map(fractionalPart -> integerPart + POINT_CHARACTER + fractionalPart)
+                .orElse(integerPart);
     }
 
-    private static String removeLastZerosAndCommas(final String content) {
-        final StringBuilder contentBuilder = new StringBuilder(content);
-        removeLastZerosIfExist(contentBuilder);
-        removeLastCommasIfExist(contentBuilder);
-        return contentBuilder.toString();
+    private static String extractIntegerPart(final MatchResult matchResult) {
+        return matchResult.group(GROUP_NUMBER_INTEGER_PART);
     }
 
-    private static void removeLastZerosIfExist(final StringBuilder contentBuilder) {
-        removeLastCharactersIfMatch(
-                contentBuilder,
-                RealNumberParagraphCorrector::isZero
-        );
+    private static Optional<String> extractReducedFractionalPart(final MatchResult matchResult) {
+        final String fractionalPart = matchResult.group(GROUP_NUMBER_FRACTIONAL_PART);
+        final String reducedFractionalPart = reduceFractionalPart(fractionalPart);
+        return !reducedFractionalPart.isEmpty() ? Optional.of(reducedFractionalPart) : empty();
     }
 
-    private static void removeLastCommasIfExist(final StringBuilder contentBuilder) {
-        removeLastCharactersIfMatch(
-                contentBuilder,
-                RealNumberParagraphCorrector::isLastCharacterComma
-        );
-    }
-
-    private static void removeLastCharactersIfMatch(final StringBuilder contentBuilder,
-                                                    final Predicate<Character> matchPredicate) {
-        int indexLastCharacter = findLastCharacterIndex(contentBuilder);
-        char lastCharacter = contentBuilder.charAt(indexLastCharacter);
-        while (matchPredicate.test(lastCharacter)) {
-            contentBuilder.deleteCharAt(indexLastCharacter);
-            indexLastCharacter = findLastCharacterIndex(contentBuilder);
-            lastCharacter = contentBuilder.charAt(indexLastCharacter);
+    private static String reduceFractionalPart(final String source) {
+        final StringBuilder fractionalPartBuilder = new StringBuilder(source);
+        while (isReducibleFractionalPart(fractionalPartBuilder)) {
+            removeLastCharacter(fractionalPartBuilder);
         }
+        return fractionalPartBuilder.toString();
+    }
+
+    private static boolean isReducibleFractionalPart(final StringBuilder contentBuilder) {
+        return !contentBuilder.isEmpty() && isLastCharacterZero(contentBuilder);
+    }
+
+    private static boolean isLastCharacterZero(final StringBuilder contentBuilder) {
+        final int indexLastCharacter = findLastCharacterIndex(contentBuilder);
+        final char lastCharacter = contentBuilder.charAt(indexLastCharacter);
+        return isZero(lastCharacter);
     }
 
     private static boolean isZero(final char character) {
         return character == ZERO_CHARACTER;
     }
 
-    private static boolean isLastCharacterComma(final char character) {
-        return character == COMMA_CHARACTER;
+    private static void removeLastCharacter(final StringBuilder contentBuilder) {
+        final int indexLastCharacter = findLastCharacterIndex(contentBuilder);
+        contentBuilder.deleteCharAt(indexLastCharacter);
     }
 
     private static int findLastCharacterIndex(final StringBuilder contentBuilder) {

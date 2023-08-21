@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.simple.movingandmoulding;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
-import by.aurorasoft.fuelinfosearcher.model.FuelInfoSpecification;
+import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import by.aurorasoft.fuelinfosearcher.service.searching.filter.FinalRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.filter.StartRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.simple.AbstractSimpleTableFuelInfoSearchingService;
@@ -42,7 +42,7 @@ public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService ext
     }
 
     @Override
-    protected final String extractFuelHeaderCellValue(final FuelInfoSpecification specification) {
+    protected final String extractFuelHeaderCellValue(final FuelSpecification specification) {
         return extractRoutingLength(specification);
     }
 
@@ -51,7 +51,7 @@ public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService ext
     protected abstract int findCellIndexYield();
 
     private static List<XWPFTableRow> findRowsByTractor(final List<XWPFTableRow> rows,
-                                                        final FuelInfoSpecification specification) {
+                                                        final FuelSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowsByTractor(
                 rows,
                 specification,
@@ -60,7 +60,7 @@ public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService ext
     }
 
     private static List<XWPFTableRow> findRowsByMachinery(final List<XWPFTableRow> rows,
-                                                          final FuelInfoSpecification specification) {
+                                                          final FuelSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowsByMachinery(
                 rows,
                 specification,
@@ -69,7 +69,7 @@ public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService ext
     }
 
     private List<XWPFTableRow> findRowsByWorkingWidth(final List<XWPFTableRow> rows,
-                                                      final FuelInfoSpecification specification) {
+                                                      final FuelSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowsByWorkingWidth(
                 rows,
                 specification,
@@ -78,7 +78,7 @@ public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService ext
     }
 
     private Optional<XWPFTableRow> findRowByYield(final List<XWPFTableRow> rows,
-                                                  final FuelInfoSpecification specification) {
+                                                  final FuelSpecification specification) {
         return FuelDocumentRowFilterUtil.findRowByYield(
                 rows,
                 specification,
