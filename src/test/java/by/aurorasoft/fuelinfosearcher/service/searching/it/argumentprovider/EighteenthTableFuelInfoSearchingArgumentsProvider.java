@@ -20,7 +20,7 @@ public final class EighteenthTableFuelInfoSearchingArgumentsProvider extends Abs
                                 .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
                                 .tractor("Беларус 920.2")
                                 .machinery("Krone Swadro 807")
-                                .workingWidth("6,2")
+                                .workingWidth("6.2")
                                 .routingLength("Менее 150")
                                 .build(),
                         optionalFuelInfoFactory.apply(18.4, 2.46)
@@ -30,7 +30,7 @@ public final class EighteenthTableFuelInfoSearchingArgumentsProvider extends Abs
                                 .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
                                 .tractor("Беларус 80/82.1+")
                                 .machinery("MILLENNIUM V18-7GW")
-                                .workingWidth("10,5")
+                                .workingWidth("10.5")
                                 .routingLength("401-600")
                                 .build(),
                         optionalFuelInfoFactory.apply(39.6, 1.28)
@@ -40,7 +40,7 @@ public final class EighteenthTableFuelInfoSearchingArgumentsProvider extends Abs
                                 .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
                                 .tractor("Беларус 80/82.1")
                                 .machinery("Claas Liner 1650 Twin")
-                                .workingWidth("6,8")
+                                .workingWidth("6.8")
                                 .routingLength("Более 1000")
                                 .build(),
                         optionalFuelInfoFactory.apply(29.1, 1.78)
@@ -51,7 +51,7 @@ public final class EighteenthTableFuelInfoSearchingArgumentsProvider extends Abs
                                 .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
                                 .tractor("not existing")
                                 .machinery("Claas Liner 1650 Twin")
-                                .workingWidth("6,8")
+                                .workingWidth("6.8")
                                 .routingLength("Более 1000")
                                 .build(),
                         empty()
@@ -62,7 +62,7 @@ public final class EighteenthTableFuelInfoSearchingArgumentsProvider extends Abs
                                 .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
                                 .tractor("Беларус 80/82.1")
                                 .machinery("not existing")
-                                .workingWidth("6,8")
+                                .workingWidth("6.8")
                                 .routingLength("Более 1000")
                                 .build(),
                         empty()
@@ -84,7 +84,7 @@ public final class EighteenthTableFuelInfoSearchingArgumentsProvider extends Abs
                                 .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
                                 .tractor("Беларус 80/82.1")
                                 .machinery("Claas Liner 1650 Twin")
-                                .workingWidth("6,8")
+                                .workingWidth("6.8")
                                 .routingLength("not existing")
                                 .build(),
                         empty()
