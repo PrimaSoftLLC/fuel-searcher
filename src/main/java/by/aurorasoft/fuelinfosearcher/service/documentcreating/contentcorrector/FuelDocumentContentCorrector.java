@@ -1,8 +1,8 @@
-package by.aurorasoft.fuelinfosearcher.service.contentcorrector;
+package by.aurorasoft.fuelinfosearcher.service.documentcreating.contentcorrector;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
-import by.aurorasoft.fuelinfosearcher.service.contentcorrector.component.AbstractContentParagraphCorrector;
+import by.aurorasoft.fuelinfosearcher.service.documentcreating.contentcorrector.component.AbstractContentParagraphCorrector;
 import org.apache.poi.xwpf.usermodel.*;
 import org.springframework.stereotype.Component;
 

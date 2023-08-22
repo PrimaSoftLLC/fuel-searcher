@@ -1,8 +1,8 @@
-package by.aurorasoft.fuelinfosearcher.service.documentloader;
+package by.aurorasoft.fuelinfosearcher.service.documentcreating.documentloader;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
-import by.aurorasoft.fuelinfosearcher.service.documentloader.exception.FuelDocumentLoadingException;
+import by.aurorasoft.fuelinfosearcher.service.documentcreating.documentloader.exception.FuelDocumentLoadingException;
 import lombok.Value;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
