@@ -15,10 +15,10 @@ import static by.aurorasoft.fuelinfosearcher.util.XWPFTableCellUtil.isEmpty;
 
 @Component
 public final class FuelDocumentContentCorrector {
-    private final Function<String, String> contentCorrector;
+    private final Function<String, String> correctingFunction;
 
     public FuelDocumentContentCorrector(final List<AbstractContentParagraphCorrector> componentCorrectors) {
-        this.contentCorrector = createContentCorrector(componentCorrectors);
+        this.correctingFunction = createCorrectingFunction(componentCorrectors);
     }
 
     public void correct(final FuelDocument document) {
@@ -29,7 +29,7 @@ public final class FuelDocumentContentCorrector {
                 .forEach(this::correctContent);
     }
 
-    private static Function<String, String> createContentCorrector(final List<AbstractContentParagraphCorrector> componentCorrectors) {
+    private static Function<String, String> createCorrectingFunction(final List<AbstractContentParagraphCorrector> componentCorrectors) {
         return componentCorrectors.stream()
                 .map(componentCorrector -> (Function<String, String>) componentCorrector::correct)
                 .reduce(Function::andThen)
@@ -63,7 +63,7 @@ public final class FuelDocumentContentCorrector {
 
     private void correctContent(final XWPFParagraph paragraph) {
         final String content = paragraph.getText();
-        final String correctedContent = this.contentCorrector.apply(content);
+        final String correctedContent = this.correctingFunction.apply(content);
         replaceText(paragraph, correctedContent);
     }
 }
