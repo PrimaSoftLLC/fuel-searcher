@@ -20,7 +20,7 @@ public final class EighthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .tableName("ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА")
                                 .tractor("Беларус 3522")
                                 .machinery("Horsch Maestro 24 S")
-                                .workingWidth("16,8")
+                                .workingWidth("16.8")
                                 .routingLength("Менее 150")
                                 .sowingNorm("Норма высева 15 кг/га")
                                 .build(),
@@ -31,7 +31,7 @@ public final class EighthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .tableName("ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА")
                                 .tractor("Беларус 1221")
                                 .machinery("Ферабокс Футура Макси 8")
-                                .workingWidth("5,6")
+                                .workingWidth("5.6")
                                 .routingLength("150-200")
                                 .sowingNorm("Норма высева 30 кг/га")
                                 .build(),
@@ -42,7 +42,7 @@ public final class EighthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .tableName("ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА")
                                 .tractor("Беларус 1221")
                                 .machinery("NC Tehnik Mojnjsem")
-                                .workingWidth("5,6")
+                                .workingWidth("5.6")
                                 .routingLength("Более 1000")
                                 .sowingNorm("Норма высева 45 кг/га")
                                 .build(),
@@ -54,7 +54,7 @@ public final class EighthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .tableName("ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА")
                                 .tractor("not existing")
                                 .machinery("NC Tehnik Mojnjsem")
-                                .workingWidth("5,6")
+                                .workingWidth("5.6")
                                 .routingLength("Более 1000")
                                 .sowingNorm("Норма высева 45 кг/га")
                                 .build(),
@@ -66,7 +66,7 @@ public final class EighthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .tableName("ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА")
                                 .tractor("Беларус 1221")
                                 .machinery("not existing")
-                                .workingWidth("5,6")
+                                .workingWidth("5.6")
                                 .routingLength("Более 1000")
                                 .sowingNorm("Норма высева 45 кг/га")
                                 .build(),
@@ -90,7 +90,7 @@ public final class EighthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .tableName("ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА")
                                 .tractor("Беларус 1221")
                                 .machinery("NC Tehnik Mojnjsem")
-                                .workingWidth("5,6")
+                                .workingWidth("5.6")
                                 .routingLength("not existing")
                                 .sowingNorm("Норма высева 45 кг/га")
                                 .build(),
@@ -102,7 +102,7 @@ public final class EighthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .tableName("ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА")
                                 .tractor("Беларус 1221")
                                 .machinery("NC Tehnik Mojnjsem")
-                                .workingWidth("5,6")
+                                .workingWidth("5.6")
                                 .routingLength("Более 1000")
                                 .sowingNorm("not existing")
                                 .build(),
