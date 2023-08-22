@@ -1,52 +1,45 @@
 package by.aurorasoft.fuelinfosearcher.service.contentcorrector.component;
 
-import org.junit.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.regex.MatchResult;
+import java.util.stream.Stream;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-//TODO: do parametrized test
 public final class RealNumberParagraphCorrectorTest {
     private static final int GROUP_NUMBER_INTEGER_PART = 1;
     private static final int GROUP_NUMBER_FRACTIONAL_PART = 2;
 
     private final RealNumberParagraphCorrector corrector = new RealNumberParagraphCorrector();
 
-    @Test
-    public void replacementShouldBeCreatedWithReducingFractionalPart() {
-        final String givenIntegerPart = "10";
-        final String givenFractionalPart = "110001300000";
-        final MatchResult givenMatchResult = createMatchResult(givenIntegerPart, givenFractionalPart);
-
+    @ParameterizedTest
+    @MethodSource("matchResultAndExpectedReplacementArgumentProvider")
+    public void replacementShouldBeCreated(final MatchResult givenMatchResult, final String expected) {
         final String actual = this.corrector.createReplacement(givenMatchResult);
-        final String expected = "10.1100013";
         assertEquals(expected, actual);
     }
 
-    @Test
-    public void replacementShouldBeCreatedWithReducingToNumberWithoutFractionalPart() {
-        final String givenIntegerPart = "20";
-        final String givenFractionalPart = "0000000000000000";
-        final MatchResult givenMatchResult = createMatchResult(givenIntegerPart, givenFractionalPart);
-
-        final String actual = this.corrector.createReplacement(givenMatchResult);
-        final String expected = "20";
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void replacementShouldBeCreatedWithoutReducing() {
-        final String givenIntegerPart = "10";
-        final String givenFractionalPart = "110001300001";
-        final MatchResult givenMatchResult = createMatchResult(givenIntegerPart, givenFractionalPart);
-
-        final String actual = this.corrector.createReplacement(givenMatchResult);
-        final String expected = "10.110001300001";
-        assertEquals(expected, actual);
+    private static Stream<Arguments> matchResultAndExpectedReplacementArgumentProvider() {
+        return Stream.of(
+                Arguments.of(
+                        createMatchResult("10", "110001300000"),
+                        "10.1100013"
+                ),
+                Arguments.of(
+                        createMatchResult("20", "0000000000000000"),
+                        "20"
+                ),
+                Arguments.of(
+                        createMatchResult("10", "110001300001"),
+                        "10.110001300001"
+                )
+        );
     }
 
     private static MatchResult createMatchResult(final String integerPart, final String fractionalPart) {

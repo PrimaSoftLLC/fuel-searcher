@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class FuelInfoSearchingIT extends AbstractContextTest {
     private static final List<AbstractTableFuelInfoSearchingArgumentsProvider> ARGUMENTS_PROVIDERS = List.of(
-//            new FirstTableFuelInfoSearchingArgumentsProvider(),
+            new FirstTableFuelInfoSearchingArgumentsProvider(),
             new SecondTableFuelInfoSearchingArgumentsProvider(),
             new ThirdTableFuelInfoSearchingArgumentsProvider(),
             new FourthTableFuelInfoSearchingArgumentsProvider(),
