@@ -69,7 +69,7 @@ public final class SecondTableFuelInfoSearchingArgumentsProvider extends Abstrac
                         FuelSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("Кировец К-744 Р4")
-                                .machinery("not existint")
+                                .machinery("not existing")
                                 .corpusCount("10")
                                 .ploughingDepth("21-22")
                                 .routingLength("601-1000")
