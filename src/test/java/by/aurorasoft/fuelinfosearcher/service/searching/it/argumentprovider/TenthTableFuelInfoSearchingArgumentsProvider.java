@@ -19,7 +19,7 @@ public final class TenthTableFuelInfoSearchingArgumentsProvider extends Abstract
                         FuelSpecification.builder()
                                 .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ОДНОВРЕМЕННЫМ ПОСЕВОМ РАПСА")
                                 .tractor("Беларус 3522")
-                                .machinery("Амкодор «Veras» 12000")
+                                .machinery("Амкодор \"Veras\" 12000")
                                 .workingWidth("12")
                                 .routingLength("Менее 150")
                                 .sowingNorm("Норма высева семян 3 кг/га")
