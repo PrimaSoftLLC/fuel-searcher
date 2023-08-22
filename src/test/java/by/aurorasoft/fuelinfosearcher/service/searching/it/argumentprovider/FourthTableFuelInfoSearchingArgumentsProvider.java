@@ -52,8 +52,8 @@ public final class FourthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                         FuelSpecification.builder()
                                 .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
                                 .tractor("Беларус 3022")
-                                .machinery("КФУ-7,3")
-                                .workingWidth("7,3")
+                                .machinery("КФУ-7.3")
+                                .workingWidth("7.3")
                                 .routingLength("Менее 150")
                                 .processingDepth("Глубина обработки 6...8 см")
                                 .build(),
@@ -76,7 +76,7 @@ public final class FourthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
                                 .tractor("not existing")
                                 .machinery("Horsch Terrano 4FX")
-                                .workingWidth("4,0")
+                                .workingWidth("4")
                                 .routingLength("Менее 150")
                                 .processingDepth("Глубина обработки 14…20 см")
                                 .build(),
@@ -88,7 +88,7 @@ public final class FourthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
                                 .tractor("Беларус 1522")
                                 .machinery("not existing")
-                                .workingWidth("4,0")
+                                .workingWidth("4")
                                 .routingLength("Менее 150")
                                 .processingDepth("Глубина обработки 14...20 см")
                                 .build(),
@@ -112,7 +112,7 @@ public final class FourthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
                                 .tractor("Беларус 1522")
                                 .machinery("Horsch Terrano 4FX")
-                                .workingWidth("4,0")
+                                .workingWidth("4")
                                 .routingLength("not existing")
                                 .processingDepth("Глубина обработки 14...20 см")
                                 .build(),
@@ -124,7 +124,7 @@ public final class FourthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
                                 .tractor("Беларус 1522")
                                 .machinery("Horsch Terrano 4FX")
-                                .workingWidth("4,0")
+                                .workingWidth("4")
                                 .routingLength("Менее 150")
                                 .processingDepth("not existing")
                                 .build(),
