@@ -19,8 +19,8 @@ public final class SeventeenthTableFuelInfoSearchingArgumentsProvider extends Ab
                         FuelSpecification.builder()
                                 .tableName("ВОРОШЕНИЕ СЕНА")
                                 .tractor("Беларус 1221")
-                                .machinery("ГРЛ-9,6")
-                                .workingWidth("9,6")
+                                .machinery("ГРЛ-9.6")
+                                .workingWidth("9.6")
                                 .routingLength("Менее 150")
                                 .build(),
                         optionalFuelInfoFactory.apply(27.8, 2.3)
@@ -40,7 +40,7 @@ public final class SeventeenthTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .tableName("ВОРОШЕНИЕ СЕНА")
                                 .tractor("Беларус 82")
                                 .machinery("Tonutti Millennium V16")
-                                .workingWidth("9,6")
+                                .workingWidth("9.6")
                                 .routingLength("Более 1000")
                                 .build(),
                         optionalFuelInfoFactory.apply(45.2, 1.4)
@@ -51,7 +51,7 @@ public final class SeventeenthTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .tableName("ВОРОШЕНИЕ СЕНА")
                                 .tractor("not existing")
                                 .machinery("Tonutti Millennium V16")
-                                .workingWidth("9,6")
+                                .workingWidth("9.6")
                                 .routingLength("Более 1000")
                                 .build(),
                         empty()
@@ -62,7 +62,7 @@ public final class SeventeenthTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .tableName("ВОРОШЕНИЕ СЕНА")
                                 .tractor("Беларус 82")
                                 .machinery("not existing")
-                                .workingWidth("9,6")
+                                .workingWidth("9.6")
                                 .routingLength("Более 1000")
                                 .build(),
                         empty()
@@ -84,7 +84,7 @@ public final class SeventeenthTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .tableName("ВОРОШЕНИЕ СЕНА")
                                 .tractor("Беларус 82")
                                 .machinery("Tonutti Millennium V16")
-                                .workingWidth("9,6")
+                                .workingWidth("9.6")
                                 .routingLength("not existing")
                                 .build(),
                         empty()
