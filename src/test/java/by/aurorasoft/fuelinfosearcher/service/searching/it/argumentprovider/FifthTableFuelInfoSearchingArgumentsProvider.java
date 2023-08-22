@@ -20,7 +20,7 @@ public final class FifthTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
                                 .tractor("Кировец К-744Р4")
                                 .machinery("Доминанта Д-880")
-                                .workingWidth("8,8")
+                                .workingWidth("8.8")
                                 .routingLength("Менее 150")
                                 .processingDepth("Глубина обработки 6...8 см")
                                 .build(),
@@ -30,8 +30,8 @@ public final class FifthTableFuelInfoSearchingArgumentsProvider extends Abstract
                         FuelSpecification.builder()
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
                                 .tractor("Беларус 3022")
-                                .machinery("АПД-7,5")
-                                .workingWidth("7,5")
+                                .machinery("АПД-7.5")
+                                .workingWidth("7.5")
                                 .routingLength("150-200")
                                 .processingDepth("Глубина обработки 6...8 см")
                                 .build(),
