@@ -85,8 +85,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                 Arguments.of(
                         FuelSpecification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
-                                //TODO: replace « by something
-                                .combine("КЗС-1624-1 «ПАЛЕССЕ GS-1624-1» - 490 л.с.")
+                                .combine("КЗС-1624-1 \"ПАЛЕССЕ GS-1624-1\" - 490 л.с.")
                                 .weightRatioGrainToStraw("1:1")
                                 .yield("До 1.4")
                                 .workingWidth("9.2")
@@ -97,8 +96,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                 Arguments.of(
                         FuelSpecification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
-                                //TODO: replace « by something
-                                .combine("КЗС-1624-1 «ПАЛЕССЕ GS-1624-1» - 490 л.с.")
+                                .combine("КЗС-1624-1 \"ПАЛЕССЕ GS-1624-1\" - 490 л.с.")
                                 .weightRatioGrainToStraw("1:1")
                                 .yield("7.1...7.5")
                                 .workingWidth("9.2")
@@ -109,8 +107,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                 Arguments.of(
                         FuelSpecification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
-                                //TODO: replace « by something
-                                .combine("КЗС-1624-1 «ПАЛЕССЕ GS-1624-1» - 490 л.с.")
+                                .combine("КЗС-1624-1 \"ПАЛЕССЕ GS-1624-1\" - 490 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("3.3...3.6")
                                 .workingWidth("9.2")
@@ -121,8 +118,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                 Arguments.of(
                         FuelSpecification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
-                                //TODO: replace « by something
-                                .combine("КЗС-1624-1 «ПАЛЕССЕ GS-1624-1» - 490 л.с.")
+                                .combine("КЗС-1624-1 \"ПАЛЕССЕ GS-1624-1\" - 490 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("5.7...6")
                                 .workingWidth("9.2")
@@ -133,8 +129,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                 Arguments.of(
                         FuelSpecification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
-                                //TODO: replace « by something
-                                .combine("КЗС-1624-1 «ПАЛЕССЕ GS-1624-1» - 490 л.с.")
+                                .combine("КЗС-1624-1 \"ПАЛЕССЕ GS-1624-1\" - 490 л.с.")
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("2.5...2.7")
                                 .workingWidth("9.2")
@@ -145,8 +140,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                 Arguments.of(
                         FuelSpecification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
-                                //TODO: replace « by something
-                                .combine("КЗС-1624-1 «ПАЛЕССЕ GS-1624-1» - 490 л.с.")
+                                .combine("КЗС-1624-1 \"ПАЛЕССЕ GS-1624-1\" - 490 л.с.")
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("4.7...5")
                                 .workingWidth("9.2")
@@ -225,7 +219,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                 Arguments.of(
                         FuelSpecification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
-                                .combine("КЗС-3219 КР «ПАЛЕССЕ GS-3219 КР» - 390 л.с.")
+                                .combine("КЗС-3219 КР \"ПАЛЕССЕ GS-3219 КР\" - 390 л.с.")
                                 .weightRatioGrainToStraw("1:1")
                                 .yield("До 1.4")
                                 .workingWidth("7")
@@ -236,7 +230,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                 Arguments.of(
                         FuelSpecification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
-                                .combine("КЗС-3219 КР «ПАЛЕССЕ GS-3219 КР» - 390 л.с.")
+                                .combine("КЗС-3219 КР \"ПАЛЕССЕ GS-3219 КР\" - 390 л.с.")
                                 .weightRatioGrainToStraw("1:1")
                                 .yield("4.1...4.5")
                                 .workingWidth("7")
@@ -247,7 +241,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                 Arguments.of(
                         FuelSpecification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
-                                .combine("КЗС-3219 КР «ПАЛЕССЕ GS-3219 КР» - 390 л.с.")
+                                .combine("КЗС-3219 КР \"ПАЛЕССЕ GS-3219 КР\" - 390 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("4.8...5.1")
                                 .workingWidth("7")
@@ -258,7 +252,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                 Arguments.of(
                         FuelSpecification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
-                                .combine("КЗС-3219 КР «ПАЛЕССЕ GS-3219 КР» - 390 л.с.")
+                                .combine("КЗС-3219 КР \"ПАЛЕССЕ GS-3219 КР\" - 390 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("1.8...2.1")
                                 .workingWidth("7")
@@ -269,7 +263,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                 Arguments.of(
                         FuelSpecification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
-                                .combine("КЗС-3219 КР «ПАЛЕССЕ GS-3219 КР» - 390 л.с.")
+                                .combine("КЗС-3219 КР \"ПАЛЕССЕ GS-3219 КР\" - 390 л.с.")
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("1.8...2")
                                 .workingWidth("7")
@@ -280,7 +274,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                 Arguments.of(
                         FuelSpecification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
-                                .combine("КЗС-3219 КР «ПАЛЕССЕ GS-3219 КР» - 390 л.с.")
+                                .combine("КЗС-3219 КР \"ПАЛЕССЕ GS-3219 КР\" - 390 л.с.")
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("3.5...3.7")
                                 .workingWidth("7")
