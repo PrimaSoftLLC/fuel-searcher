@@ -20,7 +20,7 @@ public final class SixthTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("Кировец К-744Р4")
                                 .machinery("Доминанта Д-880")
-                                .workingWidth("8,8")
+                                .workingWidth("8.8")
                                 .routingLength("Менее 150")
                                 .processingDepth("Глубина обработки 6...8 см")
                                 .build(),
