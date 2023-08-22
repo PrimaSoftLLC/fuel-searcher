@@ -20,7 +20,7 @@ public final class SixteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Fendt-933")
                                 .machinery("Krone-B 1000 CV Collet")
-                                .workingWidth("9,7")
+                                .workingWidth("9.7")
                                 .yield("до 10")
                                 .routingLength("Менее 150")
                                 .build(),
@@ -42,7 +42,7 @@ public final class SixteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Беларус 920.2")
                                 .machinery("KRONE EC-280")
-                                .workingWidth("2,8")
+                                .workingWidth("2.8")
                                 .yield("свыше 35")
                                 .routingLength("Менее 150")
                                 .build(),
@@ -54,7 +54,7 @@ public final class SixteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("not existing")
                                 .machinery("KRONE EC-280")
-                                .workingWidth("2,8")
+                                .workingWidth("2.8")
                                 .yield("свыше 35")
                                 .routingLength("Менее 150")
                                 .build(),
@@ -66,7 +66,7 @@ public final class SixteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Беларус 920.2")
                                 .machinery("not existing")
-                                .workingWidth("2,8")
+                                .workingWidth("2.8")
                                 .yield("свыше 35")
                                 .routingLength("Менее 150")
                                 .build(),
@@ -90,7 +90,7 @@ public final class SixteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Беларус 920.2")
                                 .machinery("KRONE EC-280")
-                                .workingWidth("2,8")
+                                .workingWidth("2.8")
                                 .yield("not existing")
                                 .routingLength("Менее 150")
                                 .build(),
@@ -102,7 +102,7 @@ public final class SixteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Беларус 920.2")
                                 .machinery("KRONE EC-280")
-                                .workingWidth("2,8")
+                                .workingWidth("2.8")
                                 .yield("свыше 35")
                                 .routingLength("not existing")
                                 .build(),
