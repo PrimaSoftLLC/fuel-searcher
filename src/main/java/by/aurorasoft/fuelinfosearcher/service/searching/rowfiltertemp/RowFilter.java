@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelinfosearcher.service.searching.filter;
+package by.aurorasoft.fuelinfosearcher.service.searching.rowfiltertemp;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;

@@ -2,8 +2,8 @@ package by.aurorasoft.fuelinfosearcher.service.searching.simple;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
-import by.aurorasoft.fuelinfosearcher.service.searching.filter.FinalRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searching.filter.StartRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfiltertemp.conclusive.TEMPConclusiveRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfiltertemp.start.StartRowFilter;
 import by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.springframework.stereotype.Service;
@@ -42,7 +42,7 @@ public final class TwentyFifthTableFuelInfoSearchingService extends AbstractSimp
     }
 
     @Override
-    protected FinalRowFilter createFinalRowFilter() {
+    protected TEMPConclusiveRowFilter createFinalRowFilter() {
         return TwentyFifthTableFuelInfoSearchingService::findRowByYield;
     }
 

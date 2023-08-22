@@ -2,8 +2,8 @@ package by.aurorasoft.fuelinfosearcher.service.searching.simple.sowing;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
-import by.aurorasoft.fuelinfosearcher.service.searching.filter.FinalRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searching.filter.StartRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfiltertemp.conclusive.TEMPConclusiveRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfiltertemp.start.StartRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.simple.AbstractSimpleTableFuelInfoSearchingService;
 import by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
@@ -37,7 +37,7 @@ public abstract class AbstractSowingFuelInfoSearchingService extends AbstractSim
     }
 
     @Override
-    protected final FinalRowFilter createFinalRowFilter() {
+    protected final TEMPConclusiveRowFilter createFinalRowFilter() {
         return AbstractSowingFuelInfoSearchingService::findRowByWorkingWidth;
     }
 

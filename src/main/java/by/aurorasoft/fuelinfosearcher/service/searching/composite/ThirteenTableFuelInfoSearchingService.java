@@ -2,8 +2,8 @@ package by.aurorasoft.fuelinfosearcher.service.searching.composite;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
-import by.aurorasoft.fuelinfosearcher.service.searching.filter.FinalRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searching.filter.StartRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfiltertemp.conclusive.TEMPConclusiveRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfiltertemp.start.StartRowFilter;
 import by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil;
 import by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
@@ -36,7 +36,7 @@ public final class ThirteenTableFuelInfoSearchingService extends AbstractComposi
     }
 
     @Override
-    protected FinalRowFilter createFinalRowFilter() {
+    protected TEMPConclusiveRowFilter createFinalRowFilter() {
         return ThirteenTableFuelInfoSearchingService::findRowByTransportDistance;
     }
 

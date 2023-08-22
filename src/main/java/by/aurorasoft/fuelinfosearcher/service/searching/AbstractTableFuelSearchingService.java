@@ -2,8 +2,11 @@ package by.aurorasoft.fuelinfosearcher.service.searching;
 
 import by.aurorasoft.fuelinfosearcher.model.*;
 import by.aurorasoft.fuelinfosearcher.service.searching.exception.FuelTableNotExistException;
-import by.aurorasoft.fuelinfosearcher.service.searching.filter.FinalRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searching.filter.StartRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.AbstractConclusiveRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.AbstractIntermediateRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.group.AbstractGroupRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfiltertemp.conclusive.TEMPConclusiveRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfiltertemp.start.StartRowFilter;
 import by.aurorasoft.fuelinfosearcher.util.FuelUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
@@ -47,9 +50,12 @@ public abstract class AbstractTableFuelSearchingService {
     protected abstract Optional<XWPFTable> findElementTable(final FuelTable fuelTable,
                                                             final FuelSpecification specification);
 
-    protected abstract Stream<StartRowFilter> createStartRowFilters();
+    protected abstract Stream<AbstractIntermediateRowFilter> createIntermediateRowFilters();
+    protected abstract AbstractConclusiveRowFilter createConclusiveRowFilter();
 
-    protected abstract FinalRowFilter createFinalRowFilter();
+//    protected abstract Stream<StartRowFilter> createStartRowFilters();
+//
+//    protected abstract TEMPConclusiveRowFilter createFinalRowFilter();
 
     protected abstract String extractFuelHeaderCellValue(final FuelSpecification specification);
 
@@ -98,7 +104,7 @@ public abstract class AbstractTableFuelSearchingService {
     }
 
     private Function<List<XWPFTableRow>, Optional<XWPFTableRow>> createFinalRowFilter(final FuelSpecification specification) {
-        final FinalRowFilter finalRowFilter = this.createFinalRowFilter();
+        final TEMPConclusiveRowFilter finalRowFilter = this.createFinalRowFilter();
         return finalRowFilter.createFunctionRowFilter(specification);
     }
 
