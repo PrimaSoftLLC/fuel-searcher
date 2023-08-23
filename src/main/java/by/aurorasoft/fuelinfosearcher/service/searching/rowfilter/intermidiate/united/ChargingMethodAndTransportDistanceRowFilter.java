@@ -2,7 +2,7 @@ package by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.
 
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 
-import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractChargingMethodAndTransportDistance;
+import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractChargingMethodAndTransportDistance;
 
 public final class ChargingMethodAndTransportDistanceRowFilter extends AbstractUnitedRowFilter {
 

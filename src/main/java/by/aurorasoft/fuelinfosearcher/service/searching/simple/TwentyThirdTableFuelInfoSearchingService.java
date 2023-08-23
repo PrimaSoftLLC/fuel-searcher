@@ -8,7 +8,7 @@ import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.u
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.united.WorkingWidthRowFilter;
 import org.springframework.stereotype.Service;
 
-import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractRoutingLength;
+import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractRoutingLength;
 
 @Service
 public final class TwentyThirdTableFuelInfoSearchingService extends AbstractSimpleTableFuelInfoSearchingService {

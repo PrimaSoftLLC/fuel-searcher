@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractTableName;
+import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractTableName;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 

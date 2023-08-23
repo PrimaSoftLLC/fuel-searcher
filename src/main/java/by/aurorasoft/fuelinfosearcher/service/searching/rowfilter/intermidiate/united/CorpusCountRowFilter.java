@@ -2,7 +2,7 @@ package by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.
 
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 
-import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractCorpusCount;
+import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractCorpusCount;
 
 public final class CorpusCountRowFilter extends AbstractUnitedRowFilter {
 

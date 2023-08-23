@@ -2,7 +2,7 @@ package by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 
-import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractSpreadRate;
+import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractSpreadRate;
 
 public final class SpreadRateRowFilter extends AbstractConclusiveRowFilter {
 

@@ -5,13 +5,13 @@ import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.chain.RowFilterChain;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.TransportDistanceRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.group.RoadGroupRowFilter;
-import by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil;
+import by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractSpreadRate;
+import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractSpreadRate;
 
 @Service
 public final class FourteenthTableFuelInfoSearchingService extends AbstractCompositeTableFuelInfoSearchingService {
@@ -34,8 +34,8 @@ public final class FourteenthTableFuelInfoSearchingService extends AbstractCompo
     @Override
     protected Stream<Function<FuelSpecification, String>> findElementTableTitleTemplateArgumentExtractors() {
         return Stream.of(
-                FuelInfoSpecificationUtil::extractTractor,
-                FuelInfoSpecificationUtil::extractMachinery
+                FuelSpecificationExtractingPropertyUtil::extractTractor,
+                FuelSpecificationExtractingPropertyUtil::extractMachinery
         );
     }
 

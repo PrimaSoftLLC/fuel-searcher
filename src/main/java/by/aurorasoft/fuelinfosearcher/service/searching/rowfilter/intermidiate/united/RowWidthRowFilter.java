@@ -2,7 +2,7 @@ package by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.
 
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 
-import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractRowWidth;
+import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractRowWidth;
 
 public final class RowWidthRowFilter extends AbstractUnitedRowFilter {
 

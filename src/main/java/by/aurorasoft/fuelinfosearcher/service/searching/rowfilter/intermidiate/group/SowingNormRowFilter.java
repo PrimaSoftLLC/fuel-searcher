@@ -2,7 +2,7 @@ package by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.
 
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 
-import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractSowingNorm;
+import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractSowingNorm;
 
 public final class SowingNormRowFilter extends AbstractGroupRowFilter {
     private static final String GROUP_VALUE_REGEX = "Норма высева (семян )?\\d+(-\\d+)? кг/га";

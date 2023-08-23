@@ -5,13 +5,13 @@ import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.chain.RowFilterChain;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.YieldRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.united.WorkingWidthRowFilter;
-import by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil;
+import by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractRoutingLength;
+import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractRoutingLength;
 
 @Service
 public final class TwentyFourthTableFuelInfoSearchingService extends AbstractCompositeTableFuelInfoSearchingService {
@@ -49,8 +49,8 @@ public final class TwentyFourthTableFuelInfoSearchingService extends AbstractCom
     @Override
     protected Stream<Function<FuelSpecification, String>> findElementTableTitleTemplateArgumentExtractors() {
         return Stream.of(
-                FuelInfoSpecificationUtil::extractCombine,
-                FuelInfoSpecificationUtil::extractWeightRatioGrainToStraw
+                FuelSpecificationExtractingPropertyUtil::extractCombine,
+                FuelSpecificationExtractingPropertyUtil::extractWeightRatioGrainToStraw
         );
     }
 }

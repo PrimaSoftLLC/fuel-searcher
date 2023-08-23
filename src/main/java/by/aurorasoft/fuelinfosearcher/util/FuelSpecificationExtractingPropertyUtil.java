@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 @UtilityClass
-public final class FuelInfoSpecificationUtil {
+public final class FuelSpecificationExtractingPropertyUtil {
     private static final String PROPERTY_NAME_OF_TABLE_NAME = "tableName";
     private static final String PROPERTY_NAME_OF_TRACTOR = "tractor";
     private static final String PROPERTY_NAME_OF_MACHINERY = "ploughMark";

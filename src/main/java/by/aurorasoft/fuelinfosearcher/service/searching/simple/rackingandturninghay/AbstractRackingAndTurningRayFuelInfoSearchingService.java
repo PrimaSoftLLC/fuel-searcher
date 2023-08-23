@@ -8,7 +8,7 @@ import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.u
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.united.TractorRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.simple.AbstractSimpleTableFuelInfoSearchingService;
 
-import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractRoutingLength;
+import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractRoutingLength;
 
 public abstract class AbstractRackingAndTurningRayFuelInfoSearchingService extends AbstractSimpleTableFuelInfoSearchingService {
     private static final String[] FUEL_INFO_HEADERS = {

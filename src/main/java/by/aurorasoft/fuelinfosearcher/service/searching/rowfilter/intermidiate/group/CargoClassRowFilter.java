@@ -2,7 +2,7 @@ package by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.
 
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 
-import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractCargoClass;
+import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractCargoClass;
 
 public final class CargoClassRowFilter extends AbstractGroupRowFilter {
     private static final String GROUP_VALUE_REGEX = "Грузы (I|II|III|IV) класса";
