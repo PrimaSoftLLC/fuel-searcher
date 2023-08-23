@@ -2,15 +2,12 @@ package by.aurorasoft.fuelinfosearcher.service.searching.simple.movingandmouldin
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfiltertemp.conclusive.TEMPConclusiveRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfiltertemp.start.StartRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.chain.RowFilterChain;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.YieldRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.united.MachineryRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.united.TractorRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.united.WorkingWidthRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.simple.AbstractSimpleTableFuelInfoSearchingService;
-import by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil;
-import org.apache.poi.xwpf.usermodel.XWPFTableRow;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractRoutingLength;
 
@@ -28,17 +25,13 @@ public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService ext
     }
 
     @Override
-    protected final Stream<StartRowFilter> createStartRowFilters() {
-        return Stream.of(
-                AbstractMovingAndMouldingTableFuelInfoSearchingService::findRowsByTractor,
-                AbstractMovingAndMouldingTableFuelInfoSearchingService::findRowsByMachinery,
-                this::findRowsByWorkingWidth
-        );
-    }
-
-    @Override
-    protected final TEMPConclusiveRowFilter createFinalRowFilter() {
-        return this::findRowByYield;
+    protected final RowFilterChain createRowFilterChain() {
+        return RowFilterChain.builder()
+                .intermediateFilter(createTractorRowFilter())
+                .intermediateFilter(createMachineryRowFilter())
+                .intermediateFilter(this.createWorkingWidthRowFilter())
+                .conclusiveFilter(this.createYieldRowFilter())
+                .build();
     }
 
     @Override
@@ -50,39 +43,21 @@ public abstract class AbstractMovingAndMouldingTableFuelInfoSearchingService ext
 
     protected abstract int findCellIndexYield();
 
-    private static List<XWPFTableRow> findRowsByTractor(final List<XWPFTableRow> rows,
-                                                        final FuelSpecification specification) {
-        return FuelDocumentRowFilterUtil.findRowsByTractor(
-                rows,
-                specification,
-                CELL_INDEX_TRACTOR
-        );
+    private static TractorRowFilter createTractorRowFilter() {
+        return new TractorRowFilter(CELL_INDEX_TRACTOR);
     }
 
-    private static List<XWPFTableRow> findRowsByMachinery(final List<XWPFTableRow> rows,
-                                                          final FuelSpecification specification) {
-        return FuelDocumentRowFilterUtil.findRowsByMachinery(
-                rows,
-                specification,
-                CELL_INDEX_MACHINERY
-        );
+    private static MachineryRowFilter createMachineryRowFilter() {
+        return new MachineryRowFilter(CELL_INDEX_MACHINERY);
     }
 
-    private List<XWPFTableRow> findRowsByWorkingWidth(final List<XWPFTableRow> rows,
-                                                      final FuelSpecification specification) {
-        return FuelDocumentRowFilterUtil.findRowsByWorkingWidth(
-                rows,
-                specification,
-                this.findCellIndexWorkingWidth()
-        );
+    private WorkingWidthRowFilter createWorkingWidthRowFilter() {
+        final int cellIndexWorkingWidth = this.findCellIndexWorkingWidth();
+        return new WorkingWidthRowFilter(cellIndexWorkingWidth);
     }
 
-    private Optional<XWPFTableRow> findRowByYield(final List<XWPFTableRow> rows,
-                                                  final FuelSpecification specification) {
-        return FuelDocumentRowFilterUtil.findRowByYield(
-                rows,
-                specification,
-                this.findCellIndexYield()
-        );
+    private YieldRowFilter createYieldRowFilter() {
+        final int cellIndexYield = this.findCellIndexYield();
+        return new YieldRowFilter(cellIndexYield);
     }
 }

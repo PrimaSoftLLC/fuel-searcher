@@ -2,15 +2,13 @@ package by.aurorasoft.fuelinfosearcher.service.searching.simple;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfiltertemp.conclusive.TEMPConclusiveRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfiltertemp.start.StartRowFilter;
-import by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil;
-import org.apache.poi.xwpf.usermodel.XWPFTableRow;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.chain.RowFilterChain;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.YieldRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.group.SoilTypeRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.united.MachineryRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.united.RowWidthRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.united.TractorRowFilter;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractRoutingLength;
 
@@ -32,58 +30,18 @@ public final class TwentyFifthTableFuelInfoSearchingService extends AbstractSimp
     }
 
     @Override
-    protected Stream<StartRowFilter> createStartRowFilters() {
-        return Stream.of(
-                FuelDocumentRowFilterUtil::findRowsBySoilType,
-                TwentyFifthTableFuelInfoSearchingService::findRowsByTractor,
-                TwentyFifthTableFuelInfoSearchingService::findRowsByMachinery,
-                TwentyFifthTableFuelInfoSearchingService::findRowsByRowWidth
-        );
-    }
-
-    @Override
-    protected TEMPConclusiveRowFilter createFinalRowFilter() {
-        return TwentyFifthTableFuelInfoSearchingService::findRowByYield;
+    protected RowFilterChain createRowFilterChain() {
+        return RowFilterChain.builder()
+                .intermediateFilter(new SoilTypeRowFilter())
+                .intermediateFilter(new TractorRowFilter(CELL_INDEX_TRACTOR))
+                .intermediateFilter(new MachineryRowFilter(CELL_INDEX_MACHINERY))
+                .intermediateFilter(new RowWidthRowFilter(CELL_INDEX_ROW_WIDTH))
+                .conclusiveFilter(new YieldRowFilter(CELL_INDEX_YIELD))
+                .build();
     }
 
     @Override
     protected String extractFuelHeaderCellValue(final FuelSpecification specification) {
         return extractRoutingLength(specification);
-    }
-
-    private static List<XWPFTableRow> findRowsByTractor(final List<XWPFTableRow> rows,
-                                                        final FuelSpecification specification) {
-        return FuelDocumentRowFilterUtil.findRowsByTractor(
-                rows,
-                specification,
-                CELL_INDEX_TRACTOR
-        );
-    }
-
-    private static List<XWPFTableRow> findRowsByMachinery(final List<XWPFTableRow> rows,
-                                                          final FuelSpecification specification) {
-        return FuelDocumentRowFilterUtil.findRowsByMachinery(
-                rows,
-                specification,
-                CELL_INDEX_MACHINERY
-        );
-    }
-
-    private static List<XWPFTableRow> findRowsByRowWidth(final List<XWPFTableRow> rows,
-                                                         final FuelSpecification specification) {
-        return FuelDocumentRowFilterUtil.findRowsByRowWidth(
-                rows,
-                specification,
-                CELL_INDEX_ROW_WIDTH
-        );
-    }
-
-    private static Optional<XWPFTableRow> findRowByYield(final List<XWPFTableRow> rows,
-                                                         final FuelSpecification specification) {
-        return FuelDocumentRowFilterUtil.findRowByYield(
-                rows,
-                specification,
-                CELL_INDEX_YIELD
-        );
     }
 }

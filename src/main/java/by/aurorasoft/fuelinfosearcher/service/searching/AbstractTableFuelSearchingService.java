@@ -2,11 +2,7 @@ package by.aurorasoft.fuelinfosearcher.service.searching;
 
 import by.aurorasoft.fuelinfosearcher.model.*;
 import by.aurorasoft.fuelinfosearcher.service.searching.exception.FuelTableNotExistException;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.AbstractConclusiveRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.AbstractIntermediateRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.group.AbstractGroupRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfiltertemp.conclusive.TEMPConclusiveRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfiltertemp.start.StartRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.chain.RowFilterChain;
 import by.aurorasoft.fuelinfosearcher.util.FuelUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
@@ -15,8 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findIndexFirstCellByContent;
 import static java.util.function.Function.identity;
@@ -50,12 +44,7 @@ public abstract class AbstractTableFuelSearchingService {
     protected abstract Optional<XWPFTable> findElementTable(final FuelTable fuelTable,
                                                             final FuelSpecification specification);
 
-    protected abstract Stream<AbstractIntermediateRowFilter> createIntermediateRowFilters();
-    protected abstract AbstractConclusiveRowFilter createConclusiveRowFilter();
-
-//    protected abstract Stream<StartRowFilter> createStartRowFilters();
-//
-//    protected abstract TEMPConclusiveRowFilter createFinalRowFilter();
+    protected abstract RowFilterChain createRowFilterChain();
 
     protected abstract String extractFuelHeaderCellValue(final FuelSpecification specification);
 
@@ -86,26 +75,8 @@ public abstract class AbstractTableFuelSearchingService {
 
     private Optional<XWPFTableRow> findAppropriateRow(final List<XWPFTableRow> elementTableRows,
                                                       final FuelSpecification specification) {
-        final Function<List<XWPFTableRow>, Optional<XWPFTableRow>> rowFilter = this.createRowFilter(specification);
-        return rowFilter.apply(elementTableRows);
-    }
-
-    private Function<List<XWPFTableRow>, Optional<XWPFTableRow>> createRowFilter(final FuelSpecification specification) {
-        final Function<List<XWPFTableRow>, Optional<XWPFTableRow>> finalRowFilter = this.createFinalRowFilter(specification);
-        return this.createStartRowFilters(specification)
-                .reduce(Function::andThen)
-                .map(rowFilter -> rowFilter.andThen(finalRowFilter))
-                .orElse(finalRowFilter);
-    }
-
-    private Stream<Function<List<XWPFTableRow>, List<XWPFTableRow>>> createStartRowFilters(final FuelSpecification specification) {
-        final Stream<StartRowFilter> startRowFilters = this.createStartRowFilters();
-        return startRowFilters.map(startRowFilter -> startRowFilter.createFunctionRowFilter(specification));
-    }
-
-    private Function<List<XWPFTableRow>, Optional<XWPFTableRow>> createFinalRowFilter(final FuelSpecification specification) {
-        final TEMPConclusiveRowFilter finalRowFilter = this.createFinalRowFilter();
-        return finalRowFilter.createFunctionRowFilter(specification);
+        final RowFilterChain filterChain = this.createRowFilterChain();
+        return filterChain.filter(elementTableRows, specification);
     }
 
     private Optional<FuelLocation> findFuelLocation(final XWPFTableRow fuelHeaderRow,

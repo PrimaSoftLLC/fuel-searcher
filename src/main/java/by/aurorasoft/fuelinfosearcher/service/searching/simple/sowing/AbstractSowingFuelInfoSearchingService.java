@@ -2,15 +2,12 @@ package by.aurorasoft.fuelinfosearcher.service.searching.simple.sowing;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfiltertemp.conclusive.TEMPConclusiveRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfiltertemp.start.StartRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.chain.RowFilterChain;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.WorkingWidthRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.group.SowingNormRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.united.MachineryRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.united.TractorRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.simple.AbstractSimpleTableFuelInfoSearchingService;
-import by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil;
-import org.apache.poi.xwpf.usermodel.XWPFTableRow;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil.extractRoutingLength;
 
@@ -28,17 +25,13 @@ public abstract class AbstractSowingFuelInfoSearchingService extends AbstractSim
     }
 
     @Override
-    protected final Stream<StartRowFilter> createStartRowFilters() {
-        return Stream.of(
-                FuelDocumentRowFilterUtil::findRowsBySowingNorm,
-                AbstractSowingFuelInfoSearchingService::findRowsByTractor,
-                AbstractSowingFuelInfoSearchingService::findRowsByMachinery
-        );
-    }
-
-    @Override
-    protected final TEMPConclusiveRowFilter createFinalRowFilter() {
-        return AbstractSowingFuelInfoSearchingService::findRowByWorkingWidth;
+    protected final RowFilterChain createRowFilterChain() {
+        return RowFilterChain.builder()
+                .intermediateFilter(createSowingNormRowFilter())
+                .intermediateFilter(createTractorRowFilter())
+                .intermediateFilter(createMachineryRowFilter())
+                .conclusiveFilter(createWorkingWidthRowFilter())
+                .build();
     }
 
     @Override
@@ -46,31 +39,20 @@ public abstract class AbstractSowingFuelInfoSearchingService extends AbstractSim
         return extractRoutingLength(specification);
     }
 
-    private static List<XWPFTableRow> findRowsByTractor(final List<XWPFTableRow> rows,
-                                                        final FuelSpecification specification) {
-        return FuelDocumentRowFilterUtil.findRowsByTractor(
-                rows,
-                specification,
-                CELL_INDEX_TRACTOR
-        );
+    private static SowingNormRowFilter createSowingNormRowFilter() {
+        return new SowingNormRowFilter();
     }
 
-    private static List<XWPFTableRow> findRowsByMachinery(final List<XWPFTableRow> rows,
-                                                          final FuelSpecification specification) {
-        return FuelDocumentRowFilterUtil.findRowsByMachinery(
-                rows,
-                specification,
-                CELL_INDEX_MACHINERY
-        );
+    private static TractorRowFilter createTractorRowFilter() {
+        return new TractorRowFilter(CELL_INDEX_TRACTOR);
     }
 
-    private static Optional<XWPFTableRow> findRowByWorkingWidth(final List<XWPFTableRow> rows,
-                                                                final FuelSpecification specification) {
-        return FuelDocumentRowFilterUtil.findRowByWorkingWidth(
-                rows,
-                specification,
-                CELL_INDEX_WORKING_WIDTH
-        );
+    private static MachineryRowFilter createMachineryRowFilter() {
+        return new MachineryRowFilter(CELL_INDEX_MACHINERY);
+    }
+
+    private static WorkingWidthRowFilter createWorkingWidthRowFilter() {
+        return new WorkingWidthRowFilter(CELL_INDEX_WORKING_WIDTH);
     }
 
 }

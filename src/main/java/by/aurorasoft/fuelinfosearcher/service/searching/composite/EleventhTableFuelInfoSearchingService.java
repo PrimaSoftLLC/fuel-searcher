@@ -2,15 +2,13 @@ package by.aurorasoft.fuelinfosearcher.service.searching.composite;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfiltertemp.conclusive.TEMPConclusiveRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfiltertemp.start.StartRowFilter;
-import by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.chain.RowFilterChain;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.SpreadRateRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.group.FertilizerTypeRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.united.ChargingMethodAndTransportDistanceRowFilter;
 import by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil;
-import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -32,16 +30,12 @@ public final class EleventhTableFuelInfoSearchingService extends AbstractComposi
     }
 
     @Override
-    protected Stream<StartRowFilter> createStartRowFilters() {
-        return Stream.of(
-                FuelDocumentRowFilterUtil::findRowsByFertilizerType,
-                EleventhTableFuelInfoSearchingService::findRowsByChargingMethodAndTransportDistance
-        );
-    }
-
-    @Override
-    protected TEMPConclusiveRowFilter createFinalRowFilter() {
-        return EleventhTableFuelInfoSearchingService::findRowBySpreadRate;
+    protected RowFilterChain createRowFilterChain() {
+        return RowFilterChain.builder()
+                .intermediateFilter(new FertilizerTypeRowFilter())
+                .intermediateFilter(new ChargingMethodAndTransportDistanceRowFilter(CELL_INDEX_CHARGING_METHOD_AND_TRANSPORT_DISTANCE))
+                .conclusiveFilter(new SpreadRateRowFilter(CELL_INDEX_SPREAD_RATE))
+                .build();
     }
 
     @Override
@@ -59,24 +53,6 @@ public final class EleventhTableFuelInfoSearchingService extends AbstractComposi
         return Stream.of(
                 FuelInfoSpecificationUtil::extractMachinery,
                 FuelInfoSpecificationUtil::extractTractor
-        );
-    }
-
-    private static List<XWPFTableRow> findRowsByChargingMethodAndTransportDistance(final List<XWPFTableRow> rows,
-                                                                                   final FuelSpecification specification) {
-        return FuelDocumentRowFilterUtil.findRowsByChargingMethodAndTransportDistance(
-                rows,
-                specification,
-                CELL_INDEX_CHARGING_METHOD_AND_TRANSPORT_DISTANCE
-        );
-    }
-
-    private static Optional<XWPFTableRow> findRowBySpreadRate(final List<XWPFTableRow> rows,
-                                                              final FuelSpecification specification) {
-        return FuelDocumentRowFilterUtil.findRowBySpreadRate(
-                rows,
-                specification,
-                CELL_INDEX_SPREAD_RATE
         );
     }
 }

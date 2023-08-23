@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findFirstRowByContent;
 
+//TODO: remove FuelInfoSpecificationUtil
 public abstract class AbstractConclusiveRowFilter extends AbstractRowFilter<Optional<XWPFTableRow>> {
 
     public AbstractConclusiveRowFilter(final int filteringCellIndex) {

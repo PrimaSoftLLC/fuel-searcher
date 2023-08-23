@@ -2,15 +2,12 @@ package by.aurorasoft.fuelinfosearcher.service.searching.composite;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfiltertemp.conclusive.TEMPConclusiveRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfiltertemp.start.StartRowFilter;
-import by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.chain.RowFilterChain;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.YieldRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.united.WorkingWidthRowFilter;
 import by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil;
-import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -31,17 +28,12 @@ public final class TwentyFourthTableFuelInfoSearchingService extends AbstractCom
         super(fuelDocument, TABLE_NAME, FUEL_INFO_HEADERS);
     }
 
-
     @Override
-    protected Stream<StartRowFilter> createStartRowFilters() {
-        return Stream.of(
-                TwentyFourthTableFuelInfoSearchingService::findRowsByWorkingWidth
-        );
-    }
-
-    @Override
-    protected TEMPConclusiveRowFilter createFinalRowFilter() {
-        return TwentyFourthTableFuelInfoSearchingService::findRowByYield;
+    protected RowFilterChain createRowFilterChain() {
+        return RowFilterChain.builder()
+                .intermediateFilter(new WorkingWidthRowFilter(CELL_INDEX_WORKING_WIDTH))
+                .conclusiveFilter(new YieldRowFilter(CELL_INDEX_YIELD))
+                .build();
     }
 
     @Override
@@ -59,24 +51,6 @@ public final class TwentyFourthTableFuelInfoSearchingService extends AbstractCom
         return Stream.of(
                 FuelInfoSpecificationUtil::extractCombine,
                 FuelInfoSpecificationUtil::extractWeightRatioGrainToStraw
-        );
-    }
-
-    private static List<XWPFTableRow> findRowsByWorkingWidth(final List<XWPFTableRow> rows,
-                                                             final FuelSpecification specification) {
-        return FuelDocumentRowFilterUtil.findRowsByWorkingWidth(
-                rows,
-                specification,
-                CELL_INDEX_WORKING_WIDTH
-        );
-    }
-
-    private static Optional<XWPFTableRow> findRowByYield(final List<XWPFTableRow> rows,
-                                                         final FuelSpecification specification) {
-        return FuelDocumentRowFilterUtil.findRowByYield(
-                rows,
-                specification,
-                CELL_INDEX_YIELD
         );
     }
 }

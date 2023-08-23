@@ -2,15 +2,12 @@ package by.aurorasoft.fuelinfosearcher.service.searching.composite;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfiltertemp.conclusive.TEMPConclusiveRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfiltertemp.start.StartRowFilter;
-import by.aurorasoft.fuelinfosearcher.util.FuelDocumentRowFilterUtil;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.chain.RowFilterChain;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.TransportDistanceRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.group.RoadGroupRowFilter;
 import by.aurorasoft.fuelinfosearcher.util.FuelInfoSpecificationUtil;
-import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -43,28 +40,15 @@ public final class FourteenthTableFuelInfoSearchingService extends AbstractCompo
     }
 
     @Override
-    protected Stream<StartRowFilter> createStartRowFilters() {
-        return Stream.of(
-                FuelDocumentRowFilterUtil::findRowsByRoadGroup
-        );
-    }
-
-    @Override
-    protected TEMPConclusiveRowFilter createFinalRowFilter() {
-        return FourteenthTableFuelInfoSearchingService::findRowByTransportDistance;
+    protected RowFilterChain createRowFilterChain() {
+        return RowFilterChain.builder()
+                .intermediateFilter(new RoadGroupRowFilter())
+                .conclusiveFilter(new TransportDistanceRowFilter(CELL_INDEX_TRANSPORT_DISTANCE))
+                .build();
     }
 
     @Override
     protected String extractFuelHeaderCellValue(final FuelSpecification specification) {
         return extractSpreadRate(specification);
-    }
-
-    private static Optional<XWPFTableRow> findRowByTransportDistance(final List<XWPFTableRow> rows,
-                                                                     final FuelSpecification specification) {
-        return FuelDocumentRowFilterUtil.findRowByTransportDistance(
-                rows,
-                specification,
-                CELL_INDEX_TRANSPORT_DISTANCE
-        );
     }
 }

@@ -13,12 +13,7 @@ import java.util.function.Function;
 public abstract class AbstractRowFilter<R> {
     private final int filteringCellIndex;
 
-    public final R filter(final List<XWPFTableRow> rows, final FuelSpecification specification) {
-        final String filteringValue = this.extractFilteringValue(specification);
-        return this.filter(rows, filteringValue, this.filteringCellIndex);
-    }
-
-    public final Function<List<XWPFTableRow>, R> createFilteringFunction(final FuelSpecification specification) {
+    public final Function<List<XWPFTableRow>, R> mapToFilteringFunction(final FuelSpecification specification) {
         return rows -> this.filter(rows, specification);
     }
 
@@ -27,4 +22,9 @@ public abstract class AbstractRowFilter<R> {
                                 final int filteringCellIndex);
 
     protected abstract String extractFilteringValue(final FuelSpecification specification);
+
+    private R filter(final List<XWPFTableRow> rows, final FuelSpecification specification) {
+        final String filteringValue = this.extractFilteringValue(specification);
+        return this.filter(rows, filteringValue, this.filteringCellIndex);
+    }
 }
