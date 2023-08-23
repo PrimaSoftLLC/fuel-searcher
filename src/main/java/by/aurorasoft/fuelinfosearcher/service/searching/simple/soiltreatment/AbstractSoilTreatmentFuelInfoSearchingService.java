@@ -7,11 +7,11 @@ import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.Wor
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.group.ProcessingDepthRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.united.MachineryRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.united.TractorRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searching.simple.AbstractSimpleTableFuelInfoSearchingService;
+import by.aurorasoft.fuelinfosearcher.service.searching.simple.TEMPAbstractSimpleTableFuelInfoSearchingService;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractRoutingLength;
 
-public abstract class AbstractSoilTreatmentFuelInfoSearchingService extends AbstractSimpleTableFuelInfoSearchingService {
+public abstract class AbstractSoilTreatmentFuelInfoSearchingService extends TEMPAbstractSimpleTableFuelInfoSearchingService {
     private static final String[] FUEL_INFO_HEADERS = new String[]{
             "Менее 150", "150-200", "201-300", "301-400", "401-600", "601-1000", "Более 1000"
     };

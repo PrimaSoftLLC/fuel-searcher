@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractRoutingLength;
 
 @Service
-public final class TwentyFifthTableFuelInfoSearchingService extends AbstractSimpleTableFuelInfoSearchingService {
+public final class TwentyFifthTableFuelInfoSearchingService extends TEMPAbstractSimpleTableFuelInfoSearchingService {
     private static final String TABLE_NAME = "УБОРКА КАРТОФЕЛЯ";
     private static final String[] FUEL_INFO_HEADERS = new String[]{
             "Менее 150", "151...200", "201...300", "301...400", "401...600", "601...1000", "Более 1000"

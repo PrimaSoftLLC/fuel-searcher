@@ -3,7 +3,8 @@ package by.aurorasoft.fuelinfosearcher.service.searching.composite;
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
-import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelSearchingService;
+import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelSearcher;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.chain.RowFilterChain;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 
@@ -22,12 +23,14 @@ import static java.util.stream.IntStream.iterate;
 /**
  * For tables with several element-tables
  */
-public abstract class AbstractCompositeTableFuelInfoSearchingService extends AbstractTableFuelSearchingService {
+public abstract class AbstractCompositeTableFuelInfoSearchingService extends AbstractTableFuelSearcher {
 
     public AbstractCompositeTableFuelInfoSearchingService(final FuelDocument fuelDocument,
                                                           final String fuelTableName,
-                                                          final String[] fuelInfoHeaders) {
-        super(fuelDocument, fuelTableName, fuelInfoHeaders);
+                                                          final String[] fuelHeaders,
+                                                          final RowFilterChain filterChain,
+                                                          final Function<FuelSpecification, String> fuelHeaderCellValueExtractor) {
+        super(fuelDocument, fuelTableName, fuelHeaders, filterChain, fuelHeaderCellValueExtractor);
     }
 
     @Override

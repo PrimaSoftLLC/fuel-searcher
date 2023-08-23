@@ -3,18 +3,18 @@ package by.aurorasoft.fuelinfosearcher.service.searching.simple;
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
-import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelSearchingService;
+import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelSearcher;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 
 import java.util.List;
 import java.util.Optional;
 
-public abstract class AbstractSimpleTableFuelInfoSearchingService extends AbstractTableFuelSearchingService {
+public abstract class TEMPAbstractSimpleTableFuelInfoSearchingService extends AbstractTableFuelSearcher {
 
-    public AbstractSimpleTableFuelInfoSearchingService(final FuelDocument fuelDocument,
-                                                       final String fuelTableName,
-                                                       final String[] fuelInfoHeaders) {
+    public TEMPAbstractSimpleTableFuelInfoSearchingService(final FuelDocument fuelDocument,
+                                                           final String fuelTableName,
+                                                           final String[] fuelInfoHeaders) {
         super(fuelDocument, fuelTableName, fuelInfoHeaders);
     }
 

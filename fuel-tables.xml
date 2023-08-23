@@ -7,15 +7,17 @@
 
             <name>ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ</name>
 
-            <fuel-info-headers>
-                <fuel-info-header>Менее 150</fuel-info-header>
-                <fuel-info-header>150-200</fuel-info-header>
-                <fuel-info-header>201-300</fuel-info-header>
-                <fuel-info-header>301-400</fuel-info-header>
-                <fuel-info-header>401-600</fuel-info-header>
-                <fuel-info-header>601-1000</fuel-info-header>
-                <fuel-info-header>Более 1000</fuel-info-header>
-            </fuel-info-headers>
+            <fuel-headers>
+                <fuel-header>Менее 150</fuel-header>
+                <fuel-header>150-200</fuel-header>
+                <fuel-header>201-300</fuel-header>
+                <fuel-header>301-400</fuel-header>
+                <fuel-header>401-600</fuel-header>
+                <fuel-header>601-1000</fuel-header>
+                <fuel-header>Более 1000</fuel-header>
+            </fuel-headers>
+
+            <fuel-header-cell-property>длина гона</fuel-header-cell-property>
 
             <filter-chain>
 

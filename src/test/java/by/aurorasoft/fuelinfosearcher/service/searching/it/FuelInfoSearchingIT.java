@@ -4,7 +4,7 @@ import by.aurorasoft.fuelinfosearcher.base.AbstractContextTest;
 import by.aurorasoft.fuelinfosearcher.model.Fuel;
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import by.aurorasoft.fuelinfosearcher.service.searching.it.argumentprovider.*;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.FuelInfoSearchingManager;
+import by.aurorasoft.fuelinfosearcher.service.searching.manager.FuelSearchingManager;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -46,7 +46,7 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
             new TwentySeventhTableFuelInfoSearchingArgumentsProvider()
     );
 
-    private final FuelInfoSearchingManager searchingManager = findBean(FuelInfoSearchingManager.class);
+    private final FuelSearchingManager searchingManager = findBean(FuelSearchingManager.class);
 
     @ParameterizedTest
     @MethodSource("fuelInfoSearchingArgumentProvider")
