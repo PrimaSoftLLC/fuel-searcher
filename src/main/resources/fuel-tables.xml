@@ -21,11 +21,9 @@
 
                 <intermidiate-filters>
 
-                    <group-filters>
-                        <group-filter>
-                            <filter-by>удельное сопротивление</filter-by>
-                        </group-filter>
-                    </group-filters>
+                    <group-filter>
+                        <filter-by>удельное сопротивление</filter-by>
+                    </group-filter>
 
                     <filter>
                         <filter-by>трактор</filter-by>
@@ -45,10 +43,8 @@
                 </intermidiate-filters>
 
                 <conclusive-filter>
-                    <filter>
-                        <filter-by>глубина вспашки</filter-by>
-                        <property-cell-index>4</property-cell-index>
-                    </filter>
+                    <filter-by>глубина вспашки</filter-by>
+                    <property-cell-index>4</property-cell-index>
                 </conclusive-filter>
 
             </filter-chain>
