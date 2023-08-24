@@ -1,0 +1,21 @@
+package by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searcherreader.dictionary;
+
+import by.aurorasoft.fuelinfosearcher.functionalinterface.FuelSpecificationPropertyExtractor;
+import by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil;
+import org.springframework.stereotype.Component;
+
+import java.util.Map;
+
+import static java.util.Map.entry;
+import static java.util.Map.ofEntries;
+
+@Component
+public final class FuelSpecificationPropertyExtractorDictionary extends AbstractDictionary<FuelSpecificationPropertyExtractor> {
+    private static final Map<String, FuelSpecificationPropertyExtractor> EXTRACTORS_BY_PROPERTY_NAMES = ofEntries(
+            entry("трактор", FuelSpecificationExtractingPropertyUtil::extractTractor)
+    );
+
+    public FuelSpecificationPropertyExtractorDictionary() {
+        super(EXTRACTORS_BY_PROPERTY_NAMES);
+    }
+}

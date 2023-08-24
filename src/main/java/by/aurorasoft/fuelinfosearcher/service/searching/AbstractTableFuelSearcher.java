@@ -1,5 +1,6 @@
 package by.aurorasoft.fuelinfosearcher.service.searching;
 
+import by.aurorasoft.fuelinfosearcher.functionalinterface.FuelSpecificationPropertyExtractor;
 import by.aurorasoft.fuelinfosearcher.model.Fuel;
 import by.aurorasoft.fuelinfosearcher.model.FuelLocation;
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
@@ -26,12 +27,12 @@ public abstract class AbstractTableFuelSearcher {
     private final FuelTable fuelTable;
     private final Map<String, Integer> fuelOffsetsByHeaders;
     private final RowFilterChain filterChain;
-    private final Function<FuelSpecification, String> fuelHeaderCellValueExtractor;
+    private final FuelSpecificationPropertyExtractor fuelHeaderCellValueExtractor;
 
     public AbstractTableFuelSearcher(final FuelTable fuelTable,
-                                     final String[] fuelHeaders,
+                                     final List<String> fuelHeaders,
                                      final RowFilterChain filterChain,
-                                     final Function<FuelSpecification, String> fuelHeaderCellValueExtractor) {
+                                     final FuelSpecificationPropertyExtractor fuelHeaderCellValueExtractor) {
         this.fuelTable = fuelTable;
         this.fuelOffsetsByHeaders = createFuelOffsetsByHeaders(fuelHeaders);
         this.filterChain = filterChain;
@@ -51,23 +52,10 @@ public abstract class AbstractTableFuelSearcher {
     protected abstract Optional<XWPFTable> findElementTable(final FuelTable fuelTable,
                                                             final FuelSpecification specification);
 
-    //TODO: remove
-//    private static FuelTable findTableByName(final FuelDocument fuelDocument, final String fuelTableName) {
-//        return fuelDocument.getTables()
-//                .stream()
-//                .filter(table -> Objects.equals(table.getName(), fuelTableName))
-//                .findFirst()
-//                .orElseThrow(
-//                        () -> new FuelTableNotExistException(
-//                                "Table '%s' doesn't exist".formatted(fuelTableName)
-//                        )
-//                );
-//    }
-
-    private static Map<String, Integer> createFuelOffsetsByHeaders(final String[] fuelHeaders) {
-        return range(0, fuelHeaders.length)
+    private static Map<String, Integer> createFuelOffsetsByHeaders(final List<String> fuelHeaders) {
+        return range(0, fuelHeaders.size())
                 .boxed()
-                .collect(toMap(i -> fuelHeaders[i], identity()));
+                .collect(toMap(fuelHeaders::get, identity()));
     }
 
     private Optional<Fuel> findFuel(final List<XWPFTableRow> elementTableRows, final FuelSpecification specification) {

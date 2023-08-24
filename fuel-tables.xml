@@ -3,6 +3,7 @@
 
     <simple-fuel-tables>
 
+        <!-- TABLE #1 -->
         <fuel-table>
 
             <name>ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ</name>
@@ -17,39 +18,42 @@
                 <fuel-header>Более 1000</fuel-header>
             </fuel-headers>
 
+            <filter-chain>
+                <filter-by-group>удельное сопротивление</filter-by-group>
+                <filter-by cell-index="1">трактор</filter-by>
+                <filter-by cell-index="2">механизм</filter-by>
+                <filter-by cell-index="3">количество корпусов</filter-by>
+                <final-filter-by cell-index="4">глубина вспашки</final-filter-by>
+            </filter-chain>
+
             <fuel-header-cell-property>длина гона</fuel-header-cell-property>
 
+        </fuel-table>
+
+        <!-- TABLE #2 -->
+        <fuel-table>
+
+            <name>ВСПАШКА СТЕРНИ</name>
+
+            <fuel-headers>
+                <fuel-header>Менее 150</fuel-header>
+                <fuel-header>150-200</fuel-header>
+                <fuel-header>201-300</fuel-header>
+                <fuel-header>301-400</fuel-header>
+                <fuel-header>401-600</fuel-header>
+                <fuel-header>601-1000</fuel-header>
+                <fuel-header>Более 1000</fuel-header>
+            </fuel-headers>
+
             <filter-chain>
-
-                <intermidiate-filters>
-
-                    <group-filter>
-                        <filter-by>удельное сопротивление</filter-by>
-                    </group-filter>
-
-                    <filter>
-                        <filter-by>трактор</filter-by>
-                        <property-cell-index>1</property-cell-index>
-                    </filter>
-
-                    <filter>
-                        <filter-by>механизм</filter-by>
-                        <property-cell-index>2</property-cell-index>
-                    </filter>
-
-                    <filter>
-                        <filter-by>количество корпусов</filter-by>
-                        <property-cell-index>3</property-cell-index>
-                    </filter>
-
-                </intermidiate-filters>
-
-                <conclusive-filter>
-                    <filter-by>глубина вспашки</filter-by>
-                    <property-cell-index>4</property-cell-index>
-                </conclusive-filter>
-
+                <filter-by-group>удельное сопротивление</filter-by-group>
+                <filter-by cell-index="1">трактор</filter-by>
+                <filter-by cell-index="2">механизм</filter-by>
+                <filter-by cell-index="3">количество корпусов</filter-by>
+                <final-filter-by cell-index="4">глубина вспашки</final-filter-by>
             </filter-chain>
+
+            <fuel-header-cell-property>длина гона</fuel-header-cell-property>
 
         </fuel-table>
 

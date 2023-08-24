@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.simple;
 
-import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
+import by.aurorasoft.fuelinfosearcher.functionalinterface.FuelSpecificationPropertyExtractor;
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
 import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelSearcher;
@@ -11,15 +11,14 @@ import org.apache.poi.xwpf.usermodel.XWPFTable;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 
 public final class SimpleTableFuelSearcher extends AbstractTableFuelSearcher {
 
     @Builder
     public SimpleTableFuelSearcher(final FuelTable fuelTable,
-                                   final String[] fuelHeaders,
+                                   final List<String> fuelHeaders,
                                    final RowFilterChain filterChain,
-                                   final Function<FuelSpecification, String> fuelHeaderCellValueExtractor) {
+                                   final FuelSpecificationPropertyExtractor fuelHeaderCellValueExtractor) {
         super(fuelTable, fuelHeaders, filterChain, fuelHeaderCellValueExtractor);
     }
 

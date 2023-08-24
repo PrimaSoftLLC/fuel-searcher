@@ -12,10 +12,8 @@ import java.io.InputStream;
 import java.util.Objects;
 
 import static javax.xml.stream.XMLInputFactory.newFactory;
-import static javax.xml.stream.XMLStreamConstants.END_ELEMENT;
-import static javax.xml.stream.XMLStreamConstants.START_ELEMENT;
+import static javax.xml.stream.XMLStreamConstants.*;
 
-//TODO: сделать так чтобы все было на уровне тегов
 public final class CloseableXMLStreamReader implements Closeable {
     private final XMLStreamReader xmlStreamReader;
 
@@ -31,12 +29,20 @@ public final class CloseableXMLStreamReader implements Closeable {
         }
     }
 
-    public void next() {
+    public int next() {
         try {
-            this.xmlStreamReader.next();
+            return this.xmlStreamReader.next();
         } catch (final XMLStreamException cause) {
             throw new XMLReadingException(cause);
         }
+    }
+
+    public String getLocalName() {
+        return this.xmlStreamReader.getLocalName();
+    }
+
+    public boolean isEndDocument() {
+        return this.xmlStreamReader.getEventType() == END_DOCUMENT;
     }
 
     public void nextTag() {
@@ -47,17 +53,14 @@ public final class CloseableXMLStreamReader implements Closeable {
         }
     }
 
-    public int findEventType() {
-        return this.xmlStreamReader.getEventType();
-    }
-
-    public String findLocalName() {
+    public String findTagName() {
         return this.xmlStreamReader.getLocalName();
     }
 
     public String findTagText() {
         try {
-            return this.xmlStreamReader.getElementText();
+            this.xmlStreamReader.next();
+            return xmlStreamReader.getText().trim();
         } catch (final XMLStreamException cause) {
             throw new XMLReadingException(cause);
         }
@@ -69,28 +72,20 @@ public final class CloseableXMLStreamReader implements Closeable {
         }
     }
 
-    public void skipUntilNextTag() {
-        this.nextTag();
-    }
-
-    public void skipUntilStartTag(final String tagName) {
-        while (!this.isStartTag(tagName)) {
-            this.nextTag();
-        }
-    }
-
     public boolean isCurrentStartTag() {
-        return this.findEventType() == START_ELEMENT;
+        return this.xmlStreamReader.getEventType() == START_ELEMENT;
     }
 
-    //TODO: refactor
+    public boolean isCurrentEndTag() {
+        return this.xmlStreamReader.getEventType() == END_ELEMENT;
+    }
+
     public boolean isStartTag(final String tagName) {
-        return this.findEventType() == START_ELEMENT && Objects.equals(this.findLocalName(), tagName);
+        return this.isCurrentStartTag() && Objects.equals(this.findTagName(), tagName);
     }
 
-    //TODO: refactor
     public boolean isEndTag(final String tagName) {
-        return this.findEventType() == END_ELEMENT && Objects.equals(this.findLocalName(), tagName);
+        return this.isCurrentEndTag() && Objects.equals(this.findTagName(), tagName);
     }
 
     @Override
