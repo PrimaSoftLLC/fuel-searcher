@@ -30,6 +30,7 @@ public final class FuelSearchersParser extends DefaultHandler {
                              final String localName,
                              final String qualifiedName,
                              final Attributes attributes) {
+        //TODO: remove switch
         switch (qualifiedName) {
             case "name" -> this.accumulateFuelTable();
             case "fuel-header" -> this.accumulateFuelHeader();
@@ -42,6 +43,7 @@ public final class FuelSearchersParser extends DefaultHandler {
 
     @Override
     public void endElement(final String uri, final String localName, final String qualifiedName) {
+        //TODO: remove switch
         switch (qualifiedName) {
             case "fuel-table" -> this.searcherParsingContext.reset();
         }
