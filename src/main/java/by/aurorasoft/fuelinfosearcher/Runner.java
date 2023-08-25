@@ -2,11 +2,11 @@ package by.aurorasoft.fuelinfosearcher;
 
 import by.aurorasoft.fuelinfosearcher.configuration.MainConfiguration;
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searcherreader.dictionary.ConclusiveRowFilterFactoryDictionary;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searcherreader.dictionary.FuelSpecificationPropertyExtractorDictionary;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searcherreader.dictionary.GroupRowFilterDictionary;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searcherreader.dictionary.IntermediateRowFilterFactoryDictionary;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searcherreader.sax.SimpleTableFuelSearchersParser;
+import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.ConclusiveRowFilterFactoryDictionary;
+import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.FuelSpecificationPropertyExtractorDictionary;
+import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.GroupRowFilterDictionary;
+import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.IntermediateRowFilterFactoryDictionary;
+import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.FuelSearchersParsingHandler;
 import by.aurorasoft.fuelinfosearcher.service.searching.simple.SimpleTableFuelSearcher;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -20,7 +20,7 @@ public final class Runner {
     public static void main(final String... args) throws Exception {
         final ApplicationContext context = new AnnotationConfigApplicationContext(MainConfiguration.class);
 
-        final SimpleTableFuelSearchersParser parser = new SimpleTableFuelSearchersParser(
+        final FuelSearchersParsingHandler parser = new FuelSearchersParsingHandler(
                 context.getBean(FuelDocument.class),
                 context.getBean(GroupRowFilterDictionary.class),
                 context.getBean(IntermediateRowFilterFactoryDictionary.class),

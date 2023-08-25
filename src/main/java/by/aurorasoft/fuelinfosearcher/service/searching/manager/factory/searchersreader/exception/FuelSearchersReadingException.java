@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searcherreader.exception;
+package by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.exception;
 
 public final class FuelSearchersReadingException extends RuntimeException {
 

@@ -2,11 +2,10 @@ package by.aurorasoft.fuelinfosearcher.service.searching.manager.factory;
 
 import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelSearcher;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.FuelSearchingManager;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searcherreader.FuelSearchersReader;
+import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.FuelSearchersReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import javax.xml.parsers.SAXParser;
 import java.util.List;
 
 @Component

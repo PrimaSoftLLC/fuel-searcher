@@ -66,6 +66,7 @@ public class RowFilterChain {
             return new RowFilterChain(this.intermediateFilters, this.conclusiveFilter);
         }
 
+        //TODO: refactor(do super class with this method)
         private void validateState() {
             if (this.conclusiveFilter == null) {
                 throw new RowFilterChainBuildingException("Conclusive filter isn't defined");

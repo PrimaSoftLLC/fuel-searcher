@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searcherreader.dictionary;
+package by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary;
 
 import lombok.RequiredArgsConstructor;
 

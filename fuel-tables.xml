@@ -1,10 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <fuel-tables>
 
-    <simple-fuel-tables>
-
         <!-- TABLE #1 -->
-        <fuel-table>
+        <simple-fuel-table>
 
             <name>ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ</name>
 
@@ -28,10 +26,10 @@
 
             <fuel-header-cell-property>длина гона</fuel-header-cell-property>
 
-        </fuel-table>
+        </simple-fuel-table>
 
         <!-- TABLE #2 -->
-        <fuel-table>
+        <simple-fuel-table>
 
             <name>ВСПАШКА СТЕРНИ</name>
 
@@ -55,8 +53,6 @@
 
             <fuel-header-cell-property>длина гона</fuel-header-cell-property>
 
-        </fuel-table>
-
-    </simple-fuel-tables>
+        </simple-fuel-table>
 
 </fuel-tables>
