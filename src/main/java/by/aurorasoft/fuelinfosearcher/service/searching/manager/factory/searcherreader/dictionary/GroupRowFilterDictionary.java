@@ -15,7 +15,7 @@ public final class GroupRowFilterDictionary extends AbstractDictionary<AbstractG
             entry("удельное сопротивление", new SpecificResistanceRowFilter())
     );
 
-    public GroupRowFilterDictionary(Map<String, AbstractGroupRowFilter> valuesByKeys) {
-        super(valuesByKeys);
+    public GroupRowFilterDictionary() {
+        super(FILTERS_BY_PROPERTY_NAMES);
     }
 }

@@ -12,7 +12,7 @@ import static java.util.Map.ofEntries;
 @Component
 public final class FuelSpecificationPropertyExtractorDictionary extends AbstractDictionary<FuelSpecificationPropertyExtractor> {
     private static final Map<String, FuelSpecificationPropertyExtractor> EXTRACTORS_BY_PROPERTY_NAMES = ofEntries(
-            entry("трактор", FuelSpecificationExtractingPropertyUtil::extractTractor)
+            entry("длина гона", FuelSpecificationExtractingPropertyUtil::extractRoutingLength)
     );
 
     public FuelSpecificationPropertyExtractorDictionary() {

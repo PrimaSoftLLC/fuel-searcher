@@ -5,15 +5,19 @@ import by.aurorasoft.fuelinfosearcher.model.Fuel;
 import by.aurorasoft.fuelinfosearcher.model.FuelLocation;
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
+import by.aurorasoft.fuelinfosearcher.service.searching.exception.FuelSearcherBuildingException;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.chain.RowFilterChain;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.chain.RowFilterChain.RowFilterChainBuilder;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.AbstractConclusiveRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.AbstractIntermediateRowFilter;
 import by.aurorasoft.fuelinfosearcher.util.FuelUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Function;
 
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findIndexFirstCellByContent;
 import static java.util.function.Function.identity;
@@ -84,5 +88,60 @@ public abstract class AbstractTableFuelSearcher {
     private static FuelLocation createFuelLocation(final XWPFTableRow dataRow, final int generationNormCellIndex) {
         final int consumptionCellIndex = generationNormCellIndex + 1;
         return new FuelLocation(dataRow, generationNormCellIndex, consumptionCellIndex);
+    }
+
+    public static abstract class AbstractTableFuelSearcherBuilder<S extends AbstractTableFuelSearcher> {
+        private FuelTable fuelTable;
+        private final List<String> fuelHeaders = new ArrayList<>();
+        private final RowFilterChainBuilder filterChainBuilder = RowFilterChain.builder();
+        private FuelSpecificationPropertyExtractor fuelHeaderCellValueExtractor;
+
+        public final AbstractTableFuelSearcherBuilder<S> fuelTable(final FuelTable fuelTable) {
+            this.fuelTable = fuelTable;
+            return this;
+        }
+
+        public final AbstractTableFuelSearcherBuilder<S> fuelHeader(final String fuelHeader) {
+            this.fuelHeaders.add(fuelHeader);
+            return this;
+        }
+
+        public final AbstractTableFuelSearcherBuilder<S> intermediateFilter(final AbstractIntermediateRowFilter filter) {
+            this.filterChainBuilder.intermediateFilter(filter);
+            return this;
+        }
+
+        public final AbstractTableFuelSearcherBuilder<S> conclusiveFilter(final AbstractConclusiveRowFilter filter) {
+            this.filterChainBuilder.conclusiveFilter(filter);
+            return this;
+        }
+
+        public final AbstractTableFuelSearcherBuilder<S> fuelHeaderCellValueExtractor(
+                final FuelSpecificationPropertyExtractor fuelHeaderCellValueExtractor) {
+            this.fuelHeaderCellValueExtractor = fuelHeaderCellValueExtractor;
+            return this;
+        }
+
+        public final S build() {
+            this.validateState();
+            final RowFilterChain filterChain = this.filterChainBuilder.build();
+            return this.build(this.fuelTable, this.fuelHeaders, filterChain, this.fuelHeaderCellValueExtractor);
+        }
+
+        protected abstract S build(final FuelTable fuelTable,
+                                   final List<String> fuelHeaders,
+                                   final RowFilterChain filterChain,
+                                   final FuelSpecificationPropertyExtractor fuelHeaderCellValueExtractor);
+
+        //TODO: refactor(do super class with this method)
+        private void validateState() {
+            if (this.fuelTable == null) {
+                throw new FuelSearcherBuildingException("Fuel table isn't defined");
+            } else if (this.fuelHeaders.isEmpty()) {
+                throw new FuelSearcherBuildingException("Fuel headers isn't defined");
+            } else if (this.fuelHeaderCellValueExtractor == null) {
+                throw new FuelSearcherBuildingException("Fuel header cell value extractor isn't defined");
+            }
+        }
     }
 }

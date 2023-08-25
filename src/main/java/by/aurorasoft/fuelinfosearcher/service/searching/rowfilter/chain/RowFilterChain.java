@@ -28,7 +28,8 @@ public class RowFilterChain {
         return filteringFunction.apply(rows);
     }
 
-    private Function<List<XWPFTableRow>, Optional<XWPFTableRow>> createFilteringFunction(final FuelSpecification specification) {
+    private Function<List<XWPFTableRow>, Optional<XWPFTableRow>> createFilteringFunction(
+            final FuelSpecification specification) {
         final Function<List<XWPFTableRow>, Optional<XWPFTableRow>> conclusiveFilteringFunction = this.conclusiveFilter
                 .mapToFilteringFunction(specification);
         return this.intermediateFilters.stream()
@@ -38,33 +39,37 @@ public class RowFilterChain {
                 .orElse(conclusiveFilteringFunction);
     }
 
-    public static FilterChainBuilder builder() {
-        return new FilterChainBuilder();
+    public static RowFilterChainBuilder builder() {
+        return new RowFilterChainBuilder();
     }
 
-    public static class FilterChainBuilder {
+    public static final class RowFilterChainBuilder {
         private final List<AbstractIntermediateRowFilter> intermediateFilters;
         private AbstractConclusiveRowFilter conclusiveFilter;
 
-        private FilterChainBuilder() {
+        private RowFilterChainBuilder() {
             this.intermediateFilters = new ArrayList<>();
         }
 
-        public FilterChainBuilder intermediateFilter(final AbstractIntermediateRowFilter filter) {
+        public RowFilterChainBuilder intermediateFilter(final AbstractIntermediateRowFilter filter) {
             this.intermediateFilters.add(filter);
             return this;
         }
 
-        public FilterChainBuilder conclusiveFilter(final AbstractConclusiveRowFilter filter) {
+        public RowFilterChainBuilder conclusiveFilter(final AbstractConclusiveRowFilter filter) {
             this.conclusiveFilter = filter;
             return this;
         }
 
         public RowFilterChain build() {
+            this.validateState();
+            return new RowFilterChain(this.intermediateFilters, this.conclusiveFilter);
+        }
+
+        private void validateState() {
             if (this.conclusiveFilter == null) {
                 throw new RowFilterChainBuildingException("Conclusive filter isn't defined");
             }
-            return new RowFilterChain(this.intermediateFilters, this.conclusiveFilter);
         }
     }
 }
