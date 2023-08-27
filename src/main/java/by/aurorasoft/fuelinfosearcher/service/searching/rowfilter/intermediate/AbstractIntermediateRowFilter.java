@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate;
+package by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate;
 
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.AbstractRowFilter;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;

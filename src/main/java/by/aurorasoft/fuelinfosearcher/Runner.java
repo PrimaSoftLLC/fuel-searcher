@@ -2,10 +2,7 @@ package by.aurorasoft.fuelinfosearcher;
 
 import by.aurorasoft.fuelinfosearcher.configuration.MainConfiguration;
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.ConclusiveRowFilterFactoryDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.FuelSpecificationPropertyExtractorDictionary;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.GroupRowFilterDictionary;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.IntermediateRowFilterFactoryDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.FuelSearchersParsingHandler;
 import by.aurorasoft.fuelinfosearcher.service.searching.simple.SimpleTableFuelSearcher;
 import org.springframework.context.ApplicationContext;

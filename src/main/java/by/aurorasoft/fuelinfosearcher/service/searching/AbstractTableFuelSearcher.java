@@ -9,7 +9,7 @@ import by.aurorasoft.fuelinfosearcher.service.searching.exception.FuelSearcherBu
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.chain.RowFilterChain;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.chain.RowFilterChain.RowFilterChainBuilder;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.AbstractConclusiveRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.AbstractIntermediateRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.AbstractIntermediateRowFilter;
 import by.aurorasoft.fuelinfosearcher.util.FuelUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;

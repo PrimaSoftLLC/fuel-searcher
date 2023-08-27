@@ -4,7 +4,7 @@ import by.aurorasoft.fuelinfosearcher.functionalinterface.FuelSpecificationPrope
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
 import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelSearcher;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.AbstractConclusiveRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.AbstractIntermediateRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.AbstractIntermediateRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.simple.SimpleTableFuelSearcher;
 import by.aurorasoft.fuelinfosearcher.service.searching.simple.SimpleTableFuelSearcher.SimpleTableFuelSearcherBuilder;
 import lombok.Getter;

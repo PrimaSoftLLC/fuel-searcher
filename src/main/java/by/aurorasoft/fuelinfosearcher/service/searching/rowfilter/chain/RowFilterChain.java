@@ -3,7 +3,7 @@ package by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.chain;
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.chain.exception.RowFilterChainBuildingException;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.AbstractConclusiveRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.AbstractIntermediateRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.AbstractIntermediateRowFilter;
 import lombok.AllArgsConstructor;
 import lombok.Value;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;

@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.united;
+package by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.united;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 

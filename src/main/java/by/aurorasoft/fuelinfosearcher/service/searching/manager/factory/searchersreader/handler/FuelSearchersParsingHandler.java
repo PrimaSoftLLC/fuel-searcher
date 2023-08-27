@@ -2,20 +2,16 @@ package by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searche
 
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
 import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelSearcher;
+import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter.ConclusiveRowFilterFactoryDictionary;
+import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter.IntermediateRowFilterFactoryDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.fueltablesearcher.FuelTableSearcher;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.ConclusiveRowFilterFactoryDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.FuelSpecificationPropertyExtractorDictionary;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.GroupRowFilterDictionary;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.IntermediateRowFilterFactoryDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.context.FuelSearchersParsingContext;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermidiate.group.AbstractGroupRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searching.simple.SimpleTableFuelSearcher;
-import by.aurorasoft.fuelinfosearcher.service.searching.simple.SimpleTableFuelSearcher.SimpleTableFuelSearcherBuilder;
-import lombok.Getter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.group.AbstractGroupRowFilter;
+import lombok.Builder;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
@@ -23,20 +19,17 @@ import static java.lang.String.copyValueOf;
 
 public final class FuelSearchersParsingHandler extends DefaultHandler {
     private final FuelTableSearcher fuelTableSearcher;
-    private final GroupRowFilterDictionary groupRowFilterDictionary;
     private final IntermediateRowFilterFactoryDictionary intermediateRowFilterFactoryDictionary;
     private final ConclusiveRowFilterFactoryDictionary conclusiveRowFilterFactoryDictionary;
     private final FuelSpecificationPropertyExtractorDictionary fuelSpecificationPropertyExtractorDictionary;
-
     private final FuelSearchersParsingContext context;
 
+    @Builder
     public FuelSearchersParsingHandler(final FuelTableSearcher fuelTableSearcher,
-                                       final GroupRowFilterDictionary groupRowFilterDictionary,
                                        final IntermediateRowFilterFactoryDictionary intermediateRowFilterFactoryDictionary,
                                        final ConclusiveRowFilterFactoryDictionary conclusiveRowFilterFactoryDictionary,
                                        final FuelSpecificationPropertyExtractorDictionary fuelSpecificationPropertyExtractorDictionary) {
         this.fuelTableSearcher = fuelTableSearcher;
-        this.groupRowFilterDictionary = groupRowFilterDictionary;
         this.intermediateRowFilterFactoryDictionary = intermediateRowFilterFactoryDictionary;
         this.conclusiveRowFilterFactoryDictionary = conclusiveRowFilterFactoryDictionary;
         this.fuelSpecificationPropertyExtractorDictionary = fuelSpecificationPropertyExtractorDictionary;
