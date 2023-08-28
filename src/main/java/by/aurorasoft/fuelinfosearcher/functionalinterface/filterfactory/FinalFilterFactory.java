@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelinfosearcher.functionalinterface.filterfactory;
 
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.FinalFilter;
+import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.conclusive.FinalFilter;
 
 public interface FinalFilterFactory extends FilterFactory<FinalFilter> {
 

@@ -2,8 +2,8 @@ package by.aurorasoft.fuelinfosearcher.configuration;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelDocument;
 import by.aurorasoft.fuelinfosearcher.service.documentcreating.FuelDocumentCreatingService;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.FuelSearchingManager;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.FuelSearchingManagerFactory;
+import by.aurorasoft.fuelinfosearcher.service.searcher.manager.FuelSearchingManager;
+import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.FuelSearchingManagerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
