@@ -9,7 +9,7 @@ import by.aurorasoft.fuelinfosearcher.service.searching.exception.FuelSearcherBu
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.chain.RowFilterChain;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.chain.RowFilterChain.RowFilterChainBuilder;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.AbstractConclusiveRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.AbstractInterimRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.AbstractInterimFilter;
 import by.aurorasoft.fuelinfosearcher.util.FuelUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
@@ -106,7 +106,7 @@ public abstract class AbstractTableFuelSearcher {
             return this;
         }
 
-        public final AbstractTableFuelSearcherBuilder<S> intermediateFilter(final AbstractInterimRowFilter filter) {
+        public final AbstractTableFuelSearcherBuilder<S> intermediateFilter(final AbstractInterimFilter filter) {
             this.filterChainBuilder.intermediateFilter(filter);
             return this;
         }

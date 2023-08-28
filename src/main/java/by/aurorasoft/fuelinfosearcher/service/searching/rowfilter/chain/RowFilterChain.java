@@ -3,7 +3,7 @@ package by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.chain;
 import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.chain.exception.RowFilterChainBuildingException;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.AbstractConclusiveRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.AbstractInterimRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.AbstractInterimFilter;
 import lombok.AllArgsConstructor;
 import lombok.Value;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
@@ -18,7 +18,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Value
 @AllArgsConstructor(access = PRIVATE)
 public class RowFilterChain {
-    List<AbstractInterimRowFilter> intermediateFilters;
+    List<AbstractInterimFilter> intermediateFilters;
     AbstractConclusiveRowFilter conclusiveFilter;
 
     public Optional<XWPFTableRow> filter(final List<XWPFTableRow> rows, final FuelSpecification specification) {
@@ -44,14 +44,14 @@ public class RowFilterChain {
     }
 
     public static final class RowFilterChainBuilder {
-        private final List<AbstractInterimRowFilter> intermediateFilters;
+        private final List<AbstractInterimFilter> intermediateFilters;
         private AbstractConclusiveRowFilter conclusiveFilter;
 
         private RowFilterChainBuilder() {
             this.intermediateFilters = new ArrayList<>();
         }
 
-        public RowFilterChainBuilder intermediateFilter(final AbstractInterimRowFilter filter) {
+        public RowFilterChainBuilder intermediateFilter(final AbstractInterimFilter filter) {
             this.intermediateFilters.add(filter);
             return this;
         }
