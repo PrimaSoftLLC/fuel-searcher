@@ -3,7 +3,7 @@ package by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searche
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.FuelSearchersParsingHandler;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.FuelSpecificationPropertyExtractorDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter.ConclusiveRowFilterFactoryDictionary;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter.IntermediateRowFilterFactoryDictionary;
+import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter.InterimFilterFactoryDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.fueltablesearcher.FuelTableSearcher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public final class FuelSearchersParsingHandlerFactory {
     private final FuelTableSearcher fuelTableSearcher;
-    private final IntermediateRowFilterFactoryDictionary intermediateRowFilterFactoryDictionary;
+    private final InterimFilterFactoryDictionary intermediateRowFilterFactoryDictionary;
     private final ConclusiveRowFilterFactoryDictionary conclusiveRowFilterFactoryDictionary;
     private final FuelSpecificationPropertyExtractorDictionary fuelSpecificationPropertyExtractorDictionary;
 

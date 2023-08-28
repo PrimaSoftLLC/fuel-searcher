@@ -3,7 +3,7 @@ package by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searche
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
 import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelSearcher;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter.ConclusiveRowFilterFactoryDictionary;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter.IntermediateRowFilterFactoryDictionary;
+import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter.InterimFilterFactoryDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.fueltablesearcher.FuelTableSearcher;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.FuelSpecificationPropertyExtractorDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.context.FuelSearchersParsingContext;
@@ -19,14 +19,14 @@ import static java.lang.String.copyValueOf;
 
 public final class FuelSearchersParsingHandler extends DefaultHandler {
     private final FuelTableSearcher fuelTableSearcher;
-    private final IntermediateRowFilterFactoryDictionary intermediateRowFilterFactoryDictionary;
+    private final InterimFilterFactoryDictionary intermediateRowFilterFactoryDictionary;
     private final ConclusiveRowFilterFactoryDictionary conclusiveRowFilterFactoryDictionary;
     private final FuelSpecificationPropertyExtractorDictionary fuelSpecificationPropertyExtractorDictionary;
     private final FuelSearchersParsingContext context;
 
     @Builder
     public FuelSearchersParsingHandler(final FuelTableSearcher fuelTableSearcher,
-                                       final IntermediateRowFilterFactoryDictionary intermediateRowFilterFactoryDictionary,
+                                       final InterimFilterFactoryDictionary intermediateRowFilterFactoryDictionary,
                                        final ConclusiveRowFilterFactoryDictionary conclusiveRowFilterFactoryDictionary,
                                        final FuelSpecificationPropertyExtractorDictionary fuelSpecificationPropertyExtractorDictionary) {
         this.fuelTableSearcher = fuelTableSearcher;
