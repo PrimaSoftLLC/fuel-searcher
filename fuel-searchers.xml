@@ -1,58 +1,85 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <fuel-searchers>
 
-        <!-- TABLE #1 -->
-        <simple-searcher>
+    <!-- TABLE #1 -->
+    <simple-searcher>
 
-            <table-name>ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ</table-name>
+        <table-name>ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ</table-name>
 
-            <fuel-headers>
-                <fuel-header>Менее 150</fuel-header>
-                <fuel-header>150-200</fuel-header>
-                <fuel-header>201-300</fuel-header>
-                <fuel-header>301-400</fuel-header>
-                <fuel-header>401-600</fuel-header>
-                <fuel-header>601-1000</fuel-header>
-                <fuel-header>Более 1000</fuel-header>
-            </fuel-headers>
+        <fuel-headers>
+            <fuel-header>Менее 150</fuel-header>
+            <fuel-header>150-200</fuel-header>
+            <fuel-header>201-300</fuel-header>
+            <fuel-header>301-400</fuel-header>
+            <fuel-header>401-600</fuel-header>
+            <fuel-header>601-1000</fuel-header>
+            <fuel-header>Более 1000</fuel-header>
+        </fuel-headers>
 
-            <filter-chain>
-                <filter-by-group>удельное сопротивление</filter-by-group>
-                <filter-by cell-index="1">трактор</filter-by>
-                <filter-by cell-index="2">механизм</filter-by>
-                <filter-by cell-index="3">количество корпусов</filter-by>
-                <final-filter-by cell-index="4">глубина вспашки</final-filter-by>
-            </filter-chain>
+        <filter-chain>
+            <filter-by-group>удельное сопротивление</filter-by-group>
+            <filter-by cell-index="1">трактор</filter-by>
+            <filter-by cell-index="2">механизм</filter-by>
+            <filter-by cell-index="3">количество корпусов</filter-by>
+            <final-filter-by cell-index="4">глубина вспашки</final-filter-by>
+        </filter-chain>
 
-            <fuel-header-name>длина гона</fuel-header-name>
+        <fuel-header-name>длина гона</fuel-header-name>
 
-        </simple-searcher>
+    </simple-searcher>
 
-        <!-- TABLE #2 -->
-        <simple-searcher>
+    <!-- TABLE #2 -->
+    <simple-searcher>
 
-            <table-name>ВСПАШКА СТЕРНИ</table-name>
+        <table-name>ВСПАШКА СТЕРНИ</table-name>
 
-            <fuel-headers>
-                <fuel-header>Менее 150</fuel-header>
-                <fuel-header>150-200</fuel-header>
-                <fuel-header>201-300</fuel-header>
-                <fuel-header>301-400</fuel-header>
-                <fuel-header>401-600</fuel-header>
-                <fuel-header>601-1000</fuel-header>
-                <fuel-header>Более 1000</fuel-header>
-            </fuel-headers>
+        <fuel-headers>
+            <fuel-header>Менее 150</fuel-header>
+            <fuel-header>150-200</fuel-header>
+            <fuel-header>201-300</fuel-header>
+            <fuel-header>301-400</fuel-header>
+            <fuel-header>401-600</fuel-header>
+            <fuel-header>601-1000</fuel-header>
+            <fuel-header>Более 1000</fuel-header>
+        </fuel-headers>
 
-            <filter-chain>
-                <filter-by-group>удельное сопротивление</filter-by-group>
-                <filter-by cell-index="1">трактор</filter-by>
-                <filter-by cell-index="2">механизм</filter-by>
-                <filter-by cell-index="3">количество корпусов</filter-by>
-                <final-filter-by cell-index="4">глубина вспашки</final-filter-by>
-            </filter-chain>
+        <filter-chain>
+            <filter-by-group>удельное сопротивление</filter-by-group>
+            <filter-by cell-index="1">трактор</filter-by>
+            <filter-by cell-index="2">механизм</filter-by>
+            <filter-by cell-index="3">количество корпусов</filter-by>
+            <final-filter-by cell-index="4">глубина вспашки</final-filter-by>
+        </filter-chain>
 
-            <fuel-header-name>длина гона</fuel-header-name>
+        <fuel-header-name>длина гона</fuel-header-name>
 
-        </simple-searcher>
+    </simple-searcher>
+
+    <!-- TABLE #3 -->
+    <simple-searcher>
+
+        <table-name>ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ</table-name>
+
+        <fuel-headers>
+            <fuel-header>Менее 150</fuel-header>
+            <fuel-header>150-200</fuel-header>
+            <fuel-header>201-300</fuel-header>
+            <fuel-header>301-400</fuel-header>
+            <fuel-header>401-600</fuel-header>
+            <fuel-header>601-1000</fuel-header>
+            <fuel-header>Более 1000</fuel-header>
+        </fuel-headers>
+
+        <filter-chain>
+            <filter-by-group>тип почвы</filter-by-group>
+            <filter-by cell-index="1">трактор</filter-by>
+            <filter-by cell-index="2">механизм</filter-by>
+            <filter-by cell-index="3">количество корпусов</filter-by>
+            <final-filter-by cell-index="4">глубина вспашки</final-filter-by>
+        </filter-chain>
+
+        <fuel-header-name>длина гона</fuel-header-name>
+
+    </simple-searcher>
 
 </fuel-searchers>
