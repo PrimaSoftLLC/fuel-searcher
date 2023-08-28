@@ -1,27 +1,36 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.factory;
 
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.FuelSearchersParsingHandler;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.SpecificationPropertyExtractorDictionary;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter.FinalFilterFactoryDictionary;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter.interim.InterimFilterFactoryDictionary;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.fueltablesearcher.FuelTableSearcher;
-import lombok.RequiredArgsConstructor;
+import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.context.FuelSearchersParsingContext;
+import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.taghandler.TagHandler;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Map;
+
+import static java.util.function.Function.identity;
+import static java.util.stream.Collectors.toMap;
+
 @Component
-@RequiredArgsConstructor
 public final class FuelSearchersParsingHandlerFactory {
-    private final FuelTableSearcher fuelTableSearcher;
-    private final InterimFilterFactoryDictionary intermediateRowFilterFactoryDictionary;
-    private final FinalFilterFactoryDictionary conclusiveRowFilterFactoryDictionary;
-    private final SpecificationPropertyExtractorDictionary fuelSpecificationPropertyExtractorDictionary;
+    private final Map<String, TagHandler> handlersByTagNames;
+
+    public FuelSearchersParsingHandlerFactory(final List<TagHandler> tagHandlers) {
+        this.handlersByTagNames = createHandlersByTagNames(tagHandlers);
+    }
 
     public FuelSearchersParsingHandler create() {
-        return FuelSearchersParsingHandler.builder()
-                .fuelTableSearcher(this.fuelTableSearcher)
-                .intermediateRowFilterFactoryDictionary(this.intermediateRowFilterFactoryDictionary)
-                .conclusiveRowFilterFactoryDictionary(this.conclusiveRowFilterFactoryDictionary)
-                .fuelSpecificationPropertyExtractorDictionary(this.fuelSpecificationPropertyExtractorDictionary)
-                .build();
+        final FuelSearchersParsingContext context = new FuelSearchersParsingContext();
+        return new FuelSearchersParsingHandler(this.handlersByTagNames, context);
+    }
+
+    private static Map<String, TagHandler> createHandlersByTagNames(final List<TagHandler> tagHandlers) {
+        return tagHandlers.stream()
+                .collect(
+                        toMap(
+                                TagHandler::getTagName,
+                                identity()
+                        )
+                );
     }
 }
