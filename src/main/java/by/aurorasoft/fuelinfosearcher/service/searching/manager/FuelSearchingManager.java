@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.manager;
 
 import by.aurorasoft.fuelinfosearcher.model.Fuel;
-import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
+import by.aurorasoft.fuelinfosearcher.model.Specification;
 import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelSearcher;
 import by.aurorasoft.fuelinfosearcher.service.searching.exception.FuelSearcherNotExistException;
 
@@ -20,7 +20,7 @@ public final class FuelSearchingManager {
         this.searchersByTableNames = findSearchersByTableNames(searchers);
     }
 
-    public Optional<Fuel> find(final FuelSpecification specification) {
+    public Optional<Fuel> find(final Specification specification) {
         final AbstractTableFuelSearcher searcher = this.findSearcher(specification);
         return searcher.find(specification);
     }
@@ -36,7 +36,7 @@ public final class FuelSearchingManager {
                 );
     }
 
-    private AbstractTableFuelSearcher findSearcher(final FuelSpecification specification) {
+    private AbstractTableFuelSearcher findSearcher(final Specification specification) {
         final String tableName = extractTableName(specification);
         return this.searchersByTableNames.computeIfAbsent(
                 tableName,

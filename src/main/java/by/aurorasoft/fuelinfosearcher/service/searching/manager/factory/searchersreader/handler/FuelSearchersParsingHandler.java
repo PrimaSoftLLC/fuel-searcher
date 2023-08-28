@@ -5,7 +5,7 @@ import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelSearche
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter.FinalFilterFactoryDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter.interim.InterimFilterFactoryDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.fueltablesearcher.FuelTableSearcher;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.FuelSpecificationPropertyExtractorDictionary;
+import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.SpecificationPropertyExtractorDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.context.FuelSearchersParsingContext;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.group.GroupFilter;
 import lombok.Builder;
@@ -21,14 +21,14 @@ public final class FuelSearchersParsingHandler extends DefaultHandler {
     private final FuelTableSearcher fuelTableSearcher;
     private final InterimFilterFactoryDictionary intermediateRowFilterFactoryDictionary;
     private final FinalFilterFactoryDictionary conclusiveRowFilterFactoryDictionary;
-    private final FuelSpecificationPropertyExtractorDictionary fuelSpecificationPropertyExtractorDictionary;
+    private final SpecificationPropertyExtractorDictionary fuelSpecificationPropertyExtractorDictionary;
     private final FuelSearchersParsingContext context;
 
     @Builder
     public FuelSearchersParsingHandler(final FuelTableSearcher fuelTableSearcher,
                                        final InterimFilterFactoryDictionary intermediateRowFilterFactoryDictionary,
                                        final FinalFilterFactoryDictionary conclusiveRowFilterFactoryDictionary,
-                                       final FuelSpecificationPropertyExtractorDictionary fuelSpecificationPropertyExtractorDictionary) {
+                                       final SpecificationPropertyExtractorDictionary fuelSpecificationPropertyExtractorDictionary) {
         this.fuelTableSearcher = fuelTableSearcher;
         this.intermediateRowFilterFactoryDictionary = intermediateRowFilterFactoryDictionary;
         this.conclusiveRowFilterFactoryDictionary = conclusiveRowFilterFactoryDictionary;
@@ -58,7 +58,7 @@ public final class FuelSearchersParsingHandler extends DefaultHandler {
             case "filter-by" -> this.accumulateIntermediateFilter();
             case "final-filter-by" -> this.accumulateConclusiveFilter();
             case "fuel-header-cell-property" -> this.accumulateFuelHeaderValueExtractor();
-            case "simple-fuel-table" -> this.context.buildSearcher();
+            case "simple-fuel-table" -> this.context.buildSimpleSearcher();
         }
     }
 
@@ -95,7 +95,7 @@ public final class FuelSearchersParsingHandler extends DefaultHandler {
     }
 
     private void accumulateFuelHeaderValueExtractor() {
-        this.context.accumulateFuelHeaderCellValueExtractor(
+        this.context.accumulateFuelHeaderExtractor(
                 this.fuelSpecificationPropertyExtractorDictionary.find(this.context.getLastContent()).orElseThrow()
         );
     }

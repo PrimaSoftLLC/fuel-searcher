@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.united;
 
-import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
+import by.aurorasoft.fuelinfosearcher.model.Specification;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractChargingMethodAndTransportDistance;
 
@@ -11,7 +11,7 @@ public final class ChargingMethodAndTransportDistanceRowFilter extends UnitedFil
     }
 
     @Override
-    protected String extractFilteringValue(final FuelSpecification specification) {
+    protected String extractFilteringValue(final Specification specification) {
         return extractChargingMethodAndTransportDistance(specification);
     }
 }

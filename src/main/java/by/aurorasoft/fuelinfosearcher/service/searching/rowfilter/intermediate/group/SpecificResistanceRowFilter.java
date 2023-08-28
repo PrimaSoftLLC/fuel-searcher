@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.group;
 
-import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
+import by.aurorasoft.fuelinfosearcher.model.Specification;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractSpecificResistance;
 
@@ -12,7 +12,7 @@ public final class SpecificResistanceRowFilter extends GroupFilter {
     }
 
     @Override
-    protected String extractFilteringValue(final FuelSpecification specification) {
+    protected String extractFilteringValue(final Specification specification) {
         return extractSpecificResistance(specification);
     }
 

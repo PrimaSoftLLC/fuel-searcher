@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.it.argumentprovider;
 
 import by.aurorasoft.fuelinfosearcher.model.Fuel;
-import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
+import by.aurorasoft.fuelinfosearcher.model.Specification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -16,7 +16,7 @@ public final class TwentyThirdTableFuelInfoSearchingArgumentsProvider extends Ab
     protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
         return Stream.of(
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПОДБОР ПРОВЯЛЕННЫХ ТРАВ ИЗ ВАЛКОВ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .machinery("BIG X 770")
                                 .workingWidth("3.8")
@@ -26,7 +26,7 @@ public final class TwentyThirdTableFuelInfoSearchingArgumentsProvider extends Ab
                         optionalFuelInfoFactory.apply(55.6, 1.97)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПОДБОР ПРОВЯЛЕННЫХ ТРАВ ИЗ ВАЛКОВ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .machinery("BIG X 700")
                                 .workingWidth("3")
@@ -36,7 +36,7 @@ public final class TwentyThirdTableFuelInfoSearchingArgumentsProvider extends Ab
                         optionalFuelInfoFactory.apply(108.1, 0.98)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПОДБОР ПРОВЯЛЕННЫХ ТРАВ ИЗ ВАЛКОВ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .machinery("КВК 800")
                                 .workingWidth("3")
@@ -47,7 +47,7 @@ public final class TwentyThirdTableFuelInfoSearchingArgumentsProvider extends Ab
                 ),
                 //not existing machinery
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПОДБОР ПРОВЯЛЕННЫХ ТРАВ ИЗ ВАЛКОВ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .machinery("not existing")
                                 .workingWidth("3")
@@ -58,7 +58,7 @@ public final class TwentyThirdTableFuelInfoSearchingArgumentsProvider extends Ab
                 ),
                 //not existing working width
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПОДБОР ПРОВЯЛЕННЫХ ТРАВ ИЗ ВАЛКОВ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .machinery("КВК 800")
                                 .workingWidth("not existing")
@@ -69,7 +69,7 @@ public final class TwentyThirdTableFuelInfoSearchingArgumentsProvider extends Ab
                 ),
                 //not existing yield
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПОДБОР ПРОВЯЛЕННЫХ ТРАВ ИЗ ВАЛКОВ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .machinery("КВК 800")
                                 .workingWidth("3")
@@ -80,7 +80,7 @@ public final class TwentyThirdTableFuelInfoSearchingArgumentsProvider extends Ab
                 ),
                 //not existing routing length
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПОДБОР ПРОВЯЛЕННЫХ ТРАВ ИЗ ВАЛКОВ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .machinery("КВК 800")
                                 .workingWidth("3")

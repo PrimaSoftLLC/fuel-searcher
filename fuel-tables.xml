@@ -24,7 +24,7 @@
                 <final-filter-by cell-index="4">глубина вспашки</final-filter-by>
             </filter-chain>
 
-            <fuel-header-cell-property>длина гона</fuel-header-cell-property>
+            <fuel-header-name>длина гона</fuel-header-name>
 
         </simple-fuel-table>
 
@@ -51,7 +51,7 @@
                 <final-filter-by cell-index="4">глубина вспашки</final-filter-by>
             </filter-chain>
 
-            <fuel-header-cell-property>длина гона</fuel-header-cell-property>
+            <fuel-header-name>длина гона</fuel-header-name>
 
         </simple-fuel-table>
 

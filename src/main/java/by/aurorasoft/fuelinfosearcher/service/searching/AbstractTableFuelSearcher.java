@@ -1,9 +1,9 @@
 package by.aurorasoft.fuelinfosearcher.service.searching;
 
-import by.aurorasoft.fuelinfosearcher.functionalinterface.FuelSpecificationPropertyExtractor;
+import by.aurorasoft.fuelinfosearcher.functionalinterface.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelinfosearcher.model.Fuel;
 import by.aurorasoft.fuelinfosearcher.model.FuelLocation;
-import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
+import by.aurorasoft.fuelinfosearcher.model.Specification;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
 import by.aurorasoft.fuelinfosearcher.service.searching.exception.FuelSearcherBuildingException;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.chain.RowFilterChain;
@@ -31,12 +31,12 @@ public abstract class AbstractTableFuelSearcher {
     private final FuelTable fuelTable;
     private final Map<String, Integer> fuelOffsetsByHeaders;
     private final RowFilterChain filterChain;
-    private final FuelSpecificationPropertyExtractor fuelHeaderCellValueExtractor;
+    private final SpecificationPropertyExtractor fuelHeaderCellValueExtractor;
 
     public AbstractTableFuelSearcher(final FuelTable fuelTable,
                                      final List<String> fuelHeaders,
                                      final RowFilterChain filterChain,
-                                     final FuelSpecificationPropertyExtractor fuelHeaderCellValueExtractor) {
+                                     final SpecificationPropertyExtractor fuelHeaderCellValueExtractor) {
         this.fuelTable = fuelTable;
         this.fuelOffsetsByHeaders = createFuelOffsetsByHeaders(fuelHeaders);
         this.filterChain = filterChain;
@@ -47,14 +47,14 @@ public abstract class AbstractTableFuelSearcher {
         return this.fuelTable.getName();
     }
 
-    public final Optional<Fuel> find(final FuelSpecification specification) {
+    public final Optional<Fuel> find(final Specification specification) {
         return this.findElementTable(this.fuelTable, specification)
                 .map(XWPFTable::getRows)
                 .flatMap(elementTableRows -> this.findFuel(elementTableRows, specification));
     }
 
     protected abstract Optional<XWPFTable> findElementTable(final FuelTable fuelTable,
-                                                            final FuelSpecification specification);
+                                                            final Specification specification);
 
     private static Map<String, Integer> createFuelOffsetsByHeaders(final List<String> fuelHeaders) {
         return range(0, fuelHeaders.size())
@@ -62,7 +62,7 @@ public abstract class AbstractTableFuelSearcher {
                 .collect(toMap(fuelHeaders::get, identity()));
     }
 
-    private Optional<Fuel> findFuel(final List<XWPFTableRow> elementTableRows, final FuelSpecification specification) {
+    private Optional<Fuel> findFuel(final List<XWPFTableRow> elementTableRows, final Specification specification) {
         final XWPFTableRow fuelHeaderRow = elementTableRows.get(ROW_INDEX_FUEL_HEADER);
         return this.filterChain.filter(elementTableRows, specification)
                 .flatMap(row -> this.findFuelLocation(fuelHeaderRow, specification, row))
@@ -70,7 +70,7 @@ public abstract class AbstractTableFuelSearcher {
     }
 
     private Optional<FuelLocation> findFuelLocation(final XWPFTableRow fuelHeaderRow,
-                                                    final FuelSpecification specification,
+                                                    final Specification specification,
                                                     final XWPFTableRow dataRow) {
         final String fuelHeaderCellValue = this.fuelHeaderCellValueExtractor.apply(specification);
         return findIndexFirstCellByContent(fuelHeaderRow, fuelHeaderCellValue)
@@ -94,7 +94,7 @@ public abstract class AbstractTableFuelSearcher {
         private FuelTable fuelTable;
         private final List<String> fuelHeaders = new ArrayList<>();
         private final RowFilterChainBuilder filterChainBuilder = RowFilterChain.builder();
-        private FuelSpecificationPropertyExtractor fuelHeaderCellValueExtractor;
+        private SpecificationPropertyExtractor fuelHeaderCellValueExtractor;
 
         public final AbstractTableFuelSearcherBuilder<S> fuelTable(final FuelTable fuelTable) {
             this.fuelTable = fuelTable;
@@ -117,7 +117,7 @@ public abstract class AbstractTableFuelSearcher {
         }
 
         public final AbstractTableFuelSearcherBuilder<S> fuelHeaderCellValueExtractor(
-                final FuelSpecificationPropertyExtractor fuelHeaderCellValueExtractor) {
+                final SpecificationPropertyExtractor fuelHeaderCellValueExtractor) {
             this.fuelHeaderCellValueExtractor = fuelHeaderCellValueExtractor;
             return this;
         }
@@ -131,7 +131,7 @@ public abstract class AbstractTableFuelSearcher {
         protected abstract S build(final FuelTable fuelTable,
                                    final List<String> fuelHeaders,
                                    final RowFilterChain filterChain,
-                                   final FuelSpecificationPropertyExtractor fuelHeaderCellValueExtractor);
+                                   final SpecificationPropertyExtractor fuelHeaderCellValueExtractor);
 
         //TODO: refactor(do super class with this method)
         private void validateState() {

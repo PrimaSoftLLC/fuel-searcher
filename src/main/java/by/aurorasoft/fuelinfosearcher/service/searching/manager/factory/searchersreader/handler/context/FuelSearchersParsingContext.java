@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.context;
 
-import by.aurorasoft.fuelinfosearcher.functionalinterface.FuelSpecificationPropertyExtractor;
+import by.aurorasoft.fuelinfosearcher.functionalinterface.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
 import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelSearcher;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.FinalFilter;
@@ -37,7 +37,7 @@ public final class FuelSearchersParsingContext {
         this.fuelSearcherBuilder.fuelTable(fuelTable);
     }
 
-    public void buildSearcher() {
+    public void buildSimpleSearcher() {
         final SimpleTableFuelSearcher searcher = this.fuelSearcherBuilder.build();
         this.parsedSearchers.add(searcher);
     }
@@ -54,7 +54,7 @@ public final class FuelSearchersParsingContext {
         this.fuelSearcherBuilder.conclusiveFilter(filter);
     }
 
-    public void accumulateFuelHeaderCellValueExtractor(final FuelSpecificationPropertyExtractor extractor) {
+    public void accumulateFuelHeaderExtractor(final SpecificationPropertyExtractor extractor) {
         this.fuelSearcherBuilder.fuelHeaderCellValueExtractor(extractor);
     }
 }

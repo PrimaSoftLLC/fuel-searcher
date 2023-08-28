@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.it.argumentprovider;
 
 import by.aurorasoft.fuelinfosearcher.model.Fuel;
-import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
+import by.aurorasoft.fuelinfosearcher.model.Specification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -16,7 +16,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
     protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
         return Stream.of(
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("CLAAS LEXION-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:1")
@@ -27,7 +27,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(24.1, 9.5)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("CLAAS LEXION-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:1")
@@ -38,7 +38,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(94.7, 3.3)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("CLAAS LEXION-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
@@ -49,7 +49,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(87.8, 3.)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("CLAAS LEXION-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
@@ -60,7 +60,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(74.1, 3.2)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("CLAAS LEXION-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:2")
@@ -71,7 +71,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(99.6, 3.4)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("CLAAS LEXION-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:2")
@@ -83,7 +83,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                 ),
 
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("КЗС-1624-1 \"ПАЛЕССЕ GS-1624-1\" - 490 л.с.")
                                 .weightRatioGrainToStraw("1:1")
@@ -94,7 +94,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(21.7, 16.)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("КЗС-1624-1 \"ПАЛЕССЕ GS-1624-1\" - 490 л.с.")
                                 .weightRatioGrainToStraw("1:1")
@@ -105,7 +105,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(96.9, 4.8)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("КЗС-1624-1 \"ПАЛЕССЕ GS-1624-1\" - 490 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
@@ -116,7 +116,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(73.4, 6.3)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("КЗС-1624-1 \"ПАЛЕССЕ GS-1624-1\" - 490 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
@@ -127,7 +127,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(61.8, 5.7)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("КЗС-1624-1 \"ПАЛЕССЕ GS-1624-1\" - 490 л.с.")
                                 .weightRatioGrainToStraw("1:2")
@@ -138,7 +138,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(70.5, 6.5)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("КЗС-1624-1 \"ПАЛЕССЕ GS-1624-1\" - 490 л.с.")
                                 .weightRatioGrainToStraw("1:2")
@@ -150,7 +150,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                 ),
 
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("CLAAS LEXION-760 - 461 л.с.")
                                 .weightRatioGrainToStraw("1:1")
@@ -161,7 +161,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(21.5, 9.4)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("CLAAS LEXION-760 - 461 л.с.")
                                 .weightRatioGrainToStraw("1:1")
@@ -172,7 +172,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(119.2, 2.4)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("CLAAS LEXION-760 - 461 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
@@ -183,7 +183,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(53.6, 4.6)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("CLAAS LEXION-760 - 461 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
@@ -194,7 +194,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(65.7, 3.2)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("CLAAS LEXION-760 - 461 л.с.")
                                 .weightRatioGrainToStraw("1:2")
@@ -205,7 +205,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(105.5, 2.7)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("CLAAS LEXION-760 - 461 л.с.")
                                 .weightRatioGrainToStraw("1:2")
@@ -217,7 +217,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                 ),
 
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("КЗС-3219 КР \"ПАЛЕССЕ GS-3219 КР\" - 390 л.с.")
                                 .weightRatioGrainToStraw("1:1")
@@ -228,7 +228,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(18.7, 13.)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("КЗС-3219 КР \"ПАЛЕССЕ GS-3219 КР\" - 390 л.с.")
                                 .weightRatioGrainToStraw("1:1")
@@ -239,7 +239,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(65.3, 4.9)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("КЗС-3219 КР \"ПАЛЕССЕ GS-3219 КР\" - 390 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
@@ -250,7 +250,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(60.8, 4.7)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("КЗС-3219 КР \"ПАЛЕССЕ GS-3219 КР\" - 390 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
@@ -261,7 +261,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(46.7, 6.9)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("КЗС-3219 КР \"ПАЛЕССЕ GS-3219 КР\" - 390 л.с.")
                                 .weightRatioGrainToStraw("1:2")
@@ -272,7 +272,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(41.2, 7.)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("КЗС-3219 КР \"ПАЛЕССЕ GS-3219 КР\" - 390 л.с.")
                                 .weightRatioGrainToStraw("1:2")
@@ -284,7 +284,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                 ),
 
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("CLAAS LEXION-560 - 360 л.с.")
                                 .weightRatioGrainToStraw("1:1")
@@ -295,7 +295,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(16.8, 11.7)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("CLAAS LEXION-560 - 360 л.с.")
                                 .weightRatioGrainToStraw("1:1")
@@ -306,7 +306,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(64., 3.9)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("CLAAS LEXION-560 - 360 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
@@ -317,7 +317,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(42.8, 4.9)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("CLAAS LEXION-560 - 360 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
@@ -328,7 +328,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(81.1, 3.3)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("CLAAS LEXION-560 - 360 л.с.")
                                 .weightRatioGrainToStraw("1:2")
@@ -339,7 +339,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(50.1, 4.1)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("CLAAS LEXION-560 - 360 л.с.")
                                 .weightRatioGrainToStraw("1:2")
@@ -351,7 +351,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                 ),
 
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("JOHN DEERE 9640WTS-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:1")
@@ -362,7 +362,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(13.8, 12.)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("JOHN DEERE 9640WTS-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:1")
@@ -373,7 +373,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(48.6, 3.8)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("JOHN DEERE 9640WTS-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
@@ -384,7 +384,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(29.2, 6.3)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("JOHN DEERE 9640WTS-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
@@ -395,7 +395,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(45.6, 3.6)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("JOHN DEERE 9640WTS-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:2")
@@ -406,7 +406,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(23.9, 7.7)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("JOHN DEERE 9640WTS-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:2")
@@ -418,7 +418,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                 ),
                 //not existing combine
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("not existing")
                                 .weightRatioGrainToStraw("1:2")
@@ -430,7 +430,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                 ),
                 //not existing weight ratio grain to straw
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("JOHN DEERE 9640WTS-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("not existing")
@@ -442,7 +442,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                 ),
                 //not existing yield
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("JOHN DEERE 9640WTS-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:2")
@@ -454,7 +454,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                 ),
                 //not existing working width
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("JOHN DEERE 9640WTS-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:2")
@@ -466,7 +466,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                 ),
                 //not existing routing length
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
                                 .combine("JOHN DEERE 9640WTS-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:2")

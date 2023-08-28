@@ -4,8 +4,8 @@ import by.aurorasoft.fuelinfosearcher.functionalinterface.filterfactory.FilterFa
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.context.FuelSearchersParsingContext;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter.FilterFactoryDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.taghandler.TagHandler;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.taghandler.rowfilter.intermediate.exception.FilterFactoryNotExistException;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.taghandler.rowfilter.intermediate.exception.FiltrationCellIndexNotDefinedException;
+import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.taghandler.rowfilter.exception.NoSuchFilterException;
+import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.taghandler.rowfilter.exception.FiltrationCellIndexNotDefinedException;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.Filter;
 import org.xml.sax.Attributes;
 
@@ -50,7 +50,7 @@ public abstract class FilterTagHandler<FILTER extends Filter<?>, FILTER_FACTORY 
     private FILTER_FACTORY findFilterFactory(final FuelSearchersParsingContext context) {
         final String filterKey = context.getLastContent();
         final Optional<FILTER_FACTORY> optionalFilterFactory = this.filterFactoryDictionary.find(filterKey);
-        return optionalFilterFactory.orElseThrow(FilterFactoryNotExistException::new);
+        return optionalFilterFactory.orElseThrow(NoSuchFilterException::new);
     }
 
     private OptionalInt findFiltrationCellIndex(final FuelSearchersParsingContext context) {

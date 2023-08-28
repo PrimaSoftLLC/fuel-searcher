@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.chain;
 
-import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
+import by.aurorasoft.fuelinfosearcher.model.Specification;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.chain.exception.RowFilterChainBuildingException;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.FinalFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.AbstractInterimFilter;
@@ -21,7 +21,7 @@ public class RowFilterChain {
     List<AbstractInterimFilter> intermediateFilters;
     FinalFilter conclusiveFilter;
 
-    public Optional<XWPFTableRow> filter(final List<XWPFTableRow> rows, final FuelSpecification specification) {
+    public Optional<XWPFTableRow> filter(final List<XWPFTableRow> rows, final Specification specification) {
         final Function<List<XWPFTableRow>, Optional<XWPFTableRow>> filteringFunction = this.createFilteringFunction(
                 specification
         );
@@ -29,7 +29,7 @@ public class RowFilterChain {
     }
 
     private Function<List<XWPFTableRow>, Optional<XWPFTableRow>> createFilteringFunction(
-            final FuelSpecification specification) {
+            final Specification specification) {
         final Function<List<XWPFTableRow>, Optional<XWPFTableRow>> conclusiveFilteringFunction = this.conclusiveFilter
                 .mapToFilteringFunction(specification);
         return this.intermediateFilters.stream()

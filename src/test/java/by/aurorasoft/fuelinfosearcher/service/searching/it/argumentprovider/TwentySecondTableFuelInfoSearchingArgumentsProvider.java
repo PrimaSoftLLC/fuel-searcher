@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.it.argumentprovider;
 
 import by.aurorasoft.fuelinfosearcher.model.Fuel;
-import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
+import by.aurorasoft.fuelinfosearcher.model.Specification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -16,7 +16,7 @@ public final class TwentySecondTableFuelInfoSearchingArgumentsProvider extends A
     protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
         return Stream.of(
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЕССОВАНИЕ ЛЕНТ ЛЬНА")
                                 .tractor("Беларус 80/82")
                                 .machinery("ППЛ-1")
@@ -27,7 +27,7 @@ public final class TwentySecondTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(2.4, 20.5)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЕССОВАНИЕ ЛЕНТ ЛЬНА")
                                 .tractor("Беларус 80/82")
                                 .machinery("ППЛ-1")
@@ -38,7 +38,7 @@ public final class TwentySecondTableFuelInfoSearchingArgumentsProvider extends A
                         optionalFuelInfoFactory.apply(2.2, 25.1)
                 ),
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЕССОВАНИЕ ЛЕНТ ЛЬНА")
                                 .tractor("Беларус 80/82")
                                 .machinery("ППЛ-1")
@@ -50,7 +50,7 @@ public final class TwentySecondTableFuelInfoSearchingArgumentsProvider extends A
                 ),
                 //not existing tractor
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЕССОВАНИЕ ЛЕНТ ЛЬНА")
                                 .tractor("not existing tractor")
                                 .machinery("ППЛ-1")
@@ -62,7 +62,7 @@ public final class TwentySecondTableFuelInfoSearchingArgumentsProvider extends A
                 ),
                 //not existing machinery
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЕССОВАНИЕ ЛЕНТ ЛЬНА")
                                 .tractor("Беларус 80/82")
                                 .machinery("not existing")
@@ -74,7 +74,7 @@ public final class TwentySecondTableFuelInfoSearchingArgumentsProvider extends A
                 ),
                 //not existing working width
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЕССОВАНИЕ ЛЕНТ ЛЬНА")
                                 .tractor("Беларус 80/82")
                                 .machinery("ППЛ-1")
@@ -86,7 +86,7 @@ public final class TwentySecondTableFuelInfoSearchingArgumentsProvider extends A
                 ),
                 //not existing yield
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЕССОВАНИЕ ЛЕНТ ЛЬНА")
                                 .tractor("Беларус 80/82")
                                 .machinery("ППЛ-1")
@@ -98,7 +98,7 @@ public final class TwentySecondTableFuelInfoSearchingArgumentsProvider extends A
                 ),
                 //not existing routing length
                 Arguments.of(
-                        FuelSpecification.builder()
+                        Specification.builder()
                                 .tableName("ПРЕССОВАНИЕ ЛЕНТ ЛЬНА")
                                 .tractor("Беларус 80/82")
                                 .machinery("ППЛ-1")

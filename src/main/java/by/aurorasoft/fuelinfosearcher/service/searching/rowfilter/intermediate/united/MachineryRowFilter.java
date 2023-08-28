@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.united;
 
-import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
+import by.aurorasoft.fuelinfosearcher.model.Specification;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractMachinery;
 
@@ -11,7 +11,7 @@ public final class MachineryRowFilter extends UnitedFilter {
     }
 
     @Override
-    protected String extractFilteringValue(final FuelSpecification specification) {
+    protected String extractFilteringValue(final Specification specification) {
         return extractMachinery(specification);
     }
 }

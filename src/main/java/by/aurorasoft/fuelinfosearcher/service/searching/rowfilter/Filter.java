@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.rowfilter;
 
-import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
+import by.aurorasoft.fuelinfosearcher.model.Specification;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
@@ -13,7 +13,7 @@ import java.util.function.Function;
 public abstract class Filter<R> {
     private final int filteringCellIndex;
 
-    public final Function<List<XWPFTableRow>, R> mapToFilteringFunction(final FuelSpecification specification) {
+    public final Function<List<XWPFTableRow>, R> mapToFilteringFunction(final Specification specification) {
         return rows -> this.filter(rows, specification);
     }
 
@@ -21,9 +21,9 @@ public abstract class Filter<R> {
                                 final String filteringValue,
                                 final int filteringCellIndex);
 
-    protected abstract String extractFilteringValue(final FuelSpecification specification);
+    protected abstract String extractFilteringValue(final Specification specification);
 
-    private R filter(final List<XWPFTableRow> rows, final FuelSpecification specification) {
+    private R filter(final List<XWPFTableRow> rows, final Specification specification) {
         final String filteringValue = this.extractFilteringValue(specification);
         return this.filter(rows, filteringValue, this.filteringCellIndex);
     }
