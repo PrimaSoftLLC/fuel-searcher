@@ -470,4 +470,29 @@
 
     </simple-searcher>
 
+    <!-- TABLE #23 -->
+    <simple-searcher>
+
+        <table-name>ПОДБОР ПРОВЯЛЕННЫХ ТРАВ ИЗ ВАЛКОВ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА</table-name>
+
+        <fuel-headers>
+            <fuel-header>Менее 150</fuel-header>
+            <fuel-header>150-200</fuel-header>
+            <fuel-header>201-300</fuel-header>
+            <fuel-header>301-400</fuel-header>
+            <fuel-header>401-600</fuel-header>
+            <fuel-header>601-1000</fuel-header>
+            <fuel-header>Более 1000</fuel-header>
+        </fuel-headers>
+
+        <filter-chain>
+            <filter-by cell-index="1">механизм</filter-by>
+            <filter-by cell-index="3">ширина захвата</filter-by>
+            <final-filter-by cell-index="2">урожайность</final-filter-by>
+        </filter-chain>
+
+        <fuel-header-name>длина гона</fuel-header-name>
+
+    </simple-searcher>
+
 </fuel-searchers>
