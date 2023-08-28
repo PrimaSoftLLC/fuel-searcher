@@ -31,6 +31,7 @@ public abstract class TranslatingTagHandler<V> extends TagHandler {
     private V findValue(final FuelSearchersParsingContext context) {
         final String key = context.getLastContent();
         final Optional<V> optionalValue = this.dictionary.find(key);
+        //TODO: add description of exception with 'key'
         return optionalValue.orElseThrow(this.noSuchKeyExceptionSupplier);
     }
 }

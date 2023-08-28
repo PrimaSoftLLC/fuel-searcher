@@ -1,10 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter.interim;
 
 import by.aurorasoft.fuelinfosearcher.functionalinterface.filterfactory.interim.UnitedFilterFactory;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.united.CorpusCountRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.united.MachineryRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.united.TractorRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.united.WorkingWidthRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.united.*;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -20,7 +17,8 @@ public final class UnitedFilterFactoryDictionary extends InterimFilterFactoryDic
             entry("трактор", TractorRowFilter::new),
             entry("механизм", MachineryRowFilter::new),
             entry("количество корпусов", CorpusCountRowFilter::new),
-            entry("ширина захвата", WorkingWidthRowFilter::new)
+            entry("ширина захвата", WorkingWidthRowFilter::new),
+            entry("ширина междурядий", RowWidthRowFilter::new)
     );
 
     public UnitedFilterFactoryDictionary() {
