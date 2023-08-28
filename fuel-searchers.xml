@@ -186,4 +186,82 @@
 
     </simple-searcher>
 
+    <!-- TABLE #8 -->
+    <simple-searcher>
+
+        <table-name>ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА</table-name>
+
+        <fuel-headers>
+            <fuel-header>Менее 150</fuel-header>
+            <fuel-header>150-200</fuel-header>
+            <fuel-header>201-300</fuel-header>
+            <fuel-header>301-400</fuel-header>
+            <fuel-header>401-600</fuel-header>
+            <fuel-header>601-1000</fuel-header>
+            <fuel-header>Более 1000</fuel-header>
+        </fuel-headers>
+
+        <filter-chain>
+            <filter-by-group>норма высева</filter-by-group>
+            <filter-by cell-index="1">трактор</filter-by>
+            <filter-by cell-index="2">механизм</filter-by>
+            <final-filter-by cell-index="3">ширина захвата</final-filter-by>
+        </filter-chain>
+
+        <fuel-header-name>длина гона</fuel-header-name>
+
+    </simple-searcher>
+
+    <!-- TABLE #9 -->
+    <simple-searcher>
+
+        <table-name>ПОСЕВ САХАРНОЙ СВЕКЛЫ</table-name>
+
+        <fuel-headers>
+            <fuel-header>Менее 150</fuel-header>
+            <fuel-header>150-200</fuel-header>
+            <fuel-header>201-300</fuel-header>
+            <fuel-header>301-400</fuel-header>
+            <fuel-header>401-600</fuel-header>
+            <fuel-header>601-1000</fuel-header>
+            <fuel-header>Более 1000</fuel-header>
+        </fuel-headers>
+
+        <filter-chain>
+            <filter-by-group>норма высева</filter-by-group>
+            <filter-by cell-index="1">трактор</filter-by>
+            <filter-by cell-index="2">механизм</filter-by>
+            <final-filter-by cell-index="3">ширина захвата</final-filter-by>
+        </filter-chain>
+
+        <fuel-header-name>длина гона</fuel-header-name>
+
+    </simple-searcher>
+
+    <!-- TABLE #10 -->
+    <simple-searcher>
+
+        <table-name>ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ОДНОВРЕМЕННЫМ ПОСЕВОМ РАПСА</table-name>
+
+        <fuel-headers>
+            <fuel-header>Менее 150</fuel-header>
+            <fuel-header>150-200</fuel-header>
+            <fuel-header>201-300</fuel-header>
+            <fuel-header>301-400</fuel-header>
+            <fuel-header>401-600</fuel-header>
+            <fuel-header>601-1000</fuel-header>
+            <fuel-header>Более 1000</fuel-header>
+        </fuel-headers>
+
+        <filter-chain>
+            <filter-by-group>норма высева</filter-by-group>
+            <filter-by cell-index="1">трактор</filter-by>
+            <filter-by cell-index="2">механизм</filter-by>
+            <final-filter-by cell-index="3">ширина захвата</final-filter-by>
+        </filter-chain>
+
+        <fuel-header-name>длина гона</fuel-header-name>
+
+    </simple-searcher>
+
 </fuel-searchers>
