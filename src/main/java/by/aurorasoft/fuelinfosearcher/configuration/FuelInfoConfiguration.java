@@ -17,7 +17,7 @@ public class FuelInfoConfiguration {
 
     @Bean
     public FuelSearchingManager fuelSearchingManager(final FuelSearchingManagerFactory factory) {
-        return factory.create("fuel-tables.xml");
+        return factory.create("fuel-searchers.xml");
     }
 
 }

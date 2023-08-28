@@ -31,6 +31,7 @@ public final class FuelSearchersParsingContext {
 
     public FuelSearchersParsingContext() {
         this.parsedSearchers = new ArrayList<>();
+        this.fuelSearcherBuilder = SimpleTableFuelSearcher.builder();
     }
 
     public void accumulateFuelTable(final FuelTable fuelTable) {
@@ -40,6 +41,7 @@ public final class FuelSearchersParsingContext {
     public void buildSimpleSearcher() {
         final SimpleTableFuelSearcher searcher = this.fuelSearcherBuilder.build();
         this.parsedSearchers.add(searcher);
+        this.fuelSearcherBuilder = SimpleTableFuelSearcher.builder();
     }
 
     public void accumulateFuelHeader() {

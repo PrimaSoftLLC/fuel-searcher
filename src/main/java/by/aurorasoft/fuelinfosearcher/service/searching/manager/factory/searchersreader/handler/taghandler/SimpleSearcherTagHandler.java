@@ -5,9 +5,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public final class SimpleSearcherTagHandler extends TagHandler {
+    private static final String TAG_NAME = "simple-searcher";
 
-    public SimpleSearcherTagHandler(final String tagName) {
-        super(tagName);
+    public SimpleSearcherTagHandler() {
+        super(TAG_NAME);
     }
 
     @Override

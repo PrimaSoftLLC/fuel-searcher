@@ -7,8 +7,8 @@ import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPro
 public final class SpecificResistanceRowFilter extends GroupFilter {
     private static final String GROUP_VALUE_REGEX = "Удельное сопротивление (плуга )?\\d+...\\d+ кПа";
 
-    public SpecificResistanceRowFilter(final int filteringCellIndex) {
-        super(filteringCellIndex);
+    public SpecificResistanceRowFilter(final int filtrationCellIndex) {
+        super(filtrationCellIndex);
     }
 
     @Override

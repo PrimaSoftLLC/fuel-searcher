@@ -16,11 +16,11 @@ public abstract class GroupFilter extends AbstractInterimFilter {
 
     @Override
     protected List<XWPFTableRow> filter(final List<XWPFTableRow> rows,
-                                        final String filteringValue,
+                                        final String filtrationCellIndex,
                                         final int filteringCellIndex) {
         return findRowsByGroup(
                 rows,
-                filteringValue,
+                filtrationCellIndex,
                 this.findGroupValueRegex(),
                 filteringCellIndex
         );
@@ -31,12 +31,12 @@ public abstract class GroupFilter extends AbstractInterimFilter {
     private static List<XWPFTableRow> findRowsByGroup(final List<XWPFTableRow> rows,
                                                       final String groupValue,
                                                       final String groupValueRegex,
-                                                      final int filteringCellIndex) {
-        return findRowIndexesByContent(rows, filteringCellIndex, groupValue)
+                                                      final int filtrationCellIndex) {
+        return findRowIndexesByContent(rows, filtrationCellIndex, groupValue)
                 .map(indexRowGroupValue -> indexRowGroupValue + 1)
                 .mapToObj(
                         indexFirstMatchingRow -> findBorderRowIndexesMatchingGroupValue(
-                                rows, indexFirstMatchingRow, filteringCellIndex, groupValueRegex
+                                rows, indexFirstMatchingRow, filtrationCellIndex, groupValueRegex
                         )
                 )
                 .map(borderRowIndexes -> extractRows(rows, borderRowIndexes))
@@ -46,22 +46,22 @@ public abstract class GroupFilter extends AbstractInterimFilter {
 
     private static IntPair findBorderRowIndexesMatchingGroupValue(final List<XWPFTableRow> rows,
                                                                   final int indexFirstMatchingRow,
-                                                                  final int filteringCellIndex,
+                                                                  final int filtrationCellIndex,
                                                                   final String groupValueRegex) {
         final int nextIndexLastMatchingRow = findIndexRowNextGroupValueOrNextIndexLastRow(
-                rows, indexFirstMatchingRow, filteringCellIndex, groupValueRegex
+                rows, indexFirstMatchingRow, filtrationCellIndex, groupValueRegex
         );
         return new IntPair(indexFirstMatchingRow, nextIndexLastMatchingRow);
     }
 
     private static int findIndexRowNextGroupValueOrNextIndexLastRow(final List<XWPFTableRow> rows,
                                                                     final int startSearchingIndex,
-                                                                    final int filteringCellIndex,
+                                                                    final int filtrationCellIndex,
                                                                     final String groupValueRegex) {
         return findIndexFirstRowByContentRegex(
                 rows,
                 startSearchingIndex,
-                filteringCellIndex,
+                filtrationCellIndex,
                 groupValueRegex
         ).orElse(rows.size());
     }

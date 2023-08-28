@@ -29,7 +29,7 @@
         </simple-searcher>
 
         <!-- TABLE #2 -->
-        <simple-searche>
+        <simple-searcher>
 
             <table-name>ВСПАШКА СТЕРНИ</table-name>
 
@@ -53,6 +53,6 @@
 
             <fuel-header-name>длина гона</fuel-header-name>
 
-        </simple-searche>
+        </simple-searcher>
 
 </fuel-searchers>
