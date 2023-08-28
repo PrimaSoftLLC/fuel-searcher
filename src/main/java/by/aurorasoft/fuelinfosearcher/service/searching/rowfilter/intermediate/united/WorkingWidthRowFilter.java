@@ -4,7 +4,7 @@ import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractWorkingWidth;
 
-public final class WorkingWidthRowFilter extends AbstractUnitedRowFilter {
+public final class WorkingWidthRowFilter extends UnitedFilter {
 
     public WorkingWidthRowFilter(final int filteringCellIndex) {
         super(filteringCellIndex);

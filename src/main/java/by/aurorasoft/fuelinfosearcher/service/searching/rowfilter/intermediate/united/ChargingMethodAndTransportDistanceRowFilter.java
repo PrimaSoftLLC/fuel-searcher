@@ -4,7 +4,7 @@ import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractChargingMethodAndTransportDistance;
 
-public final class ChargingMethodAndTransportDistanceRowFilter extends AbstractUnitedRowFilter {
+public final class ChargingMethodAndTransportDistanceRowFilter extends UnitedFilter {
 
     public ChargingMethodAndTransportDistanceRowFilter(final int filteringCellIndex) {
         super(filteringCellIndex);

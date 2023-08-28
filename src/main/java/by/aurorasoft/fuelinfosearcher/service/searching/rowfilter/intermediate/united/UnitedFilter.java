@@ -7,9 +7,9 @@ import java.util.List;
 
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findUnitedRowsByContent;
 
-public abstract class AbstractUnitedRowFilter extends AbstractInterimFilter {
+public abstract class UnitedFilter extends AbstractInterimFilter {
 
-    public AbstractUnitedRowFilter(final int filteringCellIndex) {
+    public UnitedFilter(final int filteringCellIndex) {
         super(filteringCellIndex);
     }
 

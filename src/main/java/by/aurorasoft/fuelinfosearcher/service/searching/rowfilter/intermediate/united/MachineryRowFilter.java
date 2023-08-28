@@ -4,7 +4,7 @@ import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractMachinery;
 
-public final class MachineryRowFilter extends AbstractUnitedRowFilter {
+public final class MachineryRowFilter extends UnitedFilter {
 
     public MachineryRowFilter(final int filteringCellIndex) {
         super(filteringCellIndex);

@@ -4,7 +4,7 @@ import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractCorpusCount;
 
-public final class CorpusCountRowFilter extends AbstractUnitedRowFilter {
+public final class CorpusCountRowFilter extends UnitedFilter {
 
     public CorpusCountRowFilter(final int filteringCellIndex) {
         super(filteringCellIndex);

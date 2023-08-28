@@ -4,7 +4,7 @@ import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractTractor;
 
-public final class TractorRowFilter extends AbstractUnitedRowFilter {
+public final class TractorRowFilter extends UnitedFilter {
 
     public TractorRowFilter(final int filteringCellIndex) {
         super(filteringCellIndex);
