@@ -1,9 +1,9 @@
-package by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.taghandler.intermediate;
+package by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.taghandler.rowfilter.intermediate;
 
-import by.aurorasoft.fuelinfosearcher.functionalinterface.rowfilterfactory.InterimRowFilterFactory;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter.InterimFilterFactoryDictionary;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.AbstractInterimRowFilter;
 import org.springframework.stereotype.Component;
+
+import java.util.OptionalInt;
 
 @Component
 public final class GroupFilterTagHandler extends AbstractInterimFilterTagHandler {
@@ -14,8 +14,8 @@ public final class GroupFilterTagHandler extends AbstractInterimFilterTagHandler
     }
 
     @Override
-    protected AbstractInterimRowFilter createFilter(final InterimRowFilterFactory filterFactory) {
-        return filterFactory.apply(DEFAULT_FILTRATION_CELL_INDEX);
+    protected OptionalInt findDefaultFiltrationCellIndex() {
+        return OptionalInt.of(DEFAULT_FILTRATION_CELL_INDEX);
     }
 
 }
