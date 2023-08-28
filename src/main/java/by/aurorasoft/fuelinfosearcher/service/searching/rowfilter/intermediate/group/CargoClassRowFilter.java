@@ -4,7 +4,7 @@ import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractCargoClass;
 
-public final class CargoClassRowFilter extends AbstractGroupRowFilter {
+public final class CargoClassRowFilter extends GroupFilter {
     private static final String GROUP_VALUE_REGEX = "Грузы (I|II|III|IV) класса";
 
     @Override

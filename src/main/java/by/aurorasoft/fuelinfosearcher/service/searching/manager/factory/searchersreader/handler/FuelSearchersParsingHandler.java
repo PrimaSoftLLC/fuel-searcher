@@ -3,11 +3,11 @@ package by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searche
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
 import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelSearcher;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter.FinalFilterFactoryDictionary;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter.InterimFilterFactoryDictionary;
+import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter.interim.InterimFilterFactoryDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.fueltablesearcher.FuelTableSearcher;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.FuelSpecificationPropertyExtractorDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.context.FuelSearchersParsingContext;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.group.AbstractGroupRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.group.GroupFilter;
 import lombok.Builder;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
@@ -77,7 +77,7 @@ public final class FuelSearchersParsingHandler extends DefaultHandler {
 
     private void accumulateGroupRowFilter() {
         //TODO: throw exception
-        final AbstractGroupRowFilter filter = this.groupRowFilterDictionary.find(this.context.getLastContent()).orElseThrow();
+        final GroupFilter filter = this.groupRowFilterDictionary.find(this.context.getLastContent()).orElseThrow();
         this.context.accumulateFilter(filter);
     }
 

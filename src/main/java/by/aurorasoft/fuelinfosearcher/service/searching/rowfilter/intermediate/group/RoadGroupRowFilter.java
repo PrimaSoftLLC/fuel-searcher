@@ -4,7 +4,7 @@ import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractRoadGroup;
 
-public final class RoadGroupRowFilter extends AbstractGroupRowFilter {
+public final class RoadGroupRowFilter extends GroupFilter {
     private static final String GROUP_VALUE_REGEX = "((Первая)|(Вторая)|(Третья)) группа дорог";
 
     @Override

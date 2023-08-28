@@ -4,7 +4,7 @@ import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractSpecificResistance;
 
-public final class SpecificResistanceRowFilter extends AbstractGroupRowFilter {
+public final class SpecificResistanceRowFilter extends GroupFilter {
     private static final String GROUP_VALUE_REGEX = "Удельное сопротивление (плуга )?\\d+...\\d+ кПа";
 
     public SpecificResistanceRowFilter(final int filteringCellIndex) {

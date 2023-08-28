@@ -4,7 +4,7 @@ import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractFertilizerType;
 
-public final class FertilizerTypeRowFilter extends AbstractGroupRowFilter {
+public final class FertilizerTypeRowFilter extends GroupFilter {
     private static final String GROUP_VALUE_REGEX = "(Гранулированные удобрений)|(Кристаллические удобрения)|(Пылевидные удобрения)";
 
     @Override

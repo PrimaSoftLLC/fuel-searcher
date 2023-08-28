@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.taghandler.rowfilter;
 
-import by.aurorasoft.fuelinfosearcher.functionalinterface.rowfilterfactory.FinalFilterFactory;
+import by.aurorasoft.fuelinfosearcher.functionalinterface.filterfactory.FinalFilterFactory;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.context.FuelSearchersParsingContext;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter.FinalFilterFactoryDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.FinalFilter;

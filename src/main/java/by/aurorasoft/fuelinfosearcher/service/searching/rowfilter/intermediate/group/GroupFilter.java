@@ -9,8 +9,8 @@ import java.util.List;
 
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
 
-public abstract class AbstractGroupRowFilter extends AbstractInterimFilter {
-    public AbstractGroupRowFilter(final int filteringCellIndex) {
+public abstract class GroupFilter extends AbstractInterimFilter {
+    public GroupFilter(final int filteringCellIndex) {
         super(filteringCellIndex);
     }
 

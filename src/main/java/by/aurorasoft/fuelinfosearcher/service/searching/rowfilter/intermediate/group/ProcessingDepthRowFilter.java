@@ -4,7 +4,7 @@ import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractProcessingDepth;
 
-public final class ProcessingDepthRowFilter extends AbstractGroupRowFilter {
+public final class ProcessingDepthRowFilter extends GroupFilter {
     private static final String GROUP_VALUE_REGEX = "Глубина обработки \\d+...\\d+ см";
 
     @Override

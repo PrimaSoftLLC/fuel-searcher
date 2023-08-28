@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter;
 
-import by.aurorasoft.fuelinfosearcher.functionalinterface.rowfilterfactory.FinalFilterFactory;
+import by.aurorasoft.fuelinfosearcher.functionalinterface.filterfactory.FinalFilterFactory;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.PloughingDepthRowFilter;
 import org.springframework.stereotype.Component;
 
