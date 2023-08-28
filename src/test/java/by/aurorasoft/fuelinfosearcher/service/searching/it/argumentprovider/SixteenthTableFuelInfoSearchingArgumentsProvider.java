@@ -33,7 +33,7 @@ public final class SixteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .machinery("КМР-9П")
                                 .workingWidth("9")
                                 .yield("свыше 35")
-                                .routingLength("151...200")
+                                .routingLength("150-200")
                                 .build(),
                         optionalFuelInfoFactory.apply(27.9, 7.4)
                 ),

@@ -4,6 +4,7 @@ import by.aurorasoft.fuelinfosearcher.functionalinterface.filterfactory.interim.
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.united.CorpusCountRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.united.MachineryRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.united.TractorRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.united.WorkingWidthRowFilter;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -18,7 +19,8 @@ public final class UnitedFilterFactoryDictionary extends InterimFilterFactoryDic
     private static final Map<String, UnitedFilterFactory> FACTORIES_BY_KEYS = ofEntries(
             entry("трактор", TractorRowFilter::new),
             entry("механизм", MachineryRowFilter::new),
-            entry("количество корпусов", CorpusCountRowFilter::new)
+            entry("количество корпусов", CorpusCountRowFilter::new),
+            entry("ширина захвата", WorkingWidthRowFilter::new)
     );
 
     public UnitedFilterFactoryDictionary() {

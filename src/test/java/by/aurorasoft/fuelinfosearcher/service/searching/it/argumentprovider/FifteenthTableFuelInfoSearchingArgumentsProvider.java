@@ -33,7 +33,7 @@ public final class FifteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .machinery("Novocat Alfa Motion 351")
                                 .workingWidth("3.46")
                                 .yield("свыше 35")
-                                .routingLength("201...300")
+                                .routingLength("201-300")
                                 .build(),
                         optionalFuelInfoFactory.apply(11.4, 4.9)
                 ),
@@ -44,7 +44,7 @@ public final class FifteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .machinery("КДЛ-3.14")
                                 .workingWidth("3.14")
                                 .yield("20-25")
-                                .routingLength("201...300")
+                                .routingLength("201-300")
                                 .build(),
                         optionalFuelInfoFactory.apply(11.7, 4.4)
                 ),
@@ -56,7 +56,7 @@ public final class FifteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .machinery("КДЛ-3.14")
                                 .workingWidth("3.14")
                                 .yield("20-25")
-                                .routingLength("201...300")
+                                .routingLength("201-300")
                                 .build(),
                         empty()
                 ),
@@ -68,7 +68,7 @@ public final class FifteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .machinery("not existing")
                                 .workingWidth("3.14")
                                 .yield("20-25")
-                                .routingLength("201...300")
+                                .routingLength("201-300")
                                 .build(),
                         empty()
                 ),
@@ -80,7 +80,7 @@ public final class FifteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .machinery("КДЛ-3.14")
                                 .workingWidth("not existing")
                                 .yield("20-25")
-                                .routingLength("201...300")
+                                .routingLength("201-300")
                                 .build(),
                         empty()
                 ),
@@ -92,7 +92,7 @@ public final class FifteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .machinery("КДЛ-3.14")
                                 .workingWidth("3.14")
                                 .yield("not existing")
-                                .routingLength("201...300")
+                                .routingLength("201-300")
                                 .build(),
                         empty()
                 ),
