@@ -20,7 +20,6 @@ public abstract class TranslatingTagHandler<V> extends TagHandler {
         this.noSuchKeyExceptionSupplier = noSuchKeyExceptionSupplier;
     }
 
-
     @Override
     public final void handle(final FuelSearchersParsingContext context) {
         final V value = this.findValue(context);
