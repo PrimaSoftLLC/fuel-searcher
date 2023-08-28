@@ -280,13 +280,19 @@
         </fuel-headers>
 
         <filter-chain>
-            <filter-by cell-index="1">трактор</filter-by>
-            <filter-by cell-index="2">механизм</filter-by>
-            <filter-by cell-index="4">ширина захвата</filter-by>
-            <final-filter-by cell-index="3">урожайность</final-filter-by>
+            <filter-by-group>тип удобрения</filter-by-group>
+            <filter-by cell-index="1">способ загрузки удобрений и расстояние транспортировки</filter-by>
+            <final-filter-by cell-index="2">норма внесения</final-filter-by>
         </filter-chain>
 
         <fuel-header-name>длина гона</fuel-header-name>
+
+        <sub-table-title-template>РАЗБРАСЫВАТЕЛЕМ %s (трактор %s)</sub-table-title-template>
+
+        <sub-table-title-template-arguments>
+            <sub-table-title-template-argument>механизм</sub-table-title-template-argument>
+            <sub-table-title-template-argument>трактор</sub-table-title-template-argument>
+        </sub-table-title-template-arguments>
 
     </composite-searcher>
 

@@ -33,12 +33,16 @@ public final class FuelSearchersParsingHandler extends DefaultHandler {
                              final String qualifiedName,
                              final Attributes attributes) {
         this.context.setLastAttributes(attributes);
+        //TODO: refactor
+        final Optional<TagHandler> optionalHandler = this.findHandler(qualifiedName);
+        optionalHandler.ifPresent(handler -> handler.handleStartTag(this.context));
     }
 
     @Override
     public void endElement(final String uri, final String localName, final String qualifiedName) {
+        //TODO: refactor
         final Optional<TagHandler> optionalHandler = this.findHandler(qualifiedName);
-        optionalHandler.ifPresent(handler -> handler.handle(this.context));
+        optionalHandler.ifPresent(handler -> handler.handleEndTag(this.context));
     }
 
     @Override

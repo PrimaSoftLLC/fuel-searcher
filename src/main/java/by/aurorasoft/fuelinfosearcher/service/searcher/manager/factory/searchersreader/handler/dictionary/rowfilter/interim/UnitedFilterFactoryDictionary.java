@@ -19,7 +19,8 @@ public final class UnitedFilterFactoryDictionary extends InterimFilterFactoryDic
             entry("количество корпусов", CorpusCountRowFilter::new),
             entry("ширина захвата", WorkingWidthRowFilter::new),
             entry("ширина междурядий", RowWidthRowFilter::new),
-            entry("комбайн", CombineRowFilter::new)
+            entry("комбайн", CombineRowFilter::new),
+            entry("способ загрузки удобрений и расстояние транспортировки", ChargingMethodAndTransportDistanceRowFilter::new)
     );
 
     public UnitedFilterFactoryDictionary() {

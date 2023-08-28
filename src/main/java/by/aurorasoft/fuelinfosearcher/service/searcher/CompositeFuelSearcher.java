@@ -34,6 +34,10 @@ public final class CompositeFuelSearcher extends FuelSearcher {
         this.elementTableTitleTemplateArgumentExtractors = elementTableTitleTemplateArgumentExtractors;
     }
 
+    public static CompositeFuelSearcherBuilder builder() {
+        return new CompositeFuelSearcherBuilder();
+    }
+
     @Override
     protected Optional<XWPFTable> findElementTable(final FuelTable fuelTable,
                                                    final Specification specification) {
@@ -80,12 +84,12 @@ public final class CompositeFuelSearcher extends FuelSearcher {
         private String elementTableTitleTemplate;
         private final List<SpecificationPropertyExtractor> elementTableTitleTemplateArgumentExtractors = new ArrayList<>();
 
-        public CompositeFuelSearcherBuilder elementTableTitleTemplate(final String template) {
+        public CompositeFuelSearcherBuilder subTableTitleTemplate(final String template) {
             this.elementTableTitleTemplate = template;
             return this;
         }
 
-        public CompositeFuelSearcherBuilder elementTableTitleTemplateArgumentExtractor(final SpecificationPropertyExtractor extractor) {
+        public CompositeFuelSearcherBuilder subTableTitleTemplateArgumentExtractor(final SpecificationPropertyExtractor extractor) {
             this.elementTableTitleTemplateArgumentExtractors.add(extractor);
             return this;
         }

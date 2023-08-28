@@ -10,5 +10,7 @@ import lombok.RequiredArgsConstructor;
 public abstract class TagHandler {
     private final String tagName;
 
-    public abstract void handle(final FuelSearchersParsingContext context);
+    public abstract void handleStartTag(final FuelSearchersParsingContext context);
+
+    public abstract void handleEndTag(final FuelSearchersParsingContext context);
 }

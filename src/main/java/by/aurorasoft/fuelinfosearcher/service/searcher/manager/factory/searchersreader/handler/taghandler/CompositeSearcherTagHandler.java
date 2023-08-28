@@ -4,20 +4,20 @@ import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchers
 import org.springframework.stereotype.Component;
 
 @Component
-public final class FuelHeaderTagHandler extends TagHandler {
-    private static final String TAG_NAME = "fuel-header";
+public final class CompositeSearcherTagHandler extends TagHandler {
+    private static final String TAG_HANDLER = "composite-searcher";
 
-    public FuelHeaderTagHandler() {
-        super(TAG_NAME);
+    public CompositeSearcherTagHandler() {
+        super(TAG_HANDLER);
     }
 
     @Override
     public void handleStartTag(final FuelSearchersParsingContext context) {
-
+        context.startBuildCompositeSearcher();
     }
 
     @Override
     public void handleEndTag(final FuelSearchersParsingContext context) {
-        context.accumulateFuelHeader();
+        context.buildCompositeSearcher();
     }
 }

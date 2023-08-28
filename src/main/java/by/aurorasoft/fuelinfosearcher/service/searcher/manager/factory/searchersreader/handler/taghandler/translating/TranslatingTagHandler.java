@@ -21,12 +21,12 @@ public abstract class TranslatingTagHandler<V> extends TagHandler {
     }
 
     @Override
-    public final void handle(final FuelSearchersParsingContext context) {
+    public final void handleEndTag(final FuelSearchersParsingContext context) {
         final V value = this.findValue(context);
-        this.accumulateValue(context, value);
+        this.handleValue(context, value);
     }
 
-    protected abstract void accumulateValue(final FuelSearchersParsingContext context, final V value);
+    protected abstract void handleValue(final FuelSearchersParsingContext context, final V value);
 
     private V findValue(final FuelSearchersParsingContext context) {
         final String key = context.getLastContent();

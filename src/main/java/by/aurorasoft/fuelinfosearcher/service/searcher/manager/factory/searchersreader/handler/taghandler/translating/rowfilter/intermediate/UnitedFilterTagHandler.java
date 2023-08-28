@@ -1,6 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.rowfilter.intermediate;
 
 import by.aurorasoft.fuelinfosearcher.functionalinterface.filterfactory.interim.UnitedFilterFactory;
+import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.FuelSearchersParsingContext;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.dictionary.rowfilter.interim.UnitedFilterFactoryDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.rowfilter.exception.DefaultFiltrationCellIndexNotExistException;
 import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.intermediate.united.UnitedFilter;
@@ -19,4 +20,8 @@ public final class UnitedFilterTagHandler extends AbstractInterimFilterTagHandle
         throw new DefaultFiltrationCellIndexNotExistException();
     }
 
+    @Override
+    public void handleStartTag(final FuelSearchersParsingContext context) {
+
+    }
 }

@@ -1,6 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.rowfilter.intermediate;
 
 import by.aurorasoft.fuelinfosearcher.functionalinterface.filterfactory.interim.GroupFilterFactory;
+import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.FuelSearchersParsingContext;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.dictionary.rowfilter.interim.GroupFilterFactoryDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.intermediate.group.GroupFilter;
 import org.springframework.stereotype.Component;
@@ -19,4 +20,8 @@ public final class GroupFilterTagHandler extends AbstractInterimFilterTagHandler
         return DEFAULT_FILTRATION_CELL_INDEX;
     }
 
+    @Override
+    public void handleStartTag(final FuelSearchersParsingContext context) {
+
+    }
 }

@@ -12,7 +12,12 @@ public final class SimpleSearcherTagHandler extends TagHandler {
     }
 
     @Override
-    public void handle(final FuelSearchersParsingContext context) {
+    public void handleStartTag(final FuelSearchersParsingContext context) {
+        context.startBuildSimpleSearcher();
+    }
+
+    @Override
+    public void handleEndTag(final FuelSearchersParsingContext context) {
         context.buildSimpleSearcher();
     }
 

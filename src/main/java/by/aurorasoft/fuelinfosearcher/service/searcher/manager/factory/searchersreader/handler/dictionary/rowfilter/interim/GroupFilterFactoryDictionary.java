@@ -1,10 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.dictionary.rowfilter.interim;
 
 import by.aurorasoft.fuelinfosearcher.functionalinterface.filterfactory.interim.GroupFilterFactory;
-import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.intermediate.group.ProcessingDepthRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.intermediate.group.SoilTypeRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.intermediate.group.SowingNormRowFilter;
-import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.intermediate.group.SpecificResistanceRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.intermediate.group.*;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -20,7 +17,8 @@ public final class GroupFilterFactoryDictionary extends InterimFilterFactoryDict
             entry("удельное сопротивление", SpecificResistanceRowFilter::new),
             entry("тип почвы", SoilTypeRowFilter::new),
             entry("глубина обработки", ProcessingDepthRowFilter::new),
-            entry("норма высева", SowingNormRowFilter::new)
+            entry("норма высева", SowingNormRowFilter::new),
+            entry("тип удобрения", FertilizerTypeRowFilter::new)
     );
 
     public GroupFilterFactoryDictionary() {

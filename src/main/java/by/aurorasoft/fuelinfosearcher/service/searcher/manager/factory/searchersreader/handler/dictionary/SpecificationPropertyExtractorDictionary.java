@@ -14,7 +14,9 @@ public final class SpecificationPropertyExtractorDictionary extends Dictionary<S
 
     //TODO: read from file
     private static final Map<String, SpecificationPropertyExtractor> EXTRACTORS_BY_KEYS = ofEntries(
-            entry("длина гона", FuelSpecificationExtractingPropertyUtil::extractRoutingLength)
+            entry("длина гона", FuelSpecificationExtractingPropertyUtil::extractRoutingLength),
+            entry("механизм", FuelSpecificationExtractingPropertyUtil::extractMachinery),
+            entry("трактор", FuelSpecificationExtractingPropertyUtil::extractTractor)
     );
 
     public SpecificationPropertyExtractorDictionary() {

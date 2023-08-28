@@ -17,7 +17,12 @@ public final class TableNameTagHandler extends TagHandler {
     }
 
     @Override
-    public void handle(final FuelSearchersParsingContext context) {
+    public void handleStartTag(final FuelSearchersParsingContext context) {
+
+    }
+
+    @Override
+    public void handleEndTag(final FuelSearchersParsingContext context) {
         final String tableName = context.getLastContent();
         final FuelTable fuelTable = this.fuelTableSearcher.findFuelTable(tableName);
         context.accumulateFuelTable(fuelTable);

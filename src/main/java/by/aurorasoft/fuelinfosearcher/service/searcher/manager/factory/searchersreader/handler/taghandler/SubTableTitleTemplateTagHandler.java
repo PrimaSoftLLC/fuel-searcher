@@ -4,10 +4,10 @@ import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchers
 import org.springframework.stereotype.Component;
 
 @Component
-public final class FuelHeaderTagHandler extends TagHandler {
-    private static final String TAG_NAME = "fuel-header";
+public final class SubTableTitleTemplateTagHandler extends TagHandler {
+    private static final String TAG_NAME = "sub-table-title-template";
 
-    public FuelHeaderTagHandler() {
+    public SubTableTitleTemplateTagHandler() {
         super(TAG_NAME);
     }
 
@@ -18,6 +18,6 @@ public final class FuelHeaderTagHandler extends TagHandler {
 
     @Override
     public void handleEndTag(final FuelSearchersParsingContext context) {
-        context.accumulateFuelHeader();
+        context.accumulateSubTableTitleTemplate();
     }
 }

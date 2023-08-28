@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+//TODO: inherit TranslatingTagHandler
 @Component
 public final class FuelHeaderNameTagHandler extends TagHandler {
     private static final String TAG_NAME = "fuel-header-name";
@@ -21,7 +22,12 @@ public final class FuelHeaderNameTagHandler extends TagHandler {
     }
 
     @Override
-    public void handle(final FuelSearchersParsingContext context) {
+    public void handleStartTag(final FuelSearchersParsingContext context) {
+
+    }
+
+    @Override
+    public void handleEndTag(final FuelSearchersParsingContext context) {
         final SpecificationPropertyExtractor propertyExtractor = this.findPropertyExtractor(context);
         context.accumulateFuelHeaderExtractor(propertyExtractor);
     }

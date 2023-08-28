@@ -21,7 +21,7 @@ public abstract class FilterTagHandler<FILTER extends Filter<?>, FILTER_FACTORY 
     }
 
     @Override
-    protected final void accumulateValue(final FuelSearchersParsingContext context, final FILTER_FACTORY filterFactory) {
+    protected final void handleValue(final FuelSearchersParsingContext context, final FILTER_FACTORY filterFactory) {
         final FILTER filter = this.createFilter(context, filterFactory);
         this.accumulateFilter(context, filter);
     }

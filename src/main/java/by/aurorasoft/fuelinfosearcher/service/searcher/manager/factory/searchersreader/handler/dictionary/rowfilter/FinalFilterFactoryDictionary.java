@@ -2,6 +2,7 @@ package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searcher
 
 import by.aurorasoft.fuelinfosearcher.functionalinterface.filterfactory.FinalFilterFactory;
 import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.conclusive.PloughingDepthRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.conclusive.SpreadRateRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.conclusive.WorkingWidthRowFilter;
 import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.conclusive.YieldRowFilter;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,8 @@ public final class FinalFilterFactoryDictionary
     private static final Map<String, FinalFilterFactory> FILTER_FACTORIES_BY_PROPERTY_NAMES = ofEntries(
             entry("глубина вспашки", PloughingDepthRowFilter::new),
             entry("ширина захвата", WorkingWidthRowFilter::new),
-            entry("урожайность", YieldRowFilter::new)
+            entry("урожайность", YieldRowFilter::new),
+            entry("норма внесения", SpreadRateRowFilter::new)
     );
 
     public FinalFilterFactoryDictionary() {
