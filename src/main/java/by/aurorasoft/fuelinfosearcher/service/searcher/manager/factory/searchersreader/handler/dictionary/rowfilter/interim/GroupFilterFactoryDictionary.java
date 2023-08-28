@@ -18,7 +18,9 @@ public final class GroupFilterFactoryDictionary extends InterimFilterFactoryDict
             entry("тип почвы", SoilTypeRowFilter::new),
             entry("глубина обработки", ProcessingDepthRowFilter::new),
             entry("норма высева", SowingNormRowFilter::new),
-            entry("тип удобрения", FertilizerTypeRowFilter::new)
+            entry("тип удобрения", FertilizerTypeRowFilter::new),
+            entry("класс груза", CargoClassRowFilter::new),
+            entry("группа дорог", RoadGroupRowFilter::new)
     );
 
     public GroupFilterFactoryDictionary() {
