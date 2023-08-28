@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<fuel-tables>
+<fuel-searchers>
 
         <!-- TABLE #1 -->
-        <simple-fuel-table>
+        <simple-searcher>
 
-            <name>ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ</name>
+            <table-name>ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ</table-name>
 
             <fuel-headers>
                 <fuel-header>Менее 150</fuel-header>
@@ -26,12 +26,12 @@
 
             <fuel-header-name>длина гона</fuel-header-name>
 
-        </simple-fuel-table>
+        </simple-searcher>
 
         <!-- TABLE #2 -->
-        <simple-fuel-table>
+        <simple-searche>
 
-            <name>ВСПАШКА СТЕРНИ</name>
+            <table-name>ВСПАШКА СТЕРНИ</table-name>
 
             <fuel-headers>
                 <fuel-header>Менее 150</fuel-header>
@@ -53,6 +53,6 @@
 
             <fuel-header-name>длина гона</fuel-header-name>
 
-        </simple-fuel-table>
+        </simple-searche>
 
-</fuel-tables>
+</fuel-searchers>

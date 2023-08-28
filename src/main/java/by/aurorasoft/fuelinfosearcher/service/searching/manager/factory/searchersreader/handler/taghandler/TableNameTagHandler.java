@@ -6,12 +6,12 @@ import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searcher
 import org.springframework.stereotype.Component;
 
 @Component
-public final class FuelTableNameTagHandler extends TagHandler {
-    private static final String TAG_NAME = "name";
+public final class TableNameTagHandler extends TagHandler {
+    private static final String TAG_NAME = "table-name";
 
     private final FuelTableSearcher fuelTableSearcher;
 
-    public FuelTableNameTagHandler(final FuelTableSearcher fuelTableSearcher) {
+    public TableNameTagHandler(final FuelTableSearcher fuelTableSearcher) {
         super(TAG_NAME);
         this.fuelTableSearcher = fuelTableSearcher;
     }
