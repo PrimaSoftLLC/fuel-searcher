@@ -31,7 +31,7 @@ public final class TwentySixthTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .combine("BIG X850")
                                 .workingWidth("9")
                                 .yield("65-70")
-                                .routingLength("151...200")
+                                .routingLength("150-200")
                                 .build(),
                         optionalFuelInfoFactory.apply(240.2, 1.24)
                 ),
