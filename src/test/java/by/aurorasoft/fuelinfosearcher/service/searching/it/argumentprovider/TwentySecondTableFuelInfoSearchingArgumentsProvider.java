@@ -33,7 +33,7 @@ public final class TwentySecondTableFuelInfoSearchingArgumentsProvider extends A
                                 .machinery("ППЛ-1")
                                 .workingWidth("1")
                                 .yield("15-17")
-                                .routingLength("151...200")
+                                .routingLength("150-200")
                                 .build(),
                         optionalFuelInfoFactory.apply(2.2, 25.1)
                 ),
@@ -44,7 +44,7 @@ public final class TwentySecondTableFuelInfoSearchingArgumentsProvider extends A
                                 .machinery("ППЛ-1")
                                 .workingWidth("1")
                                 .yield("15-17")
-                                .routingLength("201...300")
+                                .routingLength("201-300")
                                 .build(),
                         optionalFuelInfoFactory.apply(2.3, 24.7)
                 ),
@@ -56,7 +56,7 @@ public final class TwentySecondTableFuelInfoSearchingArgumentsProvider extends A
                                 .machinery("ППЛ-1")
                                 .workingWidth("1")
                                 .yield("15-17")
-                                .routingLength("201...300")
+                                .routingLength("201-300")
                                 .build(),
                         empty()
                 ),
@@ -68,7 +68,7 @@ public final class TwentySecondTableFuelInfoSearchingArgumentsProvider extends A
                                 .machinery("not existing")
                                 .workingWidth("1")
                                 .yield("15-17")
-                                .routingLength("201...300")
+                                .routingLength("201-300")
                                 .build(),
                         empty()
                 ),
@@ -80,7 +80,7 @@ public final class TwentySecondTableFuelInfoSearchingArgumentsProvider extends A
                                 .machinery("ППЛ-1")
                                 .workingWidth("not existing")
                                 .yield("15-17")
-                                .routingLength("201...300")
+                                .routingLength("201-300")
                                 .build(),
                         empty()
                 ),
@@ -92,7 +92,7 @@ public final class TwentySecondTableFuelInfoSearchingArgumentsProvider extends A
                                 .machinery("ППЛ-1")
                                 .workingWidth("1")
                                 .yield("not existing")
-                                .routingLength("201...300")
+                                .routingLength("201-300")
                                 .build(),
                         empty()
                 ),

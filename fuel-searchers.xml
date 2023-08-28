@@ -316,6 +316,31 @@
 
     </simple-searcher>
 
+    <!-- TABLE #18 -->
+    <simple-searcher>
+
+        <table-name>СГРЕБАНИЕ СЕНА В ВАЛКИ</table-name>
+
+        <fuel-headers>
+            <fuel-header>Менее 150</fuel-header>
+            <fuel-header>150-200</fuel-header>
+            <fuel-header>201-300</fuel-header>
+            <fuel-header>301-400</fuel-header>
+            <fuel-header>401-600</fuel-header>
+            <fuel-header>601-1000</fuel-header>
+            <fuel-header>Более 1000</fuel-header>
+        </fuel-headers>
+
+        <filter-chain>
+            <filter-by cell-index="1">трактор</filter-by>
+            <filter-by cell-index="2">механизм</filter-by>
+            <final-filter-by cell-index="3">ширина захвата</final-filter-by>
+        </filter-chain>
+
+        <fuel-header-name>длина гона</fuel-header-name>
+
+    </simple-searcher>
+
     <!-- TABLE #19 -->
     <simple-searcher>
 
@@ -346,6 +371,58 @@
     <simple-searcher>
 
         <table-name>ПРЕССОВАНИЕ СОЛОМЫ ПОСЛЕ КОМБАЙНА</table-name>
+
+        <fuel-headers>
+            <fuel-header>Менее 150</fuel-header>
+            <fuel-header>150-200</fuel-header>
+            <fuel-header>201-300</fuel-header>
+            <fuel-header>301-400</fuel-header>
+            <fuel-header>401-600</fuel-header>
+            <fuel-header>601-1000</fuel-header>
+            <fuel-header>Более 1000</fuel-header>
+        </fuel-headers>
+
+        <filter-chain>
+            <filter-by cell-index="1">трактор</filter-by>
+            <filter-by cell-index="2">механизм</filter-by>
+            <filter-by cell-index="3">ширина захвата</filter-by>
+            <final-filter-by cell-index="4">урожайность</final-filter-by>
+        </filter-chain>
+
+        <fuel-header-name>длина гона</fuel-header-name>
+
+    </simple-searcher>
+
+    <!-- TABLE #21 -->
+    <simple-searcher>
+
+        <table-name>ПРЕССОВАНИЕ ПРОВЯЛЕННОЙ МАССЫ ПОСЛЕ КОМБАЙНА</table-name>
+
+        <fuel-headers>
+            <fuel-header>Менее 150</fuel-header>
+            <fuel-header>150-200</fuel-header>
+            <fuel-header>201-300</fuel-header>
+            <fuel-header>301-400</fuel-header>
+            <fuel-header>401-600</fuel-header>
+            <fuel-header>601-1000</fuel-header>
+            <fuel-header>Более 1000</fuel-header>
+        </fuel-headers>
+
+        <filter-chain>
+            <filter-by cell-index="1">трактор</filter-by>
+            <filter-by cell-index="2">механизм</filter-by>
+            <filter-by cell-index="3">ширина захвата</filter-by>
+            <final-filter-by cell-index="4">урожайность</final-filter-by>
+        </filter-chain>
+
+        <fuel-header-name>длина гона</fuel-header-name>
+
+    </simple-searcher>
+
+    <!-- TABLE #22 -->
+    <simple-searcher>
+
+        <table-name>ПРЕССОВАНИЕ ЛЕНТ ЛЬНА</table-name>
 
         <fuel-headers>
             <fuel-header>Менее 150</fuel-header>
