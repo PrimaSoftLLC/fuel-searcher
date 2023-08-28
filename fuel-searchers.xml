@@ -82,4 +82,82 @@
 
     </simple-searcher>
 
+    <!-- TABLE #4 -->
+    <simple-searcher>
+
+        <table-name>СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ</table-name>
+
+        <fuel-headers>
+            <fuel-header>Менее 150</fuel-header>
+            <fuel-header>150-200</fuel-header>
+            <fuel-header>201-300</fuel-header>
+            <fuel-header>301-400</fuel-header>
+            <fuel-header>401-600</fuel-header>
+            <fuel-header>601-1000</fuel-header>
+            <fuel-header>Более 1000</fuel-header>
+        </fuel-headers>
+
+        <filter-chain>
+            <filter-by-group>глубина обработки</filter-by-group>
+            <filter-by cell-index="1">трактор</filter-by>
+            <filter-by cell-index="2">механизм</filter-by>
+            <final-filter-by cell-index="3">ширина захвата</final-filter-by>
+        </filter-chain>
+
+        <fuel-header-name>длина гона</fuel-header-name>
+
+    </simple-searcher>
+
+    <!-- TABLE #5 -->
+    <simple-searcher>
+
+        <table-name>ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ</table-name>
+
+        <fuel-headers>
+            <fuel-header>Менее 150</fuel-header>
+            <fuel-header>150-200</fuel-header>
+            <fuel-header>201-300</fuel-header>
+            <fuel-header>301-400</fuel-header>
+            <fuel-header>401-600</fuel-header>
+            <fuel-header>601-1000</fuel-header>
+            <fuel-header>Более 1000</fuel-header>
+        </fuel-headers>
+
+        <filter-chain>
+            <filter-by-group>глубина обработки</filter-by-group>
+            <filter-by cell-index="1">трактор</filter-by>
+            <filter-by cell-index="2">механизм</filter-by>
+            <final-filter-by cell-index="3">ширина захвата</final-filter-by>
+        </filter-chain>
+
+        <fuel-header-name>длина гона</fuel-header-name>
+
+    </simple-searcher>
+
+    <!-- TABLE #6 -->
+    <simple-searcher>
+
+        <table-name>ЛУЩЕНИЕ И ДИСКОВАНИЕ МНОГОЛЕТНИХ ТРАВ</table-name>
+
+        <fuel-headers>
+            <fuel-header>Менее 150</fuel-header>
+            <fuel-header>150-200</fuel-header>
+            <fuel-header>201-300</fuel-header>
+            <fuel-header>301-400</fuel-header>
+            <fuel-header>401-600</fuel-header>
+            <fuel-header>601-1000</fuel-header>
+            <fuel-header>Более 1000</fuel-header>
+        </fuel-headers>
+
+        <filter-chain>
+            <filter-by-group>глубина обработки</filter-by-group>
+            <filter-by cell-index="1">трактор</filter-by>
+            <filter-by cell-index="2">механизм</filter-by>
+            <final-filter-by cell-index="3">ширина захвата</final-filter-by>
+        </filter-chain>
+
+        <fuel-header-name>длина гона</fuel-header-name>
+
+    </simple-searcher>
+
 </fuel-searchers>
