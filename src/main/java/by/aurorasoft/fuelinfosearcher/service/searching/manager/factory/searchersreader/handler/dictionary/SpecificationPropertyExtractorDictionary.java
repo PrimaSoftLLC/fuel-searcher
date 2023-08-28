@@ -10,7 +10,7 @@ import static java.util.Map.entry;
 import static java.util.Map.ofEntries;
 
 @Component
-public final class SpecificationPropertyExtractorDictionary extends AbstractDictionary<SpecificationPropertyExtractor> {
+public final class SpecificationPropertyExtractorDictionary extends Dictionary<SpecificationPropertyExtractor> {
 
     //TODO: read from file
     private static final Map<String, SpecificationPropertyExtractor> EXTRACTORS_BY_KEYS = ofEntries(

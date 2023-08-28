@@ -8,7 +8,7 @@ import java.util.Optional;
 import static java.util.Optional.ofNullable;
 
 @RequiredArgsConstructor
-public abstract class AbstractDictionary<V> {
+public abstract class Dictionary<V> {
     private final Map<String, V> valuesByKeys;
 
     public final Optional<V> find(final String key) {
