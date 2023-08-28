@@ -11,7 +11,7 @@ import static java.util.Map.ofEntries;
 
 @Component
 public final class ConclusiveRowFilterFactoryDictionary
-        extends AbstractRowFilterFactoryDictionary<ConclusiveRowFilterFactory> {
+        extends AbstractFilterFactoryDictionary<ConclusiveRowFilterFactory> {
 
     private static final Map<String, ConclusiveRowFilterFactory> FILTER_FACTORIES_BY_PROPERTY_NAMES = ofEntries(
             entry("глубина вспашки", PloughingDepthRowFilter::new)

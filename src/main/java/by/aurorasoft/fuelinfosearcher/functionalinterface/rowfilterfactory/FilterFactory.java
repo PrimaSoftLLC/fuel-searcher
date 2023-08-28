@@ -4,7 +4,7 @@ import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.AbstractRowFil
 
 import java.util.function.IntFunction;
 
-public interface RowFilterByCellIndexFactory<F extends AbstractRowFilter<?>>
+public interface FilterFactory<F extends AbstractRowFilter<?>>
         extends IntFunction<F> {
 
 }
