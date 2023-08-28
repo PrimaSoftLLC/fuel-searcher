@@ -33,7 +33,7 @@ public final class TwentiethTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .machinery("Krone CAMPRIMA CF 155 XC")
                                 .workingWidth("5.7")
                                 .yield("4.6-5")
-                                .routingLength("151...200")
+                                .routingLength("150-200")
                                 .build(),
                         optionalFuelInfoFactory.apply(45., 1.37)
                 ),
@@ -44,7 +44,7 @@ public final class TwentiethTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .machinery("Krone CAMPRIMA CF 125")
                                 .workingWidth("5.5")
                                 .yield("3.6-4")
-                                .routingLength("151...200")
+                                .routingLength("150-200")
                                 .build(),
                         optionalFuelInfoFactory.apply(29.3, 1.51)
                 ),
@@ -56,7 +56,7 @@ public final class TwentiethTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .machinery("Krone CAMPRIMA CF 125")
                                 .workingWidth("5.5")
                                 .yield("3.6-4")
-                                .routingLength("151...200")
+                                .routingLength("150-200")
                                 .build(),
                         empty()
                 ),
@@ -68,7 +68,7 @@ public final class TwentiethTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .machinery("not existing")
                                 .workingWidth("5.5")
                                 .yield("3.6–4")
-                                .routingLength("151...200")
+                                .routingLength("150-200")
                                 .build(),
                         empty()
                 ),
@@ -80,7 +80,7 @@ public final class TwentiethTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .machinery("Krone CAMPRIMA CF 125")
                                 .workingWidth("not existing")
                                 .yield("3.6–4")
-                                .routingLength("151...200")
+                                .routingLength("150-200")
                                 .build(),
                         empty()
                 ),
@@ -92,7 +92,7 @@ public final class TwentiethTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .machinery("Krone CAMPRIMA CF 125")
                                 .workingWidth("5.5")
                                 .yield("not exiting")
-                                .routingLength("151...200")
+                                .routingLength("150-200")
                                 .build(),
                         empty()
                 ),
