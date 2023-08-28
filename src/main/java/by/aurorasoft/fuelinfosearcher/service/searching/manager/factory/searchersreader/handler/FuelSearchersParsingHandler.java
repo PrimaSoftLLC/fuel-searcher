@@ -1,39 +1,26 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler;
 
-import by.aurorasoft.fuelinfosearcher.model.FuelTable;
 import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelSearcher;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter.FinalFilterFactoryDictionary;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter.interim.InterimFilterFactoryDictionary;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.fueltablesearcher.FuelTableSearcher;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.SpecificationPropertyExtractorDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.context.FuelSearchersParsingContext;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.group.GroupFilter;
-import lombok.Builder;
+import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.taghandler.TagHandler;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
-import static java.lang.Integer.parseInt;
 import static java.lang.String.copyValueOf;
+import static java.util.Optional.ofNullable;
 
 public final class FuelSearchersParsingHandler extends DefaultHandler {
-    private final FuelTableSearcher fuelTableSearcher;
-    private final InterimFilterFactoryDictionary intermediateRowFilterFactoryDictionary;
-    private final FinalFilterFactoryDictionary conclusiveRowFilterFactoryDictionary;
-    private final SpecificationPropertyExtractorDictionary fuelSpecificationPropertyExtractorDictionary;
+    private final Map<String, TagHandler> handlersByTagNames;
     private final FuelSearchersParsingContext context;
 
-    @Builder
-    public FuelSearchersParsingHandler(final FuelTableSearcher fuelTableSearcher,
-                                       final InterimFilterFactoryDictionary intermediateRowFilterFactoryDictionary,
-                                       final FinalFilterFactoryDictionary conclusiveRowFilterFactoryDictionary,
-                                       final SpecificationPropertyExtractorDictionary fuelSpecificationPropertyExtractorDictionary) {
-        this.fuelTableSearcher = fuelTableSearcher;
-        this.intermediateRowFilterFactoryDictionary = intermediateRowFilterFactoryDictionary;
-        this.conclusiveRowFilterFactoryDictionary = conclusiveRowFilterFactoryDictionary;
-        this.fuelSpecificationPropertyExtractorDictionary = fuelSpecificationPropertyExtractorDictionary;
-        this.context = new FuelSearchersParsingContext();
+    public FuelSearchersParsingHandler(final Map<String, TagHandler> handlersByTagNames,
+                                       final FuelSearchersParsingContext context) {
+        this.handlersByTagNames = handlersByTagNames;
+        this.context = context;
     }
 
     public List<AbstractTableFuelSearcher> findParsedSearchers() {
@@ -50,16 +37,8 @@ public final class FuelSearchersParsingHandler extends DefaultHandler {
 
     @Override
     public void endElement(final String uri, final String localName, final String qualifiedName) {
-        //TODO: remove switch
-        switch (qualifiedName) {
-            case "name" -> this.accumulateFuelTable();
-            case "fuel-header" -> this.context.accumulateFuelHeader();
-            case "filter-by-group" -> this.accumulateGroupRowFilter();
-            case "filter-by" -> this.accumulateIntermediateFilter();
-            case "final-filter-by" -> this.accumulateConclusiveFilter();
-            case "fuel-header-cell-property" -> this.accumulateFuelHeaderValueExtractor();
-            case "simple-fuel-table" -> this.context.buildSimpleSearcher();
-        }
+        final Optional<TagHandler> optionalHandler = this.findHandler(qualifiedName);
+        optionalHandler.ifPresent(handler -> handler.handle(this.context));
     }
 
     @Override
@@ -69,35 +48,8 @@ public final class FuelSearchersParsingHandler extends DefaultHandler {
         this.context.setLastContent(trimmedCopy);
     }
 
-    private void accumulateFuelTable() {
-        final String lastContent = this.context.getLastContent();
-        final FuelTable fuelTable = this.fuelTableSearcher.findFuelTable(lastContent);
-        this.context.accumulateFuelTable(fuelTable);
+    private Optional<TagHandler> findHandler(final String tagName) {
+        final TagHandler handler = this.handlersByTagNames.get(tagName);
+        return ofNullable(handler);
     }
-
-    private void accumulateGroupRowFilter() {
-        //TODO: throw exception
-        final GroupFilter filter = this.groupRowFilterDictionary.find(this.context.getLastContent()).orElseThrow();
-        this.context.accumulateFilter(filter);
-    }
-
-    private void accumulateIntermediateFilter() {
-        this.context.accumulateFilter(
-                this.intermediateRowFilterFactoryDictionary.find(this.context.getLastContent())
-                        .orElseThrow()
-                        .apply(parseInt(this.context.getLastAttributes().getValue("cell-index")))
-        );
-    }
-
-    private void accumulateConclusiveFilter() {
-        this.context.accumulateFilter(this.conclusiveRowFilterFactoryDictionary.find(this.context.getLastContent())
-                .orElseThrow().apply(parseInt(this.context.getLastAttributes().getValue("cell-index"))));
-    }
-
-    private void accumulateFuelHeaderValueExtractor() {
-        this.context.accumulateFuelHeaderExtractor(
-                this.fuelSpecificationPropertyExtractorDictionary.find(this.context.getLastContent()).orElseThrow()
-        );
-    }
-
 }
