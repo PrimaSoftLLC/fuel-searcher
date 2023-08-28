@@ -2,18 +2,18 @@ package by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searche
 
 import by.aurorasoft.fuelinfosearcher.functionalinterface.rowfilterfactory.InterimFilterFactory;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.context.FuelSearchersParsingContext;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter.AbstractFilterFactoryDictionary;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.taghandler.rowfilter.AbstractFilterTagHandler;
+import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter.FilterFactoryDictionary;
+import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.taghandler.rowfilter.FilterTagHandler;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.AbstractInterimFilter;
 
 public abstract class AbstractInterimFilterTagHandler<
         FILTER extends AbstractInterimFilter,
         FILTER_FACTORY extends InterimFilterFactory<FILTER>
         >
-        extends AbstractFilterTagHandler<FILTER, FILTER_FACTORY> {
+        extends FilterTagHandler<FILTER, FILTER_FACTORY> {
 
     public AbstractInterimFilterTagHandler(final String tagName,
-                                           final AbstractFilterFactoryDictionary<FILTER_FACTORY> filterFactoryDictionary) {
+                                           final FilterFactoryDictionary<FILTER_FACTORY> filterFactoryDictionary) {
         super(tagName, filterFactoryDictionary);
     }
 

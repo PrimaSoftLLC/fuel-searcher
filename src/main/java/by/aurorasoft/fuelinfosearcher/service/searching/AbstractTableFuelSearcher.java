@@ -8,7 +8,7 @@ import by.aurorasoft.fuelinfosearcher.model.FuelTable;
 import by.aurorasoft.fuelinfosearcher.service.searching.exception.FuelSearcherBuildingException;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.chain.RowFilterChain;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.chain.RowFilterChain.RowFilterChainBuilder;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.AbstractConclusiveRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.FinalFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.AbstractInterimFilter;
 import by.aurorasoft.fuelinfosearcher.util.FuelUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
@@ -111,7 +111,7 @@ public abstract class AbstractTableFuelSearcher {
             return this;
         }
 
-        public final AbstractTableFuelSearcherBuilder<S> conclusiveFilter(final AbstractConclusiveRowFilter filter) {
+        public final AbstractTableFuelSearcherBuilder<S> conclusiveFilter(final FinalFilter filter) {
             this.filterChainBuilder.conclusiveFilter(filter);
             return this;
         }

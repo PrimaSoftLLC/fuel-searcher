@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 //TODO: RowFilter rename to Filter everywhere
 @RequiredArgsConstructor
-public abstract class AbstractTagHandler {
+public abstract class TagHandler {
     private final String tagName;
 
     public abstract void handle(final FuelSearchersParsingContext context);

@@ -5,10 +5,10 @@ import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searcher
 
 import java.util.Map;
 
-public abstract class AbstractFilterFactoryDictionary<F extends FilterFactory<?>>
+public abstract class FilterFactoryDictionary<F extends FilterFactory<?>>
         extends AbstractDictionary<F> {
 
-    public AbstractFilterFactoryDictionary(final Map<String, F> valuesByKeys) {
+    public FilterFactoryDictionary(final Map<String, F> valuesByKeys) {
         super(valuesByKeys);
     }
 

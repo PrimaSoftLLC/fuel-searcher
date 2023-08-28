@@ -4,7 +4,7 @@ import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searcher
 import org.springframework.stereotype.Component;
 
 @Component
-public final class FuelHeaderTagHandler extends AbstractTagHandler {
+public final class FuelHeaderTagHandler extends TagHandler {
     private static final String TAG_NAME = "fuel-header";
 
     public FuelHeaderTagHandler() {

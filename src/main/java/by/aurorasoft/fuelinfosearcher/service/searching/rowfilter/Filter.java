@@ -10,7 +10,7 @@ import java.util.function.Function;
 
 @RequiredArgsConstructor
 @Getter
-public abstract class AbstractRowFilter<R> {
+public abstract class Filter<R> {
     private final int filteringCellIndex;
 
     public final Function<List<XWPFTableRow>, R> mapToFilteringFunction(final FuelSpecification specification) {

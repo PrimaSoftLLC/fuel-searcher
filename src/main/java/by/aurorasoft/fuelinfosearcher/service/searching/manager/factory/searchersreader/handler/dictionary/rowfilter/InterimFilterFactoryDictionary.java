@@ -14,7 +14,7 @@ import static java.util.Map.ofEntries;
 
 @Component
 public final class InterimFilterFactoryDictionary
-        extends AbstractFilterFactoryDictionary<InterimFilterFactory> {
+        extends FilterFactoryDictionary<InterimFilterFactory> {
 
     //TODO: read from file
     private static final Map<String, InterimFilterFactory> FILTER_FACTORIES_BY_PROPERTY_NAMES = ofEntries(

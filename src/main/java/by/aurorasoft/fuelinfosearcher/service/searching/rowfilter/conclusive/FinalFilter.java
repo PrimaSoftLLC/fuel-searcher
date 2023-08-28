@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive;
 
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.AbstractRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.Filter;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.util.List;
@@ -9,9 +9,9 @@ import java.util.Optional;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findFirstRowByContent;
 
 //TODO: remove FuelInfoSpecificationUtil
-public abstract class AbstractConclusiveRowFilter extends AbstractRowFilter<Optional<XWPFTableRow>> {
+public abstract class FinalFilter extends Filter<Optional<XWPFTableRow>> {
 
-    public AbstractConclusiveRowFilter(final int filteringCellIndex) {
+    public FinalFilter(final int filteringCellIndex) {
         super(filteringCellIndex);
     }
 

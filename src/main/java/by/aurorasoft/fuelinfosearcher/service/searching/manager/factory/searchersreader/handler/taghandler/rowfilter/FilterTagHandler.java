@@ -2,11 +2,11 @@ package by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searche
 
 import by.aurorasoft.fuelinfosearcher.functionalinterface.rowfilterfactory.FilterFactory;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.context.FuelSearchersParsingContext;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter.AbstractFilterFactoryDictionary;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.taghandler.AbstractTagHandler;
-import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.taghandler.rowfilter.intermediate.exception.FilterNotExistException;
+import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.dictionary.rowfilter.FilterFactoryDictionary;
+import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.taghandler.TagHandler;
+import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.taghandler.rowfilter.intermediate.exception.FilterFactoryNotExistException;
 import by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searchersreader.handler.taghandler.rowfilter.intermediate.exception.FiltrationCellIndexNotDefinedException;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.AbstractRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.Filter;
 import org.xml.sax.Attributes;
 
 import java.util.Optional;
@@ -14,19 +14,16 @@ import java.util.OptionalInt;
 
 import static java.lang.Integer.parseInt;
 
-public abstract class AbstractFilterTagHandler<
-        FILTER extends AbstractRowFilter<?>,
-        FILTER_FACTORY extends FilterFactory<FILTER>
-        >
-        extends AbstractTagHandler {
+public abstract class FilterTagHandler<FILTER extends Filter<?>, FILTER_FACTORY extends FilterFactory<FILTER>>
+        extends TagHandler {
 
     private static final String FILTRATION_CELL_INDEX_ATTRIBUTE_NAME = "cell-index";
 
-    private final AbstractFilterFactoryDictionary<FILTER_FACTORY> filterFactoryDictionary;
+    private final FilterFactoryDictionary<FILTER_FACTORY> filterFactoryDictionary;
 
 
-    public AbstractFilterTagHandler(final String tagName,
-                                    final AbstractFilterFactoryDictionary<FILTER_FACTORY> filterFactoryDictionary) {
+    public FilterTagHandler(final String tagName,
+                            final FilterFactoryDictionary<FILTER_FACTORY> filterFactoryDictionary) {
         super(tagName);
         this.filterFactoryDictionary = filterFactoryDictionary;
     }
@@ -53,7 +50,7 @@ public abstract class AbstractFilterTagHandler<
     private FILTER_FACTORY findFilterFactory(final FuelSearchersParsingContext context) {
         final String filterKey = context.getLastContent();
         final Optional<FILTER_FACTORY> optionalFilterFactory = this.filterFactoryDictionary.find(filterKey);
-        return optionalFilterFactory.orElseThrow(FilterNotExistException::new);
+        return optionalFilterFactory.orElseThrow(FilterFactoryNotExistException::new);
     }
 
     private OptionalInt findFiltrationCellIndex(final FuelSearchersParsingContext context) {

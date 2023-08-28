@@ -4,7 +4,7 @@ import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractSpreadRate;
 
-public final class SpreadRateRowFilter extends AbstractConclusiveRowFilter {
+public final class SpreadRateRowFilter extends FinalFilter {
 
     public SpreadRateRowFilter(final int filteringCellIndex) {
         super(filteringCellIndex);

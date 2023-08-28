@@ -3,7 +3,7 @@ package by.aurorasoft.fuelinfosearcher.service.searching.manager.factory.searche
 import by.aurorasoft.fuelinfosearcher.functionalinterface.FuelSpecificationPropertyExtractor;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
 import by.aurorasoft.fuelinfosearcher.service.searching.AbstractTableFuelSearcher;
-import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.AbstractConclusiveRowFilter;
+import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.conclusive.FinalFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.rowfilter.intermediate.AbstractInterimFilter;
 import by.aurorasoft.fuelinfosearcher.service.searching.simple.SimpleTableFuelSearcher;
 import by.aurorasoft.fuelinfosearcher.service.searching.simple.SimpleTableFuelSearcher.SimpleTableFuelSearcherBuilder;
@@ -50,7 +50,7 @@ public final class FuelSearchersParsingContext {
         this.fuelSearcherBuilder.intermediateFilter(filter);
     }
 
-    public void accumulateFilter(final AbstractConclusiveRowFilter filter) {
+    public void accumulateFilter(final FinalFilter filter) {
         this.fuelSearcherBuilder.conclusiveFilter(filter);
     }
 

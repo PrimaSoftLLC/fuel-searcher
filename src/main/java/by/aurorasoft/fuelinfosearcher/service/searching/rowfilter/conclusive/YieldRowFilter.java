@@ -4,7 +4,7 @@ import by.aurorasoft.fuelinfosearcher.model.FuelSpecification;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractYield;
 
-public final class YieldRowFilter extends AbstractConclusiveRowFilter {
+public final class YieldRowFilter extends FinalFilter {
 
     public YieldRowFilter(final int filteringCellIndex) {
         super(filteringCellIndex);
