@@ -44,7 +44,7 @@ public final class FourteenthTableFuelInfoSearchingArgumentProvider extends Abst
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("МЖТ-16")
                                 .transportDistance("24.1...28")
-                                .spreadRate("31...50")
+                                .spreadRate("30-50")
                                 .roadGroup("Первая группа дорог")
                                 .build(),
                         optionalFuelInfoFactory.apply(36.8, 3.05)
@@ -56,7 +56,7 @@ public final class FourteenthTableFuelInfoSearchingArgumentProvider extends Abst
                                 .tractor("not existing")
                                 .machinery("МЖТ-16")
                                 .transportDistance("24.1...28")
-                                .spreadRate("31...50")
+                                .spreadRate("30-50")
                                 .roadGroup("Первая группа дорог")
                                 .build(),
                         empty()
@@ -68,7 +68,7 @@ public final class FourteenthTableFuelInfoSearchingArgumentProvider extends Abst
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("not existing")
                                 .transportDistance("24.1...28")
-                                .spreadRate("31...50")
+                                .spreadRate("30-50")
                                 .roadGroup("Первая группа дорог")
                                 .build(),
                         empty()
@@ -80,7 +80,7 @@ public final class FourteenthTableFuelInfoSearchingArgumentProvider extends Abst
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("МЖТ-16")
                                 .transportDistance("not existing")
-                                .spreadRate("31...50")
+                                .spreadRate("30-50")
                                 .roadGroup("Первая группа дорог")
                                 .build(),
                         empty()
@@ -104,7 +104,7 @@ public final class FourteenthTableFuelInfoSearchingArgumentProvider extends Abst
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("МЖТ-16")
                                 .transportDistance("24.1...28")
-                                .spreadRate("31...50")
+                                .spreadRate("30-50")
                                 .roadGroup("not existing")
                                 .build(),
                         empty()

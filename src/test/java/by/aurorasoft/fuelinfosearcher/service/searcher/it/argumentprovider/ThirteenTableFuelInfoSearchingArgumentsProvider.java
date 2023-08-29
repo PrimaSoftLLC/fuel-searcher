@@ -23,7 +23,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы I класса")
                                 .roadGroup("Первая группа дорог")
                                 .transportDistance("0.25...0.75")
-                                .routingLength("Менее 30")
+                                .spreadRate("Менее 30")
                                 .build(),
                         optionalFuelInfoFactory.apply(259.8, 0.4)
                 ),
@@ -35,7 +35,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы I класса")
                                 .roadGroup("Вторая группа дорог")
                                 .transportDistance("6.1...7")
-                                .routingLength("31...50")
+                                .spreadRate("30-50")
                                 .build(),
                         optionalFuelInfoFactory.apply(143.5, 1.17)
                 ),
@@ -47,7 +47,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы I класса")
                                 .roadGroup("Третья группа дорог")
                                 .transportDistance("0.76...1.25")
-                                .routingLength("Более 50")
+                                .spreadRate("Более 50")
                                 .build(),
                         optionalFuelInfoFactory.apply(255.1, 0.4)
                 ),
@@ -59,7 +59,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы II класса")
                                 .roadGroup("Первая группа дорог")
                                 .transportDistance("18.1...21")
-                                .routingLength("31...50")
+                                .spreadRate("30-50")
                                 .build(),
                         optionalFuelInfoFactory.apply(65.3, 2.83)
                 ),
@@ -71,7 +71,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы II класса")
                                 .roadGroup("Вторая группа дорог")
                                 .transportDistance("0.76...1.25")
-                                .routingLength("Более 50")
+                                .spreadRate("Более 50")
                                 .build(),
                         optionalFuelInfoFactory.apply(225.7, 0.39)
                 ),
@@ -83,7 +83,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы II класса")
                                 .roadGroup("Третья группа дорог")
                                 .transportDistance("18.1...21")
-                                .routingLength("Менее 30")
+                                .spreadRate("Менее 30")
                                 .build(),
                         optionalFuelInfoFactory.apply(47.6, 4.6)
                 ),
@@ -95,7 +95,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы I класса")
                                 .roadGroup("Первая группа дорог")
                                 .transportDistance("0.25...0.75")
-                                .routingLength("Менее 30")
+                                .spreadRate("Менее 30")
                                 .build(),
                         optionalFuelInfoFactory.apply(253.9, 0.39)
                 ),
@@ -107,7 +107,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы I класса")
                                 .roadGroup("Вторая группа дорог")
                                 .transportDistance("21.1...24")
-                                .routingLength("31...50")
+                                .spreadRate("30-50")
                                 .build(),
                         optionalFuelInfoFactory.apply(56.7, 3.53)
                 ),
@@ -119,7 +119,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы I класса")
                                 .roadGroup("Третья группа дорог")
                                 .transportDistance("6.1...7")
-                                .routingLength("Более 50")
+                                .spreadRate("Более 50")
                                 .build(),
                         optionalFuelInfoFactory.apply(125.9, 1.36)
                 ),
@@ -131,7 +131,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы II класса")
                                 .roadGroup("Первая группа дорог")
                                 .transportDistance("5.1...6")
-                                .routingLength("Более 50")
+                                .spreadRate("Более 50")
                                 .build(),
                         optionalFuelInfoFactory.apply(139.3, 0.93)
                 ),
@@ -143,7 +143,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы II класса")
                                 .roadGroup("Вторая группа дорог")
                                 .transportDistance("14.1...16")
-                                .routingLength("31...50")
+                                .spreadRate("30-50")
                                 .build(),
                         optionalFuelInfoFactory.apply(65.7, 2.76)
                 ),
@@ -155,7 +155,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы II класса")
                                 .roadGroup("Третья группа дорог")
                                 .transportDistance("28.1...32")
-                                .routingLength("Менее 30")
+                                .spreadRate("Менее 30")
                                 .build(),
                         optionalFuelInfoFactory.apply(30.9, 6.94)
                 ),
@@ -167,7 +167,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы I класса")
                                 .roadGroup("Первая группа дорог")
                                 .transportDistance("1.76...2.25")
-                                .routingLength("Менее 30")
+                                .spreadRate("Менее 30")
                                 .build(),
                         optionalFuelInfoFactory.apply(198., 0.49)
                 ),
@@ -179,7 +179,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы I класса")
                                 .roadGroup("Вторая группа дорог")
                                 .transportDistance("1.76...2.25")
-                                .routingLength("Менее 30")
+                                .spreadRate("Менее 30")
                                 .build(),
                         optionalFuelInfoFactory.apply(188.6, 0.55)
                 ),
@@ -191,7 +191,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы I класса")
                                 .roadGroup("Третья группа дорог")
                                 .transportDistance("16.1...18")
-                                .routingLength("Более 50")
+                                .spreadRate("Более 50")
                                 .build(),
                         optionalFuelInfoFactory.apply(50.5, 3.7)
                 ),
@@ -203,7 +203,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы II класса")
                                 .roadGroup("Первая группа дорог")
                                 .transportDistance("3.26...4")
-                                .routingLength("Менее 30")
+                                .spreadRate("Менее 30")
                                 .build(),
                         optionalFuelInfoFactory.apply(139.8, 0.76)
                 ),
@@ -215,7 +215,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы II класса")
                                 .roadGroup("Вторая группа дорог")
                                 .transportDistance("8.1...9")
-                                .routingLength("31...50")
+                                .spreadRate("30-50")
                                 .build(),
                         optionalFuelInfoFactory.apply(82.9, 1.72)
                 ),
@@ -227,7 +227,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы II класса")
                                 .roadGroup("Третья группа дорог")
                                 .transportDistance("18.1...21")
-                                .routingLength("Более 50")
+                                .spreadRate("Более 50")
                                 .build(),
                         optionalFuelInfoFactory.apply(38.9, 4.58)
                 ),
@@ -239,7 +239,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы I класса")
                                 .roadGroup("Первая группа дорог")
                                 .transportDistance("2.76...3.25")
-                                .routingLength("Менее 30")
+                                .spreadRate("Менее 30")
                                 .build(),
                         optionalFuelInfoFactory.apply(139.1, 0.59)
                 ),
@@ -251,7 +251,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы I класса")
                                 .roadGroup("Вторая группа дорог")
                                 .transportDistance("10.1...12")
-                                .routingLength("31...50")
+                                .spreadRate("30-50")
                                 .build(),
                         optionalFuelInfoFactory.apply(57.7, 2.23)
                 ),
@@ -263,7 +263,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы I класса")
                                 .roadGroup("Третья группа дорог")
                                 .transportDistance("21.1...24")
-                                .routingLength("Более 50")
+                                .spreadRate("Более 50")
                                 .build(),
                         optionalFuelInfoFactory.apply(26.5, 5.7)
                 ),
@@ -275,7 +275,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы II класса")
                                 .roadGroup("Первая группа дорог")
                                 .transportDistance("8.1...9")
-                                .routingLength("Менее 30")
+                                .spreadRate("Менее 30")
                                 .build(),
                         optionalFuelInfoFactory.apply(66.7, 1.62)
                 ),
@@ -287,7 +287,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы II класса")
                                 .roadGroup("Вторая группа дорог")
                                 .transportDistance("8.1...9")
-                                .routingLength("31...50")
+                                .spreadRate("30-50")
                                 .build(),
                         optionalFuelInfoFactory.apply(59., 1.95)
                 ),
@@ -299,7 +299,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы II класса")
                                 .roadGroup("Третья группа дорог")
                                 .transportDistance("16.1...18")
-                                .routingLength("Более 50")
+                                .spreadRate("Более 50")
                                 .build(),
                         optionalFuelInfoFactory.apply(28.6, 4.97)
                 ),
@@ -312,7 +312,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы II класса")
                                 .roadGroup("Третья группа дорог")
                                 .transportDistance("16.1...18")
-                                .routingLength("Более 50")
+                                .spreadRate("Более 50")
                                 .build(),
                         empty()
                 ),
@@ -325,7 +325,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы II класса")
                                 .roadGroup("Третья группа дорог")
                                 .transportDistance("16.1...18")
-                                .routingLength("Более 50")
+                                .spreadRate("Более 50")
                                 .build(),
                         empty()
                 ),
@@ -338,7 +338,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("not existing")
                                 .roadGroup("Третья группа дорог")
                                 .transportDistance("16.1...18")
-                                .routingLength("Более 50")
+                                .spreadRate("Более 50")
                                 .build(),
                         empty()
                 ),
@@ -351,7 +351,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы II класса")
                                 .roadGroup("not existing")
                                 .transportDistance("16.1...18")
-                                .routingLength("Более 50")
+                                .spreadRate("Более 50")
                                 .build(),
                         empty()
                 ),
@@ -364,7 +364,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы II класса")
                                 .roadGroup("Третья группа дорог")
                                 .transportDistance("not existing")
-                                .routingLength("Более 50")
+                                .spreadRate("Более 50")
                                 .build(),
                         empty()
                 ),
@@ -377,7 +377,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .cargoClass("Грузы II класса")
                                 .roadGroup("Третья группа дорог")
                                 .transportDistance("16.1...18")
-                                .routingLength("not existing")
+                                .spreadRate("not existing")
                                 .build(),
                         empty()
                 )

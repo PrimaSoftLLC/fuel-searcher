@@ -334,8 +334,7 @@
 
         <fuel-headers>
             <fuel-header>Менее 30</fuel-header>
-            <!-- TODO replace by - -->
-            <fuel-header>31...50</fuel-header>
+            <fuel-header>30-50</fuel-header>
             <fuel-header>Более 50</fuel-header>
         </fuel-headers>
 
@@ -345,10 +344,38 @@
             <final-filter-by cell-index="1">расстояние транспортировки</final-filter-by>
         </filter-chain>
 
-        <fuel-header-name>длина гона</fuel-header-name>
+        <fuel-header-name>норма внесения удобрений</fuel-header-name>
 
-        <!-- Трактор и механизм писать здесь а sub-table-title-template-arguments убрать-->
+        <!-- TODO Трактор и механизм писать здесь а sub-table-title-template-arguments убрать-->
         <sub-table-title-template>%s с разбрасывателем %s. Производительность погрузчика более 60 т/ч</sub-table-title-template>
+
+        <sub-table-title-template-arguments>
+            <sub-table-title-template-argument>трактор</sub-table-title-template-argument>
+            <sub-table-title-template-argument>механизм</sub-table-title-template-argument>
+        </sub-table-title-template-arguments>
+
+    </composite-searcher>
+
+    <!-- TABLE #14 -->
+    <composite-searcher>
+
+        <table-name>ВНЕСЕНИЕ ЖИДКИХ ОРГАНИЧЕСКИХ УДОБРЕНИЙ</table-name>
+
+        <fuel-headers>
+            <fuel-header>Менее 30</fuel-header>
+            <fuel-header>30-50</fuel-header>
+            <fuel-header>Более 50</fuel-header>
+        </fuel-headers>
+
+        <filter-chain>
+            <filter-by-group>группа дорог</filter-by-group>
+            <final-filter-by cell-index="1">расстояние транспортировки</final-filter-by>
+        </filter-chain>
+
+        <fuel-header-name>норма внесения удобрений</fuel-header-name>
+
+        <!-- TODO Трактор и механизм писать здесь а sub-table-title-template-arguments убрать-->
+        <sub-table-title-template>%s с %s</sub-table-title-template>
 
         <sub-table-title-template-arguments>
             <sub-table-title-template-argument>трактор</sub-table-title-template-argument>

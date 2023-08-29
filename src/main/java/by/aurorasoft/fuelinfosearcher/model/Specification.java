@@ -44,7 +44,7 @@ public class Specification {
     //Способ загрузки удобрений и расстояние транспортировки
     String chargingMethodAndTransportDistance;
 
-    //Норма внесения
+    //Норма внесения удобрений
     String spreadRate;
 
     //Группа дорог
