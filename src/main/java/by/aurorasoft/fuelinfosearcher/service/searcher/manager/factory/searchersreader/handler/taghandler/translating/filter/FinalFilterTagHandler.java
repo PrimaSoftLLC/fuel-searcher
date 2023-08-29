@@ -29,4 +29,9 @@ public final class FinalFilterTagHandler extends FilterTagHandler<FinalFilter, F
     protected void accumulateFilter(final SearchersParsingContext context, final FinalFilter filter) {
         context.accumulateFilter(filter);
     }
+
+    @Override
+    protected void accumulateAdditionalValues(final SearchersParsingContext context) {
+
+    }
 }
