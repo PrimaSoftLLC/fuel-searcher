@@ -16,12 +16,12 @@ public final class UnitedFilterTagHandler extends AbstractInterimFilterTagHandle
     }
 
     @Override
-    protected int findDefaultFiltrationCellIndex() {
-        throw new DefaultFiltrationCellIndexNotExistException();
+    public void handleStartTag(final SearchersParsingContext context) {
+
     }
 
     @Override
-    public void handleStartTag(final SearchersParsingContext context) {
-
+    protected int findDefaultFiltrationCellIndex() {
+        throw new DefaultFiltrationCellIndexNotExistException();
     }
 }
