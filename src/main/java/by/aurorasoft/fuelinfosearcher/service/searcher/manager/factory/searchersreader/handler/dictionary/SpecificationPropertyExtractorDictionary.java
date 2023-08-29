@@ -17,7 +17,9 @@ public final class SpecificationPropertyExtractorDictionary extends Dictionary<S
             entry("длина гона", FuelSpecificationExtractingPropertyUtil::extractRoutingLength),
             entry("механизм", FuelSpecificationExtractingPropertyUtil::extractMachinery),
             entry("трактор", FuelSpecificationExtractingPropertyUtil::extractTractor),
-            entry("норма внесения удобрений", FuelSpecificationExtractingPropertyUtil::extractSpreadRate)
+            entry("норма внесения удобрений", FuelSpecificationExtractingPropertyUtil::extractSpreadRate),
+            entry("комбайн", FuelSpecificationExtractingPropertyUtil::extractCombine),
+            entry("соотношение массы зерна к массе соломы", FuelSpecificationExtractingPropertyUtil::extractWeightRatioGrainToStraw)
     );
 
     public SpecificationPropertyExtractorDictionary() {

@@ -642,6 +642,38 @@
 
     </simple-searcher>
 
+    <!-- TABLE #24 -->
+    <composite-searcher>
+
+        <table-name>ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ</table-name>
+
+        <fuel-headers>
+            <fuel-header>Менее 150</fuel-header>
+            <fuel-header>150-200</fuel-header>
+            <fuel-header>201-300</fuel-header>
+            <fuel-header>301-400</fuel-header>
+            <fuel-header>401-600</fuel-header>
+            <fuel-header>601-1000</fuel-header>
+            <fuel-header>Более 1000</fuel-header>
+        </fuel-headers>
+
+        <filter-chain>
+            <filter-by cell-index="2">ширина захвата</filter-by>
+            <final-filter-by cell-index="1">урожайность</final-filter-by>
+        </filter-chain>
+
+        <fuel-header-name>длина гона</fuel-header-name>
+
+        <!-- TODO Трактор и механизм писать здесь а sub-table-title-template-arguments убрать-->
+        <sub-table-title-template>%s Соотношение массы зерна к массе соломы %s</sub-table-title-template>
+
+        <sub-table-title-template-arguments>
+            <sub-table-title-template-argument>комбайн</sub-table-title-template-argument>
+            <sub-table-title-template-argument>соотношение массы зерна к массе соломы</sub-table-title-template-argument>
+        </sub-table-title-template-arguments>
+
+    </composite-searcher>
+
     <!-- TABLE #26 -->
     <simple-searcher>
 

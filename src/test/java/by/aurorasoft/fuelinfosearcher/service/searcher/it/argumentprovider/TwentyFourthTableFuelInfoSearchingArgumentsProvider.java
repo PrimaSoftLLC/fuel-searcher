@@ -33,7 +33,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:1")
                                 .yield("4.9...5.3")
                                 .workingWidth("12")
-                                .routingLength("401...600")
+                                .routingLength("401-600")
                                 .build(),
                         optionalFuelInfoFactory.apply(94.7, 3.3)
                 ),
@@ -44,7 +44,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("Св. 6")
                                 .workingWidth("10.5")
-                                .routingLength("201...300")
+                                .routingLength("201-300")
                                 .build(),
                         optionalFuelInfoFactory.apply(87.8, 3.)
                 ),
@@ -55,7 +55,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("5.4...5.7")
                                 .workingWidth("12")
-                                .routingLength("151...200")
+                                .routingLength("150-200")
                                 .build(),
                         optionalFuelInfoFactory.apply(74.1, 3.2)
                 ),
@@ -77,7 +77,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("4...4.2")
                                 .workingWidth("12")
-                                .routingLength("201...300")
+                                .routingLength("201-300")
                                 .build(),
                         optionalFuelInfoFactory.apply(84.4, 3.2)
                 ),
@@ -100,7 +100,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:1")
                                 .yield("7.1...7.5")
                                 .workingWidth("9.2")
-                                .routingLength("601...1000")
+                                .routingLength("601-1000")
                                 .build(),
                         optionalFuelInfoFactory.apply(96.9, 4.8)
                 ),
@@ -111,7 +111,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("3.3...3.6")
                                 .workingWidth("9.2")
-                                .routingLength("301...400")
+                                .routingLength("301-400")
                                 .build(),
                         optionalFuelInfoFactory.apply(73.4, 6.3)
                 ),
@@ -122,7 +122,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("5.7...6")
                                 .workingWidth("9.2")
-                                .routingLength("151...200")
+                                .routingLength("150-200")
                                 .build(),
                         optionalFuelInfoFactory.apply(61.8, 5.7)
                 ),
@@ -133,7 +133,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("2.5...2.7")
                                 .workingWidth("9.2")
-                                .routingLength("301...400")
+                                .routingLength("301-400")
                                 .build(),
                         optionalFuelInfoFactory.apply(70.5, 6.5)
                 ),
@@ -144,7 +144,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("4.7...5")
                                 .workingWidth("9.2")
-                                .routingLength("201...300")
+                                .routingLength("201-300")
                                 .build(),
                         optionalFuelInfoFactory.apply(73.4, 5.3)
                 ),
@@ -178,7 +178,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("2.7...3")
                                 .workingWidth("9")
-                                .routingLength("201...300")
+                                .routingLength("201-300")
                                 .build(),
                         optionalFuelInfoFactory.apply(53.6, 4.6)
                 ),
@@ -189,7 +189,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("5.4...5.7")
                                 .workingWidth("9")
-                                .routingLength("151...200")
+                                .routingLength("150-200")
                                 .build(),
                         optionalFuelInfoFactory.apply(65.7, 3.2)
                 ),
@@ -200,7 +200,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("4.2...4.5")
                                 .workingWidth("9")
-                                .routingLength("601...1000")
+                                .routingLength("601-1000")
                                 .build(),
                         optionalFuelInfoFactory.apply(105.5, 2.7)
                 ),
@@ -211,7 +211,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("3.3...3.5")
                                 .workingWidth("9")
-                                .routingLength("601...1000")
+                                .routingLength("601-1000")
                                 .build(),
                         optionalFuelInfoFactory.apply(89.5, 3.2)
                 ),
@@ -234,7 +234,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:1")
                                 .yield("4.1...4.5")
                                 .workingWidth("7")
-                                .routingLength("401...600")
+                                .routingLength("401-600")
                                 .build(),
                         optionalFuelInfoFactory.apply(65.3, 4.9)
                 ),
@@ -245,7 +245,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("4.8...5.1")
                                 .workingWidth("7")
-                                .routingLength("201...300")
+                                .routingLength("201-300")
                                 .build(),
                         optionalFuelInfoFactory.apply(60.8, 4.7)
                 ),
@@ -256,7 +256,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("1.8...2.1")
                                 .workingWidth("7")
-                                .routingLength("401...600")
+                                .routingLength("401-600")
                                 .build(),
                         optionalFuelInfoFactory.apply(46.7, 6.9)
                 ),
@@ -267,7 +267,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("1.8...2")
                                 .workingWidth("7")
-                                .routingLength("201...300")
+                                .routingLength("201-300")
                                 .build(),
                         optionalFuelInfoFactory.apply(41.2, 7.)
                 ),
@@ -278,7 +278,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("3.5...3.7")
                                 .workingWidth("7")
-                                .routingLength("601...1000")
+                                .routingLength("601-1000")
                                 .build(),
                         optionalFuelInfoFactory.apply(79.1, 4.2)
                 ),
@@ -301,7 +301,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:1")
                                 .yield("4.9...5.3")
                                 .workingWidth("6.6")
-                                .routingLength("301...400")
+                                .routingLength("301-400")
                                 .build(),
                         optionalFuelInfoFactory.apply(64., 3.9)
                 ),
@@ -312,7 +312,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("3.6...3.9")
                                 .workingWidth("6.6")
-                                .routingLength("151...200")
+                                .routingLength("150-200")
                                 .build(),
                         optionalFuelInfoFactory.apply(42.8, 4.9)
                 ),
@@ -334,7 +334,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("4...4.2")
                                 .workingWidth("6.6")
-                                .routingLength("151...200")
+                                .routingLength("150-200")
                                 .build(),
                         optionalFuelInfoFactory.apply(50.1, 4.1)
                 ),
@@ -345,7 +345,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("4.7...5")
                                 .workingWidth("6.6")
-                                .routingLength("301...400")
+                                .routingLength("301-400")
                                 .build(),
                         optionalFuelInfoFactory.apply(82.2, 3.)
                 ),
@@ -368,7 +368,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:1")
                                 .yield("4.5...4.9")
                                 .workingWidth("6")
-                                .routingLength("601...1000")
+                                .routingLength("601-1000")
                                 .build(),
                         optionalFuelInfoFactory.apply(48.6, 3.8)
                 ),
@@ -379,7 +379,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("1.8...2.1")
                                 .workingWidth("6")
-                                .routingLength("301...400")
+                                .routingLength("301-400")
                                 .build(),
                         optionalFuelInfoFactory.apply(29.2, 6.3)
                 ),
@@ -390,7 +390,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("5.7...6")
                                 .workingWidth("6")
-                                .routingLength("151...200")
+                                .routingLength("150-200")
                                 .build(),
                         optionalFuelInfoFactory.apply(45.6, 3.6)
                 ),
@@ -401,7 +401,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("0.9...1.2")
                                 .workingWidth("6")
-                                .routingLength("401...600")
+                                .routingLength("401-600")
                                 .build(),
                         optionalFuelInfoFactory.apply(23.9, 7.7)
                 ),
@@ -412,7 +412,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("4.5...4.7")
                                 .workingWidth("6")
-                                .routingLength("151...200")
+                                .routingLength("150-200")
                                 .build(),
                         optionalFuelInfoFactory.apply(43.8, 3.8)
                 ),
@@ -424,7 +424,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("4.5...4.7")
                                 .workingWidth("6")
-                                .routingLength("151...200")
+                                .routingLength("150-200")
                                 .build(),
                         empty()
                 ),
@@ -436,7 +436,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("not existing")
                                 .yield("4.5...4.7")
                                 .workingWidth("6")
-                                .routingLength("151...200")
+                                .routingLength("150-200")
                                 .build(),
                         empty()
                 ),
@@ -448,7 +448,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("not existing")
                                 .workingWidth("6")
-                                .routingLength("151...200")
+                                .routingLength("150-200")
                                 .build(),
                         empty()
                 ),
@@ -460,7 +460,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("4.5...4.7")
                                 .workingWidth("not existing")
-                                .routingLength("151...200")
+                                .routingLength("150-200")
                                 .build(),
                         empty()
                 ),
