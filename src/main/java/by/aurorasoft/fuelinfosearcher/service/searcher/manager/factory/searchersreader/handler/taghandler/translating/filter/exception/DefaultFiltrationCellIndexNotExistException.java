@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.rowfilter.exception;
+package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.filter.exception;
 
 public final class DefaultFiltrationCellIndexNotExistException extends RuntimeException {
 
