@@ -16,6 +16,11 @@ public final class FinalFilterTagHandler extends FilterTagHandler<FinalFilter, F
     }
 
     @Override
+    public void handleStartTag(final SearchersParsingContext context) {
+
+    }
+
+    @Override
     protected int findDefaultFiltrationCellIndex() {
         throw new DefaultFiltrationCellIndexNotExistException();
     }
@@ -23,10 +28,5 @@ public final class FinalFilterTagHandler extends FilterTagHandler<FinalFilter, F
     @Override
     protected void accumulateFilter(final SearchersParsingContext context, final FinalFilter filter) {
         context.accumulateFilter(filter);
-    }
-
-    @Override
-    public void handleStartTag(final SearchersParsingContext context) {
-
     }
 }

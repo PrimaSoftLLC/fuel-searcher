@@ -8,16 +8,16 @@ public final class NoSuchFuelHeaderNameException extends NoSuchKeyException {
 
     }
 
-    public NoSuchFuelHeaderNameException(final String description) {
-        super(description);
+    public NoSuchFuelHeaderNameException(final String key) {
+        super(key);
     }
 
     public NoSuchFuelHeaderNameException(final Exception cause) {
         super(cause);
     }
 
-    public NoSuchFuelHeaderNameException(final String description, final Exception cause) {
-        super(description, cause);
+    public NoSuchFuelHeaderNameException(final String key, final Exception cause) {
+        super(key, cause);
     }
 
 }
