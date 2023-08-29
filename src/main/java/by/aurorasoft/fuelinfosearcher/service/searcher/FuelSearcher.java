@@ -2,6 +2,7 @@ package by.aurorasoft.fuelinfosearcher.service.searcher;
 
 import by.aurorasoft.fuelinfosearcher.functionalinterface.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelinfosearcher.model.*;
+import by.aurorasoft.fuelinfosearcher.service.searcher.exception.FuelOffsetNotExistException;
 import by.aurorasoft.fuelinfosearcher.service.searcher.exception.FuelSearcherBuildingException;
 import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.chain.RowFilterChain;
 import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.chain.RowFilterChain.RowFilterChainBuilder;
@@ -76,9 +77,21 @@ public abstract class FuelSearcher {
     }
 
     private int findCellIndexGenerationNorm(final int fuelHeaderCellIndex, final String fuelHeaderCellValue) {
-        //TODO: throw exception if fuelOffset doesn't exist
-        final int fuelOffset = this.fuelOffsetsByHeaderValues.get(fuelHeaderCellValue);
+        final int fuelOffset = this.findFuelOffset(fuelHeaderCellValue);
         return fuelHeaderCellIndex + fuelOffset;
+    }
+
+    private int findFuelOffset(final String fuelHeaderCellValue) {
+        return this.fuelOffsetsByHeaderValues.computeIfAbsent(
+                fuelHeaderCellValue,
+                FuelSearcher::throwFuelOffsetNotExistException
+        );
+    }
+
+    private static Integer throwFuelOffsetNotExistException(final String fuelHeaderValue) {
+        throw new FuelOffsetNotExistException(
+                "Fuel's offset for header's value '%s' doesn't exist".formatted(fuelHeaderValue)
+        );
     }
 
     private static FuelLocation createFuelLocation(final XWPFTableRow dataRow, final int generationNormCellIndex) {
