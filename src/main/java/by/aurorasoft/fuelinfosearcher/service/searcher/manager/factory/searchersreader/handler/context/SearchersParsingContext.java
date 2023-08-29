@@ -76,8 +76,8 @@ public final class SearchersParsingContext {
         this.findCurrentBuilder().conclusiveFilter(filter);
     }
 
-    public void accumulateSubTableTitleTemplate() {
-        this.compositeFuelSearcherBuilder.subTableTitleTemplate(this.lastContent);
+    public void accumulateSubTableTitleTemplate(final String template) {
+        this.compositeFuelSearcherBuilder.subTableTitleTemplate(template);
     }
 
     public void accumulateSubTableTitleTemplateArgumentExtractor(final SpecificationPropertyExtractor extractor) {

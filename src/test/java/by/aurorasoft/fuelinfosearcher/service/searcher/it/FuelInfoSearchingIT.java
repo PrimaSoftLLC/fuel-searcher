@@ -27,10 +27,10 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
             new EighthTableFuelInfoSearchingArgumentsProvider(),
             new NinthTableFuelInfoSearchingArgumentsProvider(),
             new TenthTableFuelInfoSearchingArgumentsProvider(),
-//            new EleventhTableFuelInfoSearchingArgumentsProvider(),
-//            new TwelfthTableFuelInfoSearchingArgumentsProvider(),
-//            new ThirteenTableFuelInfoSearchingArgumentsProvider(),
-//            new FourteenthTableFuelInfoSearchingArgumentProvider(),
+            new EleventhTableFuelInfoSearchingArgumentsProvider(),
+            new TwelfthTableFuelInfoSearchingArgumentsProvider(),
+            new ThirteenTableFuelInfoSearchingArgumentsProvider(),
+            new FourteenthTableFuelInfoSearchingArgumentProvider(),
             new FifteenthTableFuelInfoSearchingArgumentsProvider(),
             new SixteenthTableFuelInfoSearchingArgumentsProvider(),
             new SeventeenthTableFuelInfoSearchingArgumentsProvider(),
@@ -40,10 +40,10 @@ public final class FuelInfoSearchingIT extends AbstractContextTest {
             new TwentyFirstTableFuelInfoSearchingArgumentsProvider(),
             new TwentySecondTableFuelInfoSearchingArgumentsProvider(),
             new TwentyThirdTableFuelInfoSearchingArgumentsProvider(),
-//            new TwentyFourthTableFuelInfoSearchingArgumentsProvider(),
+            new TwentyFourthTableFuelInfoSearchingArgumentsProvider(),
             new TwentyFifthTableFuelInfoSearchingArgumentsProvider(),
-            new TwentySixthTableFuelInfoSearchingArgumentsProvider()
-//            new TwentySeventhTableFuelInfoSearchingArgumentsProvider()
+            new TwentySixthTableFuelInfoSearchingArgumentsProvider(),
+            new TwentySeventhTableFuelInfoSearchingArgumentsProvider()
     );
 
     private final FuelSearchingManager searchingManager = findBean(FuelSearchingManager.class);
