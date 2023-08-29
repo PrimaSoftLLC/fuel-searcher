@@ -3,21 +3,20 @@ package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searcher
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.SearchersParsingContext;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.dictionary.Dictionary;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.TagHandler;
-import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.exception.NoSuchKeyException;
+import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.exception.NoSuchKeyException.NoSuchKeyExceptionFactory;
 
 import java.util.Optional;
-import java.util.function.Supplier;
 
 public abstract class TranslatingTagHandler<V> extends TagHandler {
     private final Dictionary<V> dictionary;
-    private final Supplier<? extends NoSuchKeyException> noSuchKeyExceptionSupplier;
+    private final NoSuchKeyExceptionFactory<?> noSuchKeyExceptionFactory;
 
     public TranslatingTagHandler(final String tagName,
                                  final Dictionary<V> dictionary,
-                                 final Supplier<? extends NoSuchKeyException> noSuchKeyExceptionSupplier) {
+                                 final NoSuchKeyExceptionFactory<?> noSuchKeyExceptionFactory) {
         super(tagName);
         this.dictionary = dictionary;
-        this.noSuchKeyExceptionSupplier = noSuchKeyExceptionSupplier;
+        this.noSuchKeyExceptionFactory = noSuchKeyExceptionFactory;
     }
 
     @Override
@@ -31,7 +30,6 @@ public abstract class TranslatingTagHandler<V> extends TagHandler {
     private V findValue(final SearchersParsingContext context) {
         final String key = context.getLastContent();
         final Optional<V> optionalValue = this.dictionary.find(key);
-        //TODO: add description of exception with 'key'
-        return optionalValue.orElseThrow(this.noSuchKeyExceptionSupplier);
+        return optionalValue.orElseThrow(() -> this.noSuchKeyExceptionFactory.apply(key));
     }
 }
