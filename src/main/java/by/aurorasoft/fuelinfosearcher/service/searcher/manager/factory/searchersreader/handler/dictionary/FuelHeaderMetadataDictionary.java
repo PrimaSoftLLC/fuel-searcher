@@ -19,7 +19,7 @@ public final class FuelHeaderMetadataDictionary extends Dictionary<FuelHeaderMet
                     "длина гона",
                     new FuelHeaderMetadata(
                             "длина гона",
-                            List.of("Менее 150", "150-200", "201-300", "301-400", "401-600", "601-1000"),
+                            List.of("Менее 150", "150-200", "201-300", "301-400", "401-600", "601-1000", "Более 1000"),
                             FuelSpecificationExtractingPropertyUtil::extractRoutingLength
                     )
             ),

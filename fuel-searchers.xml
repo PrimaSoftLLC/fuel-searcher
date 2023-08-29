@@ -6,6 +6,8 @@
 
         <table-name>ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ</table-name>
 
+        <fuel-header-name>длина гона</fuel-header-name>
+
         <filter-chain>
             <filter-by-group>удельное сопротивление</filter-by-group>
             <filter-by cell-index="1">трактор</filter-by>
@@ -13,8 +15,6 @@
             <filter-by cell-index="3">количество корпусов</filter-by>
             <final-filter-by cell-index="4">глубина вспашки</final-filter-by>
         </filter-chain>
-
-        <fuel-header-name>длина гона</fuel-header-name>
 
     </simple-searcher>
 
@@ -23,6 +23,8 @@
 
         <table-name>ВСПАШКА СТЕРНИ</table-name>
 
+        <fuel-header-name>длина гона</fuel-header-name>
+
         <filter-chain>
             <filter-by-group>удельное сопротивление</filter-by-group>
             <filter-by cell-index="1">трактор</filter-by>
@@ -31,14 +33,14 @@
             <final-filter-by cell-index="4">глубина вспашки</final-filter-by>
         </filter-chain>
 
-        <fuel-header-name>длина гона</fuel-header-name>
-
     </simple-searcher>
 
     <!-- TABLE #3 -->
     <simple-searcher>
 
         <table-name>ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ</table-name>
+
+        <fuel-header-name>длина гона</fuel-header-name>
 
         <filter-chain>
             <filter-by-group>тип почвы</filter-by-group>
@@ -48,8 +50,6 @@
             <final-filter-by cell-index="4">глубина вспашки</final-filter-by>
         </filter-chain>
 
-        <fuel-header-name>длина гона</fuel-header-name>
-
     </simple-searcher>
 
     <!-- TABLE #4 -->
@@ -57,14 +57,14 @@
 
         <table-name>СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ</table-name>
 
+        <fuel-header-name>длина гона</fuel-header-name>
+
         <filter-chain>
             <filter-by-group>глубина обработки</filter-by-group>
             <filter-by cell-index="1">трактор</filter-by>
             <filter-by cell-index="2">механизм</filter-by>
             <final-filter-by cell-index="3">ширина захвата</final-filter-by>
         </filter-chain>
-
-        <fuel-header-name>длина гона</fuel-header-name>
 
     </simple-searcher>
 
@@ -73,14 +73,14 @@
 
         <table-name>ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ</table-name>
 
+        <fuel-header-name>длина гона</fuel-header-name>
+
         <filter-chain>
             <filter-by-group>глубина обработки</filter-by-group>
             <filter-by cell-index="1">трактор</filter-by>
             <filter-by cell-index="2">механизм</filter-by>
             <final-filter-by cell-index="3">ширина захвата</final-filter-by>
         </filter-chain>
-
-        <fuel-header-name>длина гона</fuel-header-name>
 
     </simple-searcher>
 
@@ -89,14 +89,14 @@
 
         <table-name>ЛУЩЕНИЕ И ДИСКОВАНИЕ МНОГОЛЕТНИХ ТРАВ</table-name>
 
+        <fuel-header-name>длина гона</fuel-header-name>
+
         <filter-chain>
             <filter-by-group>глубина обработки</filter-by-group>
             <filter-by cell-index="1">трактор</filter-by>
             <filter-by cell-index="2">механизм</filter-by>
             <final-filter-by cell-index="3">ширина захвата</final-filter-by>
         </filter-chain>
-
-        <fuel-header-name>длина гона</fuel-header-name>
 
     </simple-searcher>
 
@@ -107,14 +107,14 @@
             ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ПОСЕВОМ СЕЛЬСКОХОЗЯЙСТВЕННЫХ КУЛЬТУР: ПШЕНИЦЫ, РЖИ, ЯЧМЕНЯ, ОВСА, ГОРОХА, ЛЮПИНА, ВИКИ, ВИКООВСЯНОЙ СМЕСИ, ЛЬНА
         </table-name>
 
+        <fuel-header-name>длина гона</fuel-header-name>
+
         <filter-chain>
             <filter-by-group>норма высева</filter-by-group>
             <filter-by cell-index="1">трактор</filter-by>
             <filter-by cell-index="2">механизм</filter-by>
             <final-filter-by cell-index="3">ширина захвата</final-filter-by>
         </filter-chain>
-
-        <fuel-header-name>длина гона</fuel-header-name>
 
     </simple-searcher>
 
@@ -123,14 +123,14 @@
 
         <table-name>ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА</table-name>
 
+        <fuel-header-name>длина гона</fuel-header-name>
+
         <filter-chain>
             <filter-by-group>норма высева</filter-by-group>
             <filter-by cell-index="1">трактор</filter-by>
             <filter-by cell-index="2">механизм</filter-by>
             <final-filter-by cell-index="3">ширина захвата</final-filter-by>
         </filter-chain>
-
-        <fuel-header-name>длина гона</fuel-header-name>
 
     </simple-searcher>
 
@@ -139,14 +139,14 @@
 
         <table-name>ПОСЕВ САХАРНОЙ СВЕКЛЫ</table-name>
 
+        <fuel-header-name>длина гона</fuel-header-name>
+
         <filter-chain>
             <filter-by-group>норма высева</filter-by-group>
             <filter-by cell-index="1">трактор</filter-by>
             <filter-by cell-index="2">механизм</filter-by>
             <final-filter-by cell-index="3">ширина захвата</final-filter-by>
         </filter-chain>
-
-        <fuel-header-name>длина гона</fuel-header-name>
 
     </simple-searcher>
 
@@ -155,6 +155,8 @@
 
         <table-name>ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ОДНОВРЕМЕННЫМ ПОСЕВОМ РАПСА</table-name>
 
+        <fuel-header-name>длина гона</fuel-header-name>
+
         <filter-chain>
             <filter-by-group>норма высева</filter-by-group>
             <filter-by cell-index="1">трактор</filter-by>
@@ -162,83 +164,83 @@
             <final-filter-by cell-index="3">ширина захвата</final-filter-by>
         </filter-chain>
 
-        <fuel-header-name>длина гона</fuel-header-name>
-
     </simple-searcher>
 
     <!-- TABLE #11 -->
-    <composite-searcher>
+<!--    <composite-searcher>-->
 
-        <table-name>ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ</table-name>
+<!--        <table-name>ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ</table-name>-->
 
-        <filter-chain>
-            <filter-by-group>тип удобрения</filter-by-group>
-            <filter-by cell-index="1">способ загрузки удобрений и расстояние транспортировки</filter-by>
-            <final-filter-by cell-index="2">норма внесения</final-filter-by>
-        </filter-chain>
+<!--        <filter-chain>-->
+<!--            <filter-by-group>тип удобрения</filter-by-group>-->
+<!--            <filter-by cell-index="1">способ загрузки удобрений и расстояние транспортировки</filter-by>-->
+<!--            <final-filter-by cell-index="2">норма внесения</final-filter-by>-->
+<!--        </filter-chain>-->
 
-        <fuel-header-name>длина гона</fuel-header-name>
+<!--        <fuel-header-name>длина гона</fuel-header-name>-->
 
-        <sub-table-title-template>РАЗБРАСЫВАТЕЛЕМ {механизм} (трактор {трактор})</sub-table-title-template>
+<!--        <sub-table-title-template>РАЗБРАСЫВАТЕЛЕМ {механизм} (трактор {трактор})</sub-table-title-template>-->
 
-    </composite-searcher>
+<!--    </composite-searcher>-->
 
     <!-- TABLE #12 -->
-    <composite-searcher>
+<!--    <composite-searcher>-->
 
-        <table-name>ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ И СРЕДСТВ ЗАЩИТЫ РАСТЕНИЙ</table-name>
+<!--        <table-name>ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ И СРЕДСТВ ЗАЩИТЫ РАСТЕНИЙ</table-name>-->
 
-        <filter-chain>
-            <filter-by-group>тип удобрения</filter-by-group>
-            <filter-by cell-index="1">способ загрузки удобрений и расстояние транспортировки</filter-by>
-            <final-filter-by cell-index="2">норма внесения</final-filter-by>
-        </filter-chain>
+<!--        <filter-chain>-->
+<!--            <filter-by-group>тип удобрения</filter-by-group>-->
+<!--            <filter-by cell-index="1">способ загрузки удобрений и расстояние транспортировки</filter-by>-->
+<!--            <final-filter-by cell-index="2">норма внесения</final-filter-by>-->
+<!--        </filter-chain>-->
 
-        <fuel-header-name>длина гона</fuel-header-name>
+<!--        <fuel-header-name>длина гона</fuel-header-name>-->
 
-        <sub-table-title-template>Опрыскивателем {механизм}</sub-table-title-template>
+<!--        <sub-table-title-template>Опрыскивателем {механизм}</sub-table-title-template>-->
 
-    </composite-searcher>
+<!--    </composite-searcher>-->
 
     <!-- TABLE #13 -->
-    <composite-searcher>
+<!--    <composite-searcher>-->
 
-        <table-name>ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ</table-name>
+<!--        <table-name>ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ</table-name>-->
 
-        <filter-chain>
-            <filter-by-group>класс груза</filter-by-group>
-            <filter-by-group>группа дорог</filter-by-group>
-            <final-filter-by cell-index="1">расстояние транспортировки</final-filter-by>
-        </filter-chain>
+<!--        <filter-chain>-->
+<!--            <filter-by-group>класс груза</filter-by-group>-->
+<!--            <filter-by-group>группа дорог</filter-by-group>-->
+<!--            <final-filter-by cell-index="1">расстояние транспортировки</final-filter-by>-->
+<!--        </filter-chain>-->
 
-        <fuel-header-name>норма внесения удобрений</fuel-header-name>
+<!--        <fuel-header-name>норма внесения удобрений</fuel-header-name>-->
 
-        <sub-table-title-template>
-            {трактор} с разбрасывателем {механизм}. Производительность погрузчика более 60 т/ч
-        </sub-table-title-template>
+<!--        <sub-table-title-template>-->
+<!--            {трактор} с разбрасывателем {механизм}. Производительность погрузчика более 60 т/ч-->
+<!--        </sub-table-title-template>-->
 
-    </composite-searcher>
+<!--    </composite-searcher>-->
 
     <!-- TABLE #14 -->
-    <composite-searcher>
+<!--    <composite-searcher>-->
 
-        <table-name>ВНЕСЕНИЕ ЖИДКИХ ОРГАНИЧЕСКИХ УДОБРЕНИЙ</table-name>
+<!--        <table-name>ВНЕСЕНИЕ ЖИДКИХ ОРГАНИЧЕСКИХ УДОБРЕНИЙ</table-name>-->
 
-        <filter-chain>
-            <filter-by-group>группа дорог</filter-by-group>
-            <final-filter-by cell-index="1">расстояние транспортировки</final-filter-by>
-        </filter-chain>
+<!--        <filter-chain>-->
+<!--            <filter-by-group>группа дорог</filter-by-group>-->
+<!--            <final-filter-by cell-index="1">расстояние транспортировки</final-filter-by>-->
+<!--        </filter-chain>-->
 
-        <fuel-header-name>норма внесения удобрений</fuel-header-name>
+<!--        <fuel-header-name>норма внесения удобрений</fuel-header-name>-->
 
-        <sub-table-title-template>{трактор} с {механизм}</sub-table-title-template>
+<!--        <sub-table-title-template>{трактор} с {механизм}</sub-table-title-template>-->
 
-    </composite-searcher>
+<!--    </composite-searcher>-->
 
     <!-- TABLE #15 -->
     <simple-searcher>
 
         <table-name>КОШЕНИЕ СЕЯНЫХ И ЕСТЕСТВЕННЫХ ТРАВ</table-name>
+
+        <fuel-header-name>длина гона</fuel-header-name>
 
         <filter-chain>
             <filter-by cell-index="1">трактор</filter-by>
@@ -246,8 +248,6 @@
             <filter-by cell-index="4">ширина захвата</filter-by>
             <final-filter-by cell-index="3">урожайность</final-filter-by>
         </filter-chain>
-
-        <fuel-header-name>длина гона</fuel-header-name>
 
     </simple-searcher>
 
@@ -256,14 +256,14 @@
 
         <table-name>КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ</table-name>
 
+        <fuel-header-name>длина гона</fuel-header-name>
+
         <filter-chain>
             <filter-by cell-index="1">трактор</filter-by>
             <filter-by cell-index="2">механизм</filter-by>
             <filter-by cell-index="4">ширина захвата</filter-by>
             <final-filter-by cell-index="3">урожайность</final-filter-by>
         </filter-chain>
-
-        <fuel-header-name>длина гона</fuel-header-name>
 
     </simple-searcher>
 
@@ -272,13 +272,13 @@
 
         <table-name>ВОРОШЕНИЕ СЕНА</table-name>
 
+        <fuel-header-name>длина гона</fuel-header-name>
+
         <filter-chain>
             <filter-by cell-index="1">трактор</filter-by>
             <filter-by cell-index="2">механизм</filter-by>
             <final-filter-by cell-index="3">ширина захвата</final-filter-by>
         </filter-chain>
-
-        <fuel-header-name>длина гона</fuel-header-name>
 
     </simple-searcher>
 
@@ -287,13 +287,13 @@
 
         <table-name>СГРЕБАНИЕ СЕНА В ВАЛКИ</table-name>
 
+        <fuel-header-name>длина гона</fuel-header-name>
+
         <filter-chain>
             <filter-by cell-index="1">трактор</filter-by>
             <filter-by cell-index="2">механизм</filter-by>
             <final-filter-by cell-index="3">ширина захвата</final-filter-by>
         </filter-chain>
-
-        <fuel-header-name>длина гона</fuel-header-name>
 
     </simple-searcher>
 
@@ -302,14 +302,14 @@
 
         <table-name>ПРЕССОВАНИЕ СЕНА ПОСЛЕ КОМБАЙНА</table-name>
 
+        <fuel-header-name>длина гона</fuel-header-name>
+
         <filter-chain>
             <filter-by cell-index="1">трактор</filter-by>
             <filter-by cell-index="2">механизм</filter-by>
             <filter-by cell-index="3">ширина захвата</filter-by>
             <final-filter-by cell-index="4">урожайность</final-filter-by>
         </filter-chain>
-
-        <fuel-header-name>длина гона</fuel-header-name>
 
     </simple-searcher>
 
@@ -318,14 +318,14 @@
 
         <table-name>ПРЕССОВАНИЕ СОЛОМЫ ПОСЛЕ КОМБАЙНА</table-name>
 
+        <fuel-header-name>длина гона</fuel-header-name>
+
         <filter-chain>
             <filter-by cell-index="1">трактор</filter-by>
             <filter-by cell-index="2">механизм</filter-by>
             <filter-by cell-index="3">ширина захвата</filter-by>
             <final-filter-by cell-index="4">урожайность</final-filter-by>
         </filter-chain>
-
-        <fuel-header-name>длина гона</fuel-header-name>
 
     </simple-searcher>
 
@@ -334,14 +334,14 @@
 
         <table-name>ПРЕССОВАНИЕ ПРОВЯЛЕННОЙ МАССЫ ПОСЛЕ КОМБАЙНА</table-name>
 
+        <fuel-header-name>длина гона</fuel-header-name>
+
         <filter-chain>
             <filter-by cell-index="1">трактор</filter-by>
             <filter-by cell-index="2">механизм</filter-by>
             <filter-by cell-index="3">ширина захвата</filter-by>
             <final-filter-by cell-index="4">урожайность</final-filter-by>
         </filter-chain>
-
-        <fuel-header-name>длина гона</fuel-header-name>
 
     </simple-searcher>
 
@@ -350,14 +350,14 @@
 
         <table-name>ПРЕССОВАНИЕ ЛЕНТ ЛЬНА</table-name>
 
+        <fuel-header-name>длина гона</fuel-header-name>
+
         <filter-chain>
             <filter-by cell-index="1">трактор</filter-by>
             <filter-by cell-index="2">механизм</filter-by>
             <filter-by cell-index="3">ширина захвата</filter-by>
             <final-filter-by cell-index="4">урожайность</final-filter-by>
         </filter-chain>
-
-        <fuel-header-name>длина гона</fuel-header-name>
 
     </simple-searcher>
 
@@ -366,38 +366,40 @@
 
         <table-name>ПОДБОР ПРОВЯЛЕННЫХ ТРАВ ИЗ ВАЛКОВ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА</table-name>
 
+        <fuel-header-name>длина гона</fuel-header-name>
+
         <filter-chain>
             <filter-by cell-index="1">механизм</filter-by>
             <filter-by cell-index="3">ширина захвата</filter-by>
             <final-filter-by cell-index="2">урожайность</final-filter-by>
         </filter-chain>
 
-        <fuel-header-name>длина гона</fuel-header-name>
-
     </simple-searcher>
 
     <!-- TABLE #24 -->
-    <composite-searcher>
+<!--    <composite-searcher>-->
 
-        <table-name>ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ</table-name>
+<!--        <table-name>ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ</table-name>-->
 
-        <filter-chain>
-            <filter-by cell-index="2">ширина захвата</filter-by>
-            <final-filter-by cell-index="1">урожайность</final-filter-by>
-        </filter-chain>
+<!--        <filter-chain>-->
+<!--            <filter-by cell-index="2">ширина захвата</filter-by>-->
+<!--            <final-filter-by cell-index="1">урожайность</final-filter-by>-->
+<!--        </filter-chain>-->
 
-        <fuel-header-name>длина гона</fuel-header-name>
+<!--        <fuel-header-name>длина гона</fuel-header-name>-->
 
-        <sub-table-title-template>
-            {комбайн} Соотношение массы зерна к массе соломы {соотношение массы зерна к массе соломы}
-        </sub-table-title-template>
+<!--        <sub-table-title-template>-->
+<!--            {комбайн} Соотношение массы зерна к массе соломы {соотношение массы зерна к массе соломы}-->
+<!--        </sub-table-title-template>-->
 
-    </composite-searcher>
+<!--    </composite-searcher>-->
 
     <!-- TABLE #25 -->
     <simple-searcher>
 
         <table-name>УБОРКА КАРТОФЕЛЯ</table-name>
+
+        <fuel-header-name>длина гона</fuel-header-name>
 
         <filter-chain>
             <filter-by-group>тип почвы</filter-by-group>
@@ -407,8 +409,6 @@
             <final-filter-by cell-index="4">урожайность</final-filter-by>
         </filter-chain>
 
-        <fuel-header-name>длина гона</fuel-header-name>
-
     </simple-searcher>
 
     <!-- TABLE #26 -->
@@ -416,32 +416,32 @@
 
         <table-name>УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА</table-name>
 
+        <fuel-header-name>длина гона</fuel-header-name>
+
         <filter-chain>
             <filter-by cell-index="1">комбайн</filter-by>
             <filter-by cell-index="3">ширина захвата</filter-by>
             <final-filter-by cell-index="2">урожайность</final-filter-by>
         </filter-chain>
 
-        <fuel-header-name>длина гона</fuel-header-name>
-
     </simple-searcher>
 
     <!-- TABLE #27 -->
-    <composite-searcher>
+<!--    <composite-searcher>-->
 
-        <table-name>ТРАНСПОРТИРОВКА ГРУЗОВ ТРАКТОРАМИ С ОДНИМ ПРИЦЕПОМ</table-name>
+<!--        <table-name>ТРАНСПОРТИРОВКА ГРУЗОВ ТРАКТОРАМИ С ОДНИМ ПРИЦЕПОМ</table-name>-->
 
-        <filter-chain>
-            <filter-by-group>класс груза</filter-by-group>
-            <final-filter-by cell-index="1">расстояние транспортировки</final-filter-by>
-        </filter-chain>
+<!--        <filter-chain>-->
+<!--            <filter-by-group>класс груза</filter-by-group>-->
+<!--            <final-filter-by cell-index="1">расстояние транспортировки</final-filter-by>-->
+<!--        </filter-chain>-->
 
-        <fuel-header-name>группа дорог</fuel-header-name>
+<!--        <fuel-header-name>группа дорог</fuel-header-name>-->
 
-        <sub-table-title-template>
-            ТРАКТОР {трактор} + {механизм}. При механизированной погрузке и разгрузке
-        </sub-table-title-template>
+<!--        <sub-table-title-template>-->
+<!--            ТРАКТОР {трактор} + {механизм}. При механизированной погрузке и разгрузке-->
+<!--        </sub-table-title-template>-->
 
-    </composite-searcher>
+<!--    </composite-searcher>-->
 
 </fuel-searchers>
