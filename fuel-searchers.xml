@@ -615,33 +615,6 @@
 
     </simple-searcher>
 
-    <!-- TABLE #25 -->
-    <simple-searcher>
-
-        <table-name>УБОРКА КАРТОФЕЛЯ</table-name>
-
-        <fuel-headers>
-            <fuel-header>Менее 150</fuel-header>
-            <fuel-header>150-200</fuel-header>
-            <fuel-header>201-300</fuel-header>
-            <fuel-header>301-400</fuel-header>
-            <fuel-header>401-600</fuel-header>
-            <fuel-header>601-1000</fuel-header>
-            <fuel-header>Более 1000</fuel-header>
-        </fuel-headers>
-
-        <filter-chain>
-            <filter-by-group>тип почвы</filter-by-group>
-            <filter-by cell-index="1">трактор</filter-by>
-            <filter-by cell-index="2">механизм</filter-by>
-            <filter-by cell-index="3">ширина междурядий</filter-by>
-            <final-filter-by cell-index="4">урожайность</final-filter-by>
-        </filter-chain>
-
-        <fuel-header-name>длина гона</fuel-header-name>
-
-    </simple-searcher>
-
     <!-- TABLE #24 -->
     <composite-searcher>
 
@@ -674,6 +647,33 @@
 
     </composite-searcher>
 
+    <!-- TABLE #25 -->
+    <simple-searcher>
+
+        <table-name>УБОРКА КАРТОФЕЛЯ</table-name>
+
+        <fuel-headers>
+            <fuel-header>Менее 150</fuel-header>
+            <fuel-header>150-200</fuel-header>
+            <fuel-header>201-300</fuel-header>
+            <fuel-header>301-400</fuel-header>
+            <fuel-header>401-600</fuel-header>
+            <fuel-header>601-1000</fuel-header>
+            <fuel-header>Более 1000</fuel-header>
+        </fuel-headers>
+
+        <filter-chain>
+            <filter-by-group>тип почвы</filter-by-group>
+            <filter-by cell-index="1">трактор</filter-by>
+            <filter-by cell-index="2">механизм</filter-by>
+            <filter-by cell-index="3">ширина междурядий</filter-by>
+            <final-filter-by cell-index="4">урожайность</final-filter-by>
+        </filter-chain>
+
+        <fuel-header-name>длина гона</fuel-header-name>
+
+    </simple-searcher>
+
     <!-- TABLE #26 -->
     <simple-searcher>
 
@@ -698,5 +698,33 @@
         <fuel-header-name>длина гона</fuel-header-name>
 
     </simple-searcher>
+
+    <!-- TABLE #27 -->
+    <composite-searcher>
+
+        <table-name>ТРАНСПОРТИРОВКА ГРУЗОВ ТРАКТОРАМИ С ОДНИМ ПРИЦЕПОМ</table-name>
+
+        <fuel-headers>
+            <fuel-header>I</fuel-header>
+            <fuel-header>II</fuel-header>
+            <fuel-header>III</fuel-header>
+        </fuel-headers>
+
+        <filter-chain>
+            <filter-by-group>класс груза</filter-by-group>
+            <final-filter-by cell-index="1">расстояние транспортировки</final-filter-by>
+        </filter-chain>
+
+        <fuel-header-name>группа дорог</fuel-header-name>
+
+        <!-- TODO Трактор и механизм писать здесь а sub-table-title-template-arguments убрать-->
+        <sub-table-title-template>ТРАКТОР %s + %s. При механизированной погрузке и разгрузке</sub-table-title-template>
+
+        <sub-table-title-template-arguments>
+            <sub-table-title-template-argument>трактор</sub-table-title-template-argument>
+            <sub-table-title-template-argument>механизм</sub-table-title-template-argument>
+        </sub-table-title-template-arguments>
+
+    </composite-searcher>
 
 </fuel-searchers>

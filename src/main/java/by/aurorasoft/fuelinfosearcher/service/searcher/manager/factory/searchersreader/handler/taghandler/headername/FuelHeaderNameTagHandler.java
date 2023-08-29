@@ -37,6 +37,9 @@ public final class FuelHeaderNameTagHandler extends TagHandler {
         final Optional<SpecificationPropertyExtractor> optionalExtractor = this.propertyExtractorDictionary.find(
                 extractorKey
         );
+        if(optionalExtractor.isEmpty()){
+            System.out.println();
+        }
         return optionalExtractor.orElseThrow(NoSuchPropertyExtractorException::new);
     }
 
