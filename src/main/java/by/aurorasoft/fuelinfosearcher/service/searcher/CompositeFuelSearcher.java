@@ -1,6 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher;
 
 import by.aurorasoft.fuelinfosearcher.functionalinterface.SpecificationPropertyExtractor;
+import by.aurorasoft.fuelinfosearcher.model.FuelHeaderMetadata;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
 import by.aurorasoft.fuelinfosearcher.model.Specification;
 import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.chain.RowFilterChain;
@@ -24,12 +25,11 @@ public final class CompositeFuelSearcher extends FuelSearcher {
     private final List<SpecificationPropertyExtractor> elementTableTitleTemplateArgumentExtractors;
 
     public CompositeFuelSearcher(final FuelTable fuelTable,
-                                 final List<String> fuelHeaders,
+                                 final FuelHeaderMetadata fuelHeaderMetadata,
                                  final RowFilterChain filterChain,
-                                 final SpecificationPropertyExtractor fuelHeaderCellValueExtractor,
                                  final String elementTableTitleTemplate,
                                  final List<SpecificationPropertyExtractor> elementTableTitleTemplateArgumentExtractors) {
-        super(fuelTable, fuelHeaders, filterChain, fuelHeaderCellValueExtractor);
+        super(fuelTable, fuelHeaderMetadata, filterChain);
         this.elementTableTitleTemplate = elementTableTitleTemplate;
         this.elementTableTitleTemplateArgumentExtractors = elementTableTitleTemplateArgumentExtractors;
     }
@@ -39,8 +39,7 @@ public final class CompositeFuelSearcher extends FuelSearcher {
     }
 
     @Override
-    protected Optional<XWPFTable> findElementTable(final FuelTable fuelTable,
-                                                   final Specification specification) {
+    protected Optional<XWPFTable> findSubTable(final FuelTable fuelTable, final Specification specification) {
         final List<IBodyElement> fuelTableElements = fuelTable.getElements();
         return this.findTitleIndex(fuelTableElements, specification)
                 .stream()
@@ -96,14 +95,12 @@ public final class CompositeFuelSearcher extends FuelSearcher {
 
         @Override
         protected CompositeFuelSearcher build(final FuelTable fuelTable,
-                                              final List<String> fuelHeaders,
-                                              final RowFilterChain filterChain,
-                                              final SpecificationPropertyExtractor fuelHeaderCellValueExtractor) {
+                                              final FuelHeaderMetadata fuelHeaderMetadata,
+                                              final RowFilterChain filterChain) {
             return new CompositeFuelSearcher(
                     fuelTable,
-                    fuelHeaders,
+                    fuelHeaderMetadata,
                     filterChain,
-                    fuelHeaderCellValueExtractor,
                     this.elementTableTitleTemplate,
                     this.elementTableTitleTemplateArgumentExtractors
             );

@@ -1,8 +1,8 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher;
 
-import by.aurorasoft.fuelinfosearcher.functionalinterface.SpecificationPropertyExtractor;
-import by.aurorasoft.fuelinfosearcher.model.Specification;
+import by.aurorasoft.fuelinfosearcher.model.FuelHeaderMetadata;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
+import by.aurorasoft.fuelinfosearcher.model.Specification;
 import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.chain.RowFilterChain;
 import lombok.NoArgsConstructor;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
@@ -16,10 +16,9 @@ import static lombok.AccessLevel.PRIVATE;
 public final class SimpleFuelSearcher extends FuelSearcher {
 
     public SimpleFuelSearcher(final FuelTable fuelTable,
-                              final List<String> fuelHeaders,
-                              final RowFilterChain filterChain,
-                              final SpecificationPropertyExtractor fuelHeaderCellValueExtractor) {
-        super(fuelTable, fuelHeaders, filterChain, fuelHeaderCellValueExtractor);
+                              final FuelHeaderMetadata fuelHeaderMetadata,
+                              final RowFilterChain filterChain) {
+        super(fuelTable, fuelHeaderMetadata, filterChain);
     }
 
     public static SimpleFuelSearcherBuilder builder() {
@@ -27,7 +26,7 @@ public final class SimpleFuelSearcher extends FuelSearcher {
     }
 
     @Override
-    protected Optional<XWPFTable> findElementTable(final FuelTable fuelTable, final Specification specification) {
+    protected Optional<XWPFTable> findSubTable(final FuelTable fuelTable, final Specification specification) {
         final List<IBodyElement> elements = fuelTable.getElements();
         final IBodyElement firstElement = elements.get(0);
         final XWPFTable elementTable = (XWPFTable) firstElement;
@@ -39,10 +38,9 @@ public final class SimpleFuelSearcher extends FuelSearcher {
 
         @Override
         protected SimpleFuelSearcher build(final FuelTable fuelTable,
-                                           final List<String> fuelHeaders,
-                                           final RowFilterChain filterChain,
-                                           final SpecificationPropertyExtractor fuelHeaderCellValueExtractor) {
-            return new SimpleFuelSearcher(fuelTable, fuelHeaders, filterChain, fuelHeaderCellValueExtractor);
+                                           final FuelHeaderMetadata fuelHeaderMetadata,
+                                           final RowFilterChain filterChain) {
+            return new SimpleFuelSearcher(fuelTable, fuelHeaderMetadata, filterChain);
         }
 
     }

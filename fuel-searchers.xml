@@ -6,16 +6,6 @@
 
         <table-name>ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ</table-name>
 
-        <fuel-headers>
-            <fuel-header>Менее 150</fuel-header>
-            <fuel-header>150-200</fuel-header>
-            <fuel-header>201-300</fuel-header>
-            <fuel-header>301-400</fuel-header>
-            <fuel-header>401-600</fuel-header>
-            <fuel-header>601-1000</fuel-header>
-            <fuel-header>Более 1000</fuel-header>
-        </fuel-headers>
-
         <filter-chain>
             <filter-by-group>удельное сопротивление</filter-by-group>
             <filter-by cell-index="1">трактор</filter-by>
@@ -32,16 +22,6 @@
     <simple-searcher>
 
         <table-name>ВСПАШКА СТЕРНИ</table-name>
-
-        <fuel-headers>
-            <fuel-header>Менее 150</fuel-header>
-            <fuel-header>150-200</fuel-header>
-            <fuel-header>201-300</fuel-header>
-            <fuel-header>301-400</fuel-header>
-            <fuel-header>401-600</fuel-header>
-            <fuel-header>601-1000</fuel-header>
-            <fuel-header>Более 1000</fuel-header>
-        </fuel-headers>
 
         <filter-chain>
             <filter-by-group>удельное сопротивление</filter-by-group>
@@ -60,16 +40,6 @@
 
         <table-name>ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ</table-name>
 
-        <fuel-headers>
-            <fuel-header>Менее 150</fuel-header>
-            <fuel-header>150-200</fuel-header>
-            <fuel-header>201-300</fuel-header>
-            <fuel-header>301-400</fuel-header>
-            <fuel-header>401-600</fuel-header>
-            <fuel-header>601-1000</fuel-header>
-            <fuel-header>Более 1000</fuel-header>
-        </fuel-headers>
-
         <filter-chain>
             <filter-by-group>тип почвы</filter-by-group>
             <filter-by cell-index="1">трактор</filter-by>
@@ -87,16 +57,6 @@
 
         <table-name>СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ</table-name>
 
-        <fuel-headers>
-            <fuel-header>Менее 150</fuel-header>
-            <fuel-header>150-200</fuel-header>
-            <fuel-header>201-300</fuel-header>
-            <fuel-header>301-400</fuel-header>
-            <fuel-header>401-600</fuel-header>
-            <fuel-header>601-1000</fuel-header>
-            <fuel-header>Более 1000</fuel-header>
-        </fuel-headers>
-
         <filter-chain>
             <filter-by-group>глубина обработки</filter-by-group>
             <filter-by cell-index="1">трактор</filter-by>
@@ -112,16 +72,6 @@
     <simple-searcher>
 
         <table-name>ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ</table-name>
-
-        <fuel-headers>
-            <fuel-header>Менее 150</fuel-header>
-            <fuel-header>150-200</fuel-header>
-            <fuel-header>201-300</fuel-header>
-            <fuel-header>301-400</fuel-header>
-            <fuel-header>401-600</fuel-header>
-            <fuel-header>601-1000</fuel-header>
-            <fuel-header>Более 1000</fuel-header>
-        </fuel-headers>
 
         <filter-chain>
             <filter-by-group>глубина обработки</filter-by-group>
@@ -139,16 +89,6 @@
 
         <table-name>ЛУЩЕНИЕ И ДИСКОВАНИЕ МНОГОЛЕТНИХ ТРАВ</table-name>
 
-        <fuel-headers>
-            <fuel-header>Менее 150</fuel-header>
-            <fuel-header>150-200</fuel-header>
-            <fuel-header>201-300</fuel-header>
-            <fuel-header>301-400</fuel-header>
-            <fuel-header>401-600</fuel-header>
-            <fuel-header>601-1000</fuel-header>
-            <fuel-header>Более 1000</fuel-header>
-        </fuel-headers>
-
         <filter-chain>
             <filter-by-group>глубина обработки</filter-by-group>
             <filter-by cell-index="1">трактор</filter-by>
@@ -163,17 +103,9 @@
     <!-- TABLE #7 -->
     <simple-searcher>
 
-        <table-name>ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ПОСЕВОМ СЕЛЬСКОХОЗЯЙСТВЕННЫХ КУЛЬТУР: ПШЕНИЦЫ, РЖИ, ЯЧМЕНЯ, ОВСА, ГОРОХА, ЛЮПИНА, ВИКИ, ВИКООВСЯНОЙ СМЕСИ, ЛЬНА</table-name>
-
-        <fuel-headers>
-            <fuel-header>Менее 150</fuel-header>
-            <fuel-header>150-200</fuel-header>
-            <fuel-header>201-300</fuel-header>
-            <fuel-header>301-400</fuel-header>
-            <fuel-header>401-600</fuel-header>
-            <fuel-header>601-1000</fuel-header>
-            <fuel-header>Более 1000</fuel-header>
-        </fuel-headers>
+        <table-name>
+            ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ПОСЕВОМ СЕЛЬСКОХОЗЯЙСТВЕННЫХ КУЛЬТУР: ПШЕНИЦЫ, РЖИ, ЯЧМЕНЯ, ОВСА, ГОРОХА, ЛЮПИНА, ВИКИ, ВИКООВСЯНОЙ СМЕСИ, ЛЬНА
+        </table-name>
 
         <filter-chain>
             <filter-by-group>норма высева</filter-by-group>
@@ -191,16 +123,6 @@
 
         <table-name>ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА</table-name>
 
-        <fuel-headers>
-            <fuel-header>Менее 150</fuel-header>
-            <fuel-header>150-200</fuel-header>
-            <fuel-header>201-300</fuel-header>
-            <fuel-header>301-400</fuel-header>
-            <fuel-header>401-600</fuel-header>
-            <fuel-header>601-1000</fuel-header>
-            <fuel-header>Более 1000</fuel-header>
-        </fuel-headers>
-
         <filter-chain>
             <filter-by-group>норма высева</filter-by-group>
             <filter-by cell-index="1">трактор</filter-by>
@@ -216,16 +138,6 @@
     <simple-searcher>
 
         <table-name>ПОСЕВ САХАРНОЙ СВЕКЛЫ</table-name>
-
-        <fuel-headers>
-            <fuel-header>Менее 150</fuel-header>
-            <fuel-header>150-200</fuel-header>
-            <fuel-header>201-300</fuel-header>
-            <fuel-header>301-400</fuel-header>
-            <fuel-header>401-600</fuel-header>
-            <fuel-header>601-1000</fuel-header>
-            <fuel-header>Более 1000</fuel-header>
-        </fuel-headers>
 
         <filter-chain>
             <filter-by-group>норма высева</filter-by-group>
@@ -243,16 +155,6 @@
 
         <table-name>ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ОДНОВРЕМЕННЫМ ПОСЕВОМ РАПСА</table-name>
 
-        <fuel-headers>
-            <fuel-header>Менее 150</fuel-header>
-            <fuel-header>150-200</fuel-header>
-            <fuel-header>201-300</fuel-header>
-            <fuel-header>301-400</fuel-header>
-            <fuel-header>401-600</fuel-header>
-            <fuel-header>601-1000</fuel-header>
-            <fuel-header>Более 1000</fuel-header>
-        </fuel-headers>
-
         <filter-chain>
             <filter-by-group>норма высева</filter-by-group>
             <filter-by cell-index="1">трактор</filter-by>
@@ -269,16 +171,6 @@
 
         <table-name>ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ</table-name>
 
-        <fuel-headers>
-            <fuel-header>Менее 150</fuel-header>
-            <fuel-header>150-200</fuel-header>
-            <fuel-header>201-300</fuel-header>
-            <fuel-header>301-400</fuel-header>
-            <fuel-header>401-600</fuel-header>
-            <fuel-header>601-1000</fuel-header>
-            <fuel-header>Более 1000</fuel-header>
-        </fuel-headers>
-
         <filter-chain>
             <filter-by-group>тип удобрения</filter-by-group>
             <filter-by cell-index="1">способ загрузки удобрений и расстояние транспортировки</filter-by>
@@ -287,12 +179,7 @@
 
         <fuel-header-name>длина гона</fuel-header-name>
 
-        <sub-table-title-template>РАЗБРАСЫВАТЕЛЕМ %s (трактор %s)</sub-table-title-template>
-
-        <sub-table-title-template-arguments>
-            <sub-table-title-template-argument>механизм</sub-table-title-template-argument>
-            <sub-table-title-template-argument>трактор</sub-table-title-template-argument>
-        </sub-table-title-template-arguments>
+        <sub-table-title-template>РАЗБРАСЫВАТЕЛЕМ {механизм} (трактор {трактор})</sub-table-title-template>
 
     </composite-searcher>
 
@@ -301,16 +188,6 @@
 
         <table-name>ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ И СРЕДСТВ ЗАЩИТЫ РАСТЕНИЙ</table-name>
 
-        <fuel-headers>
-            <fuel-header>Менее 150</fuel-header>
-            <fuel-header>150-200</fuel-header>
-            <fuel-header>201-300</fuel-header>
-            <fuel-header>301-400</fuel-header>
-            <fuel-header>401-600</fuel-header>
-            <fuel-header>601-1000</fuel-header>
-            <fuel-header>Более 1000</fuel-header>
-        </fuel-headers>
-
         <filter-chain>
             <filter-by-group>тип удобрения</filter-by-group>
             <filter-by cell-index="1">способ загрузки удобрений и расстояние транспортировки</filter-by>
@@ -319,11 +196,7 @@
 
         <fuel-header-name>длина гона</fuel-header-name>
 
-        <sub-table-title-template>Опрыскивателем %s</sub-table-title-template>
-
-        <sub-table-title-template-arguments>
-            <sub-table-title-template-argument>механизм</sub-table-title-template-argument>
-        </sub-table-title-template-arguments>
+        <sub-table-title-template>Опрыскивателем {механизм}</sub-table-title-template>
 
     </composite-searcher>
 
@@ -331,12 +204,6 @@
     <composite-searcher>
 
         <table-name>ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ</table-name>
-
-        <fuel-headers>
-            <fuel-header>Менее 30</fuel-header>
-            <fuel-header>30-50</fuel-header>
-            <fuel-header>Более 50</fuel-header>
-        </fuel-headers>
 
         <filter-chain>
             <filter-by-group>класс груза</filter-by-group>
@@ -346,13 +213,9 @@
 
         <fuel-header-name>норма внесения удобрений</fuel-header-name>
 
-        <!-- TODO Трактор и механизм писать здесь а sub-table-title-template-arguments убрать-->
-        <sub-table-title-template>%s с разбрасывателем %s. Производительность погрузчика более 60 т/ч</sub-table-title-template>
-
-        <sub-table-title-template-arguments>
-            <sub-table-title-template-argument>трактор</sub-table-title-template-argument>
-            <sub-table-title-template-argument>механизм</sub-table-title-template-argument>
-        </sub-table-title-template-arguments>
+        <sub-table-title-template>
+            {трактор} с разбрасывателем {механизм}. Производительность погрузчика более 60 т/ч
+        </sub-table-title-template>
 
     </composite-searcher>
 
@@ -361,12 +224,6 @@
 
         <table-name>ВНЕСЕНИЕ ЖИДКИХ ОРГАНИЧЕСКИХ УДОБРЕНИЙ</table-name>
 
-        <fuel-headers>
-            <fuel-header>Менее 30</fuel-header>
-            <fuel-header>30-50</fuel-header>
-            <fuel-header>Более 50</fuel-header>
-        </fuel-headers>
-
         <filter-chain>
             <filter-by-group>группа дорог</filter-by-group>
             <final-filter-by cell-index="1">расстояние транспортировки</final-filter-by>
@@ -374,13 +231,7 @@
 
         <fuel-header-name>норма внесения удобрений</fuel-header-name>
 
-        <!-- TODO Трактор и механизм писать здесь а sub-table-title-template-arguments убрать-->
-        <sub-table-title-template>%s с %s</sub-table-title-template>
-
-        <sub-table-title-template-arguments>
-            <sub-table-title-template-argument>трактор</sub-table-title-template-argument>
-            <sub-table-title-template-argument>механизм</sub-table-title-template-argument>
-        </sub-table-title-template-arguments>
+        <sub-table-title-template>{трактор} с {механизм}</sub-table-title-template>
 
     </composite-searcher>
 
@@ -388,16 +239,6 @@
     <simple-searcher>
 
         <table-name>КОШЕНИЕ СЕЯНЫХ И ЕСТЕСТВЕННЫХ ТРАВ</table-name>
-
-        <fuel-headers>
-            <fuel-header>Менее 150</fuel-header>
-            <fuel-header>150-200</fuel-header>
-            <fuel-header>201-300</fuel-header>
-            <fuel-header>301-400</fuel-header>
-            <fuel-header>401-600</fuel-header>
-            <fuel-header>601-1000</fuel-header>
-            <fuel-header>Более 1000</fuel-header>
-        </fuel-headers>
 
         <filter-chain>
             <filter-by cell-index="1">трактор</filter-by>
@@ -415,16 +256,6 @@
 
         <table-name>КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ</table-name>
 
-        <fuel-headers>
-            <fuel-header>Менее 150</fuel-header>
-            <fuel-header>150-200</fuel-header>
-            <fuel-header>201-300</fuel-header>
-            <fuel-header>301-400</fuel-header>
-            <fuel-header>401-600</fuel-header>
-            <fuel-header>601-1000</fuel-header>
-            <fuel-header>Более 1000</fuel-header>
-        </fuel-headers>
-
         <filter-chain>
             <filter-by cell-index="1">трактор</filter-by>
             <filter-by cell-index="2">механизм</filter-by>
@@ -441,16 +272,6 @@
 
         <table-name>ВОРОШЕНИЕ СЕНА</table-name>
 
-        <fuel-headers>
-            <fuel-header>Менее 150</fuel-header>
-            <fuel-header>150-200</fuel-header>
-            <fuel-header>201-300</fuel-header>
-            <fuel-header>301-400</fuel-header>
-            <fuel-header>401-600</fuel-header>
-            <fuel-header>601-1000</fuel-header>
-            <fuel-header>Более 1000</fuel-header>
-        </fuel-headers>
-
         <filter-chain>
             <filter-by cell-index="1">трактор</filter-by>
             <filter-by cell-index="2">механизм</filter-by>
@@ -466,16 +287,6 @@
 
         <table-name>СГРЕБАНИЕ СЕНА В ВАЛКИ</table-name>
 
-        <fuel-headers>
-            <fuel-header>Менее 150</fuel-header>
-            <fuel-header>150-200</fuel-header>
-            <fuel-header>201-300</fuel-header>
-            <fuel-header>301-400</fuel-header>
-            <fuel-header>401-600</fuel-header>
-            <fuel-header>601-1000</fuel-header>
-            <fuel-header>Более 1000</fuel-header>
-        </fuel-headers>
-
         <filter-chain>
             <filter-by cell-index="1">трактор</filter-by>
             <filter-by cell-index="2">механизм</filter-by>
@@ -490,16 +301,6 @@
     <simple-searcher>
 
         <table-name>ПРЕССОВАНИЕ СЕНА ПОСЛЕ КОМБАЙНА</table-name>
-
-        <fuel-headers>
-            <fuel-header>Менее 150</fuel-header>
-            <fuel-header>150-200</fuel-header>
-            <fuel-header>201-300</fuel-header>
-            <fuel-header>301-400</fuel-header>
-            <fuel-header>401-600</fuel-header>
-            <fuel-header>601-1000</fuel-header>
-            <fuel-header>Более 1000</fuel-header>
-        </fuel-headers>
 
         <filter-chain>
             <filter-by cell-index="1">трактор</filter-by>
@@ -517,16 +318,6 @@
 
         <table-name>ПРЕССОВАНИЕ СОЛОМЫ ПОСЛЕ КОМБАЙНА</table-name>
 
-        <fuel-headers>
-            <fuel-header>Менее 150</fuel-header>
-            <fuel-header>150-200</fuel-header>
-            <fuel-header>201-300</fuel-header>
-            <fuel-header>301-400</fuel-header>
-            <fuel-header>401-600</fuel-header>
-            <fuel-header>601-1000</fuel-header>
-            <fuel-header>Более 1000</fuel-header>
-        </fuel-headers>
-
         <filter-chain>
             <filter-by cell-index="1">трактор</filter-by>
             <filter-by cell-index="2">механизм</filter-by>
@@ -542,16 +333,6 @@
     <simple-searcher>
 
         <table-name>ПРЕССОВАНИЕ ПРОВЯЛЕННОЙ МАССЫ ПОСЛЕ КОМБАЙНА</table-name>
-
-        <fuel-headers>
-            <fuel-header>Менее 150</fuel-header>
-            <fuel-header>150-200</fuel-header>
-            <fuel-header>201-300</fuel-header>
-            <fuel-header>301-400</fuel-header>
-            <fuel-header>401-600</fuel-header>
-            <fuel-header>601-1000</fuel-header>
-            <fuel-header>Более 1000</fuel-header>
-        </fuel-headers>
 
         <filter-chain>
             <filter-by cell-index="1">трактор</filter-by>
@@ -569,16 +350,6 @@
 
         <table-name>ПРЕССОВАНИЕ ЛЕНТ ЛЬНА</table-name>
 
-        <fuel-headers>
-            <fuel-header>Менее 150</fuel-header>
-            <fuel-header>150-200</fuel-header>
-            <fuel-header>201-300</fuel-header>
-            <fuel-header>301-400</fuel-header>
-            <fuel-header>401-600</fuel-header>
-            <fuel-header>601-1000</fuel-header>
-            <fuel-header>Более 1000</fuel-header>
-        </fuel-headers>
-
         <filter-chain>
             <filter-by cell-index="1">трактор</filter-by>
             <filter-by cell-index="2">механизм</filter-by>
@@ -595,16 +366,6 @@
 
         <table-name>ПОДБОР ПРОВЯЛЕННЫХ ТРАВ ИЗ ВАЛКОВ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА</table-name>
 
-        <fuel-headers>
-            <fuel-header>Менее 150</fuel-header>
-            <fuel-header>150-200</fuel-header>
-            <fuel-header>201-300</fuel-header>
-            <fuel-header>301-400</fuel-header>
-            <fuel-header>401-600</fuel-header>
-            <fuel-header>601-1000</fuel-header>
-            <fuel-header>Более 1000</fuel-header>
-        </fuel-headers>
-
         <filter-chain>
             <filter-by cell-index="1">механизм</filter-by>
             <filter-by cell-index="3">ширина захвата</filter-by>
@@ -620,16 +381,6 @@
 
         <table-name>ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ</table-name>
 
-        <fuel-headers>
-            <fuel-header>Менее 150</fuel-header>
-            <fuel-header>150-200</fuel-header>
-            <fuel-header>201-300</fuel-header>
-            <fuel-header>301-400</fuel-header>
-            <fuel-header>401-600</fuel-header>
-            <fuel-header>601-1000</fuel-header>
-            <fuel-header>Более 1000</fuel-header>
-        </fuel-headers>
-
         <filter-chain>
             <filter-by cell-index="2">ширина захвата</filter-by>
             <final-filter-by cell-index="1">урожайность</final-filter-by>
@@ -637,13 +388,9 @@
 
         <fuel-header-name>длина гона</fuel-header-name>
 
-        <!-- TODO Трактор и механизм писать здесь а sub-table-title-template-arguments убрать-->
-        <sub-table-title-template>%s Соотношение массы зерна к массе соломы %s</sub-table-title-template>
-
-        <sub-table-title-template-arguments>
-            <sub-table-title-template-argument>комбайн</sub-table-title-template-argument>
-            <sub-table-title-template-argument>соотношение массы зерна к массе соломы</sub-table-title-template-argument>
-        </sub-table-title-template-arguments>
+        <sub-table-title-template>
+            {комбайн} Соотношение массы зерна к массе соломы {соотношение массы зерна к массе соломы}
+        </sub-table-title-template>
 
     </composite-searcher>
 
@@ -651,16 +398,6 @@
     <simple-searcher>
 
         <table-name>УБОРКА КАРТОФЕЛЯ</table-name>
-
-        <fuel-headers>
-            <fuel-header>Менее 150</fuel-header>
-            <fuel-header>150-200</fuel-header>
-            <fuel-header>201-300</fuel-header>
-            <fuel-header>301-400</fuel-header>
-            <fuel-header>401-600</fuel-header>
-            <fuel-header>601-1000</fuel-header>
-            <fuel-header>Более 1000</fuel-header>
-        </fuel-headers>
 
         <filter-chain>
             <filter-by-group>тип почвы</filter-by-group>
@@ -679,16 +416,6 @@
 
         <table-name>УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА</table-name>
 
-        <fuel-headers>
-            <fuel-header>Менее 150</fuel-header>
-            <fuel-header>150-200</fuel-header>
-            <fuel-header>201-300</fuel-header>
-            <fuel-header>301-400</fuel-header>
-            <fuel-header>401-600</fuel-header>
-            <fuel-header>601-1000</fuel-header>
-            <fuel-header>Более 1000</fuel-header>
-        </fuel-headers>
-
         <filter-chain>
             <filter-by cell-index="1">комбайн</filter-by>
             <filter-by cell-index="3">ширина захвата</filter-by>
@@ -704,12 +431,6 @@
 
         <table-name>ТРАНСПОРТИРОВКА ГРУЗОВ ТРАКТОРАМИ С ОДНИМ ПРИЦЕПОМ</table-name>
 
-        <fuel-headers>
-            <fuel-header>I</fuel-header>
-            <fuel-header>II</fuel-header>
-            <fuel-header>III</fuel-header>
-        </fuel-headers>
-
         <filter-chain>
             <filter-by-group>класс груза</filter-by-group>
             <final-filter-by cell-index="1">расстояние транспортировки</final-filter-by>
@@ -717,13 +438,9 @@
 
         <fuel-header-name>группа дорог</fuel-header-name>
 
-        <!-- TODO Трактор и механизм писать здесь а sub-table-title-template-arguments убрать-->
-        <sub-table-title-template>ТРАКТОР %s + %s. При механизированной погрузке и разгрузке</sub-table-title-template>
-
-        <sub-table-title-template-arguments>
-            <sub-table-title-template-argument>трактор</sub-table-title-template-argument>
-            <sub-table-title-template-argument>механизм</sub-table-title-template-argument>
-        </sub-table-title-template-arguments>
+        <sub-table-title-template>
+            ТРАКТОР {трактор} + {механизм}. При механизированной погрузке и разгрузке
+        </sub-table-title-template>
 
     </composite-searcher>
 
