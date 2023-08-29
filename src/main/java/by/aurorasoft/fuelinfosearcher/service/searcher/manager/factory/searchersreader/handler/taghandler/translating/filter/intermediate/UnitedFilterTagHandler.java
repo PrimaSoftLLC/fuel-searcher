@@ -24,4 +24,9 @@ public final class UnitedFilterTagHandler extends AbstractInterimFilterTagHandle
     protected int findDefaultFiltrationCellIndex() {
         throw new DefaultFiltrationCellIndexNotExistException();
     }
+
+    @Override
+    protected void accumulateAdditionalValues(final SearchersParsingContext context) {
+
+    }
 }
