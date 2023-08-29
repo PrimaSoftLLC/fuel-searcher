@@ -67,7 +67,7 @@ public final class CompositeFuelSearcher extends FuelSearcher {
     }
 
     private static IntStream findTitleIndexes(final List<IBodyElement> fuelTableElements) {
-        //first element is paragraph, second element is element-table and etc.
+        //first element is paragraph(sub table's title), second element is sub table and etc.
         return iterate(0, i -> i < fuelTableElements.size(), i -> i + 2);
     }
 

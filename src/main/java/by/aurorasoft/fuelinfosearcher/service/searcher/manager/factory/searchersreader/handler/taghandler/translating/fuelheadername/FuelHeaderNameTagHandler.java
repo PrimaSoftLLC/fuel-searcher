@@ -22,7 +22,7 @@ public final class FuelHeaderNameTagHandler extends TranslatingTagHandler<FuelHe
     }
 
     @Override
-    protected void handleValue(final SearchersParsingContext context, final FuelHeaderMetadata headerMetadata) {
+    protected void accumulateTranslatedValue(final SearchersParsingContext context, final FuelHeaderMetadata headerMetadata) {
         context.accumulateFuelHeaderMetaData(headerMetadata);
     }
 }

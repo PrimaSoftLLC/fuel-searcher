@@ -6,6 +6,7 @@ import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchers
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.exception.NoSuchKeyException.NoSuchKeyExceptionFactory;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public abstract class TranslatingTagHandler<V> extends TagHandler {
     private final Dictionary<V> dictionary;
@@ -21,14 +22,23 @@ public abstract class TranslatingTagHandler<V> extends TagHandler {
 
     @Override
     public final void handleEndTag(final SearchersParsingContext context) {
-        final V value = this.findValue(context);
-        this.handleValue(context, value);
+        this.accumulateTranslatedValues(context);
+        this.accumulateAdditionalValues(context);
     }
 
-    protected abstract void handleValue(final SearchersParsingContext context, final V value);
+    protected abstract Stream<String> findKeys(final SearchersParsingContext context);
 
-    private V findValue(final SearchersParsingContext context) {
-        final String key = context.getLastContent();
+    protected abstract void accumulateTranslatedValue(final SearchersParsingContext context, final V value);
+
+    protected abstract void accumulateAdditionalValues(final SearchersParsingContext context);
+
+    private void accumulateTranslatedValues(final SearchersParsingContext context) {
+        this.findKeys(context)
+                .map(this::findTranslatedValue)
+                .forEach(value -> this.accumulateTranslatedValue(context, value));
+    }
+
+    private V findTranslatedValue(final String key) {
         final Optional<V> optionalValue = this.dictionary.find(key);
         return optionalValue.orElseThrow(() -> this.noSuchKeyExceptionFactory.apply(key));
     }

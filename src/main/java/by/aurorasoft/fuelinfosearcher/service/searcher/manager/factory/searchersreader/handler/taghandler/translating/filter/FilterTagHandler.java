@@ -3,7 +3,7 @@ package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searcher
 import by.aurorasoft.fuelinfosearcher.functionalinterface.filterfactory.FilterFactory;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.SearchersParsingContext;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.dictionary.rowfilter.FilterFactoryDictionary;
-import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.TranslatingTagHandler;
+import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.SimpleTranslatingTagHandler;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.filter.exception.NoSuchFilterException;
 import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.Filter;
 import org.xml.sax.Attributes;
@@ -11,17 +11,18 @@ import org.xml.sax.Attributes;
 import static java.lang.Integer.parseInt;
 
 public abstract class FilterTagHandler<FILTER extends Filter<?>, FILTER_FACTORY extends FilterFactory<FILTER>>
-        extends TranslatingTagHandler<FILTER_FACTORY> {
+        extends SimpleTranslatingTagHandler<FILTER_FACTORY> {
 
     private static final String FILTRATION_CELL_INDEX_ATTRIBUTE_NAME = "cell-index";
 
 
-    public FilterTagHandler(final String tagName, final FilterFactoryDictionary<FILTER_FACTORY> filterFactoryDictionary) {
-        super(tagName, filterFactoryDictionary, NoSuchFilterException::new);
+    public FilterTagHandler(final String tagName, final FilterFactoryDictionary<FILTER_FACTORY> dictionary) {
+        super(tagName, dictionary, NoSuchFilterException::new);
     }
 
     @Override
-    protected final void handleValue(final SearchersParsingContext context, final FILTER_FACTORY filterFactory) {
+    protected final void accumulateTranslatedValue(final SearchersParsingContext context,
+                                                   final FILTER_FACTORY filterFactory) {
         final FILTER filter = this.createFilter(context, filterFactory);
         this.accumulateFilter(context, filter);
     }
