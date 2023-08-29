@@ -3,7 +3,7 @@ package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searcher
 import by.aurorasoft.fuelinfosearcher.service.searcher.FuelSearcher;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.exception.FuelSearchersReadingException;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.SearchersParsingHandler;
-import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.factory.FuelSearchersParsingHandlerFactory;
+import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.factory.SearchersParsingHandlerFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.xml.sax.SAXException;
@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public final class FuelSearchersReader {
     private final SAXParser saxParser;
-    private final FuelSearchersParsingHandlerFactory parsingHandlerFactory;
+    private final SearchersParsingHandlerFactory parsingHandlerFactory;
 
     public List<FuelSearcher> read(final String filePath) {
         try {

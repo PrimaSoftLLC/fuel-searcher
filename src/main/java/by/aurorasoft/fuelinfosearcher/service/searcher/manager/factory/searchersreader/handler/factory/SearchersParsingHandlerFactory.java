@@ -12,10 +12,10 @@ import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 
 @Component
-public final class FuelSearchersParsingHandlerFactory {
+public final class SearchersParsingHandlerFactory {
     private final Map<String, TagHandler> handlersByTagNames;
 
-    public FuelSearchersParsingHandlerFactory(final List<TagHandler> tagHandlers) {
+    public SearchersParsingHandlerFactory(final List<TagHandler> tagHandlers) {
         this.handlersByTagNames = createHandlersByTagNames(tagHandlers);
     }
 
