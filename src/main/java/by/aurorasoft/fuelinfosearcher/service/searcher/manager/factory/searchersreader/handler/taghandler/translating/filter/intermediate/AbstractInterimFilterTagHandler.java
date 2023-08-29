@@ -18,7 +18,7 @@ public abstract class AbstractInterimFilterTagHandler<
     }
 
     @Override
-    protected final void accumulateFilter(SearchersParsingContext context, FILTER filter) {
+    protected final void accumulateFilter(final SearchersParsingContext context, final FILTER filter) {
         context.accumulateFilter(filter);
     }
 }

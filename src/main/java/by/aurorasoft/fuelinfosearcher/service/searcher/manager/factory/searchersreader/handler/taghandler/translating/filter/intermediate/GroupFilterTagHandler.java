@@ -16,12 +16,12 @@ public final class GroupFilterTagHandler extends AbstractInterimFilterTagHandler
     }
 
     @Override
-    protected int findDefaultFiltrationCellIndex() {
-        return DEFAULT_FILTRATION_CELL_INDEX;
+    public void handleStartTag(final SearchersParsingContext context) {
+
     }
 
     @Override
-    public void handleStartTag(final SearchersParsingContext context) {
-
+    protected int findDefaultFiltrationCellIndex() {
+        return DEFAULT_FILTRATION_CELL_INDEX;
     }
 }
