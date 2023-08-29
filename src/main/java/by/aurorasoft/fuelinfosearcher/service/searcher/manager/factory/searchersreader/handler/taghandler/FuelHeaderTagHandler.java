@@ -18,6 +18,6 @@ public final class FuelHeaderTagHandler extends TagHandler {
 
     @Override
     public void handleEndTag(final SearchersParsingContext context) {
-        context.accumulateFuelHeader();
+        context.accumulateFuelHeaderMetaData();
     }
 }

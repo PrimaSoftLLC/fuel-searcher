@@ -1,6 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context;
 
 import by.aurorasoft.fuelinfosearcher.functionalinterface.SpecificationPropertyExtractor;
+import by.aurorasoft.fuelinfosearcher.model.FuelHeaderMetadata;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
 import by.aurorasoft.fuelinfosearcher.service.searcher.CompositeFuelSearcher;
 import by.aurorasoft.fuelinfosearcher.service.searcher.CompositeFuelSearcher.CompositeFuelSearcherBuilder;
@@ -63,8 +64,8 @@ public final class SearchersParsingContext {
         this.compositeFuelSearcherBuilder = null;
     }
 
-    public void accumulateFuelHeader() {
-        this.findCurrentBuilder().fuelHeader(this.lastContent);
+    public void accumulateFuelHeaderMetaData(final FuelHeaderMetadata metadata) {
+        this.findCurrentBuilder().fuelHeaderMetadata(metadata);
     }
 
     public void accumulateFilter(final AbstractInterimFilter filter) {
@@ -73,10 +74,6 @@ public final class SearchersParsingContext {
 
     public void accumulateFilter(final FinalFilter filter) {
         this.findCurrentBuilder().conclusiveFilter(filter);
-    }
-
-    public void accumulateFuelHeaderExtractor(final SpecificationPropertyExtractor extractor) {
-        this.findCurrentBuilder().fuelHeaderCellValueExtractor(extractor);
     }
 
     public void accumulateSubTableTitleTemplate() {
