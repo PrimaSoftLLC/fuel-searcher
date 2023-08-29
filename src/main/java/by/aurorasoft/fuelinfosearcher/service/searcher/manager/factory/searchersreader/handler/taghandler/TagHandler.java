@@ -4,7 +4,6 @@ import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchers
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-//TODO: RowFilter rename to Filter everywhere
 @RequiredArgsConstructor
 @Getter
 public abstract class TagHandler {
