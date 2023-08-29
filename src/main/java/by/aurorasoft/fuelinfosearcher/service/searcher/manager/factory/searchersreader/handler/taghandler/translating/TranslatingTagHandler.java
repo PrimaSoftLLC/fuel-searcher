@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating;
 
-import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.FuelSearchersParsingContext;
+import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.SearchersParsingContext;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.dictionary.Dictionary;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.TagHandler;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.exception.NoSuchKeyException;
@@ -21,14 +21,14 @@ public abstract class TranslatingTagHandler<V> extends TagHandler {
     }
 
     @Override
-    public final void handleEndTag(final FuelSearchersParsingContext context) {
+    public final void handleEndTag(final SearchersParsingContext context) {
         final V value = this.findValue(context);
         this.handleValue(context, value);
     }
 
-    protected abstract void handleValue(final FuelSearchersParsingContext context, final V value);
+    protected abstract void handleValue(final SearchersParsingContext context, final V value);
 
-    private V findValue(final FuelSearchersParsingContext context) {
+    private V findValue(final SearchersParsingContext context) {
         final String key = context.getLastContent();
         final Optional<V> optionalValue = this.dictionary.find(key);
         //TODO: add description of exception with 'key'

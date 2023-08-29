@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.rowfilter;
 
 import by.aurorasoft.fuelinfosearcher.functionalinterface.filterfactory.FinalFilterFactory;
-import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.FuelSearchersParsingContext;
+import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.SearchersParsingContext;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.dictionary.rowfilter.FinalFilterFactoryDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.rowfilter.exception.DefaultFiltrationCellIndexNotExistException;
 import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.conclusive.FinalFilter;
@@ -21,12 +21,12 @@ public final class FinalFilterTagHandler extends FilterTagHandler<FinalFilter, F
     }
 
     @Override
-    protected void accumulateFilter(final FuelSearchersParsingContext context, final FinalFilter filter) {
+    protected void accumulateFilter(final SearchersParsingContext context, final FinalFilter filter) {
         context.accumulateFilter(filter);
     }
 
     @Override
-    public void handleStartTag(final FuelSearchersParsingContext context) {
+    public void handleStartTag(final SearchersParsingContext context) {
 
     }
 }

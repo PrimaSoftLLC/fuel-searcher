@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //TODO: refactor
-public final class FuelSearchersParsingContext {
+public final class SearchersParsingContext {
 
     @Getter
     private final List<FuelSearcher> parsedSearchers;
@@ -35,7 +35,7 @@ public final class FuelSearchersParsingContext {
     @Getter
     private Attributes lastAttributes;
 
-    public FuelSearchersParsingContext() {
+    public SearchersParsingContext() {
         this.parsedSearchers = new ArrayList<>();
     }
 

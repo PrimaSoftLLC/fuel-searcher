@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler;
 
 import by.aurorasoft.fuelinfosearcher.service.searcher.FuelSearcher;
-import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.FuelSearchersParsingContext;
+import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.SearchersParsingContext;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.TagHandler;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
@@ -9,16 +9,17 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.BiConsumer;
 
 import static java.lang.String.copyValueOf;
 import static java.util.Optional.ofNullable;
 
-public final class FuelSearchersParsingHandler extends DefaultHandler {
+public final class SearchersParsingHandler extends DefaultHandler {
     private final Map<String, TagHandler> handlersByTagNames;
-    private final FuelSearchersParsingContext context;
+    private final SearchersParsingContext context;
 
-    public FuelSearchersParsingHandler(final Map<String, TagHandler> handlersByTagNames,
-                                       final FuelSearchersParsingContext context) {
+    public SearchersParsingHandler(final Map<String, TagHandler> handlersByTagNames,
+                                   final SearchersParsingContext context) {
         this.handlersByTagNames = handlersByTagNames;
         this.context = context;
     }
@@ -33,16 +34,12 @@ public final class FuelSearchersParsingHandler extends DefaultHandler {
                              final String qualifiedName,
                              final Attributes attributes) {
         this.context.setLastAttributes(attributes);
-        //TODO: refactor
-        final Optional<TagHandler> optionalHandler = this.findHandler(qualifiedName);
-        optionalHandler.ifPresent(handler -> handler.handleStartTag(this.context));
+        this.handleTag(qualifiedName, TagHandler::handleStartTag);
     }
 
     @Override
     public void endElement(final String uri, final String localName, final String qualifiedName) {
-        //TODO: refactor
-        final Optional<TagHandler> optionalHandler = this.findHandler(qualifiedName);
-        optionalHandler.ifPresent(handler -> handler.handleEndTag(this.context));
+        this.handleTag(qualifiedName, TagHandler::handleEndTag);
     }
 
     @Override
@@ -50,6 +47,12 @@ public final class FuelSearchersParsingHandler extends DefaultHandler {
         final String copy = copyValueOf(chars, start, length);
         final String trimmedCopy = copy.trim();
         this.context.setLastContent(trimmedCopy);
+    }
+
+    private void handleTag(final String tagName,
+                           final BiConsumer<TagHandler, SearchersParsingContext> handlingFunction) {
+        final Optional<TagHandler> optionalHandler = this.findHandler(tagName);
+        optionalHandler.ifPresent(handler -> handlingFunction.accept(handler, this.context));
     }
 
     private Optional<TagHandler> findHandler(final String tagName) {

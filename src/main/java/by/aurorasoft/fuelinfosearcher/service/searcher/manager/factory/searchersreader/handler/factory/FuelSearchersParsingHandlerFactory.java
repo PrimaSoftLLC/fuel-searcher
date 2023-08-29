@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.factory;
 
-import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.FuelSearchersParsingHandler;
-import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.FuelSearchersParsingContext;
+import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.SearchersParsingHandler;
+import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.SearchersParsingContext;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.TagHandler;
 import org.springframework.stereotype.Component;
 
@@ -19,9 +19,9 @@ public final class FuelSearchersParsingHandlerFactory {
         this.handlersByTagNames = createHandlersByTagNames(tagHandlers);
     }
 
-    public FuelSearchersParsingHandler create() {
-        final FuelSearchersParsingContext context = new FuelSearchersParsingContext();
-        return new FuelSearchersParsingHandler(this.handlersByTagNames, context);
+    public SearchersParsingHandler create() {
+        final SearchersParsingContext context = new SearchersParsingContext();
+        return new SearchersParsingHandler(this.handlersByTagNames, context);
     }
 
     private static Map<String, TagHandler> createHandlersByTagNames(final List<TagHandler> tagHandlers) {

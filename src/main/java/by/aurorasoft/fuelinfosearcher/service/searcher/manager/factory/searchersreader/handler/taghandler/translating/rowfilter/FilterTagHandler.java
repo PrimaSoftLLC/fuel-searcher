@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.rowfilter;
 
 import by.aurorasoft.fuelinfosearcher.functionalinterface.filterfactory.FilterFactory;
-import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.FuelSearchersParsingContext;
+import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.SearchersParsingContext;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.dictionary.rowfilter.FilterFactoryDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.TranslatingTagHandler;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.rowfilter.exception.NoSuchFilterException;
@@ -21,21 +21,21 @@ public abstract class FilterTagHandler<FILTER extends Filter<?>, FILTER_FACTORY 
     }
 
     @Override
-    protected final void handleValue(final FuelSearchersParsingContext context, final FILTER_FACTORY filterFactory) {
+    protected final void handleValue(final SearchersParsingContext context, final FILTER_FACTORY filterFactory) {
         final FILTER filter = this.createFilter(context, filterFactory);
         this.accumulateFilter(context, filter);
     }
 
     protected abstract int findDefaultFiltrationCellIndex();
 
-    protected abstract void accumulateFilter(final FuelSearchersParsingContext context, final FILTER filter);
+    protected abstract void accumulateFilter(final SearchersParsingContext context, final FILTER filter);
 
-    private FILTER createFilter(final FuelSearchersParsingContext context, final FILTER_FACTORY filterFactory) {
+    private FILTER createFilter(final SearchersParsingContext context, final FILTER_FACTORY filterFactory) {
         final int filtrationCellIndex = this.findFiltrationCellIndex(context);
         return filterFactory.apply(filtrationCellIndex);
     }
 
-    private int findFiltrationCellIndex(final FuelSearchersParsingContext context) {
+    private int findFiltrationCellIndex(final SearchersParsingContext context) {
         final Attributes attributes = context.getLastAttributes();
         final String cellIndex = attributes.getValue(FILTRATION_CELL_INDEX_ATTRIBUTE_NAME);
         return cellIndex != null ? parseInt(cellIndex) : this.findDefaultFiltrationCellIndex();

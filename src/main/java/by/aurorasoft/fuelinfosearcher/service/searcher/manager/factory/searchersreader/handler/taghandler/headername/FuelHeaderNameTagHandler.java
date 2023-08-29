@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.headername;
 
 import by.aurorasoft.fuelinfosearcher.functionalinterface.SpecificationPropertyExtractor;
-import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.FuelSearchersParsingContext;
+import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.SearchersParsingContext;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.dictionary.SpecificationPropertyExtractorDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.TagHandler;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.headername.exception.NoSuchPropertyExtractorException;
@@ -22,17 +22,17 @@ public final class FuelHeaderNameTagHandler extends TagHandler {
     }
 
     @Override
-    public void handleStartTag(final FuelSearchersParsingContext context) {
+    public void handleStartTag(final SearchersParsingContext context) {
 
     }
 
     @Override
-    public void handleEndTag(final FuelSearchersParsingContext context) {
+    public void handleEndTag(final SearchersParsingContext context) {
         final SpecificationPropertyExtractor propertyExtractor = this.findPropertyExtractor(context);
         context.accumulateFuelHeaderExtractor(propertyExtractor);
     }
 
-    private SpecificationPropertyExtractor findPropertyExtractor(final FuelSearchersParsingContext context) {
+    private SpecificationPropertyExtractor findPropertyExtractor(final SearchersParsingContext context) {
         final String extractorKey = context.getLastContent();
         final Optional<SpecificationPropertyExtractor> optionalExtractor = this.propertyExtractorDictionary.find(
                 extractorKey

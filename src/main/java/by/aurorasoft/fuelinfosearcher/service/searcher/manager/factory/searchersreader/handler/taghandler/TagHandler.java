@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler;
 
-import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.FuelSearchersParsingContext;
+import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.SearchersParsingContext;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 public abstract class TagHandler {
     private final String tagName;
 
-    public abstract void handleStartTag(final FuelSearchersParsingContext context);
+    public abstract void handleStartTag(final SearchersParsingContext context);
 
-    public abstract void handleEndTag(final FuelSearchersParsingContext context);
+    public abstract void handleEndTag(final SearchersParsingContext context);
 }
