@@ -174,7 +174,7 @@
 
         <fuel-header-name>длина гона</fuel-header-name>
 
-        <sub-table-title-template>РАЗБРАСЫВАТЕЛЕМ {механизм} (трактор {трактор})</sub-table-title-template>
+        <sub-table-title-template>РАЗБРАСЫВАТЕЛЕМ {механизм (трактор {трактор})</sub-table-title-template>
 
         <filter-chain>
             <filter-by-group>тип удобрения</filter-by-group>

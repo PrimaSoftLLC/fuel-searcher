@@ -9,7 +9,7 @@
     <xsd:element name="filter-by-group" type="group-filter"/>
     <xsd:element name="filter-by" type="unit-filter"/>
     <xsd:element name="final-filter-by" type="final-filter"/>
-    <xsd:element name="sub-table-title-template" type="xsd:string"/>
+    <xsd:element name="sub-table-title-template" type="sub-table-title-template"/>
     <xsd:element name="filter-chain" type="filter-chain"/>
     <xsd:element name="simple-searcher" type="simple-searcher"/>
     <xsd:element name="composite-searcher" type="composite-searcher"/>
@@ -24,37 +24,9 @@
         </xsd:restriction>
     </xsd:simpleType>
 
-    <xsd:simpleType name="group-filter-property" final="restriction">
+    <xsd:simpleType name="sub-table-title-template">
         <xsd:restriction base="xsd:string">
-            <xsd:enumeration value="удельное сопротивление"/>
-            <xsd:enumeration value="тип почвы"/>
-            <xsd:enumeration value="глубина обработки"/>
-            <xsd:enumeration value="норма высева"/>
-            <xsd:enumeration value="тип удобрения"/>
-            <xsd:enumeration value="класс груза"/>
-            <xsd:enumeration value="группа дорог"/>
-        </xsd:restriction>
-    </xsd:simpleType>
-
-    <xsd:simpleType name="unit-filter-property" final="restriction">
-        <xsd:restriction base="xsd:string">
-            <xsd:enumeration value="трактор"/>
-            <xsd:enumeration value="механизм"/>
-            <xsd:enumeration value="количество корпусов"/>
-            <xsd:enumeration value="способ загрузки удобрений и расстояние транспортировки"/>
-            <xsd:enumeration value="ширина захвата"/>
-            <xsd:enumeration value="ширина междурядий"/>
-            <xsd:enumeration value="комбайн"/>
-        </xsd:restriction>
-    </xsd:simpleType>
-
-    <xsd:simpleType name="final-filter-property" final="restriction">
-        <xsd:restriction base="xsd:string">
-            <xsd:enumeration value="глубина вспашки"/>
-            <xsd:enumeration value="ширина захвата"/>
-            <xsd:enumeration value="норма внесения"/>
-            <xsd:enumeration value="расстояние транспортировки"/>
-            <xsd:enumeration value="урожайность"/>
+            <xsd:pattern value="^([^{}]*\{[^{}]*})+[^{}]*$" />
         </xsd:restriction>
     </xsd:simpleType>
 
