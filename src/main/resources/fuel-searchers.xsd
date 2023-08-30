@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-    <!-- TODO: add regex for sub-table-title-template -->
-
     <!-- ELEMENTS -->
     <xsd:element name="table-name" type="xsd:string"/>
     <xsd:element name="fuel-header-name" type="fuel-header-name"/>
