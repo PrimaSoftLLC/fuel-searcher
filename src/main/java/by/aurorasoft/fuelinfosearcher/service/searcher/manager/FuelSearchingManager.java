@@ -4,6 +4,7 @@ import by.aurorasoft.fuelinfosearcher.model.Fuel;
 import by.aurorasoft.fuelinfosearcher.model.Specification;
 import by.aurorasoft.fuelinfosearcher.service.searcher.FuelSearcher;
 import by.aurorasoft.fuelinfosearcher.service.searcher.exception.FuelSearcherNotExistException;
+import by.aurorasoft.fuelinfosearcher.service.searcher.manager.exception.SeveralSearchersForOneTableException;
 
 import java.util.List;
 import java.util.Map;
@@ -25,13 +26,13 @@ public final class FuelSearchingManager {
         return searcher.find(specification);
     }
 
-    private static Map<String, FuelSearcher> findSearchersByTableNames(
-            final List<FuelSearcher> searchers) {
+    private static Map<String, FuelSearcher> findSearchersByTableNames(final List<FuelSearcher> searchers) {
         return searchers.stream()
                 .collect(
                         toMap(
                                 FuelSearcher::findTableName,
-                                identity()
+                                identity(),
+                                FuelSearchingManager::throwSeveralSearchersForOneTableException
                         )
                 );
     }
@@ -47,6 +48,14 @@ public final class FuelSearchingManager {
     private static FuelSearcher throwSearcherNotExistException(final String tableName) {
         throw new FuelSearcherNotExistException(
                 "There is no searcher for table '%s'".formatted(tableName)
+        );
+    }
+
+    private static FuelSearcher throwSeveralSearchersForOneTableException(final FuelSearcher first,
+                                                                          final FuelSearcher second) {
+        final String tableName = first.findTableName();
+        throw new SeveralSearchersForOneTableException(
+                "There are several searchers for table '%s'".formatted(tableName)
         );
     }
 }
