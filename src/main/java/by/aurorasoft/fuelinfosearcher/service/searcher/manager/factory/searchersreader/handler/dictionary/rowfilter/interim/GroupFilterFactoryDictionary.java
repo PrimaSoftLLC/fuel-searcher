@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.dictionary.rowfilter.interim;
 
 import by.aurorasoft.fuelinfosearcher.functionalinterface.filterfactory.interim.GroupFilterFactory;
-import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.intermediate.group.*;
+import by.aurorasoft.fuelinfosearcher.service.searcher.filter.intermediate.group.*;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;

@@ -5,7 +5,7 @@ import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchers
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.dictionary.rowfilter.FilterFactoryDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.simple.SimpleTranslatingTagHandler;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.simple.filter.exception.NoSuchFilterException;
-import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.Filter;
+import by.aurorasoft.fuelinfosearcher.service.searcher.filter.Filter;
 import org.xml.sax.Attributes;
 
 import static java.lang.Integer.parseInt;
