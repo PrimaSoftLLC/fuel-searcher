@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<fuel-searchers>
+<fuel-searchers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:noNamespaceSchemaLocation="./fuel-searchers.xsd">
 
     <!-- TABLE #1 -->
     <simple-searcher>

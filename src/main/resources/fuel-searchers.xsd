@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <!-- ELEMENTS -->
+    <xsd:element name="table-name" type="xsd:string"/>
+    <xsd:element name="fuel-header-name" type="fuel-header-name"/>
+    <xsd:element name="filter-by-group" type="group-filter"/>
+    <xsd:element name="filter-by" type="unit-filter"/>
+    <xsd:element name="final-filter-by" type="final-filter"/>
+    <xsd:element name="sub-table-title-template" type="xsd:string"/>
+    <xsd:element name="filter-chain" type="filter-chain"/>
+    <xsd:element name="simple-searcher" type="simple-searcher"/>
+    <xsd:element name="composite-searcher" type="composite-searcher"/>
+    <xsd:element name="fuel-searchers" type="fuel-searchers"/>
+
+    <!-- SIMPLE TYPES -->
+    <xsd:simpleType name="fuel-header-name" final="restriction">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="длина гона"/>
+            <xsd:enumeration value="норма внесения удобрений"/>
+            <xsd:enumeration value="группа дорог"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="group-filter-property" final="restriction">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="удельное сопротивление"/>
+            <xsd:enumeration value="тип почвы"/>
+            <xsd:enumeration value="глубина обработки"/>
+            <xsd:enumeration value="норма высева"/>
+            <xsd:enumeration value="тип удобрения"/>
+            <xsd:enumeration value="класс груза"/>
+            <xsd:enumeration value="группа дорог"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="unit-filter-property" final="restriction">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="трактор"/>
+            <xsd:enumeration value="механизм"/>
+            <xsd:enumeration value="количество корпусов"/>
+            <xsd:enumeration value="способ загрузки удобрений и расстояние транспортировки"/>
+            <xsd:enumeration value="ширина захвата"/>
+            <xsd:enumeration value="ширина междурядий"/>
+            <xsd:enumeration value="комбайн"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="final-filter-property" final="restriction">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="глубина вспашки"/>
+            <xsd:enumeration value="ширина захвата"/>
+            <xsd:enumeration value="норма внесения"/>
+            <xsd:enumeration value="расстояние транспортировки"/>
+            <xsd:enumeration value="урожайность"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <!-- COMPLEX TYPES -->
+    <xsd:complexType name="filter-chain">
+        <xsd:sequence>
+            <xsd:element ref="filter-by-group" minOccurs="0" maxOccurs="7"/>
+            <xsd:element ref="filter-by" minOccurs="0" maxOccurs="7"/>
+            <xsd:element ref="final-filter-by"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="simple-searcher">
+        <xsd:sequence>
+            <xsd:element ref="table-name"/>
+            <xsd:element ref="fuel-header-name"/>
+            <xsd:element ref="filter-chain"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="composite-searcher">
+        <xsd:sequence>
+            <xsd:element ref="table-name"/>
+            <xsd:element ref="fuel-header-name"/>
+            <xsd:element ref="filter-chain"/>
+            <xsd:element ref="sub-table-title-template"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="fuel-searchers">
+        <xsd:sequence>
+            <xsd:element ref="simple-searcher" minOccurs="0" maxOccurs="100"/>
+            <xsd:element ref="composite-searcher" minOccurs="0" maxOccurs="100"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="group-filter" final="restriction">
+        <xsd:simpleContent>
+            <xsd:restriction base="xsd:anyType">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="удельное сопротивление" />
+                        <xsd:enumeration value="тип почвы" />
+                        <xsd:enumeration value="глубина обработки" />
+                        <xsd:enumeration value="норма высева" />
+                        <xsd:enumeration value="тип удобрения" />
+                        <xsd:enumeration value="класс груза" />
+                        <xsd:enumeration value="группа дорог" />
+                    </xsd:restriction>
+                </xsd:simpleType>
+                <xsd:attribute name="cell-index" type="xsd:positiveInteger" />
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="unit-filter" final="restriction">
+        <xsd:simpleContent>
+            <xsd:restriction base="xsd:anyType">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="трактор" />
+                        <xsd:enumeration value="механизм" />
+                        <xsd:enumeration value="количество корпусов" />
+                        <xsd:enumeration value="способ загрузки удобрений и расстояние транспортировки" />
+                        <xsd:enumeration value="ширина захвата" />
+                        <xsd:enumeration value="ширина междурядий" />
+                        <xsd:enumeration value="комбайн" />
+                    </xsd:restriction>
+                </xsd:simpleType>
+                <xsd:attribute name="cell-index" type="xsd:positiveInteger" use="required" />
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="final-filter" final="restriction">
+        <xsd:simpleContent>
+            <xsd:restriction base="xsd:anyType">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="глубина вспашки" />
+                        <xsd:enumeration value="ширина захвата" />
+                        <xsd:enumeration value="норма внесения" />
+                        <xsd:enumeration value="расстояние транспортировки" />
+                        <xsd:enumeration value="урожайность" />
+                    </xsd:restriction>
+                </xsd:simpleType>
+                <xsd:attribute name="cell-index" type="xsd:positiveInteger" use="required" />
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+</xsd:schema>
