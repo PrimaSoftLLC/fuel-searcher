@@ -5,7 +5,6 @@ import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.Filter;
 import java.util.function.IntFunction;
 
 @FunctionalInterface
-public interface FilterFactory<F extends Filter<?>>
-        extends IntFunction<F> {
+public interface FilterFactory<F extends Filter<?>> extends IntFunction<F> {
 
 }

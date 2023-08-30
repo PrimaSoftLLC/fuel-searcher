@@ -1,7 +1,8 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.chain;
 
 import by.aurorasoft.fuelinfosearcher.builder.BuilderRequiringAllProperties;
-import by.aurorasoft.fuelinfosearcher.functionalinterface.filteringfunction.FilteringFunction;
+import by.aurorasoft.fuelinfosearcher.functionalinterface.filteringfunction.FinalFilteringFunction;
+import by.aurorasoft.fuelinfosearcher.functionalinterface.filteringfunction.InterimFilteringFunction;
 import by.aurorasoft.fuelinfosearcher.model.Specification;
 import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.conclusive.FinalFilter;
 import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.intermediate.InterimFilter;
@@ -13,7 +14,6 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.stream.Stream;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -25,7 +25,7 @@ public class FilterChain {
     FinalFilter finalFilter;
 
     public Optional<XWPFTableRow> filter(final List<XWPFTableRow> rows, final Specification specification) {
-        final FilteringFunction filteringFunction = this.createFilteringFunction(specification);
+        final FinalFilteringFunction filteringFunction = this.createFilteringFunction(specification);
         return filteringFunction.apply(rows);
     }
 
@@ -33,12 +33,12 @@ public class FilterChain {
         return new FilterChainBuilder();
     }
 
-    private FilteringFunction createFilteringFunction(final Specification specification) {
-        final FilteringFunction finalFilteringFunction = rows -> this.finalFilter.filter(rows, specification);
+    private FinalFilteringFunction createFilteringFunction(final Specification specification) {
+        final FinalFilteringFunction finalFilteringFunction = rows -> this.finalFilter.filter(rows, specification);
         return this.interimFilters.stream()
-                .map(filter -> filter.mapToFilteringFunction(specification))
-                .reduce(Function::andThen)
-                .map(filteringFunction -> filteringFunction.andThen(finalFilteringFunction))
+                .map(filter -> (InterimFilteringFunction) rows -> filter.filter(rows, specification))
+                .reduce(InterimFilteringFunction::andThenInterimFilter)
+                .map(filteringFunction -> filteringFunction.andThenFinalFilter(finalFilteringFunction))
                 .orElse(finalFilteringFunction);
     }
 

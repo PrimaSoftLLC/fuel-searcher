@@ -1,15 +1,14 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.intermediate;
 
-import by.aurorasoft.fuelinfosearcher.functionalinterface.filteringfunction.InterimFilteringFunction;
 import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.Filter;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.util.List;
 
-public abstract class InterimFilter extends Filter<List<XWPFTableRow>, InterimFilteringFunction> {
+public abstract class InterimFilter extends Filter<List<XWPFTableRow>> {
 
     public InterimFilter(final int filtrationCellIndex) {
-        super(filtrationCellIndex, InterimFilteringFunction.class);
+        super(filtrationCellIndex);
     }
 
 }
