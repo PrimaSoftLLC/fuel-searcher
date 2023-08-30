@@ -11,18 +11,18 @@ import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findFirstRowByContent
 
 public abstract class FinalFilter extends Filter<Optional<XWPFTableRow>, FinalFilteringFunction> {
 
-    public FinalFilter(final int filteringCellIndex) {
-        super(filteringCellIndex, FinalFilteringFunction.class);
+    public FinalFilter(final int filtrationCellIndex) {
+        super(filtrationCellIndex, FinalFilteringFunction.class);
     }
 
     @Override
     protected final Optional<XWPFTableRow> filter(final List<XWPFTableRow> rows,
-                                                  final String filteringValue,
-                                                  final int filteringCellIndex) {
+                                                  final String filtrationValue,
+                                                  final int filtrationCellIndex) {
         return findFirstRowByContent(
                 rows,
-                filteringCellIndex,
-                filteringValue
+                filtrationCellIndex,
+                filtrationValue
         );
     }
 }
