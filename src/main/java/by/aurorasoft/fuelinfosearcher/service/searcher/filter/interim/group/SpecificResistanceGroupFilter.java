@@ -1,13 +1,13 @@
-package by.aurorasoft.fuelinfosearcher.service.searcher.filter.intermediate.group;
+package by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.group;
 
 import by.aurorasoft.fuelinfosearcher.model.Specification;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractSpecificResistance;
 
-public final class SpecificResistanceRowFilter extends GroupFilter {
+public final class SpecificResistanceGroupFilter extends GroupFilter {
     private static final String GROUP_VALUE_REGEX = "Удельное сопротивление (плуга )?\\d+...\\d+ кПа";
 
-    public SpecificResistanceRowFilter(final int filtrationCellIndex) {
+    public SpecificResistanceGroupFilter(final int filtrationCellIndex) {
         super(filtrationCellIndex);
     }
 

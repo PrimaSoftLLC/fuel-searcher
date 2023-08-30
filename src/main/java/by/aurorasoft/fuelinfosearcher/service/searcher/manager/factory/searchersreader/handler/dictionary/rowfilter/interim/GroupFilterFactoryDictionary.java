@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.dictionary.rowfilter.interim;
 
 import by.aurorasoft.fuelinfosearcher.functionalinterface.filterfactory.interim.GroupFilterFactory;
-import by.aurorasoft.fuelinfosearcher.service.searcher.filter.intermediate.group.*;
+import by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.group.*;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -14,13 +14,13 @@ public final class GroupFilterFactoryDictionary extends InterimFilterFactoryDict
 
     //TODO: read from file
     private static final Map<String, GroupFilterFactory> FACTORIES_BY_KEYS = ofEntries(
-            entry("удельное сопротивление", SpecificResistanceRowFilter::new),
-            entry("тип почвы", SoilTypeRowFilter::new),
-            entry("глубина обработки", ProcessingDepthRowFilter::new),
-            entry("норма высева", SowingNormRowFilter::new),
-            entry("тип удобрения", FertilizerTypeRowFilter::new),
-            entry("класс груза", CargoClassRowFilter::new),
-            entry("группа дорог", RoadGroupRowFilter::new)
+            entry("удельное сопротивление", SpecificResistanceGroupFilter::new),
+            entry("тип почвы", SoilTypeGroupFilter::new),
+            entry("глубина обработки", ProcessingDepthGroupFilter::new),
+            entry("норма высева", SowingNormGroupFilter::new),
+            entry("тип удобрения", FertilizerTypeGroupFilter::new),
+            entry("класс груза", CargoClassGroupFilter::new),
+            entry("группа дорог", RoadGroupGroupFilter::new)
     );
 
     public GroupFilterFactoryDictionary() {

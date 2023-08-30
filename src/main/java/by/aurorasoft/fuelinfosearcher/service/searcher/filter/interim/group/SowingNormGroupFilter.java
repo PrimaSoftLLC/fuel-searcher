@@ -1,13 +1,13 @@
-package by.aurorasoft.fuelinfosearcher.service.searcher.filter.intermediate.group;
+package by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.group;
 
 import by.aurorasoft.fuelinfosearcher.model.Specification;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractSowingNorm;
 
-public final class SowingNormRowFilter extends GroupFilter {
+public final class SowingNormGroupFilter extends GroupFilter {
     private static final String GROUP_VALUE_REGEX = "Норма высева (семян )?\\d+(-\\d+)? кг/га";
 
-    public SowingNormRowFilter(final int filtrationCellIndex) {
+    public SowingNormGroupFilter(final int filtrationCellIndex) {
         super(filtrationCellIndex);
     }
 

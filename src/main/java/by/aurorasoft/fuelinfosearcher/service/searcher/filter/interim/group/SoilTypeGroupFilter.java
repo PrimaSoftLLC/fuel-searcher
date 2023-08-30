@@ -1,13 +1,13 @@
-package by.aurorasoft.fuelinfosearcher.service.searcher.filter.intermediate.group;
+package by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.group;
 
 import by.aurorasoft.fuelinfosearcher.model.Specification;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractSoilType;
 
-public final class SoilTypeRowFilter extends GroupFilter {
+public final class SoilTypeGroupFilter extends GroupFilter {
     private static final String GROUP_VALUE_REGEX = "(Минеральные почвы)|(Торфяные почвы)|(Легкие почвы)|(Средние почвы)|(Тяжелые почвы)";
 
-    public SoilTypeRowFilter(final int filtrationCellIndex) {
+    public SoilTypeGroupFilter(final int filtrationCellIndex) {
         super(filtrationCellIndex);
     }
 

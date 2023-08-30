@@ -1,7 +1,7 @@
-package by.aurorasoft.fuelinfosearcher.service.searcher.filter.intermediate.group;
+package by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.group;
 
 import by.aurorasoft.fuelinfosearcher.model.IntPair;
-import by.aurorasoft.fuelinfosearcher.service.searcher.filter.intermediate.InterimFilter;
+import by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.InterimFilter;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.util.Collection;
@@ -10,19 +10,20 @@ import java.util.List;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
 
 public abstract class GroupFilter extends InterimFilter {
-    public GroupFilter(final int filteringCellIndex) {
-        super(filteringCellIndex);
+    public GroupFilter(final int filtrationCellIndex) {
+        super(filtrationCellIndex);
     }
 
     @Override
     protected List<XWPFTableRow> filter(final List<XWPFTableRow> rows,
-                                        final String filtrationCellIndex,
-                                        final int filteringCellIndex) {
+                                        final String groupValue,
+                                        final int groupValueCellIndex) {
+        final String groupValueRegex = this.findGroupValueRegex();
         return findRowsByGroup(
                 rows,
-                filtrationCellIndex,
-                this.findGroupValueRegex(),
-                filteringCellIndex
+                groupValue,
+                groupValueRegex,
+                groupValueCellIndex
         );
     }
 
@@ -31,12 +32,12 @@ public abstract class GroupFilter extends InterimFilter {
     private static List<XWPFTableRow> findRowsByGroup(final List<XWPFTableRow> rows,
                                                       final String groupValue,
                                                       final String groupValueRegex,
-                                                      final int filtrationCellIndex) {
-        return findRowIndexesByContent(rows, filtrationCellIndex, groupValue)
+                                                      final int groupValueCellIndex) {
+        return findRowIndexesByContent(rows, groupValueCellIndex, groupValue)
                 .map(indexRowGroupValue -> indexRowGroupValue + 1)
                 .mapToObj(
                         indexFirstMatchingRow -> findBorderRowIndexesMatchingGroupValue(
-                                rows, indexFirstMatchingRow, filtrationCellIndex, groupValueRegex
+                                rows, indexFirstMatchingRow, groupValueCellIndex, groupValueRegex
                         )
                 )
                 .map(borderRowIndexes -> extractRows(rows, borderRowIndexes))
@@ -58,11 +59,12 @@ public abstract class GroupFilter extends InterimFilter {
                                                                     final int startSearchingIndex,
                                                                     final int filtrationCellIndex,
                                                                     final String groupValueRegex) {
+        final int nextIndexLastRow = rows.size();
         return findIndexFirstRowByContentRegex(
                 rows,
                 startSearchingIndex,
                 filtrationCellIndex,
                 groupValueRegex
-        ).orElse(rows.size());
+        ).orElse(nextIndexLastRow);
     }
 }

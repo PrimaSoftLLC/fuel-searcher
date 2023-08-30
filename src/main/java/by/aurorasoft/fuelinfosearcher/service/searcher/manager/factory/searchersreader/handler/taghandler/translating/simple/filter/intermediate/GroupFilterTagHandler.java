@@ -3,7 +3,7 @@ package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searcher
 import by.aurorasoft.fuelinfosearcher.functionalinterface.filterfactory.interim.GroupFilterFactory;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.SearchersParsingContext;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.dictionary.rowfilter.interim.GroupFilterFactoryDictionary;
-import by.aurorasoft.fuelinfosearcher.service.searcher.filter.intermediate.group.GroupFilter;
+import by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.group.GroupFilter;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -4,7 +4,7 @@ import by.aurorasoft.fuelinfosearcher.functionalinterface.filterfactory.interim.
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.SearchersParsingContext;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.dictionary.rowfilter.FilterFactoryDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.simple.filter.FilterTagHandler;
-import by.aurorasoft.fuelinfosearcher.service.searcher.filter.intermediate.InterimFilter;
+import by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.InterimFilter;
 
 public abstract class AbstractInterimFilterTagHandler<
         FILTER extends InterimFilter,

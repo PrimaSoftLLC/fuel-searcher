@@ -1,13 +1,13 @@
-package by.aurorasoft.fuelinfosearcher.service.searcher.filter.intermediate.group;
+package by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.group;
 
 import by.aurorasoft.fuelinfosearcher.model.Specification;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractProcessingDepth;
 
-public final class ProcessingDepthRowFilter extends GroupFilter {
+public final class ProcessingDepthGroupFilter extends GroupFilter {
     private static final String GROUP_VALUE_REGEX = "Глубина обработки \\d+...\\d+ см";
 
-    public ProcessingDepthRowFilter(final int filtrationCellIndex) {
+    public ProcessingDepthGroupFilter(final int filtrationCellIndex) {
         super(filtrationCellIndex);
     }
 

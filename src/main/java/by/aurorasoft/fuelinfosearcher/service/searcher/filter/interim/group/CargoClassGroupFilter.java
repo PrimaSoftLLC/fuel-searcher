@@ -1,14 +1,14 @@
-package by.aurorasoft.fuelinfosearcher.service.searcher.filter.intermediate.group;
+package by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.group;
 
 import by.aurorasoft.fuelinfosearcher.model.Specification;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractCargoClass;
 
-public final class CargoClassRowFilter extends GroupFilter {
+public final class CargoClassGroupFilter extends GroupFilter {
     private static final String GROUP_VALUE_REGEX = "Грузы (I|II|III|IV) класса";
 
-    public CargoClassRowFilter(final int filteringCellIndex) {
-        super(filteringCellIndex);
+    public CargoClassGroupFilter(final int filtrationCellIndex) {
+        super(filtrationCellIndex);
     }
 
     @Override

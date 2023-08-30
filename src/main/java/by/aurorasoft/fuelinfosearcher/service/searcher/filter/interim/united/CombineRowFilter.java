@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelinfosearcher.service.searcher.filter.intermediate.united;
+package by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.united;
 
 import by.aurorasoft.fuelinfosearcher.model.Specification;
 

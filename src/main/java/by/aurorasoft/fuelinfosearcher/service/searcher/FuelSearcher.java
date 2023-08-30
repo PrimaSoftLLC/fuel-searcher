@@ -7,7 +7,7 @@ import by.aurorasoft.fuelinfosearcher.service.searcher.exception.FuelOffsetNotEx
 import by.aurorasoft.fuelinfosearcher.service.searcher.filter.chain.FilterChain;
 import by.aurorasoft.fuelinfosearcher.service.searcher.filter.chain.FilterChain.FilterChainBuilder;
 import by.aurorasoft.fuelinfosearcher.service.searcher.filter.conclusive.FinalFilter;
-import by.aurorasoft.fuelinfosearcher.service.searcher.filter.intermediate.InterimFilter;
+import by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.InterimFilter;
 import by.aurorasoft.fuelinfosearcher.util.FuelUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;

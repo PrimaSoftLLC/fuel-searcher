@@ -8,7 +8,7 @@ import by.aurorasoft.fuelinfosearcher.service.searcher.CompositeFuelSearcher.Com
 import by.aurorasoft.fuelinfosearcher.service.searcher.FuelSearcher;
 import by.aurorasoft.fuelinfosearcher.service.searcher.FuelSearcher.FuelSearcherBuilder;
 import by.aurorasoft.fuelinfosearcher.service.searcher.filter.conclusive.FinalFilter;
-import by.aurorasoft.fuelinfosearcher.service.searcher.filter.intermediate.InterimFilter;
+import by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.InterimFilter;
 import by.aurorasoft.fuelinfosearcher.service.searcher.SimpleFuelSearcher;
 import by.aurorasoft.fuelinfosearcher.service.searcher.SimpleFuelSearcher.SimpleFuelSearcherBuilder;
 import lombok.Getter;

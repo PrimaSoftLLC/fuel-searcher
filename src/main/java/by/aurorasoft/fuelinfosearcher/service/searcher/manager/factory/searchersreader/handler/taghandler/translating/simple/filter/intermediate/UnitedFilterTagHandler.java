@@ -4,7 +4,7 @@ import by.aurorasoft.fuelinfosearcher.functionalinterface.filterfactory.interim.
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.SearchersParsingContext;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.dictionary.rowfilter.interim.UnitedFilterFactoryDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.simple.filter.exception.DefaultFiltrationCellIndexNotExistException;
-import by.aurorasoft.fuelinfosearcher.service.searcher.filter.intermediate.united.UnitedFilter;
+import by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.united.UnitedFilter;
 import org.springframework.stereotype.Component;
 
 @Component

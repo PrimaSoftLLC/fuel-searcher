@@ -1,13 +1,13 @@
-package by.aurorasoft.fuelinfosearcher.service.searcher.filter.intermediate.group;
+package by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.group;
 
 import by.aurorasoft.fuelinfosearcher.model.Specification;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractFertilizerType;
 
-public final class FertilizerTypeRowFilter extends GroupFilter {
+public final class FertilizerTypeGroupFilter extends GroupFilter {
     private static final String GROUP_VALUE_REGEX = "(Гранулированные удобрений)|(Кристаллические удобрения)|(Пылевидные удобрения)";
 
-    public FertilizerTypeRowFilter(final int filtrationCellIndex) {
+    public FertilizerTypeGroupFilter(final int filtrationCellIndex) {
         super(filtrationCellIndex);
     }
 

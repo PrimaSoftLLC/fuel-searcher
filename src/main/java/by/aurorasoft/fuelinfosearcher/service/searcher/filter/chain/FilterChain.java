@@ -5,7 +5,7 @@ import by.aurorasoft.fuelinfosearcher.functionalinterface.filteringfunction.Fina
 import by.aurorasoft.fuelinfosearcher.functionalinterface.filteringfunction.InterimFilteringFunction;
 import by.aurorasoft.fuelinfosearcher.model.Specification;
 import by.aurorasoft.fuelinfosearcher.service.searcher.filter.conclusive.FinalFilter;
-import by.aurorasoft.fuelinfosearcher.service.searcher.filter.intermediate.InterimFilter;
+import by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.InterimFilter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Value;
