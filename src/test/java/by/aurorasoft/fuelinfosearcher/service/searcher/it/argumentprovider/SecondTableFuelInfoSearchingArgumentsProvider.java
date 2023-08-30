@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
+import static by.aurorasoft.fuelinfosearcher.model.Fuel.createNotDefinedFuel;
 import static java.util.Optional.empty;
 
 public final class SecondTableFuelInfoSearchingArgumentsProvider extends AbstractTableFuelInfoSearchingArgumentsProvider {
@@ -49,7 +50,7 @@ public final class SecondTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .routingLength("Менее 150")
                                 .specificResistance("Удельное сопротивление 36...41 кПа")
                                 .build(),
-                        empty()
+                        Optional.of(createNotDefinedFuel())
                 ),
                 //not existing tractor
                 Arguments.of(
@@ -116,7 +117,7 @@ public final class SecondTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .build(),
                         empty()
                 ),
-                //not exist specific resistance
+                //not existing specific resistance
                 Arguments.of(
                         Specification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")

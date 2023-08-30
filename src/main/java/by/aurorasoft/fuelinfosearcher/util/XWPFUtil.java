@@ -12,18 +12,23 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
-import static java.lang.Double.parseDouble;
+import static java.lang.Double.*;
 import static java.util.Optional.empty;
 import static java.util.stream.IntStream.range;
 
 //TODO: refactor
 @UtilityClass
 public final class XWPFUtil {
+    public static final double NOT_DEFINED_DOUBLE = NaN;
 
     //TODO: replace after loading in digits
     private static final String COMMA = ",";
     private static final String POINT = ".";
     private static final String EMPTY_STRING = "";
+
+    public static boolean isNotDefinedDouble(final double value) {
+        return isNaN(value);
+    }
 
     public static boolean isCellContentMatch(final XWPFTableRow row, final int cellNumber, final String expected) {
         return isCellContentMatch(row, cellNumber, expected, String::equalsIgnoreCase);
@@ -74,8 +79,8 @@ public final class XWPFUtil {
 
     //returns several united rows
     public static List<XWPFTableRow> findUnitedRowsByContent(final List<XWPFTableRow> rows,
-                                                                       final int cellIndexWithContent,
-                                                                       final String content) {
+                                                             final int cellIndexWithContent,
+                                                             final String content) {
         return range(0, rows.size())
                 .filter(i -> isCellContentMatch(rows.get(i), cellIndexWithContent, content))
                 .mapToObj(indexFirstRow -> extractUnitedRows(rows, indexFirstRow, cellIndexWithContent))
@@ -84,9 +89,9 @@ public final class XWPFUtil {
     }
 
     public static List<XWPFTableRow> findUnitedRowsByContent(final List<XWPFTableRow> rows,
-                                                                       final int cellIndexWithContent,
-                                                                       final Specification specification,
-                                                                       final Function<Specification, String> contentExtractor) {
+                                                             final int cellIndexWithContent,
+                                                             final Specification specification,
+                                                             final Function<Specification, String> contentExtractor) {
         final String content = contentExtractor.apply(specification);
         return findUnitedRowsByContent(rows, cellIndexWithContent, content);
     }
@@ -148,7 +153,7 @@ public final class XWPFUtil {
                 .findFirst();
     }
 
-    public static OptionalDouble extractDoubleValue(final XWPFTableRow row, final int cellIndex) {
+    public static double extractDoubleValue(final XWPFTableRow row, final int cellIndex) {
         return extractValue(row, cellIndex, XWPFUtil::extractDoubleValue);
     }
 
@@ -184,12 +189,12 @@ public final class XWPFUtil {
         return valueParser.apply(actual);
     }
 
-    private static OptionalDouble extractDoubleValue(final String content) {
+    private static double extractDoubleValue(final String content) {
         final String contentToBeParsed = content.replaceAll(COMMA, POINT);
         if (contentToBeParsed.equals("-")) {
-            return OptionalDouble.empty();
+            return Double.NaN;
         }
-        return OptionalDouble.of(parseDouble(contentToBeParsed));
+        return parseDouble(contentToBeParsed);
     }
 
     private static OptionalInt findIndexFirstMatchingContentRow(final List<XWPFTableRow> rows,

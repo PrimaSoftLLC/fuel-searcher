@@ -2,28 +2,32 @@ package by.aurorasoft.fuelinfosearcher.service.searcher;
 
 import by.aurorasoft.fuelinfosearcher.builder.BuilderRequiringAllProperties;
 import by.aurorasoft.fuelinfosearcher.functionalinterface.SpecificationPropertyExtractor;
-import by.aurorasoft.fuelinfosearcher.model.*;
+import by.aurorasoft.fuelinfosearcher.model.Fuel;
+import by.aurorasoft.fuelinfosearcher.model.FuelHeaderMetadata;
+import by.aurorasoft.fuelinfosearcher.model.FuelTable;
+import by.aurorasoft.fuelinfosearcher.model.Specification;
 import by.aurorasoft.fuelinfosearcher.service.searcher.exception.FuelOffsetNotExistException;
 import by.aurorasoft.fuelinfosearcher.service.searcher.filter.FilterChain;
 import by.aurorasoft.fuelinfosearcher.service.searcher.filter.FilterChain.FilterChainBuilder;
 import by.aurorasoft.fuelinfosearcher.service.searcher.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.InterimFilter;
-import by.aurorasoft.fuelinfosearcher.util.FuelUtil;
+import lombok.Value;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.ToIntFunction;
 import java.util.stream.Stream;
 
+import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.extractDoubleValue;
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findIndexFirstCellByContent;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.IntStream.range;
 import static java.util.stream.Stream.concat;
 
-//TODO: put FuelInfoLocation as inner class
 public abstract class FuelSearcher {
     private static final int ROW_INDEX_FUEL_HEADER_VALUES = 1;
 
@@ -64,7 +68,7 @@ public abstract class FuelSearcher {
         final XWPFTableRow headerValuesRow = subTableRows.get(ROW_INDEX_FUEL_HEADER_VALUES);
         return this.filterChain.filter(subTableRows, specification)
                 .flatMap(row -> this.findFuelLocation(headerValuesRow, specification, row))
-                .flatMap(FuelUtil::extractFuel);
+                .map(FuelSearcher::extractFuel);
     }
 
     private Optional<FuelLocation> findFuelLocation(final XWPFTableRow headerValuesRow,
@@ -99,6 +103,34 @@ public abstract class FuelSearcher {
     private static FuelLocation createFuelLocation(final XWPFTableRow dataRow, final int generationNormCellIndex) {
         final int consumptionCellIndex = generationNormCellIndex + 1;
         return new FuelLocation(dataRow, generationNormCellIndex, consumptionCellIndex);
+    }
+
+    private static Fuel extractFuel(final FuelLocation location) {
+        final double generationNorm = extractGenerationNorm(location);
+        final double consumption = extractConsumption(location);
+        return new Fuel(generationNorm, consumption);
+    }
+
+    private static double extractGenerationNorm(final FuelLocation location) {
+        return extractFuelComponent(location, FuelLocation::getCellIndexGenerationNorm);
+    }
+
+    private static double extractConsumption(final FuelLocation location) {
+        return extractFuelComponent(location, FuelLocation::getCellIndexConsumption);
+    }
+
+    private static double extractFuelComponent(final FuelLocation location,
+                                               final ToIntFunction<FuelLocation> cellIndexGetter) {
+        final XWPFTableRow row = location.getRow();
+        final int cellIndex = cellIndexGetter.applyAsInt(location);
+        return extractDoubleValue(row, cellIndex);
+    }
+
+    @Value
+    private static class FuelLocation {
+        XWPFTableRow row;
+        int cellIndexGenerationNorm;
+        int cellIndexConsumption;
     }
 
     public static abstract class FuelSearcherBuilder<S extends FuelSearcher> extends BuilderRequiringAllProperties<S> {
