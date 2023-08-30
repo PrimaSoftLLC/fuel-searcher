@@ -15,6 +15,10 @@ import java.util.stream.Stream;
 import static java.util.stream.Stream.empty;
 import static lombok.AccessLevel.PRIVATE;
 
+
+/**
+ * For tables with one sub tables
+ */
 public final class SimpleFuelSearcher extends FuelSearcher {
 
     private SimpleFuelSearcher(final FuelTable fuelTable,

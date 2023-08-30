@@ -1,30 +1,32 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter;
 
+import by.aurorasoft.fuelinfosearcher.functionalinterface.filteringfunction.FilteringFunction;
 import by.aurorasoft.fuelinfosearcher.model.Specification;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.util.List;
-import java.util.function.Function;
 
 @RequiredArgsConstructor
 @Getter
-public abstract class Filter<R> {
-    private final int filteringCellIndex;
+public abstract class Filter<R, F extends FilteringFunction<R>> {
+    private final int filtrationCellIndex;
+    private final Class<F> filteringFunctionType;
 
-    public final Function<List<XWPFTableRow>, R> mapToFilteringFunction(final Specification specification) {
-        return rows -> this.filter(rows, specification);
+    public final FilteringFunction<R> mapToFilteringFunction(final Specification specification) {
+        final FilteringFunction<R> function = rows -> this.filter(rows, specification);
+        return this.filteringFunctionType.cast(function);
     }
 
     protected abstract R filter(final List<XWPFTableRow> rows,
-                                final String filteringValue,
-                                final int filteringCellIndex);
+                                final String filtrationValue,
+                                final int filtrationCellIndex);
 
-    protected abstract String extractFilteringValue(final Specification specification);
+    protected abstract String extractFiltrationValue(final Specification specification);
 
     private R filter(final List<XWPFTableRow> rows, final Specification specification) {
-        final String filteringValue = this.extractFilteringValue(specification);
-        return this.filter(rows, filteringValue, this.filteringCellIndex);
+        final String filtrationValue = this.extractFiltrationValue(specification);
+        return this.filter(rows, filtrationValue, this.filtrationCellIndex);
     }
 }

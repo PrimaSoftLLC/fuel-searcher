@@ -11,7 +11,7 @@ public final class WorkingWidthRowFilter extends UnitedFilter {
     }
 
     @Override
-    protected String extractFilteringValue(final Specification specification) {
+    protected String extractFiltrationValue(final Specification specification) {
         return extractWorkingWidth(specification);
     }
 }

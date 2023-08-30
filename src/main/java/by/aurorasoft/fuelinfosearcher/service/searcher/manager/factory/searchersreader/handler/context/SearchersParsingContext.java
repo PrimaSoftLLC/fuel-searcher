@@ -8,7 +8,7 @@ import by.aurorasoft.fuelinfosearcher.service.searcher.CompositeFuelSearcher.Com
 import by.aurorasoft.fuelinfosearcher.service.searcher.FuelSearcher;
 import by.aurorasoft.fuelinfosearcher.service.searcher.FuelSearcher.FuelSearcherBuilder;
 import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.conclusive.FinalFilter;
-import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.intermediate.AbstractInterimFilter;
+import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.intermediate.InterimFilter;
 import by.aurorasoft.fuelinfosearcher.service.searcher.SimpleFuelSearcher;
 import by.aurorasoft.fuelinfosearcher.service.searcher.SimpleFuelSearcher.SimpleFuelSearcherBuilder;
 import lombok.Getter;
@@ -68,7 +68,7 @@ public final class SearchersParsingContext {
         this.findCurrentBuilder().fuelHeaderMetadata(metadata);
     }
 
-    public void accumulateFilter(final AbstractInterimFilter filter) {
+    public void accumulateFilter(final InterimFilter filter) {
         this.findCurrentBuilder().intermediateFilter(filter);
     }
 

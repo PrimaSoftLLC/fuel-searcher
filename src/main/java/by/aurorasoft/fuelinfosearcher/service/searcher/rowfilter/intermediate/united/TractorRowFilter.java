@@ -11,7 +11,7 @@ public final class TractorRowFilter extends UnitedFilter {
     }
 
     @Override
-    protected String extractFilteringValue(final Specification specification) {
+    protected String extractFiltrationValue(final Specification specification) {
         return extractTractor(specification);
     }
 }

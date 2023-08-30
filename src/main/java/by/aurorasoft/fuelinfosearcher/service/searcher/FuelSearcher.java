@@ -7,7 +7,7 @@ import by.aurorasoft.fuelinfosearcher.service.searcher.exception.FuelOffsetNotEx
 import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.chain.FilterChain;
 import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.chain.FilterChain.FilterChainBuilder;
 import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.conclusive.FinalFilter;
-import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.intermediate.AbstractInterimFilter;
+import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.intermediate.InterimFilter;
 import by.aurorasoft.fuelinfosearcher.util.FuelUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
@@ -114,7 +114,7 @@ public abstract class FuelSearcher {
             this.fuelHeaderMetadata = metadata;
         }
 
-        public final void intermediateFilter(final AbstractInterimFilter filter) {
+        public final void intermediateFilter(final InterimFilter filter) {
             this.createFilterChainBuilderIfNecessary();
             this.filterChainBuilder.interimFilter(filter);
         }

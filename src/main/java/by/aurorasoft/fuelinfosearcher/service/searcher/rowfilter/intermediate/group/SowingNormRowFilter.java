@@ -12,7 +12,7 @@ public final class SowingNormRowFilter extends GroupFilter {
     }
 
     @Override
-    protected String extractFilteringValue(final Specification specification) {
+    protected String extractFiltrationValue(final Specification specification) {
         return extractSowingNorm(specification);
     }
 

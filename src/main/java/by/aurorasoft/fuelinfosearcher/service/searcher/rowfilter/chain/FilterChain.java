@@ -1,9 +1,10 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.chain;
 
 import by.aurorasoft.fuelinfosearcher.builder.BuilderRequiringAllProperties;
+import by.aurorasoft.fuelinfosearcher.functionalinterface.filteringfunction.FilteringFunction;
 import by.aurorasoft.fuelinfosearcher.model.Specification;
 import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.conclusive.FinalFilter;
-import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.intermediate.AbstractInterimFilter;
+import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.intermediate.InterimFilter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Value;
@@ -20,13 +21,11 @@ import static lombok.AccessLevel.PRIVATE;
 @Value
 @AllArgsConstructor(access = PRIVATE)
 public class FilterChain {
-    List<AbstractInterimFilter> interimFilters;
+    List<InterimFilter> interimFilters;
     FinalFilter finalFilter;
 
     public Optional<XWPFTableRow> filter(final List<XWPFTableRow> rows, final Specification specification) {
-        final Function<List<XWPFTableRow>, Optional<XWPFTableRow>> filteringFunction = this.createFilteringFunction(
-                specification
-        );
+        final FilteringFunction filteringFunction = this.createFilteringFunction(specification);
         return filteringFunction.apply(rows);
     }
 
@@ -34,22 +33,21 @@ public class FilterChain {
         return new FilterChainBuilder();
     }
 
-    private Function<List<XWPFTableRow>, Optional<XWPFTableRow>> createFilteringFunction(final Specification specification) {
-        final Function<List<XWPFTableRow>, Optional<XWPFTableRow>> conclusiveFilteringFunction = this.finalFilter
-                .mapToFilteringFunction(specification);
+    private FilteringFunction createFilteringFunction(final Specification specification) {
+        final FilteringFunction finalFilteringFunction = rows -> this.finalFilter.filter(rows, specification);
         return this.interimFilters.stream()
                 .map(filter -> filter.mapToFilteringFunction(specification))
                 .reduce(Function::andThen)
-                .map(filteringFunction -> filteringFunction.andThen(conclusiveFilteringFunction))
-                .orElse(conclusiveFilteringFunction);
+                .map(filteringFunction -> filteringFunction.andThen(finalFilteringFunction))
+                .orElse(finalFilteringFunction);
     }
 
     @NoArgsConstructor(access = PRIVATE)
     public static final class FilterChainBuilder extends BuilderRequiringAllProperties<FilterChain> {
-        private List<AbstractInterimFilter> interimFilters;
+        private List<InterimFilter> interimFilters;
         private FinalFilter finalFilter;
 
-        public void interimFilter(final AbstractInterimFilter filter) {
+        public void interimFilter(final InterimFilter filter) {
             this.createInterimFiltersIfNecessary();
             this.interimFilters.add(filter);
         }

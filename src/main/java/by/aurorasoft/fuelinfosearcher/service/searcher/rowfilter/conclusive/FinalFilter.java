@@ -1,5 +1,6 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.conclusive;
 
+import by.aurorasoft.fuelinfosearcher.functionalinterface.filteringfunction.FilteringFunction;
 import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.Filter;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 

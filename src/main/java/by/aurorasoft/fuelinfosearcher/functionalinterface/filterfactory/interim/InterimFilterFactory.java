@@ -1,8 +1,8 @@
 package by.aurorasoft.fuelinfosearcher.functionalinterface.filterfactory.interim;
 
 import by.aurorasoft.fuelinfosearcher.functionalinterface.filterfactory.FilterFactory;
-import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.intermediate.AbstractInterimFilter;
+import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.intermediate.InterimFilter;
 
-public interface InterimFilterFactory<F extends AbstractInterimFilter> extends FilterFactory<F> {
+public interface InterimFilterFactory<F extends InterimFilter> extends FilterFactory<F> {
 
 }

@@ -11,7 +11,7 @@ public final class ChargingMethodAndTransportDistanceRowFilter extends UnitedFil
     }
 
     @Override
-    protected String extractFilteringValue(final Specification specification) {
+    protected String extractFiltrationValue(final Specification specification) {
         return extractChargingMethodAndTransportDistance(specification);
     }
 }

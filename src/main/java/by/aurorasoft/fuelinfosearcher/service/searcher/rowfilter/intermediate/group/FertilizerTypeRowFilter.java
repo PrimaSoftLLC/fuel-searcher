@@ -12,7 +12,7 @@ public final class FertilizerTypeRowFilter extends GroupFilter {
     }
 
     @Override
-    protected String extractFilteringValue(final Specification specification) {
+    protected String extractFiltrationValue(final Specification specification) {
         return extractFertilizerType(specification);
     }
 

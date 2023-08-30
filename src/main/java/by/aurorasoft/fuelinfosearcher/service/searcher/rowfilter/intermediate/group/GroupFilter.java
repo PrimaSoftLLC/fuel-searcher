@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.intermediate.group;
 
 import by.aurorasoft.fuelinfosearcher.model.IntPair;
-import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.intermediate.AbstractInterimFilter;
+import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.intermediate.InterimFilter;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.util.Collection;
@@ -9,7 +9,7 @@ import java.util.List;
 
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.*;
 
-public abstract class GroupFilter extends AbstractInterimFilter {
+public abstract class GroupFilter extends InterimFilter {
     public GroupFilter(final int filteringCellIndex) {
         super(filteringCellIndex);
     }

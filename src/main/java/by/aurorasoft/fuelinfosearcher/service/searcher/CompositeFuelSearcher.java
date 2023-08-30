@@ -19,17 +19,17 @@ import static java.util.stream.IntStream.iterate;
 import static lombok.AccessLevel.PRIVATE;
 
 /**
- * For tables with several element-tables
+ * For tables with several sub tables
  */
 public final class CompositeFuelSearcher extends FuelSearcher {
     private final String elementTableTitleTemplate;
     private final List<SpecificationPropertyExtractor> elementTableTitleTemplateArgumentExtractors;
 
     private CompositeFuelSearcher(final FuelTable fuelTable,
-                                 final FuelHeaderMetadata fuelHeaderMetadata,
-                                 final FilterChain filterChain,
-                                 final String elementTableTitleTemplate,
-                                 final List<SpecificationPropertyExtractor> elementTableTitleTemplateArgumentExtractors) {
+                                  final FuelHeaderMetadata fuelHeaderMetadata,
+                                  final FilterChain filterChain,
+                                  final String elementTableTitleTemplate,
+                                  final List<SpecificationPropertyExtractor> elementTableTitleTemplateArgumentExtractors) {
         super(fuelTable, fuelHeaderMetadata, filterChain);
         this.elementTableTitleTemplate = elementTableTitleTemplate;
         this.elementTableTitleTemplateArgumentExtractors = elementTableTitleTemplateArgumentExtractors;

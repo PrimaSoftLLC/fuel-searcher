@@ -11,7 +11,7 @@ public final class YieldRowFilter extends FinalFilter {
     }
 
     @Override
-    protected String extractFilteringValue(final Specification specification) {
+    protected String extractFiltrationValue(final Specification specification) {
         return extractYield(specification);
     }
 }

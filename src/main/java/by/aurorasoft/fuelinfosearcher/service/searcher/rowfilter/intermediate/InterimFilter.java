@@ -5,9 +5,9 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.util.List;
 
-public abstract class AbstractInterimFilter extends Filter<List<XWPFTableRow>> {
+public abstract class InterimFilter extends Filter<List<XWPFTableRow>> {
 
-    public AbstractInterimFilter(final int filteringCellIndex) {
+    public InterimFilter(final int filteringCellIndex) {
         super(filteringCellIndex);
     }
 
