@@ -22,8 +22,8 @@ import static lombok.AccessLevel.PRIVATE;
 public final class SimpleFuelSearcher extends FuelSearcher {
 
     private SimpleFuelSearcher(final FuelTable fuelTable,
-                              final FuelHeaderMetadata fuelHeaderMetadata,
-                              final FilterChain filterChain) {
+                               final FuelHeaderMetadata fuelHeaderMetadata,
+                               final FilterChain filterChain) {
         super(fuelTable, fuelHeaderMetadata, filterChain);
     }
 
