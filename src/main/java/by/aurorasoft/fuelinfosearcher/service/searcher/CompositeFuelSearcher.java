@@ -4,13 +4,14 @@ import by.aurorasoft.fuelinfosearcher.functionalinterface.SpecificationPropertyE
 import by.aurorasoft.fuelinfosearcher.model.FuelHeaderMetadata;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
 import by.aurorasoft.fuelinfosearcher.model.Specification;
-import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.chain.RowFilterChain;
+import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.chain.FilterChain;
 import lombok.NoArgsConstructor;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 
 import java.util.*;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelinfosearcher.util.XWPFParagraphUtil.extractParagraphText;
 import static java.lang.String.format;
@@ -24,9 +25,9 @@ public final class CompositeFuelSearcher extends FuelSearcher {
     private final String elementTableTitleTemplate;
     private final List<SpecificationPropertyExtractor> elementTableTitleTemplateArgumentExtractors;
 
-    public CompositeFuelSearcher(final FuelTable fuelTable,
+    private CompositeFuelSearcher(final FuelTable fuelTable,
                                  final FuelHeaderMetadata fuelHeaderMetadata,
-                                 final RowFilterChain filterChain,
+                                 final FilterChain filterChain,
                                  final String elementTableTitleTemplate,
                                  final List<SpecificationPropertyExtractor> elementTableTitleTemplateArgumentExtractors) {
         super(fuelTable, fuelHeaderMetadata, filterChain);
@@ -80,30 +81,40 @@ public final class CompositeFuelSearcher extends FuelSearcher {
 
     @NoArgsConstructor(access = PRIVATE)
     public static final class CompositeFuelSearcherBuilder extends FuelSearcherBuilder<CompositeFuelSearcher> {
-        private String elementTableTitleTemplate;
-        private final List<SpecificationPropertyExtractor> elementTableTitleTemplateArgumentExtractors = new ArrayList<>();
+        private String subTableTitleTemplate;
+        private List<SpecificationPropertyExtractor> subTableTitleTemplateArgumentExtractors;
 
-        public CompositeFuelSearcherBuilder subTableTitleTemplate(final String template) {
-            this.elementTableTitleTemplate = template;
-            return this;
+        public void subTableTitleTemplate(final String template) {
+            this.subTableTitleTemplate = template;
         }
 
-        public CompositeFuelSearcherBuilder subTableTitleTemplateArgumentExtractor(final SpecificationPropertyExtractor extractor) {
-            this.elementTableTitleTemplateArgumentExtractors.add(extractor);
-            return this;
+        public void subTableTitleTemplateArgumentExtractor(final SpecificationPropertyExtractor extractor) {
+            this.createSubTableTitleTemplateArgumentExtractorsIfNecessary();
+            this.subTableTitleTemplateArgumentExtractors.add(extractor);
         }
 
         @Override
         protected CompositeFuelSearcher build(final FuelTable fuelTable,
                                               final FuelHeaderMetadata fuelHeaderMetadata,
-                                              final RowFilterChain filterChain) {
+                                              final FilterChain filterChain) {
             return new CompositeFuelSearcher(
                     fuelTable,
                     fuelHeaderMetadata,
                     filterChain,
-                    this.elementTableTitleTemplate,
-                    this.elementTableTitleTemplateArgumentExtractors
+                    this.subTableTitleTemplate,
+                    this.subTableTitleTemplateArgumentExtractors
             );
+        }
+
+        @Override
+        protected Stream<Object> findAdditionalProperties() {
+            return Stream.of(this.subTableTitleTemplate, this.subTableTitleTemplateArgumentExtractors);
+        }
+
+        private void createSubTableTitleTemplateArgumentExtractorsIfNecessary() {
+            if (this.subTableTitleTemplateArgumentExtractors == null) {
+                this.subTableTitleTemplateArgumentExtractors = new ArrayList<>();
+            }
         }
 
     }

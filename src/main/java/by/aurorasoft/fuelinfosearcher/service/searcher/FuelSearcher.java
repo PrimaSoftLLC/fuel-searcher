@@ -1,11 +1,11 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher;
 
+import by.aurorasoft.fuelinfosearcher.builder.BuilderRequiringAllProperties;
 import by.aurorasoft.fuelinfosearcher.functionalinterface.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelinfosearcher.model.*;
 import by.aurorasoft.fuelinfosearcher.service.searcher.exception.FuelOffsetNotExistException;
-import by.aurorasoft.fuelinfosearcher.service.searcher.exception.FuelSearcherBuildingException;
-import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.chain.RowFilterChain;
-import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.chain.RowFilterChain.RowFilterChainBuilder;
+import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.chain.FilterChain;
+import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.chain.FilterChain.FilterChainBuilder;
 import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.conclusive.FinalFilter;
 import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.intermediate.AbstractInterimFilter;
 import by.aurorasoft.fuelinfosearcher.util.FuelUtil;
@@ -15,11 +15,13 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findIndexFirstCellByContent;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.IntStream.range;
+import static java.util.stream.Stream.concat;
 
 //TODO: put FuelInfoLocation as inner class
 public abstract class FuelSearcher {
@@ -27,12 +29,12 @@ public abstract class FuelSearcher {
 
     private final FuelTable fuelTable;
     private final Map<String, Integer> fuelOffsetsByHeaderValues;
-    private final RowFilterChain filterChain;
+    private final FilterChain filterChain;
     private final SpecificationPropertyExtractor fuelHeaderValueExtractor;
 
     public FuelSearcher(final FuelTable fuelTable,
                         final FuelHeaderMetadata fuelHeaderMetadata,
-                        final RowFilterChain filterChain) {
+                        final FilterChain filterChain) {
         this.fuelTable = fuelTable;
         this.fuelOffsetsByHeaderValues = createFuelOffsetsByHeaderValues(fuelHeaderMetadata);
         this.filterChain = filterChain;
@@ -99,47 +101,54 @@ public abstract class FuelSearcher {
         return new FuelLocation(dataRow, generationNormCellIndex, consumptionCellIndex);
     }
 
-    public static abstract class FuelSearcherBuilder<S extends FuelSearcher> {
+    public static abstract class FuelSearcherBuilder<S extends FuelSearcher> extends BuilderRequiringAllProperties<S> {
         private FuelTable fuelTable;
         private FuelHeaderMetadata fuelHeaderMetadata;
-        private final RowFilterChainBuilder filterChainBuilder = RowFilterChain.builder();
+        private FilterChainBuilder filterChainBuilder;
 
-        public final FuelSearcherBuilder<S> fuelTable(final FuelTable fuelTable) {
+        public final void fuelTable(final FuelTable fuelTable) {
             this.fuelTable = fuelTable;
-            return this;
         }
 
-        public final FuelSearcherBuilder<S> fuelHeaderMetadata(final FuelHeaderMetadata metadata) {
+        public final void fuelHeaderMetadata(final FuelHeaderMetadata metadata) {
             this.fuelHeaderMetadata = metadata;
-            return this;
         }
 
-        public final FuelSearcherBuilder<S> intermediateFilter(final AbstractInterimFilter filter) {
-            this.filterChainBuilder.intermediateFilter(filter);
-            return this;
+        public final void intermediateFilter(final AbstractInterimFilter filter) {
+            this.createFilterChainBuilderIfNecessary();
+            this.filterChainBuilder.interimFilter(filter);
         }
 
-        public final FuelSearcherBuilder<S> conclusiveFilter(final FinalFilter filter) {
-            this.filterChainBuilder.conclusiveFilter(filter);
-            return this;
+        public final void conclusiveFilter(final FinalFilter filter) {
+            this.createFilterChainBuilderIfNecessary();
+            this.filterChainBuilder.finalFilter(filter);
         }
 
-        public final S build() {
-            this.validateState();
-            final RowFilterChain filterChain = this.filterChainBuilder.build();
+        @Override
+        protected final Stream<Object> findProperties() {
+            final Stream<Object> currentProperties = Stream.of(
+                    this.fuelTable, this.fuelHeaderMetadata, this.filterChainBuilder
+            );
+            final Stream<Object> additionalProperties = this.findAdditionalProperties();
+            return concat(currentProperties, additionalProperties);
+        }
+
+        @Override
+        protected final S buildAfterStateValidation() {
+            final FilterChain filterChain = this.filterChainBuilder.build();
             return this.build(this.fuelTable, this.fuelHeaderMetadata, filterChain);
         }
 
         protected abstract S build(final FuelTable fuelTable,
                                    final FuelHeaderMetadata fuelHeaderMetadata,
-                                   final RowFilterChain filterChain);
+                                   final FilterChain filterChain);
 
-        //TODO: refactor(do super class with this method)
-        private void validateState() {
-            if (this.fuelTable == null) {
-                throw new FuelSearcherBuildingException("Fuel table isn't defined");
+        protected abstract Stream<Object> findAdditionalProperties();
+
+        private void createFilterChainBuilderIfNecessary() {
+            if (this.filterChainBuilder == null) {
+                this.filterChainBuilder = FilterChain.builder();
             }
-            //TODO: continue validation
         }
     }
 }

@@ -3,21 +3,23 @@ package by.aurorasoft.fuelinfosearcher.service.searcher;
 import by.aurorasoft.fuelinfosearcher.model.FuelHeaderMetadata;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
 import by.aurorasoft.fuelinfosearcher.model.Specification;
-import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.chain.RowFilterChain;
+import by.aurorasoft.fuelinfosearcher.service.searcher.rowfilter.chain.FilterChain;
 import lombok.NoArgsConstructor;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
+import static java.util.stream.Stream.empty;
 import static lombok.AccessLevel.PRIVATE;
 
 public final class SimpleFuelSearcher extends FuelSearcher {
 
-    public SimpleFuelSearcher(final FuelTable fuelTable,
+    private SimpleFuelSearcher(final FuelTable fuelTable,
                               final FuelHeaderMetadata fuelHeaderMetadata,
-                              final RowFilterChain filterChain) {
+                              final FilterChain filterChain) {
         super(fuelTable, fuelHeaderMetadata, filterChain);
     }
 
@@ -39,8 +41,13 @@ public final class SimpleFuelSearcher extends FuelSearcher {
         @Override
         protected SimpleFuelSearcher build(final FuelTable fuelTable,
                                            final FuelHeaderMetadata fuelHeaderMetadata,
-                                           final RowFilterChain filterChain) {
+                                           final FilterChain filterChain) {
             return new SimpleFuelSearcher(fuelTable, fuelHeaderMetadata, filterChain);
+        }
+
+        @Override
+        protected Stream<Object> findAdditionalProperties() {
+            return empty();
         }
 
     }
