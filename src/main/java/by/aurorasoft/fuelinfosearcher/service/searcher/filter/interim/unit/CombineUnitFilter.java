@@ -1,13 +1,13 @@
-package by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.united;
+package by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.unit;
 
 import by.aurorasoft.fuelinfosearcher.model.Specification;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractCombine;
 
-public final class CombineRowFilter extends UnitedFilter {
+public final class CombineUnitFilter extends UnitFilter {
 
-    public CombineRowFilter(final int filteringCellIndex) {
-        super(filteringCellIndex);
+    public CombineUnitFilter(final int filtrationCellIndex) {
+        super(filtrationCellIndex);
     }
 
     @Override

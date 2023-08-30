@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.dictionary.rowfilter.interim;
 
 import by.aurorasoft.fuelinfosearcher.functionalinterface.filterfactory.interim.UnitedFilterFactory;
-import by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.united.*;
+import by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.unit.*;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -14,13 +14,13 @@ public final class UnitedFilterFactoryDictionary extends InterimFilterFactoryDic
 
     //TODO: read from file
     private static final Map<String, UnitedFilterFactory> FACTORIES_BY_KEYS = ofEntries(
-            entry("трактор", TractorRowFilter::new),
-            entry("механизм", MachineryRowFilter::new),
-            entry("количество корпусов", CorpusCountRowFilter::new),
-            entry("ширина захвата", WorkingWidthRowFilter::new),
-            entry("ширина междурядий", RowWidthRowFilter::new),
-            entry("комбайн", CombineRowFilter::new),
-            entry("способ загрузки удобрений и расстояние транспортировки", ChargingMethodAndTransportDistanceRowFilter::new)
+            entry("трактор", TractorUnitFilter::new),
+            entry("механизм", MachineryUnitFilter::new),
+            entry("количество корпусов", CorpusCountUnitFilter::new),
+            entry("ширина захвата", WorkingWidthUnitFilter::new),
+            entry("ширина междурядий", RowWidthUnitFilter::new),
+            entry("комбайн", CombineUnitFilter::new),
+            entry("способ загрузки удобрений и расстояние транспортировки", ChargingMethodAndTransportDistanceUnitFilter::new)
     );
 
     public UnitedFilterFactoryDictionary() {

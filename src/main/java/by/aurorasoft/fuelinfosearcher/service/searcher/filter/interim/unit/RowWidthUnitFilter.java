@@ -1,13 +1,13 @@
-package by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.united;
+package by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.unit;
 
 import by.aurorasoft.fuelinfosearcher.model.Specification;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractRowWidth;
 
-public final class RowWidthRowFilter extends UnitedFilter {
+public final class RowWidthUnitFilter extends UnitFilter {
 
-    public RowWidthRowFilter(final int filteringCellIndex) {
-        super(filteringCellIndex);
+    public RowWidthUnitFilter(final int filtrationCellIndex) {
+        super(filtrationCellIndex);
     }
 
     @Override

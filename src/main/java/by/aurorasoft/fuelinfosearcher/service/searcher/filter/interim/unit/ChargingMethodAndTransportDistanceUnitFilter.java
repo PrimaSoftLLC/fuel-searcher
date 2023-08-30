@@ -1,13 +1,13 @@
-package by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.united;
+package by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.unit;
 
 import by.aurorasoft.fuelinfosearcher.model.Specification;
 
 import static by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil.extractChargingMethodAndTransportDistance;
 
-public final class ChargingMethodAndTransportDistanceRowFilter extends UnitedFilter {
+public final class ChargingMethodAndTransportDistanceUnitFilter extends UnitFilter {
 
-    public ChargingMethodAndTransportDistanceRowFilter(final int filteringCellIndex) {
-        super(filteringCellIndex);
+    public ChargingMethodAndTransportDistanceUnitFilter(final int filtrationCellIndex) {
+        super(filtrationCellIndex);
     }
 
     @Override
