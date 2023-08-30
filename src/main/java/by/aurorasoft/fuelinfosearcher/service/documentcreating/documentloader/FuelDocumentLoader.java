@@ -28,7 +28,7 @@ import static java.util.stream.Collectors.*;
 
 @Component
 public final class FuelDocumentLoader {
-    private static final String FILE_PATH = "postanovlenie128.2022.docx";
+    private static final String FILE_PATH = "./src/main/resources/postanovlenie128.2022.docx";
 
     public FuelDocument load() {
         try (final XWPFDocument document = new XWPFDocument(createFileInputStream())) {
