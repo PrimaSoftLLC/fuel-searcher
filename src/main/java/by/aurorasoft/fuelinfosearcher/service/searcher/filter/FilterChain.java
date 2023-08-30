@@ -1,8 +1,6 @@
-package by.aurorasoft.fuelinfosearcher.service.searcher.filter.chain;
+package by.aurorasoft.fuelinfosearcher.service.searcher.filter;
 
 import by.aurorasoft.fuelinfosearcher.builder.BuilderRequiringAllProperties;
-import by.aurorasoft.fuelinfosearcher.functionalinterface.filteringfunction.FinalFilteringFunction;
-import by.aurorasoft.fuelinfosearcher.functionalinterface.filteringfunction.InterimFilteringFunction;
 import by.aurorasoft.fuelinfosearcher.model.Specification;
 import by.aurorasoft.fuelinfosearcher.service.searcher.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.InterimFilter;
@@ -14,6 +12,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -36,10 +35,38 @@ public class FilterChain {
     private FinalFilteringFunction createFilteringFunction(final Specification specification) {
         final FinalFilteringFunction finalFilteringFunction = rows -> this.finalFilter.filter(rows, specification);
         return this.interimFilters.stream()
-                .map(filter -> (InterimFilteringFunction) rows -> filter.filter(rows, specification))
-                .reduce(InterimFilteringFunction::andThenInterimFilter)
+                .map(filter -> createInterimFilteringFunction(filter, specification))
+                .reduce(InterimFilteringFunction::andThenInterimFunction)
                 .map(filteringFunction -> filteringFunction.andThenFinalFilter(finalFilteringFunction))
                 .orElse(finalFilteringFunction);
+    }
+
+    private static InterimFilteringFunction createInterimFilteringFunction(final InterimFilter filter,
+                                                                           final Specification specification) {
+        return rows -> filter.filter(rows, specification);
+    }
+
+    @FunctionalInterface
+    private interface FilteringFunction<R> extends Function<List<XWPFTableRow>, R> {
+
+    }
+
+    @FunctionalInterface
+    private interface InterimFilteringFunction extends FilteringFunction<List<XWPFTableRow>> {
+
+        default InterimFilteringFunction andThenInterimFunction(final InterimFilteringFunction after) {
+            return rows -> this.andThen(after).apply(rows);
+        }
+
+        default FinalFilteringFunction andThenFinalFilter(final FinalFilteringFunction after) {
+            return rows -> this.andThen(after).apply(rows);
+        }
+
+    }
+
+    @FunctionalInterface
+    private interface FinalFilteringFunction extends FilteringFunction<Optional<XWPFTableRow>> {
+
     }
 
     @NoArgsConstructor(access = PRIVATE)
