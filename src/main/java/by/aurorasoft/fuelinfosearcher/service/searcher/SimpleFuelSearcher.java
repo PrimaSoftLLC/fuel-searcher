@@ -35,8 +35,8 @@ public final class SimpleFuelSearcher extends FuelSearcher {
     protected Optional<XWPFTable> findSubTable(final FuelTable fuelTable, final Specification specification) {
         final List<IBodyElement> elements = fuelTable.getElements();
         final IBodyElement firstElement = elements.get(0);
-        final XWPFTable elementTable = (XWPFTable) firstElement;
-        return Optional.of(elementTable);
+        final XWPFTable subTable = (XWPFTable) firstElement;
+        return Optional.of(subTable);
     }
 
     @NoArgsConstructor(access = PRIVATE)
