@@ -2,35 +2,17 @@ package by.aurorasoft.fuelinfosearcher.service.searcher.manager.dictionary.facto
 
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.SearchersParsingHandler;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.context.SearchersParsingContext;
-import by.aurorasoft.fuelinfosearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.taghandler.TagHandler;
+import by.aurorasoft.fuelinfosearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.dictionary.TagHandlerDictionary;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Map;
-
-import static java.util.function.Function.identity;
-import static java.util.stream.Collectors.toMap;
-
 @Component
+@RequiredArgsConstructor
 public final class SearchersParsingHandlerFactory {
-    private final Map<String, TagHandler> handlersByTagNames;
-
-    public SearchersParsingHandlerFactory(final List<TagHandler> tagHandlers) {
-        this.handlersByTagNames = createHandlersByTagNames(tagHandlers);
-    }
+    private final TagHandlerDictionary handlerDictionary;
 
     public SearchersParsingHandler create() {
         final SearchersParsingContext context = new SearchersParsingContext();
-        return new SearchersParsingHandler(this.handlersByTagNames, context);
-    }
-
-    private static Map<String, TagHandler> createHandlersByTagNames(final List<TagHandler> tagHandlers) {
-        return tagHandlers.stream()
-                .collect(
-                        toMap(
-                                TagHandler::getTagName,
-                                identity()
-                        )
-                );
+        return new SearchersParsingHandler(this.handlerDictionary, context);
     }
 }
