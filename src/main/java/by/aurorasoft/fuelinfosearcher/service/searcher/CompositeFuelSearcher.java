@@ -71,8 +71,8 @@ public final class CompositeFuelSearcher extends FuelSearcher {
     }
 
     private static XWPFTable extractSubTableByTitleIndex(final int titleIndex, final List<IBodyElement> elements) {
-        final int elementTableIndex = titleIndex + 1;
-        final IBodyElement element = elements.get(elementTableIndex);
+        final int subTableIndex = titleIndex + 1;
+        final IBodyElement element = elements.get(subTableIndex);
         return (XWPFTable) element;
     }
 
