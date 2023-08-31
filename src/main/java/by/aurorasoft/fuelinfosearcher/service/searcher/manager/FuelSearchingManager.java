@@ -3,7 +3,7 @@ package by.aurorasoft.fuelinfosearcher.service.searcher.manager;
 import by.aurorasoft.fuelinfosearcher.model.Fuel;
 import by.aurorasoft.fuelinfosearcher.model.Specification;
 import by.aurorasoft.fuelinfosearcher.service.searcher.FuelSearcher;
-import by.aurorasoft.fuelinfosearcher.service.searcher.exception.FuelSearcherNotExistException;
+import by.aurorasoft.fuelinfosearcher.service.searcher.manager.exception.FuelSearcherNotExistException;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.exception.SeveralSearchersForOneTableException;
 
 import java.util.List;
