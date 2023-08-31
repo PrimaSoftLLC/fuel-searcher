@@ -32,8 +32,7 @@ public final class SimpleFuelSearcher extends FuelSearcher {
     }
 
     @Override
-    protected Optional<XWPFTable> findSubTable(final FuelTable fuelTable, final Specification specification) {
-        final List<IBodyElement> elements = fuelTable.getElements();
+    protected Optional<XWPFTable> findSubTable(final List<IBodyElement> elements, final Specification specification) {
         final IBodyElement firstElement = elements.get(0);
         final XWPFTable subTable = (XWPFTable) firstElement;
         return Optional.of(subTable);

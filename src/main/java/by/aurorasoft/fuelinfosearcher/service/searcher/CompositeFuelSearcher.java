@@ -22,17 +22,17 @@ import static lombok.AccessLevel.PRIVATE;
  * For tables with several sub tables
  */
 public final class CompositeFuelSearcher extends FuelSearcher {
-    private final String elementTableTitleTemplate;
-    private final List<SpecificationPropertyExtractor> elementTableTitleTemplateArgumentExtractors;
+    private final String subTableTitleTemplate;
+    private final List<SpecificationPropertyExtractor> subTableTitleTemplateArgumentExtractors;
 
     private CompositeFuelSearcher(final FuelTable fuelTable,
                                   final FuelHeaderMetadata fuelHeaderMetadata,
                                   final FilterChain filterChain,
-                                  final String elementTableTitleTemplate,
-                                  final List<SpecificationPropertyExtractor> elementTableTitleTemplateArgumentExtractors) {
+                                  final String subTableTitleTemplate,
+                                  final List<SpecificationPropertyExtractor> subTableTitleTemplateArgumentExtractors) {
         super(fuelTable, fuelHeaderMetadata, filterChain);
-        this.elementTableTitleTemplate = elementTableTitleTemplate;
-        this.elementTableTitleTemplateArgumentExtractors = elementTableTitleTemplateArgumentExtractors;
+        this.subTableTitleTemplate = subTableTitleTemplate;
+        this.subTableTitleTemplateArgumentExtractors = subTableTitleTemplateArgumentExtractors;
     }
 
     public static CompositeFuelSearcherBuilder builder() {
@@ -40,42 +40,39 @@ public final class CompositeFuelSearcher extends FuelSearcher {
     }
 
     @Override
-    protected Optional<XWPFTable> findSubTable(final FuelTable fuelTable, final Specification specification) {
-        final List<IBodyElement> fuelTableElements = fuelTable.getElements();
-        return this.findTitleIndex(fuelTableElements, specification)
+    protected Optional<XWPFTable> findSubTable(final List<IBodyElement> elements, final Specification specification) {
+        return this.findSubTableTitleIndex(elements, specification)
                 .stream()
-                .mapToObj(titleIndex -> extractElementTableByTitleIndex(titleIndex, fuelTableElements))
+                .mapToObj(titleIndex -> extractSubTableByTitleIndex(titleIndex, elements))
                 .findFirst();
     }
 
-    private OptionalInt findTitleIndex(final List<IBodyElement> fuelTableElements,
-                                       final Specification specification) {
-        final String titleContent = this.findTitleContent(specification);
-        return findTitleIndexes(fuelTableElements)
-                .filter(i -> Objects.equals(extractParagraphText(fuelTableElements.get(i)), titleContent))
+    private OptionalInt findSubTableTitleIndex(final List<IBodyElement> elements, final Specification specification) {
+        final String titleContent = this.findSubTableTitleContent(specification);
+        return findTitleIndexes(elements)
+                .filter(i -> Objects.equals(extractParagraphText(elements.get(i)), titleContent))
                 .findFirst();
     }
 
-    private String findTitleContent(final Specification specification) {
+    private String findSubTableTitleContent(final Specification specification) {
         final Object[] titleTemplateArguments = this.extractTitleTemplateArguments(specification);
-        return format(this.elementTableTitleTemplate, titleTemplateArguments);
+        return format(this.subTableTitleTemplate, titleTemplateArguments);
     }
 
     private Object[] extractTitleTemplateArguments(final Specification specification) {
-        return this.elementTableTitleTemplateArgumentExtractors.stream()
+        return this.subTableTitleTemplateArgumentExtractors.stream()
                 .map(extractor -> extractor.apply(specification))
                 .toArray(Object[]::new);
     }
 
-    private static IntStream findTitleIndexes(final List<IBodyElement> fuelTableElements) {
+    private static IntStream findTitleIndexes(final List<IBodyElement> elements) {
         //first element is paragraph(sub table's title), second element is sub table and etc.
-        return iterate(0, i -> i < fuelTableElements.size(), i -> i + 2);
+        return iterate(0, i -> i < elements.size(), i -> i + 2);
     }
 
-    private static XWPFTable extractElementTableByTitleIndex(final int titleIndex,
-                                                             final List<IBodyElement> fuelTableElements) {
+    private static XWPFTable extractSubTableByTitleIndex(final int titleIndex, final List<IBodyElement> elements) {
         final int elementTableIndex = titleIndex + 1;
-        final IBodyElement element = fuelTableElements.get(elementTableIndex);
+        final IBodyElement element = elements.get(elementTableIndex);
         return (XWPFTable) element;
     }
 

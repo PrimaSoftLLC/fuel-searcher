@@ -12,6 +12,7 @@ import by.aurorasoft.fuelinfosearcher.service.searcher.filter.FilterChain.Filter
 import by.aurorasoft.fuelinfosearcher.service.searcher.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.InterimFilter;
 import lombok.Value;
+import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
@@ -50,12 +51,14 @@ public abstract class FuelSearcher {
     }
 
     public final Optional<Fuel> find(final Specification specification) {
-        return this.findSubTable(this.fuelTable, specification)
+        final List<IBodyElement> elements = this.fuelTable.getElements();
+        return this.findSubTable(elements, specification)
                 .map(XWPFTable::getRows)
                 .flatMap(subTableRows -> this.findFuel(subTableRows, specification));
     }
 
-    protected abstract Optional<XWPFTable> findSubTable(final FuelTable fuelTable, final Specification specification);
+    protected abstract Optional<XWPFTable> findSubTable(final List<IBodyElement> elements,
+                                                        final Specification specification);
 
     private static Map<String, Integer> createFuelOffsetsByHeaders(final FuelHeaderMetadata metadata) {
         final List<String> values = metadata.getValues();
