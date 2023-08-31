@@ -1,16 +1,17 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher;
 
 import by.aurorasoft.fuelinfosearcher.builder.BuilderRequiringAllProperties;
-import by.aurorasoft.fuelinfosearcher.functionalinterface.SpecificationPropertyExtractor;
+import by.aurorasoft.fuelinfosearcher.dictionary.Translatable;
 import by.aurorasoft.fuelinfosearcher.model.Fuel;
 import by.aurorasoft.fuelinfosearcher.model.FuelHeaderMetadata;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
+import by.aurorasoft.fuelinfosearcher.model.filter.conclusive.FinalFilter;
+import by.aurorasoft.fuelinfosearcher.model.filter.interim.InterimFilter;
 import by.aurorasoft.fuelinfosearcher.model.specification.Specification;
+import by.aurorasoft.fuelinfosearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelinfosearcher.service.searcher.exception.FuelOffsetNotExistException;
-import by.aurorasoft.fuelinfosearcher.service.searcher.filter.FilterChain;
-import by.aurorasoft.fuelinfosearcher.service.searcher.filter.FilterChain.FilterChainBuilder;
-import by.aurorasoft.fuelinfosearcher.service.searcher.filter.conclusive.FinalFilter;
-import by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.InterimFilter;
+import by.aurorasoft.fuelinfosearcher.service.searcher.filterchain.FilterChain;
+import by.aurorasoft.fuelinfosearcher.service.searcher.filterchain.FilterChain.FilterChainBuilder;
 import lombok.Value;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
@@ -29,7 +30,7 @@ import static java.util.stream.Collectors.toMap;
 import static java.util.stream.IntStream.range;
 import static java.util.stream.Stream.concat;
 
-public abstract class FuelSearcher {
+public abstract class FuelSearcher implements Translatable {
     private static final int ROW_INDEX_FUEL_HEADERS = 1;
 
     private final FuelTable fuelTable;
@@ -46,7 +47,8 @@ public abstract class FuelSearcher {
         this.fuelHeaderExtractor = fuelHeaderMetadata.getFuelHeaderExtractor();
     }
 
-    public final String findTableName() {
+    @Override
+    public final String findAlias() {
         return this.fuelTable.getName();
     }
 
@@ -64,7 +66,12 @@ public abstract class FuelSearcher {
         final List<String> values = metadata.getValues();
         return range(0, values.size())
                 .boxed()
-                .collect(toMap(values::get, identity()));
+                .collect(
+                        toMap(
+                                values::get,
+                                identity()
+                        )
+                );
     }
 
     private Optional<Fuel> findFuel(final List<XWPFTableRow> subTableRows, final Specification specification) {
@@ -77,7 +84,7 @@ public abstract class FuelSearcher {
     private Optional<FuelLocation> findFuelLocation(final XWPFTableRow headersRow,
                                                     final Specification specification,
                                                     final XWPFTableRow fuelRow) {
-        final String fuelHeader = this.fuelHeaderExtractor.apply(specification);
+        final String fuelHeader = this.fuelHeaderExtractor.extract(specification);
         return findIndexFirstCellByContent(headersRow, fuelHeader)
                 .stream()
                 .map(fuelHeaderCellIndex -> this.findCellIndexGenerationNorm(fuelHeaderCellIndex, fuelHeader))

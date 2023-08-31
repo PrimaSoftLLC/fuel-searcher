@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public final class TableNameExtractor extends SpecificationPropertyExtractor {
-    private static final String PROPERTY_NAME = "tableName";
+    private static final String PROPERTY_NAME = "имя таблицы";
 
     public TableNameExtractor() {
         super(Specification::findTableName, PROPERTY_NAME);

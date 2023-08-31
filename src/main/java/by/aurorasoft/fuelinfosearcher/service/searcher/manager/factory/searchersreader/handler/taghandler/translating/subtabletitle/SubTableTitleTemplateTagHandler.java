@@ -1,8 +1,8 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.subtabletitle;
 
-import by.aurorasoft.fuelinfosearcher.functionalinterface.SpecificationPropertyExtractor;
+import by.aurorasoft.fuelinfosearcher.dictionary.SpecificationPropertyExtractorDictionary;
+import by.aurorasoft.fuelinfosearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.SearchersParsingContext;
-import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.dictionary.SpecificationPropertyExtractorDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.TranslatingTagHandler;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.subtabletitle.exception.NoSuchSpecificationPropertyExtractorException;
 import org.springframework.stereotype.Component;

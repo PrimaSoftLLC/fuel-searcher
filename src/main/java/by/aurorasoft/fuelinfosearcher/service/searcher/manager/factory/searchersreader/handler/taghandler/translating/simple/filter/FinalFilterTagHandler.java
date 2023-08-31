@@ -1,14 +1,14 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.simple.filter;
 
-import by.aurorasoft.fuelinfosearcher.functionalinterface.filterfactory.FinalFilterFactory;
+import by.aurorasoft.fuelinfosearcher.dictionary.filter.FinalFilterFactoryDictionary;
+import by.aurorasoft.fuelinfosearcher.model.filter.factory.conclusive.FinalFilterFactory;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.SearchersParsingContext;
-import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.dictionary.rowfilter.FinalFilterFactoryDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.simple.filter.exception.DefaultFiltrationCellIndexNotExistException;
-import by.aurorasoft.fuelinfosearcher.service.searcher.filter.conclusive.FinalFilter;
+import by.aurorasoft.fuelinfosearcher.model.filter.conclusive.FinalFilter;
 import org.springframework.stereotype.Component;
 
 @Component
-public final class FinalFilterTagHandler extends FilterTagHandler<FinalFilter, FinalFilterFactory> {
+public final class FinalFilterTagHandler extends FilterTagHandler<FinalFilter, FinalFilterFactory<?, ?>> {
     private static final String TAG_NAME = "final-filter-by";
 
     public FinalFilterTagHandler(final FinalFilterFactoryDictionary filterFactoryDictionary) {

@@ -26,19 +26,19 @@ public class Specification {
     //Марка плуга, сельскохозяйственная машина
     String machinery;
 
-    //TODO
+    //количество корпусов
     String corpusCount;
 
-    //TODO
+    //глубина вспашки
     String ploughingDepth;
 
     //длина гона
     String routingLength;
 
-    //TODO
+    //удельное сопротивление
     String specificResistance;
 
-    //TODO
+    //тип почвы
     String soilType;
 
     //Глубина обработки

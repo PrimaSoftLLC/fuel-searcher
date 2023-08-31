@@ -1,13 +1,14 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.simple;
 
+import by.aurorasoft.fuelinfosearcher.dictionary.Translatable;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.SearchersParsingContext;
-import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.dictionary.Dictionary;
+import by.aurorasoft.fuelinfosearcher.dictionary.Dictionary;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.TranslatingTagHandler;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.exception.NoSuchKeyException.NoSuchKeyExceptionFactory;
 
 import java.util.stream.Stream;
 
-public abstract class SimpleTranslatingTagHandler<V> extends TranslatingTagHandler<V> {
+public abstract class SimpleTranslatingTagHandler<V extends Translatable> extends TranslatingTagHandler<V> {
 
     public SimpleTranslatingTagHandler(final String tagName,
                                        final Dictionary<V> dictionary,

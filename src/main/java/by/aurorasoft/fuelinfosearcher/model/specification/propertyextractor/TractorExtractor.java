@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public final class TractorExtractor extends SpecificationPropertyExtractor {
-    private static final String PROPERTY_NAME = "tractor";
+    private static final String PROPERTY_NAME = "трактор";
 
     public TractorExtractor() {
         super(Specification::findTractor, PROPERTY_NAME);

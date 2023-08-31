@@ -1,10 +1,10 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher;
 
-import by.aurorasoft.fuelinfosearcher.functionalinterface.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelinfosearcher.model.FuelHeaderMetadata;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
 import by.aurorasoft.fuelinfosearcher.model.specification.Specification;
-import by.aurorasoft.fuelinfosearcher.service.searcher.filter.FilterChain;
+import by.aurorasoft.fuelinfosearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
+import by.aurorasoft.fuelinfosearcher.service.searcher.filterchain.FilterChain;
 import lombok.NoArgsConstructor;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
@@ -61,7 +61,7 @@ public final class CompositeFuelSearcher extends FuelSearcher {
 
     private Object[] extractTitleTemplateArguments(final Specification specification) {
         return this.subTableTitleTemplateArgumentExtractors.stream()
-                .map(extractor -> extractor.apply(specification))
+                .map(extractor -> extractor.extract(specification))
                 .toArray(Object[]::new);
     }
 

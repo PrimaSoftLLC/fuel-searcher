@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public final class SowingNormExtractor extends SpecificationPropertyExtractor {
-    private static final String PROPERTY_NAME = "sowingNorm";
+    private static final String PROPERTY_NAME = "норма высева";
 
     public SowingNormExtractor() {
         super(Specification::findSowingNorm, PROPERTY_NAME);

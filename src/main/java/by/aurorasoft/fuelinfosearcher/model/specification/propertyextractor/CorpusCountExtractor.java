@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public final class CorpusCountExtractor extends SpecificationPropertyExtractor {
-    private static final String PROPERTY_NAME = "corpusCount";
+    private static final String PROPERTY_NAME = "количество корпусов";
 
     public CorpusCountExtractor() {
         super(Specification::findCorpusCount, PROPERTY_NAME);

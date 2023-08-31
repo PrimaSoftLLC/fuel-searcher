@@ -1,14 +1,14 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context;
 
-import by.aurorasoft.fuelinfosearcher.functionalinterface.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelinfosearcher.model.FuelHeaderMetadata;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
+import by.aurorasoft.fuelinfosearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelinfosearcher.service.searcher.CompositeFuelSearcher;
 import by.aurorasoft.fuelinfosearcher.service.searcher.CompositeFuelSearcher.CompositeFuelSearcherBuilder;
 import by.aurorasoft.fuelinfosearcher.service.searcher.FuelSearcher;
 import by.aurorasoft.fuelinfosearcher.service.searcher.FuelSearcher.FuelSearcherBuilder;
-import by.aurorasoft.fuelinfosearcher.service.searcher.filter.conclusive.FinalFilter;
-import by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.InterimFilter;
+import by.aurorasoft.fuelinfosearcher.model.filter.conclusive.FinalFilter;
+import by.aurorasoft.fuelinfosearcher.model.filter.interim.InterimFilter;
 import by.aurorasoft.fuelinfosearcher.service.searcher.SimpleFuelSearcher;
 import by.aurorasoft.fuelinfosearcher.service.searcher.SimpleFuelSearcher.SimpleFuelSearcherBuilder;
 import lombok.Getter;

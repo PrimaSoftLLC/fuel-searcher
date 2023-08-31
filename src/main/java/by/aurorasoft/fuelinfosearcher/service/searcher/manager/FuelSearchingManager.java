@@ -14,6 +14,7 @@ import java.util.Optional;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 
+//TODO: do with dictionary
 public final class FuelSearchingManager {
     private final Map<String, FuelSearcher> searchersByTableNames;
     private final TableNameExtractor tableNameExtractor;
@@ -40,7 +41,7 @@ public final class FuelSearchingManager {
     }
 
     private FuelSearcher findSearcher(final Specification specification) {
-        final String tableName = this.tableNameExtractor.extractProperty(specification);
+        final String tableName = this.tableNameExtractor.extract(specification);
         return this.searchersByTableNames.computeIfAbsent(
                 tableName,
                 FuelSearchingManager::throwSearcherNotExistException

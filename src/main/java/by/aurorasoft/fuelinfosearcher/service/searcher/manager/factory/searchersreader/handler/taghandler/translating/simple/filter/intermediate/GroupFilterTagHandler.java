@@ -1,13 +1,13 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.simple.filter.intermediate;
 
-import by.aurorasoft.fuelinfosearcher.functionalinterface.filterfactory.interim.GroupFilterFactory;
+import by.aurorasoft.fuelinfosearcher.dictionary.filter.interim.GroupFilterFactoryDictionary;
+import by.aurorasoft.fuelinfosearcher.model.filter.factory.interim.group.GroupFilterFactory;
+import by.aurorasoft.fuelinfosearcher.model.filter.interim.group.GroupFilter;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.SearchersParsingContext;
-import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.dictionary.rowfilter.interim.GroupFilterFactoryDictionary;
-import by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.group.GroupFilter;
 import org.springframework.stereotype.Component;
 
 @Component
-public final class GroupFilterTagHandler extends AbstractInterimFilterTagHandler<GroupFilter, GroupFilterFactory> {
+public final class GroupFilterTagHandler extends AbstractInterimFilterTagHandler<GroupFilter, GroupFilterFactory<?, ?>> {
     private static final String TAG_NAME = "filter-by-group";
     private static final int DEFAULT_FILTRATION_CELL_INDEX = 0;
 

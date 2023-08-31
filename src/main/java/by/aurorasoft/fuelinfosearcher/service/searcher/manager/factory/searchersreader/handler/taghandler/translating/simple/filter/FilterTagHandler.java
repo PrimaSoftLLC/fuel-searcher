@@ -1,16 +1,16 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.simple.filter;
 
-import by.aurorasoft.fuelinfosearcher.functionalinterface.filterfactory.FilterFactory;
+import by.aurorasoft.fuelinfosearcher.dictionary.filter.FilterFactoryDictionary;
+import by.aurorasoft.fuelinfosearcher.model.filter.Filter;
+import by.aurorasoft.fuelinfosearcher.model.filter.factory.FilterFactory;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.context.SearchersParsingContext;
-import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.dictionary.rowfilter.FilterFactoryDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.simple.SimpleTranslatingTagHandler;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.taghandler.translating.simple.filter.exception.NoSuchFilterException;
-import by.aurorasoft.fuelinfosearcher.service.searcher.filter.Filter;
 import org.xml.sax.Attributes;
 
 import static java.lang.Integer.parseInt;
 
-public abstract class FilterTagHandler<FILTER extends Filter<?>, FILTER_FACTORY extends FilterFactory<FILTER>>
+public abstract class FilterTagHandler<FILTER extends Filter<?>, FILTER_FACTORY extends FilterFactory<?, ?>>
         extends SimpleTranslatingTagHandler<FILTER_FACTORY> {
 
     private static final String FILTRATION_CELL_INDEX_ATTRIBUTE_NAME = "cell-index";
@@ -31,9 +31,10 @@ public abstract class FilterTagHandler<FILTER extends Filter<?>, FILTER_FACTORY 
 
     protected abstract void accumulateFilter(final SearchersParsingContext context, final FILTER filter);
 
+    //TODO: refactor
     private FILTER createFilter(final SearchersParsingContext context, final FILTER_FACTORY filterFactory) {
         final int filtrationCellIndex = this.findFiltrationCellIndex(context);
-        return filterFactory.apply(filtrationCellIndex);
+        return (FILTER) filterFactory.create(filtrationCellIndex);
     }
 
     private int findFiltrationCellIndex(final SearchersParsingContext context) {

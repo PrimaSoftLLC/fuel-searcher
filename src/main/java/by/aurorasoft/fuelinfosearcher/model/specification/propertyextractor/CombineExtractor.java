@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public final class CombineExtractor extends SpecificationPropertyExtractor {
-    private static final String PROPERTY_NAME = "combine";
+    private static final String PROPERTY_NAME = "комбайн";
 
     public CombineExtractor() {
         super(Specification::findCombine, PROPERTY_NAME);
