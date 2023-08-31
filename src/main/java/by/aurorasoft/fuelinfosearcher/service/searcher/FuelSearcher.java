@@ -29,20 +29,20 @@ import static java.util.stream.IntStream.range;
 import static java.util.stream.Stream.concat;
 
 public abstract class FuelSearcher {
-    private static final int ROW_INDEX_FUEL_HEADER_VALUES = 1;
+    private static final int ROW_INDEX_FUEL_HEADERS = 1;
 
     private final FuelTable fuelTable;
-    private final Map<String, Integer> fuelOffsetsByHeaderValues;
+    private final Map<String, Integer> fuelOffsetsByHeaders;
     private final FilterChain filterChain;
-    private final SpecificationPropertyExtractor fuelHeaderValueExtractor;
+    private final SpecificationPropertyExtractor fuelHeaderExtractor;
 
     public FuelSearcher(final FuelTable fuelTable,
                         final FuelHeaderMetadata fuelHeaderMetadata,
                         final FilterChain filterChain) {
         this.fuelTable = fuelTable;
-        this.fuelOffsetsByHeaderValues = createFuelOffsetsByHeaderValues(fuelHeaderMetadata);
+        this.fuelOffsetsByHeaders = createFuelOffsetsByHeaders(fuelHeaderMetadata);
         this.filterChain = filterChain;
-        this.fuelHeaderValueExtractor = fuelHeaderMetadata.getFuelHeaderValueExtractor();
+        this.fuelHeaderExtractor = fuelHeaderMetadata.getFuelHeaderExtractor();
     }
 
     public final String findTableName() {
@@ -57,7 +57,7 @@ public abstract class FuelSearcher {
 
     protected abstract Optional<XWPFTable> findSubTable(final FuelTable fuelTable, final Specification specification);
 
-    private static Map<String, Integer> createFuelOffsetsByHeaderValues(final FuelHeaderMetadata metadata) {
+    private static Map<String, Integer> createFuelOffsetsByHeaders(final FuelHeaderMetadata metadata) {
         final List<String> values = metadata.getValues();
         return range(0, values.size())
                 .boxed()
@@ -65,44 +65,44 @@ public abstract class FuelSearcher {
     }
 
     private Optional<Fuel> findFuel(final List<XWPFTableRow> subTableRows, final Specification specification) {
-        final XWPFTableRow headerValuesRow = subTableRows.get(ROW_INDEX_FUEL_HEADER_VALUES);
+        final XWPFTableRow headersRow = subTableRows.get(ROW_INDEX_FUEL_HEADERS);
         return this.filterChain.filter(subTableRows, specification)
-                .flatMap(row -> this.findFuelLocation(headerValuesRow, specification, row))
+                .flatMap(fuelRow -> this.findFuelLocation(headersRow, specification, fuelRow))
                 .map(FuelSearcher::extractFuel);
     }
 
-    private Optional<FuelLocation> findFuelLocation(final XWPFTableRow headerValuesRow,
+    private Optional<FuelLocation> findFuelLocation(final XWPFTableRow headersRow,
                                                     final Specification specification,
-                                                    final XWPFTableRow dataRow) {
-        final String fuelHeaderValue = this.fuelHeaderValueExtractor.apply(specification);
-        return findIndexFirstCellByContent(headerValuesRow, fuelHeaderValue)
+                                                    final XWPFTableRow fuelRow) {
+        final String fuelHeader = this.fuelHeaderExtractor.apply(specification);
+        return findIndexFirstCellByContent(headersRow, fuelHeader)
                 .stream()
-                .map(fuelHeaderCellIndex -> this.findCellIndexGenerationNorm(fuelHeaderCellIndex, fuelHeaderValue))
-                .mapToObj(generationNormCellIndex -> createFuelLocation(dataRow, generationNormCellIndex))
+                .map(fuelHeaderCellIndex -> this.findCellIndexGenerationNorm(fuelHeaderCellIndex, fuelHeader))
+                .mapToObj(generationNormCellIndex -> createFuelLocation(fuelRow, generationNormCellIndex))
                 .findFirst();
     }
 
-    private int findCellIndexGenerationNorm(final int fuelHeaderCellIndex, final String fuelHeaderCellValue) {
-        final int fuelOffset = this.findFuelOffset(fuelHeaderCellValue);
+    private int findCellIndexGenerationNorm(final int fuelHeaderCellIndex, final String fuelHeader) {
+        final int fuelOffset = this.findFuelOffset(fuelHeader);
         return fuelHeaderCellIndex + fuelOffset;
     }
 
-    private int findFuelOffset(final String fuelHeaderCellValue) {
-        return this.fuelOffsetsByHeaderValues.computeIfAbsent(
-                fuelHeaderCellValue,
+    private int findFuelOffset(final String fuelHeader) {
+        return this.fuelOffsetsByHeaders.computeIfAbsent(
+                fuelHeader,
                 FuelSearcher::throwFuelOffsetNotExistException
         );
     }
 
-    private static Integer throwFuelOffsetNotExistException(final String fuelHeaderValue) {
+    private static Integer throwFuelOffsetNotExistException(final String fuelHeader) {
         throw new FuelOffsetNotExistException(
-                "Fuel's offset for header's value '%s' doesn't exist".formatted(fuelHeaderValue)
+                "Fuel's offset for header's value '%s' doesn't exist".formatted(fuelHeader)
         );
     }
 
-    private static FuelLocation createFuelLocation(final XWPFTableRow dataRow, final int generationNormCellIndex) {
+    private static FuelLocation createFuelLocation(final XWPFTableRow fuelRow, final int generationNormCellIndex) {
         final int consumptionCellIndex = generationNormCellIndex + 1;
-        return new FuelLocation(dataRow, generationNormCellIndex, consumptionCellIndex);
+        return new FuelLocation(fuelRow, generationNormCellIndex, consumptionCellIndex);
     }
 
     private static Fuel extractFuel(final FuelLocation location) {
@@ -146,12 +146,12 @@ public abstract class FuelSearcher {
             this.fuelHeaderMetadata = metadata;
         }
 
-        public final void intermediateFilter(final InterimFilter filter) {
+        public final void interimFilter(final InterimFilter filter) {
             this.createFilterChainBuilderIfNecessary();
             this.filterChainBuilder.interimFilter(filter);
         }
 
-        public final void conclusiveFilter(final FinalFilter filter) {
+        public final void finalFilter(final FinalFilter filter) {
             this.createFilterChainBuilderIfNecessary();
             this.filterChainBuilder.finalFilter(filter);
         }

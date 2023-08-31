@@ -69,11 +69,11 @@ public final class SearchersParsingContext {
     }
 
     public void accumulateFilter(final InterimFilter filter) {
-        this.findCurrentBuilder().intermediateFilter(filter);
+        this.findCurrentBuilder().interimFilter(filter);
     }
 
     public void accumulateFilter(final FinalFilter filter) {
-        this.findCurrentBuilder().conclusiveFilter(filter);
+        this.findCurrentBuilder().finalFilter(filter);
     }
 
     public void accumulateSubTableTitleTemplate(final String template) {

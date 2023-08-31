@@ -9,5 +9,5 @@ import java.util.List;
 public class FuelHeaderMetadata {
     String name;
     List<String> values;
-    SpecificationPropertyExtractor fuelHeaderValueExtractor;
+    SpecificationPropertyExtractor fuelHeaderExtractor;
 }
