@@ -2,7 +2,7 @@ package by.aurorasoft.fuelinfosearcher.service.searcher.it;
 
 import by.aurorasoft.fuelinfosearcher.base.AbstractContextTest;
 import by.aurorasoft.fuelinfosearcher.model.Fuel;
-import by.aurorasoft.fuelinfosearcher.model.Specification;
+import by.aurorasoft.fuelinfosearcher.model.specification.Specification;
 import by.aurorasoft.fuelinfosearcher.service.searcher.it.argumentprovider.*;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.FuelSearchingManager;
 import org.junit.jupiter.params.ParameterizedTest;

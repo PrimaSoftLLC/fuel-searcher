@@ -1,7 +1,6 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.manager.factory.searchersreader.handler.dictionary;
 
 import by.aurorasoft.fuelinfosearcher.model.FuelHeaderMetadata;
-import by.aurorasoft.fuelinfosearcher.util.FuelSpecificationExtractingPropertyUtil;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

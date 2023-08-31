@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.util;
 
 import by.aurorasoft.fuelinfosearcher.functionalinterface.ThreeArgumentPredicate;
-import by.aurorasoft.fuelinfosearcher.model.Specification;
+import by.aurorasoft.fuelinfosearcher.model.specification.Specification;
 import by.aurorasoft.fuelinfosearcher.model.IntPair;
 import lombok.experimental.UtilityClass;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;

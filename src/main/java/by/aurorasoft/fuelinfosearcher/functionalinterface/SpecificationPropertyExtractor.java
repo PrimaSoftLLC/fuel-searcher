@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelinfosearcher.functionalinterface;
 
-import by.aurorasoft.fuelinfosearcher.model.Specification;
+import by.aurorasoft.fuelinfosearcher.model.specification.Specification;
 
 import java.util.function.Function;
 

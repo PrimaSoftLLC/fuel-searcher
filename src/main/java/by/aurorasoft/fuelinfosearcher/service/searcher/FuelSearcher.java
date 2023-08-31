@@ -5,7 +5,7 @@ import by.aurorasoft.fuelinfosearcher.functionalinterface.SpecificationPropertyE
 import by.aurorasoft.fuelinfosearcher.model.Fuel;
 import by.aurorasoft.fuelinfosearcher.model.FuelHeaderMetadata;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
-import by.aurorasoft.fuelinfosearcher.model.Specification;
+import by.aurorasoft.fuelinfosearcher.model.specification.Specification;
 import by.aurorasoft.fuelinfosearcher.service.searcher.exception.FuelOffsetNotExistException;
 import by.aurorasoft.fuelinfosearcher.service.searcher.filter.FilterChain;
 import by.aurorasoft.fuelinfosearcher.service.searcher.filter.FilterChain.FilterChainBuilder;

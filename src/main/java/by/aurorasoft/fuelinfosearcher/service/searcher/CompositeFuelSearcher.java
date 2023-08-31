@@ -3,7 +3,7 @@ package by.aurorasoft.fuelinfosearcher.service.searcher;
 import by.aurorasoft.fuelinfosearcher.functionalinterface.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelinfosearcher.model.FuelHeaderMetadata;
 import by.aurorasoft.fuelinfosearcher.model.FuelTable;
-import by.aurorasoft.fuelinfosearcher.model.Specification;
+import by.aurorasoft.fuelinfosearcher.model.specification.Specification;
 import by.aurorasoft.fuelinfosearcher.service.searcher.filter.FilterChain;
 import lombok.NoArgsConstructor;
 import org.apache.poi.xwpf.usermodel.IBodyElement;

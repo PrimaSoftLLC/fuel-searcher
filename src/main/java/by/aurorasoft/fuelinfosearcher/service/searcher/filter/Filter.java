@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.filter;
 
-import by.aurorasoft.fuelinfosearcher.model.Specification;
+import by.aurorasoft.fuelinfosearcher.model.specification.Specification;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;

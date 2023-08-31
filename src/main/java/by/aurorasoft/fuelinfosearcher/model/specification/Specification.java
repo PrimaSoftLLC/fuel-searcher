@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelinfosearcher.model;
+package by.aurorasoft.fuelinfosearcher.model.specification;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,22 +11,34 @@ import static java.util.Optional.ofNullable;
 import static lombok.AccessLevel.NONE;
 import static lombok.AccessLevel.PRIVATE;
 
-//TODO: rename without info
 @Value
 @AllArgsConstructor(access = PRIVATE)
 @Getter(value = NONE)
 @Builder
 public class Specification {
+
+    //имя таблицы
     String tableName;
+
+    //трактор
     String tractor;
 
     //Марка плуга, сельскохозяйственная машина
     String machinery;
+
+    //TODO
     String corpusCount;
+
+    //TODO
     String ploughingDepth;
+
     //длина гона
     String routingLength;
+
+    //TODO
     String specificResistance;
+
+    //TODO
     String soilType;
 
     //Глубина обработки
@@ -62,7 +74,6 @@ public class Specification {
     //Ширина междурядий
     String rowWidth;
 
-    //TODO: объединить с трактором
     //Марка комбайна
     String combine;
 

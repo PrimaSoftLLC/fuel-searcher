@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.filter;
 
 import by.aurorasoft.fuelinfosearcher.builder.BuilderRequiringAllProperties;
-import by.aurorasoft.fuelinfosearcher.model.Specification;
+import by.aurorasoft.fuelinfosearcher.model.specification.Specification;
 import by.aurorasoft.fuelinfosearcher.service.searcher.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelinfosearcher.service.searcher.filter.interim.InterimFilter;
 import lombok.AllArgsConstructor;

@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.it.argumentprovider;
 
 import by.aurorasoft.fuelinfosearcher.model.Fuel;
-import by.aurorasoft.fuelinfosearcher.model.Specification;
+import by.aurorasoft.fuelinfosearcher.model.specification.Specification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
