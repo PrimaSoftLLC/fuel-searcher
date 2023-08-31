@@ -27,15 +27,15 @@ public final class SimpleFuelSearcher extends FuelSearcher {
         super(fuelTable, fuelHeaderMetadata, filterChain);
     }
 
-    public static SimpleSearcherBuilder builder() {
-        return new SimpleSearcherBuilder();
-    }
-
     @Override
     protected Optional<XWPFTable> findSubTable(final List<IBodyElement> elements, final Specification specification) {
         final IBodyElement firstElement = elements.get(0);
         final XWPFTable subTable = (XWPFTable) firstElement;
         return Optional.of(subTable);
+    }
+
+    public static SimpleSearcherBuilder builder() {
+        return new SimpleSearcherBuilder();
     }
 
     @NoArgsConstructor(access = PRIVATE)
