@@ -32,7 +32,7 @@ public final class SubTableTitleTemplateTagHandler extends TranslatingTagHandler
     }
 
     @Override
-    protected Stream<String> findKeys(final SearchersParsingContext context) {
+    protected Stream<String> findAliases(final SearchersParsingContext context) {
         final String initialSubTableTitleTemplate = context.getLastContent();
         return PROPERTY_PLACE_PATTERN.matcher(initialSubTableTitleTemplate)
                 .results()

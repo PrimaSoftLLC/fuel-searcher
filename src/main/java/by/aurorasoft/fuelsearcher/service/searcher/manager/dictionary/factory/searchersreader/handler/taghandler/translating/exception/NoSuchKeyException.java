@@ -26,7 +26,7 @@ public abstract class NoSuchKeyException extends RuntimeException {
     }
 
     @FunctionalInterface
-    public  interface NoSuchKeyExceptionFactory<E extends NoSuchKeyException> extends Function<String, E> {
+    public interface NoSuchKeyExceptionFactory<E extends NoSuchKeyException> extends Function<String, E> {
 
     }
 }

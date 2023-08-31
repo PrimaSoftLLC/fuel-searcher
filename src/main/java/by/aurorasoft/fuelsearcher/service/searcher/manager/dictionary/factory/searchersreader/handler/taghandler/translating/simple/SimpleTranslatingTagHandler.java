@@ -17,7 +17,7 @@ public abstract class SimpleTranslatingTagHandler<V extends Translatable> extend
     }
 
     @Override
-    protected final Stream<String> findKeys(final SearchersParsingContext context) {
+    protected final Stream<String> findAliases(final SearchersParsingContext context) {
         final String key = context.getLastContent();
         return Stream.of(key);
     }
