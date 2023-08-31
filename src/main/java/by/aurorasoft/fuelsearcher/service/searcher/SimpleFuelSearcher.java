@@ -27,8 +27,8 @@ public final class SimpleFuelSearcher extends FuelSearcher {
         super(fuelTable, fuelHeaderMetadata, filterChain);
     }
 
-    public static SimpleFuelSearcherBuilder builder() {
-        return new SimpleFuelSearcherBuilder();
+    public static SimpleSearcherBuilder builder() {
+        return new SimpleSearcherBuilder();
     }
 
     @Override
@@ -39,7 +39,7 @@ public final class SimpleFuelSearcher extends FuelSearcher {
     }
 
     @NoArgsConstructor(access = PRIVATE)
-    public static final class SimpleFuelSearcherBuilder extends FuelSearcherBuilder<SimpleFuelSearcher> {
+    public static final class SimpleSearcherBuilder extends FuelSearcherBuilder<SimpleFuelSearcher> {
 
         @Override
         protected SimpleFuelSearcher build(final FuelTable fuelTable,

@@ -2,31 +2,38 @@ package by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.s
 
 import by.aurorasoft.fuelsearcher.model.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
-import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
-import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher;
-import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher.CompositeFuelSearcherBuilder;
-import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
-import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher.FuelSearcherBuilder;
 import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
+import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
+import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher;
+import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher.CompositeSearcherBuilder;
+import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
+import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher.FuelSearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher;
-import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleFuelSearcherBuilder;
+import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleSearcherBuilder;
 import lombok.Getter;
 import lombok.Setter;
 import org.xml.sax.Attributes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 
-//TODO: refactor
+import static lombok.AccessLevel.PRIVATE;
+
 public final class SearchersParsingContext {
 
     @Getter
     private final List<FuelSearcher> parsedSearchers;
 
-    private SimpleFuelSearcherBuilder simpleFuelSearcherBuilder;
+    @Setter(value = PRIVATE)
+    @Getter(value = PRIVATE)
+    private SimpleSearcherBuilder simpleSearcherBuilder;
 
-    private CompositeFuelSearcherBuilder compositeFuelSearcherBuilder;
+    @Setter(value = PRIVATE)
+    @Getter(value = PRIVATE)
+    private CompositeSearcherBuilder compositeSearcherBuilder;
 
     @Setter
     @Getter
@@ -41,55 +48,104 @@ public final class SearchersParsingContext {
     }
 
     public void startBuildSimpleSearcher() {
-        this.simpleFuelSearcherBuilder = SimpleFuelSearcher.builder();
+        this.simpleSearcherBuilder = SimpleFuelSearcher.builder();
     }
 
     public void startBuildCompositeSearcher() {
-        this.compositeFuelSearcherBuilder = CompositeFuelSearcher.builder();
+        this.compositeSearcherBuilder = CompositeFuelSearcher.builder();
     }
 
     public void accumulateFuelTable(final FuelTable fuelTable) {
-        this.findCurrentBuilder().fuelTable(fuelTable);
+        this.accumulateComponentToCurrentBuilder(
+                fuelTable,
+                FuelSearcherBuilder::fuelTable
+        );
     }
 
     public void buildSimpleSearcher() {
-        final SimpleFuelSearcher searcher = this.simpleFuelSearcherBuilder.build();
-        this.parsedSearchers.add(searcher);
-        this.simpleFuelSearcherBuilder = null;
+        this.buildSearcher(
+                SearchersParsingContext::getSimpleSearcherBuilder,
+                SearchersParsingContext::setSimpleSearcherBuilder
+        );
     }
 
     public void buildCompositeSearcher() {
-        final CompositeFuelSearcher searcher = this.compositeFuelSearcherBuilder.build();
-        this.parsedSearchers.add(searcher);
-        this.compositeFuelSearcherBuilder = null;
+        this.buildSearcher(
+                SearchersParsingContext::getCompositeSearcherBuilder,
+                SearchersParsingContext::setCompositeSearcherBuilder
+        );
     }
 
-    public void accumulateFuelHeaderMetaData(final FuelHeaderMetadata metadata) {
-        this.findCurrentBuilder().fuelHeaderMetadata(metadata);
+    public void accumulateFuelHeaderMetadata(final FuelHeaderMetadata metadata) {
+        this.accumulateComponentToCurrentBuilder(
+                metadata,
+                FuelSearcherBuilder::fuelHeaderMetadata
+        );
     }
 
     public void accumulateFilter(final InterimFilter filter) {
-        this.findCurrentBuilder().interimFilter(filter);
+        this.accumulateComponentToCurrentBuilder(
+                filter,
+                FuelSearcherBuilder::interimFilter
+        );
     }
 
     public void accumulateFilter(final FinalFilter filter) {
-        this.findCurrentBuilder().finalFilter(filter);
+        this.accumulateComponentToCurrentBuilder(
+                filter,
+                FuelSearcherBuilder::finalFilter
+        );
     }
 
     public void accumulateSubTableTitleTemplate(final String template) {
-        this.compositeFuelSearcherBuilder.subTableTitleTemplate(template);
+        accumulateComponent(
+                this.compositeSearcherBuilder,
+                template,
+                CompositeSearcherBuilder::subTableTitleTemplate
+        );
     }
 
     public void accumulateSubTableTitleTemplateArgumentExtractor(final SpecificationPropertyExtractor extractor) {
-        this.compositeFuelSearcherBuilder.subTableTitleTemplateArgumentExtractor(extractor);
+        accumulateComponent(
+                this.compositeSearcherBuilder,
+                extractor,
+                CompositeSearcherBuilder::subTableTitleTemplateArgumentExtractor
+        );
+    }
+
+    private <T> void accumulateComponentToCurrentBuilder(final T component,
+                                                         final BiConsumer<FuelSearcherBuilder<?>, T> accumulatingOperation) {
+        final FuelSearcherBuilder<?> currentBuilder = this.findCurrentBuilder();
+        accumulateComponent(currentBuilder, component, accumulatingOperation);
+    }
+
+    private static <T, B extends FuelSearcherBuilder<?>> void accumulateComponent(final B builder,
+                                                                                  final T component,
+                                                                                  final BiConsumer<B, T> accumulatingOperation) {
+        checkIfBuilderInitialized(builder);
+        accumulatingOperation.accept(builder, component);
     }
 
     private FuelSearcherBuilder<?> findCurrentBuilder() {
-        if (this.simpleFuelSearcherBuilder != null) {
-            return this.simpleFuelSearcherBuilder;
-        } else if (this.compositeFuelSearcherBuilder != null) {
-            return this.compositeFuelSearcherBuilder;
+        if (this.simpleSearcherBuilder != null) {
+            return this.simpleSearcherBuilder;
+        } else {
+            return this.compositeSearcherBuilder;
         }
-        throw new RuntimeException();
+    }
+
+    private static void checkIfBuilderInitialized(final FuelSearcherBuilder<?> builder) {
+        if (builder == null) {
+            throw new IllegalStateException("Builder isn't initialized");
+        }
+    }
+
+    private <B extends FuelSearcherBuilder<?>> void buildSearcher(final Function<SearchersParsingContext, B> builderGetter,
+                                                                  final BiConsumer<SearchersParsingContext, B> builderSetter) {
+        final B builder = builderGetter.apply(this);
+        checkIfBuilderInitialized(builder);
+        final FuelSearcher searcher = builder.build();
+        this.parsedSearchers.add(searcher);
+        builderSetter.accept(this, null);
     }
 }

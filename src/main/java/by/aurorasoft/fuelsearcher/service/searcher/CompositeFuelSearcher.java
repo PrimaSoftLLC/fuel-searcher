@@ -35,8 +35,8 @@ public final class CompositeFuelSearcher extends FuelSearcher {
         this.subTableTitleTemplateArgumentExtractors = subTableTitleTemplateArgumentExtractors;
     }
 
-    public static CompositeFuelSearcherBuilder builder() {
-        return new CompositeFuelSearcherBuilder();
+    public static CompositeSearcherBuilder builder() {
+        return new CompositeSearcherBuilder();
     }
 
     @Override
@@ -77,7 +77,7 @@ public final class CompositeFuelSearcher extends FuelSearcher {
     }
 
     @NoArgsConstructor(access = PRIVATE)
-    public static final class CompositeFuelSearcherBuilder extends FuelSearcherBuilder<CompositeFuelSearcher> {
+    public static final class CompositeSearcherBuilder extends FuelSearcherBuilder<CompositeFuelSearcher> {
         private String subTableTitleTemplate;
         private List<SpecificationPropertyExtractor> subTableTitleTemplateArgumentExtractors;
 

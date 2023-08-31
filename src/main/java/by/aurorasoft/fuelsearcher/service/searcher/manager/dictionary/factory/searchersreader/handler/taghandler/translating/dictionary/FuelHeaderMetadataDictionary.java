@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.dictionary;
+package by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.taghandler.translating.dictionary;
 
 import by.aurorasoft.fuelsearcher.dictionary.Dictionary;
 import by.aurorasoft.fuelsearcher.model.FuelHeaderMetadata;

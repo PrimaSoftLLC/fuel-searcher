@@ -2,7 +2,7 @@ package by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.s
 
 import by.aurorasoft.fuelsearcher.model.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.context.SearchersParsingContext;
-import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.dictionary.FuelHeaderMetadataDictionary;
+import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.taghandler.translating.dictionary.FuelHeaderMetadataDictionary;
 import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.taghandler.translating.simple.SimpleTranslatingTagHandler;
 import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.taghandler.translating.simple.fuelheadername.exception.NoSuchFuelHeaderNameException;
 import org.springframework.stereotype.Component;
@@ -24,7 +24,7 @@ public final class FuelHeaderNameTagHandler extends SimpleTranslatingTagHandler<
     @Override
     protected void accumulateTranslatedValue(final SearchersParsingContext context,
                                              final FuelHeaderMetadata headerMetadata) {
-        context.accumulateFuelHeaderMetaData(headerMetadata);
+        context.accumulateFuelHeaderMetadata(headerMetadata);
     }
 
     @Override

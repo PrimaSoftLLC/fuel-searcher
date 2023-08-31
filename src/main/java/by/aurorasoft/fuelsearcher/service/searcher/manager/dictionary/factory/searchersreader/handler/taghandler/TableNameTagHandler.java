@@ -5,6 +5,7 @@ import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.se
 import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.fueltablesearcher.FuelTableSearcher;
 import org.springframework.stereotype.Component;
 
+//TODO: do as dictionary tag handler and remove FuelTableSearcher
 @Component
 public final class TableNameTagHandler extends TagHandler {
     private static final String TAG_NAME = "table-name";
