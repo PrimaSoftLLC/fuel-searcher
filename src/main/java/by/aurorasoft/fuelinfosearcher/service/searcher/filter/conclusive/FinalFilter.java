@@ -1,5 +1,6 @@
 package by.aurorasoft.fuelinfosearcher.service.searcher.filter.conclusive;
 
+import by.aurorasoft.fuelinfosearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelinfosearcher.service.searcher.filter.Filter;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
@@ -10,8 +11,8 @@ import static by.aurorasoft.fuelinfosearcher.util.XWPFUtil.findFirstRowByContent
 
 public abstract class FinalFilter extends Filter<Optional<XWPFTableRow>> {
 
-    public FinalFilter(final int filtrationCellIndex) {
-        super(filtrationCellIndex);
+    public FinalFilter(final SpecificationPropertyExtractor filtrationValueExtractor, final int filtrationCellIndex) {
+        super(filtrationValueExtractor, filtrationCellIndex);
     }
 
     @Override
