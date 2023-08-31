@@ -2,25 +2,23 @@ package by.aurorasoft.fuelinfosearcher.service.searcher.manager.dictionary.facto
 
 import by.aurorasoft.fuelinfosearcher.service.searcher.FuelSearcher;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.context.SearchersParsingContext;
+import by.aurorasoft.fuelinfosearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.dictionary.TagHandlerDictionary;
 import by.aurorasoft.fuelinfosearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.taghandler.TagHandler;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 
 import static java.lang.String.copyValueOf;
-import static java.util.Optional.ofNullable;
 
 public final class SearchersParsingHandler extends DefaultHandler {
-    private final Map<String, TagHandler> handlersByTagNames;
+    private final TagHandlerDictionary handlerDictionary;
     private final SearchersParsingContext context;
 
-    public SearchersParsingHandler(final Map<String, TagHandler> handlersByTagNames,
-                                   final SearchersParsingContext context) {
-        this.handlersByTagNames = handlersByTagNames;
+    public SearchersParsingHandler(final TagHandlerDictionary handlerDictionary, final SearchersParsingContext context) {
+        this.handlerDictionary = handlerDictionary;
         this.context = context;
     }
 
@@ -49,14 +47,8 @@ public final class SearchersParsingHandler extends DefaultHandler {
         this.context.setLastContent(trimmedCopy);
     }
 
-    private void handleTag(final String tagName,
-                           final BiConsumer<TagHandler, SearchersParsingContext> handlingFunction) {
-        final Optional<TagHandler> optionalHandler = this.findHandler(tagName);
+    private void handleTag(final String tagName, final BiConsumer<TagHandler, SearchersParsingContext> handlingFunction) {
+        final Optional<TagHandler> optionalHandler = this.handlerDictionary.find(tagName);
         optionalHandler.ifPresent(handler -> handlingFunction.accept(handler, this.context));
-    }
-
-    private Optional<TagHandler> findHandler(final String tagName) {
-        final TagHandler handler = this.handlersByTagNames.get(tagName);
-        return ofNullable(handler);
     }
 }
