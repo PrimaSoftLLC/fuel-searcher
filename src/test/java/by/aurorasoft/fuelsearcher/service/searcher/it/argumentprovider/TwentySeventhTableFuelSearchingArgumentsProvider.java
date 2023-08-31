@@ -10,10 +10,10 @@ import java.util.stream.Stream;
 
 import static java.util.Optional.empty;
 
-public final class TwentySeventhTableFuelInfoSearchingArgumentsProvider extends AbstractTableFuelInfoSearchingArgumentsProvider {
+public final class TwentySeventhTableFuelSearchingArgumentsProvider extends AbstractTableFuelSearchingArgumentsProvider {
 
     @Override
-    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
+    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
         return Stream.of(
                 Arguments.of(
                         Specification.builder()
@@ -24,7 +24,7 @@ public final class TwentySeventhTableFuelInfoSearchingArgumentsProvider extends 
                                 .transportDistance("0.25-0.75")
                                 .roadGroup("I")
                                 .build(),
-                        optionalFuelInfoFactory.apply(341.7, 0.19)
+                        optionalFuelFactory.apply(341.7, 0.19)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -35,7 +35,7 @@ public final class TwentySeventhTableFuelInfoSearchingArgumentsProvider extends 
                                 .transportDistance("3.26-4")
                                 .roadGroup("II")
                                 .build(),
-                        optionalFuelInfoFactory.apply(146.9, 0.83)
+                        optionalFuelFactory.apply(146.9, 0.83)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -46,7 +46,7 @@ public final class TwentySeventhTableFuelInfoSearchingArgumentsProvider extends 
                                 .transportDistance("0.25-0.75")
                                 .roadGroup("III")
                                 .build(),
-                        optionalFuelInfoFactory.apply(131.9, 0.48)
+                        optionalFuelFactory.apply(131.9, 0.48)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -57,7 +57,7 @@ public final class TwentySeventhTableFuelInfoSearchingArgumentsProvider extends 
                                 .transportDistance("0.76-1.25")
                                 .roadGroup("III")
                                 .build(),
-                        optionalFuelInfoFactory.apply(91.9, 0.7)
+                        optionalFuelFactory.apply(91.9, 0.7)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -68,7 +68,7 @@ public final class TwentySeventhTableFuelInfoSearchingArgumentsProvider extends 
                                 .transportDistance("1.26-1.75")
                                 .roadGroup("II")
                                 .build(),
-                        optionalFuelInfoFactory.apply(201., 0.38)
+                        optionalFuelFactory.apply(201., 0.38)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -80,7 +80,7 @@ public final class TwentySeventhTableFuelInfoSearchingArgumentsProvider extends 
                                 .transportDistance("5.1-6")
                                 .roadGroup("II")
                                 .build(),
-                        optionalFuelInfoFactory.apply(54.2, 1.66)
+                        optionalFuelFactory.apply(54.2, 1.66)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -91,7 +91,7 @@ public final class TwentySeventhTableFuelInfoSearchingArgumentsProvider extends 
                                 .transportDistance("3.26-4")
                                 .roadGroup("I")
                                 .build(),
-                        optionalFuelInfoFactory.apply(69.3, 0.8)
+                        optionalFuelFactory.apply(69.3, 0.8)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -102,7 +102,7 @@ public final class TwentySeventhTableFuelInfoSearchingArgumentsProvider extends 
                                 .transportDistance("45.1-50")
                                 .roadGroup("III")
                                 .build(),
-                        optionalFuelInfoFactory.apply(8.7, 5.65)
+                        optionalFuelFactory.apply(8.7, 5.65)
                 ),
                 //not existing tractor
                 Arguments.of(

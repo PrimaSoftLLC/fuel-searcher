@@ -10,10 +10,10 @@ import java.util.stream.Stream;
 
 import static java.util.Optional.empty;
 
-public final class EighthTableFuelInfoSearchingArgumentsProvider extends AbstractTableFuelInfoSearchingArgumentsProvider {
+public final class EighthTableFuelSearchingArgumentsProvider extends AbstractTableFuelSearchingArgumentsProvider {
 
     @Override
-    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
+    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
         return Stream.of(
                 Arguments.of(
                         Specification.builder()
@@ -24,7 +24,7 @@ public final class EighthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .routingLength("Менее 150")
                                 .sowingNorm("Норма высева 15 кг/га")
                                 .build(),
-                        optionalFuelInfoFactory.apply(32.9, 8.2)
+                        optionalFuelFactory.apply(32.9, 8.2)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -35,7 +35,7 @@ public final class EighthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .routingLength("150-200")
                                 .sowingNorm("Норма высева 30 кг/га")
                                 .build(),
-                        optionalFuelInfoFactory.apply(13.6, 3.6)
+                        optionalFuelFactory.apply(13.6, 3.6)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -46,7 +46,7 @@ public final class EighthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .routingLength("Более 1000")
                                 .sowingNorm("Норма высева 45 кг/га")
                                 .build(),
-                        optionalFuelInfoFactory.apply(18.8, 3.1)
+                        optionalFuelFactory.apply(18.8, 3.1)
                 ),
                 //not existing tractor
                 Arguments.of(

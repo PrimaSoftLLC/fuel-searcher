@@ -10,10 +10,10 @@ import java.util.stream.Stream;
 
 import static java.util.Optional.empty;
 
-public final class FirstTableFuelInfoSearchingArgumentsProvider extends AbstractTableFuelInfoSearchingArgumentsProvider {
+public final class FirstTableFuelSearchingArgumentsProvider extends AbstractTableFuelSearchingArgumentsProvider {
 
     @Override
-    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
+    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
         return Stream.of(
                 Arguments.of(
                         Specification.builder()
@@ -25,7 +25,7 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .routingLength("Менее 150")
                                 .specificResistance("Удельное сопротивление 48...53 кПа")
                                 .build(),
-                        optionalFuelInfoFactory.apply(11.9, 21.7)
+                        optionalFuelFactory.apply(11.9, 21.7)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -37,7 +37,7 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .routingLength("Более 1000")
                                 .specificResistance("Удельное сопротивление 48...53 кПа")
                                 .build(),
-                        optionalFuelInfoFactory.apply(16.8, 21.3)
+                        optionalFuelFactory.apply(16.8, 21.3)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -49,7 +49,7 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .routingLength("Менее 150")
                                 .specificResistance("Удельное сопротивление 54...59 кПа")
                                 .build(),
-                        optionalFuelInfoFactory.apply(9., 21.5)
+                        optionalFuelFactory.apply(9., 21.5)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -61,7 +61,7 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .routingLength("Менее 150")
                                 .specificResistance("Удельное сопротивление 54...59 кПа")
                                 .build(),
-                        optionalFuelInfoFactory.apply(10.1, 24.8)
+                        optionalFuelFactory.apply(10.1, 24.8)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -73,7 +73,7 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .routingLength("201-300")
                                 .specificResistance("Удельное сопротивление 60...65 кПа")
                                 .build(),
-                        optionalFuelInfoFactory.apply(11.3, 29.1)
+                        optionalFuelFactory.apply(11.3, 29.1)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -85,7 +85,7 @@ public final class FirstTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .routingLength("Менее 150")
                                 .specificResistance("Удельное сопротивление 54...59 кПа")
                                 .build(),
-                        optionalFuelInfoFactory.apply(10.9, 22.3)
+                        optionalFuelFactory.apply(10.9, 22.3)
                 ),
                 //not existing tractor
                 Arguments.of(

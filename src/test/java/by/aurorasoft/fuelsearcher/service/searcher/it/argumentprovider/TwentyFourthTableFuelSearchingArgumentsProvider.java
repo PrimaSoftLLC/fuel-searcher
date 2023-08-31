@@ -10,10 +10,10 @@ import java.util.stream.Stream;
 
 import static java.util.Optional.empty;
 
-public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends AbstractTableFuelInfoSearchingArgumentsProvider {
+public final class TwentyFourthTableFuelSearchingArgumentsProvider extends AbstractTableFuelSearchingArgumentsProvider {
 
     @Override
-    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
+    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
         return Stream.of(
                 Arguments.of(
                         Specification.builder()
@@ -24,7 +24,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("10.5")
                                 .routingLength("Менее 150")
                                 .build(),
-                        optionalFuelInfoFactory.apply(24.1, 9.5)
+                        optionalFuelFactory.apply(24.1, 9.5)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -35,7 +35,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("12")
                                 .routingLength("401-600")
                                 .build(),
-                        optionalFuelInfoFactory.apply(94.7, 3.3)
+                        optionalFuelFactory.apply(94.7, 3.3)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -46,7 +46,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("10.5")
                                 .routingLength("201-300")
                                 .build(),
-                        optionalFuelInfoFactory.apply(87.8, 3.)
+                        optionalFuelFactory.apply(87.8, 3.)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -57,7 +57,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("12")
                                 .routingLength("150-200")
                                 .build(),
-                        optionalFuelInfoFactory.apply(74.1, 3.2)
+                        optionalFuelFactory.apply(74.1, 3.2)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -68,7 +68,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("10.5")
                                 .routingLength("Более 1000")
                                 .build(),
-                        optionalFuelInfoFactory.apply(99.6, 3.4)
+                        optionalFuelFactory.apply(99.6, 3.4)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -79,7 +79,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("12")
                                 .routingLength("201-300")
                                 .build(),
-                        optionalFuelInfoFactory.apply(84.4, 3.2)
+                        optionalFuelFactory.apply(84.4, 3.2)
                 ),
 
                 Arguments.of(
@@ -91,7 +91,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("9.2")
                                 .routingLength("Менее 150")
                                 .build(),
-                        optionalFuelInfoFactory.apply(21.7, 16.)
+                        optionalFuelFactory.apply(21.7, 16.)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -102,7 +102,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("9.2")
                                 .routingLength("601-1000")
                                 .build(),
-                        optionalFuelInfoFactory.apply(96.9, 4.8)
+                        optionalFuelFactory.apply(96.9, 4.8)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -113,7 +113,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("9.2")
                                 .routingLength("301-400")
                                 .build(),
-                        optionalFuelInfoFactory.apply(73.4, 6.3)
+                        optionalFuelFactory.apply(73.4, 6.3)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -124,7 +124,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("9.2")
                                 .routingLength("150-200")
                                 .build(),
-                        optionalFuelInfoFactory.apply(61.8, 5.7)
+                        optionalFuelFactory.apply(61.8, 5.7)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -135,7 +135,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("9.2")
                                 .routingLength("301-400")
                                 .build(),
-                        optionalFuelInfoFactory.apply(70.5, 6.5)
+                        optionalFuelFactory.apply(70.5, 6.5)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -146,7 +146,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("9.2")
                                 .routingLength("201-300")
                                 .build(),
-                        optionalFuelInfoFactory.apply(73.4, 5.3)
+                        optionalFuelFactory.apply(73.4, 5.3)
                 ),
 
                 Arguments.of(
@@ -158,7 +158,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("9")
                                 .routingLength("Менее 150")
                                 .build(),
-                        optionalFuelInfoFactory.apply(21.5, 9.4)
+                        optionalFuelFactory.apply(21.5, 9.4)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -169,7 +169,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("9")
                                 .routingLength("Более 1000")
                                 .build(),
-                        optionalFuelInfoFactory.apply(119.2, 2.4)
+                        optionalFuelFactory.apply(119.2, 2.4)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -180,7 +180,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("9")
                                 .routingLength("201-300")
                                 .build(),
-                        optionalFuelInfoFactory.apply(53.6, 4.6)
+                        optionalFuelFactory.apply(53.6, 4.6)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -191,7 +191,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("9")
                                 .routingLength("150-200")
                                 .build(),
-                        optionalFuelInfoFactory.apply(65.7, 3.2)
+                        optionalFuelFactory.apply(65.7, 3.2)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -202,7 +202,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("9")
                                 .routingLength("601-1000")
                                 .build(),
-                        optionalFuelInfoFactory.apply(105.5, 2.7)
+                        optionalFuelFactory.apply(105.5, 2.7)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -213,7 +213,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("9")
                                 .routingLength("601-1000")
                                 .build(),
-                        optionalFuelInfoFactory.apply(89.5, 3.2)
+                        optionalFuelFactory.apply(89.5, 3.2)
                 ),
 
                 Arguments.of(
@@ -225,7 +225,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("7")
                                 .routingLength("Менее 150")
                                 .build(),
-                        optionalFuelInfoFactory.apply(18.7, 13.)
+                        optionalFuelFactory.apply(18.7, 13.)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -236,7 +236,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("7")
                                 .routingLength("401-600")
                                 .build(),
-                        optionalFuelInfoFactory.apply(65.3, 4.9)
+                        optionalFuelFactory.apply(65.3, 4.9)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -247,7 +247,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("7")
                                 .routingLength("201-300")
                                 .build(),
-                        optionalFuelInfoFactory.apply(60.8, 4.7)
+                        optionalFuelFactory.apply(60.8, 4.7)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -258,7 +258,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("7")
                                 .routingLength("401-600")
                                 .build(),
-                        optionalFuelInfoFactory.apply(46.7, 6.9)
+                        optionalFuelFactory.apply(46.7, 6.9)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -269,7 +269,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("7")
                                 .routingLength("201-300")
                                 .build(),
-                        optionalFuelInfoFactory.apply(41.2, 7.)
+                        optionalFuelFactory.apply(41.2, 7.)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -280,7 +280,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("7")
                                 .routingLength("601-1000")
                                 .build(),
-                        optionalFuelInfoFactory.apply(79.1, 4.2)
+                        optionalFuelFactory.apply(79.1, 4.2)
                 ),
 
                 Arguments.of(
@@ -292,7 +292,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("6.6")
                                 .routingLength("Менее 150")
                                 .build(),
-                        optionalFuelInfoFactory.apply(16.8, 11.7)
+                        optionalFuelFactory.apply(16.8, 11.7)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -303,7 +303,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("6.6")
                                 .routingLength("301-400")
                                 .build(),
-                        optionalFuelInfoFactory.apply(64., 3.9)
+                        optionalFuelFactory.apply(64., 3.9)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -314,7 +314,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("6.6")
                                 .routingLength("150-200")
                                 .build(),
-                        optionalFuelInfoFactory.apply(42.8, 4.9)
+                        optionalFuelFactory.apply(42.8, 4.9)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -325,7 +325,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("6.6")
                                 .routingLength("Более 1000")
                                 .build(),
-                        optionalFuelInfoFactory.apply(81.1, 3.3)
+                        optionalFuelFactory.apply(81.1, 3.3)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -336,7 +336,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("6.6")
                                 .routingLength("150-200")
                                 .build(),
-                        optionalFuelInfoFactory.apply(50.1, 4.1)
+                        optionalFuelFactory.apply(50.1, 4.1)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -347,7 +347,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("6.6")
                                 .routingLength("301-400")
                                 .build(),
-                        optionalFuelInfoFactory.apply(82.2, 3.)
+                        optionalFuelFactory.apply(82.2, 3.)
                 ),
 
                 Arguments.of(
@@ -359,7 +359,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("6")
                                 .routingLength("Менее 150")
                                 .build(),
-                        optionalFuelInfoFactory.apply(13.8, 12.)
+                        optionalFuelFactory.apply(13.8, 12.)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -370,7 +370,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("6")
                                 .routingLength("601-1000")
                                 .build(),
-                        optionalFuelInfoFactory.apply(48.6, 3.8)
+                        optionalFuelFactory.apply(48.6, 3.8)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -381,7 +381,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("6")
                                 .routingLength("301-400")
                                 .build(),
-                        optionalFuelInfoFactory.apply(29.2, 6.3)
+                        optionalFuelFactory.apply(29.2, 6.3)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -392,7 +392,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("6")
                                 .routingLength("150-200")
                                 .build(),
-                        optionalFuelInfoFactory.apply(45.6, 3.6)
+                        optionalFuelFactory.apply(45.6, 3.6)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -403,7 +403,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("6")
                                 .routingLength("401-600")
                                 .build(),
-                        optionalFuelInfoFactory.apply(23.9, 7.7)
+                        optionalFuelFactory.apply(23.9, 7.7)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -414,7 +414,7 @@ public final class TwentyFourthTableFuelInfoSearchingArgumentsProvider extends A
                                 .workingWidth("6")
                                 .routingLength("150-200")
                                 .build(),
-                        optionalFuelInfoFactory.apply(43.8, 3.8)
+                        optionalFuelFactory.apply(43.8, 3.8)
                 ),
                 //not existing combine
                 Arguments.of(

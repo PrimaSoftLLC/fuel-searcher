@@ -10,10 +10,10 @@ import java.util.stream.Stream;
 
 import static java.util.Optional.empty;
 
-public final class ThirdTableFuelInfoSearchingArgumentsProvider extends AbstractTableFuelInfoSearchingArgumentsProvider {
+public final class ThirdTableFuelSearchingArgumentsProvider extends AbstractTableFuelSearchingArgumentsProvider {
 
     @Override
-    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
+    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
         return Stream.of(
                 Arguments.of(
                         Specification.builder()
@@ -25,7 +25,7 @@ public final class ThirdTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .routingLength("Менее 150")
                                 .soilType("Минеральные почвы")
                                 .build(),
-                        optionalFuelInfoFactory.apply(8.5, 23.7)
+                        optionalFuelFactory.apply(8.5, 23.7)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -37,7 +37,7 @@ public final class ThirdTableFuelInfoSearchingArgumentsProvider extends Abstract
                                 .routingLength("Более 1000")
                                 .soilType("Торфяные почвы")
                                 .build(),
-                        optionalFuelInfoFactory.apply(11.4, 20.5)
+                        optionalFuelFactory.apply(11.4, 20.5)
                 ),
                 //not existing tractor
                 Arguments.of(

@@ -10,10 +10,10 @@ import java.util.stream.Stream;
 
 import static java.util.Optional.empty;
 
-public final class TwentyThirdTableFuelInfoSearchingArgumentsProvider extends AbstractTableFuelInfoSearchingArgumentsProvider {
+public final class TwentyThirdTableFuelSearchingArgumentsProvider extends AbstractTableFuelSearchingArgumentsProvider {
 
     @Override
-    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
+    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
         return Stream.of(
                 Arguments.of(
                         Specification.builder()
@@ -23,7 +23,7 @@ public final class TwentyThirdTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .yield("5-7.5")
                                 .routingLength("Менее 150")
                                 .build(),
-                        optionalFuelInfoFactory.apply(55.6, 1.97)
+                        optionalFuelFactory.apply(55.6, 1.97)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -33,7 +33,7 @@ public final class TwentyThirdTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .yield("16.5-17.5")
                                 .routingLength("150-200")
                                 .build(),
-                        optionalFuelInfoFactory.apply(108.1, 0.98)
+                        optionalFuelFactory.apply(108.1, 0.98)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -43,7 +43,7 @@ public final class TwentyThirdTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .yield("16.5-17.5")
                                 .routingLength("150-200")
                                 .build(),
-                        optionalFuelInfoFactory.apply(84.6, 1.17)
+                        optionalFuelFactory.apply(84.6, 1.17)
                 ),
                 //not existing machinery
                 Arguments.of(

@@ -10,10 +10,10 @@ import java.util.stream.Stream;
 
 import static java.util.Optional.empty;
 
-public final class EleventhTableFuelInfoSearchingArgumentsProvider extends AbstractTableFuelInfoSearchingArgumentsProvider {
+public final class EleventhTableFuelSearchingArgumentsProvider extends AbstractTableFuelSearchingArgumentsProvider {
 
     @Override
-    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
+    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
         return Stream.of(
                 Arguments.of(
                         Specification.builder()
@@ -25,7 +25,7 @@ public final class EleventhTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .routingLength("Менее 150")
                                 .fertilizerType("Гранулированные удобрения")
                                 .build(),
-                        optionalFuelInfoFactory.apply(71.2, 1.42)
+                        optionalFuelFactory.apply(71.2, 1.42)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -37,7 +37,7 @@ public final class EleventhTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .routingLength("Менее 150")
                                 .fertilizerType("Кристаллические удобрения")
                                 .build(),
-                        optionalFuelInfoFactory.apply(40.3, 1.95)
+                        optionalFuelFactory.apply(40.3, 1.95)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -49,7 +49,7 @@ public final class EleventhTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .routingLength("Более 1000")
                                 .fertilizerType("Гранулированные удобрения")
                                 .build(),
-                        optionalFuelInfoFactory.apply(76.6, 1.19)
+                        optionalFuelFactory.apply(76.6, 1.19)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -61,7 +61,7 @@ public final class EleventhTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .routingLength("150-200")
                                 .fertilizerType("Пылевидные удобрения")
                                 .build(),
-                        optionalFuelInfoFactory.apply(37.0, 2.11)
+                        optionalFuelFactory.apply(37.0, 2.11)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -73,7 +73,7 @@ public final class EleventhTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .routingLength("150-200")
                                 .fertilizerType("Гранулированные удобрения")
                                 .build(),
-                        optionalFuelInfoFactory.apply(73.8, 1.4)
+                        optionalFuelFactory.apply(73.8, 1.4)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -85,7 +85,7 @@ public final class EleventhTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .routingLength("Более 1000")
                                 .fertilizerType("Пылевидные удобрения")
                                 .build(),
-                        optionalFuelInfoFactory.apply(29.3, 2.24)
+                        optionalFuelFactory.apply(29.3, 2.24)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -97,7 +97,7 @@ public final class EleventhTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .routingLength("150-200")
                                 .fertilizerType("Гранулированные удобрения")
                                 .build(),
-                        optionalFuelInfoFactory.apply(27.4, 1.99)
+                        optionalFuelFactory.apply(27.4, 1.99)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -109,7 +109,7 @@ public final class EleventhTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .routingLength("201-300")
                                 .fertilizerType("Кристаллические удобрения")
                                 .build(),
-                        optionalFuelInfoFactory.apply(40.8, 1.25)
+                        optionalFuelFactory.apply(40.8, 1.25)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -121,7 +121,7 @@ public final class EleventhTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .routingLength("201-300")
                                 .fertilizerType("Кристаллические удобрения")
                                 .build(),
-                        optionalFuelInfoFactory.apply(5.1, 9.05)
+                        optionalFuelFactory.apply(5.1, 9.05)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -133,7 +133,7 @@ public final class EleventhTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .routingLength("150-200")
                                 .fertilizerType("Гранулированные удобрения")
                                 .build(),
-                        optionalFuelInfoFactory.apply(13.1, 3.91)
+                        optionalFuelFactory.apply(13.1, 3.91)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -145,7 +145,7 @@ public final class EleventhTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .routingLength("201-300")
                                 .fertilizerType("Гранулированные удобрения")
                                 .build(),
-                        optionalFuelInfoFactory.apply(75.5, 0.9)
+                        optionalFuelFactory.apply(75.5, 0.9)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -157,7 +157,7 @@ public final class EleventhTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .routingLength("150-200")
                                 .fertilizerType("Гранулированные удобрения")
                                 .build(),
-                        optionalFuelInfoFactory.apply(20., 2.85)
+                        optionalFuelFactory.apply(20., 2.85)
                 ),
                 //not existing tractor
                 Arguments.of(

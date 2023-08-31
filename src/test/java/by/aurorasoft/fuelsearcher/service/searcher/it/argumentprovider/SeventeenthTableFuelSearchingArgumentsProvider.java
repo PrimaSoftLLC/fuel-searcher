@@ -10,48 +10,48 @@ import java.util.stream.Stream;
 
 import static java.util.Optional.empty;
 
-public final class EighteenthTableFuelInfoSearchingArgumentsProvider extends AbstractTableFuelInfoSearchingArgumentsProvider {
+public final class SeventeenthTableFuelSearchingArgumentsProvider extends AbstractTableFuelSearchingArgumentsProvider {
 
     @Override
-    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
+    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
         return Stream.of(
                 Arguments.of(
                         Specification.builder()
-                                .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
-                                .tractor("Беларус 920.2")
-                                .machinery("Krone Swadro 807")
-                                .workingWidth("6.2")
+                                .tableName("ВОРОШЕНИЕ СЕНА")
+                                .tractor("Беларус 1221")
+                                .machinery("ГРЛ-9.6")
+                                .workingWidth("9.6")
                                 .routingLength("Менее 150")
                                 .build(),
-                        optionalFuelInfoFactory.apply(18.4, 2.46)
+                        optionalFuelFactory.apply(27.8, 2.3)
                 ),
                 Arguments.of(
                         Specification.builder()
-                                .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
-                                .tractor("Беларус 80/82.1+")
-                                .machinery("MILLENNIUM V18-7GW")
-                                .workingWidth("10.5")
+                                .tableName("ВОРОШЕНИЕ СЕНА")
+                                .tractor("Беларус 1221")
+                                .machinery("Spider 600/6 ALP")
+                                .workingWidth("6")
                                 .routingLength("401-600")
                                 .build(),
-                        optionalFuelInfoFactory.apply(39.6, 1.28)
+                        optionalFuelFactory.apply(32.2, 1.9)
                 ),
                 Arguments.of(
                         Specification.builder()
-                                .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
-                                .tractor("Беларус 80/82.1")
-                                .machinery("Claas Liner 1650 Twin")
-                                .workingWidth("6.8")
+                                .tableName("ВОРОШЕНИЕ СЕНА")
+                                .tractor("Беларус 82")
+                                .machinery("Tonutti Millennium V16")
+                                .workingWidth("9.6")
                                 .routingLength("Более 1000")
                                 .build(),
-                        optionalFuelInfoFactory.apply(29.1, 1.78)
+                        optionalFuelFactory.apply(45.2, 1.4)
                 ),
                 //not existing tractor
                 Arguments.of(
                         Specification.builder()
-                                .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
+                                .tableName("ВОРОШЕНИЕ СЕНА")
                                 .tractor("not existing")
-                                .machinery("Claas Liner 1650 Twin")
-                                .workingWidth("6.8")
+                                .machinery("Tonutti Millennium V16")
+                                .workingWidth("9.6")
                                 .routingLength("Более 1000")
                                 .build(),
                         empty()
@@ -59,10 +59,10 @@ public final class EighteenthTableFuelInfoSearchingArgumentsProvider extends Abs
                 //not existing machinery
                 Arguments.of(
                         Specification.builder()
-                                .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
-                                .tractor("Беларус 80/82.1")
+                                .tableName("ВОРОШЕНИЕ СЕНА")
+                                .tractor("Беларус 82")
                                 .machinery("not existing")
-                                .workingWidth("6.8")
+                                .workingWidth("9.6")
                                 .routingLength("Более 1000")
                                 .build(),
                         empty()
@@ -70,9 +70,9 @@ public final class EighteenthTableFuelInfoSearchingArgumentsProvider extends Abs
                 //not existing working width
                 Arguments.of(
                         Specification.builder()
-                                .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
-                                .tractor("Беларус 80/82.1")
-                                .machinery("Claas Liner 1650 Twin")
+                                .tableName("ВОРОШЕНИЕ СЕНА")
+                                .tractor("Беларус 82")
+                                .machinery("Tonutti Millennium V16")
                                 .workingWidth("not existing")
                                 .routingLength("Более 1000")
                                 .build(),
@@ -81,10 +81,10 @@ public final class EighteenthTableFuelInfoSearchingArgumentsProvider extends Abs
                 //not existing routing length
                 Arguments.of(
                         Specification.builder()
-                                .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
-                                .tractor("Беларус 80/82.1")
-                                .machinery("Claas Liner 1650 Twin")
-                                .workingWidth("6.8")
+                                .tableName("ВОРОШЕНИЕ СЕНА")
+                                .tractor("Беларус 82")
+                                .machinery("Tonutti Millennium V16")
+                                .workingWidth("9.6")
                                 .routingLength("not existing")
                                 .build(),
                         empty()

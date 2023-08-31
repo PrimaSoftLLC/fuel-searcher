@@ -11,10 +11,10 @@ import java.util.stream.Stream;
 import static by.aurorasoft.fuelsearcher.model.Fuel.createNotDefinedFuel;
 import static java.util.Optional.empty;
 
-public final class SecondTableFuelInfoSearchingArgumentsProvider extends AbstractTableFuelInfoSearchingArgumentsProvider {
+public final class SecondTableFuelSearchingArgumentsProvider extends AbstractTableFuelSearchingArgumentsProvider {
 
     @Override
-    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
+    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
         return Stream.of(
                 Arguments.of(
                         Specification.builder()
@@ -26,7 +26,7 @@ public final class SecondTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .routingLength("Менее 150")
                                 .specificResistance("Удельное сопротивление 36...41 кПа")
                                 .build(),
-                        optionalFuelInfoFactory.apply(13.8, 20.9)
+                        optionalFuelFactory.apply(13.8, 20.9)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -38,7 +38,7 @@ public final class SecondTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .routingLength("601-1000")
                                 .specificResistance("Удельное сопротивление 36...41 кПа")
                                 .build(),
-                        optionalFuelInfoFactory.apply(25.6, 15.0)
+                        optionalFuelFactory.apply(25.6, 15.0)
                 ),
                 Arguments.of(
                         Specification.builder()

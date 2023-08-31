@@ -10,10 +10,10 @@ import java.util.stream.Stream;
 
 import static java.util.Optional.empty;
 
-public final class FourthTableFuelInfoSearchingArgumentsProvider extends AbstractTableFuelInfoSearchingArgumentsProvider {
+public final class FourthTableFuelSearchingArgumentsProvider extends AbstractTableFuelSearchingArgumentsProvider {
 
     @Override
-    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
+    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
         return Stream.of(
                 Arguments.of(
                         Specification.builder()
@@ -24,7 +24,7 @@ public final class FourthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .routingLength("Менее 150")
                                 .processingDepth("Глубина обработки 6...8 см")
                                 .build(),
-                        optionalFuelInfoFactory.apply(26.4, 14.1)
+                        optionalFuelFactory.apply(26.4, 14.1)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -35,7 +35,7 @@ public final class FourthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .routingLength("Более 1000")
                                 .processingDepth("Глубина обработки 6...8 см")
                                 .build(),
-                        optionalFuelInfoFactory.apply(58.2, 7.5)
+                        optionalFuelFactory.apply(58.2, 7.5)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -46,7 +46,7 @@ public final class FourthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .routingLength("150-200")
                                 .processingDepth("Глубина обработки 6...8 см")
                                 .build(),
-                        optionalFuelInfoFactory.apply(24.0, 11.1)
+                        optionalFuelFactory.apply(24.0, 11.1)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -57,7 +57,7 @@ public final class FourthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .routingLength("Менее 150")
                                 .processingDepth("Глубина обработки 6...8 см")
                                 .build(),
-                        optionalFuelInfoFactory.apply(17.3, 12.7)
+                        optionalFuelFactory.apply(17.3, 12.7)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -68,7 +68,7 @@ public final class FourthTableFuelInfoSearchingArgumentsProvider extends Abstrac
                                 .routingLength("Менее 150")
                                 .processingDepth("Глубина обработки 14...20 см")
                                 .build(),
-                        optionalFuelInfoFactory.apply(10.5, 8.7)
+                        optionalFuelFactory.apply(10.5, 8.7)
                 ),
                 //not existing tractor
                 Arguments.of(

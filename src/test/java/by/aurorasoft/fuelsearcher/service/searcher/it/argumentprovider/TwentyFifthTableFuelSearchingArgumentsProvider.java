@@ -10,10 +10,10 @@ import java.util.stream.Stream;
 
 import static java.util.Optional.empty;
 
-public final class TwentyFifthTableFuelInfoSearchingArgumentsProvider extends AbstractTableFuelInfoSearchingArgumentsProvider {
+public final class TwentyFifthTableFuelSearchingArgumentsProvider extends AbstractTableFuelSearchingArgumentsProvider {
 
     @Override
-    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
+    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
         return Stream.of(
                 Arguments.of(
                         Specification.builder()
@@ -25,7 +25,7 @@ public final class TwentyFifthTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .yield("До 15")
                                 .routingLength("Менее 150")
                                 .build(),
-                        optionalFuelInfoFactory.apply(24.7, 2.33)
+                        optionalFuelFactory.apply(24.7, 2.33)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -37,7 +37,7 @@ public final class TwentyFifthTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .yield("25-30")
                                 .routingLength("150-200")
                                 .build(),
-                        optionalFuelInfoFactory.apply(64.7, 0.76)
+                        optionalFuelFactory.apply(64.7, 0.76)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -49,7 +49,7 @@ public final class TwentyFifthTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .yield("30-35")
                                 .routingLength("150-200")
                                 .build(),
-                        optionalFuelInfoFactory.apply(69.8, 0.7)
+                        optionalFuelFactory.apply(69.8, 0.7)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -61,7 +61,7 @@ public final class TwentyFifthTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .yield("Свыше 35")
                                 .routingLength("150-200")
                                 .build(),
-                        optionalFuelInfoFactory.apply(72.8, 0.68)
+                        optionalFuelFactory.apply(72.8, 0.68)
                 ),
                 //not existing soil type
                 Arguments.of(

@@ -10,10 +10,10 @@ import java.util.stream.Stream;
 
 import static java.util.Optional.empty;
 
-public final class TwentySixthTableFuelInfoSearchingArgumentsProvider extends AbstractTableFuelInfoSearchingArgumentsProvider {
+public final class TwentySixthTableFuelSearchingArgumentsProvider extends AbstractTableFuelSearchingArgumentsProvider {
 
     @Override
-    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
+    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
         return Stream.of(
                 Arguments.of(
                         Specification.builder()
@@ -23,7 +23,7 @@ public final class TwentySixthTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .yield("до 10")
                                 .routingLength("Менее 150")
                                 .build(),
-                        optionalFuelInfoFactory.apply(102.5, 2.95)
+                        optionalFuelFactory.apply(102.5, 2.95)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -33,7 +33,7 @@ public final class TwentySixthTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .yield("65-70")
                                 .routingLength("150-200")
                                 .build(),
-                        optionalFuelInfoFactory.apply(240.2, 1.24)
+                        optionalFuelFactory.apply(240.2, 1.24)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -43,7 +43,7 @@ public final class TwentySixthTableFuelInfoSearchingArgumentsProvider extends Ab
                                 .yield("25-30")
                                 .routingLength("Менее 150")
                                 .build(),
-                        optionalFuelInfoFactory.apply(99.8, 1.57)
+                        optionalFuelFactory.apply(99.8, 1.57)
                 ),
                 //not existing combine
                 Arguments.of(

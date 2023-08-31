@@ -10,10 +10,10 @@ import java.util.stream.Stream;
 
 import static java.util.Optional.empty;
 
-public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends AbstractTableFuelInfoSearchingArgumentsProvider {
+public final class ThirteenTableFuelSearchingArgumentsProvider extends AbstractTableFuelSearchingArgumentsProvider {
 
     @Override
-    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
+    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
         return Stream.of(
                 Arguments.of(
                         Specification.builder()
@@ -25,7 +25,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .transportDistance("0.25...0.75")
                                 .spreadRate("Менее 30")
                                 .build(),
-                        optionalFuelInfoFactory.apply(259.8, 0.4)
+                        optionalFuelFactory.apply(259.8, 0.4)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -37,7 +37,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .transportDistance("6.1...7")
                                 .spreadRate("30-50")
                                 .build(),
-                        optionalFuelInfoFactory.apply(143.5, 1.17)
+                        optionalFuelFactory.apply(143.5, 1.17)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -49,7 +49,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .transportDistance("0.76...1.25")
                                 .spreadRate("Более 50")
                                 .build(),
-                        optionalFuelInfoFactory.apply(255.1, 0.4)
+                        optionalFuelFactory.apply(255.1, 0.4)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -61,7 +61,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .transportDistance("18.1...21")
                                 .spreadRate("30-50")
                                 .build(),
-                        optionalFuelInfoFactory.apply(65.3, 2.83)
+                        optionalFuelFactory.apply(65.3, 2.83)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -73,7 +73,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .transportDistance("0.76...1.25")
                                 .spreadRate("Более 50")
                                 .build(),
-                        optionalFuelInfoFactory.apply(225.7, 0.39)
+                        optionalFuelFactory.apply(225.7, 0.39)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -85,7 +85,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .transportDistance("18.1...21")
                                 .spreadRate("Менее 30")
                                 .build(),
-                        optionalFuelInfoFactory.apply(47.6, 4.6)
+                        optionalFuelFactory.apply(47.6, 4.6)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -97,7 +97,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .transportDistance("0.25...0.75")
                                 .spreadRate("Менее 30")
                                 .build(),
-                        optionalFuelInfoFactory.apply(253.9, 0.39)
+                        optionalFuelFactory.apply(253.9, 0.39)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -109,7 +109,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .transportDistance("21.1...24")
                                 .spreadRate("30-50")
                                 .build(),
-                        optionalFuelInfoFactory.apply(56.7, 3.53)
+                        optionalFuelFactory.apply(56.7, 3.53)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -121,7 +121,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .transportDistance("6.1...7")
                                 .spreadRate("Более 50")
                                 .build(),
-                        optionalFuelInfoFactory.apply(125.9, 1.36)
+                        optionalFuelFactory.apply(125.9, 1.36)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -133,7 +133,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .transportDistance("5.1...6")
                                 .spreadRate("Более 50")
                                 .build(),
-                        optionalFuelInfoFactory.apply(139.3, 0.93)
+                        optionalFuelFactory.apply(139.3, 0.93)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -145,7 +145,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .transportDistance("14.1...16")
                                 .spreadRate("30-50")
                                 .build(),
-                        optionalFuelInfoFactory.apply(65.7, 2.76)
+                        optionalFuelFactory.apply(65.7, 2.76)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -157,7 +157,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .transportDistance("28.1...32")
                                 .spreadRate("Менее 30")
                                 .build(),
-                        optionalFuelInfoFactory.apply(30.9, 6.94)
+                        optionalFuelFactory.apply(30.9, 6.94)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -169,7 +169,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .transportDistance("1.76...2.25")
                                 .spreadRate("Менее 30")
                                 .build(),
-                        optionalFuelInfoFactory.apply(198., 0.49)
+                        optionalFuelFactory.apply(198., 0.49)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -181,7 +181,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .transportDistance("1.76...2.25")
                                 .spreadRate("Менее 30")
                                 .build(),
-                        optionalFuelInfoFactory.apply(188.6, 0.55)
+                        optionalFuelFactory.apply(188.6, 0.55)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -193,7 +193,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .transportDistance("16.1...18")
                                 .spreadRate("Более 50")
                                 .build(),
-                        optionalFuelInfoFactory.apply(50.5, 3.7)
+                        optionalFuelFactory.apply(50.5, 3.7)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -205,7 +205,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .transportDistance("3.26...4")
                                 .spreadRate("Менее 30")
                                 .build(),
-                        optionalFuelInfoFactory.apply(139.8, 0.76)
+                        optionalFuelFactory.apply(139.8, 0.76)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -217,7 +217,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .transportDistance("8.1...9")
                                 .spreadRate("30-50")
                                 .build(),
-                        optionalFuelInfoFactory.apply(82.9, 1.72)
+                        optionalFuelFactory.apply(82.9, 1.72)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -229,7 +229,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .transportDistance("18.1...21")
                                 .spreadRate("Более 50")
                                 .build(),
-                        optionalFuelInfoFactory.apply(38.9, 4.58)
+                        optionalFuelFactory.apply(38.9, 4.58)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -241,7 +241,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .transportDistance("2.76...3.25")
                                 .spreadRate("Менее 30")
                                 .build(),
-                        optionalFuelInfoFactory.apply(139.1, 0.59)
+                        optionalFuelFactory.apply(139.1, 0.59)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -253,7 +253,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .transportDistance("10.1...12")
                                 .spreadRate("30-50")
                                 .build(),
-                        optionalFuelInfoFactory.apply(57.7, 2.23)
+                        optionalFuelFactory.apply(57.7, 2.23)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -265,7 +265,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .transportDistance("21.1...24")
                                 .spreadRate("Более 50")
                                 .build(),
-                        optionalFuelInfoFactory.apply(26.5, 5.7)
+                        optionalFuelFactory.apply(26.5, 5.7)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -277,7 +277,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .transportDistance("8.1...9")
                                 .spreadRate("Менее 30")
                                 .build(),
-                        optionalFuelInfoFactory.apply(66.7, 1.62)
+                        optionalFuelFactory.apply(66.7, 1.62)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -289,7 +289,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .transportDistance("8.1...9")
                                 .spreadRate("30-50")
                                 .build(),
-                        optionalFuelInfoFactory.apply(59., 1.95)
+                        optionalFuelFactory.apply(59., 1.95)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -301,7 +301,7 @@ public final class ThirteenTableFuelInfoSearchingArgumentsProvider extends Abstr
                                 .transportDistance("16.1...18")
                                 .spreadRate("Более 50")
                                 .build(),
-                        optionalFuelInfoFactory.apply(28.6, 4.97)
+                        optionalFuelFactory.apply(28.6, 4.97)
                 ),
                 //not existing tractor
                 Arguments.of(

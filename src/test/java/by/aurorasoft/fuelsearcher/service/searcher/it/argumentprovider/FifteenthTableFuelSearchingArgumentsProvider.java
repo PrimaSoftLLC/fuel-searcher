@@ -10,10 +10,10 @@ import java.util.stream.Stream;
 
 import static java.util.Optional.empty;
 
-public final class FifteenthTableFuelInfoSearchingArgumentsProvider extends AbstractTableFuelInfoSearchingArgumentsProvider {
+public final class FifteenthTableFuelSearchingArgumentsProvider extends AbstractTableFuelSearchingArgumentsProvider {
 
     @Override
-    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelInfoFactory) {
+    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
         return Stream.of(
                 Arguments.of(
                         Specification.builder()
@@ -24,7 +24,7 @@ public final class FifteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .yield("до 10")
                                 .routingLength("Менее 150")
                                 .build(),
-                        optionalFuelInfoFactory.apply(28.1, 4.7)
+                        optionalFuelFactory.apply(28.1, 4.7)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -35,7 +35,7 @@ public final class FifteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .yield("свыше 35")
                                 .routingLength("201-300")
                                 .build(),
-                        optionalFuelInfoFactory.apply(11.4, 4.9)
+                        optionalFuelFactory.apply(11.4, 4.9)
                 ),
                 Arguments.of(
                         Specification.builder()
@@ -46,7 +46,7 @@ public final class FifteenthTableFuelInfoSearchingArgumentsProvider extends Abst
                                 .yield("20-25")
                                 .routingLength("201-300")
                                 .build(),
-                        optionalFuelInfoFactory.apply(11.7, 4.4)
+                        optionalFuelFactory.apply(11.7, 4.4)
                 ),
                 //not existing tractor
                 Arguments.of(
