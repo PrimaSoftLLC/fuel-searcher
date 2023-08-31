@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelinfosearcher.builder;
 
-import by.aurorasoft.fuelinfosearcher.service.searcher.exception.FuelSearcherNotDefinedPropertyException;
+import by.aurorasoft.fuelinfosearcher.builder.exception.NotDefinedPropertyException;
 
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -20,7 +20,7 @@ public abstract class BuilderRequiringAllProperties<T> {
         final Stream<Object> properties = this.findProperties();
         final boolean validState = properties.noneMatch(Objects::isNull);
         if (!validState) {
-            throw new FuelSearcherNotDefinedPropertyException();
+            throw new NotDefinedPropertyException();
         }
     }
 }
