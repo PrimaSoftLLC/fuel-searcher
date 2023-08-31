@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class FuelInfoConfiguration {
+public class FuelConfiguration {
 
     @Bean
     public FuelDocument document(final FuelDocumentCreatingService creatingService) {
@@ -16,7 +16,7 @@ public class FuelInfoConfiguration {
     }
 
     @Bean
-    public FuelSearcherDictionary fuelSearchingManager(final FuelSearcherDictionaryFactory factory) {
+    public FuelSearcherDictionary fuelSearcherDictionary(final FuelSearcherDictionaryFactory factory) {
         return factory.create("./src/main/resources/fuel-searchers.xml");
     }
 
