@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelsearcher.configuration;
 
 import by.aurorasoft.fuelsearcher.model.FuelDocument;
-import by.aurorasoft.fuelsearcher.service.documentcreating.FuelDocumentCreatingService;
+import by.aurorasoft.fuelsearcher.service.documentfactory.FuelDocumentFactory;
 import by.aurorasoft.fuelsearcher.service.dictionary.fuelsearcher.FuelSearcherDictionary;
 import by.aurorasoft.fuelsearcher.service.dictionary.fuelsearcher.factory.FuelSearcherDictionaryFactory;
 import org.springframework.context.annotation.Bean;
@@ -13,8 +13,8 @@ import org.springframework.context.annotation.PropertySource;
 public class FuelConfiguration {
 
     @Bean
-    public FuelDocument document(final FuelDocumentCreatingService creatingService) {
-        return creatingService.create();
+    public FuelDocument document(final FuelDocumentFactory documentFactory) {
+        return documentFactory.create("./src/main/resources/postanovlenie128.2022.docx");
     }
 
     @Bean

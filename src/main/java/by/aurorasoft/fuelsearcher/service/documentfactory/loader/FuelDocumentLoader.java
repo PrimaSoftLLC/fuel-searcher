@@ -1,8 +1,8 @@
-package by.aurorasoft.fuelsearcher.service.documentcreating.documentloader;
+package by.aurorasoft.fuelsearcher.service.documentfactory.loader;
 
 import by.aurorasoft.fuelsearcher.model.FuelDocument;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
-import by.aurorasoft.fuelsearcher.service.documentcreating.documentloader.exception.FuelDocumentLoadingException;
+import by.aurorasoft.fuelsearcher.service.documentfactory.loader.exception.FuelDocumentLoadingException;
 import lombok.Value;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -28,20 +28,19 @@ import static java.util.stream.Collectors.*;
 
 @Component
 public final class FuelDocumentLoader {
-    private static final String FILE_PATH = "./src/main/resources/postanovlenie128.2022.docx";
 
-    public FuelDocument load() {
-        try (final XWPFDocument document = new XWPFDocument(createFileInputStream())) {
+    public FuelDocument load(final String filePath) {
+        try (final XWPFDocument document = new XWPFDocument(createFileInputStream(filePath))) {
             return this.load(document);
         } catch (final IOException cause) {
             throw new FuelDocumentLoadingException(cause);
         }
     }
 
-    private static InputStream createFileInputStream()
+    private static InputStream createFileInputStream(final String filePath)
             throws IOException {
-        final Path filePath = Paths.get(FILE_PATH);
-        return newInputStream(filePath);
+        final Path path = Paths.get(filePath);
+        return newInputStream(path);
     }
 
     private FuelDocument load(final XWPFDocument document) {
