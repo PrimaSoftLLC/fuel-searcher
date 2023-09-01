@@ -39,7 +39,18 @@ public final class SimpleFuelSearcher extends FuelSearcher {
     }
 
     @NoArgsConstructor(access = PRIVATE)
-    public static final class SimpleSearcherBuilder extends FuelSearcherBuilder<SimpleFuelSearcher> {
+    public static final class SimpleSearcherBuilder extends SearcherBuilder<SimpleFuelSearcher> {
+        private static final String NOT_VALID_ELEMENTS_MESSAGE = "Fuel table should contain only one table-element";
+
+        @Override
+        protected boolean isValidElements(final List<IBodyElement> elements) {
+            return isValidSize(elements) && isFirstTable(elements);
+        }
+
+        @Override
+        protected String findNotValidElementsMessage() {
+            return NOT_VALID_ELEMENTS_MESSAGE;
+        }
 
         @Override
         protected SimpleFuelSearcher build(final FuelTable fuelTable,
@@ -53,5 +64,13 @@ public final class SimpleFuelSearcher extends FuelSearcher {
             return empty();
         }
 
+        private static boolean isValidSize(final List<IBodyElement> elements) {
+            return elements.size() == 1;
+        }
+
+        private static boolean isFirstTable(final List<IBodyElement> elements) {
+            final IBodyElement firstElement = elements.get(0);
+            return firstElement instanceof XWPFTable;
+        }
     }
 }
