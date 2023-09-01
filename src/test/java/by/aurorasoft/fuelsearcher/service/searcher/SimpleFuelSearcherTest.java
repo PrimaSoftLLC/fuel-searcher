@@ -105,7 +105,7 @@ public final class SimpleFuelSearcherTest {
     public void searcherShouldBeBuilt() {
         final SimpleSearcherBuilder givenBuilder = SimpleFuelSearcher.builder();
         final FuelTable givenFuelTable = mock(FuelTable.class);
-        final FuelHeaderMetadata givenFuelHeaderMetadata = mock(FuelHeaderMetadata.class);
+        final FuelHeaderMetadata givenFuelHeaderMetadata = createDefaultFuelHeaderMetaData();
         final FilterChain givenFilterChain = mock(FilterChain.class);
 
         final SimpleFuelSearcher actual = givenBuilder.build(givenFuelTable, givenFuelHeaderMetadata, givenFilterChain);
