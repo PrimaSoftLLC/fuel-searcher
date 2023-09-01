@@ -6,8 +6,10 @@ import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.FuelSearch
 import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.FuelSearcherDictionaryFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 @Configuration
+@PropertySource(value = "classpath:fuel-header-metadata.properties", encoding = "UTF-8")
 public class FuelConfiguration {
 
     @Bean

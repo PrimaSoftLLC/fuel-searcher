@@ -1,7 +1,6 @@
 package by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader;
 
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
-import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.exception.FuelSearchersReadingException;
 import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.SearchersParsingHandler;
 import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.factory.SearchersParsingHandlerFactory;
 import lombok.RequiredArgsConstructor;
@@ -26,5 +25,25 @@ public final class FuelSearchersReader {
         } catch (final SAXException | IOException cause) {
             throw new FuelSearchersReadingException(cause);
         }
+    }
+
+    private static final class FuelSearchersReadingException extends RuntimeException {
+
+        public FuelSearchersReadingException() {
+
+        }
+
+        public FuelSearchersReadingException(final String description) {
+            super(description);
+        }
+
+        public FuelSearchersReadingException(final Exception cause) {
+            super(cause);
+        }
+
+        public FuelSearchersReadingException(final String description, final Exception cause) {
+            super(description, cause);
+        }
+
     }
 }

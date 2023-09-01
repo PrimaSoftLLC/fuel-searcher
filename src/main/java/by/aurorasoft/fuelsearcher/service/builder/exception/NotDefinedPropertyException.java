@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.builder.exception;
+package by.aurorasoft.fuelsearcher.service.builder.exception;
 
 public final class NotDefinedPropertyException extends RuntimeException {
 

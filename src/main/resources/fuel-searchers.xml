@@ -206,7 +206,7 @@
 
         <table-name>ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ</table-name>
 
-        <fuel-header-name>норма внесения удобрений</fuel-header-name>
+        <fuel-header-name>норма внесения</fuel-header-name>
 
         <sub-table-title-template>
             {трактор} с разбрасывателем {механизм}. Производительность погрузчика более 60 т/ч
@@ -225,7 +225,7 @@
 
         <table-name>ВНЕСЕНИЕ ЖИДКИХ ОРГАНИЧЕСКИХ УДОБРЕНИЙ</table-name>
 
-        <fuel-header-name>норма внесения удобрений</fuel-header-name>
+        <fuel-header-name>норма внесения</fuel-header-name>
 
         <sub-table-title-template>{трактор} с {механизм}</sub-table-title-template>
 

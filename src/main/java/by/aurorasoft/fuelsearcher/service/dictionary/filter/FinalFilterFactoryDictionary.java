@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.dictionary.filter;
+package by.aurorasoft.fuelsearcher.service.dictionary.filter;
 
 import by.aurorasoft.fuelsearcher.model.filter.factory.conclusive.FinalFilterFactory;
 import org.springframework.stereotype.Component;

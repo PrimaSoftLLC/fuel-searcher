@@ -1,6 +1,6 @@
-package by.aurorasoft.fuelsearcher.builder;
+package by.aurorasoft.fuelsearcher.service.builder;
 
-import by.aurorasoft.fuelsearcher.builder.exception.NotDefinedPropertyException;
+import by.aurorasoft.fuelsearcher.service.builder.exception.NotDefinedPropertyException;
 
 import java.util.Objects;
 import java.util.stream.Stream;

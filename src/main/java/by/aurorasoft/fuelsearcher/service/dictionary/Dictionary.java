@@ -1,6 +1,6 @@
-package by.aurorasoft.fuelsearcher.dictionary;
+package by.aurorasoft.fuelsearcher.service.dictionary;
 
-import by.aurorasoft.fuelsearcher.dictionary.exception.SeveralValuesForOneAliasException;
+import by.aurorasoft.fuelsearcher.service.dictionary.exception.SeveralValuesForOneAliasException;
 
 import java.util.List;
 import java.util.Map;

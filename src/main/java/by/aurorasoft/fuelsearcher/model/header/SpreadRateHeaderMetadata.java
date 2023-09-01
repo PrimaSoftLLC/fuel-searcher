@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public final class SpreadRateHeaderMetadata extends FuelHeaderMetadata {
 
-    public SpreadRateHeaderMetadata(@Value("${fuel-header-metadata.values.spread-rate}") final String[] values,
+    public SpreadRateHeaderMetadata(@Value("${spread-rate}") final String[] values,
                                     final SpreadRateExtractor spreadRateExtractor) {
         super(values, spreadRateExtractor);
     }

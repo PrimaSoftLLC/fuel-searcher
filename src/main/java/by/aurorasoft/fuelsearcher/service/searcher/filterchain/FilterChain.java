@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelsearcher.service.searcher.filterchain;
 
-import by.aurorasoft.fuelsearcher.builder.BuilderRequiringAllProperties;
+import by.aurorasoft.fuelsearcher.service.builder.BuilderRequiringAllProperties;
 import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
 import by.aurorasoft.fuelsearcher.model.specification.Specification;
 import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;

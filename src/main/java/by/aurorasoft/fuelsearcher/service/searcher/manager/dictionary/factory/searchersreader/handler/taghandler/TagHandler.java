@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.taghandler;
 
-import by.aurorasoft.fuelsearcher.dictionary.Translatable;
+import by.aurorasoft.fuelsearcher.service.dictionary.Translatable;
 import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.context.SearchersParsingContext;
 import lombok.RequiredArgsConstructor;
 

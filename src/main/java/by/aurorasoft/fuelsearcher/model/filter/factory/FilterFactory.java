@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelsearcher.model.filter.factory;
 
-import by.aurorasoft.fuelsearcher.dictionary.Translatable;
+import by.aurorasoft.fuelsearcher.service.dictionary.Translatable;
 import by.aurorasoft.fuelsearcher.model.filter.Filter;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import lombok.RequiredArgsConstructor;

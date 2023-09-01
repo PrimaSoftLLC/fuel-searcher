@@ -2,7 +2,7 @@ package by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.s
 
 import by.aurorasoft.fuelsearcher.model.FuelTable;
 import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.context.SearchersParsingContext;
-import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.taghandler.translating.dictionary.FuelTableDictionary;
+import by.aurorasoft.fuelsearcher.service.dictionary.FuelTableDictionary;
 import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.taghandler.translating.simple.SimpleTranslatingTagHandler;
 import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.taghandler.translating.simple.tablename.exception.NoSuchFuelTableException;
 import org.springframework.stereotype.Component;

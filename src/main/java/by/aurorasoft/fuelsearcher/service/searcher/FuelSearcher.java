@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searcher;
 
-import by.aurorasoft.fuelsearcher.builder.BuilderRequiringAllProperties;
-import by.aurorasoft.fuelsearcher.dictionary.Translatable;
+import by.aurorasoft.fuelsearcher.service.builder.BuilderRequiringAllProperties;
+import by.aurorasoft.fuelsearcher.service.dictionary.Translatable;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
@@ -63,12 +63,12 @@ public abstract class FuelSearcher implements Translatable {
                                                         final Specification specification);
 
     private static Map<String, Integer> createFuelOffsetsByHeaders(final FuelHeaderMetadata metadata) {
-        final List<String> values = metadata.getValues();
-        return range(0, values.size())
+        final String[] values = metadata.getValues();
+        return range(0, values.length)
                 .boxed()
                 .collect(
                         toMap(
-                                values::get,
+                                i -> values[i],
                                 identity()
                         )
                 );

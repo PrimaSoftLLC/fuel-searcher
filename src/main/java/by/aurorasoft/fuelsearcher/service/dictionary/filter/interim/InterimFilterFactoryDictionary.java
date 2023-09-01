@@ -1,6 +1,6 @@
-package by.aurorasoft.fuelsearcher.dictionary.filter.interim;
+package by.aurorasoft.fuelsearcher.service.dictionary.filter.interim;
 
-import by.aurorasoft.fuelsearcher.dictionary.filter.FilterFactoryDictionary;
+import by.aurorasoft.fuelsearcher.service.dictionary.filter.FilterFactoryDictionary;
 import by.aurorasoft.fuelsearcher.model.filter.factory.interim.InterimFilterFactory;
 
 import java.util.List;

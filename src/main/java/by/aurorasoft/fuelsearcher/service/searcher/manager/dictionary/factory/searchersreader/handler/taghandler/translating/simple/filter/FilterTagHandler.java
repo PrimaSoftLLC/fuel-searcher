@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.taghandler.translating.simple.filter;
 
-import by.aurorasoft.fuelsearcher.dictionary.filter.FilterFactoryDictionary;
+import by.aurorasoft.fuelsearcher.service.dictionary.filter.FilterFactoryDictionary;
 import by.aurorasoft.fuelsearcher.model.filter.Filter;
 import by.aurorasoft.fuelsearcher.model.filter.factory.FilterFactory;
 import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.context.SearchersParsingContext;

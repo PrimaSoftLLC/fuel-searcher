@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelsearcher.model.specification.propertyextractor;
 
-import by.aurorasoft.fuelsearcher.dictionary.Translatable;
+import by.aurorasoft.fuelsearcher.service.dictionary.Translatable;
 import by.aurorasoft.fuelsearcher.model.specification.Specification;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.exception.SpecificationPropertyExtractingException;
 import lombok.RequiredArgsConstructor;

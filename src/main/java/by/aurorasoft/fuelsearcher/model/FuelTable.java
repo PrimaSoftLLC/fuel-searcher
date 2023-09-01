@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelsearcher.model;
 
-import by.aurorasoft.fuelsearcher.dictionary.Translatable;
+import by.aurorasoft.fuelsearcher.service.dictionary.Translatable;
 import lombok.Value;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 

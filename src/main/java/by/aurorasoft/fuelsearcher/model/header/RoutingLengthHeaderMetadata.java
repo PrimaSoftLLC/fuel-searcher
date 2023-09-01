@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public final class RoutingLengthHeaderMetadata extends FuelHeaderMetadata {
 
-    public RoutingLengthHeaderMetadata(@Value("${fuel-header-metadata.values.routing-length}") final String[] values,
+    public RoutingLengthHeaderMetadata(@Value("${routing-length}") final String[] values,
                                        final RoutingLengthExtractor routingLengthExtractor) {
         super(values, routingLengthExtractor);
     }

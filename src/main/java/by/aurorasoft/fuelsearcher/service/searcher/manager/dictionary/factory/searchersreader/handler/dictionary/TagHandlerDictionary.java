@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.dictionary;
 
-import by.aurorasoft.fuelsearcher.dictionary.Dictionary;
+import by.aurorasoft.fuelsearcher.service.dictionary.Dictionary;
 import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.taghandler.TagHandler;
 import org.springframework.stereotype.Component;
 

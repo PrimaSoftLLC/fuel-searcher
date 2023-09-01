@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.dictionary.filter.interim;
+package by.aurorasoft.fuelsearcher.service.dictionary.filter.interim;
 
 import by.aurorasoft.fuelsearcher.model.filter.factory.interim.group.GroupFilterFactory;
 import org.springframework.stereotype.Component;

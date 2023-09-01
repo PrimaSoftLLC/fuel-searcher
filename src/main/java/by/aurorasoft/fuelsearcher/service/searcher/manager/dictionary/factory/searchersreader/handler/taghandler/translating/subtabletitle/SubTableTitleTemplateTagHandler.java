@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.taghandler.translating.subtabletitle;
 
-import by.aurorasoft.fuelsearcher.dictionary.SpecificationPropertyExtractorDictionary;
+import by.aurorasoft.fuelsearcher.service.dictionary.SpecificationPropertyExtractorDictionary;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.context.SearchersParsingContext;
 import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.taghandler.translating.TranslatingTagHandler;

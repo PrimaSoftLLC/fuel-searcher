@@ -18,6 +18,7 @@ import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public final class SimpleFuelSearcherTest {
 
@@ -135,8 +136,8 @@ public final class SimpleFuelSearcherTest {
     }
 
     private static FuelHeaderMetadata createDefaultFuelHeaderMetaData() {
-        return FuelHeaderMetadata.builder()
-                .values(new String[]{})
-                .build();
+        final FuelHeaderMetadata mockedMetadata = mock(FuelHeaderMetadata.class);
+        when(mockedMetadata.getValues()).thenReturn(new String[]{});
+        return mockedMetadata;
     }
 }

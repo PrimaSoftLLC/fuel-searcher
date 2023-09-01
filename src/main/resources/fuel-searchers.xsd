@@ -17,7 +17,7 @@
     <xsd:simpleType name="fuel-header-name" final="restriction">
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="длина гона"/>
-            <xsd:enumeration value="норма внесения удобрений"/>
+            <xsd:enumeration value="норма внесения"/>
             <xsd:enumeration value="группа дорог"/>
         </xsd:restriction>
     </xsd:simpleType>

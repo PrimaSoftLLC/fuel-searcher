@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.dictionary;
+package by.aurorasoft.fuelsearcher.service.dictionary;
 
 import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.dictionary;
+package by.aurorasoft.fuelsearcher.service.dictionary;
 
 @FunctionalInterface
 public interface Translatable {

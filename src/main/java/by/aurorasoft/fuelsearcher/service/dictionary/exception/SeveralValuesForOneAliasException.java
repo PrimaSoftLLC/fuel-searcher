@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.dictionary.exception;
+package by.aurorasoft.fuelsearcher.service.dictionary.exception;
 
 public final class SeveralValuesForOneAliasException extends RuntimeException {
 

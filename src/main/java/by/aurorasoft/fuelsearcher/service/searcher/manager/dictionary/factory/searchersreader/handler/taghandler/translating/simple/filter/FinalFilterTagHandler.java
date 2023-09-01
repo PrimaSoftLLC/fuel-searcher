@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.taghandler.translating.simple.filter;
 
-import by.aurorasoft.fuelsearcher.dictionary.filter.FinalFilterFactoryDictionary;
+import by.aurorasoft.fuelsearcher.service.dictionary.filter.FinalFilterFactoryDictionary;
 import by.aurorasoft.fuelsearcher.model.filter.factory.conclusive.FinalFilterFactory;
 import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.context.SearchersParsingContext;
 import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.taghandler.translating.simple.filter.exception.DefaultFiltrationCellIndexNotExistException;
