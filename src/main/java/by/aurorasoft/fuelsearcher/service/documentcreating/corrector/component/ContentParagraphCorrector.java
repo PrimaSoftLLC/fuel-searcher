@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.service.documentcreating.contentcorrector.component;
+package by.aurorasoft.fuelsearcher.service.documentcreating.corrector.component;
 
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 

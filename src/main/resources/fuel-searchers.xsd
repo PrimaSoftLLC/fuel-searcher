@@ -2,7 +2,7 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <!-- ELEMENTS -->
-    <xsd:element name="table-name" type="xsd:string"/>
+    <xsd:element name="table-name" type="table-name"/>
     <xsd:element name="fuel-header-name" type="fuel-header-name"/>
     <xsd:element name="filter-by-group" type="group-filter"/>
     <xsd:element name="filter-by" type="unit-filter"/>
@@ -25,6 +25,12 @@
     <xsd:simpleType name="sub-table-title-template">
         <xsd:restriction base="xsd:string">
             <xsd:pattern value="^([^{}]*\{[^{}]*})+[^{}]*$" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="table-name">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[А-Я ,:]+" />
         </xsd:restriction>
     </xsd:simpleType>
 

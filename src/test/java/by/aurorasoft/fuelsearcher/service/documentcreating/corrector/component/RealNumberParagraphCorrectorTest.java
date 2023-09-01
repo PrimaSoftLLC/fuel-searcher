@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.service.documentcreating.contentcorrector.component;
+package by.aurorasoft.fuelsearcher.service.documentcreating.corrector.component;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

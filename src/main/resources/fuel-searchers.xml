@@ -104,9 +104,7 @@
     <!-- TABLE #7 -->
     <simple-searcher>
 
-        <table-name>
-            ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ПОСЕВОМ СЕЛЬСКОХОЗЯЙСТВЕННЫХ КУЛЬТУР: ПШЕНИЦЫ, РЖИ, ЯЧМЕНЯ, ОВСА, ГОРОХА, ЛЮПИНА, ВИКИ, ВИКООВСЯНОЙ СМЕСИ, ЛЬНА
-        </table-name>
+        <table-name>ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ПОСЕВОМ СЕЛЬСКОХОЗЯЙСТВЕННЫХ КУЛЬТУР: ПШЕНИЦЫ, РЖИ, ЯЧМЕНЯ, ОВСА, ГОРОХА, ЛЮПИНА, ВИКИ, ВИКООВСЯНОЙ СМЕСИ, ЛЬНА</table-name>
 
         <fuel-header-name>длина гона</fuel-header-name>
 
@@ -208,9 +206,7 @@
 
         <fuel-header-name>норма внесения</fuel-header-name>
 
-        <sub-table-title-template>
-            {трактор} с разбрасывателем {механизм}. Производительность погрузчика более 60 т/ч
-        </sub-table-title-template>
+        <sub-table-title-template>{трактор} с разбрасывателем {механизм}. Производительность погрузчика более 60 т/ч</sub-table-title-template>
 
         <filter-chain>
             <filter-by-group>класс груза</filter-by-group>
@@ -384,9 +380,7 @@
 
         <fuel-header-name>длина гона</fuel-header-name>
 
-        <sub-table-title-template>
-            {комбайн} Соотношение массы зерна к массе соломы {соотношение массы зерна к массе соломы}
-        </sub-table-title-template>
+        <sub-table-title-template>{комбайн} Соотношение массы зерна к массе соломы {соотношение массы зерна к массе соломы}</sub-table-title-template>
 
         <filter-chain>
             <filter-by cell-index="2">ширина захвата</filter-by>
@@ -434,9 +428,7 @@
 
         <fuel-header-name>группа дорог</fuel-header-name>
 
-        <sub-table-title-template>
-            ТРАКТОР {трактор} + {механизм}. При механизированной погрузке и разгрузке
-        </sub-table-title-template>
+        <sub-table-title-template>ТРАКТОР {трактор} + {механизм}. При механизированной погрузке и разгрузке</sub-table-title-template>
 
         <filter-chain>
             <filter-by-group>класс груза</filter-by-group>
