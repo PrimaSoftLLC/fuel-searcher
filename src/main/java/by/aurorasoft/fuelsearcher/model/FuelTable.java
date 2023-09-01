@@ -9,9 +9,6 @@ import java.util.List;
 @Value
 public class FuelTable implements Translatable {
     String name;
-
-    //paragraphs and tables
-    //TODO: validate for simle and composite table
     List<IBodyElement> elements;
 
     @Override

@@ -3,7 +3,7 @@ package by.aurorasoft.fuelsearcher.service.searcher;
 import by.aurorasoft.fuelsearcher.builder.BuilderRequiringAllProperties;
 import by.aurorasoft.fuelsearcher.dictionary.Translatable;
 import by.aurorasoft.fuelsearcher.model.Fuel;
-import by.aurorasoft.fuelsearcher.model.FuelHeaderMetadata;
+import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
 import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;

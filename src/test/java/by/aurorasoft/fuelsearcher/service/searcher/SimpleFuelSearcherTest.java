@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelsearcher.service.searcher;
 
-import by.aurorasoft.fuelsearcher.model.FuelHeaderMetadata;
+import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
 import by.aurorasoft.fuelsearcher.model.specification.Specification;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleSearcherBuilder;
@@ -136,8 +136,7 @@ public final class SimpleFuelSearcherTest {
 
     private static FuelHeaderMetadata createDefaultFuelHeaderMetaData() {
         return FuelHeaderMetadata.builder()
-                .name("fuel-header")
-                .values(emptyList())
+                .values(new String[]{})
                 .build();
     }
 }

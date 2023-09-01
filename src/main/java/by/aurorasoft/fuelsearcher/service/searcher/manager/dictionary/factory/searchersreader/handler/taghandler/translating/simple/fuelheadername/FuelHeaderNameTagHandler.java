@@ -1,8 +1,8 @@
 package by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.taghandler.translating.simple.fuelheadername;
 
-import by.aurorasoft.fuelsearcher.model.FuelHeaderMetadata;
+import by.aurorasoft.fuelsearcher.dictionary.FuelHeaderMetadataDictionary;
+import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.context.SearchersParsingContext;
-import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.taghandler.translating.dictionary.FuelHeaderMetadataDictionary;
 import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.taghandler.translating.simple.SimpleTranslatingTagHandler;
 import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.taghandler.translating.simple.fuelheadername.exception.NoSuchFuelHeaderNameException;
 import org.springframework.stereotype.Component;
