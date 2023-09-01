@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.searchersreader.handler.context;
 
-import by.aurorasoft.fuelsearcher.model.FuelHeaderMetadata;
+import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
 import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
@@ -8,7 +8,7 @@ import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.Specific
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher.CompositeSearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
-import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher.FuelSearcherBuilder;
+import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher.SearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleSearcherBuilder;
 import lombok.Getter;
@@ -58,7 +58,7 @@ public final class SearchersParsingContext {
     public void accumulateFuelTable(final FuelTable fuelTable) {
         this.accumulateComponentToCurrentBuilder(
                 fuelTable,
-                FuelSearcherBuilder::fuelTable
+                SearcherBuilder::fuelTable
         );
     }
 
@@ -79,21 +79,21 @@ public final class SearchersParsingContext {
     public void accumulateFuelHeaderMetadata(final FuelHeaderMetadata metadata) {
         this.accumulateComponentToCurrentBuilder(
                 metadata,
-                FuelSearcherBuilder::fuelHeaderMetadata
+                SearcherBuilder::fuelHeaderMetadata
         );
     }
 
     public void accumulateFilter(final InterimFilter filter) {
         this.accumulateComponentToCurrentBuilder(
                 filter,
-                FuelSearcherBuilder::interimFilter
+                SearcherBuilder::interimFilter
         );
     }
 
     public void accumulateFilter(final FinalFilter filter) {
         this.accumulateComponentToCurrentBuilder(
                 filter,
-                FuelSearcherBuilder::finalFilter
+                SearcherBuilder::finalFilter
         );
     }
 
@@ -114,19 +114,19 @@ public final class SearchersParsingContext {
     }
 
     private <T> void accumulateComponentToCurrentBuilder(final T component,
-                                                         final BiConsumer<FuelSearcherBuilder<?>, T> accumulatingOperation) {
-        final FuelSearcherBuilder<?> currentBuilder = this.findCurrentBuilder();
+                                                         final BiConsumer<SearcherBuilder<?>, T> accumulatingOperation) {
+        final SearcherBuilder<?> currentBuilder = this.findCurrentBuilder();
         accumulateComponent(currentBuilder, component, accumulatingOperation);
     }
 
-    private static <T, B extends FuelSearcherBuilder<?>> void accumulateComponent(final B builder,
-                                                                                  final T component,
-                                                                                  final BiConsumer<B, T> accumulatingOperation) {
+    private static <T, B extends SearcherBuilder<?>> void accumulateComponent(final B builder,
+                                                                              final T component,
+                                                                              final BiConsumer<B, T> accumulatingOperation) {
         checkIfBuilderInitialized(builder);
         accumulatingOperation.accept(builder, component);
     }
 
-    private FuelSearcherBuilder<?> findCurrentBuilder() {
+    private SearcherBuilder<?> findCurrentBuilder() {
         if (this.simpleSearcherBuilder != null) {
             return this.simpleSearcherBuilder;
         } else {
@@ -134,14 +134,14 @@ public final class SearchersParsingContext {
         }
     }
 
-    private static void checkIfBuilderInitialized(final FuelSearcherBuilder<?> builder) {
+    private static void checkIfBuilderInitialized(final SearcherBuilder<?> builder) {
         if (builder == null) {
             throw new IllegalStateException("Builder isn't initialized");
         }
     }
 
-    private <B extends FuelSearcherBuilder<?>> void buildSearcher(final Function<SearchersParsingContext, B> builderGetter,
-                                                                  final BiConsumer<SearchersParsingContext, B> builderSetter) {
+    private <B extends SearcherBuilder<?>> void buildSearcher(final Function<SearchersParsingContext, B> builderGetter,
+                                                              final BiConsumer<SearchersParsingContext, B> builderSetter) {
         final B builder = builderGetter.apply(this);
         checkIfBuilderInitialized(builder);
         final FuelSearcher searcher = builder.build();

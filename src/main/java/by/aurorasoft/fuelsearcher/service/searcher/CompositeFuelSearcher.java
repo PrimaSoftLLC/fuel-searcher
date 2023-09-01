@@ -1,12 +1,13 @@
 package by.aurorasoft.fuelsearcher.service.searcher;
 
-import by.aurorasoft.fuelsearcher.model.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.specification.Specification;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelsearcher.service.searcher.filterchain.FilterChain;
 import lombok.NoArgsConstructor;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 
 import java.util.*;
@@ -67,7 +68,11 @@ public final class CompositeFuelSearcher extends FuelSearcher {
 
     private static IntStream findTitleIndexes(final List<IBodyElement> elements) {
         //first element is paragraph(sub table's title), second element is sub table and etc.
-        return iterate(0, i -> i < elements.size(), i -> i + 2);
+        return findIndexesAfterOne(elements, 0);
+    }
+
+    private static IntStream findIndexesAfterOne(final List<IBodyElement> elements, final int firstIndex) {
+        return iterate(firstIndex, i -> i < elements.size(), i -> i + 2);
     }
 
     private static XWPFTable extractSubTableByTitleIndex(final int titleIndex, final List<IBodyElement> elements) {
@@ -77,7 +82,10 @@ public final class CompositeFuelSearcher extends FuelSearcher {
     }
 
     @NoArgsConstructor(access = PRIVATE)
-    public static final class CompositeSearcherBuilder extends FuelSearcherBuilder<CompositeFuelSearcher> {
+    public static final class CompositeSearcherBuilder extends SearcherBuilder<CompositeFuelSearcher> {
+        private static final String NOT_VALID_ELEMENTS_MESSAGE = "Paragraphs should be located in not even indexes, "
+                + "tables should be located in even index";
+
         private String subTableTitleTemplate;
         private List<SpecificationPropertyExtractor> subTableTitleTemplateArgumentExtractors;
 
@@ -88,6 +96,16 @@ public final class CompositeFuelSearcher extends FuelSearcher {
         public void subTableTitleTemplateArgumentExtractor(final SpecificationPropertyExtractor extractor) {
             this.createSubTableTitleTemplateArgumentExtractorsIfNecessary();
             this.subTableTitleTemplateArgumentExtractors.add(extractor);
+        }
+
+        @Override
+        protected boolean isValidElements(final List<IBodyElement> elements) {
+            return areParagraphsOnEvenIndexes(elements) && areTablesOnNotEvenIndexes(elements);
+        }
+
+        @Override
+        protected String findNotValidElementsMessage() {
+            return NOT_VALID_ELEMENTS_MESSAGE;
         }
 
         @Override
@@ -114,5 +132,20 @@ public final class CompositeFuelSearcher extends FuelSearcher {
             }
         }
 
+        private static boolean areParagraphsOnEvenIndexes(final List<IBodyElement> elements) {
+            return areInstancesAfterOne(elements, 0, XWPFParagraph.class);
+        }
+
+        private static boolean areTablesOnNotEvenIndexes(final List<IBodyElement> elements) {
+            return areInstancesAfterOne(elements, 1, XWPFTable.class);
+        }
+
+        private static <T extends IBodyElement> boolean areInstancesAfterOne(final List<IBodyElement> elements,
+                                                                             final int firstElementIndex,
+                                                                             final Class<T> type) {
+            return findIndexesAfterOne(elements, firstElementIndex)
+                    .mapToObj(elements::get)
+                    .allMatch(type::isInstance);
+        }
     }
 }
