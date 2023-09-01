@@ -3,7 +3,6 @@ package by.aurorasoft.fuelsearcher.service.searcher;
 import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
 import by.aurorasoft.fuelsearcher.model.specification.Specification;
-import by.aurorasoft.fuelsearcher.service.searcher.filterchain.FilterChain;
 import lombok.NoArgsConstructor;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;

@@ -1,11 +1,9 @@
-package by.aurorasoft.fuelsearcher.service.searcher.manager;
+package by.aurorasoft.fuelsearcher.service.searcher;
 
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.Specification;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.TableNameExtractor;
-import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
 import by.aurorasoft.fuelsearcher.service.dictionary.fuelsearcher.FuelSearcherDictionary;
-import by.aurorasoft.fuelsearcher.service.searcher.FuelSearchingManager;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

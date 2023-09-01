@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.service.searcher.filterchain;
+package by.aurorasoft.fuelsearcher.service.searcher;
 
 import by.aurorasoft.fuelsearcher.service.builder.BuilderRequiringAllProperties;
 import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
@@ -23,22 +23,29 @@ public class FilterChain {
     List<InterimFilter> interimFilters;
     FinalFilter finalFilter;
 
+    public static FilterChainBuilder builder() {
+        return new FilterChainBuilder();
+    }
+
     public Optional<XWPFTableRow> filter(final List<XWPFTableRow> rows, final Specification specification) {
         final FinalFilteringFunction filteringFunction = this.createFilteringFunction(specification);
         return filteringFunction.apply(rows);
     }
 
-    public static FilterChainBuilder builder() {
-        return new FilterChainBuilder();
-    }
-
     private FinalFilteringFunction createFilteringFunction(final Specification specification) {
-        final FinalFilteringFunction finalFilteringFunction = rows -> this.finalFilter.filter(rows, specification);
+        final FinalFilteringFunction finalFilteringFunction = createFinalFilteringFunction(
+                this.finalFilter, specification
+        );
         return this.interimFilters.stream()
                 .map(filter -> createInterimFilteringFunction(filter, specification))
                 .reduce(InterimFilteringFunction::andThenInterimFunction)
                 .map(filteringFunction -> filteringFunction.andThenFinalFilter(finalFilteringFunction))
                 .orElse(finalFilteringFunction);
+    }
+
+    private static FinalFilteringFunction createFinalFilteringFunction(final FinalFilter filter,
+                                                                       final Specification specification) {
+        return rows -> filter.filter(rows, specification);
     }
 
     private static InterimFilteringFunction createInterimFilteringFunction(final InterimFilter filter,
