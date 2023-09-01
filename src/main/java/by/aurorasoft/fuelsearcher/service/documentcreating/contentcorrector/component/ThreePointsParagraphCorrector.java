@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import java.util.regex.MatchResult;
 
 @Component
-public final class ThreePointsParagraphCorrector extends AbstractContentParagraphCorrector {
+public final class ThreePointsParagraphCorrector extends ContentParagraphCorrector {
     private static final String REPLACED_REGEX = "…";
     private static final String REPLACEMENT = "...";
 

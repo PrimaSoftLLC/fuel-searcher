@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import java.util.regex.MatchResult;
 
 @Component
-public final class NewLineParagraphCorrector extends AbstractContentParagraphCorrector {
+public final class NewLineParagraphCorrector extends ContentParagraphCorrector {
     private static final String REPLACED_REGEX = "\n+";
     private static final String REPLACEMENT = " ";
 

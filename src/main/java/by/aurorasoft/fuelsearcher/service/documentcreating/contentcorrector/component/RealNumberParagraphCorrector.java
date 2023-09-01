@@ -8,7 +8,7 @@ import java.util.regex.MatchResult;
 import static java.util.Optional.empty;
 
 @Component
-public final class RealNumberParagraphCorrector extends AbstractContentParagraphCorrector {
+public final class RealNumberParagraphCorrector extends ContentParagraphCorrector {
     private static final char ZERO_CHARACTER = '0';
     private static final char POINT_CHARACTER = '.';
 
