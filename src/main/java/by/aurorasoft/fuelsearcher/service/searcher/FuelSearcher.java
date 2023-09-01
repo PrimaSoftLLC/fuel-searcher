@@ -143,7 +143,7 @@ public abstract class FuelSearcher implements Translatable {
         int cellIndexConsumption;
     }
 
-    public static abstract class FuelSearcherBuilder<S extends FuelSearcher> extends BuilderRequiringAllProperties<S> {
+    public static abstract class SearcherBuilder<S extends FuelSearcher> extends BuilderRequiringAllProperties<S> {
         private FuelTable fuelTable;
         private FuelHeaderMetadata fuelHeaderMetadata;
         private FilterChainBuilder filterChainBuilder;
@@ -177,9 +177,14 @@ public abstract class FuelSearcher implements Translatable {
 
         @Override
         protected final S buildAfterStateValidation() {
+            this.validateFuelTable(this.fuelTable);
             final FilterChain filterChain = this.filterChainBuilder.build();
             return this.build(this.fuelTable, this.fuelHeaderMetadata, filterChain);
         }
+
+        protected abstract boolean isValidElements(final List<IBodyElement> elements);
+
+        protected abstract String findNotValidElementsMessage();
 
         protected abstract S build(final FuelTable fuelTable,
                                    final FuelHeaderMetadata fuelHeaderMetadata,
@@ -190,6 +195,14 @@ public abstract class FuelSearcher implements Translatable {
         private void createFilterChainBuilderIfNecessary() {
             if (this.filterChainBuilder == null) {
                 this.filterChainBuilder = FilterChain.builder();
+            }
+        }
+
+        private void validateFuelTable(final FuelTable fuelTable) {
+            final List<IBodyElement> elements = fuelTable.getElements();
+            if (!this.isValidElements(elements)) {
+                final String exceptionDescription = this.findNotValidElementsMessage();
+                throw new IllegalArgumentException(exceptionDescription);
             }
         }
     }
