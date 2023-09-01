@@ -1,18 +1,16 @@
 package by.aurorasoft.fuelsearcher.service.searcher;
 
-import by.aurorasoft.fuelsearcher.service.builder.BuilderRequiringAllProperties;
-import by.aurorasoft.fuelsearcher.service.dictionary.Translatable;
 import by.aurorasoft.fuelsearcher.model.Fuel;
-import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
 import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
+import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.specification.Specification;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
-import by.aurorasoft.fuelsearcher.service.searcher.exception.FuelOffsetNotExistException;
+import by.aurorasoft.fuelsearcher.service.builder.BuilderRequiringAllProperties;
+import by.aurorasoft.fuelsearcher.service.dictionary.Translatable;
 import by.aurorasoft.fuelsearcher.service.searcher.filterchain.FilterChain;
 import by.aurorasoft.fuelsearcher.service.searcher.filterchain.FilterChain.FilterChainBuilder;
-import lombok.Value;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
@@ -122,25 +120,45 @@ public abstract class FuelSearcher implements Translatable {
     }
 
     private static double extractGenerationNorm(final FuelLocation location) {
-        return extractFuelComponent(location, FuelLocation::getCellIndexGenerationNorm);
+        return extractFuelComponent(location, FuelLocation::cellIndexGenerationNorm);
     }
 
     private static double extractConsumption(final FuelLocation location) {
-        return extractFuelComponent(location, FuelLocation::getCellIndexConsumption);
+        return extractFuelComponent(location, FuelLocation::cellIndexConsumption);
     }
 
     private static double extractFuelComponent(final FuelLocation location,
                                                final ToIntFunction<FuelLocation> cellIndexGetter) {
-        final XWPFTableRow row = location.getRow();
+        final XWPFTableRow row = location.row();
         final int cellIndex = cellIndexGetter.applyAsInt(location);
         return extractDoubleValue(row, cellIndex);
     }
 
-    @Value
-    private static class FuelLocation {
-        XWPFTableRow row;
-        int cellIndexGenerationNorm;
-        int cellIndexConsumption;
+
+    private record FuelLocation(XWPFTableRow row, int cellIndexGenerationNorm, int cellIndexConsumption) {
+    }
+
+    private static final class FuelOffsetNotExistException extends RuntimeException {
+
+        @SuppressWarnings("unused")
+        public FuelOffsetNotExistException() {
+
+        }
+
+        public FuelOffsetNotExistException(final String description) {
+            super(description);
+        }
+
+        @SuppressWarnings("unused")
+        public FuelOffsetNotExistException(final Exception cause) {
+            super(cause);
+        }
+
+        @SuppressWarnings("unused")
+        public FuelOffsetNotExistException(final String description, final Exception cause) {
+            super(description, cause);
+        }
+
     }
 
     public static abstract class SearcherBuilder<S extends FuelSearcher> extends BuilderRequiringAllProperties<S> {

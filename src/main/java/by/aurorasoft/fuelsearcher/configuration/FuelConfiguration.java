@@ -2,8 +2,8 @@ package by.aurorasoft.fuelsearcher.configuration;
 
 import by.aurorasoft.fuelsearcher.model.FuelDocument;
 import by.aurorasoft.fuelsearcher.service.documentcreating.FuelDocumentCreatingService;
-import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.FuelSearcherDictionary;
-import by.aurorasoft.fuelsearcher.service.searcher.manager.dictionary.factory.FuelSearcherDictionaryFactory;
+import by.aurorasoft.fuelsearcher.service.dictionary.fuelsearcher.FuelSearcherDictionary;
+import by.aurorasoft.fuelsearcher.service.dictionary.fuelsearcher.factory.FuelSearcherDictionaryFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;

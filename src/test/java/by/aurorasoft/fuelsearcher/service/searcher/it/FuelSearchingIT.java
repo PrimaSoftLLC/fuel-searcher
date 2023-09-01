@@ -4,7 +4,7 @@ import by.aurorasoft.fuelsearcher.base.AbstractContextTest;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.Specification;
 import by.aurorasoft.fuelsearcher.service.searcher.it.argumentprovider.*;
-import by.aurorasoft.fuelsearcher.service.searcher.manager.FuelSearchingManager;
+import by.aurorasoft.fuelsearcher.service.searcher.FuelSearchingManager;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
