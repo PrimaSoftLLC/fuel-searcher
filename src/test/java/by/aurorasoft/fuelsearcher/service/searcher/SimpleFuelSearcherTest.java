@@ -1,8 +1,8 @@
 package by.aurorasoft.fuelsearcher.service.searcher;
 
-import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
 import by.aurorasoft.fuelsearcher.model.specification.Specification;
+import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleSearcherBuilder;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
@@ -10,14 +10,13 @@ import org.junit.Test;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static java.util.Collections.emptyList;
-import static java.util.Collections.singletonList;
+import static java.util.Collections.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public final class SimpleFuelSearcherTest {
 
@@ -104,10 +103,16 @@ public final class SimpleFuelSearcherTest {
     public void searcherShouldBeBuilt() {
         final SimpleSearcherBuilder givenBuilder = SimpleFuelSearcher.builder();
         final FuelTable givenFuelTable = mock(FuelTable.class);
-        final FuelHeaderMetadata givenFuelHeaderMetadata = createDefaultFuelHeaderMetaData();
+        final Map<String, Integer> givenFuelOffsetsByHeaders = emptyMap();
         final FilterChain givenFilterChain = mock(FilterChain.class);
+        final SpecificationPropertyExtractor givenHeaderExtractor = mock(SpecificationPropertyExtractor.class);
 
-        final SimpleFuelSearcher actual = givenBuilder.build(givenFuelTable, givenFuelHeaderMetadata, givenFilterChain);
+        final SimpleFuelSearcher actual = givenBuilder.build(
+                givenFuelTable,
+                givenFuelOffsetsByHeaders,
+                givenFilterChain,
+                givenHeaderExtractor
+        );
         assertNotNull(actual);
     }
 
@@ -123,20 +128,13 @@ public final class SimpleFuelSearcherTest {
     private static SimpleFuelSearcher createSearcher()
             throws Exception {
         final Constructor<SimpleFuelSearcher> constructor = SimpleFuelSearcher.class.getDeclaredConstructor(
-                FuelTable.class, FuelHeaderMetadata.class, FilterChain.class
+                FuelTable.class, Map.class, FilterChain.class, SpecificationPropertyExtractor.class
         );
         constructor.setAccessible(true);
         try {
-            final FuelHeaderMetadata fuelHeaderMetadata = createDefaultFuelHeaderMetaData();
-            return constructor.newInstance(null, fuelHeaderMetadata, null);
+            return constructor.newInstance(null, null, null, null);
         } finally {
             constructor.setAccessible(false);
         }
-    }
-
-    private static FuelHeaderMetadata createDefaultFuelHeaderMetaData() {
-        final FuelHeaderMetadata mockedMetadata = mock(FuelHeaderMetadata.class);
-        when(mockedMetadata.getValues()).thenReturn(new String[]{});
-        return mockedMetadata;
     }
 }
