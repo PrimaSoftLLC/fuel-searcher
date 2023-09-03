@@ -58,7 +58,7 @@ public final class SearchersParsingContext {
     public void accumulateFuelTable(final FuelTable fuelTable) {
         this.accumulateComponentToCurrentBuilder(
                 fuelTable,
-                SearcherBuilder::fuelTable
+                SearcherBuilder::table
         );
     }
 
@@ -79,7 +79,7 @@ public final class SearchersParsingContext {
     public void accumulateFuelHeaderMetadata(final FuelHeaderMetadata metadata) {
         this.accumulateComponentToCurrentBuilder(
                 metadata,
-                SearcherBuilder::fuelHeaderMetadata
+                SearcherBuilder::headerMetadata
         );
     }
 

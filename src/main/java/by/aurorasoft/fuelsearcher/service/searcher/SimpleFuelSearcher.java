@@ -21,11 +21,11 @@ import static lombok.AccessLevel.PRIVATE;
  */
 public final class SimpleFuelSearcher extends FuelSearcher {
 
-    private SimpleFuelSearcher(final FuelTable fuelTable,
+    private SimpleFuelSearcher(final FuelTable table,
                                final Map<String, Integer> fuelOffsetsByHeaders,
                                final FilterChain filterChain,
-                               final SpecificationPropertyExtractor fuelHeaderExtractor) {
-        super(fuelTable, fuelOffsetsByHeaders, filterChain, fuelHeaderExtractor);
+                               final SpecificationPropertyExtractor headerExtractor) {
+        super(table, fuelOffsetsByHeaders, filterChain, headerExtractor);
     }
 
     @Override
@@ -54,11 +54,11 @@ public final class SimpleFuelSearcher extends FuelSearcher {
         }
 
         @Override
-        protected SimpleFuelSearcher build(final FuelTable fuelTable,
+        protected SimpleFuelSearcher build(final FuelTable table,
                                            final Map<String, Integer> fuelOffsetsByHeaders,
                                            final FilterChain filterChain,
-                                           final SpecificationPropertyExtractor fuelHeaderExtractor) {
-            return new SimpleFuelSearcher(fuelTable, fuelOffsetsByHeaders, filterChain, fuelHeaderExtractor);
+                                           final SpecificationPropertyExtractor headerExtractor) {
+            return new SimpleFuelSearcher(table, fuelOffsetsByHeaders, filterChain, headerExtractor);
         }
 
         @Override

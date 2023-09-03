@@ -27,10 +27,10 @@ public final class CompositeFuelSearcher extends FuelSearcher {
     private CompositeFuelSearcher(final FuelTable fuelTable,
                                   final Map<String, Integer> fuelOffsetsByHeaders,
                                   final FilterChain filterChain,
-                                  final SpecificationPropertyExtractor fuelHeaderExtractor,
+                                  final SpecificationPropertyExtractor headerExtractor,
                                   final String subTableTitleTemplate,
                                   final List<SpecificationPropertyExtractor> subTableTitleTemplateArgumentExtractors) {
-        super(fuelTable, fuelOffsetsByHeaders, filterChain, fuelHeaderExtractor);
+        super(fuelTable, fuelOffsetsByHeaders, filterChain, headerExtractor);
         this.subTableTitleTemplate = subTableTitleTemplate;
         this.subTableTitleTemplateArgumentExtractors = subTableTitleTemplateArgumentExtractors;
     }
@@ -108,15 +108,15 @@ public final class CompositeFuelSearcher extends FuelSearcher {
         }
 
         @Override
-        protected CompositeFuelSearcher build(final FuelTable fuelTable,
+        protected CompositeFuelSearcher build(final FuelTable table,
                                               final Map<String, Integer> fuelOffsetsByHeaders,
                                               final FilterChain filterChain,
-                                              final SpecificationPropertyExtractor fuelHeaderExtractor) {
+                                              final SpecificationPropertyExtractor headerExtractor) {
             return new CompositeFuelSearcher(
-                    fuelTable,
+                    table,
                     fuelOffsetsByHeaders,
                     filterChain,
-                    fuelHeaderExtractor,
+                    headerExtractor,
                     this.subTableTitleTemplate,
                     this.subTableTitleTemplateArgumentExtractors
             );
