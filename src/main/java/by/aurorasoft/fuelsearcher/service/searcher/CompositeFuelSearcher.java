@@ -1,7 +1,6 @@
 package by.aurorasoft.fuelsearcher.service.searcher;
 
 import by.aurorasoft.fuelsearcher.model.FuelTable;
-import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.specification.Specification;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import lombok.NoArgsConstructor;
@@ -26,11 +25,12 @@ public final class CompositeFuelSearcher extends FuelSearcher {
     private final List<SpecificationPropertyExtractor> subTableTitleTemplateArgumentExtractors;
 
     private CompositeFuelSearcher(final FuelTable fuelTable,
-                                  final FuelHeaderMetadata fuelHeaderMetadata,
+                                  final Map<String, Integer> fuelOffsetsByHeaders,
                                   final FilterChain filterChain,
+                                  final SpecificationPropertyExtractor fuelHeaderExtractor,
                                   final String subTableTitleTemplate,
                                   final List<SpecificationPropertyExtractor> subTableTitleTemplateArgumentExtractors) {
-        super(fuelTable, fuelHeaderMetadata, filterChain);
+        super(fuelTable, fuelOffsetsByHeaders, filterChain, fuelHeaderExtractor);
         this.subTableTitleTemplate = subTableTitleTemplate;
         this.subTableTitleTemplateArgumentExtractors = subTableTitleTemplateArgumentExtractors;
     }
@@ -109,12 +109,14 @@ public final class CompositeFuelSearcher extends FuelSearcher {
 
         @Override
         protected CompositeFuelSearcher build(final FuelTable fuelTable,
-                                              final FuelHeaderMetadata fuelHeaderMetadata,
-                                              final FilterChain filterChain) {
+                                              final Map<String, Integer> fuelOffsetsByHeaders,
+                                              final FilterChain filterChain,
+                                              final SpecificationPropertyExtractor fuelHeaderExtractor) {
             return new CompositeFuelSearcher(
                     fuelTable,
-                    fuelHeaderMetadata,
+                    fuelOffsetsByHeaders,
                     filterChain,
+                    fuelHeaderExtractor,
                     this.subTableTitleTemplate,
                     this.subTableTitleTemplateArgumentExtractors
             );
