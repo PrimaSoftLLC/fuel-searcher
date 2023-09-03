@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public final class FuelDocumentFactory {
     private final FuelDocumentLoader documentLoader;
-    private final FuelDocumentCorrector contentCorrector;
+    private final FuelDocumentCorrector documentCorrector;
 
     public FuelDocument create(final String filePath) {
         final FuelDocument fuelDocument = this.documentLoader.load(filePath);
-        this.contentCorrector.correct(fuelDocument);
+        this.documentCorrector.correct(fuelDocument);
         return fuelDocument;
     }
 }
