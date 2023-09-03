@@ -1,13 +1,14 @@
 package by.aurorasoft.fuelsearcher.service.searcher;
 
-import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
 import by.aurorasoft.fuelsearcher.model.specification.Specification;
+import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import lombok.NoArgsConstructor;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -21,9 +22,10 @@ import static lombok.AccessLevel.PRIVATE;
 public final class SimpleFuelSearcher extends FuelSearcher {
 
     private SimpleFuelSearcher(final FuelTable fuelTable,
-                               final FuelHeaderMetadata fuelHeaderMetadata,
-                               final FilterChain filterChain) {
-        super(fuelTable, fuelHeaderMetadata, filterChain);
+                               final Map<String, Integer> fuelOffsetsByHeaders,
+                               final FilterChain filterChain,
+                               final SpecificationPropertyExtractor fuelHeaderExtractor) {
+        super(fuelTable, fuelOffsetsByHeaders, filterChain, fuelHeaderExtractor);
     }
 
     @Override
@@ -53,9 +55,10 @@ public final class SimpleFuelSearcher extends FuelSearcher {
 
         @Override
         protected SimpleFuelSearcher build(final FuelTable fuelTable,
-                                           final FuelHeaderMetadata fuelHeaderMetadata,
-                                           final FilterChain filterChain) {
-            return new SimpleFuelSearcher(fuelTable, fuelHeaderMetadata, filterChain);
+                                           final Map<String, Integer> fuelOffsetsByHeaders,
+                                           final FilterChain filterChain,
+                                           final SpecificationPropertyExtractor fuelHeaderExtractor) {
+            return new SimpleFuelSearcher(fuelTable, fuelOffsetsByHeaders, filterChain, fuelHeaderExtractor);
         }
 
         @Override
