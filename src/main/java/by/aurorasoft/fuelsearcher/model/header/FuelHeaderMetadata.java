@@ -9,10 +9,10 @@ import lombok.Getter;
 @Getter
 public abstract class FuelHeaderMetadata implements Translatable {
     private final String[] values;
-    private final SpecificationPropertyExtractor fuelHeaderExtractor;
+    private final SpecificationPropertyExtractor headerExtractor;
 
     @Override
     public final String findAlias() {
-        return this.fuelHeaderExtractor.findAlias();
+        return this.headerExtractor.findAlias();
     }
 }

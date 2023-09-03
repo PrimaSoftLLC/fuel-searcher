@@ -36,12 +36,13 @@ public abstract class FuelSearcher implements Translatable {
     private final SpecificationPropertyExtractor fuelHeaderExtractor;
 
     public FuelSearcher(final FuelTable fuelTable,
-                        final FuelHeaderMetadata fuelHeaderMetadata,
-                        final FilterChain filterChain) {
+                        final Map<String, Integer> fuelOffsetsByHeaders,
+                        final FilterChain filterChain,
+                        final SpecificationPropertyExtractor fuelHeaderExtractor) {
         this.fuelTable = fuelTable;
-        this.fuelOffsetsByHeaders = createFuelOffsetsByHeaders(fuelHeaderMetadata);
+        this.fuelOffsetsByHeaders = fuelOffsetsByHeaders;
         this.filterChain = filterChain;
-        this.fuelHeaderExtractor = fuelHeaderMetadata.getFuelHeaderExtractor();
+        this.fuelHeaderExtractor = fuelHeaderExtractor;
     }
 
     @Override
@@ -58,18 +59,6 @@ public abstract class FuelSearcher implements Translatable {
 
     protected abstract Optional<XWPFTable> findSubTable(final List<IBodyElement> elements,
                                                         final Specification specification);
-
-    private static Map<String, Integer> createFuelOffsetsByHeaders(final FuelHeaderMetadata metadata) {
-        final String[] values = metadata.getValues();
-        return range(0, values.length)
-                .boxed()
-                .collect(
-                        toMap(
-                                i -> values[i],
-                                identity()
-                        )
-                );
-    }
 
     private Optional<Fuel> findFuel(final List<XWPFTableRow> subTableRows, final Specification specification) {
         final XWPFTableRow headersRow = subTableRows.get(ROW_INDEX_FUEL_HEADERS);
@@ -137,29 +126,6 @@ public abstract class FuelSearcher implements Translatable {
     private record FuelLocation(XWPFTableRow row, int cellIndexGenerationNorm, int cellIndexConsumption) {
     }
 
-    private static final class FuelOffsetNotExistException extends RuntimeException {
-
-        @SuppressWarnings("unused")
-        public FuelOffsetNotExistException() {
-
-        }
-
-        public FuelOffsetNotExistException(final String description) {
-            super(description);
-        }
-
-        @SuppressWarnings("unused")
-        public FuelOffsetNotExistException(final Exception cause) {
-            super(cause);
-        }
-
-        @SuppressWarnings("unused")
-        public FuelOffsetNotExistException(final String description, final Exception cause) {
-            super(description, cause);
-        }
-
-    }
-
     public static abstract class SearcherBuilder<S extends FuelSearcher> extends BuilderRequiringAllProperties<S> {
         private FuelTable fuelTable;
         private FuelHeaderMetadata fuelHeaderMetadata;
@@ -195,8 +161,10 @@ public abstract class FuelSearcher implements Translatable {
         @Override
         protected final S buildAfterStateValidation() {
             this.validateFuelTable(this.fuelTable);
+            final Map<String, Integer> fuelOffsetsByHeaders = createFuelOffsetsByHeaders(this.fuelHeaderMetadata);
             final FilterChain filterChain = this.filterChainBuilder.build();
-            return this.build(this.fuelTable, this.fuelHeaderMetadata, filterChain);
+            final SpecificationPropertyExtractor fuelHeaderExtractor = this.fuelHeaderMetadata.getHeaderExtractor();
+            return this.build(this.fuelTable, fuelOffsetsByHeaders, filterChain, fuelHeaderExtractor);
         }
 
         protected abstract boolean isValidElements(final List<IBodyElement> elements);
@@ -204,8 +172,9 @@ public abstract class FuelSearcher implements Translatable {
         protected abstract String findNotValidElementsMessage();
 
         protected abstract S build(final FuelTable fuelTable,
-                                   final FuelHeaderMetadata fuelHeaderMetadata,
-                                   final FilterChain filterChain);
+                                   final Map<String, Integer> fuelOffsetsByHeaders,
+                                   final FilterChain filterChain,
+                                   final SpecificationPropertyExtractor fuelHeaderExtractor);
 
         protected abstract Stream<Object> findAdditionalProperties();
 
@@ -222,5 +191,40 @@ public abstract class FuelSearcher implements Translatable {
                 throw new IllegalArgumentException(exceptionDescription);
             }
         }
+
+        private static Map<String, Integer> createFuelOffsetsByHeaders(final FuelHeaderMetadata metadata) {
+            final String[] values = metadata.getValues();
+            return range(0, values.length)
+                    .boxed()
+                    .collect(
+                            toMap(
+                                    i -> values[i],
+                                    identity()
+                            )
+                    );
+        }
+    }
+
+    private static final class FuelOffsetNotExistException extends RuntimeException {
+
+        @SuppressWarnings("unused")
+        public FuelOffsetNotExistException() {
+
+        }
+
+        public FuelOffsetNotExistException(final String description) {
+            super(description);
+        }
+
+        @SuppressWarnings("unused")
+        public FuelOffsetNotExistException(final Exception cause) {
+            super(cause);
+        }
+
+        @SuppressWarnings("unused")
+        public FuelOffsetNotExistException(final String description, final Exception cause) {
+            super(description, cause);
+        }
+
     }
 }
