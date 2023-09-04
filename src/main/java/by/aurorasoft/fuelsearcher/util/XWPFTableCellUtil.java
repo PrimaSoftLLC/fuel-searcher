@@ -8,6 +8,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 public final class XWPFTableCellUtil {
 
     public static boolean isEmpty(final XWPFTableCell cell) {
+        //TODO: extract paragraphs and use XWPFParagraphUtil.isEmpty
         return cell.getText() == null || cell.getText().equals("");
     }
 

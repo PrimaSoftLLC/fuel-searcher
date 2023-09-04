@@ -1,22 +1,18 @@
-package by.aurorasoft.fuelsearcher.service.searcher.it.argumentprovider;
+package by.aurorasoft.fuelsearcher.it.argumentsprovider;
 
+import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
-import org.junit.jupiter.params.provider.Arguments;
 
-import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
-import static java.util.Optional.empty;
-
-public final class EleventhTableFuelSearchingArgumentsProvider extends AbstractTableFuelSearchingArgumentsProvider {
+public final class EleventhTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
 
     @Override
-    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
+    protected Stream<FuelSearchingArguments> createFuelSearchingArguments() {
         return Stream.of(
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ")
                                 .tractor("CASE IN Puma 210")
                                 .machinery("AMAZONE ZG B 8200 SUPER")
@@ -24,11 +20,11 @@ public final class EleventhTableFuelSearchingArgumentsProvider extends AbstractT
                                 .spreadRate("до 2")
                                 .routingLength("Менее 150")
                                 .fertilizerType("Гранулированные удобрения")
-                                .build(),
-                        optionalFuelFactory.apply(71.2, 1.42)
-                ),
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .expected(new Fuel(71.2, 1.42))
+                        .build(),
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ")
                                 .tractor("CASE IN Puma 210")
                                 .machinery("Amazone ZA M 3000")
@@ -36,11 +32,11 @@ public final class EleventhTableFuelSearchingArgumentsProvider extends AbstractT
                                 .spreadRate("6.1...8")
                                 .routingLength("Менее 150")
                                 .fertilizerType("Кристаллические удобрения")
-                                .build(),
-                        optionalFuelFactory.apply(40.3, 1.95)
-                ),
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .expected(new Fuel(40.3, 1.95))
+                        .build(),
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ")
                                 .tractor("Беларус 1523")
                                 .machinery("УРМ 10")
@@ -48,11 +44,11 @@ public final class EleventhTableFuelSearchingArgumentsProvider extends AbstractT
                                 .spreadRate("8.1...10")
                                 .routingLength("Более 1000")
                                 .fertilizerType("Гранулированные удобрения")
-                                .build(),
-                        optionalFuelFactory.apply(76.6, 1.19)
-                ),
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .expected(new Fuel(76.6, 1.19))
+                        .build(),
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ")
                                 .tractor("Беларус 1523")
                                 .machinery("REWO 8200")
@@ -60,11 +56,11 @@ public final class EleventhTableFuelSearchingArgumentsProvider extends AbstractT
                                 .spreadRate("6.1...8")
                                 .routingLength("150-200")
                                 .fertilizerType("Пылевидные удобрения")
-                                .build(),
-                        optionalFuelFactory.apply(37.0, 2.11)
-                ),
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .expected(new Fuel(37, 2.11))
+                        .build(),
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ")
                                 .tractor("Беларус 1523")
                                 .machinery("SULKY XT 160")
@@ -72,11 +68,11 @@ public final class EleventhTableFuelSearchingArgumentsProvider extends AbstractT
                                 .spreadRate("2.1...4")
                                 .routingLength("150-200")
                                 .fertilizerType("Гранулированные удобрения")
-                                .build(),
-                        optionalFuelFactory.apply(73.8, 1.4)
-                ),
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .expected(new Fuel(73.8, 1.4))
+                        .build(),
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ")
                                 .tractor("Беларус 1221")
                                 .machinery("RCW 10000")
@@ -84,11 +80,11 @@ public final class EleventhTableFuelSearchingArgumentsProvider extends AbstractT
                                 .spreadRate("8.1...10")
                                 .routingLength("Более 1000")
                                 .fertilizerType("Пылевидные удобрения")
-                                .build(),
-                        optionalFuelFactory.apply(29.3, 2.24)
-                ),
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .expected(new Fuel(29.3, 2.24))
+                        .build(),
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ")
                                 .tractor("Беларус 1221")
                                 .machinery("Amazone ZA-M-1200")
@@ -96,11 +92,11 @@ public final class EleventhTableFuelSearchingArgumentsProvider extends AbstractT
                                 .spreadRate("8.1...10")
                                 .routingLength("150-200")
                                 .fertilizerType("Гранулированные удобрения")
-                                .build(),
-                        optionalFuelFactory.apply(27.4, 1.99)
-                ),
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .expected(new Fuel(27.4, 1.99))
+                        .build(),
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ")
                                 .tractor("New Holland TD 5.110")
                                 .machinery("Amazone ZA-M-1001 с надставкой бункера 500 л")
@@ -108,11 +104,11 @@ public final class EleventhTableFuelSearchingArgumentsProvider extends AbstractT
                                 .spreadRate("до 2")
                                 .routingLength("201-300")
                                 .fertilizerType("Кристаллические удобрения")
-                                .build(),
-                        optionalFuelFactory.apply(40.8, 1.25)
-                ),
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .expected(new Fuel(40.8, 1.25))
+                        .build(),
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ")
                                 .tractor("Беларус 82")
                                 .machinery("Amazone ZA-M-900")
@@ -120,11 +116,11 @@ public final class EleventhTableFuelSearchingArgumentsProvider extends AbstractT
                                 .spreadRate("8.1...10")
                                 .routingLength("201-300")
                                 .fertilizerType("Кристаллические удобрения")
-                                .build(),
-                        optionalFuelFactory.apply(5.1, 9.05)
-                ),
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .expected(new Fuel(5.1, 9.05))
+                        .build(),
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ")
                                 .tractor("Беларус 82")
                                 .machinery("Tornado 1300")
@@ -132,11 +128,11 @@ public final class EleventhTableFuelSearchingArgumentsProvider extends AbstractT
                                 .spreadRate("6.1...8")
                                 .routingLength("150-200")
                                 .fertilizerType("Гранулированные удобрения")
-                                .build(),
-                        optionalFuelFactory.apply(13.1, 3.91)
-                ),
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .expected(new Fuel(13.1, 3.91))
+                        .build(),
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ")
                                 .tractor("Беларус 82")
                                 .machinery("SULKY XT 100 Polivrac")
@@ -144,11 +140,11 @@ public final class EleventhTableFuelSearchingArgumentsProvider extends AbstractT
                                 .spreadRate("до 2")
                                 .routingLength("201-300")
                                 .fertilizerType("Гранулированные удобрения")
-                                .build(),
-                        optionalFuelFactory.apply(75.5, 0.9)
-                ),
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .expected(new Fuel(75.5, 0.9))
+                        .build(),
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ")
                                 .tractor("Беларус 82")
                                 .machinery("SULKY DX 20 c")
@@ -156,12 +152,12 @@ public final class EleventhTableFuelSearchingArgumentsProvider extends AbstractT
                                 .spreadRate("6.1...8")
                                 .routingLength("150-200")
                                 .fertilizerType("Гранулированные удобрения")
-                                .build(),
-                        optionalFuelFactory.apply(20., 2.85)
-                ),
+                                .build())
+                        .expected(new Fuel(20, 2.85))
+                        .build(),
                 //not existing tractor
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ")
                                 .tractor("not existing")
                                 .machinery("SULKY DX 20 c")
@@ -169,12 +165,11 @@ public final class EleventhTableFuelSearchingArgumentsProvider extends AbstractT
                                 .spreadRate("6.1...8")
                                 .routingLength("150-200")
                                 .fertilizerType("Гранулированные удобрения")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing machinery
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ")
                                 .tractor("Беларус 82")
                                 .machinery("not existing")
@@ -182,12 +177,11 @@ public final class EleventhTableFuelSearchingArgumentsProvider extends AbstractT
                                 .spreadRate("6.1...8")
                                 .routingLength("150-200")
                                 .fertilizerType("Гранулированные удобрения")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing chargingMethodAndTransportDistance
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ")
                                 .tractor("Беларус 82")
                                 .machinery("SULKY DX 20 c")
@@ -195,12 +189,11 @@ public final class EleventhTableFuelSearchingArgumentsProvider extends AbstractT
                                 .spreadRate("6.1...8")
                                 .routingLength("150-200")
                                 .fertilizerType("Гранулированные удобрения")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing spread rate
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ")
                                 .tractor("Беларус 82")
                                 .machinery("SULKY DX 20 c")
@@ -208,12 +201,11 @@ public final class EleventhTableFuelSearchingArgumentsProvider extends AbstractT
                                 .spreadRate("not existing")
                                 .routingLength("150-200")
                                 .fertilizerType("Гранулированные удобрения")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing routing length
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ")
                                 .tractor("Беларус 82")
                                 .machinery("SULKY DX 20 c")
@@ -221,12 +213,11 @@ public final class EleventhTableFuelSearchingArgumentsProvider extends AbstractT
                                 .spreadRate("6.1...8")
                                 .routingLength("not existing")
                                 .fertilizerType("Гранулированные удобрения")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing fertilizer type
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВНЕСЕНИЕ МИНЕРАЛЬНЫХ УДОБРЕНИЙ")
                                 .tractor("Беларус 82")
                                 .machinery("SULKY DX 20 c")
@@ -234,9 +225,8 @@ public final class EleventhTableFuelSearchingArgumentsProvider extends AbstractT
                                 .spreadRate("6.1...8")
                                 .routingLength("150-200")
                                 .fertilizerType("Выдуманные удобрения")
-                                .build(),
-                        empty()
-                )
+                                .build())
+                        .build()
         );
     }
 
