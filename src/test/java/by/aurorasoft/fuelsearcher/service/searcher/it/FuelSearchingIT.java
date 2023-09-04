@@ -8,6 +8,7 @@ import by.aurorasoft.fuelsearcher.service.searcher.FuelSearchingManager;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,7 +47,8 @@ public final class FuelSearchingIT extends AbstractContextTest {
             new TwentySeventhTableFuelSearchingArgumentsProvider()
     );
 
-    private final FuelSearchingManager searchingManager = findBean(FuelSearchingManager.class);
+    @Autowired
+    private FuelSearchingManager searchingManager;
 
     @ParameterizedTest
     @MethodSource("fuelSearchingArgumentProvider")

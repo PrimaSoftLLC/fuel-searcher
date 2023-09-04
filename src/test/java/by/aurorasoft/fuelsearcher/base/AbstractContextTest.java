@@ -1,13 +1,11 @@
 package by.aurorasoft.fuelsearcher.base;
 
-import by.aurorasoft.fuelsearcher.configuration.MainConfiguration;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
+@SpringBootTest
+@RunWith(SpringRunner.class)
 public abstract class AbstractContextTest {
-    private static final ApplicationContext CONTEXT = new AnnotationConfigApplicationContext(MainConfiguration.class);
 
-    protected static <T> T findBean(final Class<T> type) {
-        return CONTEXT.getBean(type);
-    }
 }
