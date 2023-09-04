@@ -51,6 +51,17 @@ public final class XWPFParagraphUtilTest {
         assertEquals(expectedAsList, actualAsList);
     }
 
+    @Test
+    public void emptyTextLinesShouldBeExtracted() {
+        final XWPFParagraph givenParagraph = createParagraph(
+                " \u00A0 \n\n\n\n\n\n\n  \u00A0   \u00A0  \n\n   \u00A0   "
+        );
+
+        final Stream<String> actual = extractTextLines(givenParagraph);
+        final long actualCount = actual.count();
+        assertEquals(0, actualCount);
+    }
+
     private static XWPFParagraph createParagraph(final String text) {
         final XWPFParagraph paragraph = mock(XWPFParagraph.class);
         when(paragraph.getText()).thenReturn(text);
