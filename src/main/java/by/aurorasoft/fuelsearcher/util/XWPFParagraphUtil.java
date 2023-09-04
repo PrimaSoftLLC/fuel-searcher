@@ -19,7 +19,7 @@ public final class XWPFParagraphUtil {
     private static final String NEW_LINES_REGEX = "\n+";
     private static final String EMPTY_STRING = "";
 
-    private static final String NBSP_OR_SPACE_SYMBOLS_REGEX = "[\\p{Z} ]+";
+    private static final String NBSP_OR_SPACE_SYMBOLS_REGEX = "[\\u00A0 ]+";
     private static final String NBSP_OR_SPACE_SYMBOLS_IN_START_STRING_REGEX = "^" + NBSP_OR_SPACE_SYMBOLS_REGEX;
     private static final String NBSP_OR_SPACE_SYMBOLS_IN_END_STRING_REGEX = NBSP_OR_SPACE_SYMBOLS_REGEX + "$";
 
