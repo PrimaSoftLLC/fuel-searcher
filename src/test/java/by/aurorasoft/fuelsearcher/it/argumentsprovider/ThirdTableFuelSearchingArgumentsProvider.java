@@ -1,22 +1,18 @@
-package by.aurorasoft.fuelsearcher.service.searcher.it.argumentprovider;
+package by.aurorasoft.fuelsearcher.it.argumentsprovider;
 
+import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
-import org.junit.jupiter.params.provider.Arguments;
 
-import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
-import static java.util.Optional.empty;
-
-public final class ThirdTableFuelSearchingArgumentsProvider extends AbstractTableFuelSearchingArgumentsProvider {
+public final class ThirdTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
 
     @Override
-    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
+    protected Stream<FuelSearchingArguments> createFuelSearchingArguments() {
         return Stream.of(
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("Беларус-3522")
                                 .machinery("ПБН-6-50А")
@@ -24,11 +20,11 @@ public final class ThirdTableFuelSearchingArgumentsProvider extends AbstractTabl
                                 .ploughingDepth("20-22")
                                 .routingLength("Менее 150")
                                 .soilType("Минеральные почвы")
-                                .build(),
-                        optionalFuelFactory.apply(8.5, 23.7)
-                ),
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .expected(new Fuel(8.5, 23.7))
+                        .build(),
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("Беларус-3022")
                                 .machinery("ПБН-6-50А")
@@ -36,12 +32,12 @@ public final class ThirdTableFuelSearchingArgumentsProvider extends AbstractTabl
                                 .ploughingDepth("25-27")
                                 .routingLength("Более 1000")
                                 .soilType("Торфяные почвы")
-                                .build(),
-                        optionalFuelFactory.apply(11.4, 20.5)
-                ),
+                                .build())
+                        .expected(new Fuel(11.4, 20.5))
+                        .build(),
                 //not existing tractor
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("not existing")
                                 .machinery("ПБН-6-50А")
@@ -49,12 +45,11 @@ public final class ThirdTableFuelSearchingArgumentsProvider extends AbstractTabl
                                 .ploughingDepth("25-27")
                                 .routingLength("Более 1000")
                                 .soilType("Торфяные почвы")
-                                .build(),
-                        empty()
-                ),
-                //not existing plough mark
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .build(),
+                //not existing machinery
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("Беларус-3022")
                                 .machinery("not existing")
@@ -62,12 +57,11 @@ public final class ThirdTableFuelSearchingArgumentsProvider extends AbstractTabl
                                 .ploughingDepth("25-27")
                                 .routingLength("Более 1000")
                                 .soilType("Торфяные почвы")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing corpus count
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("Беларус-3022")
                                 .machinery("ПБН-6-50А")
@@ -75,12 +69,11 @@ public final class ThirdTableFuelSearchingArgumentsProvider extends AbstractTabl
                                 .ploughingDepth("25-27")
                                 .routingLength("Более 1000")
                                 .soilType("Торфяные почвы")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing ploughing depth
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("Беларус-3022")
                                 .machinery("ПБН-6-50А")
@@ -88,12 +81,11 @@ public final class ThirdTableFuelSearchingArgumentsProvider extends AbstractTabl
                                 .ploughingDepth("not existing")
                                 .routingLength("Более 1000")
                                 .soilType("Торфяные почвы")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing routing length
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("Беларус-3022")
                                 .machinery("ПБН-6-50А")
@@ -101,12 +93,11 @@ public final class ThirdTableFuelSearchingArgumentsProvider extends AbstractTabl
                                 .ploughingDepth("25-27")
                                 .routingLength("not existing")
                                 .soilType("Торфяные почвы")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing soil type
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("Беларус-3022")
                                 .machinery("ПБН-6-50А")
@@ -114,9 +105,8 @@ public final class ThirdTableFuelSearchingArgumentsProvider extends AbstractTabl
                                 .ploughingDepth("25-27")
                                 .routingLength("Более 1000")
                                 .soilType("not existing")
-                                .build(),
-                        empty()
-                )
+                                .build())
+                        .build()
         );
     }
 

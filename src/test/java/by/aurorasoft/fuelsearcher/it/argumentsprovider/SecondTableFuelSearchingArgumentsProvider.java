@@ -11,7 +11,7 @@ import static by.aurorasoft.fuelsearcher.model.Fuel.createNotDefinedFuel;
 public final class SecondTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
 
     @Override
-    protected Stream<FuelSearchingArguments> createFuelArguments() {
+    protected Stream<FuelSearchingArguments> createFuelSearchingArguments() {
         return Stream.of(
                 FuelSearchingArguments.builder()
                         .specification(FuelSpecification.builder()
@@ -61,7 +61,7 @@ public final class SecondTableFuelSearchingArgumentsProvider extends TableFuelSe
                                 .specificResistance("Удельное сопротивление 36...41 кПа")
                                 .build())
                         .build(),
-                //not existing plough mark
+                //not existing machinery
                 FuelSearchingArguments.builder()
                         .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")

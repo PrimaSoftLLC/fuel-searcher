@@ -11,7 +11,7 @@ import static by.aurorasoft.fuelsearcher.model.Fuel.createNotDefinedFuel;
 public final class FirstTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
 
     @Override
-    protected Stream<FuelSearchingArguments> createFuelArguments() {
+    protected Stream<FuelSearchingArguments> createFuelSearchingArguments() {
         return Stream.of(
                 FuelSearchingArguments.builder()
                         .specification(FuelSpecification.builder()

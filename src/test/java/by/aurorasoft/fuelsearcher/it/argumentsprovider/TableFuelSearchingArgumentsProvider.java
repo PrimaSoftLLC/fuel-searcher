@@ -8,15 +8,15 @@ import java.util.stream.Stream;
 public abstract class TableFuelSearchingArgumentsProvider {
 
     public final Stream<Arguments> provide() {
-        return this.createFuelArguments().map(TableFuelSearchingArgumentsProvider::mapToArguments);
+        return this.createFuelSearchingArguments().map(TableFuelSearchingArgumentsProvider::mapToArguments);
     }
 
-    protected abstract Stream<FuelSearchingArguments> createFuelArguments();
+    protected abstract Stream<FuelSearchingArguments> createFuelSearchingArguments();
 
-    private static Arguments mapToArguments(final FuelSearchingArguments fuelArguments) {
+    private static Arguments mapToArguments(final FuelSearchingArguments fuelSearchingArguments) {
         return Arguments.of(
-                fuelArguments.getSpecification(),
-                fuelArguments.findExpected()
+                fuelSearchingArguments.getSpecification(),
+                fuelSearchingArguments.findExpected()
         );
     }
 }

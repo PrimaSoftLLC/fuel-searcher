@@ -4,6 +4,7 @@ import by.aurorasoft.fuelsearcher.base.AbstractContextTest;
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.FirstTableFuelSearchingArgumentsProvider;
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.SecondTableFuelSearchingArgumentsProvider;
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.TableFuelSearchingArgumentsProvider;
+import by.aurorasoft.fuelsearcher.it.argumentsprovider.ThirdTableFuelSearchingArgumentsProvider;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -63,7 +64,8 @@ public final class FuelSearchingIT extends AbstractContextTest {
 
     private static final List<TableFuelSearchingArgumentsProvider> ARGUMENTS_PROVIDERS = List.of(
             new FirstTableFuelSearchingArgumentsProvider(),
-            new SecondTableFuelSearchingArgumentsProvider()
+            new SecondTableFuelSearchingArgumentsProvider(),
+            new ThirdTableFuelSearchingArgumentsProvider()
     );
 
     @Autowired
