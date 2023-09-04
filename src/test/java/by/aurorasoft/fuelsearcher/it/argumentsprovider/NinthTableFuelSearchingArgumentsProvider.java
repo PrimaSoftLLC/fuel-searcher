@@ -1,113 +1,104 @@
-package by.aurorasoft.fuelsearcher.service.searcher.it.argumentprovider;
+package by.aurorasoft.fuelsearcher.it.argumentsprovider;
 
+import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
-import org.junit.jupiter.params.provider.Arguments;
 
-import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
-import static java.util.Optional.empty;
-
-public final class NinthTableFuelSearchingArgumentsProvider extends AbstractTableFuelSearchingArgumentsProvider {
+public final class NinthTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
 
     @Override
-    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
+    protected Stream<FuelSearchingArguments> createFuelSearchingArguments() {
         return Stream.of(
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ПОСЕВ САХАРНОЙ СВЕКЛЫ")
                                 .tractor("John Deere 8400")
                                 .machinery("Tempo V-18")
                                 .workingWidth("8.1")
                                 .routingLength("Менее 150")
                                 .sowingNorm("Норма высева семян 15 кг/га")
-                                .build(),
-                        optionalFuelFactory.apply(17.9, 3.45)
-                ),
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .expected(new Fuel(17.9, 3.45))
+                        .build(),
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ПОСЕВ САХАРНОЙ СВЕКЛЫ")
                                 .tractor("Беларус 1221")
                                 .machinery("Meca V-4")
                                 .workingWidth("5.4")
                                 .routingLength("601-1000")
                                 .sowingNorm("Норма высева семян 30 кг/га")
-                                .build(),
-                        optionalFuelFactory.apply(15.6, 2.72)
-                ),
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .expected(new Fuel(15.6, 2.72))
+                        .build(),
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ПОСЕВ САХАРНОЙ СВЕКЛЫ")
                                 .tractor("Беларус 80/82")
                                 .machinery("Tehnic NC")
                                 .workingWidth("3.6")
                                 .routingLength("601-1000")
                                 .sowingNorm("Норма высева семян 45 кг/га")
-                                .build(),
-                        optionalFuelFactory.apply(10.3, 2.64)
-                ),
+                                .build())
+                        .expected(new Fuel(10.3, 2.64))
+                        .build(),
                 //not existing tractor
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ПОСЕВ САХАРНОЙ СВЕКЛЫ")
                                 .tractor("not existing")
                                 .machinery("Tehnic NC")
                                 .workingWidth("3.6")
                                 .routingLength("601-1000")
                                 .sowingNorm("Норма высева семян 45 кг/га")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing machinery
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ПОСЕВ САХАРНОЙ СВЕКЛЫ")
                                 .tractor("Беларус 80/82")
                                 .machinery("not existing")
                                 .workingWidth("3.6")
                                 .routingLength("601-1000")
                                 .sowingNorm("Норма высева семян 45 кг/га")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing working width
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ПОСЕВ САХАРНОЙ СВЕКЛЫ")
                                 .tractor("Беларус 80/82")
                                 .machinery("Tehnic NC")
                                 .workingWidth("not existing")
                                 .routingLength("601-1000")
                                 .sowingNorm("Норма высева семян 45 кг/га")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing routing length
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ПОСЕВ САХАРНОЙ СВЕКЛЫ")
                                 .tractor("Беларус 80/82")
                                 .machinery("Tehnic NC")
                                 .workingWidth("3.6")
                                 .routingLength("not existing")
                                 .sowingNorm("Норма высева семян 45 кг/га")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing sowing norm
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ПОСЕВ САХАРНОЙ СВЕКЛЫ")
                                 .tractor("Беларус 80/82")
                                 .machinery("Tehnic NC")
                                 .workingWidth("3.6")
                                 .routingLength("601-1000")
                                 .sowingNorm("not existing")
-                                .build(),
-                        empty()
-                )
+                                .build())
+                        .build()
         );
     }
 
