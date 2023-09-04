@@ -4,9 +4,12 @@ import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.junit.Test;
 
+import java.util.List;
+import java.util.stream.Stream;
+
+import static by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.extractTextLines;
 import static by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.isEmptyParagraph;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -34,6 +37,18 @@ public final class XWPFParagraphUtilTest {
 
         final boolean actual = isEmptyParagraph(givenElement);
         assertFalse(actual);
+    }
+
+    @Test
+    public void textLinesShouldBeExtracted() {
+        final XWPFParagraph givenParagraph = createParagraph(
+                " \u00A0 text1\ntext2\n\n\n\n\n\n  \u00A0 text3  \u00A0  \n\n text4  \u00A0   "
+        );
+
+        final Stream<String> actual = extractTextLines(givenParagraph);
+        final List<String> actualAsList = actual.toList();
+        final List<String> expectedAsList = List.of("text1", "text2", "text3", "text4");
+        assertEquals(expectedAsList, actualAsList);
     }
 
     private static XWPFParagraph createParagraph(final String text) {

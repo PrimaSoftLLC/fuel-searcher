@@ -28,9 +28,9 @@ public final class XWPFParagraphUtil {
     }
 
     public static Stream<String> extractTextLines(final XWPFParagraph paragraph) {
-        final String text = extractText(paragraph);
+        final String text = paragraph.getText();
         final String[] lines = text.split(NEW_LINES_REGEX);
-        return stream(lines);
+        return stream(lines).map(XWPFParagraphUtil::trimFromNbspAndSpace);
     }
 
     public static String extractParagraphText(final IBodyElement element) {
@@ -71,7 +71,12 @@ public final class XWPFParagraphUtil {
     }
 
     private static String extractText(final XWPFParagraph paragraph) {
-        return paragraph.getText()
+        final String text = paragraph.getText();
+        return trimFromNbspAndSpace(text);
+    }
+
+    private static String trimFromNbspAndSpace(final String source) {
+        return source
                 .replaceAll(NBSP_OR_SPACE_SYMBOLS_IN_START_STRING_REGEX, EMPTY_STRING)
                 .replaceAll(NBSP_OR_SPACE_SYMBOLS_IN_END_STRING_REGEX, EMPTY_STRING);
     }
