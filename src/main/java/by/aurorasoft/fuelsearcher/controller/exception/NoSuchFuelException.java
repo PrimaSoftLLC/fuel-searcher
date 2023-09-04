@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.service.searcher.manager.exception;
+package by.aurorasoft.fuelsearcher.controller.exception;
 
 public final class NoSuchFuelException extends RuntimeException {
 

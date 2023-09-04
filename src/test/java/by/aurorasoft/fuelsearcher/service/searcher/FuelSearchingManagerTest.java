@@ -4,7 +4,6 @@ import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.TableNameExtractor;
 import by.aurorasoft.fuelsearcher.service.dictionary.fuelsearcher.FuelSearcherDictionary;
-import by.aurorasoft.fuelsearcher.service.searcher.manager.FuelSearchingManager;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
