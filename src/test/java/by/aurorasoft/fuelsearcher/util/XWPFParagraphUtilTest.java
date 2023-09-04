@@ -14,7 +14,7 @@ public final class XWPFParagraphUtilTest {
 
     @Test
     public void elementShouldBeEmptyParagraph() {
-        final IBodyElement givenElement = createParagraph(" \\u00A0   \\u00A0   ");
+        final IBodyElement givenElement = createParagraph(" \u00A0   \u00A0   ");
 
         final boolean actual = isEmptyParagraph(givenElement);
         assertTrue(actual);
@@ -22,7 +22,7 @@ public final class XWPFParagraphUtilTest {
 
     @Test
     public void elementShouldNotBeEmptyParagraphBecauseOfItIsNotEmpty() {
-        final IBodyElement givenElement = createParagraph(" \\u00A0 text  \\u00A0   ");
+        final IBodyElement givenElement = createParagraph(" \u00A0 text  \u00A0   ");
 
         final boolean actual = isEmptyParagraph(givenElement);
         assertFalse(actual);
