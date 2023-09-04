@@ -40,13 +40,6 @@ public final class XWPFParagraphUtil {
         return extractText(paragraph);
     }
 
-    public static XWPFParagraph createParagraph(final String content, final XWPFDocument document) {
-        final XWPFParagraph paragraph = document.createParagraph();
-        final XWPFRun run = paragraph.createRun();
-        run.setText(content);
-        return paragraph;
-    }
-
     public static XWPFParagraph createParagraphByGroupContent(final Matcher matcher,
                                                               final int groupNumber,
                                                               final XWPFDocument document) {
@@ -86,5 +79,12 @@ public final class XWPFParagraphUtil {
     private static void removeAllRuns(final XWPFParagraph paragraph) {
         final List<XWPFRun> runs = paragraph.getRuns();
         range(0, runs.size()).forEach(i -> paragraph.removeRun(0));
+    }
+
+    private static XWPFParagraph createParagraph(final String content, final XWPFDocument document) {
+        final XWPFParagraph paragraph = document.createParagraph();
+        final XWPFRun run = paragraph.createRun();
+        run.setText(content);
+        return paragraph;
     }
 }
