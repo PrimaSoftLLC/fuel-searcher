@@ -66,7 +66,8 @@ public final class FuelSearchingIT extends AbstractContextTest {
             new FourthTableFuelSearchingArgumentsProvider(),
             new FifthTableFuelSearchingArgumentsProvider(),
             new SixthTableFuelSearchingArgumentsProvider(),
-            new SeventhTableFuelSearchingArgumentsProvider()
+            new SeventhTableFuelSearchingArgumentsProvider(),
+            new EighthTableFuelSearchingArgumentsProvider()
     );
 
     @Autowired
