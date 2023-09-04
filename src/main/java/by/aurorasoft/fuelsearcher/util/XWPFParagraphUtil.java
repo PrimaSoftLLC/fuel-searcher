@@ -30,7 +30,9 @@ public final class XWPFParagraphUtil {
     public static Stream<String> extractTextLines(final XWPFParagraph paragraph) {
         final String text = paragraph.getText();
         final String[] lines = text.split(NEW_LINES_REGEX);
-        return stream(lines).map(XWPFParagraphUtil::trimFromNbspAndSpace);
+        return stream(lines)
+                .map(XWPFParagraphUtil::trimFromNbspAndSpace)
+                .filter(line -> !line.isEmpty());
     }
 
     public static String extractParagraphText(final IBodyElement element) {
