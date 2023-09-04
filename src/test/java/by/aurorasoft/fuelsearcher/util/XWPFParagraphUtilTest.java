@@ -7,8 +7,7 @@ import org.junit.Test;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.extractTextLines;
-import static by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.isEmptyParagraph;
+import static by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -60,6 +59,15 @@ public final class XWPFParagraphUtilTest {
         final Stream<String> actual = extractTextLines(givenParagraph);
         final long actualCount = actual.count();
         assertEquals(0, actualCount);
+    }
+
+    @Test
+    public void paragraphTextShouldBeExtracted() {
+        final IBodyElement givenElement = createParagraph(" \u00A0 text   text  \u00A0   ");
+
+        final String actual = extractParagraphText(givenElement);
+        final String expected = "text   text";
+        assertEquals(expected, actual);
     }
 
     private static XWPFParagraph createParagraph(final String text) {

@@ -37,7 +37,7 @@ public final class XWPFParagraphUtil {
 
     public static String extractParagraphText(final IBodyElement element) {
         final XWPFParagraph paragraph = (XWPFParagraph) element;
-        return paragraph.getText();
+        return extractText(paragraph);
     }
 
     public static XWPFParagraph createParagraph(final String content, final XWPFDocument document) {
