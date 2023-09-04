@@ -15,7 +15,7 @@ import static lombok.AccessLevel.NONE;
 @Value
 @AllArgsConstructor
 @Builder
-public class FuelArguments {
+public class FuelSearchingArguments {
     FuelSpecification specification;
 
     @Getter(value = NONE)

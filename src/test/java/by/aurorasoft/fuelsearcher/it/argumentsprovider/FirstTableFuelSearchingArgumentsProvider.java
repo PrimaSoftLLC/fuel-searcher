@@ -1,17 +1,19 @@
 package by.aurorasoft.fuelsearcher.it.argumentsprovider;
 
-import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelArguments;
+import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 
 import java.util.stream.Stream;
 
+import static by.aurorasoft.fuelsearcher.model.Fuel.createNotDefinedFuel;
+
 public final class FirstTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
 
     @Override
-    protected Stream<FuelArguments> createFuelArguments() {
+    protected Stream<FuelSearchingArguments> createFuelArguments() {
         return Stream.of(
-                FuelArguments.builder()
+                FuelSearchingArguments.builder()
                         .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("FENDT 1050")
@@ -23,7 +25,7 @@ public final class FirstTableFuelSearchingArgumentsProvider extends TableFuelSea
                                 .build())
                         .expected(new Fuel(11.9, 21.7))
                         .build(),
-                FuelArguments.builder()
+                FuelSearchingArguments.builder()
                         .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("Кировец К-744 Р3")
@@ -35,7 +37,7 @@ public final class FirstTableFuelSearchingArgumentsProvider extends TableFuelSea
                                 .build())
                         .expected(new Fuel(16.8, 21.3))
                         .build(),
-                FuelArguments.builder()
+                FuelSearchingArguments.builder()
                         .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("Кировец К-744 Р4")
@@ -47,7 +49,7 @@ public final class FirstTableFuelSearchingArgumentsProvider extends TableFuelSea
                                 .build())
                         .expected(new Fuel(9., 21.5))
                         .build(),
-                FuelArguments.builder()
+                FuelSearchingArguments.builder()
                         .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("Кировец K744P2")
@@ -59,7 +61,7 @@ public final class FirstTableFuelSearchingArgumentsProvider extends TableFuelSea
                                 .build())
                         .expected(new Fuel(10.1, 24.8))
                         .build(),
-                FuelArguments.builder()
+                FuelSearchingArguments.builder()
                         .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("К744Р3")
@@ -71,7 +73,7 @@ public final class FirstTableFuelSearchingArgumentsProvider extends TableFuelSea
                                 .build())
                         .expected(new Fuel(11.3, 29.1))
                         .build(),
-                FuelArguments.builder()
+                FuelSearchingArguments.builder()
                         .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("Кировец K744P2")
@@ -84,7 +86,7 @@ public final class FirstTableFuelSearchingArgumentsProvider extends TableFuelSea
                         .expected(new Fuel(10.9, 22.3))
                         .build(),
                 //'–' as fuel info
-                FuelArguments.builder()
+                FuelSearchingArguments.builder()
                         .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("К 744Р3")
@@ -94,9 +96,10 @@ public final class FirstTableFuelSearchingArgumentsProvider extends TableFuelSea
                                 .routingLength("201-300")
                                 .specificResistance("Удельное сопротивление плуга 60...65 кПа")
                                 .build())
+                        .expected(createNotDefinedFuel())
                         .build(),
                 //not existing tractor
-                FuelArguments.builder()
+                FuelSearchingArguments.builder()
                         .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("not existing")
@@ -108,7 +111,7 @@ public final class FirstTableFuelSearchingArgumentsProvider extends TableFuelSea
                                 .build())
                         .build(),
                 //not existing machinery
-                FuelArguments.builder()
+                FuelSearchingArguments.builder()
                         .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("FENDT 1050")
@@ -120,7 +123,7 @@ public final class FirstTableFuelSearchingArgumentsProvider extends TableFuelSea
                                 .build())
                         .build(),
                 //not existing corpus count
-                FuelArguments.builder()
+                FuelSearchingArguments.builder()
                         .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("FENDT 1050")
@@ -132,7 +135,7 @@ public final class FirstTableFuelSearchingArgumentsProvider extends TableFuelSea
                                 .build())
                         .build(),
                 //not existing ploughing depth
-                FuelArguments.builder()
+                FuelSearchingArguments.builder()
                         .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("FENDT 1050")
@@ -144,7 +147,7 @@ public final class FirstTableFuelSearchingArgumentsProvider extends TableFuelSea
                                 .build())
                         .build(),
                 //not existing routing length
-                FuelArguments.builder()
+                FuelSearchingArguments.builder()
                         .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("FENDT 1050")
@@ -156,7 +159,7 @@ public final class FirstTableFuelSearchingArgumentsProvider extends TableFuelSea
                                 .build())
                         .build(),
                 //not existing specific resistance
-                FuelArguments.builder()
+                FuelSearchingArguments.builder()
                         .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
                                 .tractor("К 744Р3")

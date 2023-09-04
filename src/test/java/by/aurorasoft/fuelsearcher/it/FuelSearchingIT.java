@@ -2,6 +2,7 @@ package by.aurorasoft.fuelsearcher.it;
 
 import by.aurorasoft.fuelsearcher.base.AbstractContextTest;
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.FirstTableFuelSearchingArgumentsProvider;
+import by.aurorasoft.fuelsearcher.it.argumentsprovider.SecondTableFuelSearchingArgumentsProvider;
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.TableFuelSearchingArgumentsProvider;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
@@ -61,7 +62,8 @@ public final class FuelSearchingIT extends AbstractContextTest {
     private static final String PARAM_NAME_WEIGHT_RATIO_GRAIN_TO_STRAW = "weightRatioGrainToStraw";
 
     private static final List<TableFuelSearchingArgumentsProvider> ARGUMENTS_PROVIDERS = List.of(
-            new FirstTableFuelSearchingArgumentsProvider()
+            new FirstTableFuelSearchingArgumentsProvider(),
+            new SecondTableFuelSearchingArgumentsProvider()
     );
 
     @Autowired

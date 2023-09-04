@@ -1,23 +1,20 @@
-package by.aurorasoft.fuelsearcher.service.searcher.it.argumentprovider;
+package by.aurorasoft.fuelsearcher.it.argumentsprovider;
 
+import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
-import org.junit.jupiter.params.provider.Arguments;
 
-import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelsearcher.model.Fuel.createNotDefinedFuel;
-import static java.util.Optional.empty;
 
-public final class SecondTableFuelSearchingArgumentsProvider extends AbstractTableFuelSearchingArgumentsProvider {
+public final class SecondTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
 
     @Override
-    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
+    protected Stream<FuelSearchingArguments> createFuelArguments() {
         return Stream.of(
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("CASE II Steiger 550")
                                 .machinery("Lemken EuroTitan 10 8+3+1")
@@ -25,11 +22,11 @@ public final class SecondTableFuelSearchingArgumentsProvider extends AbstractTab
                                 .ploughingDepth("18-20")
                                 .routingLength("Менее 150")
                                 .specificResistance("Удельное сопротивление 36...41 кПа")
-                                .build(),
-                        optionalFuelFactory.apply(13.8, 20.9)
-                ),
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .expected(new Fuel(13.8, 20.9))
+                        .build(),
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("Кировец К-744 Р4")
                                 .machinery("Lemken EuroTitan 10")
@@ -37,11 +34,11 @@ public final class SecondTableFuelSearchingArgumentsProvider extends AbstractTab
                                 .ploughingDepth("21-22")
                                 .routingLength("601-1000")
                                 .specificResistance("Удельное сопротивление 36...41 кПа")
-                                .build(),
-                        optionalFuelFactory.apply(25.6, 15.0)
-                ),
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .expected(new Fuel(25.6, 15.0))
+                        .build(),
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("Кировец К-744 Р4")
                                 .machinery("Lemken EuroTitan 10")
@@ -49,12 +46,12 @@ public final class SecondTableFuelSearchingArgumentsProvider extends AbstractTab
                                 .ploughingDepth("21-22")
                                 .routingLength("Менее 150")
                                 .specificResistance("Удельное сопротивление 36...41 кПа")
-                                .build(),
-                        Optional.of(createNotDefinedFuel())
-                ),
+                                .build())
+                        .expected(createNotDefinedFuel())
+                        .build(),
                 //not existing tractor
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("not existing")
                                 .machinery("Lemken EuroTitan 10")
@@ -62,12 +59,11 @@ public final class SecondTableFuelSearchingArgumentsProvider extends AbstractTab
                                 .ploughingDepth("21-22")
                                 .routingLength("601-1000")
                                 .specificResistance("Удельное сопротивление 36...41 кПа")
-                                .build(),
-                        empty()
-                ),
-                //not exist plough mark
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .build(),
+                //not existing plough mark
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("Кировец К-744 Р4")
                                 .machinery("not existing")
@@ -75,12 +71,11 @@ public final class SecondTableFuelSearchingArgumentsProvider extends AbstractTab
                                 .ploughingDepth("21-22")
                                 .routingLength("601-1000")
                                 .specificResistance("Удельное сопротивление 36...41 кПа")
-                                .build(),
-                        empty()
-                ),
-                //not exist corpus count
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .build(),
+                //not existing corpus count
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("Кировец К-744 Р4")
                                 .machinery("Lemken EuroTitan 10")
@@ -88,12 +83,11 @@ public final class SecondTableFuelSearchingArgumentsProvider extends AbstractTab
                                 .ploughingDepth("21-22")
                                 .routingLength("601-1000")
                                 .specificResistance("Удельное сопротивление 36...41 кПа")
-                                .build(),
-                        empty()
-                ),
-                //not exist ploughing depth
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .build(),
+                //not existing ploughing depth
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("Кировец К-744 Р4")
                                 .machinery("Lemken EuroTitan 10")
@@ -101,12 +95,11 @@ public final class SecondTableFuelSearchingArgumentsProvider extends AbstractTab
                                 .ploughingDepth("not existing")
                                 .routingLength("601-1000")
                                 .specificResistance("Удельное сопротивление 36...41 кПа")
-                                .build(),
-                        empty()
-                ),
-                //not exist routing length
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .build(),
+                //not existing routing length
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("Кировец К-744 Р4")
                                 .machinery("Lemken EuroTitan 10")
@@ -114,12 +107,11 @@ public final class SecondTableFuelSearchingArgumentsProvider extends AbstractTab
                                 .ploughingDepth("21-22")
                                 .routingLength("not existing")
                                 .specificResistance("Удельное сопротивление 36...41 кПа")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing specific resistance
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ВСПАШКА СТЕРНИ")
                                 .tractor("Кировец К-744 Р4")
                                 .machinery("Lemken EuroTitan 10")
@@ -127,9 +119,8 @@ public final class SecondTableFuelSearchingArgumentsProvider extends AbstractTab
                                 .ploughingDepth("21-22")
                                 .routingLength("601-1000")
                                 .specificResistance("not existing")
-                                .build(),
-                        empty()
-                )
+                                .build())
+                        .build()
         );
     }
 }
