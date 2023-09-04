@@ -19,9 +19,9 @@ public final class XWPFParagraphUtil {
     private static final String NEW_LINES_REGEX = "\n+";
     private static final String EMPTY_STRING = "";
 
-    private static final String NBSP_SYMBOLS_REGEX = "\\p{Z}+";
-    private static final String NBSP_SYMBOLS_IN_START_STRING_REGEX = "^" + NBSP_SYMBOLS_REGEX;
-    private static final String NBSP_SYMBOLS_IN_END_STRING_REGEX = NBSP_SYMBOLS_REGEX + "$";
+    private static final String NBSP_OR_SPACE_SYMBOLS_REGEX = "[\\p{Z} ]+";
+    private static final String NBSP_OR_SPACE_SYMBOLS_IN_START_STRING_REGEX = "^" + NBSP_OR_SPACE_SYMBOLS_REGEX;
+    private static final String NBSP_OR_SPACE_SYMBOLS_IN_END_STRING_REGEX = NBSP_OR_SPACE_SYMBOLS_REGEX + "$";
 
     public static boolean isEmptyParagraph(final IBodyElement element) {
         return isMatchingParagraph(element, XWPFParagraphUtil::isEmpty);
@@ -71,15 +71,9 @@ public final class XWPFParagraphUtil {
     }
 
     private static String extractText(final XWPFParagraph paragraph) {
-        final String text = paragraph.getText();
-        final String trimmedText = text.trim();
-        return trimByNbspSymbol(trimmedText);
-    }
-
-    private static String trimByNbspSymbol(final String source) {
-        return source
-                .replaceAll(NBSP_SYMBOLS_IN_START_STRING_REGEX, EMPTY_STRING)
-                .replaceAll(NBSP_SYMBOLS_IN_END_STRING_REGEX, EMPTY_STRING);
+        return paragraph.getText()
+                .replaceAll(NBSP_OR_SPACE_SYMBOLS_IN_START_STRING_REGEX, EMPTY_STRING)
+                .replaceAll(NBSP_OR_SPACE_SYMBOLS_IN_END_STRING_REGEX, EMPTY_STRING);
     }
 
     private static void removeAllRuns(final XWPFParagraph paragraph) {
