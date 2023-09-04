@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelsearcher.model.filter;
 
-import by.aurorasoft.fuelsearcher.model.specification.Specification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ public abstract class Filter<R> {
     private final SpecificationPropertyExtractor filtrationValueExtractor;
     private final int filtrationCellIndex;
 
-    public final R filter(final List<XWPFTableRow> rows, final Specification specification) {
+    public final R filter(final List<XWPFTableRow> rows, final FuelSpecification specification) {
         final String filtrationValue = this.filtrationValueExtractor.extract(specification);
         return this.filter(rows, filtrationValue, this.filtrationCellIndex);
     }

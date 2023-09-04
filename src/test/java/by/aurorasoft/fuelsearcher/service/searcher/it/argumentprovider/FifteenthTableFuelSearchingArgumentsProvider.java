@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searcher.it.argumentprovider;
 
 import by.aurorasoft.fuelsearcher.model.Fuel;
-import by.aurorasoft.fuelsearcher.model.specification.Specification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -16,7 +16,7 @@ public final class FifteenthTableFuelSearchingArgumentsProvider extends Abstract
     protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
         return Stream.of(
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ СЕЯНЫХ И ЕСТЕСТВЕННЫХ ТРАВ")
                                 .tractor("Беларус 2522")
                                 .machinery("KDT 941")
@@ -27,7 +27,7 @@ public final class FifteenthTableFuelSearchingArgumentsProvider extends Abstract
                         optionalFuelFactory.apply(28.1, 4.7)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ СЕЯНЫХ И ЕСТЕСТВЕННЫХ ТРАВ")
                                 .tractor("Беларус 1523")
                                 .machinery("Novocat Alfa Motion 351")
@@ -38,7 +38,7 @@ public final class FifteenthTableFuelSearchingArgumentsProvider extends Abstract
                         optionalFuelFactory.apply(11.4, 4.9)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ СЕЯНЫХ И ЕСТЕСТВЕННЫХ ТРАВ")
                                 .tractor("Беларус 1221")
                                 .machinery("КДЛ-3.14")
@@ -50,7 +50,7 @@ public final class FifteenthTableFuelSearchingArgumentsProvider extends Abstract
                 ),
                 //not existing tractor
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ СЕЯНЫХ И ЕСТЕСТВЕННЫХ ТРАВ")
                                 .tractor("not existing")
                                 .machinery("КДЛ-3.14")
@@ -62,7 +62,7 @@ public final class FifteenthTableFuelSearchingArgumentsProvider extends Abstract
                 ),
                 //not existing machinery
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ СЕЯНЫХ И ЕСТЕСТВЕННЫХ ТРАВ")
                                 .tractor("Беларус 1221")
                                 .machinery("not existing")
@@ -74,7 +74,7 @@ public final class FifteenthTableFuelSearchingArgumentsProvider extends Abstract
                 ),
                 //not existing working width
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ СЕЯНЫХ И ЕСТЕСТВЕННЫХ ТРАВ")
                                 .tractor("Беларус 1221")
                                 .machinery("КДЛ-3.14")
@@ -86,7 +86,7 @@ public final class FifteenthTableFuelSearchingArgumentsProvider extends Abstract
                 ),
                 //not existing yield
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ СЕЯНЫХ И ЕСТЕСТВЕННЫХ ТРАВ")
                                 .tractor("Беларус 1221")
                                 .machinery("КДЛ-3.14")
@@ -98,7 +98,7 @@ public final class FifteenthTableFuelSearchingArgumentsProvider extends Abstract
                 ),
                 //not existing routing length
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ СЕЯНЫХ И ЕСТЕСТВЕННЫХ ТРАВ")
                                 .tractor("Беларус 1221")
                                 .machinery("КДЛ-3.14")

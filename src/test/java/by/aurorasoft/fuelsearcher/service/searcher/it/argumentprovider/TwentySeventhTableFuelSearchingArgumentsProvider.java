@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searcher.it.argumentprovider;
 
 import by.aurorasoft.fuelsearcher.model.Fuel;
-import by.aurorasoft.fuelsearcher.model.specification.Specification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -16,7 +16,7 @@ public final class TwentySeventhTableFuelSearchingArgumentsProvider extends Abst
     protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
         return Stream.of(
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ТРАНСПОРТИРОВКА ГРУЗОВ ТРАКТОРАМИ С ОДНИМ ПРИЦЕПОМ")
                                 .tractor("БЕЛАРУС-3522")
                                 .machinery("ПСС-25")
@@ -27,7 +27,7 @@ public final class TwentySeventhTableFuelSearchingArgumentsProvider extends Abst
                         optionalFuelFactory.apply(341.7, 0.19)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ТРАНСПОРТИРОВКА ГРУЗОВ ТРАКТОРАМИ С ОДНИМ ПРИЦЕПОМ")
                                 .tractor("БЕЛАРУС-3522")
                                 .machinery("ПСС-20")
@@ -38,7 +38,7 @@ public final class TwentySeventhTableFuelSearchingArgumentsProvider extends Abst
                         optionalFuelFactory.apply(146.9, 0.83)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ТРАНСПОРТИРОВКА ГРУЗОВ ТРАКТОРАМИ С ОДНИМ ПРИЦЕПОМ")
                                 .tractor("БЕЛАРУС-3522")
                                 .machinery("ПСТБ-17")
@@ -49,7 +49,7 @@ public final class TwentySeventhTableFuelSearchingArgumentsProvider extends Abst
                         optionalFuelFactory.apply(131.9, 0.48)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ТРАНСПОРТИРОВКА ГРУЗОВ ТРАКТОРАМИ С ОДНИМ ПРИЦЕПОМ")
                                 .tractor("БЕЛАРУС-3022")
                                 .machinery("ПСС-25")
@@ -60,7 +60,7 @@ public final class TwentySeventhTableFuelSearchingArgumentsProvider extends Abst
                         optionalFuelFactory.apply(91.9, 0.7)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ТРАНСПОРТИРОВКА ГРУЗОВ ТРАКТОРАМИ С ОДНИМ ПРИЦЕПОМ")
                                 .tractor("БЕЛАРУС-3022")
                                 .machinery("ПСС-20")
@@ -71,7 +71,7 @@ public final class TwentySeventhTableFuelSearchingArgumentsProvider extends Abst
                         optionalFuelFactory.apply(201., 0.38)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ТРАНСПОРТИРОВКА ГРУЗОВ ТРАКТОРАМИ С ОДНИМ ПРИЦЕПОМ")
                                 //TODO: тут отличие от прошлого только в регистре
                                 .tractor("Беларус-3022")
@@ -83,7 +83,7 @@ public final class TwentySeventhTableFuelSearchingArgumentsProvider extends Abst
                         optionalFuelFactory.apply(54.2, 1.66)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ТРАНСПОРТИРОВКА ГРУЗОВ ТРАКТОРАМИ С ОДНИМ ПРИЦЕПОМ")
                                 .tractor("БЕЛАРУС-1221")
                                 .machinery("СТС-12")
@@ -94,7 +94,7 @@ public final class TwentySeventhTableFuelSearchingArgumentsProvider extends Abst
                         optionalFuelFactory.apply(69.3, 0.8)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ТРАНСПОРТИРОВКА ГРУЗОВ ТРАКТОРАМИ С ОДНИМ ПРИЦЕПОМ")
                                 .tractor("Беларус 920")
                                 .machinery("ПС-30")
@@ -106,7 +106,7 @@ public final class TwentySeventhTableFuelSearchingArgumentsProvider extends Abst
                 ),
                 //not existing tractor
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ТРАНСПОРТИРОВКА ГРУЗОВ ТРАКТОРАМИ С ОДНИМ ПРИЦЕПОМ")
                                 .tractor("not existing")
                                 .machinery("ПС-30")
@@ -118,7 +118,7 @@ public final class TwentySeventhTableFuelSearchingArgumentsProvider extends Abst
                 ),
                 //not existing machinery
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ТРАНСПОРТИРОВКА ГРУЗОВ ТРАКТОРАМИ С ОДНИМ ПРИЦЕПОМ")
                                 .tractor("Беларус 920")
                                 .machinery("not existing")
@@ -130,7 +130,7 @@ public final class TwentySeventhTableFuelSearchingArgumentsProvider extends Abst
                 ),
                 //not existing cargo class
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ТРАНСПОРТИРОВКА ГРУЗОВ ТРАКТОРАМИ С ОДНИМ ПРИЦЕПОМ")
                                 .tractor("Беларус 920")
                                 .machinery("ПС-30")
@@ -142,7 +142,7 @@ public final class TwentySeventhTableFuelSearchingArgumentsProvider extends Abst
                 ),
                 //not existing transport distance
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ТРАНСПОРТИРОВКА ГРУЗОВ ТРАКТОРАМИ С ОДНИМ ПРИЦЕПОМ")
                                 .tractor("Беларус 920")
                                 .machinery("ПС-30")
@@ -154,7 +154,7 @@ public final class TwentySeventhTableFuelSearchingArgumentsProvider extends Abst
                 ),
                 //not existing road group
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ТРАНСПОРТИРОВКА ГРУЗОВ ТРАКТОРАМИ С ОДНИМ ПРИЦЕПОМ")
                                 .tractor("Беларус 920")
                                 .machinery("ПС-30")

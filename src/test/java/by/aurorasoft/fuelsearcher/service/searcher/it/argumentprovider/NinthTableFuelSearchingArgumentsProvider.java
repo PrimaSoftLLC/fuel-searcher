@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searcher.it.argumentprovider;
 
 import by.aurorasoft.fuelsearcher.model.Fuel;
-import by.aurorasoft.fuelsearcher.model.specification.Specification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -16,7 +16,7 @@ public final class NinthTableFuelSearchingArgumentsProvider extends AbstractTabl
     protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
         return Stream.of(
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПОСЕВ САХАРНОЙ СВЕКЛЫ")
                                 .tractor("John Deere 8400")
                                 .machinery("Tempo V-18")
@@ -27,7 +27,7 @@ public final class NinthTableFuelSearchingArgumentsProvider extends AbstractTabl
                         optionalFuelFactory.apply(17.9, 3.45)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПОСЕВ САХАРНОЙ СВЕКЛЫ")
                                 .tractor("Беларус 1221")
                                 .machinery("Meca V-4")
@@ -38,7 +38,7 @@ public final class NinthTableFuelSearchingArgumentsProvider extends AbstractTabl
                         optionalFuelFactory.apply(15.6, 2.72)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПОСЕВ САХАРНОЙ СВЕКЛЫ")
                                 .tractor("Беларус 80/82")
                                 .machinery("Tehnic NC")
@@ -50,7 +50,7 @@ public final class NinthTableFuelSearchingArgumentsProvider extends AbstractTabl
                 ),
                 //not existing tractor
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПОСЕВ САХАРНОЙ СВЕКЛЫ")
                                 .tractor("not existing")
                                 .machinery("Tehnic NC")
@@ -62,7 +62,7 @@ public final class NinthTableFuelSearchingArgumentsProvider extends AbstractTabl
                 ),
                 //not existing machinery
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПОСЕВ САХАРНОЙ СВЕКЛЫ")
                                 .tractor("Беларус 80/82")
                                 .machinery("not existing")
@@ -74,7 +74,7 @@ public final class NinthTableFuelSearchingArgumentsProvider extends AbstractTabl
                 ),
                 //not existing working width
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПОСЕВ САХАРНОЙ СВЕКЛЫ")
                                 .tractor("Беларус 80/82")
                                 .machinery("Tehnic NC")
@@ -86,7 +86,7 @@ public final class NinthTableFuelSearchingArgumentsProvider extends AbstractTabl
                 ),
                 //not existing routing length
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПОСЕВ САХАРНОЙ СВЕКЛЫ")
                                 .tractor("Беларус 80/82")
                                 .machinery("Tehnic NC")
@@ -98,7 +98,7 @@ public final class NinthTableFuelSearchingArgumentsProvider extends AbstractTabl
                 ),
                 //not existing sowing norm
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПОСЕВ САХАРНОЙ СВЕКЛЫ")
                                 .tractor("Беларус 80/82")
                                 .machinery("Tehnic NC")

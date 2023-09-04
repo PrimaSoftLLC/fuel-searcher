@@ -1,9 +1,10 @@
 package by.aurorasoft.fuelsearcher.service.searcher;
 
 import by.aurorasoft.fuelsearcher.model.Fuel;
-import by.aurorasoft.fuelsearcher.model.specification.Specification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.TableNameExtractor;
 import by.aurorasoft.fuelsearcher.service.dictionary.fuelsearcher.FuelSearcherDictionary;
+import by.aurorasoft.fuelsearcher.service.searcher.manager.FuelSearchingManager;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,7 +40,7 @@ public final class FuelSearchingManagerTest {
 
     @Test
     public void fuelShouldBeFound() {
-        final Specification givenSpecification = createSpecification();
+        final FuelSpecification givenSpecification = createSpecification();
 
         final String givenTableName = "table-name";
         when(this.mockedTableNameExtractor.extract(givenSpecification)).thenReturn(givenTableName);
@@ -58,7 +59,7 @@ public final class FuelSearchingManagerTest {
 
     @Test
     public void fuelShouldNotBeFoundBecauseOfSearcherShouldNotBeFound() {
-        final Specification givenSpecification = createSpecification();
+        final FuelSpecification givenSpecification = createSpecification();
 
         final String givenTableName = "table-name";
         when(this.mockedTableNameExtractor.extract(givenSpecification)).thenReturn(givenTableName);
@@ -71,7 +72,7 @@ public final class FuelSearchingManagerTest {
 
     @Test
     public void fuelShouldNotBeFoundByFoundSearcher() {
-        final Specification givenSpecification = createSpecification();
+        final FuelSpecification givenSpecification = createSpecification();
 
         final String givenTableName = "table-name";
         when(this.mockedTableNameExtractor.extract(givenSpecification)).thenReturn(givenTableName);
@@ -85,8 +86,8 @@ public final class FuelSearchingManagerTest {
         assertTrue(optionalActual.isEmpty());
     }
 
-    private static Specification createSpecification() {
-        return Specification.builder().build();
+    private static FuelSpecification createSpecification() {
+        return FuelSpecification.builder().build();
     }
 
 }

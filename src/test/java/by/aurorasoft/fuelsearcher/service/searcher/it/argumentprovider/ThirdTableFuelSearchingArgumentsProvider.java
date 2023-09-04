@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searcher.it.argumentprovider;
 
 import by.aurorasoft.fuelsearcher.model.Fuel;
-import by.aurorasoft.fuelsearcher.model.specification.Specification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -16,7 +16,7 @@ public final class ThirdTableFuelSearchingArgumentsProvider extends AbstractTabl
     protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
         return Stream.of(
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("Беларус-3522")
                                 .machinery("ПБН-6-50А")
@@ -28,7 +28,7 @@ public final class ThirdTableFuelSearchingArgumentsProvider extends AbstractTabl
                         optionalFuelFactory.apply(8.5, 23.7)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("Беларус-3022")
                                 .machinery("ПБН-6-50А")
@@ -41,7 +41,7 @@ public final class ThirdTableFuelSearchingArgumentsProvider extends AbstractTabl
                 ),
                 //not existing tractor
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("not existing")
                                 .machinery("ПБН-6-50А")
@@ -54,7 +54,7 @@ public final class ThirdTableFuelSearchingArgumentsProvider extends AbstractTabl
                 ),
                 //not existing plough mark
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("Беларус-3022")
                                 .machinery("not existing")
@@ -67,7 +67,7 @@ public final class ThirdTableFuelSearchingArgumentsProvider extends AbstractTabl
                 ),
                 //not existing corpus count
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("Беларус-3022")
                                 .machinery("ПБН-6-50А")
@@ -80,7 +80,7 @@ public final class ThirdTableFuelSearchingArgumentsProvider extends AbstractTabl
                 ),
                 //not existing ploughing depth
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("Беларус-3022")
                                 .machinery("ПБН-6-50А")
@@ -93,7 +93,7 @@ public final class ThirdTableFuelSearchingArgumentsProvider extends AbstractTabl
                 ),
                 //not existing routing length
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("Беларус-3022")
                                 .machinery("ПБН-6-50А")
@@ -106,7 +106,7 @@ public final class ThirdTableFuelSearchingArgumentsProvider extends AbstractTabl
                 ),
                 //not existing soil type
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ")
                                 .tractor("Беларус-3022")
                                 .machinery("ПБН-6-50А")

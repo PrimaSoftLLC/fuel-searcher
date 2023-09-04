@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searcher.it.argumentprovider;
 
 import by.aurorasoft.fuelsearcher.model.Fuel;
-import by.aurorasoft.fuelsearcher.model.specification.Specification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -16,7 +16,7 @@ public final class FourthTableFuelSearchingArgumentsProvider extends AbstractTab
     protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
         return Stream.of(
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
                                 .tractor("Clas Xerion 5000")
                                 .machinery("Köckerling Allrounder 1200")
@@ -27,7 +27,7 @@ public final class FourthTableFuelSearchingArgumentsProvider extends AbstractTab
                         optionalFuelFactory.apply(26.4, 14.1)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
                                 .tractor("Clas Xerion 5000")
                                 .machinery("Köckerling Allrounder 1200")
@@ -38,7 +38,7 @@ public final class FourthTableFuelSearchingArgumentsProvider extends AbstractTab
                         optionalFuelFactory.apply(58.2, 7.5)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
                                 .tractor("Беларус 3522")
                                 .machinery("АПМ-8")
@@ -49,7 +49,7 @@ public final class FourthTableFuelSearchingArgumentsProvider extends AbstractTab
                         optionalFuelFactory.apply(24.0, 11.1)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
                                 .tractor("Беларус 3022")
                                 .machinery("КФУ-7.3")
@@ -60,7 +60,7 @@ public final class FourthTableFuelSearchingArgumentsProvider extends AbstractTab
                         optionalFuelFactory.apply(17.3, 12.7)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
                                 .tractor("Беларус 1522")
                                 .machinery("Horsch Terrano 4FX")
@@ -72,7 +72,7 @@ public final class FourthTableFuelSearchingArgumentsProvider extends AbstractTab
                 ),
                 //not existing tractor
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
                                 .tractor("not existing")
                                 .machinery("Horsch Terrano 4FX")
@@ -84,7 +84,7 @@ public final class FourthTableFuelSearchingArgumentsProvider extends AbstractTab
                 ),
                 //not existing machinery
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
                                 .tractor("Беларус 1522")
                                 .machinery("not existing")
@@ -96,7 +96,7 @@ public final class FourthTableFuelSearchingArgumentsProvider extends AbstractTab
                 ),
                 //not existing working width
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
                                 .tractor("Беларус 1522")
                                 .machinery("Horsch Terrano 4FX")
@@ -108,7 +108,7 @@ public final class FourthTableFuelSearchingArgumentsProvider extends AbstractTab
                 ),
                 //not existing routing length
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
                                 .tractor("Беларус 1522")
                                 .machinery("Horsch Terrano 4FX")
@@ -120,7 +120,7 @@ public final class FourthTableFuelSearchingArgumentsProvider extends AbstractTab
                 ),
                 //not existing processing depth
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
                                 .tractor("Беларус 1522")
                                 .machinery("Horsch Terrano 4FX")

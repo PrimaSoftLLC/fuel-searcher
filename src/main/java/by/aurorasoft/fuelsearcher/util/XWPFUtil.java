@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelsearcher.util;
 
 import by.aurorasoft.fuelsearcher.functionalinterface.ThreeArgumentPredicate;
-import by.aurorasoft.fuelsearcher.model.specification.Specification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import by.aurorasoft.fuelsearcher.model.IntPair;
 import lombok.experimental.UtilityClass;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
@@ -54,8 +54,8 @@ public final class XWPFUtil {
 
     public static OptionalInt findIndexFirstRowByContent(final List<XWPFTableRow> rows,
                                                          final int cellIndexWithContent,
-                                                         final Specification specification,
-                                                         final Function<Specification, String> contentExtractor) {
+                                                         final FuelSpecification specification,
+                                                         final Function<FuelSpecification, String> contentExtractor) {
         final String content = contentExtractor.apply(specification);
         return findIndexFirstRowByContent(
                 rows,
@@ -90,8 +90,8 @@ public final class XWPFUtil {
 
     public static List<XWPFTableRow> findUnitedRowsByContent(final List<XWPFTableRow> rows,
                                                              final int cellIndexWithContent,
-                                                             final Specification specification,
-                                                             final Function<Specification, String> contentExtractor) {
+                                                             final FuelSpecification specification,
+                                                             final Function<FuelSpecification, String> contentExtractor) {
         final String content = contentExtractor.apply(specification);
         return findUnitedRowsByContent(rows, cellIndexWithContent, content);
     }
@@ -115,8 +115,8 @@ public final class XWPFUtil {
 
     public static Optional<List<XWPFTableRow>> findRowsByContent(final List<XWPFTableRow> rows,
                                                                  final int cellIndexWithContent,
-                                                                 final Specification specification,
-                                                                 final Function<Specification, String> contentExtractor) {
+                                                                 final FuelSpecification specification,
+                                                                 final Function<FuelSpecification, String> contentExtractor) {
         final String content = contentExtractor.apply(specification);
         return findRowsByContent(
                 rows,
@@ -136,8 +136,8 @@ public final class XWPFUtil {
 
     public static Optional<XWPFTableRow> findFirstRowByContent(final List<XWPFTableRow> rows,
                                                                final int cellIndexWithContent,
-                                                               final Specification specification,
-                                                               final Function<Specification, String> contentExtractor) {
+                                                               final FuelSpecification specification,
+                                                               final Function<FuelSpecification, String> contentExtractor) {
         final String content = contentExtractor.apply(specification);
         return findFirstRowByContent(
                 rows,

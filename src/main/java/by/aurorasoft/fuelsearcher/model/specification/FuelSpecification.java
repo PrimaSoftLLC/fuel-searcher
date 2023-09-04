@@ -15,7 +15,7 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor(access = PRIVATE)
 @Getter(value = NONE)
 @Builder
-public class Specification {
+public class FuelSpecification {
 
     //имя таблицы
     String tableName;

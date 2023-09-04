@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searcher;
 
 import by.aurorasoft.fuelsearcher.model.FuelTable;
-import by.aurorasoft.fuelsearcher.model.specification.Specification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import lombok.NoArgsConstructor;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
@@ -40,26 +40,26 @@ public final class CompositeFuelSearcher extends FuelSearcher {
     }
 
     @Override
-    protected Optional<XWPFTable> findSubTable(final List<IBodyElement> elements, final Specification specification) {
+    protected Optional<XWPFTable> findSubTable(final List<IBodyElement> elements, final FuelSpecification specification) {
         return this.findSubTableTitleIndex(elements, specification)
                 .stream()
                 .mapToObj(titleIndex -> extractSubTableByTitleIndex(titleIndex, elements))
                 .findFirst();
     }
 
-    private OptionalInt findSubTableTitleIndex(final List<IBodyElement> elements, final Specification specification) {
+    private OptionalInt findSubTableTitleIndex(final List<IBodyElement> elements, final FuelSpecification specification) {
         final String titleContent = this.findSubTableTitleContent(specification);
         return findTitleIndexes(elements)
                 .filter(i -> Objects.equals(extractParagraphText(elements.get(i)), titleContent))
                 .findFirst();
     }
 
-    private String findSubTableTitleContent(final Specification specification) {
+    private String findSubTableTitleContent(final FuelSpecification specification) {
         final Object[] titleTemplateArguments = this.extractTitleTemplateArguments(specification);
         return format(this.subTableTitleTemplate, titleTemplateArguments);
     }
 
-    private Object[] extractTitleTemplateArguments(final Specification specification) {
+    private Object[] extractTitleTemplateArguments(final FuelSpecification specification) {
         return this.subTableTitleTemplateArgumentExtractors.stream()
                 .map(extractor -> extractor.extract(specification))
                 .toArray(Object[]::new);

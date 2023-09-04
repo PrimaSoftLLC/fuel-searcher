@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searcher.it.argumentprovider;
 
 import by.aurorasoft.fuelsearcher.model.Fuel;
-import by.aurorasoft.fuelsearcher.model.specification.Specification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -16,7 +16,7 @@ public final class TwentySixthTableFuelSearchingArgumentsProvider extends Abstra
     protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
         return Stream.of(
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .combine("JAGUAR 970")
                                 .workingWidth("9")
@@ -26,7 +26,7 @@ public final class TwentySixthTableFuelSearchingArgumentsProvider extends Abstra
                         optionalFuelFactory.apply(102.5, 2.95)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .combine("BIG X850")
                                 .workingWidth("9")
@@ -36,7 +36,7 @@ public final class TwentySixthTableFuelSearchingArgumentsProvider extends Abstra
                         optionalFuelFactory.apply(240.2, 1.24)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .combine("JOHN DEERE 8400")
                                 .workingWidth("6")
@@ -47,7 +47,7 @@ public final class TwentySixthTableFuelSearchingArgumentsProvider extends Abstra
                 ),
                 //not existing combine
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .combine("not existing")
                                 .workingWidth("6")
@@ -58,7 +58,7 @@ public final class TwentySixthTableFuelSearchingArgumentsProvider extends Abstra
                 ),
                 //not existing working width
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .combine("JOHN DEERE 8400")
                                 .workingWidth("not existing")
@@ -69,7 +69,7 @@ public final class TwentySixthTableFuelSearchingArgumentsProvider extends Abstra
                 ),
                 //not existing yield
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .combine("JOHN DEERE 8400")
                                 .workingWidth("6")
@@ -80,7 +80,7 @@ public final class TwentySixthTableFuelSearchingArgumentsProvider extends Abstra
                 ),
                 //not existing routing length
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .combine("JOHN DEERE 8400")
                                 .workingWidth("6")

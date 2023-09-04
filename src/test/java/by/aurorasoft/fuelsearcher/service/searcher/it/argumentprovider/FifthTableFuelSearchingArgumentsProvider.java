@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searcher.it.argumentprovider;
 
 import by.aurorasoft.fuelsearcher.model.Fuel;
-import by.aurorasoft.fuelsearcher.model.specification.Specification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -16,7 +16,7 @@ public final class FifthTableFuelSearchingArgumentsProvider extends AbstractTabl
     protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
         return Stream.of(
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
                                 .tractor("Кировец К-744Р4")
                                 .machinery("Доминанта Д-880")
@@ -27,7 +27,7 @@ public final class FifthTableFuelSearchingArgumentsProvider extends AbstractTabl
                         optionalFuelFactory.apply(23.7, 12.0)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
                                 .tractor("Беларус 3022")
                                 .machinery("АПД-7.5")
@@ -38,7 +38,7 @@ public final class FifthTableFuelSearchingArgumentsProvider extends AbstractTabl
                         optionalFuelFactory.apply(20.4, 8.6)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
                                 .tractor("Беларус 2022")
                                 .machinery("АКЧ-6")
@@ -50,7 +50,7 @@ public final class FifthTableFuelSearchingArgumentsProvider extends AbstractTabl
                 ),
                 //not existing tractor
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
                                 .tractor("not existing")
                                 .machinery("АКЧ-6")
@@ -62,7 +62,7 @@ public final class FifthTableFuelSearchingArgumentsProvider extends AbstractTabl
                 ),
                 //not existing machinery
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
                                 .tractor("Беларус 2022")
                                 .machinery("not existing")
@@ -74,7 +74,7 @@ public final class FifthTableFuelSearchingArgumentsProvider extends AbstractTabl
                 ),
                 //not existing working width
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
                                 .tractor("Беларус 2022")
                                 .machinery("АКЧ-6")
@@ -86,7 +86,7 @@ public final class FifthTableFuelSearchingArgumentsProvider extends AbstractTabl
                 ),
                 //not existing routing length
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
                                 .tractor("Беларус 2022")
                                 .machinery("АКЧ-6")
@@ -98,7 +98,7 @@ public final class FifthTableFuelSearchingArgumentsProvider extends AbstractTabl
                 ),
                 //not existing processing depth
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ")
                                 .tractor("Беларус 2022")
                                 .machinery("АКЧ-6")

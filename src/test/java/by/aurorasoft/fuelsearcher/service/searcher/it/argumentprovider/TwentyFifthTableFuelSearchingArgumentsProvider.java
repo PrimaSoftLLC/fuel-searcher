@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searcher.it.argumentprovider;
 
 import by.aurorasoft.fuelsearcher.model.Fuel;
-import by.aurorasoft.fuelsearcher.model.specification.Specification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -16,7 +16,7 @@ public final class TwentyFifthTableFuelSearchingArgumentsProvider extends Abstra
     protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
         return Stream.of(
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("УБОРКА КАРТОФЕЛЯ")
                                 .soilType("Легкие почвы")
                                 .tractor("Беларус 1221")
@@ -28,7 +28,7 @@ public final class TwentyFifthTableFuelSearchingArgumentsProvider extends Abstra
                         optionalFuelFactory.apply(24.7, 2.33)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("УБОРКА КАРТОФЕЛЯ")
                                 .soilType("Легкие почвы")
                                 .tractor("New Holland TL 80")
@@ -40,7 +40,7 @@ public final class TwentyFifthTableFuelSearchingArgumentsProvider extends Abstra
                         optionalFuelFactory.apply(64.7, 0.76)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("УБОРКА КАРТОФЕЛЯ")
                                 .soilType("Средние почвы")
                                 .tractor("New Holland TL 80")
@@ -52,7 +52,7 @@ public final class TwentyFifthTableFuelSearchingArgumentsProvider extends Abstra
                         optionalFuelFactory.apply(69.8, 0.7)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("УБОРКА КАРТОФЕЛЯ")
                                 .soilType("Тяжелые почвы")
                                 .tractor("New Holland TL 80")
@@ -65,7 +65,7 @@ public final class TwentyFifthTableFuelSearchingArgumentsProvider extends Abstra
                 ),
                 //not existing soil type
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("УБОРКА КАРТОФЕЛЯ")
                                 .soilType("not existing")
                                 .tractor("New Holland TL 80")
@@ -78,7 +78,7 @@ public final class TwentyFifthTableFuelSearchingArgumentsProvider extends Abstra
                 ),
                 //not existing tractor
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("УБОРКА КАРТОФЕЛЯ")
                                 .soilType("Тяжелые почвы")
                                 .tractor("not existing")
@@ -91,7 +91,7 @@ public final class TwentyFifthTableFuelSearchingArgumentsProvider extends Abstra
                 ),
                 //not existing machinery
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("УБОРКА КАРТОФЕЛЯ")
                                 .soilType("Тяжелые почвы")
                                 .tractor("New Holland TL 80")
@@ -104,7 +104,7 @@ public final class TwentyFifthTableFuelSearchingArgumentsProvider extends Abstra
                 ),
                 //not existing row width
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("УБОРКА КАРТОФЕЛЯ")
                                 .soilType("Тяжелые почвы")
                                 .tractor("New Holland TL 80")
@@ -117,7 +117,7 @@ public final class TwentyFifthTableFuelSearchingArgumentsProvider extends Abstra
                 ),
                 //not existing yield
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("УБОРКА КАРТОФЕЛЯ")
                                 .soilType("Тяжелые почвы")
                                 .tractor("New Holland TL 80")
@@ -130,7 +130,7 @@ public final class TwentyFifthTableFuelSearchingArgumentsProvider extends Abstra
                 ),
                 //not existing routing length
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("УБОРКА КАРТОФЕЛЯ")
                                 .soilType("Тяжелые почвы")
                                 .tractor("New Holland TL 80")

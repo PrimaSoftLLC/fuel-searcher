@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searcher.it.argumentprovider;
 
 import by.aurorasoft.fuelsearcher.model.Fuel;
-import by.aurorasoft.fuelsearcher.model.specification.Specification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -16,7 +16,7 @@ public final class SixteenthTableFuelSearchingArgumentsProvider extends Abstract
     protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
         return Stream.of(
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Fendt-933")
                                 .machinery("Krone-B 1000 CV Collet")
@@ -27,7 +27,7 @@ public final class SixteenthTableFuelSearchingArgumentsProvider extends Abstract
                         optionalFuelFactory.apply(31.5, 4.7)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Беларус 3022")
                                 .machinery("КМР-9П")
@@ -38,7 +38,7 @@ public final class SixteenthTableFuelSearchingArgumentsProvider extends Abstract
                         optionalFuelFactory.apply(27.9, 7.4)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Беларус 920.2")
                                 .machinery("KRONE EC-280")
@@ -50,7 +50,7 @@ public final class SixteenthTableFuelSearchingArgumentsProvider extends Abstract
                 ),
                 //not existing tractor
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("not existing")
                                 .machinery("KRONE EC-280")
@@ -62,7 +62,7 @@ public final class SixteenthTableFuelSearchingArgumentsProvider extends Abstract
                 ),
                 //not existing machinery
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Беларус 920.2")
                                 .machinery("not existing")
@@ -74,7 +74,7 @@ public final class SixteenthTableFuelSearchingArgumentsProvider extends Abstract
                 ),
                 //not existing working width
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Беларус 920.2")
                                 .machinery("KRONE EC-280")
@@ -86,7 +86,7 @@ public final class SixteenthTableFuelSearchingArgumentsProvider extends Abstract
                 ),
                 //not existing yield
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Беларус 920.2")
                                 .machinery("KRONE EC-280")
@@ -98,7 +98,7 @@ public final class SixteenthTableFuelSearchingArgumentsProvider extends Abstract
                 ),
                 //not existing routing length
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Беларус 920.2")
                                 .machinery("KRONE EC-280")

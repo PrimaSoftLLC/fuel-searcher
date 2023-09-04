@@ -5,7 +5,7 @@ import by.aurorasoft.fuelsearcher.model.FuelTable;
 import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
 import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
-import by.aurorasoft.fuelsearcher.model.specification.Specification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelsearcher.service.builder.BuilderRequiringAllProperties;
 import by.aurorasoft.fuelsearcher.service.dictionary.Translatable;
@@ -50,7 +50,7 @@ public abstract class FuelSearcher implements Translatable {
         return this.table.getName();
     }
 
-    public final Optional<Fuel> find(final Specification specification) {
+    public final Optional<Fuel> find(final FuelSpecification specification) {
         final List<IBodyElement> elements = this.table.getElements();
         return this.findSubTable(elements, specification)
                 .map(XWPFTable::getRows)
@@ -58,9 +58,9 @@ public abstract class FuelSearcher implements Translatable {
     }
 
     protected abstract Optional<XWPFTable> findSubTable(final List<IBodyElement> elements,
-                                                        final Specification specification);
+                                                        final FuelSpecification specification);
 
-    private Optional<Fuel> findFuel(final List<XWPFTableRow> subTableRows, final Specification specification) {
+    private Optional<Fuel> findFuel(final List<XWPFTableRow> subTableRows, final FuelSpecification specification) {
         final XWPFTableRow headersRow = subTableRows.get(ROW_INDEX_HEADERS);
         return this.filterChain.filter(subTableRows, specification)
                 .flatMap(fuelRow -> this.findFuelLocation(headersRow, specification, fuelRow))
@@ -68,7 +68,7 @@ public abstract class FuelSearcher implements Translatable {
     }
 
     private Optional<FuelLocation> findFuelLocation(final XWPFTableRow headersRow,
-                                                    final Specification specification,
+                                                    final FuelSpecification specification,
                                                     final XWPFTableRow fuelRow) {
         final String fuelHeader = this.headerExtractor.extract(specification);
         return findIndexFirstCellByContent(headersRow, fuelHeader)

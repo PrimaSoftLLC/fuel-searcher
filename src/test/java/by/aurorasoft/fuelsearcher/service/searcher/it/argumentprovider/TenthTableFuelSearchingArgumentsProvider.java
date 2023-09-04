@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searcher.it.argumentprovider;
 
 import by.aurorasoft.fuelsearcher.model.Fuel;
-import by.aurorasoft.fuelsearcher.model.specification.Specification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.Optional;
@@ -16,7 +16,7 @@ public final class TenthTableFuelSearchingArgumentsProvider extends AbstractTabl
     protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
         return Stream.of(
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ОДНОВРЕМЕННЫМ ПОСЕВОМ РАПСА")
                                 .tractor("Беларус 3522")
                                 .machinery("Амкодор \"Veras\" 12000")
@@ -27,7 +27,7 @@ public final class TenthTableFuelSearchingArgumentsProvider extends AbstractTabl
                         optionalFuelFactory.apply(24.5, 9.3)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ОДНОВРЕМЕННЫМ ПОСЕВОМ РАПСА")
                                 .tractor("Беларус 3522")
                                 .machinery("Amazone Avant 6001-2")
@@ -38,7 +38,7 @@ public final class TenthTableFuelSearchingArgumentsProvider extends AbstractTabl
                         optionalFuelFactory.apply(28.1, 7.9)
                 ),
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ОДНОВРЕМЕННЫМ ПОСЕВОМ РАПСА")
                                 .tractor("Беларус 1221")
                                 .machinery("Horsch Maestro DV")
@@ -50,7 +50,7 @@ public final class TenthTableFuelSearchingArgumentsProvider extends AbstractTabl
                 ),
                 //not existing tractor
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ОДНОВРЕМЕННЫМ ПОСЕВОМ РАПСА")
                                 .tractor("not existing")
                                 .machinery("Horsch Maestro DV")
@@ -62,7 +62,7 @@ public final class TenthTableFuelSearchingArgumentsProvider extends AbstractTabl
                 ),
                 //not existing machinery
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ОДНОВРЕМЕННЫМ ПОСЕВОМ РАПСА")
                                 .tractor("Беларус 1221")
                                 .machinery("not existing")
@@ -74,7 +74,7 @@ public final class TenthTableFuelSearchingArgumentsProvider extends AbstractTabl
                 ),
                 //nit existing working width
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ОДНОВРЕМЕННЫМ ПОСЕВОМ РАПСА")
                                 .tractor("Беларус 1221")
                                 .machinery("Horsch Maestro DV")
@@ -86,7 +86,7 @@ public final class TenthTableFuelSearchingArgumentsProvider extends AbstractTabl
                 ),
                 //not existing routing length
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ОДНОВРЕМЕННЫМ ПОСЕВОМ РАПСА")
                                 .tractor("Беларус 1221")
                                 .machinery("Horsch Maestro DV")
@@ -98,7 +98,7 @@ public final class TenthTableFuelSearchingArgumentsProvider extends AbstractTabl
                 ),
                 //not existing sowing norm
                 Arguments.of(
-                        Specification.builder()
+                        FuelSpecification.builder()
                                 .tableName("ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ОДНОВРЕМЕННЫМ ПОСЕВОМ РАПСА")
                                 .tractor("Беларус 1221")
                                 .machinery("Horsch Maestro DV")

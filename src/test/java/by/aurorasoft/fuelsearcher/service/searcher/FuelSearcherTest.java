@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searcher;
 
 import by.aurorasoft.fuelsearcher.model.FuelTable;
-import by.aurorasoft.fuelsearcher.model.specification.Specification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
@@ -68,7 +68,7 @@ public final class FuelSearcherTest {
 
         @Override
         protected Optional<XWPFTable> findSubTable(final List<IBodyElement> elements,
-                                                   final Specification specification) {
+                                                   final FuelSpecification specification) {
             return Optional.of(this.subTable);
         }
     }

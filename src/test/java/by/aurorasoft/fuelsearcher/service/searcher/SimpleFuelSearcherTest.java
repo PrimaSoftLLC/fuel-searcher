@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searcher;
 
 import by.aurorasoft.fuelsearcher.model.FuelTable;
-import by.aurorasoft.fuelsearcher.model.specification.Specification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleSearcherBuilder;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
@@ -27,7 +27,7 @@ public final class SimpleFuelSearcherTest {
 
         final XWPFTable element = mock(XWPFTable.class);
         final List<IBodyElement> givenElements = singletonList(element);
-        final Specification givenSpecification = mock(Specification.class);
+        final FuelSpecification givenSpecification = mock(FuelSpecification.class);
 
         final Optional<XWPFTable> optionalActual = givenSearcher.findSubTable(givenElements, givenSpecification);
         assertTrue(optionalActual.isPresent());
@@ -41,7 +41,7 @@ public final class SimpleFuelSearcherTest {
         final SimpleFuelSearcher givenSearcher = createSearcher();
 
         final List<IBodyElement> givenElements = emptyList();
-        final Specification givenSpecification = mock(Specification.class);
+        final FuelSpecification givenSpecification = mock(FuelSpecification.class);
 
         givenSearcher.findSubTable(givenElements, givenSpecification);
     }
@@ -52,7 +52,7 @@ public final class SimpleFuelSearcherTest {
         final SimpleFuelSearcher givenSearcher = createSearcher();
 
         final List<IBodyElement> givenElements = List.of(mock(IBodyElement.class));
-        final Specification givenSpecification = mock(Specification.class);
+        final FuelSpecification givenSpecification = mock(FuelSpecification.class);
 
         givenSearcher.findSubTable(givenElements, givenSpecification);
     }

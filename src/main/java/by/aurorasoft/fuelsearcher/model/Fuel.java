@@ -1,6 +1,5 @@
 package by.aurorasoft.fuelsearcher.model;
 
-import lombok.Getter;
 import lombok.Value;
 
 import java.util.OptionalDouble;
@@ -9,10 +8,8 @@ import java.util.function.ToDoubleFunction;
 import static by.aurorasoft.fuelsearcher.util.XWPFUtil.NOT_DEFINED_DOUBLE;
 import static by.aurorasoft.fuelsearcher.util.XWPFUtil.isNotDefinedDouble;
 import static java.util.OptionalDouble.empty;
-import static lombok.AccessLevel.PRIVATE;
 
 @Value
-@Getter(value = PRIVATE)
 public class Fuel {
     double generationNorm;
     double consumption;

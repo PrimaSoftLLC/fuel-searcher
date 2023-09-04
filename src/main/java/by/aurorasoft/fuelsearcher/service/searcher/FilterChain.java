@@ -2,7 +2,7 @@ package by.aurorasoft.fuelsearcher.service.searcher;
 
 import by.aurorasoft.fuelsearcher.service.builder.BuilderRequiringAllProperties;
 import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
-import by.aurorasoft.fuelsearcher.model.specification.Specification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -27,12 +27,12 @@ public class FilterChain {
         return new FilterChainBuilder();
     }
 
-    public Optional<XWPFTableRow> filter(final List<XWPFTableRow> rows, final Specification specification) {
+    public Optional<XWPFTableRow> filter(final List<XWPFTableRow> rows, final FuelSpecification specification) {
         final FinalFilteringFunction filteringFunction = this.createFilteringFunction(specification);
         return filteringFunction.apply(rows);
     }
 
-    private FinalFilteringFunction createFilteringFunction(final Specification specification) {
+    private FinalFilteringFunction createFilteringFunction(final FuelSpecification specification) {
         final FinalFilteringFunction finalFilteringFunction = createFinalFilteringFunction(
                 this.finalFilter, specification
         );
@@ -44,12 +44,12 @@ public class FilterChain {
     }
 
     private static FinalFilteringFunction createFinalFilteringFunction(final FinalFilter filter,
-                                                                       final Specification specification) {
+                                                                       final FuelSpecification specification) {
         return rows -> filter.filter(rows, specification);
     }
 
     private static InterimFilteringFunction createInterimFilteringFunction(final InterimFilter filter,
-                                                                           final Specification specification) {
+                                                                           final FuelSpecification specification) {
         return rows -> filter.filter(rows, specification);
     }
 
