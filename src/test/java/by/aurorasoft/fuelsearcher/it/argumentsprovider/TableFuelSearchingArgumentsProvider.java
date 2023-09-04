@@ -1,5 +1,6 @@
 package by.aurorasoft.fuelsearcher.it.argumentsprovider;
 
+import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelArguments;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.stream.Stream;
@@ -15,7 +16,7 @@ public abstract class TableFuelSearchingArgumentsProvider {
     private static Arguments mapToArguments(final FuelArguments fuelArguments) {
         return Arguments.of(
                 fuelArguments.getSpecification(),
-                fuelArguments.getExpected()
+                fuelArguments.findExpected()
         );
     }
 }
