@@ -16,7 +16,7 @@ import static java.util.stream.IntStream.range;
 
 @UtilityClass
 public final class XWPFParagraphUtil {
-    private static final String NEW_LINE_SEQUENCE_REGEX = "\n+";
+    private static final String NEW_LINES_REGEX = "\n+";
     private static final String EMPTY_STRING = "";
 
     private static final String NBSP_SYMBOLS_REGEX = "\\p{Z}+";
@@ -24,12 +24,12 @@ public final class XWPFParagraphUtil {
     private static final String NBSP_SYMBOLS_IN_END_STRING_REGEX = NBSP_SYMBOLS_REGEX + "$";
 
     public static boolean isEmptyParagraph(final IBodyElement element) {
-        return isMatchingParagraph(element, XWPFParagraphUtil::isEmptyParagraph);
+        return isMatchingParagraph(element, XWPFParagraphUtil::isEmpty);
     }
 
-    public static Stream<String> extractParagraphLines(final XWPFParagraph paragraph) {
-        final String text = paragraph.getText();
-        final String[] lines = text.split(NEW_LINE_SEQUENCE_REGEX);
+    public static Stream<String> extractTextLines(final XWPFParagraph paragraph) {
+        final String text = extractText(paragraph);
+        final String[] lines = text.split(NEW_LINES_REGEX);
         return stream(lines);
     }
 
@@ -65,14 +65,19 @@ public final class XWPFParagraphUtil {
         return predicate.test(paragraph);
     }
 
-    private static boolean isEmptyParagraph(final XWPFParagraph paragraph) {
+    private static boolean isEmpty(final XWPFParagraph paragraph) {
         final String paragraphText = extractText(paragraph);
         return paragraphText.isBlank();
     }
 
     private static String extractText(final XWPFParagraph paragraph) {
-        final String paragraphText = paragraph.getText();
-        return paragraphText
+        final String text = paragraph.getText();
+        final String trimmedText = text.trim();
+        return trimByNbspSymbol(trimmedText);
+    }
+
+    private static String trimByNbspSymbol(final String source) {
+        return source
                 .replaceAll(NBSP_SYMBOLS_IN_START_STRING_REGEX, EMPTY_STRING)
                 .replaceAll(NBSP_SYMBOLS_IN_END_STRING_REGEX, EMPTY_STRING);
     }

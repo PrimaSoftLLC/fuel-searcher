@@ -155,7 +155,7 @@ public final class FuelDocumentLoader {
         }
 
         private static Optional<String> extractTableNameIfContain(final XWPFParagraph paragraph) {
-            return extractParagraphLines(paragraph)
+            return extractTextLines(paragraph)
                     .map(ElementBoundedToTableNameIterator::extractTableNameIfItIsTitle)
                     .filter(Optional::isPresent)
                     .findFirst()
