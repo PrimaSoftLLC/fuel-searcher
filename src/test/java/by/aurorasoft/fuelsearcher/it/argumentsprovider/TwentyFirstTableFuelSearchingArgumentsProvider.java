@@ -1,113 +1,104 @@
-package by.aurorasoft.fuelsearcher.service.searcher.it.argumentprovider;
+package by.aurorasoft.fuelsearcher.it.argumentsprovider;
 
+import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
-import org.junit.jupiter.params.provider.Arguments;
 
-import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
-import static java.util.Optional.empty;
-
-public final class TwentyFirstTableFuelSearchingArgumentsProvider extends AbstractTableFuelSearchingArgumentsProvider {
+public final class TwentyFirstTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
 
     @Override
-    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
+    protected Stream<FuelSearchingArguments> createFuelSearchingArguments() {
         return Stream.of(
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ ПРОВЯЛЕННОЙ МАССЫ ПОСЛЕ КОМБАЙНА")
                                 .tractor("Беларус 1221")
                                 .machinery("KRONE CF Ultima 155 XC")
                                 .workingWidth("5")
                                 .yield("до 5")
                                 .routingLength("Менее 150")
-                                .build(),
-                        optionalFuelFactory.apply(46.1, 1.87)
-                ),
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .expected(new Fuel(46.1, 1.87))
+                        .build(),
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ ПРОВЯЛЕННОЙ МАССЫ ПОСЛЕ КОМБАЙНА")
                                 .tractor("Беларус 1221")
                                 .machinery("KRONE CF Ultima 155 XC")
                                 .workingWidth("5")
                                 .yield("свыше 15.5")
                                 .routingLength("Более 1000")
-                                .build(),
-                        optionalFuelFactory.apply(155.6, 0.74)
-                ),
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .expected(new Fuel(155.6, 0.74))
+                        .build(),
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ ПРОВЯЛЕННОЙ МАССЫ ПОСЛЕ КОМБАЙНА")
                                 .tractor("Беларус 1221")
                                 .machinery("KRONE CF Ultima 155 XC")
                                 .workingWidth("5")
                                 .yield("14.5-15.5")
                                 .routingLength("401-600")
-                                .build(),
-                        optionalFuelFactory.apply(140.9, 0.78)
-                ),
+                                .build())
+                        .expected(new Fuel(140.9, 0.78))
+                        .build(),
                 //not existing tractor
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ ПРОВЯЛЕННОЙ МАССЫ ПОСЛЕ КОМБАЙНА")
                                 .tractor("not existing")
                                 .machinery("KRONE CF Ultima 155 XC")
                                 .workingWidth("5")
                                 .yield("14.5-15.5")
                                 .routingLength("401-600")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing machinery
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ ПРОВЯЛЕННОЙ МАССЫ ПОСЛЕ КОМБАЙНА")
                                 .tractor("Беларус 1221")
                                 .machinery("not existing")
                                 .workingWidth("5")
                                 .yield("14.5-15.5")
                                 .routingLength("401-600")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing working width
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ ПРОВЯЛЕННОЙ МАССЫ ПОСЛЕ КОМБАЙНА")
                                 .tractor("Беларус 1221")
                                 .machinery("KRONE CF Ultima 155 XC")
                                 .workingWidth("not existing")
                                 .yield("14.5-15.5")
                                 .routingLength("401-600")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing yield
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ ПРОВЯЛЕННОЙ МАССЫ ПОСЛЕ КОМБАЙНА")
                                 .tractor("Беларус 1221")
                                 .machinery("KRONE CF Ultima 155 XC")
                                 .workingWidth("5")
                                 .yield("not existing")
                                 .routingLength("401-600")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing routing length
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("ПРЕССОВАНИЕ ПРОВЯЛЕННОЙ МАССЫ ПОСЛЕ КОМБАЙНА")
                                 .tractor("Беларус 1221")
                                 .machinery("KRONE CF Ultima 155 XC")
                                 .workingWidth("5")
                                 .yield("14.5-15.5")
                                 .routingLength("not existing")
-                                .build(),
-                        empty()
-                )
+                                .build())
+                        .build()
         );
     }
 
