@@ -1,95 +1,95 @@
-package by.aurorasoft.fuelsearcher.service.searcher.it.argumentprovider;
+package by.aurorasoft.fuelsearcher.it.argumentsprovider;
 
+import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
-import org.junit.jupiter.params.provider.Arguments;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpecificationBuilder;
 
-import java.util.Optional;
-import java.util.function.BiFunction;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import static java.util.Optional.empty;
+public final class TwentySixthTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
+    private static final String TABLE_NAME = "УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА";
 
-public final class TwentySixthTableFuelSearchingArgumentsProvider extends AbstractTableFuelSearchingArgumentsProvider {
+    public TwentySixthTableFuelSearchingArgumentsProvider() {
+        super(TABLE_NAME);
+    }
 
     @Override
-    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
+    protected Stream<FuelSearchingArguments> createFuelSearchingArguments(
+            final Supplier<FuelSpecificationBuilder> specificationBuilderSupplier
+    ) {
         return Stream.of(
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .combine("JAGUAR 970")
                                 .workingWidth("9")
                                 .yield("до 10")
                                 .routingLength("Менее 150")
-                                .build(),
-                        optionalFuelFactory.apply(102.5, 2.95)
-                ),
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .expected(new Fuel(102.5, 2.95))
+                        .build(),
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .combine("BIG X850")
                                 .workingWidth("9")
                                 .yield("65-70")
                                 .routingLength("150-200")
-                                .build(),
-                        optionalFuelFactory.apply(240.2, 1.24)
-                ),
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .expected(new Fuel(240.2, 1.24))
+                        .build(),
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .combine("JOHN DEERE 8400")
                                 .workingWidth("6")
                                 .yield("25-30")
                                 .routingLength("Менее 150")
-                                .build(),
-                        optionalFuelFactory.apply(99.8, 1.57)
-                ),
+                                .build())
+                        .expected(new Fuel(99.8, 1.57))
+                        .build(),
                 //not existing combine
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .combine("not existing")
                                 .workingWidth("6")
                                 .yield("25-30")
                                 .routingLength("Менее 150")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing working width
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .combine("JOHN DEERE 8400")
                                 .workingWidth("not existing")
                                 .yield("25-30")
                                 .routingLength("Менее 150")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing yield
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .combine("JOHN DEERE 8400")
                                 .workingWidth("6")
                                 .yield("not existing")
                                 .routingLength("Менее 150")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing routing length
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
                                 .combine("JOHN DEERE 8400")
                                 .workingWidth("6")
                                 .yield("25-30")
                                 .routingLength("not existing")
-                                .build(),
-                        empty()
-                )
+                                .build())
+                        .build()
         );
     }
-
 }
