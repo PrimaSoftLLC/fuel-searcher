@@ -2,7 +2,6 @@ package by.aurorasoft.fuelsearcher.it.argumentsprovider;
 
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.Fuel;
-import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpecificationBuilder;
 
 import java.util.function.Supplier;
@@ -21,8 +20,7 @@ public final class TwentySixthTableFuelSearchingArgumentsProvider extends TableF
     ) {
         return Stream.of(
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("JAGUAR 970")
                                 .workingWidth("9")
                                 .yield("до 10")
@@ -31,8 +29,7 @@ public final class TwentySixthTableFuelSearchingArgumentsProvider extends TableF
                         .expected(new Fuel(102.5, 2.95))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("BIG X850")
                                 .workingWidth("9")
                                 .yield("65-70")
@@ -41,8 +38,7 @@ public final class TwentySixthTableFuelSearchingArgumentsProvider extends TableF
                         .expected(new Fuel(240.2, 1.24))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("JOHN DEERE 8400")
                                 .workingWidth("6")
                                 .yield("25-30")
@@ -52,8 +48,7 @@ public final class TwentySixthTableFuelSearchingArgumentsProvider extends TableF
                         .build(),
                 //not existing combine
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("not existing")
                                 .workingWidth("6")
                                 .yield("25-30")
@@ -62,8 +57,7 @@ public final class TwentySixthTableFuelSearchingArgumentsProvider extends TableF
                         .build(),
                 //not existing working width
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("JOHN DEERE 8400")
                                 .workingWidth("not existing")
                                 .yield("25-30")
@@ -72,8 +66,7 @@ public final class TwentySixthTableFuelSearchingArgumentsProvider extends TableF
                         .build(),
                 //not existing yield
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("JOHN DEERE 8400")
                                 .workingWidth("6")
                                 .yield("not existing")
@@ -82,8 +75,7 @@ public final class TwentySixthTableFuelSearchingArgumentsProvider extends TableF
                         .build(),
                 //not existing routing length
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("УБОРКА КУКУРУЗЫ С ИЗМЕЛЬЧЕНИЕМ И ПОДАЧЕЙ В ТРАНСПОРТНЫЕ СРЕДСТВА")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("JOHN DEERE 8400")
                                 .workingWidth("6")
                                 .yield("25-30")
