@@ -20,7 +20,7 @@ import java.util.Optional;
 import java.util.function.ToIntFunction;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFUtil.extractDoubleValue;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.extractCellDoubleValue;
 import static by.aurorasoft.fuelsearcher.util.XWPFUtil.findIndexFirstCellByContent;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
@@ -119,7 +119,7 @@ public abstract class FuelSearcher implements Translatable {
                                                final ToIntFunction<FuelLocation> cellIndexGetter) {
         final XWPFTableRow row = location.row();
         final int cellIndex = cellIndexGetter.applyAsInt(location);
-        return extractDoubleValue(row, cellIndex);
+        return extractCellDoubleValue(row, cellIndex);
     }
 
 

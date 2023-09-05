@@ -30,16 +30,6 @@ public final class XWPFUtil {
         return isNaN(value);
     }
 
-    private static boolean isCellContentMatch(final XWPFTableRow row, final int cellNumber, final String expected) {
-        return isCellContentMatch(row, cellNumber, expected, String::equalsIgnoreCase);
-    }
-
-    private static boolean isCellContentMatchRegex(final XWPFTableRow row,
-                                                   final int cellNumber,
-                                                   final String expectedRegex) {
-        return isCellContentMatch(row, cellNumber, expectedRegex, String::matches);
-    }
-
     public static OptionalInt findIndexFirstRowByContent(final List<XWPFTableRow> rows,
                                                          final int cellIndexWithContent,
                                                          final String content) {
@@ -48,7 +38,7 @@ public final class XWPFUtil {
                 0,
                 cellIndexWithContent,
                 content,
-                XWPFUtil::isCellContentMatch
+                XWPFTableRowUtil::isCellContentEqual
         );
     }
 
@@ -61,7 +51,7 @@ public final class XWPFUtil {
                 startFindingIndex,
                 cellIndexWithContent,
                 regex,
-                XWPFUtil::isCellContentMatchRegex
+                XWPFTableRowUtil::isCellContentMatchRegex
         );
     }
 
@@ -70,7 +60,7 @@ public final class XWPFUtil {
                                                              final int cellIndexWithContent,
                                                              final String content) {
         return range(0, rows.size())
-                .filter(i -> isCellContentMatch(rows.get(i), cellIndexWithContent, content))
+                .filter(i -> XWPFTableRowUtil.isCellContentEqual(rows.get(i), cellIndexWithContent, content))
                 .mapToObj(indexFirstRow -> extractUnitedRows(rows, indexFirstRow, cellIndexWithContent))
                 .flatMap(Collection::stream)
                 .toList();
@@ -108,42 +98,10 @@ public final class XWPFUtil {
                 .findFirst();
     }
 
-    public static double extractDoubleValue(final XWPFTableRow row, final int cellIndex) {
-        return extractValue(row, cellIndex, XWPFUtil::extractDoubleValue);
-    }
-
     public static List<XWPFTableRow> extractRows(final List<XWPFTableRow> rows, final IntPair borders) {
         final int indexFirstRow = borders.getFirst();
         final int nextIndexLastRow = borders.getSecond();
         return rows.subList(indexFirstRow, nextIndexLastRow);
-    }
-
-    private static boolean isCellContentMatch(final XWPFTableRow row,
-                                              final int cellNumber,
-                                              final String compared,
-                                              final BiPredicate<String, String> matchingPredicate) {
-        final String actual = extractCellContent(row, cellNumber);
-        return matchingPredicate.test(actual, compared);
-    }
-
-    private static String extractCellContent(final XWPFTableRow row, final int cellNumber) {
-        final XWPFTableCell cell = row.getCell(cellNumber);
-        return extractText(cell);
-    }
-
-    private static <V> V extractValue(final XWPFTableRow row,
-                                      final int cellIndex,
-                                      final Function<String, V> valueParser) {
-        final String actual = extractCellContent(row, cellIndex);
-        return valueParser.apply(actual);
-    }
-
-    private static double extractDoubleValue(final String content) {
-        final String contentToBeParsed = content.replaceAll(COMMA, POINT);
-        if (contentToBeParsed.equals("-")) {
-            return Double.NaN;
-        }
-        return parseDouble(contentToBeParsed);
     }
 
     private static OptionalInt findIndexFirstMatchingContentRow(final List<XWPFTableRow> rows,
