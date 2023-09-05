@@ -2,18 +2,25 @@ package by.aurorasoft.fuelsearcher.it.argumentsprovider;
 
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.Fuel;
-import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpecificationBuilder;
 
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public final class FifteenthTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
+    private static final String TABLE_NAME = "КОШЕНИЕ СЕЯНЫХ И ЕСТЕСТВЕННЫХ ТРАВ";
+
+    public FifteenthTableFuelSearchingArgumentsProvider() {
+        super(TABLE_NAME);
+    }
 
     @Override
-    protected Stream<FuelSearchingArguments> createFuelSearchingArguments() {
+    protected Stream<FuelSearchingArguments> createFuelSearchingArguments(
+            final Supplier<FuelSpecificationBuilder> specificationBuilderSupplier
+    ) {
         return Stream.of(
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("КОШЕНИЕ СЕЯНЫХ И ЕСТЕСТВЕННЫХ ТРАВ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 2522")
                                 .machinery("KDT 941")
                                 .workingWidth("9.14")
@@ -23,8 +30,7 @@ public final class FifteenthTableFuelSearchingArgumentsProvider extends TableFue
                         .expected(new Fuel(28.1, 4.7))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("КОШЕНИЕ СЕЯНЫХ И ЕСТЕСТВЕННЫХ ТРАВ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 1523")
                                 .machinery("Novocat Alfa Motion 351")
                                 .workingWidth("3.46")
@@ -34,8 +40,7 @@ public final class FifteenthTableFuelSearchingArgumentsProvider extends TableFue
                         .expected(new Fuel(11.4, 4.9))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("КОШЕНИЕ СЕЯНЫХ И ЕСТЕСТВЕННЫХ ТРАВ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 1221")
                                 .machinery("КДЛ-3.14")
                                 .workingWidth("3.14")
@@ -46,8 +51,7 @@ public final class FifteenthTableFuelSearchingArgumentsProvider extends TableFue
                         .build(),
                 //not existing tractor
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("КОШЕНИЕ СЕЯНЫХ И ЕСТЕСТВЕННЫХ ТРАВ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("not existing")
                                 .machinery("КДЛ-3.14")
                                 .workingWidth("3.14")
@@ -57,8 +61,7 @@ public final class FifteenthTableFuelSearchingArgumentsProvider extends TableFue
                         .build(),
                 //not existing machinery
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("КОШЕНИЕ СЕЯНЫХ И ЕСТЕСТВЕННЫХ ТРАВ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 1221")
                                 .machinery("not existing")
                                 .workingWidth("3.14")
@@ -68,8 +71,7 @@ public final class FifteenthTableFuelSearchingArgumentsProvider extends TableFue
                         .build(),
                 //not existing working width
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("КОШЕНИЕ СЕЯНЫХ И ЕСТЕСТВЕННЫХ ТРАВ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 1221")
                                 .machinery("КДЛ-3.14")
                                 .workingWidth("not existing")
@@ -79,8 +81,7 @@ public final class FifteenthTableFuelSearchingArgumentsProvider extends TableFue
                         .build(),
                 //not existing yield
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("КОШЕНИЕ СЕЯНЫХ И ЕСТЕСТВЕННЫХ ТРАВ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 1221")
                                 .machinery("КДЛ-3.14")
                                 .workingWidth("3.14")
@@ -90,8 +91,7 @@ public final class FifteenthTableFuelSearchingArgumentsProvider extends TableFue
                         .build(),
                 //not existing routing length
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("КОШЕНИЕ СЕЯНЫХ И ЕСТЕСТВЕННЫХ ТРАВ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 1221")
                                 .machinery("КДЛ-3.14")
                                 .workingWidth("3.14")
