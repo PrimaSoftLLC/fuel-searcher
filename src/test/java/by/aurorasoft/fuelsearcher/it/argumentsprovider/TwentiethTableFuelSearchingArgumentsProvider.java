@@ -2,18 +2,25 @@ package by.aurorasoft.fuelsearcher.it.argumentsprovider;
 
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.Fuel;
-import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpecificationBuilder;
 
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public final class TwentiethTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
+    private static final String TABLE_NAME = "ПРЕССОВАНИЕ СОЛОМЫ ПОСЛЕ КОМБАЙНА";
+
+    public TwentiethTableFuelSearchingArgumentsProvider() {
+        super(TABLE_NAME);
+    }
 
     @Override
-    protected Stream<FuelSearchingArguments> createFuelSearchingArguments() {
+    protected Stream<FuelSearchingArguments> createFuelSearchingArguments(
+            final Supplier<FuelSpecificationBuilder> specificationBuilderSupplier
+    ) {
         return Stream.of(
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЕССОВАНИЕ СОЛОМЫ ПОСЛЕ КОМБАЙНА")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 2022")
                                 .machinery("CAMPRIMA CF 155 XC")
                                 .workingWidth("5.7")
@@ -23,8 +30,7 @@ public final class TwentiethTableFuelSearchingArgumentsProvider extends TableFue
                         .expected(new Fuel(13.9, 6.24))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЕССОВАНИЕ СОЛОМЫ ПОСЛЕ КОМБАЙНА")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 1221")
                                 .machinery("Krone CAMPRIMA CF 155 XC")
                                 .workingWidth("5.7")
@@ -34,8 +40,7 @@ public final class TwentiethTableFuelSearchingArgumentsProvider extends TableFue
                         .expected(new Fuel(45, 1.37))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЕССОВАНИЕ СОЛОМЫ ПОСЛЕ КОМБАЙНА")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 82")
                                 .machinery("Krone CAMPRIMA CF 125")
                                 .workingWidth("5.5")
@@ -46,8 +51,7 @@ public final class TwentiethTableFuelSearchingArgumentsProvider extends TableFue
                         .build(),
                 //not existing tractor
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЕССОВАНИЕ СОЛОМЫ ПОСЛЕ КОМБАЙНА")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("not existing")
                                 .machinery("Krone CAMPRIMA CF 125")
                                 .workingWidth("5.5")
@@ -57,8 +61,7 @@ public final class TwentiethTableFuelSearchingArgumentsProvider extends TableFue
                         .build(),
                 //not existing machinery
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЕССОВАНИЕ СОЛОМЫ ПОСЛЕ КОМБАЙНА")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 82")
                                 .machinery("not existing")
                                 .workingWidth("5.5")
@@ -68,8 +71,7 @@ public final class TwentiethTableFuelSearchingArgumentsProvider extends TableFue
                         .build(),
                 //not existing working width
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЕССОВАНИЕ СОЛОМЫ ПОСЛЕ КОМБАЙНА")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 82")
                                 .machinery("Krone CAMPRIMA CF 125")
                                 .workingWidth("not existing")
@@ -79,8 +81,7 @@ public final class TwentiethTableFuelSearchingArgumentsProvider extends TableFue
                         .build(),
                 //not existing yield
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЕССОВАНИЕ СОЛОМЫ ПОСЛЕ КОМБАЙНА")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 82")
                                 .machinery("Krone CAMPRIMA CF 125")
                                 .workingWidth("5.5")
@@ -90,8 +91,7 @@ public final class TwentiethTableFuelSearchingArgumentsProvider extends TableFue
                         .build(),
                 //not existing routing length
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЕССОВАНИЕ СОЛОМЫ ПОСЛЕ КОМБАЙНА")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 82")
                                 .machinery("Krone CAMPRIMA CF 125")
                                 .workingWidth("5.5")
