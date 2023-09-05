@@ -1,113 +1,104 @@
-package by.aurorasoft.fuelsearcher.service.searcher.it.argumentprovider;
+package by.aurorasoft.fuelsearcher.it.argumentsprovider;
 
+import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
-import org.junit.jupiter.params.provider.Arguments;
 
-import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
-import static java.util.Optional.empty;
-
-public final class SixteenthTableFuelSearchingArgumentsProvider extends AbstractTableFuelSearchingArgumentsProvider {
+public final class SixteenthTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
 
     @Override
-    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
+    protected Stream<FuelSearchingArguments> createFuelSearchingArguments() {
         return Stream.of(
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Fendt-933")
                                 .machinery("Krone-B 1000 CV Collet")
                                 .workingWidth("9.7")
                                 .yield("до 10")
                                 .routingLength("Менее 150")
-                                .build(),
-                        optionalFuelFactory.apply(31.5, 4.7)
-                ),
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .expected(new Fuel(31.5, 4.7))
+                        .build(),
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Беларус 3022")
                                 .machinery("КМР-9П")
                                 .workingWidth("9")
                                 .yield("свыше 35")
                                 .routingLength("150-200")
-                                .build(),
-                        optionalFuelFactory.apply(27.9, 7.4)
-                ),
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .expected(new Fuel(27.9, 7.4))
+                        .build(),
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Беларус 920.2")
                                 .machinery("KRONE EC-280")
                                 .workingWidth("2.8")
                                 .yield("свыше 35")
                                 .routingLength("Менее 150")
-                                .build(),
-                        optionalFuelFactory.apply(7.5, 5.6)
-                ),
+                                .build())
+                        .expected(new Fuel(7.5, 5.6))
+                        .build(),
                 //not existing tractor
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("not existing")
                                 .machinery("KRONE EC-280")
                                 .workingWidth("2.8")
                                 .yield("свыше 35")
                                 .routingLength("Менее 150")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing machinery
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Беларус 920.2")
                                 .machinery("not existing")
                                 .workingWidth("2.8")
                                 .yield("свыше 35")
                                 .routingLength("Менее 150")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing working width
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Беларус 920.2")
                                 .machinery("KRONE EC-280")
                                 .workingWidth("not exsting")
                                 .yield("свыше 35")
                                 .routingLength("Менее 150")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing yield
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Беларус 920.2")
                                 .machinery("KRONE EC-280")
                                 .workingWidth("2.8")
                                 .yield("not existing")
                                 .routingLength("Менее 150")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing routing length
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ")
                                 .tractor("Беларус 920.2")
                                 .machinery("KRONE EC-280")
                                 .workingWidth("2.8")
                                 .yield("свыше 35")
                                 .routingLength("not existing")
-                                .build(),
-                        empty()
-                )
+                                .build())
+                        .build()
         );
     }
 
