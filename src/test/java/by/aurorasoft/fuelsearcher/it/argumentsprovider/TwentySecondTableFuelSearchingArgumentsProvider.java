@@ -2,18 +2,25 @@ package by.aurorasoft.fuelsearcher.it.argumentsprovider;
 
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.Fuel;
-import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpecificationBuilder;
 
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public final class TwentySecondTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
+    private static final String TABLE_NAME = "ПРЕССОВАНИЕ ЛЕНТ ЛЬНА";
+
+    public TwentySecondTableFuelSearchingArgumentsProvider() {
+        super(TABLE_NAME);
+    }
 
     @Override
-    protected Stream<FuelSearchingArguments> createFuelSearchingArguments() {
+    protected Stream<FuelSearchingArguments> createFuelSearchingArguments(
+            final Supplier<FuelSpecificationBuilder> specificationBuilderSupplier
+    ) {
         return Stream.of(
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЕССОВАНИЕ ЛЕНТ ЛЬНА")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 80/82")
                                 .machinery("ППЛ-1")
                                 .workingWidth("1")
@@ -23,8 +30,7 @@ public final class TwentySecondTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(2.4, 20.5))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЕССОВАНИЕ ЛЕНТ ЛЬНА")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 80/82")
                                 .machinery("ППЛ-1")
                                 .workingWidth("1")
@@ -34,8 +40,7 @@ public final class TwentySecondTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(2.2, 25.1))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЕССОВАНИЕ ЛЕНТ ЛЬНА")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 80/82")
                                 .machinery("ППЛ-1")
                                 .workingWidth("1")
@@ -46,8 +51,7 @@ public final class TwentySecondTableFuelSearchingArgumentsProvider extends Table
                         .build(),
                 //not existing tractor
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЕССОВАНИЕ ЛЕНТ ЛЬНА")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("not existing tractor")
                                 .machinery("ППЛ-1")
                                 .workingWidth("1")
@@ -57,8 +61,7 @@ public final class TwentySecondTableFuelSearchingArgumentsProvider extends Table
                         .build(),
                 //not existing machinery
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЕССОВАНИЕ ЛЕНТ ЛЬНА")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 80/82")
                                 .machinery("not existing")
                                 .workingWidth("1")
@@ -68,8 +71,7 @@ public final class TwentySecondTableFuelSearchingArgumentsProvider extends Table
                         .build(),
                 //not existing working width
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЕССОВАНИЕ ЛЕНТ ЛЬНА")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 80/82")
                                 .machinery("ППЛ-1")
                                 .workingWidth("not existing")
@@ -79,8 +81,7 @@ public final class TwentySecondTableFuelSearchingArgumentsProvider extends Table
                         .build(),
                 //not existing yield
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЕССОВАНИЕ ЛЕНТ ЛЬНА")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 80/82")
                                 .machinery("ППЛ-1")
                                 .workingWidth("1")
@@ -90,8 +91,7 @@ public final class TwentySecondTableFuelSearchingArgumentsProvider extends Table
                         .build(),
                 //not existing routing length
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЕССОВАНИЕ ЛЕНТ ЛЬНА")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 80/82")
                                 .machinery("ППЛ-1")
                                 .workingWidth("1")
