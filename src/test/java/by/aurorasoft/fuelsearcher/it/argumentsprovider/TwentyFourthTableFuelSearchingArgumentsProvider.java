@@ -3,17 +3,25 @@ package by.aurorasoft.fuelsearcher.it.argumentsprovider;
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpecificationBuilder;
 
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public final class TwentyFourthTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
+    private static final String TABLE_NAME = "ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ";
+
+    public TwentyFourthTableFuelSearchingArgumentsProvider() {
+        super(TABLE_NAME);
+    }
 
     @Override
-    protected Stream<FuelSearchingArguments> createFuelSearchingArguments() {
+    protected Stream<FuelSearchingArguments> createFuelSearchingArguments(
+            final Supplier<FuelSpecificationBuilder> specificationBuilderSupplier
+    ) {
         return Stream.of(
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("CLAAS LEXION-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:1")
                                 .yield("До 1.4")
@@ -23,8 +31,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(24.1, 9.5))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("CLAAS LEXION-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:1")
                                 .yield("4.9...5.3")
@@ -34,8 +41,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(94.7, 3.3))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("CLAAS LEXION-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("Св. 6")
@@ -45,8 +51,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(87.8, 3))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("CLAAS LEXION-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("5.4...5.7")
@@ -56,8 +61,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(74.1, 3.2))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("CLAAS LEXION-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("3...3.3")
@@ -78,8 +82,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(84.4, 3.2))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("КЗС-1624-1 \"ПАЛЕССЕ GS-1624-1\" - 490 л.с.")
                                 .weightRatioGrainToStraw("1:1")
                                 .yield("До 1.4")
@@ -89,8 +92,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(21.7, 16))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("КЗС-1624-1 \"ПАЛЕССЕ GS-1624-1\" - 490 л.с.")
                                 .weightRatioGrainToStraw("1:1")
                                 .yield("7.1...7.5")
@@ -100,8 +102,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(96.9, 4.8))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("КЗС-1624-1 \"ПАЛЕССЕ GS-1624-1\" - 490 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("3.3...3.6")
@@ -111,8 +112,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(73.4, 6.3))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("КЗС-1624-1 \"ПАЛЕССЕ GS-1624-1\" - 490 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("5.7...6")
@@ -122,8 +122,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(61.8, 5.7))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("КЗС-1624-1 \"ПАЛЕССЕ GS-1624-1\" - 490 л.с.")
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("2.5...2.7")
@@ -133,8 +132,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(70.5, 6.5))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("КЗС-1624-1 \"ПАЛЕССЕ GS-1624-1\" - 490 л.с.")
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("4.7...5")
@@ -144,8 +142,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(73.4, 5.3))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("CLAAS LEXION-760 - 461 л.с.")
                                 .weightRatioGrainToStraw("1:1")
                                 .yield("До 1.4")
@@ -155,8 +152,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(21.5, 9.4))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("CLAAS LEXION-760 - 461 л.с.")
                                 .weightRatioGrainToStraw("1:1")
                                 .yield("Св. 7.5")
@@ -166,8 +162,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(119.2, 2.4))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("CLAAS LEXION-760 - 461 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("2.7...3")
@@ -177,8 +172,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(53.6, 4.6))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("CLAAS LEXION-760 - 461 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("5.4...5.7")
@@ -188,8 +182,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(65.7, 3.2))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("CLAAS LEXION-760 - 461 л.с.")
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("4.2...4.5")
@@ -199,8 +192,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(105.5, 2.7))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("CLAAS LEXION-760 - 461 л.с.")
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("3.3...3.5")
@@ -210,8 +202,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(89.5, 3.2))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("КЗС-3219 КР \"ПАЛЕССЕ GS-3219 КР\" - 390 л.с.")
                                 .weightRatioGrainToStraw("1:1")
                                 .yield("До 1.4")
@@ -221,8 +212,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(18.7, 13))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("КЗС-3219 КР \"ПАЛЕССЕ GS-3219 КР\" - 390 л.с.")
                                 .weightRatioGrainToStraw("1:1")
                                 .yield("4.1...4.5")
@@ -232,8 +222,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(65.3, 4.9))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("КЗС-3219 КР \"ПАЛЕССЕ GS-3219 КР\" - 390 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("4.8...5.1")
@@ -243,8 +232,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(60.8, 4.7))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("КЗС-3219 КР \"ПАЛЕССЕ GS-3219 КР\" - 390 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("1.8...2.1")
@@ -254,8 +242,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(46.7, 6.9))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("КЗС-3219 КР \"ПАЛЕССЕ GS-3219 КР\" - 390 л.с.")
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("1.8...2")
@@ -265,8 +252,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(41.2, 7))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("КЗС-3219 КР \"ПАЛЕССЕ GS-3219 КР\" - 390 л.с.")
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("3.5...3.7")
@@ -276,8 +262,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(79.1, 4.2))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("CLAAS LEXION-560 - 360 л.с.")
                                 .weightRatioGrainToStraw("1:1")
                                 .yield("До 1.4")
@@ -287,8 +272,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(16.8, 11.7))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("CLAAS LEXION-560 - 360 л.с.")
                                 .weightRatioGrainToStraw("1:1")
                                 .yield("4.9...5.3")
@@ -298,8 +282,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(64, 3.9))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("CLAAS LEXION-560 - 360 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("3.6...3.9")
@@ -309,8 +292,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(42.8, 4.9))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("CLAAS LEXION-560 - 360 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("4.8...5.1")
@@ -320,8 +302,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(81.1, 3.3))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("CLAAS LEXION-560 - 360 л.с.")
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("4...4.2")
@@ -331,8 +312,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(50.1, 4.1))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("CLAAS LEXION-560 - 360 л.с.")
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("4.7...5")
@@ -342,8 +322,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(82.2, 3))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("JOHN DEERE 9640WTS-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:1")
                                 .yield("До 1.4")
@@ -353,8 +332,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(13.8, 12))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("JOHN DEERE 9640WTS-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:1")
                                 .yield("4.5...4.9")
@@ -364,8 +342,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(48.6, 3.8))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("JOHN DEERE 9640WTS-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("1.8...2.1")
@@ -375,8 +352,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(29.2, 6.3))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("JOHN DEERE 9640WTS-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:1.5")
                                 .yield("5.7...6")
@@ -386,8 +362,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(45.6, 3.6))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("JOHN DEERE 9640WTS-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("0.9...1.2")
@@ -397,8 +372,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .expected(new Fuel(23.9, 7.7))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("JOHN DEERE 9640WTS-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("4.5...4.7")
@@ -409,8 +383,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .build(),
                 //not existing combine
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("not existing")
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("4.5...4.7")
@@ -420,8 +393,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .build(),
                 //not existing weight ratio grain to straw
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("JOHN DEERE 9640WTS-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("not existing")
                                 .yield("4.5...4.7")
@@ -431,8 +403,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .build(),
                 //not existing yield
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("JOHN DEERE 9640WTS-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("not existing")
@@ -442,8 +413,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .build(),
                 //not existing working width
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("JOHN DEERE 9640WTS-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("4.5...4.7")
@@ -453,8 +423,7 @@ public final class TwentyFourthTableFuelSearchingArgumentsProvider extends Table
                         .build(),
                 //not existing routing length
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЯМОЕ КОМБАЙНИРОВАНИЕ ЗЕРНОВЫХ С ИЗМЕЛЬЧЕНИЕМ СОЛОМЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .combine("JOHN DEERE 9640WTS-770 - 524 л.с.")
                                 .weightRatioGrainToStraw("1:2")
                                 .yield("4.5...4.7")
