@@ -26,6 +26,11 @@ public final class XWPFParagraphUtil {
     public static boolean isEmptyParagraph(final IBodyElement element) {
         return isMatchingParagraph(element, XWPFParagraphUtil::isEmpty);
     }
+    
+    public static boolean isEmpty(final XWPFParagraph paragraph) {
+        final String paragraphText = extractText(paragraph);
+        return paragraphText.isBlank();
+    }
 
     public static Stream<String> extractTextLines(final XWPFParagraph paragraph) {
         final String text = paragraph.getText();
@@ -58,11 +63,6 @@ public final class XWPFParagraphUtil {
             return false;
         }
         return predicate.test(paragraph);
-    }
-
-    private static boolean isEmpty(final XWPFParagraph paragraph) {
-        final String paragraphText = extractText(paragraph);
-        return paragraphText.isBlank();
     }
 
     private static String extractText(final XWPFParagraph paragraph) {

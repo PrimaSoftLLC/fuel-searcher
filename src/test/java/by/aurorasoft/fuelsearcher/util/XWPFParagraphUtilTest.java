@@ -42,6 +42,22 @@ public final class XWPFParagraphUtilTest {
     }
 
     @Test
+    public void paragraphShouldBeEmpty() {
+        final XWPFParagraph givenParagraph = createParagraph(" \u00A0   \u00A0   ");
+
+        final boolean actual = isEmpty(givenParagraph);
+        assertTrue(actual);
+    }
+
+    @Test
+    public void paragraphShouldNotBeEmpty() {
+        final XWPFParagraph givenParagraph = createParagraph(" \u00A0 text   \u00A0   ");
+
+        final boolean actual = isEmpty(givenParagraph);
+        assertFalse(actual);
+    }
+
+    @Test
     public void textLinesShouldBeExtracted() {
         final XWPFParagraph givenParagraph = createParagraph(
                 " \u00A0 text1\ntext2\n\n\n\n\n\n  \u00A0 text3  \u00A0  \n\n text4  \u00A0   "
