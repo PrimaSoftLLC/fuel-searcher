@@ -2,18 +2,25 @@ package by.aurorasoft.fuelsearcher.it.argumentsprovider;
 
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.Fuel;
-import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpecificationBuilder;
 
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public final class NineteenthTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
+    private static final String TABLE_NAME = "ПРЕССОВАНИЕ СЕНА ПОСЛЕ КОМБАЙНА";
+
+    public NineteenthTableFuelSearchingArgumentsProvider() {
+        super(TABLE_NAME);
+    }
 
     @Override
-    protected Stream<FuelSearchingArguments> createFuelSearchingArguments() {
+    protected Stream<FuelSearchingArguments> createFuelSearchingArguments(
+            final Supplier<FuelSpecificationBuilder> specificationBuilderSupplier
+    ) {
         return Stream.of(
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЕССОВАНИЕ СЕНА ПОСЛЕ КОМБАЙНА")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Fendt 515c")
                                 .machinery("KRONE Comprima CV 150 XC")
                                 .workingWidth("5.5")
@@ -23,8 +30,7 @@ public final class NineteenthTableFuelSearchingArgumentsProvider extends TableFu
                         .expected(new Fuel(12.8, 4.35))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЕССОВАНИЕ СЕНА ПОСЛЕ КОМБАЙНА")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Fendt 515c")
                                 .machinery("KRONE Comprima CV 150 XC")
                                 .workingWidth("5.5")
@@ -34,8 +40,7 @@ public final class NineteenthTableFuelSearchingArgumentsProvider extends TableFu
                         .expected(new Fuel(50.7, 1.17))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЕССОВАНИЕ СЕНА ПОСЛЕ КОМБАЙНА")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Fendt 515c")
                                 .machinery("KRONE Comprima CV 150 XC")
                                 .workingWidth("5.5")
@@ -46,8 +51,7 @@ public final class NineteenthTableFuelSearchingArgumentsProvider extends TableFu
                         .build(),
                 //not existing tractor
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЕССОВАНИЕ СЕНА ПОСЛЕ КОМБАЙНА")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("not existing")
                                 .machinery("KRONE Comprima CV 150 XC")
                                 .workingWidth("5.5")
@@ -57,8 +61,7 @@ public final class NineteenthTableFuelSearchingArgumentsProvider extends TableFu
                         .build(),
                 //not existing machinery
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЕССОВАНИЕ СЕНА ПОСЛЕ КОМБАЙНА")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Fendt 515c")
                                 .machinery("not existing")
                                 .workingWidth("5.5")
@@ -68,8 +71,7 @@ public final class NineteenthTableFuelSearchingArgumentsProvider extends TableFu
                         .build(),
                 //not existing working width
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЕССОВАНИЕ СЕНА ПОСЛЕ КОМБАЙНА")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Fendt 515c")
                                 .machinery("KRONE Comprima CV 150 XC")
                                 .workingWidth("not existing")
@@ -79,8 +81,7 @@ public final class NineteenthTableFuelSearchingArgumentsProvider extends TableFu
                         .build(),
                 //not existing yield
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЕССОВАНИЕ СЕНА ПОСЛЕ КОМБАЙНА")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Fendt 515c")
                                 .machinery("KRONE Comprima CV 150 XC")
                                 .workingWidth("5.5")
@@ -90,8 +91,7 @@ public final class NineteenthTableFuelSearchingArgumentsProvider extends TableFu
                         .build(),
                 //not existing routing length
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ПРЕССОВАНИЕ СЕНА ПОСЛЕ КОМБАЙНА")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Fendt 515c")
                                 .machinery("KRONE Comprima CV 150 XC")
                                 .workingWidth("5.5")
