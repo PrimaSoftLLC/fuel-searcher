@@ -22,10 +22,10 @@ public final class XWPFTableCellUtil {
         return cell.getParagraphs()
                 .stream()
                 .map(XWPFParagraphUtil::extractText)
+                .filter(paragraphText -> !paragraphText.isEmpty())
                 .collect(joining(PARAGRAPH_TEXTS_SEPARATOR));
     }
 
-    //TODO: test
     public static double extractDouble(final XWPFTableCell cell) {
         final String text = extractText(cell);
         return !text.equals(NOT_DEFINED_DOUBLE_VALUE_ALIAS) ? parseDouble(text) : NaN;

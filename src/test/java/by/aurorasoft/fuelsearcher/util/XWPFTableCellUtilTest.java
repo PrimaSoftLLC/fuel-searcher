@@ -7,7 +7,9 @@ import org.mockito.MockedStatic;
 
 import java.util.List;
 
+import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.extractDouble;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.extractText;
+import static java.lang.Double.isNaN;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static org.junit.Assert.*;
@@ -79,6 +81,43 @@ public final class XWPFTableCellUtilTest {
         final String actual = extractText(givenCell);
         final String expected = "";
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void doubleShouldBeExtracted() {
+        final XWPFParagraph firstGivenParagraph = mock(XWPFParagraph.class);
+        final XWPFParagraph secondGivenParagraph = mock(XWPFParagraph.class);
+        final XWPFTableCell givenCell = createCell(firstGivenParagraph, secondGivenParagraph);
+
+        final String givenTextFirstParagraph = "44.5";
+        final String givenTextSecondParagraph = "";
+
+        try (final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil = mockStatic(XWPFParagraphUtil.class)) {
+            bindTextWithParagraph(firstGivenParagraph, givenTextFirstParagraph, mockedParagraphUtil);
+            bindTextWithParagraph(secondGivenParagraph, givenTextSecondParagraph, mockedParagraphUtil);
+
+            final double actual = extractDouble(givenCell);
+            final double expected = 44.5;
+            assertEquals(expected, actual, 0.);
+        }
+    }
+
+    @Test
+    public void notDefinedDoubleShouldBeExtracted() {
+        final XWPFParagraph firstGivenParagraph = mock(XWPFParagraph.class);
+        final XWPFParagraph secondGivenParagraph = mock(XWPFParagraph.class);
+        final XWPFTableCell givenCell = createCell(firstGivenParagraph, secondGivenParagraph);
+
+        final String givenTextFirstParagraph = "-";
+        final String givenTextSecondParagraph = "";
+
+        try (final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil = mockStatic(XWPFParagraphUtil.class)) {
+            bindTextWithParagraph(firstGivenParagraph, givenTextFirstParagraph, mockedParagraphUtil);
+            bindTextWithParagraph(secondGivenParagraph, givenTextSecondParagraph, mockedParagraphUtil);
+
+            final double actual = extractDouble(givenCell);
+            assertTrue(isNaN(actual));
+        }
     }
 
     private static XWPFTableCell createCell(final XWPFParagraph... paragraphs) {
