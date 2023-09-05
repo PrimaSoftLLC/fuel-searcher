@@ -1,19 +1,19 @@
 package by.aurorasoft.fuelsearcher.util;
 
 import by.aurorasoft.fuelsearcher.functionalinterface.ThreeArgumentPredicate;
-import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import by.aurorasoft.fuelsearcher.model.IntPair;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import lombok.experimental.UtilityClass;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.util.*;
-import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
+import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.extractText;
 import static java.lang.Double.*;
-import static java.util.Optional.empty;
 import static java.util.stream.IntStream.range;
 
 //TODO: refactor
@@ -30,13 +30,13 @@ public final class XWPFUtil {
         return isNaN(value);
     }
 
-    public static boolean isCellContentMatch(final XWPFTableRow row, final int cellNumber, final String expected) {
+    private static boolean isCellContentMatch(final XWPFTableRow row, final int cellNumber, final String expected) {
         return isCellContentMatch(row, cellNumber, expected, String::equalsIgnoreCase);
     }
 
-    public static boolean isCellContentMatchRegex(final XWPFTableRow row,
-                                                  final int cellNumber,
-                                                  final String expectedRegex) {
+    private static boolean isCellContentMatchRegex(final XWPFTableRow row,
+                                                   final int cellNumber,
+                                                   final String expectedRegex) {
         return isCellContentMatch(row, cellNumber, expectedRegex, String::matches);
     }
 
@@ -49,18 +49,6 @@ public final class XWPFUtil {
                 cellIndexWithContent,
                 content,
                 XWPFUtil::isCellContentMatch
-        );
-    }
-
-    public static OptionalInt findIndexFirstRowByContent(final List<XWPFTableRow> rows,
-                                                         final int cellIndexWithContent,
-                                                         final FuelSpecification specification,
-                                                         final Function<FuelSpecification, String> contentExtractor) {
-        final String content = contentExtractor.apply(specification);
-        return findIndexFirstRowByContent(
-                rows,
-                cellIndexWithContent,
-                content
         );
     }
 
@@ -96,16 +84,6 @@ public final class XWPFUtil {
         return findUnitedRowsByContent(rows, cellIndexWithContent, content);
     }
 
-    public static Optional<List<XWPFTableRow>> findRowsByContent(final List<XWPFTableRow> rows,
-                                                                 final int cellIndexWithContent,
-                                                                 final String content) {
-        List<XWPFTableRow> tableRows = range(0, rows.size())
-                .filter(i -> isCellContentMatch(rows.get(i), cellIndexWithContent, content))
-                .mapToObj(i -> rows.get(i))
-                .toList();
-        return !tableRows.isEmpty() ? Optional.of(tableRows) : empty();
-    }
-
     public static IntStream findRowIndexesByContent(final List<XWPFTableRow> rows,
                                                     final int cellIndexWithContent,
                                                     final String content) {
@@ -113,17 +91,6 @@ public final class XWPFUtil {
                 .filter(i -> rows.get(i).getCell(cellIndexWithContent).getText().equals(content));
     }
 
-    public static Optional<List<XWPFTableRow>> findRowsByContent(final List<XWPFTableRow> rows,
-                                                                 final int cellIndexWithContent,
-                                                                 final FuelSpecification specification,
-                                                                 final Function<FuelSpecification, String> contentExtractor) {
-        final String content = contentExtractor.apply(specification);
-        return findRowsByContent(
-                rows,
-                cellIndexWithContent,
-                content
-        );
-    }
 
     public static Optional<XWPFTableRow> findFirstRowByContent(final List<XWPFTableRow> rows,
                                                                final int cellIndexWithContent,
@@ -132,18 +99,6 @@ public final class XWPFUtil {
                 .stream()
                 .mapToObj(rows::get)
                 .findFirst();
-    }
-
-    public static Optional<XWPFTableRow> findFirstRowByContent(final List<XWPFTableRow> rows,
-                                                               final int cellIndexWithContent,
-                                                               final FuelSpecification specification,
-                                                               final Function<FuelSpecification, String> contentExtractor) {
-        final String content = contentExtractor.apply(specification);
-        return findFirstRowByContent(
-                rows,
-                cellIndexWithContent,
-                content
-        );
     }
 
     public static OptionalInt findIndexFirstCellByContent(final XWPFTableRow row, final String content) {
@@ -166,20 +121,14 @@ public final class XWPFUtil {
     private static boolean isCellContentMatch(final XWPFTableRow row,
                                               final int cellNumber,
                                               final String compared,
-                                              final BiFunction<String, String, Boolean> matchingFunction) {
+                                              final BiPredicate<String, String> matchingPredicate) {
         final String actual = extractCellContent(row, cellNumber);
-        return matchingFunction.apply(actual, compared);
+        return matchingPredicate.test(actual, compared);
     }
 
     private static String extractCellContent(final XWPFTableRow row, final int cellNumber) {
         final XWPFTableCell cell = row.getCell(cellNumber);
-        final String content = cell.getText();
-        return content.trim();
-    }
-
-    private static String extractContent(final XWPFTableCell cell) {
-        final String content = cell.getText();
-        return content.trim();
+        return extractText(cell);
     }
 
     private static <V> V extractValue(final XWPFTableRow row,
@@ -225,6 +174,6 @@ public final class XWPFUtil {
 
     private static boolean isRowOfUnitedRows(final XWPFTableRow row, final int cellIndexWithContent) {
         final XWPFTableCell cellWithContent = row.getCell(cellIndexWithContent);
-        return cellWithContent == null || Objects.equals(extractContent(cellWithContent), EMPTY_STRING);
+        return cellWithContent == null || Objects.equals(extractText(cellWithContent), EMPTY_STRING);
     }
 }
