@@ -2,18 +2,25 @@ package by.aurorasoft.fuelsearcher.it.argumentsprovider;
 
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.Fuel;
-import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpecificationBuilder;
 
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public final class FourteenthTableFuelSearchingArgumentProvider extends TableFuelSearchingArgumentsProvider {
+    private static final String TABLE_NAME = "ВНЕСЕНИЕ ЖИДКИХ ОРГАНИЧЕСКИХ УДОБРЕНИЙ";
+
+    public FourteenthTableFuelSearchingArgumentProvider() {
+        super(TABLE_NAME);
+    }
 
     @Override
-    protected Stream<FuelSearchingArguments> createFuelSearchingArguments() {
+    protected Stream<FuelSearchingArguments> createFuelSearchingArguments(
+            final Supplier<FuelSpecificationBuilder> specificationBuilderSupplier
+    ) {
         return Stream.of(
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ЖИДКИХ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("FENDT 936")
                                 .machinery("МЖТ-20")
                                 .transportDistance("0.25...0.75")
@@ -23,8 +30,7 @@ public final class FourteenthTableFuelSearchingArgumentProvider extends TableFue
                         .expected(new Fuel(234.9, 0.34))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ЖИДКИХ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("CASE IN MAGNUM 340")
                                 .machinery("МЖТ-20")
                                 .transportDistance("28.1...32")
@@ -34,8 +40,7 @@ public final class FourteenthTableFuelSearchingArgumentProvider extends TableFue
                         .expected(new Fuel(37.9, 4.49))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ЖИДКИХ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("МЖТ-16")
                                 .transportDistance("24.1...28")
@@ -46,8 +51,7 @@ public final class FourteenthTableFuelSearchingArgumentProvider extends TableFue
                         .build(),
                 //not existing tractor
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ЖИДКИХ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("not existing")
                                 .machinery("МЖТ-16")
                                 .transportDistance("24.1...28")
@@ -57,8 +61,7 @@ public final class FourteenthTableFuelSearchingArgumentProvider extends TableFue
                         .build(),
                 //not existing machinery
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ЖИДКИХ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("not existing")
                                 .transportDistance("24.1...28")
@@ -68,8 +71,7 @@ public final class FourteenthTableFuelSearchingArgumentProvider extends TableFue
                         .build(),
                 //not existing transport distance
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ЖИДКИХ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("МЖТ-16")
                                 .transportDistance("not existing")
@@ -79,8 +81,7 @@ public final class FourteenthTableFuelSearchingArgumentProvider extends TableFue
                         .build(),
                 //not existing spread rate
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ЖИДКИХ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("МЖТ-16")
                                 .transportDistance("24.1...28")
@@ -90,8 +91,7 @@ public final class FourteenthTableFuelSearchingArgumentProvider extends TableFue
                         .build(),
                 //not existing road group
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ЖИДКИХ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("МЖТ-16")
                                 .transportDistance("24.1...28")
