@@ -7,7 +7,7 @@ import org.mockito.MockedStatic;
 
 import java.util.List;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.extractContent;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.extractText;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static org.junit.Assert.*;
@@ -54,29 +54,29 @@ public final class XWPFTableCellUtilTest {
     }
 
     @Test
-    public void cellContentShouldBeExtracted() {
+    public void cellTextShouldBeExtracted() {
         final XWPFParagraph firstGivenParagraph = mock(XWPFParagraph.class);
         final XWPFParagraph secondGivenParagraph = mock(XWPFParagraph.class);
         final XWPFTableCell givenCell = createCell(firstGivenParagraph, secondGivenParagraph);
 
-        final String givenContentFirstParagraph = "content-1";
-        final String givenContentSecondParagraph = "content-2";
+        final String givenTextFirstParagraph = "content-1";
+        final String givenTextSecondParagraph = "content-2";
 
         try (final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil = mockStatic(XWPFParagraphUtil.class)) {
-            bindContentWithParagraph(firstGivenParagraph, givenContentFirstParagraph, mockedParagraphUtil);
-            bindContentWithParagraph(secondGivenParagraph, givenContentSecondParagraph, mockedParagraphUtil);
+            bindTextWithParagraph(firstGivenParagraph, givenTextFirstParagraph, mockedParagraphUtil);
+            bindTextWithParagraph(secondGivenParagraph, givenTextSecondParagraph, mockedParagraphUtil);
 
-            final String actual = extractContent(givenCell);
+            final String actual = extractText(givenCell);
             final String expected = "content-1 content-2";
             assertEquals(expected, actual);
         }
     }
 
     @Test
-    public void contentOfCellWithoutParagraphsShouldBeExtracted() {
+    public void textOfCellWithoutParagraphsShouldBeExtracted() {
         final XWPFTableCell givenCell = createCell();
 
-        final String actual = extractContent(givenCell);
+        final String actual = extractText(givenCell);
         final String expected = "";
         assertEquals(expected, actual);
     }
@@ -104,9 +104,9 @@ public final class XWPFTableCellUtilTest {
         mockedParagraphUtil.when(() -> XWPFParagraphUtil.isEmpty(same(paragraph))).thenReturn(empty);
     }
 
-    private static void bindContentWithParagraph(final XWPFParagraph paragraph,
-                                                 final String content,
-                                                 final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil) {
-        mockedParagraphUtil.when(() -> XWPFParagraphUtil.extractText(same(paragraph))).thenReturn(content);
+    private static void bindTextWithParagraph(final XWPFParagraph paragraph,
+                                              final String text,
+                                              final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil) {
+        mockedParagraphUtil.when(() -> XWPFParagraphUtil.extractText(same(paragraph))).thenReturn(text);
     }
 }

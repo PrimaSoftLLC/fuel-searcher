@@ -7,7 +7,7 @@ import static java.util.stream.Collectors.joining;
 
 @UtilityClass
 public final class XWPFTableCellUtil {
-    private static final String PARAGRAPH_CONTENT_SEPARATOR = " ";
+    private static final String PARAGRAPH_TEXTS_SEPARATOR = " ";
 
     public static boolean isEmpty(final XWPFTableCell cell) {
         return cell.getParagraphs()
@@ -15,11 +15,11 @@ public final class XWPFTableCellUtil {
                 .allMatch(XWPFParagraphUtil::isEmpty);
     }
 
-    public static String extractContent(final XWPFTableCell cell) {
+    public static String extractText(final XWPFTableCell cell) {
         return cell.getParagraphs()
                 .stream()
                 .map(XWPFParagraphUtil::extractText)
-                .collect(joining(PARAGRAPH_CONTENT_SEPARATOR));
+                .collect(joining(PARAGRAPH_TEXTS_SEPARATOR));
     }
 
 }

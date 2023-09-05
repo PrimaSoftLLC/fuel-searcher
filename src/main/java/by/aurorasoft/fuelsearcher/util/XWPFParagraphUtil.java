@@ -26,7 +26,7 @@ public final class XWPFParagraphUtil {
     public static boolean isEmptyParagraph(final IBodyElement element) {
         return isMatchingParagraph(element, XWPFParagraphUtil::isEmpty);
     }
-    
+
     public static boolean isEmpty(final XWPFParagraph paragraph) {
         final String paragraphText = extractText(paragraph);
         return paragraphText.isBlank();
@@ -43,6 +43,11 @@ public final class XWPFParagraphUtil {
     public static String extractParagraphText(final IBodyElement element) {
         final XWPFParagraph paragraph = (XWPFParagraph) element;
         return extractText(paragraph);
+    }
+
+    public static String extractText(final XWPFParagraph paragraph) {
+        final String text = paragraph.getText();
+        return trimFromNbspAndSpace(text);
     }
 
     public static XWPFParagraph createParagraphByGroupContent(final Matcher matcher,
@@ -63,11 +68,6 @@ public final class XWPFParagraphUtil {
             return false;
         }
         return predicate.test(paragraph);
-    }
-
-    private static String extractText(final XWPFParagraph paragraph) {
-        final String text = paragraph.getText();
-        return trimFromNbspAndSpace(text);
     }
 
     private static String trimFromNbspAndSpace(final String source) {

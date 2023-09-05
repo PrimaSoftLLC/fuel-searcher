@@ -81,11 +81,20 @@ public final class XWPFParagraphUtilTest {
     }
 
     @Test
-    public void paragraphTextShouldBeExtracted() {
+    public void elementTextShouldBeExtracted() {
         final IBodyElement givenElement = createParagraph(" \u00A0 text   text  \u00A0   ");
 
         final String actual = extractParagraphText(givenElement);
         final String expected = "text   text";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void elementEmptyTextShouldBeExtracted() {
+        final IBodyElement givenElement = createParagraph(" \u00A0      \u00A0   ");
+
+        final String actual = extractParagraphText(givenElement);
+        final String expected = "";
         assertEquals(expected, actual);
     }
 
@@ -94,6 +103,24 @@ public final class XWPFParagraphUtilTest {
         final IBodyElement givenElement = mock(IBodyElement.class);
 
         extractParagraphText(givenElement);
+    }
+
+    @Test
+    public void paragraphTextShouldBeExtracted() {
+        final XWPFParagraph givenParagraph = createParagraph(" \u00A0 text   text  \u00A0   ");
+
+        final String actual = extractText(givenParagraph);
+        final String expected = "text   text";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void paragraphEmptyTextShouldBeExtracted() {
+        final XWPFParagraph givenParagraph = createParagraph(" \u00A0      \u00A0   ");
+
+        final String actual = extractText(givenParagraph);
+        final String expected = "";
+        assertEquals(expected, actual);
     }
 
     @Test
