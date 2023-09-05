@@ -1,94 +1,86 @@
-package by.aurorasoft.fuelsearcher.service.searcher.it.argumentprovider;
+package by.aurorasoft.fuelsearcher.it.argumentsprovider;
 
+import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
-import org.junit.jupiter.params.provider.Arguments;
 
-import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
-import static java.util.Optional.empty;
-
-public final class EighteenthTableFuelSearchingArgumentsProvider extends AbstractTableFuelSearchingArgumentsProvider {
+public final class EighteenthTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
 
     @Override
-    protected Stream<Arguments> provide(final BiFunction<Double, Double, Optional<Fuel>> optionalFuelFactory) {
+    protected Stream<FuelSearchingArguments> createFuelSearchingArguments() {
         return Stream.of(
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
                                 .tractor("Беларус 920.2")
                                 .machinery("Krone Swadro 807")
                                 .workingWidth("6.2")
                                 .routingLength("Менее 150")
-                                .build(),
-                        optionalFuelFactory.apply(18.4, 2.46)
-                ),
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .expected(new Fuel(18.4, 2.46))
+                        .build(),
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
                                 .tractor("Беларус 80/82.1+")
                                 .machinery("MILLENNIUM V18-7GW")
                                 .workingWidth("10.5")
                                 .routingLength("401-600")
-                                .build(),
-                        optionalFuelFactory.apply(39.6, 1.28)
-                ),
-                Arguments.of(
-                        FuelSpecification.builder()
+                                .build())
+                        .expected(new Fuel(39.6, 1.28))
+                        .build(),
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
                                 .tractor("Беларус 80/82.1")
                                 .machinery("Claas Liner 1650 Twin")
                                 .workingWidth("6.8")
                                 .routingLength("Более 1000")
-                                .build(),
-                        optionalFuelFactory.apply(29.1, 1.78)
-                ),
+                                .build())
+                        .expected(new Fuel(29.1, 1.78))
+                        .build(),
                 //not existing tractor
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
                                 .tractor("not existing")
                                 .machinery("Claas Liner 1650 Twin")
                                 .workingWidth("6.8")
                                 .routingLength("Более 1000")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing machinery
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
                                 .tractor("Беларус 80/82.1")
                                 .machinery("not existing")
                                 .workingWidth("6.8")
                                 .routingLength("Более 1000")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing working width
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
                                 .tractor("Беларус 80/82.1")
                                 .machinery("Claas Liner 1650 Twin")
                                 .workingWidth("not existing")
                                 .routingLength("Более 1000")
-                                .build(),
-                        empty()
-                ),
+                                .build())
+                        .build(),
                 //not existing routing length
-                Arguments.of(
-                        FuelSpecification.builder()
+                FuelSearchingArguments.builder()
+                        .specification(FuelSpecification.builder()
                                 .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
                                 .tractor("Беларус 80/82.1")
                                 .machinery("Claas Liner 1650 Twin")
                                 .workingWidth("6.8")
                                 .routingLength("not existing")
-                                .build(),
-                        empty()
-                )
+                                .build())
+                        .build()
         );
     }
 
