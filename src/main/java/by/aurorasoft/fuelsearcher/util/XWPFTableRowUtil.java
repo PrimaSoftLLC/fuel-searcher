@@ -18,14 +18,14 @@ public final class XWPFTableRowUtil {
         return extractCellValue(row, cellIndex, XWPFTableCellUtil::extractText);
     }
 
-    public static boolean isCellContentEqual(final XWPFTableRow row, final int cellIndex, final String expected) {
-        return isCellContentMatch(row, cellIndex, expected, String::equalsIgnoreCase);
+    public static boolean isCellTextEqual(final XWPFTableRow row, final int cellIndex, final String expected) {
+        return isCellTextMatch(row, cellIndex, expected, String::equalsIgnoreCase);
     }
 
-    public static boolean isCellContentMatchRegex(final XWPFTableRow row,
-                                                  final int cellIndex,
-                                                  final String expectedRegex) {
-        return isCellContentMatch(row, cellIndex, expectedRegex, String::matches);
+    public static boolean isCellTextMatchRegex(final XWPFTableRow row,
+                                               final int cellIndex,
+                                               final String expectedRegex) {
+        return isCellTextMatch(row, cellIndex, expectedRegex, String::matches);
     }
 
     private static <V> V extractCellValue(final XWPFTableRow row,
@@ -35,10 +35,10 @@ public final class XWPFTableRowUtil {
         return valueExtractor.apply(cell);
     }
 
-    private static boolean isCellContentMatch(final XWPFTableRow row,
-                                              final int cellIndex,
-                                              final String compared,
-                                              final BiPredicate<String, String> matchingPredicate) {
+    private static boolean isCellTextMatch(final XWPFTableRow row,
+                                           final int cellIndex,
+                                           final String compared,
+                                           final BiPredicate<String, String> matchingPredicate) {
         final String actual = extractCellText(row, cellIndex);
         return matchingPredicate.test(actual, compared);
     }

@@ -8,7 +8,6 @@ import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.util.*;
-import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
@@ -20,10 +19,6 @@ import static java.util.stream.IntStream.range;
 @UtilityClass
 public final class XWPFUtil {
     public static final double NOT_DEFINED_DOUBLE = NaN;
-
-    //TODO: replace after loading in digits
-    private static final String COMMA = ",";
-    private static final String POINT = ".";
     private static final String EMPTY_STRING = "";
 
     public static boolean isNotDefinedDouble(final double value) {
@@ -38,7 +33,7 @@ public final class XWPFUtil {
                 0,
                 cellIndexWithContent,
                 content,
-                XWPFTableRowUtil::isCellContentEqual
+                XWPFTableRowUtil::isCellTextEqual
         );
     }
 
@@ -51,7 +46,7 @@ public final class XWPFUtil {
                 startFindingIndex,
                 cellIndexWithContent,
                 regex,
-                XWPFTableRowUtil::isCellContentMatchRegex
+                XWPFTableRowUtil::isCellTextMatchRegex
         );
     }
 
@@ -60,7 +55,7 @@ public final class XWPFUtil {
                                                              final int cellIndexWithContent,
                                                              final String content) {
         return range(0, rows.size())
-                .filter(i -> XWPFTableRowUtil.isCellContentEqual(rows.get(i), cellIndexWithContent, content))
+                .filter(i -> XWPFTableRowUtil.isCellTextEqual(rows.get(i), cellIndexWithContent, content))
                 .mapToObj(indexFirstRow -> extractUnitedRows(rows, indexFirstRow, cellIndexWithContent))
                 .flatMap(Collection::stream)
                 .toList();
