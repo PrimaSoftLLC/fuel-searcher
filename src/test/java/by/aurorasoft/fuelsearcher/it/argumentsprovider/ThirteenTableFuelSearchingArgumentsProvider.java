@@ -2,18 +2,25 @@ package by.aurorasoft.fuelsearcher.it.argumentsprovider;
 
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.Fuel;
-import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpecificationBuilder;
 
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
+    private static final String TABLE_NAME = "ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ";
+
+    public ThirteenTableFuelSearchingArgumentsProvider() {
+        super(TABLE_NAME);
+    }
 
     @Override
-    protected Stream<FuelSearchingArguments> createFuelSearchingArguments() {
+    protected Stream<FuelSearchingArguments> createFuelSearchingArguments(
+            final Supplier<FuelSpecificationBuilder> specificationBuilderSupplier
+    ) {
         return Stream.of(
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("БЕЛАРУС 3522")
                                 .machinery("РОУМ-24")
                                 .cargoClass("Грузы I класса")
@@ -24,8 +31,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .expected(new Fuel(259.8, 0.4))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("БЕЛАРУС 3522")
                                 .machinery("РОУМ-24")
                                 .cargoClass("Грузы I класса")
@@ -36,8 +42,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .expected(new Fuel(143.5, 1.17))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("БЕЛАРУС 3522")
                                 .machinery("РОУМ-24")
                                 .cargoClass("Грузы I класса")
@@ -48,8 +53,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .expected(new Fuel(255.1, 0.4))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("БЕЛАРУС 3522")
                                 .machinery("РОУМ-24")
                                 .cargoClass("Грузы II класса")
@@ -60,8 +64,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .expected(new Fuel(65.3, 2.83))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("БЕЛАРУС 3522")
                                 .machinery("РОУМ-24")
                                 .cargoClass("Грузы II класса")
@@ -72,8 +75,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .expected(new Fuel(225.7, 0.39))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("БЕЛАРУС 3522")
                                 .machinery("РОУМ-24")
                                 .cargoClass("Грузы II класса")
@@ -84,8 +86,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .expected(new Fuel(47.6, 4.6))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("JOHN DEERE 8430")
                                 .machinery("МТУ-24")
                                 .cargoClass("Грузы I класса")
@@ -96,8 +97,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .expected(new Fuel(253.9, 0.39))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("JOHN DEERE 8430")
                                 .machinery("МТУ-24")
                                 .cargoClass("Грузы I класса")
@@ -108,8 +108,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .expected(new Fuel(56.7, 3.53))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("JOHN DEERE 8430")
                                 .machinery("МТУ-24")
                                 .cargoClass("Грузы I класса")
@@ -120,8 +119,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .expected(new Fuel(125.9, 1.36))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("JOHN DEERE 8430")
                                 .machinery("МТУ-24")
                                 .cargoClass("Грузы II класса")
@@ -132,8 +130,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .expected(new Fuel(139.3, 0.93))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("JOHN DEERE 8430")
                                 .machinery("МТУ-24")
                                 .cargoClass("Грузы II класса")
@@ -144,8 +141,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .expected(new Fuel(65.7, 2.76))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("JOHN DEERE 8430")
                                 .machinery("МТУ-24")
                                 .cargoClass("Грузы II класса")
@@ -156,8 +152,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .expected(new Fuel(30.9, 6.94))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("БЕЛАРУС 3022")
                                 .machinery("МТУ-20")
                                 .cargoClass("Грузы I класса")
@@ -168,8 +163,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .expected(new Fuel(198., 0.49))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("БЕЛАРУС 3022")
                                 .machinery("МТУ-20")
                                 .cargoClass("Грузы I класса")
@@ -180,8 +174,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .expected(new Fuel(188.6, 0.55))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("БЕЛАРУС 3022")
                                 .machinery("МТУ-20")
                                 .cargoClass("Грузы I класса")
@@ -192,8 +185,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .expected(new Fuel(50.5, 3.7))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("БЕЛАРУС 3022")
                                 .machinery("МТУ-20")
                                 .cargoClass("Грузы II класса")
@@ -204,8 +196,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .expected(new Fuel(139.8, 0.76))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("БЕЛАРУС 3022")
                                 .machinery("МТУ-20")
                                 .cargoClass("Грузы II класса")
@@ -216,8 +207,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .expected(new Fuel(82.9, 1.72))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("БЕЛАРУС 3022")
                                 .machinery("МТУ-20")
                                 .cargoClass("Грузы II класса")
@@ -228,8 +218,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .expected(new Fuel(38.9, 4.58))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("РОУМ-14")
                                 .cargoClass("Грузы I класса")
@@ -240,8 +229,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .expected(new Fuel(139.1, 0.59))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("РОУМ-14")
                                 .cargoClass("Грузы I класса")
@@ -252,8 +240,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .expected(new Fuel(57.7, 2.23))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("РОУМ-14")
                                 .cargoClass("Грузы I класса")
@@ -264,8 +251,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .expected(new Fuel(26.5, 5.7))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("РОУМ-14")
                                 .cargoClass("Грузы II класса")
@@ -276,8 +262,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .expected(new Fuel(66.7, 1.62))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("РОУМ-14")
                                 .cargoClass("Грузы II класса")
@@ -288,8 +273,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .expected(new Fuel(59, 1.95))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("РОУМ-14")
                                 .cargoClass("Грузы II класса")
@@ -301,8 +285,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .build(),
                 //not existing tractor
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("not existing")
                                 .machinery("РОУМ-14")
                                 .cargoClass("Грузы II класса")
@@ -313,8 +296,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .build(),
                 //not existing machinery
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("not existing")
                                 .cargoClass("Грузы II класса")
@@ -325,8 +307,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .build(),
                 //not existing cargo class
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("РОУМ-14")
                                 .cargoClass("not existing")
@@ -337,8 +318,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .build(),
                 //not existing road group
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("РОУМ-14")
                                 .cargoClass("Грузы II класса")
@@ -349,8 +329,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .build(),
                 //not existing transport distance
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("РОУМ-14")
                                 .cargoClass("Грузы II класса")
@@ -361,8 +340,7 @@ public final class ThirteenTableFuelSearchingArgumentsProvider extends TableFuel
                         .build(),
                 //not existing routing length
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("JOHN DEERE 6930")
                                 .machinery("РОУМ-14")
                                 .cargoClass("Грузы II класса")
