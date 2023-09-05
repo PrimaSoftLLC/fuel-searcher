@@ -2,18 +2,25 @@ package by.aurorasoft.fuelsearcher.it.argumentsprovider;
 
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.Fuel;
-import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpecificationBuilder;
 
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public final class FourthTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
+    private static final String TABLE_NAME = "СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ";
+
+    public FourthTableFuelSearchingArgumentsProvider() {
+        super(TABLE_NAME);
+    }
 
     @Override
-    protected Stream<FuelSearchingArguments> createFuelSearchingArguments() {
+    protected Stream<FuelSearchingArguments> createFuelSearchingArguments(
+            final Supplier<FuelSpecificationBuilder> specificationBuilderSupplier
+    ) {
         return Stream.of(
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Clas Xerion 5000")
                                 .machinery("Köckerling Allrounder 1200")
                                 .workingWidth("12")
@@ -23,8 +30,7 @@ public final class FourthTableFuelSearchingArgumentsProvider extends TableFuelSe
                         .expected(new Fuel(26.4, 14.1))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Clas Xerion 5000")
                                 .machinery("Köckerling Allrounder 1200")
                                 .workingWidth("12")
@@ -34,8 +40,7 @@ public final class FourthTableFuelSearchingArgumentsProvider extends TableFuelSe
                         .expected(new Fuel(58.2, 7.5))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 3522")
                                 .machinery("АПМ-8")
                                 .workingWidth("8")
@@ -45,8 +50,7 @@ public final class FourthTableFuelSearchingArgumentsProvider extends TableFuelSe
                         .expected(new Fuel(24.0, 11.1))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 3022")
                                 .machinery("КФУ-7.3")
                                 .workingWidth("7.3")
@@ -56,8 +60,7 @@ public final class FourthTableFuelSearchingArgumentsProvider extends TableFuelSe
                         .expected(new Fuel(17.3, 12.7))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 1522")
                                 .machinery("Horsch Terrano 4FX")
                                 .workingWidth("4")
@@ -68,8 +71,7 @@ public final class FourthTableFuelSearchingArgumentsProvider extends TableFuelSe
                         .build(),
                 //not existing tractor
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("not existing")
                                 .machinery("Horsch Terrano 4FX")
                                 .workingWidth("4")
@@ -79,8 +81,7 @@ public final class FourthTableFuelSearchingArgumentsProvider extends TableFuelSe
                         .build(),
                 //not existing machinery
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 1522")
                                 .machinery("not existing")
                                 .workingWidth("4")
@@ -90,8 +91,7 @@ public final class FourthTableFuelSearchingArgumentsProvider extends TableFuelSe
                         .build(),
                 //not existing working width
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 1522")
                                 .machinery("Horsch Terrano 4FX")
                                 .workingWidth("not existing")
@@ -101,8 +101,7 @@ public final class FourthTableFuelSearchingArgumentsProvider extends TableFuelSe
                         .build(),
                 //not existing routing length
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 1522")
                                 .machinery("Horsch Terrano 4FX")
                                 .workingWidth("4")
@@ -112,8 +111,7 @@ public final class FourthTableFuelSearchingArgumentsProvider extends TableFuelSe
                         .build(),
                 //not existing processing depth
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("СПЛОШНАЯ И КОМБИНИРОВАННАЯ ОБРАБОТКА ПОЧВЫ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 1522")
                                 .machinery("Horsch Terrano 4FX")
                                 .workingWidth("4")

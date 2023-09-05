@@ -2,18 +2,25 @@ package by.aurorasoft.fuelsearcher.it.argumentsprovider;
 
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.Fuel;
-import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpecificationBuilder;
 
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public final class TwentyFifthTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
+    private static final String TABLE_NAME = "УБОРКА КАРТОФЕЛЯ";
+
+    public TwentyFifthTableFuelSearchingArgumentsProvider() {
+        super(TABLE_NAME);
+    }
 
     @Override
-    protected Stream<FuelSearchingArguments> createFuelSearchingArguments() {
+    protected Stream<FuelSearchingArguments> createFuelSearchingArguments(
+            final Supplier<FuelSpecificationBuilder> specificationBuilderSupplier
+    ) {
         return Stream.of(
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("УБОРКА КАРТОФЕЛЯ")
+                        .specification(specificationBuilderSupplier.get()
                                 .soilType("Легкие почвы")
                                 .tractor("Беларус 1221")
                                 .machinery("КПБ-260-2")
@@ -24,8 +31,7 @@ public final class TwentyFifthTableFuelSearchingArgumentsProvider extends TableF
                         .expected(new Fuel(24.7, 2.33))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("УБОРКА КАРТОФЕЛЯ")
+                        .specification(specificationBuilderSupplier.get()
                                 .soilType("Легкие почвы")
                                 .tractor("New Holland TL 80")
                                 .machinery("Grimme 1500 dr")
@@ -36,8 +42,7 @@ public final class TwentyFifthTableFuelSearchingArgumentsProvider extends TableF
                         .expected(new Fuel(64.7, 0.76))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("УБОРКА КАРТОФЕЛЯ")
+                        .specification(specificationBuilderSupplier.get()
                                 .soilType("Средние почвы")
                                 .tractor("New Holland TL 80")
                                 .machinery("Grimme 1500 dr")
@@ -48,8 +53,7 @@ public final class TwentyFifthTableFuelSearchingArgumentsProvider extends TableF
                         .expected(new Fuel(69.8, 0.7))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("УБОРКА КАРТОФЕЛЯ")
+                        .specification(specificationBuilderSupplier.get()
                                 .soilType("Тяжелые почвы")
                                 .tractor("New Holland TL 80")
                                 .machinery("Grimme 1500 dr")
@@ -61,8 +65,7 @@ public final class TwentyFifthTableFuelSearchingArgumentsProvider extends TableF
                         .build(),
                 //not existing soil type
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("УБОРКА КАРТОФЕЛЯ")
+                        .specification(specificationBuilderSupplier.get()
                                 .soilType("not existing")
                                 .tractor("New Holland TL 80")
                                 .machinery("Grimme 1500 dr")
@@ -73,8 +76,7 @@ public final class TwentyFifthTableFuelSearchingArgumentsProvider extends TableF
                         .build(),
                 //not existing tractor
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("УБОРКА КАРТОФЕЛЯ")
+                        .specification(specificationBuilderSupplier.get()
                                 .soilType("Тяжелые почвы")
                                 .tractor("not existing")
                                 .machinery("Grimme 1500 dr")
@@ -85,8 +87,7 @@ public final class TwentyFifthTableFuelSearchingArgumentsProvider extends TableF
                         .build(),
                 //not existing machinery
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("УБОРКА КАРТОФЕЛЯ")
+                        .specification(specificationBuilderSupplier.get()
                                 .soilType("Тяжелые почвы")
                                 .tractor("New Holland TL 80")
                                 .machinery("not existing")
@@ -97,8 +98,7 @@ public final class TwentyFifthTableFuelSearchingArgumentsProvider extends TableF
                         .build(),
                 //not existing row width
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("УБОРКА КАРТОФЕЛЯ")
+                        .specification(specificationBuilderSupplier.get()
                                 .soilType("Тяжелые почвы")
                                 .tractor("New Holland TL 80")
                                 .machinery("Grimme 1500 dr")
@@ -109,8 +109,7 @@ public final class TwentyFifthTableFuelSearchingArgumentsProvider extends TableF
                         .build(),
                 //not existing yield
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("УБОРКА КАРТОФЕЛЯ")
+                        .specification(specificationBuilderSupplier.get()
                                 .soilType("Тяжелые почвы")
                                 .tractor("New Holland TL 80")
                                 .machinery("Grimme 1500 dr")
@@ -121,8 +120,7 @@ public final class TwentyFifthTableFuelSearchingArgumentsProvider extends TableF
                         .build(),
                 //not existing routing length
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("УБОРКА КАРТОФЕЛЯ")
+                        .specification(specificationBuilderSupplier.get()
                                 .soilType("Тяжелые почвы")
                                 .tractor("New Holland TL 80")
                                 .machinery("Grimme 1500 dr")
