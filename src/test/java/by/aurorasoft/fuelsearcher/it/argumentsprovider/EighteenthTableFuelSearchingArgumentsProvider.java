@@ -2,18 +2,25 @@ package by.aurorasoft.fuelsearcher.it.argumentsprovider;
 
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.Fuel;
-import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpecificationBuilder;
 
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public final class EighteenthTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
+    private static final String TABLE_NAME = "СГРЕБАНИЕ СЕНА В ВАЛКИ";
+
+    public EighteenthTableFuelSearchingArgumentsProvider() {
+        super(TABLE_NAME);
+    }
 
     @Override
-    protected Stream<FuelSearchingArguments> createFuelSearchingArguments() {
+    protected Stream<FuelSearchingArguments> createFuelSearchingArguments(
+            final Supplier<FuelSpecificationBuilder> specificationBuilderSupplier
+    ) {
         return Stream.of(
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 920.2")
                                 .machinery("Krone Swadro 807")
                                 .workingWidth("6.2")
@@ -22,8 +29,7 @@ public final class EighteenthTableFuelSearchingArgumentsProvider extends TableFu
                         .expected(new Fuel(18.4, 2.46))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 80/82.1+")
                                 .machinery("MILLENNIUM V18-7GW")
                                 .workingWidth("10.5")
@@ -32,8 +38,7 @@ public final class EighteenthTableFuelSearchingArgumentsProvider extends TableFu
                         .expected(new Fuel(39.6, 1.28))
                         .build(),
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 80/82.1")
                                 .machinery("Claas Liner 1650 Twin")
                                 .workingWidth("6.8")
@@ -43,8 +48,7 @@ public final class EighteenthTableFuelSearchingArgumentsProvider extends TableFu
                         .build(),
                 //not existing tractor
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("not existing")
                                 .machinery("Claas Liner 1650 Twin")
                                 .workingWidth("6.8")
@@ -53,8 +57,7 @@ public final class EighteenthTableFuelSearchingArgumentsProvider extends TableFu
                         .build(),
                 //not existing machinery
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 80/82.1")
                                 .machinery("not existing")
                                 .workingWidth("6.8")
@@ -63,8 +66,7 @@ public final class EighteenthTableFuelSearchingArgumentsProvider extends TableFu
                         .build(),
                 //not existing working width
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 80/82.1")
                                 .machinery("Claas Liner 1650 Twin")
                                 .workingWidth("not existing")
@@ -73,8 +75,7 @@ public final class EighteenthTableFuelSearchingArgumentsProvider extends TableFu
                         .build(),
                 //not existing routing length
                 FuelSearchingArguments.builder()
-                        .specification(FuelSpecification.builder()
-                                .tableName("СГРЕБАНИЕ СЕНА В ВАЛКИ")
+                        .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 80/82.1")
                                 .machinery("Claas Liner 1650 Twin")
                                 .workingWidth("6.8")
