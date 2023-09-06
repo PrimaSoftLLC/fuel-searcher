@@ -18,6 +18,10 @@ public abstract class SpecificationPropertyExtractor implements Translatable {
         return this.propertyName;
     }
 
+    public final Optional<String> findProperty(final FuelSpecification specification) {
+        return this.propertyFounder.apply(specification);
+    }
+
     public final String extract(final FuelSpecification specification) {
         final Optional<String> optionalProperty = this.propertyFounder.apply(specification);
         return optionalProperty.orElseThrow(
