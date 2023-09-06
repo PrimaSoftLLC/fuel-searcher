@@ -175,6 +175,10 @@ public final class SearchersParsingContext {
 
     private <B extends SearcherBuilder<?>> void buildSearcher(final Function<SearchersParsingContext, B> builderGetter,
                                                               final BiConsumer<SearchersParsingContext, B> builderSetter) {
+        final SpecificationValidator validator = this.specificationValidatorBuilder.build();
+        this.specificationValidators.add(validator);
+        this.specificationValidatorBuilder = null;
+
         final B builder = builderGetter.apply(this);
         checkIfBuilderInitialized(builder);
         final FuelSearcher searcher = builder.build();

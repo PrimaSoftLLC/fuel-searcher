@@ -1,9 +1,9 @@
 package by.aurorasoft.fuelsearcher.configuration;
 
 import by.aurorasoft.fuelsearcher.model.FuelDocument;
-import by.aurorasoft.fuelsearcher.service.dictionary.FuelSearcherDictionary;
-import by.aurorasoft.fuelsearcher.service.dictionary.fuelsearcher.factory.FuelSearcherDictionaryFactory;
 import by.aurorasoft.fuelsearcher.service.documentfactory.FuelDocumentFactory;
+import by.aurorasoft.fuelsearcher.service.searcherparser.FuelSearchersParser;
+import by.aurorasoft.fuelsearcher.service.searcherparser.SearchersParsingResult;
 import org.junit.Test;
 
 import static org.junit.Assert.assertSame;
@@ -27,14 +27,14 @@ public final class FuelConfigurationTest {
     }
 
     @Test
-    public void dictionaryShouldBeCreated() {
-        final FuelSearcherDictionaryFactory givenFactory = mock(FuelSearcherDictionaryFactory.class);
+    public void searchersParsingResultShouldBeCreated() {
+        final FuelSearchersParser givenParser = mock(FuelSearchersParser.class);
 
-        final FuelSearcherDictionary givenDictionary = mock(FuelSearcherDictionary.class);
+        final SearchersParsingResult givenParsingResult = mock(SearchersParsingResult.class);
         final String givenFilePath = "file-path";
-        when(givenFactory.create(same(givenFilePath))).thenReturn(givenDictionary);
+        when(givenParser.parse(same(givenFilePath))).thenReturn(givenParsingResult);
 
-        final FuelSearcherDictionary actual = this.configuration.fuelSearcherDictionary(givenFactory, givenFilePath);
-        assertSame(givenDictionary, actual);
+        final SearchersParsingResult actual = this.configuration.searchersParsingResult(givenParser, givenFilePath);
+        assertSame(givenParsingResult, actual);
     }
 }

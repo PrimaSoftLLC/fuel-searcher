@@ -67,6 +67,7 @@ public class FuelController {
                 .combine(combine)
                 .weightRatioGrainToStraw(weightRatioGrainToStraw)
                 .build();
+        this.validateSpecification(specification);
         return this.searchingManager.find(specification)
                 .map(ResponseEntity::ok)
                 .orElseThrow(() -> new NoSuchFuelException(EXCEPTION_DESCRIPTION_NO_SUCH_FUEL));
