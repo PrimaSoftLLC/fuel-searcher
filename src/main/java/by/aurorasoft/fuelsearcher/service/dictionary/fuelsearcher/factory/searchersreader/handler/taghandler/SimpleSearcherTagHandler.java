@@ -13,7 +13,7 @@ public final class SimpleSearcherTagHandler extends TagHandler {
 
     @Override
     public void handleStartTag(final SearchersParsingContext context) {
-        context.startBuildSimpleSearcher();
+        context.startParseSimpleSearcher();
     }
 
     @Override

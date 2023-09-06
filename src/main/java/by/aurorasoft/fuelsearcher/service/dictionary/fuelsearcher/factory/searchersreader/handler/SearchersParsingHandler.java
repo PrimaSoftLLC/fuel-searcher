@@ -20,7 +20,7 @@ public final class SearchersParsingHandler extends DefaultHandler {
     private final SearchersParsingContext context;
 
     public List<FuelSearcher> findParsedSearchers() {
-        return this.context.getParsedSearchers();
+        return this.context.getSearchers();
     }
 
     @Override
