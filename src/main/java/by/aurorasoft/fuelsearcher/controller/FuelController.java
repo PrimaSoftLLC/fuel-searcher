@@ -74,10 +74,10 @@ public class FuelController {
     }
 
     private void validateSpecification(final FuelSpecification specification) {
-        if (!this.specificationValidatingManager.isValid(specification)) {
-            throw new NotValidSpecificationException(
-                    "Given specification isn't valid. Specification '%s'".formatted(specification)
-            );
-        }
+//        if (!this.specificationValidatingManager.isValid(specification)) {
+//            throw new NotValidSpecificationException(
+//                    "Given specification isn't valid. Specification '%s'".formatted(specification)
+//            );
+//        }
     }
 }
