@@ -50,7 +50,7 @@ public final class SpecificationValidatorTest {
                 .roadGroup("road-group")
                 .build();
 
-        final boolean actual = givenValidator.isValid(givenSpecification);
+        final boolean actual = givenValidator.validate(givenSpecification);
     }
 
     private static SpecificationValidator createValidator(final String tableName,

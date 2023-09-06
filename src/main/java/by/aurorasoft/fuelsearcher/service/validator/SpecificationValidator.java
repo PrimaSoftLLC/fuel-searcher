@@ -29,14 +29,13 @@ public final class SpecificationValidator implements Translatable {
         return this.tableName;
     }
 
-    public boolean isValid(final FuelSpecification specification) {
+    public SpecificationValidatingResult validate(final FuelSpecification specification) {
         this.validateTableName(specification);
-        return this.isSpecificationContainRequiredProperties(specification);
+        return this.createValidatingResult(specification);
     }
 
     private void validateTableName(final FuelSpecification specification) {
-        final boolean validTableName = this.isValidTableName(specification);
-        if (!validTableName) {
+        if (!this.isValidTableName(specification)) {
             throw new IllegalArgumentException(
                     "Table's name in given specification isn't valid. Specification: %s".formatted(specification)
             );
@@ -49,17 +48,21 @@ public final class SpecificationValidator implements Translatable {
                 .orElse(false);
     }
 
-    private boolean isSpecificationContainRequiredProperties(final FuelSpecification specification) {
-        return this.requiredPropertyExtractors.stream()
-                .allMatch(
-                        propertyExtractor -> isSpecificationContainProperty(specification, propertyExtractor)
-                );
+    private SpecificationValidatingResult createValidatingResult(final FuelSpecification specification) {
+        final List<SpecificationPropertyExtractor> failedPropertyExtractors = findFailedPropertyExtractors(specification);
+        return new SpecificationValidatingResult(failedPropertyExtractors);
     }
 
-    private static boolean isSpecificationContainProperty(final FuelSpecification specification,
-                                                          final SpecificationPropertyExtractor propertyExtractor) {
+    private List<SpecificationPropertyExtractor> findFailedPropertyExtractors(final FuelSpecification specification) {
+        return this.requiredPropertyExtractors.stream()
+                .filter(propertyExtractor -> isFailedPropertyExtractor(propertyExtractor, specification))
+                .toList();
+    }
+
+    private static boolean isFailedPropertyExtractor(final SpecificationPropertyExtractor propertyExtractor,
+                                                     final FuelSpecification specification) {
         final Optional<String> optionalProperty = propertyExtractor.findProperty(specification);
-        return optionalProperty.isPresent();
+        return optionalProperty.isEmpty();
     }
 
     public static final class SpecificationValidatorBuilder

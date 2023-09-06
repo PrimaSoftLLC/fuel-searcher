@@ -11,9 +11,10 @@ public final class SpecificationValidatingManager {
     private final SpecificationValidatorDictionary validatorDictionary;
 
     public boolean isValid(final FuelSpecification specification) {
-        return specification.findTableName()
-                .flatMap(this.validatorDictionary::find)
-                .map(validator -> validator.isValid(specification))
-                .orElse(false);
+//        return specification.findTableName()
+//                .flatMap(this.validatorDictionary::find)
+//                .map(validator -> validator.validate(specification))
+//                .orElse(false);
+        return null;
     }
 }
