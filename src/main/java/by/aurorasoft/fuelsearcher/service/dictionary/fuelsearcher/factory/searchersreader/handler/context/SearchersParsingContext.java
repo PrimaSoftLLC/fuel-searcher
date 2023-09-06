@@ -1,16 +1,19 @@
 package by.aurorasoft.fuelsearcher.service.dictionary.fuelsearcher.factory.searchersreader.handler.context;
 
-import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
 import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
+import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
+import by.aurorasoft.fuelsearcher.service.dictionary.fuelsearcher.factory.searchersreader.handler.result.SearchersParsingResult;
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher.CompositeSearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher.SearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleSearcherBuilder;
+import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator;
+import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator.SpecificationValidatorBuilder;
 import lombok.Getter;
 import lombok.Setter;
 import org.xml.sax.Attributes;
@@ -18,14 +21,18 @@ import org.xml.sax.Attributes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import static lombok.AccessLevel.PRIVATE;
 
+//TODO: refactor
 public final class SearchersParsingContext {
 
-    @Getter
-    private final List<FuelSearcher> parsedSearchers;
+    private final List<FuelSearcher> searchers;
+
+    private final List<SpecificationValidator> specificationValidators;
 
     @Setter(value = PRIVATE)
     @Getter(value = PRIVATE)
@@ -34,6 +41,8 @@ public final class SearchersParsingContext {
     @Setter(value = PRIVATE)
     @Getter(value = PRIVATE)
     private CompositeSearcherBuilder compositeSearcherBuilder;
+
+    private SpecificationValidatorBuilder specificationValidatorBuilder;
 
     @Setter
     @Getter
@@ -44,18 +53,27 @@ public final class SearchersParsingContext {
     private Attributes lastAttributes;
 
     public SearchersParsingContext() {
-        this.parsedSearchers = new ArrayList<>();
+        this.searchers = new ArrayList<>();
+        this.specificationValidators = new ArrayList<>();
     }
 
-    public void startBuildSimpleSearcher() {
-        this.simpleSearcherBuilder = SimpleFuelSearcher.builder();
+    public void startParseSimpleSearcher() {
+        this.startParseSearcher(
+                SimpleFuelSearcher::builder,
+                this::setSimpleSearcherBuilder
+        );
     }
 
-    public void startBuildCompositeSearcher() {
-        this.compositeSearcherBuilder = CompositeFuelSearcher.builder();
+    public void startParseCompositeSearcher() {
+        this.startParseSearcher(
+                CompositeFuelSearcher::builder,
+                this::setCompositeSearcherBuilder
+        );
     }
 
     public void accumulateFuelTable(final FuelTable fuelTable) {
+        final String tableName = fuelTable.getName();
+        this.specificationValidatorBuilder.tableName(tableName);
         this.accumulateComponentToCurrentBuilder(
                 fuelTable,
                 SearcherBuilder::table
@@ -77,6 +95,7 @@ public final class SearchersParsingContext {
     }
 
     public void accumulateFuelHeaderMetadata(final FuelHeaderMetadata metadata) {
+        this.specificationValidatorBuilder.requiredPropertyExtractor(metadata.getHeaderExtractor());
         this.accumulateComponentToCurrentBuilder(
                 metadata,
                 SearcherBuilder::headerMetadata
@@ -84,6 +103,7 @@ public final class SearchersParsingContext {
     }
 
     public void accumulateFilter(final InterimFilter filter) {
+        this.specificationValidatorBuilder.requiredPropertyExtractor(filter.getFiltrationValueExtractor());
         this.accumulateComponentToCurrentBuilder(
                 filter,
                 SearcherBuilder::interimFilter
@@ -91,6 +111,7 @@ public final class SearchersParsingContext {
     }
 
     public void accumulateFilter(final FinalFilter filter) {
+        this.specificationValidatorBuilder.requiredPropertyExtractor(filter.getFiltrationValueExtractor());
         this.accumulateComponentToCurrentBuilder(
                 filter,
                 SearcherBuilder::finalFilter
@@ -106,11 +127,23 @@ public final class SearchersParsingContext {
     }
 
     public void accumulateSubTableTitleTemplateArgumentExtractor(final SpecificationPropertyExtractor extractor) {
+        this.specificationValidatorBuilder.requiredPropertyExtractor(extractor);
         accumulateComponent(
                 this.compositeSearcherBuilder,
                 extractor,
                 CompositeSearcherBuilder::subTableTitleTemplateArgumentExtractor
         );
+    }
+
+    public SearchersParsingResult findResult() {
+        return new SearchersParsingResult(this.searchers, this.specificationValidators);
+    }
+
+    private <B extends SearcherBuilder<?>> void startParseSearcher(final Supplier<B> builderSupplier,
+                                                                   final Consumer<B> builderSetter) {
+        final B searcherBuilder = builderSupplier.get();
+        builderSetter.accept(searcherBuilder);
+        this.specificationValidatorBuilder = SpecificationValidator.builder();
     }
 
     private <T> void accumulateComponentToCurrentBuilder(final T component,
@@ -145,7 +178,7 @@ public final class SearchersParsingContext {
         final B builder = builderGetter.apply(this);
         checkIfBuilderInitialized(builder);
         final FuelSearcher searcher = builder.build();
-        this.parsedSearchers.add(searcher);
+        this.searchers.add(searcher);
         builderSetter.accept(this, null);
     }
 }
