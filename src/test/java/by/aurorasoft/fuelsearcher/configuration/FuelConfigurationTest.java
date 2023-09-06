@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelsearcher.configuration;
 
 import by.aurorasoft.fuelsearcher.model.FuelDocument;
-import by.aurorasoft.fuelsearcher.service.dictionary.fuelsearcher.FuelSearcherDictionary;
+import by.aurorasoft.fuelsearcher.service.dictionary.FuelSearcherDictionary;
 import by.aurorasoft.fuelsearcher.service.dictionary.fuelsearcher.factory.FuelSearcherDictionaryFactory;
 import by.aurorasoft.fuelsearcher.service.documentfactory.FuelDocumentFactory;
 import org.junit.Test;

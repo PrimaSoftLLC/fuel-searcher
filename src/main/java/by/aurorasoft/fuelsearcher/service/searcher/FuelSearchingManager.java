@@ -3,7 +3,7 @@ package by.aurorasoft.fuelsearcher.service.searcher;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.TableNameExtractor;
-import by.aurorasoft.fuelsearcher.service.dictionary.fuelsearcher.FuelSearcherDictionary;
+import by.aurorasoft.fuelsearcher.service.dictionary.FuelSearcherDictionary;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

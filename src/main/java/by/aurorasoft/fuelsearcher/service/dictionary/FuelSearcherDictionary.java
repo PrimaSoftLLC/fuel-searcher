@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.service.dictionary.fuelsearcher;
+package by.aurorasoft.fuelsearcher.service.dictionary;
 
 import by.aurorasoft.fuelsearcher.service.dictionary.Dictionary;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
