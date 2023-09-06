@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelsearcher.service.validator.SpecificationValidatingResult.createNotValidValidatingResult;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.unmodifiableList;
 import static org.junit.Assert.*;
@@ -187,20 +186,6 @@ public final class SpecificationValidatorTest {
                 firstGivenPropertyExtractor, secondGivenPropertyExtractor
         );
         assertEquals(expectedRequiredPropertyExtractors, actualRequiredPropertyExtractors);
-    }
-
-    @Test
-    public void validatingResultShouldBeCreatedByFailedPropertyExtractor()
-            throws Exception {
-        final SpecificationPropertyExtractor givenExtractor = mock(SpecificationPropertyExtractor.class);
-
-        final SpecificationValidatingResult actual = createNotValidValidatingResult(givenExtractor);
-
-        final List<SpecificationPropertyExtractor> actualFailedPropertyExtractors = findFailedPropertyExtractors(
-                actual
-        );
-        final List<SpecificationPropertyExtractor> expectedFailedPropertyExtractors = List.of(givenExtractor);
-        assertEquals(expectedFailedPropertyExtractors, actualFailedPropertyExtractors);
     }
 
     private static SpecificationValidator createValidator(final String tableName,

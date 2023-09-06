@@ -3,14 +3,17 @@ package by.aurorasoft.fuelsearcher.service.validator;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import org.junit.Test;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
+import static by.aurorasoft.fuelsearcher.service.validator.SpecificationValidatingResult.createNotValidValidatingResult;
 import static java.util.Collections.emptyList;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public final class SpecificationValidatingResultTest {
+    private static final String FIELD_NAME_FAILED_PROPERTY_EXTRACTORS = "failedPropertyExtractors";
 
     @Test
     public void validatingResultShouldBeValid() {
@@ -68,9 +71,36 @@ public final class SpecificationValidatingResultTest {
         assertTrue(actual.isEmpty());
     }
 
+    @Test
+    public void validatingResultShouldBeCreatedByFailedPropertyExtractor()
+            throws Exception {
+        final SpecificationPropertyExtractor givenExtractor = mock(SpecificationPropertyExtractor.class);
+
+        final SpecificationValidatingResult actual = createNotValidValidatingResult(givenExtractor);
+
+        final List<SpecificationPropertyExtractor> actualFailedPropertyExtractors = findFailedPropertyExtractors(
+                actual
+        );
+        final List<SpecificationPropertyExtractor> expectedFailedPropertyExtractors = List.of(givenExtractor);
+        assertEquals(expectedFailedPropertyExtractors, actualFailedPropertyExtractors);
+    }
+
     private static SpecificationPropertyExtractor createPropertyExtractor(final String propertyName) {
         final SpecificationPropertyExtractor extractor = mock(SpecificationPropertyExtractor.class);
         when(extractor.getPropertyName()).thenReturn(propertyName);
         return extractor;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static List<SpecificationPropertyExtractor> findFailedPropertyExtractors(
+            final SpecificationValidatingResult validatingResult)
+            throws Exception {
+        final Field field = SpecificationValidatingResult.class.getDeclaredField(FIELD_NAME_FAILED_PROPERTY_EXTRACTORS);
+        field.setAccessible(true);
+        try {
+            return (List<SpecificationPropertyExtractor>) field.get(validatingResult);
+        } finally {
+            field.setAccessible(false);
+        }
     }
 }
