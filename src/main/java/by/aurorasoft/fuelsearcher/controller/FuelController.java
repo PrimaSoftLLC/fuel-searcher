@@ -1,9 +1,11 @@
 package by.aurorasoft.fuelsearcher.controller;
 
 import by.aurorasoft.fuelsearcher.controller.exception.NoSuchFuelException;
+import by.aurorasoft.fuelsearcher.controller.exception.NotValidSpecificationException;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearchingManager;
+import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidatingManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ public class FuelController {
     private static final String EXCEPTION_DESCRIPTION_NO_SUCH_FUEL = "Fuel with given properties doesn't exist";
 
     private final FuelSearchingManager searchingManager;
+    private final SpecificationValidatingManager specificationValidatingManager;
 
     @GetMapping
     public ResponseEntity<Fuel> findFuel(@RequestParam(name = "tableName") final String tableName,
@@ -69,4 +72,11 @@ public class FuelController {
                 .orElseThrow(() -> new NoSuchFuelException(EXCEPTION_DESCRIPTION_NO_SUCH_FUEL));
     }
 
+    private void validateSpecification(final FuelSpecification specification) {
+        if (this.specificationValidatingManager.isValid(specification)) {
+            throw new NotValidSpecificationException(
+                    "Given specification isn't valid. Specification '%s'".formatted(specification)
+            );
+        }
+    }
 }
