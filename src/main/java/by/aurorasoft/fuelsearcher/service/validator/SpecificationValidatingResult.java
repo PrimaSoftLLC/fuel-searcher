@@ -1,18 +1,13 @@
 package by.aurorasoft.fuelsearcher.service.validator;
 
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
-import lombok.Getter;
-import lombok.Value;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-import static lombok.AccessLevel.NONE;
-
-@Value
-public class SpecificationValidatingResult {
-
-    @Getter(value = NONE)
-    List<SpecificationPropertyExtractor> failedPropertyExtractors;
+@RequiredArgsConstructor
+public final class SpecificationValidatingResult {
+    private final List<SpecificationPropertyExtractor> failedPropertyExtractors;
 
     public boolean isValid() {
         return this.failedPropertyExtractors.isEmpty();

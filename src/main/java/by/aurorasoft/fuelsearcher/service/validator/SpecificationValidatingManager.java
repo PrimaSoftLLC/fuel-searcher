@@ -15,6 +15,6 @@ public final class SpecificationValidatingManager {
 //                .flatMap(this.validatorDictionary::find)
 //                .map(validator -> validator.validate(specification))
 //                .orElse(false);
-        return null;
+        return true;
     }
 }

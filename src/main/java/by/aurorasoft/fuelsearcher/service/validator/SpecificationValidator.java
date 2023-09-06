@@ -86,7 +86,9 @@ public final class SpecificationValidator implements Translatable {
 
         @Override
         protected SpecificationValidator buildAfterStateValidation() {
-            final List<SpecificationPropertyExtractor> immutableExtractors = unmodifiableList(this.requiredPropertyExtractors);
+            final List<SpecificationPropertyExtractor> immutableExtractors = unmodifiableList(
+                    this.requiredPropertyExtractors
+            );
             return new SpecificationValidator(this.tableName, immutableExtractors);
         }
 
