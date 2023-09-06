@@ -2,13 +2,14 @@ package by.aurorasoft.fuelsearcher.service.dictionary.fuelsearcher;
 
 import by.aurorasoft.fuelsearcher.service.dictionary.Dictionary;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
+import by.aurorasoft.fuelsearcher.service.searcherparser.SearchersParsingResult;
+import org.springframework.stereotype.Component;
 
-import java.util.List;
-
+@Component
 public final class FuelSearcherDictionary extends Dictionary<FuelSearcher> {
 
-    public FuelSearcherDictionary(final List<FuelSearcher> searchers) {
-        super(searchers);
+    public FuelSearcherDictionary(final SearchersParsingResult searchersParsingResult) {
+        super(searchersParsingResult.getSearchers());
     }
 
 }
