@@ -3,6 +3,7 @@ package by.aurorasoft.fuelsearcher.model.specification.propertyextractor;
 import by.aurorasoft.fuelsearcher.service.dictionary.Translatable;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.exception.SpecificationPropertyExtractingException;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
@@ -11,6 +12,8 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public abstract class SpecificationPropertyExtractor implements Translatable {
     private final Function<FuelSpecification, Optional<String>> propertyFounder;
+
+    @Getter
     private final String propertyName;
 
     @Override
