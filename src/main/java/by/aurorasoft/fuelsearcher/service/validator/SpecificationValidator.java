@@ -49,7 +49,9 @@ public final class SpecificationValidator implements Translatable {
     }
 
     private SpecificationValidatingResult createValidatingResult(final FuelSpecification specification) {
-        final List<SpecificationPropertyExtractor> failedPropertyExtractors = findFailedPropertyExtractors(specification);
+        final List<SpecificationPropertyExtractor> failedPropertyExtractors = this.findFailedPropertyExtractors(
+                specification
+        );
         return new SpecificationValidatingResult(failedPropertyExtractors);
     }
 
@@ -59,9 +61,9 @@ public final class SpecificationValidator implements Translatable {
                 .toList();
     }
 
-    private static boolean isFailedPropertyExtractor(final SpecificationPropertyExtractor propertyExtractor,
+    private static boolean isFailedPropertyExtractor(final SpecificationPropertyExtractor extractor,
                                                      final FuelSpecification specification) {
-        final Optional<String> optionalProperty = propertyExtractor.findProperty(specification);
+        final Optional<String> optionalProperty = extractor.findProperty(specification);
         return optionalProperty.isEmpty();
     }
 
