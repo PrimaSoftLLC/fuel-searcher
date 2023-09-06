@@ -5,9 +5,17 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+import static java.util.Collections.singletonList;
+
 @RequiredArgsConstructor
 public final class SpecificationValidatingResult {
     private final List<SpecificationPropertyExtractor> failedPropertyExtractors;
+
+    public static SpecificationValidatingResult createNotValidValidatingResult(
+            final SpecificationPropertyExtractor failedExtractor) {
+        final List<SpecificationPropertyExtractor> failedPropertyExtractors = singletonList(failedExtractor);
+        return new SpecificationValidatingResult(failedPropertyExtractors);
+    }
 
     public boolean isValid() {
         return this.failedPropertyExtractors.isEmpty();
