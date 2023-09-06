@@ -1,9 +1,9 @@
 package by.aurorasoft.fuelsearcher.configuration;
 
 import by.aurorasoft.fuelsearcher.model.FuelDocument;
-import by.aurorasoft.fuelsearcher.service.dictionary.FuelSearcherDictionary;
-import by.aurorasoft.fuelsearcher.service.dictionary.fuelsearcher.factory.FuelSearcherDictionaryFactory;
 import by.aurorasoft.fuelsearcher.service.documentfactory.FuelDocumentFactory;
+import by.aurorasoft.fuelsearcher.service.searcherparser.FuelSearchersParser;
+import by.aurorasoft.fuelsearcher.service.searcherparser.SearchersParsingResult;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,9 +20,9 @@ public class FuelConfiguration {
     }
 
     @Bean
-    public FuelSearcherDictionary fuelSearcherDictionary(final FuelSearcherDictionaryFactory factory,
+    public SearchersParsingResult searchersParsingResult(final FuelSearchersParser parser,
                                                          @Value("${fuel-searcher-config.path}") final String filePath) {
-        return factory.create(filePath);
+        return parser.parse(filePath);
     }
 
 }
