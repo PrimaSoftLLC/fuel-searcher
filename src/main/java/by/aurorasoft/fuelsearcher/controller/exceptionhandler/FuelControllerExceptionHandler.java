@@ -35,8 +35,7 @@ public final class FuelControllerExceptionHandler {
         return new ResponseEntity<>(errorResponse, httpStatus);
     }
 
-    private static RestErrorResponse createErrorResponse(final Exception exception,
-                                                         final HttpStatus httpStatus) {
+    private static RestErrorResponse createErrorResponse(final Exception exception, final HttpStatus httpStatus) {
         final String message = exception.getMessage();
         final LocalDateTime currentDateTime = now();
         return new RestErrorResponse(httpStatus, message, currentDateTime);

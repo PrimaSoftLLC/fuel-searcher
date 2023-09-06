@@ -1,6 +1,7 @@
 package by.aurorasoft.fuelsearcher.controller.exceptionhandler;
 
 import by.aurorasoft.fuelsearcher.controller.exception.NoSuchFuelException;
+import by.aurorasoft.fuelsearcher.controller.exception.NotValidSpecificationException;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 
 import static java.lang.Class.forName;
 import static org.junit.Assert.*;
+import static org.springframework.http.HttpStatus.NOT_ACCEPTABLE;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 public final class FuelControllerExceptionHandlerTest {
@@ -31,6 +33,28 @@ public final class FuelControllerExceptionHandlerTest {
 
         final ResponseEntity<?> actual = this.exceptionHandler.handleException(givenException);
         final HttpStatus expectedHttpStatus = NOT_FOUND;
+        assertSame(expectedHttpStatus, actual.getStatusCode());
+
+        final Object actualErrorResponse = actual.getBody();
+
+        final HttpStatus actualErrorResponseHttpStatus = findErrorResponseHttpStatus(actualErrorResponse);
+        assertSame(expectedHttpStatus, actualErrorResponseHttpStatus);
+
+        final String actualErrorResponseMessage = findErrorResponseMessage(actualErrorResponse);
+        assertSame(givenExceptionDescription, actualErrorResponseMessage);
+
+        final LocalDateTime actualErrorResponseDateTime = findErrorResponseDateTime(actualErrorResponse);
+        assertNotNull(actualErrorResponseDateTime);
+    }
+
+    @Test
+    public void notValidSpecificationExceptionShouldBeHandled()
+            throws Exception {
+        final String givenExceptionDescription = "exception-description";
+        final NotValidSpecificationException givenException = new NotValidSpecificationException(givenExceptionDescription);
+
+        final ResponseEntity<?> actual = this.exceptionHandler.handleException(givenException);
+        final HttpStatus expectedHttpStatus = NOT_ACCEPTABLE;
         assertSame(expectedHttpStatus, actual.getStatusCode());
 
         final Object actualErrorResponse = actual.getBody();
