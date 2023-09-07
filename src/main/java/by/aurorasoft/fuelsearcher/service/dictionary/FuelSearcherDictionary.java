@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.dictionary;
 
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
-import by.aurorasoft.fuelsearcher.service.searcherparser.SearchersParsingResult;
+import by.aurorasoft.fuelsearcher.service.searchersparser.SearchersParsingResult;
 import org.springframework.stereotype.Component;
 
 @Component
