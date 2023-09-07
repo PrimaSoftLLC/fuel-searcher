@@ -3,7 +3,7 @@ package by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.tr
 import java.util.function.Function;
 
 public abstract class NoSuchKeyException extends RuntimeException {
-    private static final String EXCEPTION_DESCRIPTION_TEMPLATE = "There is no mapping for '%s'";
+    private static final String DESCRIPTION_TEMPLATE = "There is no mapping for '%s'";
 
     public NoSuchKeyException() {
 
@@ -18,11 +18,11 @@ public abstract class NoSuchKeyException extends RuntimeException {
     }
 
     public NoSuchKeyException(final String key, final Exception cause) {
-        super(createExceptionDescription(key), cause);
+        super(createDescription(key), cause);
     }
 
-    private static String createExceptionDescription(final String key) {
-        return EXCEPTION_DESCRIPTION_TEMPLATE.formatted(key);
+    private static String createDescription(final String key) {
+        return DESCRIPTION_TEMPLATE.formatted(key);
     }
 
     @FunctionalInterface
