@@ -2,16 +2,22 @@ package by.aurorasoft.fuelsearcher.testutil;
 
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import lombok.experimental.UtilityClass;
+import org.springframework.http.HttpStatus;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 import java.util.Optional;
 import java.util.function.Function;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @UtilityClass
-public final class FuelRequestBuilderUtil {
+public final class FuelControllerRequestUtil {
     private static final String CONTROLLER_URL = "/fuel";
+
+    private static final String EXPECTED_CONTENT_TYPE = "application/json";
 
     private static final String PARAM_NAME_TABLE_NAME = "tableName";
     private static final String PARAM_NAME_TRACTOR = "tractor";
@@ -35,7 +41,19 @@ public final class FuelRequestBuilderUtil {
     private static final String PARAM_NAME_COMBINE = "combine";
     private static final String PARAM_NAME_WEIGHT_RATIO_GRAIN_TO_STRAW = "weightRatioGrainToStraw";
 
-    public static MockHttpServletRequestBuilder createRequestBuilder(final FuelSpecification specification) {
+    public String doRequest(final MockMvc mockMvc,
+                            final FuelSpecification specification,
+                            final HttpStatus expectedHttpStatus)
+            throws Exception {
+        return mockMvc.perform(createRequestBuilder(specification))
+                .andExpect(status().is(expectedHttpStatus.value()))
+                .andExpect(content().contentType(EXPECTED_CONTENT_TYPE))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+    }
+
+    private static MockHttpServletRequestBuilder createRequestBuilder(final FuelSpecification specification) {
         final MockHttpServletRequestBuilder requestBuilder = get(CONTROLLER_URL);
         appendPropertyAsParamIfExist(requestBuilder, specification, FuelSpecification::findTableName, PARAM_NAME_TABLE_NAME);
         appendPropertyAsParamIfExist(requestBuilder, specification, FuelSpecification::findTractor, PARAM_NAME_TRACTOR);
