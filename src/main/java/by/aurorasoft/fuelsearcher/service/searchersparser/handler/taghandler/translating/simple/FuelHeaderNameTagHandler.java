@@ -1,10 +1,9 @@
-package by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.translating.simple.fuelheadername;
+package by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.translating.simple;
 
-import by.aurorasoft.fuelsearcher.service.dictionary.FuelHeaderMetadataDictionary;
 import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
+import by.aurorasoft.fuelsearcher.service.dictionary.FuelHeaderMetadataDictionary;
 import by.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsingContext;
-import by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.translating.simple.SimpleTranslatingTagHandler;
-import by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.translating.simple.fuelheadername.exception.NoSuchFuelHeaderNameException;
+import by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.translating.exception.NoSuchKeyException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -29,6 +28,29 @@ public final class FuelHeaderNameTagHandler extends SimpleTranslatingTagHandler<
 
     @Override
     protected void accumulateAdditionalValues(final SearchersParsingContext context) {
+
+    }
+
+    private static final class NoSuchFuelHeaderNameException extends NoSuchKeyException {
+
+        @SuppressWarnings("unused")
+        public NoSuchFuelHeaderNameException() {
+
+        }
+
+        public NoSuchFuelHeaderNameException(final String key) {
+            super(key);
+        }
+
+        @SuppressWarnings("unused")
+        public NoSuchFuelHeaderNameException(final Exception cause) {
+            super(cause);
+        }
+
+        @SuppressWarnings("unused")
+        public NoSuchFuelHeaderNameException(final String key, final Exception cause) {
+            super(key, cause);
+        }
 
     }
 }
