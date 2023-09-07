@@ -2,15 +2,19 @@ package by.aurorasoft.fuelsearcher.controller.exceptionhandler;
 
 import by.aurorasoft.fuelsearcher.controller.exception.NoSuchFuelException;
 import by.aurorasoft.fuelsearcher.controller.exception.NotValidSpecificationException;
+import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidatingResult;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static java.lang.Class.forName;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.springframework.http.HttpStatus.NOT_ACCEPTABLE;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
@@ -50,8 +54,10 @@ public final class FuelControllerExceptionHandlerTest {
     @Test
     public void notValidSpecificationExceptionShouldBeHandled()
             throws Exception {
-        final String givenExceptionDescription = "exception-description";
-        final NotValidSpecificationException givenException = new NotValidSpecificationException(givenExceptionDescription);
+        final List<String> givenFailedPropertyNames = List.of("first-property", "second-property", "third-property");
+        final SpecificationValidatingResult givenValidatingResult = createValidatingResult(givenFailedPropertyNames);
+
+        final NotValidSpecificationException givenException = new NotValidSpecificationException(givenValidatingResult);
 
         final ResponseEntity<?> actual = this.exceptionHandler.handleException(givenException);
         final HttpStatus expectedHttpStatus = NOT_ACCEPTABLE;
@@ -63,7 +69,9 @@ public final class FuelControllerExceptionHandlerTest {
         assertSame(expectedHttpStatus, actualErrorResponseHttpStatus);
 
         final String actualErrorResponseMessage = findErrorResponseMessage(actualErrorResponse);
-        assertSame(givenExceptionDescription, actualErrorResponseMessage);
+        final String expectedErrorResponseMessage = "Specification should contain properties: first-property, "
+                + "second-property, third-property";
+        assertEquals(expectedErrorResponseMessage, actualErrorResponseMessage);
 
         final LocalDateTime actualErrorResponseDateTime = findErrorResponseDateTime(actualErrorResponse);
         assertNotNull(actualErrorResponseDateTime);
@@ -104,5 +112,11 @@ public final class FuelControllerExceptionHandlerTest {
         } finally {
             field.setAccessible(false);
         }
+    }
+
+    private static SpecificationValidatingResult createValidatingResult(final List<String> failedPropertyNames) {
+        final SpecificationValidatingResult validatingResult = mock(SpecificationValidatingResult.class);
+        when(validatingResult.findFailedPropertyNames()).thenReturn(failedPropertyNames);
+        return validatingResult;
     }
 }

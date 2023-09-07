@@ -22,7 +22,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @ControllerAdvice
 public final class FuelControllerExceptionHandler {
     private static final String TEMPLATE_MESSAGE_NOT_VALID_SPECIFICATION = "Specification should contain properties: %s";
-    private static final String DELIMITER_SPECIFICATION_PROPERTIES = ",";
+    private static final String DELIMITER_SPECIFICATION_PROPERTIES = ", ";
 
     @ExceptionHandler
     public ResponseEntity<RestErrorResponse> handleException(final NoSuchFuelException exception) {
