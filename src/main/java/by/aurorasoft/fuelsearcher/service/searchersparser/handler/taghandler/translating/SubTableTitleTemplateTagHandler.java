@@ -15,7 +15,7 @@ import static java.util.regex.Pattern.compile;
 public final class SubTableTitleTemplateTagHandler extends TranslatingTagHandler<SpecificationPropertyExtractor> {
     private static final String TAG_NAME = "sub-table-title-template";
 
-    private static final String PROPERTY_PLACE_REGEX = "\\{([^}]+)}";
+    private static final String PROPERTY_PLACE_REGEX = "\\{([^{}]+)}";
     private static final int PROPERTY_GROUP_NUMBER = 1;
     private static final Pattern PROPERTY_PLACE_PATTERN = compile(PROPERTY_PLACE_REGEX);
 
