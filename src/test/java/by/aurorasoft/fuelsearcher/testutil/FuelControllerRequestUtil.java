@@ -19,6 +19,10 @@ public final class FuelControllerRequestUtil {
 
     private static final String EXPECTED_CONTENT_TYPE = "application/json";
 
+    private static final String REGEX_MESSAGE_ERROR_NO_SUCH_FUEL = "\\{\"httpStatus\":\"NOT_FOUND\","
+            + "\"message\":\"Fuel with given properties doesn't exist\","
+            + "\"dateTime\":\"\\d{4}-\\d{2}-\\d{2} \\d{2}-\\d{2}-\\d{2}\"}";
+
     private static final String PARAM_NAME_TABLE_NAME = "tableName";
     private static final String PARAM_NAME_TRACTOR = "tractor";
     private static final String PARAM_NAME_MACHINERY = "machinery";
@@ -51,6 +55,10 @@ public final class FuelControllerRequestUtil {
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
+    }
+
+    public static boolean isNoSuchFuelError(final String response) {
+        return response.matches(REGEX_MESSAGE_ERROR_NO_SUCH_FUEL);
     }
 
     private static MockHttpServletRequestBuilder createRequestBuilder(final FuelSpecification specification) {
