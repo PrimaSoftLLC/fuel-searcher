@@ -27,7 +27,6 @@ import java.util.function.Supplier;
 
 import static lombok.AccessLevel.PRIVATE;
 
-//TODO: refactor
 public final class SearchersParsingContext {
 
     private final List<FuelSearcher> searchers;
