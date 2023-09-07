@@ -19,17 +19,14 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelsearcher.testutil.FuelRequestBuilderUtil.createRequestBuilder;
+import static by.aurorasoft.fuelsearcher.testutil.FuelControllerRequestUtil.doRequest;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @AutoConfigureMockMvc
 public final class FuelSearchingIT extends AbstractContextTest {
-    private static final String EXPECTED_CONTENT_TYPE = "application/json";
     private static final String EXPECTED_REGEX_MESSAGE_ERROR_NO_SUCH_FUEL = "\\{\"httpStatus\":\"NOT_FOUND\","
             + "\"message\":\"Fuel with given properties doesn't exist\","
             + "\"dateTime\":\"\\d{4}-\\d{2}-\\d{2} \\d{2}-\\d{2}-\\d{2}\"}";
@@ -76,7 +73,7 @@ public final class FuelSearchingIT extends AbstractContextTest {
     public void fuelShouldBeFound(final FuelSpecification specification, final Optional<Fuel> optionalExpectedFuel)
             throws Exception {
         final HttpStatus expectedHttpStatus = optionalExpectedFuel.map(fuel -> OK).orElse(NOT_FOUND);
-        final String actualResponse = this.doRequest(specification, expectedHttpStatus);
+        final String actualResponse = doRequest(this.mockMvc, specification, expectedHttpStatus);
         final boolean testSuccess = optionalExpectedFuel
                 .map(expectedFuel -> this.isFuelSearchingSuccess(actualResponse, expectedFuel))
                 .orElseGet(() -> isNoSuchFuelError(actualResponse));
@@ -85,16 +82,6 @@ public final class FuelSearchingIT extends AbstractContextTest {
 
     private static Stream<Arguments> fuelSearchingArgumentsProvider() {
         return ARGUMENTS_PROVIDERS.stream().flatMap(TableFuelSearchingArgumentsProvider::provide);
-    }
-
-    private String doRequest(final FuelSpecification specification, final HttpStatus expectedHttpStatus)
-            throws Exception {
-        return this.mockMvc.perform(createRequestBuilder(specification))
-                .andExpect(status().is(expectedHttpStatus.value()))
-                .andExpect(content().contentType(EXPECTED_CONTENT_TYPE))
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
     }
 
     private boolean isFuelSearchingSuccess(final String actualResponse, final Fuel expectedFuel) {
