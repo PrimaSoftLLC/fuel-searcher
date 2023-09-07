@@ -8,7 +8,7 @@ import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
 
 public abstract class AbstractInterimFilterTagHandler<
         FILTER extends InterimFilter,
-        FILTER_FACTORY extends InterimFilterFactory<?, ?>
+        FILTER_FACTORY extends InterimFilterFactory<? extends FILTER, ?>
         >
         extends FilterTagHandler<FILTER, FILTER_FACTORY> {
 

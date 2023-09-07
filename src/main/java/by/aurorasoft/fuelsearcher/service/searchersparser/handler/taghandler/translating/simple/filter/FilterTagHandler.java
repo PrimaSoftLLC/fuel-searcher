@@ -1,8 +1,8 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.translating.simple.filter;
 
-import by.aurorasoft.fuelsearcher.service.dictionary.filter.FilterFactoryDictionary;
 import by.aurorasoft.fuelsearcher.model.filter.Filter;
 import by.aurorasoft.fuelsearcher.model.filter.factory.FilterFactory;
+import by.aurorasoft.fuelsearcher.service.dictionary.filter.FilterFactoryDictionary;
 import by.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsingContext;
 import by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.translating.simple.SimpleTranslatingTagHandler;
 import by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.translating.simple.filter.exception.NoSuchFilterException;
@@ -10,7 +10,7 @@ import org.xml.sax.Attributes;
 
 import static java.lang.Integer.parseInt;
 
-public abstract class FilterTagHandler<FILTER extends Filter<?>, FILTER_FACTORY extends FilterFactory<?, ?>>
+public abstract class FilterTagHandler<FILTER extends Filter<?>, FILTER_FACTORY extends FilterFactory<? extends FILTER, ?>>
         extends SimpleTranslatingTagHandler<FILTER_FACTORY> {
 
     private static final String FILTRATION_CELL_INDEX_ATTRIBUTE_NAME = "cell-index";
@@ -30,10 +30,9 @@ public abstract class FilterTagHandler<FILTER extends Filter<?>, FILTER_FACTORY 
 
     protected abstract void accumulateFilter(final SearchersParsingContext context, final FILTER filter);
 
-    //TODO: refactor
     private FILTER createFilter(final SearchersParsingContext context, final FILTER_FACTORY filterFactory) {
         final int filtrationCellIndex = this.findFiltrationCellIndex(context);
-        return (FILTER) filterFactory.create(filtrationCellIndex);
+        return filterFactory.create(filtrationCellIndex);
     }
 
     private int findFiltrationCellIndex(final SearchersParsingContext context) {
