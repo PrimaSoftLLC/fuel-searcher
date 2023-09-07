@@ -120,6 +120,13 @@ public final class SearchersParsingContextTest {
         verify(givenSearcherBuilder, times(1)).table(same(givenFuelTable));
     }
 
+    @Test
+    public void simpleSearcherShouldBeBuilt() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        throw new RuntimeException();
+    }
+
     @SuppressWarnings("unchecked")
     private static List<FuelSearcher> findSearchers(final SearchersParsingContext context)
             throws Exception {
