@@ -61,5 +61,28 @@ public final class SearchersParsingHandlerTest {
         verify(this.mockedContext, times(1)).setLastAttributes(same(givenAttributes));
     }
 
+    @Test
+    public void endElementShouldBeHandled() {
+        final String givenUri = "uri";
+        final String givenLocalName = "local-name";
+        final String givenQualifiedName = "qualified-name";
 
+        final TagHandler givenTagHandler = mock(TagHandler.class);
+        when(this.mockedHandlerDictionary.find(same(givenQualifiedName))).thenReturn(Optional.of(givenTagHandler));
+
+        this.parsingHandler.endElement(givenUri, givenLocalName, givenQualifiedName);
+
+        verify(givenTagHandler, times(1)).handleEndTag(same(this.mockedContext));
+    }
+
+    @Test
+    public void endElementShouldNotBeHandled() {
+        final String givenUri = "uri";
+        final String givenLocalName = "local-name";
+        final String givenQualifiedName = "qualified-name";
+
+        when(this.mockedHandlerDictionary.find(same(givenQualifiedName))).thenReturn(empty());
+
+        this.parsingHandler.endElement(givenUri, givenLocalName, givenQualifiedName);
+    }
 }
