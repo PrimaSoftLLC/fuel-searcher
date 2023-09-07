@@ -3,6 +3,7 @@ package by.aurorasoft.fuelsearcher.service.searchersparser.handler;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher.CompositeSearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
+import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleSearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator.SpecificationValidatorBuilder;
@@ -121,9 +122,45 @@ public final class SearchersParsingContextTest {
     }
 
     @Test
-    public void simpleSearcherShouldBeBuilt() {
+    public void simpleSearcherShouldBeBuilt()
+            throws Exception {
         final SearchersParsingContext givenContext = new SearchersParsingContext();
 
+        final SpecificationValidatorBuilder givenSpecificationValidatorBuilder = mock(
+                SpecificationValidatorBuilder.class
+        );
+        setContextSpecificationValidatorBuilder(givenContext, givenSpecificationValidatorBuilder);
+
+        final SpecificationValidator givenSpecificationValidator = mock(SpecificationValidator.class);
+        when(givenSpecificationValidatorBuilder.build()).thenReturn(givenSpecificationValidator);
+
+        final SimpleSearcherBuilder givenSearcherBuilder = mock(SimpleSearcherBuilder.class);
+        setContextSearcherBuilder(givenContext, givenSearcherBuilder);
+
+        final SimpleFuelSearcher givenSearcher = mock(SimpleFuelSearcher.class);
+        when(givenSearcherBuilder.build()).thenReturn(givenSearcher);
+
+        givenContext.buildSimpleSearcher();
+
+        final List<SpecificationValidator> actualSpecificationValidators = findSpecificationValidators(givenContext);
+        final List<SpecificationValidator> expectedSpecificationValidators = List.of(givenSpecificationValidator);
+        assertEquals(expectedSpecificationValidators, actualSpecificationValidators);
+
+        final SpecificationValidatorBuilder actualSpecificationValidatorBuilder = findSpecificationValidatorBuilder(
+                givenContext
+        );
+        assertNull(actualSpecificationValidatorBuilder);
+
+        final List<FuelSearcher> actualSearchers = findSearchers(givenContext);
+        final List<FuelSearcher> expectedSearchers = List.of(givenSearcher);
+        assertEquals(expectedSearchers, actualSearchers);
+
+        final SimpleSearcherBuilder actualSimpleSearcherBuilder = findSimpleSearcherBuilder(givenContext);
+        assertNull(actualSimpleSearcherBuilder);
+    }
+
+    @Test
+    public void compositeSearcherShouldBeBuilt() {
         throw new RuntimeException();
     }
 
