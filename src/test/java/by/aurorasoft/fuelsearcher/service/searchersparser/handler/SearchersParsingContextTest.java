@@ -199,8 +199,17 @@ public final class SearchersParsingContextTest {
     }
 
     @Test
-    public void headerMetadataShouldBeAccumulated() {
-        throw new RuntimeException();
+    public void subTableTitleTemplateShouldBeAccumulated()
+            throws Exception {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final CompositeSearcherBuilder givenSearcherBuilder = mock(CompositeSearcherBuilder.class);
+        setContextSearcherBuilder(givenContext, givenSearcherBuilder);
+
+        final String givenTemplate = "sub-table-template";
+        givenContext.accumulateSubTableTitleTemplate(givenTemplate);
+
+        verify(givenSearcherBuilder, times(1)).subTableTitleTemplate(same(givenTemplate));
     }
 
     @SuppressWarnings("unchecked")

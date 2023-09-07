@@ -93,6 +93,7 @@ public final class SearchersParsingContext {
         );
     }
 
+    //TODO: refactor
     public void accumulateFuelHeaderMetadata(final FuelHeaderMetadata metadata) {
         this.specificationValidatorBuilder.requiredPropertyExtractor(metadata.getHeaderExtractor());
         this.accumulateComponentToCurrentSearcherBuilder(
@@ -101,6 +102,7 @@ public final class SearchersParsingContext {
         );
     }
 
+    //TODO: refactor
     public void accumulateFilter(final InterimFilter filter) {
         this.specificationValidatorBuilder.requiredPropertyExtractor(filter.getFiltrationValueExtractor());
         this.accumulateComponentToCurrentSearcherBuilder(
@@ -109,6 +111,7 @@ public final class SearchersParsingContext {
         );
     }
 
+    //TODO: refactor
     public void accumulateFilter(final FinalFilter filter) {
         this.specificationValidatorBuilder.requiredPropertyExtractor(filter.getFiltrationValueExtractor());
         this.accumulateComponentToCurrentSearcherBuilder(
