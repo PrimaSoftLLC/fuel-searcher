@@ -75,9 +75,9 @@ public class FuelController {
     }
 
     private void validateSpecification(final FuelSpecification specification) {
-        final SpecificationValidatingResult validatingResult = this.specificationValidatingManager.validate(specification);
-        if (!validatingResult.isValid()) {
-            throw new NotValidSpecificationException(validatingResult);
+        final SpecificationValidatingResult result = this.specificationValidatingManager.validate(specification);
+        if (!result.isValid()) {
+            throw new NotValidSpecificationException(result);
         }
     }
 }

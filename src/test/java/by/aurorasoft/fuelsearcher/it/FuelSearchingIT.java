@@ -28,7 +28,6 @@ import static org.springframework.http.HttpStatus.OK;
 
 @AutoConfigureMockMvc
 public final class FuelSearchingIT extends AbstractContextTest {
-
     private static final List<TableFuelSearchingArgumentsProvider> ARGUMENTS_PROVIDERS = List.of(
             new FirstTableFuelSearchingArgumentsProvider(),
             new SecondTableFuelSearchingArgumentsProvider(),

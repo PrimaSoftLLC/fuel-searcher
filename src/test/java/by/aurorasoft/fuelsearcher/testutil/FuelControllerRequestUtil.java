@@ -45,9 +45,9 @@ public final class FuelControllerRequestUtil {
     private static final String PARAM_NAME_COMBINE = "combine";
     private static final String PARAM_NAME_WEIGHT_RATIO_GRAIN_TO_STRAW = "weightRatioGrainToStraw";
 
-    public String doRequest(final MockMvc mockMvc,
-                            final FuelSpecification specification,
-                            final HttpStatus expectedHttpStatus)
+    public static String doRequest(final MockMvc mockMvc,
+                                   final FuelSpecification specification,
+                                   final HttpStatus expectedHttpStatus)
             throws Exception {
         return mockMvc.perform(createRequestBuilder(specification))
                 .andExpect(status().is(expectedHttpStatus.value()))
