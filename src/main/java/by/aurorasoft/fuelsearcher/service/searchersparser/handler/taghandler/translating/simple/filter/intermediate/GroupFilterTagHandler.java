@@ -6,6 +6,8 @@ import by.aurorasoft.fuelsearcher.model.filter.interim.group.GroupFilter;
 import by.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsingContext;
 import org.springframework.stereotype.Component;
 
+import java.util.OptionalInt;
+
 @Component
 public final class GroupFilterTagHandler extends AbstractInterimFilterTagHandler<GroupFilter, GroupFilterFactory<?, ?>> {
     private static final String TAG_NAME = "filter-by-group";
@@ -21,8 +23,8 @@ public final class GroupFilterTagHandler extends AbstractInterimFilterTagHandler
     }
 
     @Override
-    protected int findDefaultFiltrationCellIndex() {
-        return DEFAULT_FILTRATION_CELL_INDEX;
+    protected OptionalInt findDefaultFiltrationCellIndex() {
+        return OptionalInt.of(DEFAULT_FILTRATION_CELL_INDEX);
     }
 
     @Override

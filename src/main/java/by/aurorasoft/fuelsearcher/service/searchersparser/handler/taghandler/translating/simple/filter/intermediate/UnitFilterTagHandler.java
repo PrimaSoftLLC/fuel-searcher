@@ -1,11 +1,14 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.translating.simple.filter.intermediate;
 
-import by.aurorasoft.fuelsearcher.service.dictionary.filter.interim.UnitFilterFactoryDictionary;
 import by.aurorasoft.fuelsearcher.model.filter.factory.interim.unit.UnitFilterFactory;
 import by.aurorasoft.fuelsearcher.model.filter.interim.unit.UnitFilter;
+import by.aurorasoft.fuelsearcher.service.dictionary.filter.interim.UnitFilterFactoryDictionary;
 import by.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsingContext;
-import by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.translating.simple.filter.exception.DefaultFiltrationCellIndexNotExistException;
 import org.springframework.stereotype.Component;
+
+import java.util.OptionalInt;
+
+import static java.util.OptionalInt.empty;
 
 @Component
 public final class UnitFilterTagHandler extends AbstractInterimFilterTagHandler<UnitFilter, UnitFilterFactory<?, ?>> {
@@ -21,8 +24,8 @@ public final class UnitFilterTagHandler extends AbstractInterimFilterTagHandler<
     }
 
     @Override
-    protected int findDefaultFiltrationCellIndex() {
-        throw new DefaultFiltrationCellIndexNotExistException();
+    protected OptionalInt findDefaultFiltrationCellIndex() {
+        return empty();
     }
 
     @Override
