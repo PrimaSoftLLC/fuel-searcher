@@ -1,6 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler;
 
 import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher.CompositeSearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher;
@@ -160,8 +161,41 @@ public final class SearchersParsingContextTest {
     }
 
     @Test
-    public void compositeSearcherShouldBeBuilt() {
-        throw new RuntimeException();
+    public void compositeSearcherShouldBeBuilt()
+            throws Exception {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final SpecificationValidatorBuilder givenSpecificationValidatorBuilder = mock(
+                SpecificationValidatorBuilder.class
+        );
+        setContextSpecificationValidatorBuilder(givenContext, givenSpecificationValidatorBuilder);
+
+        final SpecificationValidator givenSpecificationValidator = mock(SpecificationValidator.class);
+        when(givenSpecificationValidatorBuilder.build()).thenReturn(givenSpecificationValidator);
+
+        final CompositeSearcherBuilder givenSearcherBuilder = mock(CompositeSearcherBuilder.class);
+        setContextSearcherBuilder(givenContext, givenSearcherBuilder);
+
+        final CompositeFuelSearcher givenSearcher = mock(CompositeFuelSearcher.class);
+        when(givenSearcherBuilder.build()).thenReturn(givenSearcher);
+
+        givenContext.buildCompositeSearcher();
+
+        final List<SpecificationValidator> actualSpecificationValidators = findSpecificationValidators(givenContext);
+        final List<SpecificationValidator> expectedSpecificationValidators = List.of(givenSpecificationValidator);
+        assertEquals(expectedSpecificationValidators, actualSpecificationValidators);
+
+        final SpecificationValidatorBuilder actualSpecificationValidatorBuilder = findSpecificationValidatorBuilder(
+                givenContext
+        );
+        assertNull(actualSpecificationValidatorBuilder);
+
+        final List<FuelSearcher> actualSearchers = findSearchers(givenContext);
+        final List<FuelSearcher> expectedSearchers = List.of(givenSearcher);
+        assertEquals(expectedSearchers, actualSearchers);
+
+        final CompositeSearcherBuilder actualCompositeSearcherBuilder = findCompositeSearcherBuilder(givenContext);
+        assertNull(actualCompositeSearcherBuilder);
     }
 
     @SuppressWarnings("unchecked")
