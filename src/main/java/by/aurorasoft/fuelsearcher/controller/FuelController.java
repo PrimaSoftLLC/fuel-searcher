@@ -6,6 +6,7 @@ import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearchingManager;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidatingManager;
+import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidatingResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -74,10 +75,9 @@ public class FuelController {
     }
 
     private void validateSpecification(final FuelSpecification specification) {
-//        if (!this.specificationValidatingManager.isValid(specification)) {
-//            throw new NotValidSpecificationException(
-//                    "Given specification isn't valid. Specification '%s'".formatted(specification)
-//            );
-//        }
+        final SpecificationValidatingResult validatingResult = this.specificationValidatingManager.validate(specification);
+        if (!validatingResult.isValid()) {
+            throw new NotValidSpecificationException(validatingResult);
+        }
     }
 }
