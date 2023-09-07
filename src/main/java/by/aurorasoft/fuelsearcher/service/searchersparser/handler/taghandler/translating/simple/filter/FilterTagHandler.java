@@ -15,7 +15,6 @@ public abstract class FilterTagHandler<FILTER extends Filter<?>, FILTER_FACTORY 
 
     private static final String FILTRATION_CELL_INDEX_ATTRIBUTE_NAME = "cell-index";
 
-
     public FilterTagHandler(final String tagName, final FilterFactoryDictionary<FILTER_FACTORY> dictionary) {
         super(tagName, dictionary, NoSuchFilterException::new);
     }

@@ -94,6 +94,7 @@ public final class SearchersParsingContext {
     }
 
     //TODO: refactor
+    //TODO: test
     public void accumulateFuelHeaderMetadata(final FuelHeaderMetadata metadata) {
         this.specificationValidatorBuilder.requiredPropertyExtractor(metadata.getHeaderExtractor());
         this.accumulateComponentToCurrentSearcherBuilder(
@@ -103,6 +104,7 @@ public final class SearchersParsingContext {
     }
 
     //TODO: refactor
+    //TODO: test
     public void accumulateFilter(final InterimFilter filter) {
         this.specificationValidatorBuilder.requiredPropertyExtractor(filter.getFiltrationValueExtractor());
         this.accumulateComponentToCurrentSearcherBuilder(
@@ -112,6 +114,7 @@ public final class SearchersParsingContext {
     }
 
     //TODO: refactor
+    //TODO: test
     public void accumulateFilter(final FinalFilter filter) {
         this.specificationValidatorBuilder.requiredPropertyExtractor(filter.getFiltrationValueExtractor());
         this.accumulateComponentToCurrentSearcherBuilder(
@@ -124,11 +127,13 @@ public final class SearchersParsingContext {
         this.compositeSearcherBuilder.subTableTitleTemplate(template);
     }
 
+    //TODO: test
     public void accumulateSubTableTitleTemplateArgumentExtractor(final SpecificationPropertyExtractor extractor) {
         this.specificationValidatorBuilder.requiredPropertyExtractor(extractor);
         this.compositeSearcherBuilder.subTableTitleTemplateArgumentExtractor(extractor);
     }
 
+    //TODO: test
     public SearchersParsingResult findResult() {
         return new SearchersParsingResult(this.searchers, this.specificationValidators);
     }
