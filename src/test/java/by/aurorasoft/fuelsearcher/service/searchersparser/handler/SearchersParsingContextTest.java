@@ -198,6 +198,11 @@ public final class SearchersParsingContextTest {
         assertNull(actualCompositeSearcherBuilder);
     }
 
+    @Test
+    public void headerMetadataShouldBeAccumulated() {
+        throw new RuntimeException();
+    }
+
     @SuppressWarnings("unchecked")
     private static List<FuelSearcher> findSearchers(final SearchersParsingContext context)
             throws Exception {
