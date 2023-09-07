@@ -20,6 +20,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelsearcher.testutil.FuelControllerRequestUtil.doRequest;
+import static by.aurorasoft.fuelsearcher.testutil.FuelControllerRequestUtil.isNoSuchFuelError;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
@@ -27,9 +28,6 @@ import static org.springframework.http.HttpStatus.OK;
 
 @AutoConfigureMockMvc
 public final class FuelSearchingIT extends AbstractContextTest {
-    private static final String EXPECTED_REGEX_MESSAGE_ERROR_NO_SUCH_FUEL = "\\{\"httpStatus\":\"NOT_FOUND\","
-            + "\"message\":\"Fuel with given properties doesn't exist\","
-            + "\"dateTime\":\"\\d{4}-\\d{2}-\\d{2} \\d{2}-\\d{2}-\\d{2}\"}";
 
     private static final List<TableFuelSearchingArgumentsProvider> ARGUMENTS_PROVIDERS = List.of(
             new FirstTableFuelSearchingArgumentsProvider(),
@@ -87,10 +85,6 @@ public final class FuelSearchingIT extends AbstractContextTest {
     private boolean isFuelSearchingSuccess(final String actualResponse, final Fuel expectedFuel) {
         final String expectedResponse = this.mapToJson(expectedFuel);
         return Objects.equals(expectedResponse, actualResponse);
-    }
-
-    private static boolean isNoSuchFuelError(final String actualResponse) {
-        return actualResponse.matches(EXPECTED_REGEX_MESSAGE_ERROR_NO_SUCH_FUEL);
     }
 
     private String mapToJson(final Fuel fuel) {
