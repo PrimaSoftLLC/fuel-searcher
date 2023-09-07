@@ -85,4 +85,16 @@ public final class SearchersParsingHandlerTest {
 
         this.parsingHandler.endElement(givenUri, givenLocalName, givenQualifiedName);
     }
+
+    @Test
+    public void charactersShouldBeHandled() {
+        final char[] givenChars = {' ', 'c', 'o', 'n', 't', 'e', 'n', 't', ' ', 't', 't'};
+        final int givenStart = 0;
+        final int givenLength = 9;
+
+        this.parsingHandler.characters(givenChars, givenStart, givenLength);
+
+        final String expectedLastContent = "content";
+        verify(this.mockedContext, times(1)).setLastContent(eq(expectedLastContent));
+    }
 }
