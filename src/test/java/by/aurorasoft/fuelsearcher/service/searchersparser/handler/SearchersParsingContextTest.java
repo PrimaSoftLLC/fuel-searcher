@@ -1,7 +1,9 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler;
 
 import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.model.filter.Filter;
 import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
+import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
 import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher;
@@ -251,6 +253,54 @@ public final class SearchersParsingContextTest {
     }
 
     @Test
+    public void interimFilterShouldBeAccumulatedToSimpleSearcherBuilder()
+            throws Exception {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final SpecificationValidatorBuilder givenSpecificationValidatorBuilder = mock(
+                SpecificationValidatorBuilder.class
+        );
+        setContextSpecificationValidatorBuilder(givenContext, givenSpecificationValidatorBuilder);
+
+        final SimpleSearcherBuilder givenSearcherBuilder = mock(SimpleSearcherBuilder.class);
+        setContextSearcherBuilder(givenContext, givenSearcherBuilder);
+
+        final SpecificationPropertyExtractor givenFiltrationValueExtractor = mock(SpecificationPropertyExtractor.class);
+        final InterimFilter givenFilter = createInterimFilter(givenFiltrationValueExtractor);
+
+        givenContext.accumulateFilter(givenFilter);
+
+        verify(givenSpecificationValidatorBuilder, times(1)).requiredPropertyExtractor(
+                same(givenFiltrationValueExtractor)
+        );
+        verify(givenSearcherBuilder, times(1)).interimFilter(same(givenFilter));
+    }
+
+    @Test
+    public void interimFilterShouldBeAccumulatedToCompositeSearcherBuilder()
+            throws Exception {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final SpecificationValidatorBuilder givenSpecificationValidatorBuilder = mock(
+                SpecificationValidatorBuilder.class
+        );
+        setContextSpecificationValidatorBuilder(givenContext, givenSpecificationValidatorBuilder);
+
+        final CompositeSearcherBuilder givenSearcherBuilder = mock(CompositeSearcherBuilder.class);
+        setContextSearcherBuilder(givenContext, givenSearcherBuilder);
+
+        final SpecificationPropertyExtractor givenFiltrationValueExtractor = mock(SpecificationPropertyExtractor.class);
+        final InterimFilter givenFilter = createInterimFilter(givenFiltrationValueExtractor);
+
+        givenContext.accumulateFilter(givenFilter);
+
+        verify(givenSpecificationValidatorBuilder, times(1)).requiredPropertyExtractor(
+                same(givenFiltrationValueExtractor)
+        );
+        verify(givenSearcherBuilder, times(1)).interimFilter(same(givenFilter));
+    }
+
+    @Test
     public void finalFilterShouldBeAccumulatedToSimpleSearcherBuilder()
             throws Exception {
         final SearchersParsingContext givenContext = new SearchersParsingContext();
@@ -474,7 +524,16 @@ public final class SearchersParsingContextTest {
     }
 
     private static FinalFilter createFinalFilter(final SpecificationPropertyExtractor filtrationValueExtractor) {
-        final FinalFilter filter = mock(FinalFilter.class);
+        return createFilter(filtrationValueExtractor, FinalFilter.class);
+    }
+
+    private static InterimFilter createInterimFilter(final SpecificationPropertyExtractor filtrationValueExtractor) {
+        return createFilter(filtrationValueExtractor, InterimFilter.class);
+    }
+
+    private static <F extends Filter<?>> F createFilter(final SpecificationPropertyExtractor filtrationValueExtractor,
+                                                        final Class<F> filterType) {
+        final F filter = mock(filterType);
         when(filter.getFiltrationValueExtractor()).thenReturn(filtrationValueExtractor);
         return filter;
     }
