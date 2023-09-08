@@ -101,7 +101,6 @@ public final class SearchersParsingContext {
         );
     }
 
-    //TODO: test
     public void accumulateFilter(final InterimFilter filter) {
         this.accumulateComponentWithRequiredPropertyExtractorToCurrentSearcherBuilder(
                 filter,
