@@ -93,7 +93,6 @@ public final class SearchersParsingContext {
         );
     }
 
-    //TODO: test
     public void accumulateFuelHeaderMetadata(final FuelHeaderMetadata metadata) {
         this.accumulateComponentWithRequiredPropertyExtractorToCurrentSearcherBuilder(
                 metadata,

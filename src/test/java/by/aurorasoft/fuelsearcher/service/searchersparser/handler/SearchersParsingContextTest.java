@@ -1,6 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler;
 
 import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher.CompositeSearcherBuilder;
@@ -201,6 +202,54 @@ public final class SearchersParsingContextTest {
     }
 
     @Test
+    public void fuelHeaderMetadataShouldBeAccumulatedToSimpleSearcherBuilder()
+            throws Exception {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final SpecificationValidatorBuilder givenSpecificationValidatorBuilder = mock(
+                SpecificationValidatorBuilder.class
+        );
+        setContextSpecificationValidatorBuilder(givenContext, givenSpecificationValidatorBuilder);
+
+        final SimpleSearcherBuilder givenSearcherBuilder = mock(SimpleSearcherBuilder.class);
+        setContextSearcherBuilder(givenContext, givenSearcherBuilder);
+
+        final SpecificationPropertyExtractor givenHeaderExtractor = mock(SpecificationPropertyExtractor.class);
+        final FuelHeaderMetadata givenMetadata = createFuelHeaderMetadata(givenHeaderExtractor);
+
+        givenContext.accumulateFuelHeaderMetadata(givenMetadata);
+
+        verify(givenSpecificationValidatorBuilder, times(1)).requiredPropertyExtractor(
+                same(givenHeaderExtractor)
+        );
+        verify(givenSearcherBuilder, times(1)).headerMetadata(same(givenMetadata));
+    }
+
+    @Test
+    public void fuelHeaderMetadataShouldBeAccumulatedTCompositeSearcherBuilder()
+            throws Exception {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final SpecificationValidatorBuilder givenSpecificationValidatorBuilder = mock(
+                SpecificationValidatorBuilder.class
+        );
+        setContextSpecificationValidatorBuilder(givenContext, givenSpecificationValidatorBuilder);
+
+        final CompositeSearcherBuilder givenSearcherBuilder = mock(CompositeSearcherBuilder.class);
+        setContextSearcherBuilder(givenContext, givenSearcherBuilder);
+
+        final SpecificationPropertyExtractor givenHeaderExtractor = mock(SpecificationPropertyExtractor.class);
+        final FuelHeaderMetadata givenMetadata = createFuelHeaderMetadata(givenHeaderExtractor);
+
+        givenContext.accumulateFuelHeaderMetadata(givenMetadata);
+
+        verify(givenSpecificationValidatorBuilder, times(1)).requiredPropertyExtractor(
+                same(givenHeaderExtractor)
+        );
+        verify(givenSearcherBuilder, times(1)).headerMetadata(same(givenMetadata));
+    }
+
+    @Test
     public void subTableTitleTemplateShouldBeAccumulated()
             throws Exception {
         final SearchersParsingContext givenContext = new SearchersParsingContext();
@@ -367,5 +416,11 @@ public final class SearchersParsingContextTest {
         final FuelTable fuelTable = mock(FuelTable.class);
         when(fuelTable.getName()).thenReturn(tableName);
         return fuelTable;
+    }
+
+    private static FuelHeaderMetadata createFuelHeaderMetadata(final SpecificationPropertyExtractor headerExtractor) {
+        final FuelHeaderMetadata metadata = mock(FuelHeaderMetadata.class);
+        when(metadata.getHeaderExtractor()).thenReturn(headerExtractor);
+        return metadata;
     }
 }
