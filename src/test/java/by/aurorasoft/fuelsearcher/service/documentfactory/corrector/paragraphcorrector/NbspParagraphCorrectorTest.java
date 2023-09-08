@@ -9,7 +9,7 @@ public final class NbspParagraphCorrectorTest {
 
     @Test
     public void replacementShouldBeCreated() {
-        final String actual = corrector.createReplacement(null);
+        final String actual = this.corrector.createReplacement(null);
         final String expected = " ";
         assertEquals(expected, actual);
     }
