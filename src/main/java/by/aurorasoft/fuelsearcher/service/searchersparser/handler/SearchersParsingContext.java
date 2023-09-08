@@ -93,32 +93,29 @@ public final class SearchersParsingContext {
         );
     }
 
-    //TODO: refactor
     //TODO: test
     public void accumulateFuelHeaderMetadata(final FuelHeaderMetadata metadata) {
-        this.specificationValidatorBuilder.requiredPropertyExtractor(metadata.getHeaderExtractor());
-        this.accumulateComponentToCurrentSearcherBuilder(
+        this.accumulateComponentWithRequiredPropertyExtractorToCurrentSearcherBuilder(
                 metadata,
+                FuelHeaderMetadata::getHeaderExtractor,
                 SearcherBuilder::headerMetadata
         );
     }
 
-    //TODO: refactor
     //TODO: test
     public void accumulateFilter(final InterimFilter filter) {
-        this.specificationValidatorBuilder.requiredPropertyExtractor(filter.getFiltrationValueExtractor());
-        this.accumulateComponentToCurrentSearcherBuilder(
+        this.accumulateComponentWithRequiredPropertyExtractorToCurrentSearcherBuilder(
                 filter,
+                InterimFilter::getFiltrationValueExtractor,
                 SearcherBuilder::interimFilter
         );
     }
 
-    //TODO: refactor
     //TODO: test
     public void accumulateFilter(final FinalFilter filter) {
-        this.specificationValidatorBuilder.requiredPropertyExtractor(filter.getFiltrationValueExtractor());
-        this.accumulateComponentToCurrentSearcherBuilder(
+        this.accumulateComponentWithRequiredPropertyExtractorToCurrentSearcherBuilder(
                 filter,
+                FinalFilter::getFiltrationValueExtractor,
                 SearcherBuilder::finalFilter
         );
     }
@@ -147,6 +144,14 @@ public final class SearchersParsingContext {
                                                                  final BiConsumer<SearcherBuilder<?>, T> accumulatingOperation) {
         final SearcherBuilder<?> currentBuilder = this.findCurrentBuilder();
         accumulatingOperation.accept(currentBuilder, component);
+    }
+
+    private <T> void accumulateComponentWithRequiredPropertyExtractorToCurrentSearcherBuilder(final T component,
+                                                                                              final Function<T, SpecificationPropertyExtractor> getterPropertyExtractor,
+                                                                                              final BiConsumer<SearcherBuilder<?>, T> accumulatingOperation) {
+        final SpecificationPropertyExtractor requiredPropertyExtractor = getterPropertyExtractor.apply(component);
+        this.specificationValidatorBuilder.requiredPropertyExtractor(requiredPropertyExtractor);
+        this.accumulateComponentToCurrentSearcherBuilder(component, accumulatingOperation);
     }
 
     private SearcherBuilder<?> findCurrentBuilder() {
