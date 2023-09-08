@@ -1,6 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler;
 
 import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher.CompositeSearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
@@ -211,6 +212,32 @@ public final class SearchersParsingContextTest {
         givenContext.accumulateSubTableTitleTemplate(givenTemplate);
 
         verify(givenSearcherBuilder, times(1)).subTableTitleTemplate(same(givenTemplate));
+    }
+
+    @Test
+    public void subTableTitleTemplateArgumentExtractorShouldBeAccumulated()
+            throws Exception {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final SpecificationValidatorBuilder givenSpecificationValidatorBuilder = mock(
+                SpecificationValidatorBuilder.class
+        );
+        setContextSpecificationValidatorBuilder(givenContext, givenSpecificationValidatorBuilder);
+
+        final CompositeSearcherBuilder givenSearcherBuilder = mock(CompositeSearcherBuilder.class);
+        setContextSearcherBuilder(givenContext, givenSearcherBuilder);
+
+        final SpecificationPropertyExtractor givenSubTableTitleTemplateArgumentExtractor = mock(
+                SpecificationPropertyExtractor.class
+        );
+        givenContext.accumulateSubTableTitleTemplateArgumentExtractor(givenSubTableTitleTemplateArgumentExtractor);
+
+        verify(givenSpecificationValidatorBuilder, times(1)).requiredPropertyExtractor(
+                same(givenSubTableTitleTemplateArgumentExtractor)
+        );
+        verify(givenSearcherBuilder, times(1)).subTableTitleTemplateArgumentExtractor(
+                same(givenSubTableTitleTemplateArgumentExtractor)
+        );
     }
 
     @Test

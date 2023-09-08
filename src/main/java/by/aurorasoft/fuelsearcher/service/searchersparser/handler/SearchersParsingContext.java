@@ -127,7 +127,6 @@ public final class SearchersParsingContext {
         this.compositeSearcherBuilder.subTableTitleTemplate(template);
     }
 
-    //TODO: test
     public void accumulateSubTableTitleTemplateArgumentExtractor(final SpecificationPropertyExtractor extractor) {
         this.specificationValidatorBuilder.requiredPropertyExtractor(extractor);
         this.compositeSearcherBuilder.subTableTitleTemplateArgumentExtractor(extractor);
