@@ -6,6 +6,7 @@ import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher.Composi
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleSearcherBuilder;
+import by.aurorasoft.fuelsearcher.service.searchersparser.SearchersParsingResult;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator.SpecificationValidatorBuilder;
 import org.junit.Test;
@@ -212,6 +213,24 @@ public final class SearchersParsingContextTest {
         verify(givenSearcherBuilder, times(1)).subTableTitleTemplate(same(givenTemplate));
     }
 
+    @Test
+    public void parsingResultShouldBeFound()
+            throws Exception {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final List<FuelSearcher> givenSearchers = List.of(mock(FuelSearcher.class), mock(FuelSearcher.class));
+        setContextSearchers(givenContext, givenSearchers);
+
+        final List<SpecificationValidator> givenSpecificationValidators = List.of(
+                mock(SpecificationValidator.class), mock(SpecificationValidator.class)
+        );
+        setContextSpecificationValidators(givenContext, givenSpecificationValidators);
+
+        final SearchersParsingResult actual = givenContext.findResult();
+        final SearchersParsingResult expected = new SearchersParsingResult(givenSearchers, givenSpecificationValidators);
+        assertEquals(expected, actual);
+    }
+
     @SuppressWarnings("unchecked")
     private static List<FuelSearcher> findSearchers(final SearchersParsingContext context)
             throws Exception {
@@ -291,6 +310,18 @@ public final class SearchersParsingContextTest {
         setContextProperty(context, FIELD_NAME_SPECIFICATION_VALIDATOR_BUILDER, builder);
     }
 
+    private static void setContextSearchers(final SearchersParsingContext context,
+                                            final List<FuelSearcher> searchers)
+            throws Exception {
+        setContextProperty(context, FIELD_NAME_SEARCHERS, searchers);
+    }
+
+    private static void setContextSpecificationValidators(final SearchersParsingContext context,
+                                                          final List<SpecificationValidator> validators)
+            throws Exception {
+        setContextProperty(context, FIELD_NAME_SPECIFICATION_VALIDATORS, validators);
+    }
+
     private static <T> void setContextProperty(final SearchersParsingContext context,
                                                final String fieldName,
                                                final T value)
@@ -304,6 +335,7 @@ public final class SearchersParsingContextTest {
         }
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static FuelTable createFuelTable(final String tableName) {
         final FuelTable fuelTable = mock(FuelTable.class);
         when(fuelTable.getName()).thenReturn(tableName);

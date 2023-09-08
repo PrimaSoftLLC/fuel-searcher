@@ -133,7 +133,6 @@ public final class SearchersParsingContext {
         this.compositeSearcherBuilder.subTableTitleTemplateArgumentExtractor(extractor);
     }
 
-    //TODO: test
     public SearchersParsingResult findResult() {
         return new SearchersParsingResult(this.searchers, this.specificationValidators);
     }
