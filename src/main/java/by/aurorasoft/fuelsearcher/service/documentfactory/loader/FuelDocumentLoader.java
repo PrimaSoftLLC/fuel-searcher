@@ -2,7 +2,6 @@ package by.aurorasoft.fuelsearcher.service.documentfactory.loader;
 
 import by.aurorasoft.fuelsearcher.model.FuelDocument;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
-import by.aurorasoft.fuelsearcher.service.documentfactory.loader.exception.FuelDocumentLoadingException;
 import lombok.Value;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -68,7 +67,7 @@ public final class FuelDocumentLoader {
     }
 
     private static final class ElementBoundedToTableNameIterator implements Iterator<ElementBoundedToTableTitle> {
-        private static final String TABLE_TITLE_REGEX = "(\\d+\\.\\p{Z}([А-Я\\s:,]+))";
+        private static final String TABLE_TITLE_REGEX = "(\\d+\\.[\\p{Z} ]+([А-Я\\s:,]+))";
         private static final Pattern TABLE_TITLE_PATTERN = compile(TABLE_TITLE_REGEX);
         private static final int TABLE_TITLE_GROUP_NUMBER = 1;
         private static final int TABLE_NAME_GROUP_NUMBER = 2;
@@ -172,5 +171,27 @@ public final class FuelDocumentLoader {
     private static class ElementBoundedToTableTitle {
         String tableName;
         IBodyElement element;
+    }
+
+    private static final class FuelDocumentLoadingException extends RuntimeException {
+
+        @SuppressWarnings("unused")
+        public FuelDocumentLoadingException() {
+
+        }
+
+        @SuppressWarnings("unused")
+        public FuelDocumentLoadingException(final String description) {
+            super(description);
+        }
+
+        public FuelDocumentLoadingException(final Exception cause) {
+            super(cause);
+        }
+
+        @SuppressWarnings("unused")
+        public FuelDocumentLoadingException(final String description, final Exception cause) {
+            super(description, cause);
+        }
     }
 }
