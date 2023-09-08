@@ -1,7 +1,5 @@
 package by.aurorasoft.fuelsearcher.service.builder;
 
-import by.aurorasoft.fuelsearcher.service.builder.exception.NotDefinedPropertyException;
-
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -22,5 +20,28 @@ public abstract class BuilderRequiringAllProperties<T> {
         if (!validState) {
             throw new NotDefinedPropertyException();
         }
+    }
+
+    private static final class NotDefinedPropertyException extends RuntimeException {
+
+        public NotDefinedPropertyException() {
+
+        }
+
+        @SuppressWarnings("unused")
+        public NotDefinedPropertyException(final String description) {
+            super(description);
+        }
+
+        @SuppressWarnings("unused")
+        public NotDefinedPropertyException(final Exception cause) {
+            super(cause);
+        }
+
+        @SuppressWarnings("unused")
+        public NotDefinedPropertyException(final String description, final Exception cause) {
+            super(description, cause);
+        }
+
     }
 }
