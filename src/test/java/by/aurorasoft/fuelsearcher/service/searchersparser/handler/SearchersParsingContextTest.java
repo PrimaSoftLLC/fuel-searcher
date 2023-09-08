@@ -1,6 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler;
 
 import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher;
@@ -226,7 +227,7 @@ public final class SearchersParsingContextTest {
     }
 
     @Test
-    public void fuelHeaderMetadataShouldBeAccumulatedTCompositeSearcherBuilder()
+    public void fuelHeaderMetadataShouldBeAccumulatedToCompositeSearcherBuilder()
             throws Exception {
         final SearchersParsingContext givenContext = new SearchersParsingContext();
 
@@ -247,6 +248,54 @@ public final class SearchersParsingContextTest {
                 same(givenHeaderExtractor)
         );
         verify(givenSearcherBuilder, times(1)).headerMetadata(same(givenMetadata));
+    }
+
+    @Test
+    public void finalFilterShouldBeAccumulatedToSimpleSearcherBuilder()
+            throws Exception {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final SpecificationValidatorBuilder givenSpecificationValidatorBuilder = mock(
+                SpecificationValidatorBuilder.class
+        );
+        setContextSpecificationValidatorBuilder(givenContext, givenSpecificationValidatorBuilder);
+
+        final SimpleSearcherBuilder givenSearcherBuilder = mock(SimpleSearcherBuilder.class);
+        setContextSearcherBuilder(givenContext, givenSearcherBuilder);
+
+        final SpecificationPropertyExtractor givenFiltrationValueExtractor = mock(SpecificationPropertyExtractor.class);
+        final FinalFilter givenFilter = createFinalFilter(givenFiltrationValueExtractor);
+
+        givenContext.accumulateFilter(givenFilter);
+
+        verify(givenSpecificationValidatorBuilder, times(1)).requiredPropertyExtractor(
+                same(givenFiltrationValueExtractor)
+        );
+        verify(givenSearcherBuilder, times(1)).finalFilter(same(givenFilter));
+    }
+
+    @Test
+    public void finalFilterShouldBeAccumulatedToCompositeSearcherBuilder()
+            throws Exception {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final SpecificationValidatorBuilder givenSpecificationValidatorBuilder = mock(
+                SpecificationValidatorBuilder.class
+        );
+        setContextSpecificationValidatorBuilder(givenContext, givenSpecificationValidatorBuilder);
+
+        final CompositeSearcherBuilder givenSearcherBuilder = mock(CompositeSearcherBuilder.class);
+        setContextSearcherBuilder(givenContext, givenSearcherBuilder);
+
+        final SpecificationPropertyExtractor givenFiltrationValueExtractor = mock(SpecificationPropertyExtractor.class);
+        final FinalFilter givenFilter = createFinalFilter(givenFiltrationValueExtractor);
+
+        givenContext.accumulateFilter(givenFilter);
+
+        verify(givenSpecificationValidatorBuilder, times(1)).requiredPropertyExtractor(
+                same(givenFiltrationValueExtractor)
+        );
+        verify(givenSearcherBuilder, times(1)).finalFilter(same(givenFilter));
     }
 
     @Test
@@ -422,5 +471,11 @@ public final class SearchersParsingContextTest {
         final FuelHeaderMetadata metadata = mock(FuelHeaderMetadata.class);
         when(metadata.getHeaderExtractor()).thenReturn(headerExtractor);
         return metadata;
+    }
+
+    private static FinalFilter createFinalFilter(final SpecificationPropertyExtractor filtrationValueExtractor) {
+        final FinalFilter filter = mock(FinalFilter.class);
+        when(filter.getFiltrationValueExtractor()).thenReturn(filtrationValueExtractor);
+        return filter;
     }
 }
