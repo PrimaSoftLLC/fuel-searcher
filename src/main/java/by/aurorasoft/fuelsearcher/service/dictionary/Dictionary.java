@@ -1,7 +1,5 @@
 package by.aurorasoft.fuelsearcher.service.dictionary;
 
-import by.aurorasoft.fuelsearcher.service.dictionary.exception.SeveralValuesForOneAliasException;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -38,5 +36,28 @@ public abstract class Dictionary<V extends Translatable> {
         throw new SeveralValuesForOneAliasException(
                 "There are several values for alias '%s'".formatted(alias)
         );
+    }
+
+    private static final class SeveralValuesForOneAliasException extends RuntimeException {
+
+        @SuppressWarnings("unused")
+        public SeveralValuesForOneAliasException() {
+
+        }
+
+        public SeveralValuesForOneAliasException(final String description) {
+            super(description);
+        }
+
+        @SuppressWarnings("unused")
+        public SeveralValuesForOneAliasException(final Exception cause) {
+            super(cause);
+        }
+
+        @SuppressWarnings("unused")
+        public SeveralValuesForOneAliasException(final String description, final Exception cause) {
+            super(description, cause);
+        }
+
     }
 }
