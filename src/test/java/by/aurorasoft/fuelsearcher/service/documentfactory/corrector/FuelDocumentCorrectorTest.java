@@ -2,7 +2,7 @@ package by.aurorasoft.fuelsearcher.service.documentfactory.corrector;
 
 import by.aurorasoft.fuelsearcher.model.FuelDocument;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
-import by.aurorasoft.fuelsearcher.service.documentfactory.corrector.component.ContentParagraphCorrector;
+import by.aurorasoft.fuelsearcher.service.documentfactory.corrector.paragraphcorrector.ParagraphCorrector;
 import by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil;
 import org.apache.poi.xwpf.usermodel.*;
 import org.junit.Before;
@@ -24,10 +24,10 @@ import static org.mockito.Mockito.*;
 public final class FuelDocumentCorrectorTest {
 
     @Mock
-    private ContentParagraphCorrector firstMockedParagraphCorrector;
+    private ParagraphCorrector firstMockedParagraphCorrector;
 
     @Mock
-    private ContentParagraphCorrector secondMockedParagraphCorrector;
+    private ParagraphCorrector secondMockedParagraphCorrector;
 
     private FuelDocumentCorrector documentCorrector;
 

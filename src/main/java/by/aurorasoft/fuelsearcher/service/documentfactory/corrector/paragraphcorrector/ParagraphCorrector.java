@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.service.documentfactory.corrector.component;
+package by.aurorasoft.fuelsearcher.service.documentfactory.corrector.paragraphcorrector;
 
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 
@@ -9,11 +9,11 @@ import java.util.regex.Pattern;
 import static by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.replaceText;
 import static java.util.regex.Pattern.compile;
 
-public abstract class ContentParagraphCorrector {
-    private final Pattern patternReplacedRegex;
+public abstract class ParagraphCorrector {
+    private final Pattern replacedPattern;
 
-    public ContentParagraphCorrector(final String replacedRegex) {
-        this.patternReplacedRegex = compile(replacedRegex);
+    public ParagraphCorrector(final String replacedRegex) {
+        this.replacedPattern = compile(replacedRegex);
     }
 
     public final void correct(final XWPFParagraph paragraph) {
@@ -25,7 +25,7 @@ public abstract class ContentParagraphCorrector {
     protected abstract String createReplacement(final MatchResult matchResult);
 
     private String correct(final String paragraphContent) {
-        final Matcher matcher = this.patternReplacedRegex.matcher(paragraphContent);
+        final Matcher matcher = this.replacedPattern.matcher(paragraphContent);
         return matcher.replaceAll(this::createReplacement);
     }
 }

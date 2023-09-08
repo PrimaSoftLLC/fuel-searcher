@@ -2,7 +2,7 @@ package by.aurorasoft.fuelsearcher.service.documentfactory.corrector;
 
 import by.aurorasoft.fuelsearcher.model.FuelDocument;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
-import by.aurorasoft.fuelsearcher.service.documentfactory.corrector.component.ContentParagraphCorrector;
+import by.aurorasoft.fuelsearcher.service.documentfactory.corrector.paragraphcorrector.ParagraphCorrector;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.xwpf.usermodel.*;
 import org.springframework.stereotype.Component;
@@ -16,7 +16,7 @@ import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.isEmpty;
 @Component
 @RequiredArgsConstructor
 public final class FuelDocumentCorrector {
-    private final List<ContentParagraphCorrector> correctors;
+    private final List<ParagraphCorrector> correctors;
 
     public void correct(final FuelDocument document) {
         document.getTables()

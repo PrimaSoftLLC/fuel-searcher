@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.service.documentfactory.corrector.component;
+package by.aurorasoft.fuelsearcher.service.documentfactory.corrector.paragraphcorrector;
 
 import org.junit.Test;
 

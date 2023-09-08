@@ -1,11 +1,11 @@
-package by.aurorasoft.fuelsearcher.service.documentfactory.corrector.component;
+package by.aurorasoft.fuelsearcher.service.documentfactory.corrector.paragraphcorrector;
 
 import org.springframework.stereotype.Component;
 
 import java.util.regex.MatchResult;
 
 @Component
-public final class QuoteParagraphCorrector extends ContentParagraphCorrector {
+public final class QuoteParagraphCorrector extends ParagraphCorrector {
     private static final String REPLACED_REGEX = "[«»]";
     private static final String REPLACEMENT = "\"";
 

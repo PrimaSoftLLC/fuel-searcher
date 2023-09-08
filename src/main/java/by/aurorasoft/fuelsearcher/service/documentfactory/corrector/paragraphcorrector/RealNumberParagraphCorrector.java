@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.service.documentfactory.corrector.component;
+package by.aurorasoft.fuelsearcher.service.documentfactory.corrector.paragraphcorrector;
 
 import org.springframework.stereotype.Component;
 
@@ -8,7 +8,7 @@ import java.util.regex.MatchResult;
 import static java.util.Optional.empty;
 
 @Component
-public final class RealNumberParagraphCorrector extends ContentParagraphCorrector {
+public final class RealNumberParagraphCorrector extends ParagraphCorrector {
     private static final char ZERO_CHARACTER = '0';
     private static final char POINT_CHARACTER = '.';
 

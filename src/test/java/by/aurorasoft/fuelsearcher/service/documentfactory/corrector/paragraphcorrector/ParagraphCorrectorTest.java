@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.service.documentfactory.corrector.component;
+package by.aurorasoft.fuelsearcher.service.documentfactory.corrector.paragraphcorrector;
 
 import by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -16,17 +16,17 @@ import static by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.replaceText;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public final class ContentParagraphCorrectorTest {
+public final class ParagraphCorrectorTest {
 
     @Captor
     private ArgumentCaptor<String> stringArgumentCaptor;
 
     @Test
-    public void contentShouldBeCorrected() {
+    public void paragraphShouldBeCorrected() {
         try (final MockedStatic<XWPFParagraphUtil> mockedUtil = mockStatic(XWPFParagraphUtil.class)) {
             final String givenReplacedRegex = "existing";
             final String givenReplacement = "replacement";
-            final TestContentParagraphCorrector givenCorrector = new TestContentParagraphCorrector(
+            final TestParagraphCorrector givenCorrector = new TestParagraphCorrector(
                     givenReplacedRegex, givenReplacement
             );
 
@@ -49,10 +49,10 @@ public final class ContentParagraphCorrectorTest {
         return paragraph;
     }
 
-    private static final class TestContentParagraphCorrector extends ContentParagraphCorrector {
+    private static final class TestParagraphCorrector extends ParagraphCorrector {
         private final String replacement;
 
-        public TestContentParagraphCorrector(final String replacedRegex, final String replacement) {
+        public TestParagraphCorrector(final String replacedRegex, final String replacement) {
             super(replacedRegex);
             this.replacement = replacement;
         }
