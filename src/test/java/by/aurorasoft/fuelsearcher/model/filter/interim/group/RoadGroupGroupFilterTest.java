@@ -5,14 +5,14 @@ import org.junit.Test;
 import static java.lang.Integer.MIN_VALUE;
 import static org.junit.Assert.assertEquals;
 
-public final class FertilizerTypeGroupFilterTest {
+public final class RoadGroupGroupFilterTest {
 
     @Test
     public void groupValueRegexShouldBeFound() {
-        final FertilizerTypeGroupFilter givenFilter = new FertilizerTypeGroupFilter(null, MIN_VALUE);
+        final RoadGroupGroupFilter givenFilter = new RoadGroupGroupFilter(null, MIN_VALUE);
 
         final String actual = givenFilter.findGroupValueRegex();
-        final String expected = "((Гранулированные)|(Кристаллические)|(Пылевидные)) удобрения";
+        final String expected = "((Первая)|(Вторая)|(Третья)) группа дорог";
         assertEquals(expected, actual);
     }
 
