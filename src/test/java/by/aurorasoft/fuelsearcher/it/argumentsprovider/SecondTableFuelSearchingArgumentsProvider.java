@@ -7,7 +7,7 @@ import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpec
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelsearcher.model.Fuel.createNotDefinedFuel;
+import static java.lang.Double.NaN;
 
 public final class SecondTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
     private static final String TABLE_NAME = "ВСПАШКА СТЕРНИ";
@@ -52,7 +52,7 @@ public final class SecondTableFuelSearchingArgumentsProvider extends TableFuelSe
                                 .routingLength("Менее 150")
                                 .specificResistance("Удельное сопротивление 36...41 кПа")
                                 .build())
-                        .expected(createNotDefinedFuel())
+                        .expected(new Fuel(NaN, NaN))
                         .build(),
                 //not existing tractor
                 FuelSearchingArguments.builder()
