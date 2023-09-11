@@ -84,7 +84,7 @@ public final class CompositeFuelSearcher extends FuelSearcher {
     @NoArgsConstructor(access = PRIVATE)
     public static final class CompositeSearcherBuilder extends SearcherBuilder<CompositeFuelSearcher> {
         private static final String NOT_VALID_ELEMENTS_MESSAGE = "Paragraphs should be located in not even indexes, "
-                + "tables should be located in even index";
+                + "tables should be located in even indexes";
 
         private String subTableTitleTemplate;
         private List<SpecificationPropertyExtractor> subTableTitleTemplateArgumentExtractors;

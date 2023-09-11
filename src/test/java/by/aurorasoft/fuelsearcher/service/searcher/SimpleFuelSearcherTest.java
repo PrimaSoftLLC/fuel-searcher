@@ -99,6 +99,7 @@ public final class SimpleFuelSearcherTest {
         assertEquals(expected, actual);
     }
 
+    //TODO: refactor
     @Test
     public void searcherShouldBeBuilt() {
         final SimpleSearcherBuilder givenBuilder = SimpleFuelSearcher.builder();
@@ -114,6 +115,7 @@ public final class SimpleFuelSearcherTest {
                 givenHeaderExtractor
         );
         assertNotNull(actual);
+        throw new RuntimeException();
     }
 
     @Test
