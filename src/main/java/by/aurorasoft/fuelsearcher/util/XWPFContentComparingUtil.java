@@ -7,7 +7,7 @@ public final class XWPFContentComparingUtil {
     private static final String NBSP_OR_SPACE_SYMBOLS_REGEX = "[\\p{Z} ]+";
     private static final String EMPTY_STRING = "";
 
-    public static boolean areEqual(final String first, final String second) {
+    public static boolean areEqualIgnoringWhitespacesAndCase(final String first, final String second) {
         final String firstWithoutSpaces = removeAllWhitespaces(first);
         final String secondWithoutSpaces = removeAllWhitespaces(second);
         return firstWithoutSpaces.equalsIgnoreCase(secondWithoutSpaces);
