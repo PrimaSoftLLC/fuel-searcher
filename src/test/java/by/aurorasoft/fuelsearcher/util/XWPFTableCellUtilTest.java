@@ -7,8 +7,8 @@ import org.mockito.MockedStatic;
 
 import java.util.List;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.extractDouble;
-import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.extractText;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.*;
+import static java.lang.Double.NaN;
 import static java.lang.Double.isNaN;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
@@ -81,6 +81,20 @@ public final class XWPFTableCellUtilTest {
         final String actual = extractText(givenCell);
         final String expected = "";
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void doubleShouldBeDefined() {
+        final double givenDouble = 0.;
+
+        final boolean actual = isNotDefinedDouble(givenDouble);
+        assertFalse(actual);
+    }
+
+    @Test
+    public void doubleShouldBeNotDefined() {
+        final boolean actual = isNotDefinedDouble(NaN);
+        assertTrue(actual);
     }
 
     @Test
