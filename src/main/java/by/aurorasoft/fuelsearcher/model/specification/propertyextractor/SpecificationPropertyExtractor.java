@@ -20,12 +20,12 @@ public abstract class SpecificationPropertyExtractor implements Translatable {
         return this.propertyName;
     }
 
-    public final Optional<String> findProperty(final FuelSpecification specification) {
+    public final Optional<String> find(final FuelSpecification specification) {
         return this.propertyFounder.apply(specification);
     }
 
     public final String extract(final FuelSpecification specification) {
-        final Optional<String> optionalProperty = this.findProperty(specification);
+        final Optional<String> optionalProperty = this.find(specification);
         return optionalProperty.orElseThrow(
                 () -> new SpecificationPropertyExtractingException(
                         "Specification property '%s' isn't defined".formatted(this.propertyName)

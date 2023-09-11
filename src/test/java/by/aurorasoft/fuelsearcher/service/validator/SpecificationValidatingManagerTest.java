@@ -41,7 +41,7 @@ public final class SpecificationValidatingManagerTest {
         final FuelSpecification givenSpecification = mock(FuelSpecification.class);
 
         final String givenTableName = "table-name";
-        when(this.mockedTableNameExtractor.findProperty(same(givenSpecification)))
+        when(this.mockedTableNameExtractor.find(same(givenSpecification)))
                 .thenReturn(Optional.of(givenTableName));
 
         final SpecificationValidator givenValidator = mock(SpecificationValidator.class);
@@ -59,7 +59,7 @@ public final class SpecificationValidatingManagerTest {
         try (final MockedStatic<SpecificationValidatingResult> mockedStatic = mockStatic(SpecificationValidatingResult.class)) {
             final FuelSpecification givenSpecification = mock(FuelSpecification.class);
 
-            when(this.mockedTableNameExtractor.findProperty(same(givenSpecification))).thenReturn(empty());
+            when(this.mockedTableNameExtractor.find(same(givenSpecification))).thenReturn(empty());
 
             final SpecificationValidatingResult givenValidatingResult = mock(SpecificationValidatingResult.class);
             mockedStatic.when(() -> createNotValidValidatingResult(same(this.mockedTableNameExtractor)))
@@ -78,7 +78,7 @@ public final class SpecificationValidatingManagerTest {
             final FuelSpecification givenSpecification = mock(FuelSpecification.class);
 
             final String givenTableName = "table-name";
-            when(this.mockedTableNameExtractor.findProperty(same(givenSpecification)))
+            when(this.mockedTableNameExtractor.find(same(givenSpecification)))
                     .thenReturn(Optional.of(givenTableName));
 
             when(this.mockedValidatorDictionary.find(same(givenTableName))).thenReturn(empty());

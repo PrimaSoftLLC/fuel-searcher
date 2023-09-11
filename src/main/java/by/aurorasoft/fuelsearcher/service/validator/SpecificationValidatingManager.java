@@ -15,7 +15,7 @@ public final class SpecificationValidatingManager {
     private final TableNameExtractor tableNameExtractor;
 
     public SpecificationValidatingResult validate(final FuelSpecification specification) {
-        return this.tableNameExtractor.findProperty(specification)
+        return this.tableNameExtractor.find(specification)
                 .flatMap(this.validatorDictionary::find)
                 .map(validator -> validator.validate(specification))
                 .orElseGet(() -> createNotValidValidatingResult(this.tableNameExtractor));

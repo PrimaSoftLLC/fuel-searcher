@@ -63,7 +63,7 @@ public final class SpecificationValidator implements Translatable {
 
     private static boolean isFailedPropertyExtractor(final SpecificationPropertyExtractor extractor,
                                                      final FuelSpecification specification) {
-        final Optional<String> optionalProperty = extractor.findProperty(specification);
+        final Optional<String> optionalProperty = extractor.find(specification);
         return optionalProperty.isEmpty();
     }
 
