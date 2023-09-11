@@ -17,67 +17,109 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 public class FuelSpecification {
 
-    //имя таблицы
+    /**
+     * имя таблицы
+     */
     String tableName;
 
-    //трактор
+    /**
+     * трактор
+     */
     String tractor;
 
-    //Марка плуга, сельскохозяйственная машина
+    /**
+     * марка плуга, сельскохозяйственная машина
+     */
     String machinery;
 
-    //количество корпусов
+    /**
+     * количество корпусов
+     */
     String corpusCount;
 
-    //глубина вспашки
+    /**
+     * глубина вспашки
+     */
     String ploughingDepth;
 
-    //длина гона
+    /**
+     * длина гона
+     */
     String routingLength;
 
-    //удельное сопротивление
+    /**
+     * удельное сопротивление
+     */
     String specificResistance;
 
-    //тип почвы
+    /**
+     * тип почвы
+     */
     String soilType;
 
-    //Глубина обработки
+    /**
+     * глубина обработки
+     */
     String processingDepth;
 
-    //Ширина захвата
+    /**
+     * ширина захвата
+     */
     String workingWidth;
 
-    //Норма высева
+    /**
+     * норма высева
+     */
     String sowingNorm;
 
-    //Тип удобрения
+    /**
+     * тип удобрения
+     */
     String fertilizerType;
 
-    //Способ загрузки удобрений и расстояние транспортировки
+    /**
+     * способ загрузки удобрений и расстояние транспортировки
+     */
     String chargingMethodAndTransportDistance;
 
-    //Норма внесения удобрений
+    /**
+     * норма внесения удобрений
+     */
     String spreadRate;
 
-    //Группа дорог
+    /**
+     * группа дорог
+     */
     String roadGroup;
 
-    //расстояние транспортировки
+    /**
+     * расстояние транспортировки
+     */
     String transportDistance;
 
-    //Класс груза
+    /**
+     * класс груза
+     */
     String cargoClass;
 
-    //Урожайность
+    /**
+     * урожайность
+     */
     String yield;
 
-    //Ширина междурядий
+    /**
+     * ширина междурядий
+     */
     String rowWidth;
 
-    //Марка комбайна
+    /**
+     * марка комбайн
+     */
     String combine;
 
-    //соотношение массы зерна к массе соломы
+    /**
+     * соотношение массы зерна к массе соломы
+     */
     String weightRatioGrainToStraw;
 
     public Optional<String> findTableName() {
