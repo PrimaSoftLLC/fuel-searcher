@@ -7,8 +7,6 @@ import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpec
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import static java.lang.Double.NaN;
-
 public final class SecondTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
     private static final String TABLE_NAME = "ВСПАШКА СТЕРНИ";
 
@@ -43,6 +41,7 @@ public final class SecondTableFuelSearchingArgumentsProvider extends TableFuelSe
                                 .build())
                         .expected(new Fuel(25.6, 15.0))
                         .build(),
+                //'–' as fuel
                 FuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
                                 .tractor("Кировец К-744 Р4")
@@ -52,7 +51,6 @@ public final class SecondTableFuelSearchingArgumentsProvider extends TableFuelSe
                                 .routingLength("Менее 150")
                                 .specificResistance("Удельное сопротивление 36...41 кПа")
                                 .build())
-                        .expected(new Fuel(NaN, NaN))
                         .build(),
                 //not existing tractor
                 FuelSearchingArguments.builder()

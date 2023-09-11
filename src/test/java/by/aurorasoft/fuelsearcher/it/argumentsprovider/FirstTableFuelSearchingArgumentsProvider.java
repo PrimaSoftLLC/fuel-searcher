@@ -83,7 +83,7 @@ public final class FirstTableFuelSearchingArgumentsProvider extends TableFuelSea
                                 .build())
                         .expected(new Fuel(10.9, 22.3))
                         .build(),
-                //'–' as fuel info
+                //'–' as fuel
                 FuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
                                 .tractor("К 744Р3")
