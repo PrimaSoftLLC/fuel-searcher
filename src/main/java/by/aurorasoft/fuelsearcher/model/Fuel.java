@@ -2,7 +2,7 @@ package by.aurorasoft.fuelsearcher.model;
 
 import lombok.Value;
 
-import static java.lang.Double.isNaN;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.isNotDefinedDouble;
 
 @Value
 public class Fuel {
@@ -10,6 +10,6 @@ public class Fuel {
     double consumption;
 
     public boolean isDefinedFuel() {
-        return !isNaN(this.generationNorm) || !isNaN(this.consumption);
+        return !isNotDefinedDouble(this.generationNorm) || !isNotDefinedDouble(this.consumption);
     }
 }
