@@ -11,6 +11,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import static java.util.Optional.empty;
 import static org.junit.Assert.*;
@@ -109,12 +110,59 @@ public final class FilterChainTest {
     }
 
     @Test
-    public void finalFilterShouldBeAccumulatedToBuilder() {
+    public void finalFilterShouldBeAccumulatedToBuilder()
+            throws Exception {
         final FilterChainBuilder givenBuilder = FilterChain.builder();
 
         final FinalFilter givenFinalFilter = mock(FinalFilter.class);
 
-        throw new RuntimeException();
+        givenBuilder.finalFilter(givenFinalFilter);
+
+        final FinalFilter actual = findFinalFilter(givenBuilder);
+        assertSame(givenFinalFilter, actual);
+    }
+
+    @Test
+    public void propertiesShouldBeFound() {
+        final FilterChainBuilder givenBuilder = FilterChain.builder();
+
+        final InterimFilter firstGivenInterimFilter = mock(InterimFilter.class);
+        final InterimFilter secondGivenInterimFilter = mock(InterimFilter.class);
+        final FinalFilter givenFinalFilter = mock(FinalFilter.class);
+
+        givenBuilder.interimFilter(firstGivenInterimFilter);
+        givenBuilder.interimFilter(secondGivenInterimFilter);
+        givenBuilder.finalFilter(givenFinalFilter);
+
+        final Stream<Object> actual = givenBuilder.findProperties();
+        final List<Object> actualAsList = actual.toList();
+        final List<Object> expectedAsList = List.of(
+                List.of(firstGivenInterimFilter, secondGivenInterimFilter),
+                givenFinalFilter
+        );
+        assertEquals(expectedAsList, actualAsList);
+    }
+
+    @Test
+    public void chainShouldBeBuilt()
+            throws Exception {
+        final FilterChainBuilder givenBuilder = FilterChain.builder();
+
+        final InterimFilter firstGivenInterimFilter = mock(InterimFilter.class);
+        final InterimFilter secondGivenInterimFilter = mock(InterimFilter.class);
+        final FinalFilter givenFinalFilter = mock(FinalFilter.class);
+        givenBuilder.interimFilter(firstGivenInterimFilter);
+        givenBuilder.interimFilter(secondGivenInterimFilter);
+        givenBuilder.finalFilter(givenFinalFilter);
+
+        final FilterChain actual = givenBuilder.buildAfterStateValidation();
+
+        final List<InterimFilter> actualInterimFilters = findInterimFilters(actual);
+        final List<InterimFilter> expectedInterimFilters = List.of(firstGivenInterimFilter, secondGivenInterimFilter);
+        assertEquals(expectedInterimFilters, actualInterimFilters);
+
+        final FinalFilter actualFinalFilter = findFinalFilter(actual);
+        assertSame(givenFinalFilter, actualFinalFilter);
     }
 
     private static FilterChain createChain(final List<InterimFilter> interimFilters, final FinalFilter finalFilter)
@@ -133,22 +181,48 @@ public final class FilterChainTest {
     @SuppressWarnings("unchecked")
     private static List<InterimFilter> findInterimFilters(final FilterChainBuilder builder)
             throws Exception {
-        return findBuilderProperty(builder, FIELD_NAME_INTERIM_FILTERS, List.class);
+        return findProperty(builder, FIELD_NAME_INTERIM_FILTERS, List.class);
     }
 
     private static FinalFilter findFinalFilter(final FilterChainBuilder builder)
             throws Exception {
-        return findBuilderProperty(builder, FIELD_NAME_FINAL_FILTER, FinalFilter.class);
+        return findProperty(builder, FIELD_NAME_FINAL_FILTER, FinalFilter.class);
     }
 
-    private static <T> T findBuilderProperty(final FilterChainBuilder builder,
-                                             final String fieldName,
-                                             final Class<T> propertyType)
+    private static <P> P findProperty(final FilterChainBuilder builder,
+                                      final String fieldName,
+                                      final Class<P> propertyType)
             throws Exception {
-        final Field field = FilterChainBuilder.class.getDeclaredField(fieldName);
+        return findProperty(builder, fieldName, FilterChainBuilder.class, propertyType);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static List<InterimFilter> findInterimFilters(final FilterChain chain)
+            throws Exception {
+        return findProperty(chain, FIELD_NAME_INTERIM_FILTERS, List.class);
+    }
+
+    private static FinalFilter findFinalFilter(final FilterChain chain)
+            throws Exception {
+        return findProperty(chain, FIELD_NAME_FINAL_FILTER, FinalFilter.class);
+    }
+
+    private static <P> P findProperty(final FilterChain chain,
+                                      final String fieldName,
+                                      final Class<P> propertyType)
+            throws Exception {
+        return findProperty(chain, fieldName, FilterChain.class, propertyType);
+    }
+
+    private static <S, P> P findProperty(final S source,
+                                         final String fieldName,
+                                         final Class<S> sourceType,
+                                         final Class<P> propertyType)
+            throws Exception {
+        final Field field = sourceType.getDeclaredField(fieldName);
         field.setAccessible(true);
         try {
-            final Object property = field.get(builder);
+            final Object property = field.get(source);
             return propertyType.cast(property);
         } finally {
             field.setAccessible(false);

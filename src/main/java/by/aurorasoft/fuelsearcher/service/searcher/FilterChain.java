@@ -1,12 +1,11 @@
 package by.aurorasoft.fuelsearcher.service.searcher;
 
-import by.aurorasoft.fuelsearcher.service.builder.BuilderRequiringAllProperties;
+import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
-import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
+import by.aurorasoft.fuelsearcher.service.builder.BuilderRequiringAllProperties;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.Value;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.util.ArrayList;
@@ -17,11 +16,10 @@ import java.util.stream.Stream;
 
 import static lombok.AccessLevel.PRIVATE;
 
-@Value
 @AllArgsConstructor(access = PRIVATE)
 public class FilterChain {
-    List<InterimFilter> interimFilters;
-    FinalFilter finalFilter;
+    private final List<InterimFilter> interimFilters;
+    private final FinalFilter finalFilter;
 
     public static FilterChainBuilder builder() {
         return new FilterChainBuilder();
