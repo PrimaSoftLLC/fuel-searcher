@@ -1,8 +1,7 @@
 package by.aurorasoft.fuelsearcher.model.specification.propertyextractor;
 
-import by.aurorasoft.fuelsearcher.service.dictionary.Translatable;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
-import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.exception.SpecificationPropertyExtractingException;
+import by.aurorasoft.fuelsearcher.service.dictionary.Translatable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -26,11 +25,34 @@ public abstract class SpecificationPropertyExtractor implements Translatable {
     }
 
     public final String extract(final FuelSpecification specification) {
-        final Optional<String> optionalProperty = this.propertyFounder.apply(specification);
+        final Optional<String> optionalProperty = this.findProperty(specification);
         return optionalProperty.orElseThrow(
                 () -> new SpecificationPropertyExtractingException(
                         "Specification property '%s' isn't defined".formatted(this.propertyName)
                 )
         );
+    }
+
+    private static final class SpecificationPropertyExtractingException extends RuntimeException {
+
+        @SuppressWarnings("unused")
+        public SpecificationPropertyExtractingException() {
+
+        }
+
+        public SpecificationPropertyExtractingException(final String description) {
+            super(description);
+        }
+
+        @SuppressWarnings("unused")
+        public SpecificationPropertyExtractingException(final Exception cause) {
+            super(cause);
+        }
+
+        @SuppressWarnings("unused")
+        public SpecificationPropertyExtractingException(final String description, final Exception cause) {
+            super(description, cause);
+        }
+
     }
 }
