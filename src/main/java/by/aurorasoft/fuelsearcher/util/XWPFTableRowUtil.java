@@ -18,8 +18,10 @@ public final class XWPFTableRowUtil {
         return extractCellValue(row, cellIndex, XWPFTableCellUtil::extractText);
     }
 
-    public static boolean isCellTextEqual(final XWPFTableRow row, final int cellIndex, final String expected) {
-        return isCellTextMatch(row, cellIndex, expected, String::equalsIgnoreCase);
+    public static boolean isCellTextEqualIgnoringWhitespacesAndCase(final XWPFTableRow row,
+                                                                    final int cellIndex,
+                                                                    final String expected) {
+        return isCellTextMatch(row, cellIndex, expected, XWPFContentComparingUtil::areEqualIgnoringWhitespacesAndCase);
     }
 
     public static boolean isCellTextMatchRegex(final XWPFTableRow row,

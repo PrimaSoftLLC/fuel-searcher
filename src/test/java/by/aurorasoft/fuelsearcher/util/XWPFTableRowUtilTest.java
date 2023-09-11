@@ -5,6 +5,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.junit.Test;
 import org.mockito.MockedStatic;
 
+import static by.aurorasoft.fuelsearcher.util.XWPFContentComparingUtil.areEqualIgnoringWhitespacesAndCase;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.extractDouble;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.extractText;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.*;
@@ -45,35 +46,43 @@ public final class XWPFTableRowUtilTest {
     }
 
     @Test
-    public void cellTextShouldBeEqualGivenString() {
+    public void cellTextShouldBeEqualGivenStringIgnoringWhitespacesAndCase() {
         final XWPFTableRow givenRow = mock(XWPFTableRow.class);
         final int givenCellIndex = 6;
         final XWPFTableCell givenCell = createRowCell(givenRow, givenCellIndex);
 
-        try (final MockedStatic<XWPFTableCellUtil> mockedCellUtil = mockStatic(XWPFTableCellUtil.class)) {
+        try (final MockedStatic<XWPFTableCellUtil> mockedCellUtil = mockStatic(XWPFTableCellUtil.class);
+             final MockedStatic<XWPFContentComparingUtil> mockedContentComparingUtil = mockStatic(XWPFContentComparingUtil.class)) {
             final String givenText = "cell-text";
             mockedCellUtil.when(() -> extractText(same(givenCell))).thenReturn(givenText);
 
             final String givenExpected = "cell-text";
+            mockedContentComparingUtil
+                    .when(() -> areEqualIgnoringWhitespacesAndCase(same(givenText), same(givenExpected)))
+                    .thenReturn(true);
 
-            final boolean actual = isCellTextEqual(givenRow, givenCellIndex, givenExpected);
+            final boolean actual = isCellTextEqualIgnoringWhitespacesAndCase(givenRow, givenCellIndex, givenExpected);
             assertTrue(actual);
         }
     }
 
     @Test
-    public void cellTextShouldNotBeEqualGivenString() {
+    public void cellTextShouldNotBeEqualGivenStringIgnoringWhitespacesAndCase() {
         final XWPFTableRow givenRow = mock(XWPFTableRow.class);
         final int givenCellIndex = 6;
         final XWPFTableCell givenCell = createRowCell(givenRow, givenCellIndex);
 
-        try (final MockedStatic<XWPFTableCellUtil> mockedCellUtil = mockStatic(XWPFTableCellUtil.class)) {
+        try (final MockedStatic<XWPFTableCellUtil> mockedCellUtil = mockStatic(XWPFTableCellUtil.class);
+             final MockedStatic<XWPFContentComparingUtil> mockedContentComparingUtil = mockStatic(XWPFContentComparingUtil.class)) {
             final String givenText = "cell-text";
             mockedCellUtil.when(() -> extractText(same(givenCell))).thenReturn(givenText);
 
             final String givenExpected = "cell-text-2";
+            mockedContentComparingUtil
+                    .when(() -> areEqualIgnoringWhitespacesAndCase(same(givenText), same(givenExpected)))
+                    .thenReturn(false);
 
-            final boolean actual = isCellTextEqual(givenRow, givenCellIndex, givenExpected);
+            final boolean actual = isCellTextEqualIgnoringWhitespacesAndCase(givenRow, givenCellIndex, givenExpected);
             assertFalse(actual);
         }
     }
