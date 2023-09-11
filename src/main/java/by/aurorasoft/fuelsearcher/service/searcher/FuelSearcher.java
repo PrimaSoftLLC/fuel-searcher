@@ -54,7 +54,8 @@ public abstract class FuelSearcher implements Translatable {
         final List<IBodyElement> elements = this.table.getElements();
         return this.findSubTable(elements, specification)
                 .map(XWPFTable::getRows)
-                .flatMap(subTableRows -> this.findFuel(subTableRows, specification));
+                .flatMap(subTableRows -> this.findFuel(subTableRows, specification))
+                .filter(Fuel::isDefinedFuel);
     }
 
     protected abstract Optional<XWPFTable> findSubTable(final List<IBodyElement> elements,
