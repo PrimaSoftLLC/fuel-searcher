@@ -3,14 +3,15 @@ package by.aurorasoft.fuelsearcher.util;
 import lombok.experimental.UtilityClass;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 
-import static java.lang.Double.NaN;
-import static java.lang.Double.parseDouble;
+import static java.lang.Double.*;
 import static java.util.stream.Collectors.joining;
 
 @UtilityClass
 public final class XWPFTableCellUtil {
     private static final String PARAGRAPH_TEXTS_SEPARATOR = " ";
+
     private static final String NOT_DEFINED_DOUBLE_VALUE_ALIAS = "-";
+    public static final double NOT_DEFINED_DOUBLE = NaN;
 
     public static boolean isEmpty(final XWPFTableCell cell) {
         return cell.getParagraphs()
@@ -26,9 +27,13 @@ public final class XWPFTableCellUtil {
                 .collect(joining(PARAGRAPH_TEXTS_SEPARATOR));
     }
 
+    public static boolean isNotDefinedDouble(final double value) {
+        return isNaN(value);
+    }
+
     public static double extractDouble(final XWPFTableCell cell) {
         final String text = extractText(cell);
-        return !text.equals(NOT_DEFINED_DOUBLE_VALUE_ALIAS) ? parseDouble(text) : NaN;
+        return !text.equals(NOT_DEFINED_DOUBLE_VALUE_ALIAS) ? parseDouble(text) : NOT_DEFINED_DOUBLE;
     }
 
 }

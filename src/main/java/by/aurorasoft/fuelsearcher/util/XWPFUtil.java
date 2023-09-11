@@ -12,18 +12,12 @@ import java.util.function.Function;
 import java.util.stream.IntStream;
 
 import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.extractText;
-import static java.lang.Double.*;
 import static java.util.stream.IntStream.range;
 
 //TODO: refactor
 @UtilityClass
 public final class XWPFUtil {
-    public static final double NOT_DEFINED_DOUBLE = NaN;
     private static final String EMPTY_STRING = "";
-
-    public static boolean isNotDefinedDouble(final double value) {
-        return isNaN(value);
-    }
 
     public static OptionalInt findIndexFirstRowByContent(final List<XWPFTableRow> rows,
                                                          final int cellIndexWithContent,
