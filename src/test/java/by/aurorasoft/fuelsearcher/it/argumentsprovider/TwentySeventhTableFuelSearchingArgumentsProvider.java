@@ -61,7 +61,7 @@ public final class TwentySeventhTableFuelSearchingArgumentsProvider extends Tabl
                         .build(),
                 FuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
-                                .tractor("БЕЛАРУС-3022")
+                                .tractor("Беларус-3022")
                                 .machinery("ПСС-20")
                                 .cargoClass("Грузы II класса")
                                 .transportDistance("1.26-1.75")
@@ -71,7 +71,6 @@ public final class TwentySeventhTableFuelSearchingArgumentsProvider extends Tabl
                         .build(),
                 FuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
-                                //TODO: тут отличие от прошлого только в регистре
                                 .tractor("Беларус-3022")
                                 .machinery("BAASTRUP 18")
                                 .cargoClass("Грузы III класса")
