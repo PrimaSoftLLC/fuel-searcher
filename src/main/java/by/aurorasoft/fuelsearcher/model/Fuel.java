@@ -9,7 +9,7 @@ public class Fuel {
     double generationNorm;
     double consumption;
 
-    public boolean isNotDefinedFuel() {
-        return isNaN(this.generationNorm) && isNaN(this.consumption);
+    public boolean isDefinedFuel() {
+        return !isNaN(this.generationNorm) || !isNaN(this.consumption);
     }
 }
