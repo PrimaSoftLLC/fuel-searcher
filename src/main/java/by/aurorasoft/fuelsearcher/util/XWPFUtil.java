@@ -27,7 +27,7 @@ public final class XWPFUtil {
                 0,
                 cellIndexWithContent,
                 content,
-                XWPFTableRowUtil::isCellTextEqual
+                XWPFTableRowUtil::isCellTextEqualIgnoringWhitespacesAndCase
         );
     }
 
@@ -49,7 +49,7 @@ public final class XWPFUtil {
                                                              final int cellIndexWithContent,
                                                              final String content) {
         return range(0, rows.size())
-                .filter(i -> XWPFTableRowUtil.isCellTextEqual(rows.get(i), cellIndexWithContent, content))
+                .filter(i -> XWPFTableRowUtil.isCellTextEqualIgnoringWhitespacesAndCase(rows.get(i), cellIndexWithContent, content))
                 .mapToObj(indexFirstRow -> extractUnitedRows(rows, indexFirstRow, cellIndexWithContent))
                 .flatMap(Collection::stream)
                 .toList();
