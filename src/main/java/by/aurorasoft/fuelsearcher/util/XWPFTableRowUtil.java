@@ -7,6 +7,8 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 
+import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.isEmpty;
+
 @UtilityClass
 public final class XWPFTableRowUtil {
 
@@ -28,6 +30,11 @@ public final class XWPFTableRowUtil {
                                                final int cellIndex,
                                                final String expectedRegex) {
         return isCellTextMatch(row, cellIndex, expectedRegex, String::matches);
+    }
+
+    public static boolean isChildUnitedRow(final XWPFTableRow row, final int cellIndexWithContent) {
+        final XWPFTableCell cellWithContent = row.getCell(cellIndexWithContent);
+        return cellWithContent == null || isEmpty(cellWithContent);
     }
 
     private static <V> V extractCellValue(final XWPFTableRow row,

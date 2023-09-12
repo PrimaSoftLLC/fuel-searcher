@@ -6,8 +6,7 @@ import org.junit.Test;
 import org.mockito.MockedStatic;
 
 import static by.aurorasoft.fuelsearcher.util.XWPFContentComparingUtil.areEqualIgnoringWhitespacesAndCase;
-import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.extractDouble;
-import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.extractText;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.*;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.*;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.eq;
@@ -117,6 +116,45 @@ public final class XWPFTableRowUtilTest {
             final String givenRegex = "\\d+";
 
             final boolean actual = isCellTextMatchRegex(givenRow, givenCellIndex, givenRegex);
+            assertFalse(actual);
+        }
+    }
+
+    @Test
+    public void rowShouldBeChildUnitedRowBecauseOfCellWithContentIsNull() {
+        final XWPFTableRow givenRow = mock(XWPFTableRow.class);
+        final int givenCellIndexWithContent = 3;
+
+        final boolean actual = isChildUnitedRow(givenRow, givenCellIndexWithContent);
+        assertTrue(actual);
+    }
+
+    @Test
+    public void rowShouldBeChildUnitedRowBecauseOfCellContentIsEmpty() {
+        try (final MockedStatic<XWPFTableCellUtil> mockedCellUtil = mockStatic(XWPFTableCellUtil.class)) {
+            final XWPFTableCell givenCell = mock(XWPFTableCell.class);
+            mockedCellUtil.when(() -> isEmpty(same(givenCell))).thenReturn(true);
+
+            final XWPFTableRow givenRow = mock(XWPFTableRow.class);
+            final int givenCellIndexWithContent = 3;
+            when(givenRow.getCell(eq(givenCellIndexWithContent))).thenReturn(givenCell);
+
+            final boolean actual = isChildUnitedRow(givenRow, givenCellIndexWithContent);
+            assertTrue(actual);
+        }
+    }
+
+    @Test
+    public void rowShouldNotBeChildUnitedRow() {
+        try (final MockedStatic<XWPFTableCellUtil> mockedCellUtil = mockStatic(XWPFTableCellUtil.class)) {
+            final XWPFTableCell givenCell = mock(XWPFTableCell.class);
+            mockedCellUtil.when(() -> isEmpty(same(givenCell))).thenReturn(false);
+
+            final XWPFTableRow givenRow = mock(XWPFTableRow.class);
+            final int givenCellIndexWithContent = 3;
+            when(givenRow.getCell(eq(givenCellIndexWithContent))).thenReturn(givenCell);
+
+            final boolean actual = isChildUnitedRow(givenRow, givenCellIndexWithContent);
             assertFalse(actual);
         }
     }
