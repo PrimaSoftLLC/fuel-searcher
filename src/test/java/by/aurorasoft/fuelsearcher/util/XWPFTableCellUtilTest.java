@@ -7,6 +7,9 @@ import org.mockito.MockedStatic;
 
 import java.util.List;
 
+import static by.aurorasoft.fuelsearcher.util.XWPFContentComparingUtil.areEqualIgnoringWhitespacesAndCase;
+import static by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.extractText;
+import static by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.isEmpty;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.*;
 import static java.lang.Double.NaN;
 import static java.lang.Double.isNaN;
@@ -68,7 +71,7 @@ public final class XWPFTableCellUtilTest {
             bindTextWithParagraph(firstGivenParagraph, givenTextFirstParagraph, mockedParagraphUtil);
             bindTextWithParagraph(secondGivenParagraph, givenTextSecondParagraph, mockedParagraphUtil);
 
-            final String actual = extractText(givenCell);
+            final String actual = XWPFTableCellUtil.extractText(givenCell);
             final String expected = "content-1 content-2";
             assertEquals(expected, actual);
         }
@@ -78,7 +81,7 @@ public final class XWPFTableCellUtilTest {
     public void textOfCellWithoutParagraphsShouldBeExtracted() {
         final XWPFTableCell givenCell = createCell();
 
-        final String actual = extractText(givenCell);
+        final String actual = XWPFTableCellUtil.extractText(givenCell);
         final String expected = "";
         assertEquals(expected, actual);
     }
@@ -134,11 +137,52 @@ public final class XWPFTableCellUtilTest {
         }
     }
 
+    @Test
+    public void cellTextShouldBeEqualGivenContentIgnoringWhitespacesAndCase() {
+        try (final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil = mockStatic(XWPFParagraphUtil.class);
+             final MockedStatic<XWPFContentComparingUtil> mockedContentComparingUtil = mockStatic(XWPFContentComparingUtil.class)) {
+            final String givenText = "cell-text";
+            final XWPFTableCell givenCell = createCell(givenText, mockedParagraphUtil);
+
+            final String givenCompared = "CELL -    text";
+            mockedContentComparingUtil.when(
+                    () -> areEqualIgnoringWhitespacesAndCase(eq(givenText), same(givenCompared))
+            ).thenReturn(true);
+
+            final boolean actual = isCellTextEqualIgnoringWhitespacesAndCase(givenCell, givenCompared);
+            assertTrue(actual);
+        }
+    }
+
+    @Test
+    public void cellTextShouldNotBeEqualGivenContentIgnoringWhitespacesAndCase() {
+        try (final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil = mockStatic(XWPFParagraphUtil.class);
+             final MockedStatic<XWPFContentComparingUtil> mockedContentComparingUtil = mockStatic(XWPFContentComparingUtil.class)) {
+            final String givenText = "cell-text";
+            final XWPFTableCell givenCell = createCell(givenText, mockedParagraphUtil);
+
+            final String givenCompared = "CELL -    text text";
+            mockedContentComparingUtil.when(
+                    () -> areEqualIgnoringWhitespacesAndCase(eq(givenText), same(givenCompared))
+            ).thenReturn(false);
+
+            final boolean actual = isCellTextEqualIgnoringWhitespacesAndCase(givenCell, givenCompared);
+            assertFalse(actual);
+        }
+    }
+
     private static XWPFTableCell createCell(final XWPFParagraph... paragraphs) {
         final List<XWPFParagraph> paragraphsAsList = paragraphs != null ? asList(paragraphs) : emptyList();
         final XWPFTableCell cell = mock(XWPFTableCell.class);
         when(cell.getParagraphs()).thenReturn(paragraphsAsList);
         return cell;
+    }
+
+    private static XWPFTableCell createCell(final String text,
+                                            final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil) {
+        final XWPFParagraph paragraph = mock(XWPFParagraph.class);
+        bindTextWithParagraph(paragraph, text, mockedParagraphUtil);
+        return createCell(paragraph);
     }
 
     private static void markParagraphAsEmpty(final XWPFParagraph paragraph,
@@ -154,12 +198,12 @@ public final class XWPFTableCellUtilTest {
     private static void markParagraphByEmpty(final XWPFParagraph paragraph,
                                              final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil,
                                              final boolean empty) {
-        mockedParagraphUtil.when(() -> XWPFParagraphUtil.isEmpty(same(paragraph))).thenReturn(empty);
+        mockedParagraphUtil.when(() -> isEmpty(same(paragraph))).thenReturn(empty);
     }
 
     private static void bindTextWithParagraph(final XWPFParagraph paragraph,
                                               final String text,
                                               final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil) {
-        mockedParagraphUtil.when(() -> XWPFParagraphUtil.extractText(same(paragraph))).thenReturn(text);
+        mockedParagraphUtil.when(() -> extractText(same(paragraph))).thenReturn(text);
     }
 }

@@ -38,14 +38,21 @@ public final class XWPFTableCellUtil {
         return !text.equals(NOT_DEFINED_DOUBLE_VALUE_ALIAS) ? parseDouble(text) : NOT_DEFINED_DOUBLE;
     }
 
-    //TODO: test
     public static boolean isCellTextEqualIgnoringWhitespacesAndCase(final XWPFTableCell cell, final String compared) {
-        return isCellTextMatch(cell, compared, XWPFContentComparingUtil::areEqualIgnoringWhitespacesAndCase);
+        return isCellTextMatch(
+                cell,
+                compared,
+                XWPFContentComparingUtil::areEqualIgnoringWhitespacesAndCase
+        );
     }
 
     //TODO: test
     public static boolean isCellTextMatchRegex(final XWPFTableCell cell, final String regex) {
-        return isCellTextMatch(cell, regex, String::matches);
+        return isCellTextMatch(
+                cell,
+                regex,
+                String::matches
+        );
     }
 
     private static boolean isCellTextMatch(final XWPFTableCell cell,
