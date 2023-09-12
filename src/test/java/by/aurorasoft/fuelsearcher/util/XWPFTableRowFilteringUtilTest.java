@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.mockito.MockedStatic;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
@@ -270,6 +271,66 @@ public final class XWPFTableRowFilteringUtilTest {
             final IntStream actual = findRowIndexesByContent(givenRows, givenContentCellIndex, givenContent);
             final boolean actualEmpty = actual.findFirst().isEmpty();
             assertTrue(actualEmpty);
+        }
+    }
+
+    @Test
+    public void firstRowShouldBeFoundByContent() {
+        try (final MockedStatic<XWPFTableRowUtil> mockedRowUtil = mockStatic(XWPFTableRowUtil.class)) {
+            final String givenContent = "content";
+            final int givenContentCellIndex = 3;
+
+            final XWPFTableRow givenFirstRowMatchingContent = createRowMatchingContent(
+                    true,
+                    mockedRowUtil,
+                    givenContentCellIndex,
+                    givenContent
+            );
+            final List<XWPFTableRow> givenRows = List.of(
+                    createRowMatchingContent(false, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(false, mockedRowUtil, givenContentCellIndex, givenContent),
+                    givenFirstRowMatchingContent,
+                    createRowMatchingContent(false, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(true, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(true, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(true, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(false, mockedRowUtil, givenContentCellIndex, givenContent)
+            );
+
+            final Optional<XWPFTableRow> optionalActual = findFirstRowByContent(
+                    givenRows,
+                    givenContentCellIndex,
+                    givenContent
+            );
+            assertTrue(optionalActual.isPresent());
+            final XWPFTableRow actual = optionalActual.get();
+            assertSame(givenFirstRowMatchingContent, actual);
+        }
+    }
+
+    @Test
+    public void firstRowShouldNotBeFoundByContent() {
+        try (final MockedStatic<XWPFTableRowUtil> mockedRowUtil = mockStatic(XWPFTableRowUtil.class)) {
+            final String givenContent = "content";
+            final int givenContentCellIndex = 3;
+
+            final List<XWPFTableRow> givenRows = List.of(
+                    createRowMatchingContent(false, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(false, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(false, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(false, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(false, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(false, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(false, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(false, mockedRowUtil, givenContentCellIndex, givenContent)
+            );
+
+            final Optional<XWPFTableRow> optionalActual = findFirstRowByContent(
+                    givenRows,
+                    givenContentCellIndex,
+                    givenContent
+            );
+            assertTrue(optionalActual.isEmpty());
         }
     }
 
