@@ -16,12 +16,12 @@ import static java.util.stream.IntStream.range;
 public final class XWPFTableRowFilteringUtil {
 
     public static OptionalInt findIndexFirstRowByContent(final List<XWPFTableRow> rows,
-                                                         final int cellIndexWithContent,
+                                                         final int contentCellIndex,
                                                          final String content) {
         return findIndexFirstMatchingContentRow(
                 rows,
                 0,
-                cellIndexWithContent,
+                contentCellIndex,
                 content,
                 XWPFTableRowUtil::isCellTextEqualIgnoringWhitespacesAndCase
         );
@@ -29,12 +29,12 @@ public final class XWPFTableRowFilteringUtil {
 
     public static OptionalInt findIndexFirstRowByContentRegex(final List<XWPFTableRow> rows,
                                                               final int startFindingIndex,
-                                                              final int cellIndexWithContent,
+                                                              final int contentCellIndex,
                                                               final String regex) {
         return findIndexFirstMatchingContentRow(
                 rows,
                 startFindingIndex,
-                cellIndexWithContent,
+                contentCellIndex,
                 regex,
                 XWPFTableRowUtil::isCellTextMatchRegex
         );
@@ -42,27 +42,27 @@ public final class XWPFTableRowFilteringUtil {
 
     //returns several united rows
     public static List<XWPFTableRow> findUnitedRowsByContent(final List<XWPFTableRow> rows,
-                                                             final int cellIndexWithContent,
+                                                             final int contentCellIndex,
                                                              final String content) {
         return range(0, rows.size())
-                .filter(i -> isCellTextEqualIgnoringWhitespacesAndCase(rows.get(i), cellIndexWithContent, content))
-                .mapToObj(indexFirstRow -> extractUnitedRows(rows, indexFirstRow, cellIndexWithContent))
+                .filter(i -> isCellTextEqualIgnoringWhitespacesAndCase(rows.get(i), contentCellIndex, content))
+                .mapToObj(indexFirstRow -> extractUnitedRows(rows, indexFirstRow, contentCellIndex))
                 .flatMap(Collection::stream)
                 .toList();
     }
 
     public static IntStream findRowIndexesByContent(final List<XWPFTableRow> rows,
-                                                    final int cellIndexWithContent,
+                                                    final int contentCellIndex,
                                                     final String content) {
         return range(0, rows.size())
-                .filter(i -> rows.get(i).getCell(cellIndexWithContent).getText().equals(content));
+                .filter(i -> rows.get(i).getCell(contentCellIndex).getText().equals(content));
     }
 
 
     public static Optional<XWPFTableRow> findFirstRowByContent(final List<XWPFTableRow> rows,
-                                                               final int cellIndexWithContent,
+                                                               final int contentCellIndex,
                                                                final String content) {
-        return findIndexFirstRowByContent(rows, cellIndexWithContent, content)
+        return findIndexFirstRowByContent(rows, contentCellIndex, content)
                 .stream()
                 .mapToObj(rows::get)
                 .findFirst();
@@ -83,36 +83,36 @@ public final class XWPFTableRowFilteringUtil {
 
     private static OptionalInt findIndexFirstMatchingContentRow(final List<XWPFTableRow> rows,
                                                                 final int startFindingIndex,
-                                                                final int cellIndexWithContent,
+                                                                final int contentCellIndex,
                                                                 final String content,
-                                                                final ThreeArgumentPredicate<XWPFTableRow, Integer, String> predicateToMatch) {
+                                                                final RowContentMatcher matcher) {
         return range(startFindingIndex, rows.size())
-                .filter(i -> predicateToMatch.test(rows.get(i), cellIndexWithContent, content))
+                .filter(i -> matcher.isMatch(rows.get(i), contentCellIndex, content))
                 .findFirst();
     }
 
     private static List<XWPFTableRow> extractUnitedRows(final List<XWPFTableRow> rows,
                                                         final int indexFirstRow,
-                                                        final int cellIndexWithContent) {
+                                                        final int contentCellIndex) {
         final int nextIndexLastChildUnitedRow = findNextIndexLastChildUnitedRow(
                 rows,
                 indexFirstRow,
-                cellIndexWithContent
+                contentCellIndex
         );
         return rows.subList(indexFirstRow, nextIndexLastChildUnitedRow);
     }
 
     private static int findNextIndexLastChildUnitedRow(final List<XWPFTableRow> rows,
                                                        final int indexFirstRow,
-                                                       final int cellIndexWithContent) {
+                                                       final int contentCellIndex) {
         return range(indexFirstRow + 1, rows.size())
-                .dropWhile(rowIndex -> isChildUnitedRow(rows.get(rowIndex), cellIndexWithContent))
+                .dropWhile(rowIndex -> isChildUnitedRow(rows.get(rowIndex), contentCellIndex))
                 .findFirst()
                 .orElse(rows.size());
     }
 
     @FunctionalInterface
-    private interface ThreeArgumentPredicate<F, S, T> {
-        boolean test(final F first, final S second, final T third);
+    private interface RowContentMatcher {
+        boolean isMatch(final XWPFTableRow row, final int contentCellIndex, final String expected);
     }
 }

@@ -23,22 +23,22 @@ public final class XWPFTableRowFilteringUtilTest {
     @Test
     public void indexFirstRowByContentShouldBeFound() {
         try (final MockedStatic<XWPFTableRowUtil> mockedRowUtil = mockStatic(XWPFTableRowUtil.class)) {
-            final int givenCellIndexWithContent = 3;
+            final int givenContentCellIndex = 3;
             final String givenContent = "content";
 
             final XWPFTableRow firstGivenRow = createRowMatchingContent(
-                    false, mockedRowUtil, givenCellIndexWithContent, givenContent
+                    false, mockedRowUtil, givenContentCellIndex, givenContent
             );
             final XWPFTableRow secondGivenRow = createRowMatchingContent(
-                    true, mockedRowUtil, givenCellIndexWithContent, givenContent
+                    true, mockedRowUtil, givenContentCellIndex, givenContent
             );
             final XWPFTableRow thirdGivenRow = createRowMatchingContent(
-                    true, mockedRowUtil, givenCellIndexWithContent, givenContent
+                    true, mockedRowUtil, givenContentCellIndex, givenContent
             );
             final List<XWPFTableRow> givenRows = List.of(firstGivenRow, secondGivenRow, thirdGivenRow);
 
             final OptionalInt actualOptional = findIndexFirstRowByContent(
-                    givenRows, givenCellIndexWithContent, givenContent
+                    givenRows, givenContentCellIndex, givenContent
             );
             assertTrue(actualOptional.isPresent());
             final int actual = actualOptional.getAsInt();
@@ -50,22 +50,22 @@ public final class XWPFTableRowFilteringUtilTest {
     @Test
     public void indexFirstRowByContentShouldNotBeFound() {
         try (final MockedStatic<XWPFTableRowUtil> mockedRowUtil = mockStatic(XWPFTableRowUtil.class)) {
-            final int givenCellIndexWithContent = 3;
+            final int givenContentCellIndex = 3;
             final String givenContent = "content";
 
             final XWPFTableRow firstGivenRow = createRowMatchingContent(
-                    false, mockedRowUtil, givenCellIndexWithContent, givenContent
+                    false, mockedRowUtil, givenContentCellIndex, givenContent
             );
             final XWPFTableRow secondGivenRow = createRowMatchingContent(
-                    false, mockedRowUtil, givenCellIndexWithContent, givenContent
+                    false, mockedRowUtil, givenContentCellIndex, givenContent
             );
             final XWPFTableRow thirdGivenRow = createRowMatchingContent(
-                    false, mockedRowUtil, givenCellIndexWithContent, givenContent
+                    false, mockedRowUtil, givenContentCellIndex, givenContent
             );
             final List<XWPFTableRow> givenRows = List.of(firstGivenRow, secondGivenRow, thirdGivenRow);
 
             final OptionalInt actualOptional = findIndexFirstRowByContent(
-                    givenRows, givenCellIndexWithContent, givenContent
+                    givenRows, givenContentCellIndex, givenContent
             );
             assertTrue(actualOptional.isEmpty());
         }
@@ -75,30 +75,30 @@ public final class XWPFTableRowFilteringUtilTest {
     public void indexFirstRowByContentRegexShouldBeFound() {
         try (final MockedStatic<XWPFTableRowUtil> mockedRowUtil = mockStatic(XWPFTableRowUtil.class)) {
             final int givenStartFindingIndex = 1;
-            final int givenCellIndexWithContent = 3;
+            final int givenContentCellIndex = 3;
             final String givenRegex = "regex";
 
             final XWPFTableRow firstGivenRow = createRowMatchingContentRegex(
-                    true, mockedRowUtil, givenCellIndexWithContent, givenRegex
+                    true, mockedRowUtil, givenContentCellIndex, givenRegex
             );
             final XWPFTableRow secondGivenRow = createRowMatchingContentRegex(
-                    false, mockedRowUtil, givenCellIndexWithContent, givenRegex
+                    false, mockedRowUtil, givenContentCellIndex, givenRegex
             );
             final XWPFTableRow thirdGivenRow = createRowMatchingContentRegex(
-                    false, mockedRowUtil, givenCellIndexWithContent, givenRegex
+                    false, mockedRowUtil, givenContentCellIndex, givenRegex
             );
             final XWPFTableRow fourthGivenRow = createRowMatchingContentRegex(
-                    true, mockedRowUtil, givenCellIndexWithContent, givenRegex
+                    true, mockedRowUtil, givenContentCellIndex, givenRegex
             );
             final XWPFTableRow fifthGivenRow = createRowMatchingContentRegex(
-                    true, mockedRowUtil, givenCellIndexWithContent, givenRegex
+                    true, mockedRowUtil, givenContentCellIndex, givenRegex
             );
             final List<XWPFTableRow> givenRows = List.of(
                     firstGivenRow, secondGivenRow, thirdGivenRow, fourthGivenRow, fifthGivenRow
             );
 
             final OptionalInt actualOptional = findIndexFirstRowByContentRegex(
-                    givenRows, givenStartFindingIndex, givenCellIndexWithContent, givenRegex
+                    givenRows, givenStartFindingIndex, givenContentCellIndex, givenRegex
             );
             assertTrue(actualOptional.isPresent());
             final int actual = actualOptional.getAsInt();
@@ -111,30 +111,30 @@ public final class XWPFTableRowFilteringUtilTest {
     public void indexFirstRowByContentRegexShouldNotBeFound() {
         try (final MockedStatic<XWPFTableRowUtil> mockedRowUtil = mockStatic(XWPFTableRowUtil.class)) {
             final int givenStartFindingIndex = 3;
-            final int givenCellIndexWithContent = 3;
+            final int givenContentCellIndex = 3;
             final String givenRegex = "regex";
 
             final XWPFTableRow firstGivenRow = createRowMatchingContentRegex(
-                    true, mockedRowUtil, givenCellIndexWithContent, givenRegex
+                    true, mockedRowUtil, givenContentCellIndex, givenRegex
             );
             final XWPFTableRow secondGivenRow = createRowMatchingContentRegex(
-                    false, mockedRowUtil, givenCellIndexWithContent, givenRegex
+                    false, mockedRowUtil, givenContentCellIndex, givenRegex
             );
             final XWPFTableRow thirdGivenRow = createRowMatchingContentRegex(
-                    true, mockedRowUtil, givenCellIndexWithContent, givenRegex
+                    true, mockedRowUtil, givenContentCellIndex, givenRegex
             );
             final XWPFTableRow fourthGivenRow = createRowMatchingContentRegex(
-                    false, mockedRowUtil, givenCellIndexWithContent, givenRegex
+                    false, mockedRowUtil, givenContentCellIndex, givenRegex
             );
             final XWPFTableRow fifthGivenRow = createRowMatchingContentRegex(
-                    false, mockedRowUtil, givenCellIndexWithContent, givenRegex
+                    false, mockedRowUtil, givenContentCellIndex, givenRegex
             );
             final List<XWPFTableRow> givenRows = List.of(
                     firstGivenRow, secondGivenRow, thirdGivenRow, fourthGivenRow, fifthGivenRow
             );
 
             final OptionalInt actualOptional = findIndexFirstRowByContentRegex(
-                    givenRows, givenStartFindingIndex, givenCellIndexWithContent, givenRegex
+                    givenRows, givenStartFindingIndex, givenContentCellIndex, givenRegex
             );
             assertTrue(actualOptional.isEmpty());
         }
@@ -147,22 +147,22 @@ public final class XWPFTableRowFilteringUtilTest {
 
     private static XWPFTableRow createRowMatchingContent(final boolean match,
                                                          final MockedStatic<XWPFTableRowUtil> mockedRowUtil,
-                                                         final int cellIndexWithContent,
+                                                         final int contentCellIndex,
                                                          final String content) {
         final XWPFTableRow row = mock(XWPFTableRow.class);
         mockedRowUtil.when(
-                () -> isCellTextEqualIgnoringWhitespacesAndCase(same(row), eq(cellIndexWithContent), same(content))
+                () -> isCellTextEqualIgnoringWhitespacesAndCase(same(row), eq(contentCellIndex), same(content))
         ).thenReturn(match);
         return row;
     }
 
     private static XWPFTableRow createRowMatchingContentRegex(final boolean match,
                                                               final MockedStatic<XWPFTableRowUtil> mockedRowUtil,
-                                                              final int cellIndexWithContent,
+                                                              final int contentCellIndex,
                                                               final String regex) {
         final XWPFTableRow row = mock(XWPFTableRow.class);
         mockedRowUtil.when(
-                () -> isCellTextMatchRegex(same(row), eq(cellIndexWithContent), same(regex))
+                () -> isCellTextMatchRegex(same(row), eq(contentCellIndex), same(regex))
         ).thenReturn(match);
         return row;
     }
