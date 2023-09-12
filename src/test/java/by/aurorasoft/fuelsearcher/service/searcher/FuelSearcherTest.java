@@ -33,6 +33,8 @@ public final class FuelSearcherTest {
         throw new RuntimeException();
     }
 
+
+
     private static FuelTable createTable(final String name) {
         final FuelTable givenTable = mock(FuelTable.class);
         when(givenTable.getName()).thenReturn(name);

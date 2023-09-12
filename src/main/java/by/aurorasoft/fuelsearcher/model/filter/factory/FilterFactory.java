@@ -1,8 +1,8 @@
 package by.aurorasoft.fuelsearcher.model.filter.factory;
 
-import by.aurorasoft.fuelsearcher.service.dictionary.Translatable;
 import by.aurorasoft.fuelsearcher.model.filter.Filter;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
+import by.aurorasoft.fuelsearcher.service.dictionary.Translatable;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -12,7 +12,7 @@ public abstract class FilterFactory<F extends Filter<?>, E extends Specification
 
     @Override
     public final String findAlias() {
-        return this.filtrationValueExtractor.findAlias();
+        return this.filtrationValueExtractor.getPropertyName();
     }
 
     public final F create(final int filtrationCellIndex) {
