@@ -7,10 +7,8 @@ import org.mockito.MockedStatic;
 import java.util.List;
 import java.util.OptionalInt;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findIndexFirstRowByContent;
-import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findIndexFirstRowByContentRegex;
-import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellTextEqualIgnoringWhitespacesAndCase;
-import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellTextMatchRegex;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.*;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
@@ -142,7 +140,90 @@ public final class XWPFTableRowFilteringUtilTest {
 
     @Test
     public void unitedRowsShouldBeFound() {
-        throw new RuntimeException();
+        try (final MockedStatic<XWPFTableRowUtil> mockedRowUtil = mockStatic(XWPFTableRowUtil.class)) {
+            final String givenContent = "content";
+            final int givenContentCellIndex = 3;
+
+            final XWPFTableRow firstGivenRow = createRowMatchingContent(
+                    true, mockedRowUtil, givenContentCellIndex, givenContent
+            );
+
+            final XWPFTableRow secondGivenRow = createRowMatchingContent(
+                    true, mockedRowUtil, givenContentCellIndex, givenContent
+            );
+            final XWPFTableRow thirdGivenRow = createChildUnitedRow(mockedRowUtil, givenContentCellIndex);
+
+            final XWPFTableRow fourthGivenRow = mock(XWPFTableRow.class);
+            final XWPFTableRow fifthGivenRow = createChildUnitedRow(mockedRowUtil, givenContentCellIndex);
+
+            final XWPFTableRow sixthGivenRow = createRowMatchingContent(
+                    true, mockedRowUtil, givenContentCellIndex, givenContent
+            );
+            final XWPFTableRow seventhGivenRow = createChildUnitedRow(mockedRowUtil, givenContentCellIndex);
+            final XWPFTableRow eighthGivenRow = createChildUnitedRow(mockedRowUtil, givenContentCellIndex);
+
+            final List<XWPFTableRow> givenRows = List.of(
+                    firstGivenRow,
+                    secondGivenRow,
+                    thirdGivenRow,
+                    fourthGivenRow,
+                    fifthGivenRow,
+                    sixthGivenRow,
+                    seventhGivenRow,
+                    eighthGivenRow
+            );
+
+            final List<XWPFTableRow> actual = findUnitedRowsByContent(givenRows, givenContentCellIndex, givenContent);
+            final List<XWPFTableRow> expected = List.of(
+                    firstGivenRow,
+                    secondGivenRow,
+                    thirdGivenRow,
+                    sixthGivenRow,
+                    seventhGivenRow,
+                    eighthGivenRow
+            );
+            assertEquals(expected, actual);
+        }
+    }
+
+    @Test
+    public void unitedRowsShouldNotBeFound() {
+        try (final MockedStatic<XWPFTableRowUtil> mockedRowUtil = mockStatic(XWPFTableRowUtil.class)) {
+            final String givenContent = "content";
+            final int givenContentCellIndex = 3;
+
+            final XWPFTableRow firstGivenRow = createRowMatchingContent(
+                    false, mockedRowUtil, givenContentCellIndex, givenContent
+            );
+
+            final XWPFTableRow secondGivenRow = createRowMatchingContent(
+                    false, mockedRowUtil, givenContentCellIndex, givenContent
+            );
+            final XWPFTableRow thirdGivenRow = createChildUnitedRow(mockedRowUtil, givenContentCellIndex);
+
+            final XWPFTableRow fourthGivenRow = mock(XWPFTableRow.class);
+            final XWPFTableRow fifthGivenRow = createChildUnitedRow(mockedRowUtil, givenContentCellIndex);
+
+            final XWPFTableRow sixthGivenRow = createRowMatchingContent(
+                    false, mockedRowUtil, givenContentCellIndex, givenContent
+            );
+            final XWPFTableRow seventhGivenRow = createChildUnitedRow(mockedRowUtil, givenContentCellIndex);
+            final XWPFTableRow eighthGivenRow = createChildUnitedRow(mockedRowUtil, givenContentCellIndex);
+
+            final List<XWPFTableRow> givenRows = List.of(
+                    firstGivenRow,
+                    secondGivenRow,
+                    thirdGivenRow,
+                    fourthGivenRow,
+                    fifthGivenRow,
+                    sixthGivenRow,
+                    seventhGivenRow,
+                    eighthGivenRow
+            );
+
+            final List<XWPFTableRow> actual = findUnitedRowsByContent(givenRows, givenContentCellIndex, givenContent);
+            assertTrue(actual.isEmpty());
+        }
     }
 
     private static XWPFTableRow createRowMatchingContent(final boolean match,
@@ -164,6 +245,13 @@ public final class XWPFTableRowFilteringUtilTest {
         mockedRowUtil.when(
                 () -> isCellTextMatchRegex(same(row), eq(contentCellIndex), same(regex))
         ).thenReturn(match);
+        return row;
+    }
+
+    private static XWPFTableRow createChildUnitedRow(final MockedStatic<XWPFTableRowUtil> mockedRowUtil,
+                                                     final int contentCellIndex) {
+        final XWPFTableRow row = mock(XWPFTableRow.class);
+        mockedRowUtil.when(() -> isChildUnitedRow(same(row), eq(contentCellIndex))).thenReturn(true);
         return row;
     }
 }

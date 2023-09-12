@@ -32,9 +32,9 @@ public final class XWPFTableRowUtil {
         return isCellTextMatch(row, cellIndex, expectedRegex, String::matches);
     }
 
-    public static boolean isChildUnitedRow(final XWPFTableRow row, final int cellIndexWithContent) {
-        final XWPFTableCell cellWithContent = row.getCell(cellIndexWithContent);
-        return cellWithContent == null || isEmpty(cellWithContent);
+    public static boolean isChildUnitedRow(final XWPFTableRow row, final int contentCellIndex) {
+        final XWPFTableCell contentCell = row.getCell(contentCellIndex);
+        return contentCell == null || isEmpty(contentCell);
     }
 
     private static <V> V extractCellValue(final XWPFTableRow row,

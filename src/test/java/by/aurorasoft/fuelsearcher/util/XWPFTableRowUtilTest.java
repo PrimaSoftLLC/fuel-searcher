@@ -123,9 +123,9 @@ public final class XWPFTableRowUtilTest {
     @Test
     public void rowShouldBeChildUnitedRowBecauseOfCellWithContentIsNull() {
         final XWPFTableRow givenRow = mock(XWPFTableRow.class);
-        final int givenCellIndexWithContent = 3;
+        final int givenContentCellIndex = 3;
 
-        final boolean actual = isChildUnitedRow(givenRow, givenCellIndexWithContent);
+        final boolean actual = isChildUnitedRow(givenRow, givenContentCellIndex);
         assertTrue(actual);
     }
 
@@ -136,10 +136,10 @@ public final class XWPFTableRowUtilTest {
             mockedCellUtil.when(() -> isEmpty(same(givenCell))).thenReturn(true);
 
             final XWPFTableRow givenRow = mock(XWPFTableRow.class);
-            final int givenCellIndexWithContent = 3;
-            when(givenRow.getCell(eq(givenCellIndexWithContent))).thenReturn(givenCell);
+            final int givenContentCellIndex = 3;
+            when(givenRow.getCell(eq(givenContentCellIndex))).thenReturn(givenCell);
 
-            final boolean actual = isChildUnitedRow(givenRow, givenCellIndexWithContent);
+            final boolean actual = isChildUnitedRow(givenRow, givenContentCellIndex);
             assertTrue(actual);
         }
     }
@@ -151,10 +151,10 @@ public final class XWPFTableRowUtilTest {
             mockedCellUtil.when(() -> isEmpty(same(givenCell))).thenReturn(false);
 
             final XWPFTableRow givenRow = mock(XWPFTableRow.class);
-            final int givenCellIndexWithContent = 3;
-            when(givenRow.getCell(eq(givenCellIndexWithContent))).thenReturn(givenCell);
+            final int givenContentCellIndex = 3;
+            when(givenRow.getCell(eq(givenContentCellIndex))).thenReturn(givenCell);
 
-            final boolean actual = isChildUnitedRow(givenRow, givenCellIndexWithContent);
+            final boolean actual = isChildUnitedRow(givenRow, givenContentCellIndex);
             assertFalse(actual);
         }
     }
