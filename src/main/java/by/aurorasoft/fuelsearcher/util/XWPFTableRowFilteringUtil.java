@@ -71,7 +71,6 @@ public final class XWPFTableRowFilteringUtil {
                 .findFirst();
     }
 
-    //TODO: test
     public static OptionalInt findIndexFirstCellByContent(final XWPFTableRow row, final String content) {
         final List<XWPFTableCell> cells = row.getTableCells();
         return range(0, cells.size())

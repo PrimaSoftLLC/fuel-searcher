@@ -1,6 +1,7 @@
 package by.aurorasoft.fuelsearcher.util;
 
 import by.aurorasoft.fuelsearcher.model.IntPair;
+import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.junit.Test;
 import org.mockito.MockedStatic;
@@ -10,13 +11,15 @@ import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
+import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.isCellTextEqualIgnoringWhitespacesAndCase;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.*;
-import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.*;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellTextEqualIgnoringWhitespacesAndCase;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellTextMatchRegex;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isChildUnitedRow;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.same;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.*;
 
 public final class XWPFTableRowFilteringUtilTest {
 
@@ -336,6 +339,41 @@ public final class XWPFTableRowFilteringUtilTest {
     }
 
     @Test
+    public void indexFirstCellShouldBeFoundByContent() {
+        try (final MockedStatic<XWPFTableCellUtil> mockedCellUtil = mockStatic(XWPFTableCellUtil.class)) {
+            final String givenContent = "content";
+            final List<XWPFTableCell> givenCells = List.of(
+                    createCellMatchingContent(false, mockedCellUtil, givenContent),
+                    createCellMatchingContent(true, mockedCellUtil, givenContent),
+                    createCellMatchingContent(true, mockedCellUtil, givenContent)
+            );
+            final XWPFTableRow givenRow = createRow(givenCells);
+
+            final OptionalInt optionalActual = findIndexFirstCellByContent(givenRow, givenContent);
+            assertTrue(optionalActual.isPresent());
+            final int actual = optionalActual.getAsInt();
+            final int expected = 1;
+            assertEquals(expected, actual);
+        }
+    }
+
+    @Test
+    public void indexFirstCellShouldNotBeFoundByContent() {
+        try (final MockedStatic<XWPFTableCellUtil> mockedCellUtil = mockStatic(XWPFTableCellUtil.class)) {
+            final String givenContent = "content";
+            final List<XWPFTableCell> givenCells = List.of(
+                    createCellMatchingContent(false, mockedCellUtil, givenContent),
+                    createCellMatchingContent(false, mockedCellUtil, givenContent),
+                    createCellMatchingContent(false, mockedCellUtil, givenContent)
+            );
+            final XWPFTableRow givenRow = createRow(givenCells);
+
+            final OptionalInt optionalActual = findIndexFirstCellByContent(givenRow, givenContent);
+            assertTrue(optionalActual.isEmpty());
+        }
+    }
+
+    @Test
     public void rowsShouldBeExtractedByIndexBorders() {
         final XWPFTableRow firstGivenRow = mock(XWPFTableRow.class);
         final XWPFTableRow secondGivenRow = mock(XWPFTableRow.class);
@@ -358,6 +396,7 @@ public final class XWPFTableRowFilteringUtilTest {
         assertEquals(expected, actual);
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static XWPFTableRow createRowMatchingContent(final boolean match,
                                                          final MockedStatic<XWPFTableRowUtil> mockedRowUtil,
                                                          final int contentCellIndex,
@@ -369,6 +408,7 @@ public final class XWPFTableRowFilteringUtilTest {
         return row;
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static XWPFTableRow createRowMatchingContentRegex(final boolean match,
                                                               final MockedStatic<XWPFTableRowUtil> mockedRowUtil,
                                                               final int contentCellIndex,
@@ -380,10 +420,28 @@ public final class XWPFTableRowFilteringUtilTest {
         return row;
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static XWPFTableRow createChildUnitedRow(final MockedStatic<XWPFTableRowUtil> mockedRowUtil,
                                                      final int contentCellIndex) {
         final XWPFTableRow row = mock(XWPFTableRow.class);
         mockedRowUtil.when(() -> isChildUnitedRow(same(row), eq(contentCellIndex))).thenReturn(true);
+        return row;
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    private static XWPFTableCell createCellMatchingContent(final boolean match,
+                                                           final MockedStatic<XWPFTableCellUtil> mockedCellUtil,
+                                                           final String content) {
+        final XWPFTableCell cell = mock(XWPFTableCell.class);
+        mockedCellUtil.when(
+                () -> isCellTextEqualIgnoringWhitespacesAndCase(same(cell), same(content))
+        ).thenReturn(match);
+        return cell;
+    }
+
+    private static XWPFTableRow createRow(final List<XWPFTableCell> cells) {
+        final XWPFTableRow row = mock(XWPFTableRow.class);
+        when(row.getTableCells()).thenReturn(cells);
         return row;
     }
 }
