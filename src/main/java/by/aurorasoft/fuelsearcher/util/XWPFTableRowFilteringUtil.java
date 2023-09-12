@@ -5,9 +5,13 @@ import lombok.experimental.UtilityClass;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
+import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.isCellTextEqualIgnoringWhitespacesAndCase;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellTextEqualIgnoringWhitespacesAndCase;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isChildUnitedRow;
 import static java.util.stream.IntStream.range;
@@ -67,16 +71,17 @@ public final class XWPFTableRowFilteringUtil {
                 .findFirst();
     }
 
+    //TODO: test
     public static OptionalInt findIndexFirstCellByContent(final XWPFTableRow row, final String content) {
         final List<XWPFTableCell> cells = row.getTableCells();
         return range(0, cells.size())
-                .filter(i -> Objects.equals(content, cells.get(i).getText()))
+                .filter(i -> isCellTextEqualIgnoringWhitespacesAndCase(cells.get(i), content))
                 .findFirst();
     }
 
-    public static List<XWPFTableRow> extractRows(final List<XWPFTableRow> rows, final IntPair borders) {
-        final int indexFirstRow = borders.getFirst();
-        final int nextIndexLastRow = borders.getSecond();
+    public static List<XWPFTableRow> extractRows(final List<XWPFTableRow> rows, final IntPair indexBorders) {
+        final int indexFirstRow = indexBorders.getFirst();
+        final int nextIndexLastRow = indexBorders.getSecond();
         return rows.subList(indexFirstRow, nextIndexLastRow);
     }
 

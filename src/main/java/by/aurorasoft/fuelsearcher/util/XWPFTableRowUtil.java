@@ -20,16 +20,18 @@ public final class XWPFTableRowUtil {
         return extractCellValue(row, cellIndex, XWPFTableCellUtil::extractText);
     }
 
+    //TODO: refactor tests
     public static boolean isCellTextEqualIgnoringWhitespacesAndCase(final XWPFTableRow row,
                                                                     final int cellIndex,
                                                                     final String expected) {
-        return isCellTextMatch(row, cellIndex, expected, XWPFContentComparingUtil::areEqualIgnoringWhitespacesAndCase);
+        return isCellTextMatch(row, cellIndex, expected, XWPFTableCellUtil::isCellTextEqualIgnoringWhitespacesAndCase);
     }
 
+    //TODO: refactor tests
     public static boolean isCellTextMatchRegex(final XWPFTableRow row,
                                                final int cellIndex,
                                                final String expectedRegex) {
-        return isCellTextMatch(row, cellIndex, expectedRegex, String::matches);
+        return isCellTextMatch(row, cellIndex, expectedRegex, XWPFTableCellUtil::isCellTextMatchRegex);
     }
 
     public static boolean isChildUnitedRow(final XWPFTableRow row, final int contentCellIndex) {
@@ -47,9 +49,9 @@ public final class XWPFTableRowUtil {
     private static boolean isCellTextMatch(final XWPFTableRow row,
                                            final int cellIndex,
                                            final String compared,
-                                           final BiPredicate<String, String> matchingPredicate) {
-        final String actual = extractCellText(row, cellIndex);
-        return matchingPredicate.test(actual, compared);
+                                           final BiPredicate<XWPFTableCell, String> matchingPredicate) {
+        final XWPFTableCell cell = row.getCell(cellIndex);
+        return matchingPredicate.test(cell, compared);
     }
 
 }
