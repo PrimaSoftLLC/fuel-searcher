@@ -21,7 +21,7 @@ import java.util.function.ToIntFunction;
 import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.extractCellDoubleValue;
-import static by.aurorasoft.fuelsearcher.util.XWPFUtil.findIndexFirstCellByContent;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findIndexFirstCellByContent;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.IntStream.range;

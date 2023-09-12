@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelsearcher.model.filter.conclusive;
 
-import by.aurorasoft.fuelsearcher.util.XWPFUtil;
+import by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.junit.Test;
 import org.mockito.MockedStatic;
@@ -8,7 +8,7 @@ import org.mockito.MockedStatic;
 import java.util.List;
 import java.util.Optional;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFUtil.findFirstRowByContent;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findFirstRowByContent;
 import static java.lang.Integer.MIN_VALUE;
 import static java.util.Optional.empty;
 import static org.junit.Assert.assertSame;
@@ -22,7 +22,7 @@ public final class FinalFilterTest {
 
     @Test
     public void rowsShouldBeFilteredToRow() {
-        try (final MockedStatic<XWPFUtil> mockedUtilities = mockStatic(XWPFUtil.class)) {
+        try (final MockedStatic<XWPFTableRowFilteringUtil> mockedUtilities = mockStatic(XWPFTableRowFilteringUtil.class)) {
             final List<XWPFTableRow> givenRows = List.of(mock(XWPFTableRow.class), mock(XWPFTableRow.class));
             final String givenFiltrationValue = "filtration-value";
             final int givenFiltrationCellIndex = 5;
@@ -44,7 +44,7 @@ public final class FinalFilterTest {
 
     @Test
     public void allRowsShouldBeFiltered() {
-        try (final MockedStatic<XWPFUtil> mockedUtilities = mockStatic(XWPFUtil.class)) {
+        try (final MockedStatic<XWPFTableRowFilteringUtil> mockedUtilities = mockStatic(XWPFTableRowFilteringUtil.class)) {
             final List<XWPFTableRow> givenRows = List.of(mock(XWPFTableRow.class), mock(XWPFTableRow.class));
             final String givenFiltrationValue = "filtration-value";
             final int givenFiltrationCellIndex = 5;

@@ -6,7 +6,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.util.List;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFUtil.findUnitedRowsByContent;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findUnitedRowsByContent;
 
 public abstract class UnitFilter extends InterimFilter {
 

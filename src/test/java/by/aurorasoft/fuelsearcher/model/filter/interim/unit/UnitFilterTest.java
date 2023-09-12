@@ -1,13 +1,13 @@
 package by.aurorasoft.fuelsearcher.model.filter.interim.unit;
 
-import by.aurorasoft.fuelsearcher.util.XWPFUtil;
+import by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.junit.Test;
 import org.mockito.MockedStatic;
 
 import java.util.List;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFUtil.findUnitedRowsByContent;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findUnitedRowsByContent;
 import static java.lang.Integer.MIN_VALUE;
 import static org.junit.Assert.assertSame;
 import static org.mockito.ArgumentMatchers.eq;
@@ -19,7 +19,7 @@ public final class UnitFilterTest {
 
     @Test
     public void rowsShouldBeFiltered() {
-        try (final MockedStatic<XWPFUtil> mockedUtilities = mockStatic(XWPFUtil.class)) {
+        try (final MockedStatic<XWPFTableRowFilteringUtil> mockedUtilities = mockStatic(XWPFTableRowFilteringUtil.class)) {
             final List<XWPFTableRow> givenRows = List.of(
                     mock(XWPFTableRow.class), mock(XWPFTableRow.class), mock(XWPFTableRow.class)
             );

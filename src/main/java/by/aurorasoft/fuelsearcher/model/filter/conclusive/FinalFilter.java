@@ -7,7 +7,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import java.util.List;
 import java.util.Optional;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFUtil.findFirstRowByContent;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findFirstRowByContent;
 
 public abstract class FinalFilter extends Filter<Optional<XWPFTableRow>> {
 

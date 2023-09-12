@@ -1,22 +1,19 @@
 package by.aurorasoft.fuelsearcher.util;
 
-import by.aurorasoft.fuelsearcher.functionalinterface.ThreeArgumentPredicate;
 import by.aurorasoft.fuelsearcher.model.IntPair;
-import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import lombok.experimental.UtilityClass;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.IntStream;
 
 import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.extractText;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellTextEqualIgnoringWhitespacesAndCase;
 import static java.util.stream.IntStream.range;
 
-//TODO: refactor
 @UtilityClass
-public final class XWPFUtil {
+public final class XWPFTableRowFilteringUtil {
     private static final String EMPTY_STRING = "";
 
     public static OptionalInt findIndexFirstRowByContent(final List<XWPFTableRow> rows,
@@ -49,18 +46,10 @@ public final class XWPFUtil {
                                                              final int cellIndexWithContent,
                                                              final String content) {
         return range(0, rows.size())
-                .filter(i -> XWPFTableRowUtil.isCellTextEqualIgnoringWhitespacesAndCase(rows.get(i), cellIndexWithContent, content))
+                .filter(i -> isCellTextEqualIgnoringWhitespacesAndCase(rows.get(i), cellIndexWithContent, content))
                 .mapToObj(indexFirstRow -> extractUnitedRows(rows, indexFirstRow, cellIndexWithContent))
                 .flatMap(Collection::stream)
                 .toList();
-    }
-
-    public static List<XWPFTableRow> findUnitedRowsByContent(final List<XWPFTableRow> rows,
-                                                             final int cellIndexWithContent,
-                                                             final FuelSpecification specification,
-                                                             final Function<FuelSpecification, String> contentExtractor) {
-        final String content = contentExtractor.apply(specification);
-        return findUnitedRowsByContent(rows, cellIndexWithContent, content);
     }
 
     public static IntStream findRowIndexesByContent(final List<XWPFTableRow> rows,
@@ -122,5 +111,10 @@ public final class XWPFUtil {
     private static boolean isRowOfUnitedRows(final XWPFTableRow row, final int cellIndexWithContent) {
         final XWPFTableCell cellWithContent = row.getCell(cellIndexWithContent);
         return cellWithContent == null || Objects.equals(extractText(cellWithContent), EMPTY_STRING);
+    }
+
+    @FunctionalInterface
+    private interface ThreeArgumentPredicate<F, S, T> {
+        boolean test(final F first, final S second, final T third);
     }
 }

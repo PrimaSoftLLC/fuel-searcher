@@ -8,7 +8,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import java.util.Collection;
 import java.util.List;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFUtil.*;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.*;
 
 public abstract class GroupFilter extends InterimFilter {
 
