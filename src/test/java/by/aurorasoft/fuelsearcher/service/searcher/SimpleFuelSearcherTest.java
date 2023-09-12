@@ -9,6 +9,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -19,6 +20,10 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
 public final class SimpleFuelSearcherTest {
+    private static final String FIELD_NAME_TABLE = "table";
+    private static final String FIELD_NAME_FUEL_OFFSETS_BY_HEADERS = "fuelOffsetsByHeaders";
+    private static final String FIELD_NAME_FILTER_CHAIN = "filterChain";
+    private static final String FIELD_NAME_HEADER_EXTRACTOR = "headerExtractor";
 
     @Test
     public void subTableShouldBeFound()
@@ -99,9 +104,8 @@ public final class SimpleFuelSearcherTest {
         assertEquals(expected, actual);
     }
 
-    //TODO: refactor
     @Test
-    public void searcherShouldBeBuilt() {
+    public void searcherShouldBeBuilt() throws Exception {
         final SimpleSearcherBuilder givenBuilder = SimpleFuelSearcher.builder();
         final FuelTable givenFuelTable = mock(FuelTable.class);
         final Map<String, Integer> givenFuelOffsetsByHeaders = emptyMap();
@@ -114,8 +118,18 @@ public final class SimpleFuelSearcherTest {
                 givenFilterChain,
                 givenHeaderExtractor
         );
-        assertNotNull(actual);
-        throw new RuntimeException();
+
+        final FuelTable actualTable = findTable(actual);
+        assertSame(givenFuelTable, actualTable);
+
+        final Map<String, Integer> actualFuelOffsetsByHeaders = findFuelOffsetsByHeaders(actual);
+        assertSame(givenFuelOffsetsByHeaders, actualFuelOffsetsByHeaders);
+
+        final FilterChain actualFilterChain = findFilterChain(actual);
+        assertSame(givenFilterChain, actualFilterChain);
+
+        final SpecificationPropertyExtractor actualHeaderExtractor = findHeaderExtractor(actual);
+        assertSame(givenHeaderExtractor, actualHeaderExtractor);
     }
 
     @Test
@@ -137,6 +151,41 @@ public final class SimpleFuelSearcherTest {
             return constructor.newInstance(null, null, null, null);
         } finally {
             constructor.setAccessible(false);
+        }
+    }
+
+    private static FuelTable findTable(final FuelSearcher searcher)
+            throws Exception {
+        return findProperty(searcher, FIELD_NAME_TABLE, FuelTable.class);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static Map<String, Integer> findFuelOffsetsByHeaders(final FuelSearcher searcher)
+            throws Exception {
+        return findProperty(searcher, FIELD_NAME_FUEL_OFFSETS_BY_HEADERS, Map.class);
+    }
+
+    private static FilterChain findFilterChain(final FuelSearcher searcher)
+            throws Exception {
+        return findProperty(searcher, FIELD_NAME_FILTER_CHAIN, FilterChain.class);
+    }
+
+    private static SpecificationPropertyExtractor findHeaderExtractor(final FuelSearcher searcher)
+            throws Exception {
+        return findProperty(searcher, FIELD_NAME_HEADER_EXTRACTOR, SpecificationPropertyExtractor.class);
+    }
+
+    private static <P> P findProperty(final FuelSearcher searcher,
+                                      final String fieldName,
+                                      final Class<P> propertyType)
+            throws Exception {
+        final Field field = FuelSearcher.class.getDeclaredField(fieldName);
+        field.setAccessible(true);
+        try {
+            final Object property = field.get(searcher);
+            return propertyType.cast(property);
+        } finally {
+            field.setAccessible(false);
         }
     }
 }
