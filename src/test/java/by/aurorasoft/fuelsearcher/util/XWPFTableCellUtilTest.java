@@ -171,6 +171,32 @@ public final class XWPFTableCellUtilTest {
         }
     }
 
+    @Test
+    public void cellTextShouldMatchRegex() {
+        try (final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil = mockStatic(XWPFParagraphUtil.class)) {
+            final String givenText = "cell-text";
+            final XWPFTableCell givenCell = createCell(givenText, mockedParagraphUtil);
+
+            final String givenRegex = "cell-text";
+
+            final boolean actual = isCellTextMatchRegex(givenCell, givenRegex);
+            assertTrue(actual);
+        }
+    }
+
+    @Test
+    public void cellTextShouldNotMatchRegex() {
+        try (final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil = mockStatic(XWPFParagraphUtil.class)) {
+            final String givenText = "cell-text";
+            final XWPFTableCell givenCell = createCell(givenText, mockedParagraphUtil);
+
+            final String givenRegex = "cell-tex";
+
+            final boolean actual = isCellTextMatchRegex(givenCell, givenRegex);
+            assertFalse(actual);
+        }
+    }
+
     private static XWPFTableCell createCell(final XWPFParagraph... paragraphs) {
         final List<XWPFParagraph> paragraphsAsList = paragraphs != null ? asList(paragraphs) : emptyList();
         final XWPFTableCell cell = mock(XWPFTableCell.class);

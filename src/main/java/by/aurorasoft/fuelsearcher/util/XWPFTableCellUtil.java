@@ -46,7 +46,6 @@ public final class XWPFTableCellUtil {
         );
     }
 
-    //TODO: test
     public static boolean isCellTextMatchRegex(final XWPFTableCell cell, final String regex) {
         return isCellTextMatch(
                 cell,
