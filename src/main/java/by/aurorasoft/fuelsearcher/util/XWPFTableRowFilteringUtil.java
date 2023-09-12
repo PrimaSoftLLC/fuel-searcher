@@ -44,8 +44,7 @@ public final class XWPFTableRowFilteringUtil {
     public static List<XWPFTableRow> findUnitedRowsByContent(final List<XWPFTableRow> rows,
                                                              final int contentCellIndex,
                                                              final String content) {
-        return range(0, rows.size())
-                .filter(i -> isCellTextEqualIgnoringWhitespacesAndCase(rows.get(i), contentCellIndex, content))
+        return findRowIndexesByContent(rows, contentCellIndex, content)
                 .mapToObj(indexFirstRow -> extractUnitedRows(rows, indexFirstRow, contentCellIndex))
                 .flatMap(Collection::stream)
                 .toList();
@@ -55,7 +54,7 @@ public final class XWPFTableRowFilteringUtil {
                                                     final int contentCellIndex,
                                                     final String content) {
         return range(0, rows.size())
-                .filter(i -> rows.get(i).getCell(contentCellIndex).getText().equals(content));
+                .filter(i -> isCellTextEqualIgnoringWhitespacesAndCase(rows.get(i), contentCellIndex, content));
     }
 
 

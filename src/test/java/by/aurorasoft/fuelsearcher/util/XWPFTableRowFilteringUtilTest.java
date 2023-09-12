@@ -6,11 +6,11 @@ import org.mockito.MockedStatic;
 
 import java.util.List;
 import java.util.OptionalInt;
+import java.util.stream.IntStream;
 
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.*;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.mock;
@@ -223,6 +223,53 @@ public final class XWPFTableRowFilteringUtilTest {
 
             final List<XWPFTableRow> actual = findUnitedRowsByContent(givenRows, givenContentCellIndex, givenContent);
             assertTrue(actual.isEmpty());
+        }
+    }
+
+    @Test
+    public void rowIndexesShouldBeFoundByContent() {
+        try (final MockedStatic<XWPFTableRowUtil> mockedRowUtil = mockStatic(XWPFTableRowUtil.class)) {
+            final String givenContent = "content";
+            final int givenContentCellIndex = 3;
+
+            final List<XWPFTableRow> givenRows = List.of(
+                    createRowMatchingContent(false, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(false, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(true, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(true, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(true, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(false, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(true, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(false, mockedRowUtil, givenContentCellIndex, givenContent)
+            );
+
+            final IntStream actual = findRowIndexesByContent(givenRows, givenContentCellIndex, givenContent);
+            final int[] actualAsArray = actual.toArray();
+            final int[] expectedAsArray = {2, 3, 4, 6};
+            assertArrayEquals(expectedAsArray, actualAsArray);
+        }
+    }
+
+    @Test
+    public void rowIndexShouldNotBeFoundByContent() {
+        try (final MockedStatic<XWPFTableRowUtil> mockedRowUtil = mockStatic(XWPFTableRowUtil.class)) {
+            final String givenContent = "content";
+            final int givenContentCellIndex = 3;
+
+            final List<XWPFTableRow> givenRows = List.of(
+                    createRowMatchingContent(false, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(false, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(false, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(false, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(false, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(false, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(false, mockedRowUtil, givenContentCellIndex, givenContent),
+                    createRowMatchingContent(false, mockedRowUtil, givenContentCellIndex, givenContent)
+            );
+
+            final IntStream actual = findRowIndexesByContent(givenRows, givenContentCellIndex, givenContent);
+            final boolean actualEmpty = actual.findFirst().isEmpty();
+            assertTrue(actualEmpty);
         }
     }
 
