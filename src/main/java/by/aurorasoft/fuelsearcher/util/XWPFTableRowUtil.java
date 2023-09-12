@@ -20,14 +20,12 @@ public final class XWPFTableRowUtil {
         return extractCellValue(row, cellIndex, XWPFTableCellUtil::extractText);
     }
 
-    //TODO: refactor tests
     public static boolean isCellTextEqualIgnoringWhitespacesAndCase(final XWPFTableRow row,
                                                                     final int cellIndex,
                                                                     final String expected) {
         return isCellTextMatch(row, cellIndex, expected, XWPFTableCellUtil::isCellTextEqualIgnoringWhitespacesAndCase);
     }
 
-    //TODO: refactor tests
     public static boolean isCellTextMatchRegex(final XWPFTableRow row,
                                                final int cellIndex,
                                                final String expectedRegex) {

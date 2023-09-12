@@ -38,10 +38,10 @@ public final class XWPFTableCellUtil {
         return !text.equals(NOT_DEFINED_DOUBLE_VALUE_ALIAS) ? parseDouble(text) : NOT_DEFINED_DOUBLE;
     }
 
-    public static boolean isCellTextEqualIgnoringWhitespacesAndCase(final XWPFTableCell cell, final String compared) {
+    public static boolean isCellTextEqualIgnoringWhitespacesAndCase(final XWPFTableCell cell, final String expected) {
         return isCellTextMatch(
                 cell,
-                compared,
+                expected,
                 XWPFContentComparingUtil::areEqualIgnoringWhitespacesAndCase
         );
     }

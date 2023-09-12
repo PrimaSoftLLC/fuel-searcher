@@ -5,8 +5,11 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.junit.Test;
 import org.mockito.MockedStatic;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFContentComparingUtil.areEqualIgnoringWhitespacesAndCase;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.isCellTextEqualIgnoringWhitespacesAndCase;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.isCellTextMatchRegex;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.*;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellTextEqualIgnoringWhitespacesAndCase;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellTextMatchRegex;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.*;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.eq;
@@ -50,15 +53,12 @@ public final class XWPFTableRowUtilTest {
         final int givenCellIndex = 6;
         final XWPFTableCell givenCell = createRowCell(givenRow, givenCellIndex);
 
-        try (final MockedStatic<XWPFTableCellUtil> mockedCellUtil = mockStatic(XWPFTableCellUtil.class);
-             final MockedStatic<XWPFContentComparingUtil> mockedContentComparingUtil = mockStatic(XWPFContentComparingUtil.class)) {
-            final String givenText = "cell-text";
-            mockedCellUtil.when(() -> extractText(same(givenCell))).thenReturn(givenText);
-
+        try (final MockedStatic<XWPFTableCellUtil> mockedCellUtil = mockStatic(XWPFTableCellUtil.class)) {
             final String givenExpected = "cell-text";
-            mockedContentComparingUtil
-                    .when(() -> areEqualIgnoringWhitespacesAndCase(same(givenText), same(givenExpected)))
-                    .thenReturn(true);
+
+            mockedCellUtil.when(
+                    () -> isCellTextEqualIgnoringWhitespacesAndCase(same(givenCell), same(givenExpected))
+            ).thenReturn(true);
 
             final boolean actual = isCellTextEqualIgnoringWhitespacesAndCase(givenRow, givenCellIndex, givenExpected);
             assertTrue(actual);
@@ -71,15 +71,12 @@ public final class XWPFTableRowUtilTest {
         final int givenCellIndex = 6;
         final XWPFTableCell givenCell = createRowCell(givenRow, givenCellIndex);
 
-        try (final MockedStatic<XWPFTableCellUtil> mockedCellUtil = mockStatic(XWPFTableCellUtil.class);
-             final MockedStatic<XWPFContentComparingUtil> mockedContentComparingUtil = mockStatic(XWPFContentComparingUtil.class)) {
-            final String givenText = "cell-text";
-            mockedCellUtil.when(() -> extractText(same(givenCell))).thenReturn(givenText);
+        try (final MockedStatic<XWPFTableCellUtil> mockedCellUtil = mockStatic(XWPFTableCellUtil.class)) {
+            final String givenExpected = "cell-text";
 
-            final String givenExpected = "cell-text-2";
-            mockedContentComparingUtil
-                    .when(() -> areEqualIgnoringWhitespacesAndCase(same(givenText), same(givenExpected)))
-                    .thenReturn(false);
+            mockedCellUtil.when(
+                    () -> isCellTextEqualIgnoringWhitespacesAndCase(same(givenCell), same(givenExpected))
+            ).thenReturn(false);
 
             final boolean actual = isCellTextEqualIgnoringWhitespacesAndCase(givenRow, givenCellIndex, givenExpected);
             assertFalse(actual);
@@ -93,10 +90,11 @@ public final class XWPFTableRowUtilTest {
         final XWPFTableCell givenCell = createRowCell(givenRow, givenCellIndex);
 
         try (final MockedStatic<XWPFTableCellUtil> mockedCellUtil = mockStatic(XWPFTableCellUtil.class)) {
-            final String givenText = "445";
-            mockedCellUtil.when(() -> extractText(same(givenCell))).thenReturn(givenText);
+            final String givenRegex = "cell-text";
 
-            final String givenRegex = "\\d+";
+            mockedCellUtil.when(
+                    () -> isCellTextMatchRegex(same(givenCell), same(givenRegex))
+            ).thenReturn(true);
 
             final boolean actual = isCellTextMatchRegex(givenRow, givenCellIndex, givenRegex);
             assertTrue(actual);
@@ -110,10 +108,11 @@ public final class XWPFTableRowUtilTest {
         final XWPFTableCell givenCell = createRowCell(givenRow, givenCellIndex);
 
         try (final MockedStatic<XWPFTableCellUtil> mockedCellUtil = mockStatic(XWPFTableCellUtil.class)) {
-            final String givenText = "445.5";
-            mockedCellUtil.when(() -> extractText(same(givenCell))).thenReturn(givenText);
+            final String givenRegex = "cell-text";
 
-            final String givenRegex = "\\d+";
+            mockedCellUtil.when(
+                    () -> isCellTextMatchRegex(same(givenCell), same(givenRegex))
+            ).thenReturn(false);
 
             final boolean actual = isCellTextMatchRegex(givenRow, givenCellIndex, givenRegex);
             assertFalse(actual);

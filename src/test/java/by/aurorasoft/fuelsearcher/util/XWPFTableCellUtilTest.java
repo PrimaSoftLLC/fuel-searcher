@@ -144,12 +144,12 @@ public final class XWPFTableCellUtilTest {
             final String givenText = "cell-text";
             final XWPFTableCell givenCell = createCell(givenText, mockedParagraphUtil);
 
-            final String givenCompared = "CELL -    text";
+            final String givenExpected = "CELL -    text";
             mockedContentComparingUtil.when(
-                    () -> areEqualIgnoringWhitespacesAndCase(eq(givenText), same(givenCompared))
+                    () -> areEqualIgnoringWhitespacesAndCase(eq(givenText), same(givenExpected))
             ).thenReturn(true);
 
-            final boolean actual = isCellTextEqualIgnoringWhitespacesAndCase(givenCell, givenCompared);
+            final boolean actual = isCellTextEqualIgnoringWhitespacesAndCase(givenCell, givenExpected);
             assertTrue(actual);
         }
     }
@@ -161,12 +161,12 @@ public final class XWPFTableCellUtilTest {
             final String givenText = "cell-text";
             final XWPFTableCell givenCell = createCell(givenText, mockedParagraphUtil);
 
-            final String givenCompared = "CELL -    text text";
+            final String givenExpected = "CELL -    text text";
             mockedContentComparingUtil.when(
-                    () -> areEqualIgnoringWhitespacesAndCase(eq(givenText), same(givenCompared))
+                    () -> areEqualIgnoringWhitespacesAndCase(eq(givenText), same(givenExpected))
             ).thenReturn(false);
 
-            final boolean actual = isCellTextEqualIgnoringWhitespacesAndCase(givenCell, givenCompared);
+            final boolean actual = isCellTextEqualIgnoringWhitespacesAndCase(givenCell, givenExpected);
             assertFalse(actual);
         }
     }
@@ -204,6 +204,7 @@ public final class XWPFTableCellUtilTest {
         return cell;
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static XWPFTableCell createCell(final String text,
                                             final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil) {
         final XWPFParagraph paragraph = mock(XWPFParagraph.class);
