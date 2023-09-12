@@ -8,13 +8,12 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import java.util.*;
 import java.util.stream.IntStream;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.extractText;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellTextEqualIgnoringWhitespacesAndCase;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isChildUnitedRow;
 import static java.util.stream.IntStream.range;
 
 @UtilityClass
 public final class XWPFTableRowFilteringUtil {
-    private static final String EMPTY_STRING = "";
 
     public static OptionalInt findIndexFirstRowByContent(final List<XWPFTableRow> rows,
                                                          final int cellIndexWithContent,
@@ -95,22 +94,21 @@ public final class XWPFTableRowFilteringUtil {
     private static List<XWPFTableRow> extractUnitedRows(final List<XWPFTableRow> rows,
                                                         final int indexFirstRow,
                                                         final int cellIndexWithContent) {
-        final int nextIndexLastRow = findNextIndexLastRowOfUnitedRows(rows, indexFirstRow, cellIndexWithContent);
-        return rows.subList(indexFirstRow, nextIndexLastRow);
+        final int nextIndexLastChildUnitedRow = findNextIndexLastChildUnitedRow(
+                rows,
+                indexFirstRow,
+                cellIndexWithContent
+        );
+        return rows.subList(indexFirstRow, nextIndexLastChildUnitedRow);
     }
 
-    private static int findNextIndexLastRowOfUnitedRows(final List<XWPFTableRow> rows,
-                                                        final int indexFirstRow,
-                                                        final int cellIndexWithContent) {
+    private static int findNextIndexLastChildUnitedRow(final List<XWPFTableRow> rows,
+                                                       final int indexFirstRow,
+                                                       final int cellIndexWithContent) {
         return range(indexFirstRow + 1, rows.size())
-                .dropWhile(rowIndex -> isRowOfUnitedRows(rows.get(rowIndex), cellIndexWithContent))
+                .dropWhile(rowIndex -> isChildUnitedRow(rows.get(rowIndex), cellIndexWithContent))
                 .findFirst()
                 .orElse(rows.size());
-    }
-
-    private static boolean isRowOfUnitedRows(final XWPFTableRow row, final int cellIndexWithContent) {
-        final XWPFTableCell cellWithContent = row.getCell(cellIndexWithContent);
-        return cellWithContent == null || Objects.equals(extractText(cellWithContent), EMPTY_STRING);
     }
 
     @FunctionalInterface

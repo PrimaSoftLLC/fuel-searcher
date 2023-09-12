@@ -140,6 +140,11 @@ public final class XWPFTableRowFilteringUtilTest {
         }
     }
 
+    @Test
+    public void unitedRowsShouldBeFound() {
+        throw new RuntimeException();
+    }
+
     private static XWPFTableRow createRowMatchingContent(final boolean match,
                                                          final MockedStatic<XWPFTableRowUtil> mockedRowUtil,
                                                          final int cellIndexWithContent,
