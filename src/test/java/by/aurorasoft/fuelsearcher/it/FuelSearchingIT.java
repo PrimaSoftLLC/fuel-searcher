@@ -2,12 +2,15 @@ package by.aurorasoft.fuelsearcher.it;
 
 import by.aurorasoft.fuelsearcher.base.AbstractContextTest;
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.TableFuelSearchingArgumentsProvider;
+import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.NotAcceptableFuelSearchingArguments;
+import by.aurorasoft.fuelsearcher.it.argumentsprovider.notacceptable.*;
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.notfound.*;
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.success.*;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -22,8 +25,7 @@ import java.util.stream.Stream;
 import static by.aurorasoft.fuelsearcher.testutil.FuelControllerRequestUtil.doRequest;
 import static by.aurorasoft.fuelsearcher.testutil.FuelControllerRequestUtil.isNoSuchFuelError;
 import static org.junit.Assert.assertTrue;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 
 @AutoConfigureMockMvc
 public final class FuelSearchingIT extends AbstractContextTest {
@@ -87,6 +89,36 @@ public final class FuelSearchingIT extends AbstractContextTest {
             new TwentySeventhNotFoundTableFuelSearchingArgumentsProvider()
     );
 
+    private static final List<NotAcceptableTableFuelSearchingArgumentsProvider> NOT_ACCEPTABLE_ARGUMENTS_PROVIDERS = List.of(
+            new FirstNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new SecondNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new ThirdNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new FourthNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new FifthNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new SixthNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new SeventhNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new EighthNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new NinthNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new TenthNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new EleventhNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new TwelfthNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new ThirteenNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new FourteenthNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new FifteenthNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new SixteenthNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new SeventeenthNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new EighteenthNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new NineteenthNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new TwentiethNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new TwentyFirstNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new TwentySecondNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new TwentyThirdNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new TwentyFourthNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new TwentyFifthNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new TwentySixthNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new TwentySeventhNotAcceptableTableFuelSearchingArgumentsProvider()
+    );
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -111,12 +143,25 @@ public final class FuelSearchingIT extends AbstractContextTest {
         assertTrue(testSuccess);
     }
 
+    @ParameterizedTest
+    @MethodSource("notAcceptableFuelSearchingArgumentsProvider")
+    public void fuelShouldNotBeFoundBecauseOfNotValidSpecification(final FuelSpecification specification,
+                                                                   final String[] failedPropertyNames)
+            throws Exception {
+        final String actualResponse = doRequest(this.mockMvc, specification, NOT_ACCEPTABLE);
+        System.out.println();
+    }
+
     private static Stream<Arguments> successFuelSearchingArgumentsProvider() {
         return SUCCESS_ARGUMENTS_PROVIDERS.stream().flatMap(TableFuelSearchingArgumentsProvider::provide);
     }
 
     private static Stream<Arguments> notFoundFuelSearchingArgumentsProvider() {
         return NOT_FOUND_ARGUMENTS_PROVIDERS.stream().flatMap(TableFuelSearchingArgumentsProvider::provide);
+    }
+
+    private static Stream<Arguments> notAcceptableFuelSearchingArgumentsProvider() {
+        return NOT_ACCEPTABLE_ARGUMENTS_PROVIDERS.stream().flatMap(TableFuelSearchingArgumentsProvider::provide);
     }
 
     private boolean isFuelSearchingSuccess(final String actualResponse, final Fuel expectedFuel) {
