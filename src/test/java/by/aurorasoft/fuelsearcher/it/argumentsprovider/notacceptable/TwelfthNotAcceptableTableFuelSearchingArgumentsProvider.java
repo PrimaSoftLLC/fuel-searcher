@@ -25,7 +25,7 @@ public final class TwelfthNotAcceptableTableFuelSearchingArgumentsProvider
                                 .routingLength("Менее 150")
                                 .fertilizerType("Гранулированные удобрения")
                                 .build())
-                        .failedPropertyNames(Set.of("норма внесения удобрений"))
+                        .failedPropertyNames(Set.of("норма внесения"))
                         .build()
         );
     }

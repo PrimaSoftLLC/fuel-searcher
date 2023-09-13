@@ -83,7 +83,7 @@ public class FuelSpecification {
     String chargingMethodAndTransportDistance;
 
     /**
-     * норма внесения удобрений
+     * норма внесения
      */
     String spreadRate;
 

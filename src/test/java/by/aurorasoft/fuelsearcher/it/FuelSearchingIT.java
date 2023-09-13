@@ -21,8 +21,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelsearcher.testutil.FuelControllerRequestUtil.doRequest;
-import static by.aurorasoft.fuelsearcher.testutil.FuelControllerRequestUtil.isNoSuchFuelError;
+import static by.aurorasoft.fuelsearcher.testutil.FuelControllerRequestUtil.*;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.http.HttpStatus.*;
 
@@ -145,10 +145,13 @@ public final class FuelSearchingIT extends AbstractContextTest {
     @ParameterizedTest
     @MethodSource("notAcceptableFuelSearchingArgumentsProvider")
     public void fuelShouldNotBeFoundBecauseOfNotValidSpecification(final FuelSpecification specification,
-                                                                   final Set<String> failedPropertyNames)
+                                                                   final Set<String> expectedFailedPropertyNames)
             throws Exception {
         final String actualResponse = doRequest(this.mockMvc, specification, NOT_ACCEPTABLE);
-        
+        assertTrue(isNotValidSpecificationError(actualResponse));
+
+        final Set<String> actualFailedPropertyNames = findFailedPropertyNames(actualResponse);
+        assertEquals(expectedFailedPropertyNames, actualFailedPropertyNames);
     }
 
     private static Stream<Arguments> successFuelSearchingArgumentsProvider() {
