@@ -3,6 +3,7 @@ package by.aurorasoft.fuelsearcher.it.argumentsprovider.notacceptable;
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.NotAcceptableFuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpecificationBuilder;
 
+import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -22,7 +23,7 @@ public final class FourteenthNotAcceptableTableFuelSearchingArgumentsProvider ex
                                 .spreadRate("Менее 30")
                                 .roadGroup("Первая группа дорог")
                                 .build())
-                        .failedPropertyNames(new String[]{"трактор", "механизм"})
+                        .failedPropertyNames(List.of("трактор", "механизм"))
                         .build()
         );
     }
