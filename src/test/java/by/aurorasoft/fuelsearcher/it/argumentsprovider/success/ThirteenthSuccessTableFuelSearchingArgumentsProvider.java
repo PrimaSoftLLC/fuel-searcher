@@ -7,10 +7,10 @@ import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpec
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-public final class ThirteenSuccessTableFuelSearchingArgumentsProvider extends SuccessTableFuelSearchingArgumentsProvider {
+public final class ThirteenthSuccessTableFuelSearchingArgumentsProvider extends SuccessTableFuelSearchingArgumentsProvider {
     private static final String TABLE_NAME = "ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ";
 
-    public ThirteenSuccessTableFuelSearchingArgumentsProvider() {
+    public ThirteenthSuccessTableFuelSearchingArgumentsProvider() {
         super(TABLE_NAME);
     }
 
