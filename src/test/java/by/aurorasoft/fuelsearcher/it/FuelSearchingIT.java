@@ -146,7 +146,7 @@ public final class FuelSearchingIT extends AbstractContextTest {
     @ParameterizedTest
     @MethodSource("notAcceptableFuelSearchingArgumentsProvider")
     public void fuelShouldNotBeFoundBecauseOfNotValidSpecification(final FuelSpecification specification,
-                                                                   final String[] failedPropertyNames)
+                                                                   final List<String> failedPropertyNames)
             throws Exception {
         final String actualResponse = doRequest(this.mockMvc, specification, NOT_ACCEPTABLE);
         System.out.println();

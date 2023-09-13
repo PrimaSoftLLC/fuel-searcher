@@ -3,6 +3,7 @@ package by.aurorasoft.fuelsearcher.it.argumentsprovider.notacceptable;
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.NotAcceptableFuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpecificationBuilder;
 
+import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -22,7 +23,7 @@ public final class SeventhNotAcceptableTableFuelSearchingArgumentsProvider exten
                                 .machinery("Horsch Serto 12 SC")
                                 .workingWidth("12")
                                 .build())
-                        .failedPropertyNames(new String[]{"норма высева", "длина гона"})
+                        .failedPropertyNames(List.of("норма высева", "длина гона"))
                         .build()
         );
     }
