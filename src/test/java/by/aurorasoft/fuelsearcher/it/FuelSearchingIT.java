@@ -20,7 +20,9 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelsearcher.testutil.FuelControllerRequestUtil.doRequest;
+import static by.aurorasoft.fuelsearcher.testutil.FuelControllerRequestUtil.isNoSuchFuelError;
 import static org.junit.Assert.assertTrue;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 
 @AutoConfigureMockMvc
@@ -100,8 +102,21 @@ public final class FuelSearchingIT extends AbstractContextTest {
         assertTrue(testSuccess);
     }
 
+    @ParameterizedTest
+    @MethodSource("notFoundFuelSearchingArgumentsProvider")
+    public void fuelShouldNotBeFound(final FuelSpecification specification)
+            throws Exception {
+        final String actualResponse = doRequest(this.mockMvc, specification, NOT_FOUND);
+        final boolean testSuccess = isNoSuchFuelError(actualResponse);
+        assertTrue(testSuccess);
+    }
+
     private static Stream<Arguments> successFuelSearchingArgumentsProvider() {
         return SUCCESS_ARGUMENTS_PROVIDERS.stream().flatMap(TableFuelSearchingArgumentsProvider::provide);
+    }
+
+    private static Stream<Arguments> notFoundFuelSearchingArgumentsProvider() {
+        return NOT_FOUND_ARGUMENTS_PROVIDERS.stream().flatMap(TableFuelSearchingArgumentsProvider::provide);
     }
 
     private boolean isFuelSearchingSuccess(final String actualResponse, final Fuel expectedFuel) {
