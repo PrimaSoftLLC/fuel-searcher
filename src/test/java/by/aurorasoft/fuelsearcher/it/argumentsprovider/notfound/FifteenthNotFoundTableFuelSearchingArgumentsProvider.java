@@ -1,7 +1,6 @@
 package by.aurorasoft.fuelsearcher.it.argumentsprovider.notfound;
 
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.NotFoundFuelSearchingArguments;
-import by.aurorasoft.fuelsearcher.it.temp.argumentsprovider.model.FuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpecificationBuilder;
 
 import java.util.function.Supplier;
