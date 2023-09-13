@@ -1,11 +1,11 @@
 package by.aurorasoft.fuelsearcher.it;
 
 import by.aurorasoft.fuelsearcher.base.AbstractContextTest;
+import by.aurorasoft.fuelsearcher.it.argumentsprovider.TableFuelSearchingArgumentsProvider;
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.success.*;
-import by.aurorasoft.fuelsearcher.it.temp.argumentsprovider.TableFuelSearchingArgumentsProvider;
-import by.aurorasoft.fuelsearcher.it.temp.argumentsprovider.TwentiethTableFuelSearchingArgumentsProvider;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -15,7 +15,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
+
+import static by.aurorasoft.fuelsearcher.testutil.FuelControllerRequestUtil.doRequest;
+import static org.junit.Assert.assertTrue;
+import static org.springframework.http.HttpStatus.OK;
 
 @AutoConfigureMockMvc
 public final class FuelSearchingIT extends AbstractContextTest {
@@ -39,8 +44,14 @@ public final class FuelSearchingIT extends AbstractContextTest {
             new SeventeenthSuccessTableFuelSearchingArgumentsProvider(),
             new EighteenthSuccessTableFuelSearchingArgumentsProvider(),
             new NineteenthSuccessTableFuelSearchingArgumentsProvider(),
-            new Twen(),
-
+            new TwentiethSuccessTableFuelSearchingArgumentsProvider(),
+            new TwentyFirstSuccessTableFuelSearchingArgumentsProvider(),
+            new TwentySecondSuccessTableFuelSearchingArgumentsProvider(),
+            new TwentyThirdSuccessTableFuelSearchingArgumentsProvider(),
+            new TwentyFourthSuccessTableFuelSearchingArgumentsProvider(),
+            new TwentyFifthSuccessTableFuelSearchingArgumentsProvider(),
+            new TwentySixthSuccessTableFuelSearchingArgumentsProvider(),
+            new TwentySeventhSuccessTableFuelSearchingArgumentsProvider()
     );
 
     @Autowired
@@ -50,12 +61,28 @@ public final class FuelSearchingIT extends AbstractContextTest {
     private ObjectMapper objectMapper;
 
     @ParameterizedTest
-    @MethodSource("fuelSearchingArgumentsProvider")
-    public void fuelShouldBeFound(final FuelSpecification specification, final Fuel expected) {
-
+    @MethodSource("successFuelSearchingArgumentsProvider")
+    public void fuelShouldBeFound(final FuelSpecification specification, final Fuel expected)
+            throws Exception {
+        final String actualResponse = doRequest(this.mockMvc, specification, OK);
+        final boolean testSuccess = this.isFuelSearchingSuccess(actualResponse, expected);
+        assertTrue(testSuccess);
     }
 
     private static Stream<Arguments> successFuelSearchingArgumentsProvider() {
-        return ARGUMENTS_PROVIDERS.stream().flatMap(TableFuelSearchingArgumentsProvider::provide);
+        return SUCCESS_ARGUMENTS_PROVIDERS.stream().flatMap(TableFuelSearchingArgumentsProvider::provide);
+    }
+
+    private boolean isFuelSearchingSuccess(final String actualResponse, final Fuel expectedFuel) {
+        final String expectedResponse = this.mapToJson(expectedFuel);
+        return Objects.equals(expectedResponse, actualResponse);
+    }
+
+    private String mapToJson(final Fuel fuel) {
+        try {
+            return this.objectMapper.writeValueAsString(fuel);
+        } catch (final JsonProcessingException cause) {
+            throw new RuntimeException(cause);
+        }
     }
 }

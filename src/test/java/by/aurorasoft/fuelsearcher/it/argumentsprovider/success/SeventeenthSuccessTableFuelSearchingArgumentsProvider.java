@@ -43,14 +43,6 @@ public final class SeventeenthSuccessTableFuelSearchingArgumentsProvider extends
                                 .routingLength("Более 1000")
                                 .build())
                         .expected(new Fuel(45.2, 1.4))
-                        .build(),
-                SuccessFuelSearchingArguments.builder()
-                        .specification(specificationBuilderSupplier.get()
-                                .tractor("not existing")
-                                .machinery("Tonutti Millennium V16")
-                                .workingWidth("9.6")
-                                .routingLength("Более 1000")
-                                .build())
                         .build()
         );
     }
