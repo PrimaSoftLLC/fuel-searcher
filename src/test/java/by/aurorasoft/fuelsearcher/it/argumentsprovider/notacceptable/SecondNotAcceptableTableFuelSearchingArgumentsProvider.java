@@ -3,6 +3,7 @@ package by.aurorasoft.fuelsearcher.it.argumentsprovider.notacceptable;
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.NotAcceptableFuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpecificationBuilder;
 
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -22,7 +23,7 @@ public final class SecondNotAcceptableTableFuelSearchingArgumentsProvider extend
                                 .machinery("Lemken EuroTitan 10 8+3+1")
                                 .corpusCount("12")
                                 .build())
-                        .failedPropertyNames(new String[]{"длина гона", "глубина вспашки", "удельное сопротивление"})
+                        .failedPropertyNames(Set.of("длина гона", "глубина вспашки", "удельное сопротивление"))
                         .build()
         );
     }

@@ -3,7 +3,7 @@ package by.aurorasoft.fuelsearcher.it.argumentsprovider.notacceptable;
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.NotAcceptableFuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpecificationBuilder;
 
-import java.util.List;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -24,7 +24,7 @@ public final class FourthNotAcceptableTableFuelSearchingArgumentsProvider extend
                                 .routingLength("Менее 150")
                                 .processingDepth("Глубина обработки 6...8 см")
                                 .build())
-                        .failedPropertyNames(List.of("трактор"))
+                        .failedPropertyNames(Set.of("трактор"))
                         .build()
         );
     }

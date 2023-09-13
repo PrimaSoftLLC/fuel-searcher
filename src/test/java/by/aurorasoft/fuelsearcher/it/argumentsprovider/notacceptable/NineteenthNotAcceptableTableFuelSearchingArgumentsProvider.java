@@ -3,6 +3,7 @@ package by.aurorasoft.fuelsearcher.it.argumentsprovider.notacceptable;
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.NotAcceptableFuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpecificationBuilder;
 
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -22,7 +23,7 @@ public final class NineteenthNotAcceptableTableFuelSearchingArgumentsProvider ex
                                 .workingWidth("5.5")
                                 .yield("До 1")
                                 .build())
-                        .failedPropertyNames(new String[]{"механизм", "длина гона"})
+                        .failedPropertyNames(Set.of("механизм", "длина гона"))
                         .build()
         );
     }

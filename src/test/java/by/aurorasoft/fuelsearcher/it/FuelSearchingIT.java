@@ -2,7 +2,6 @@ package by.aurorasoft.fuelsearcher.it;
 
 import by.aurorasoft.fuelsearcher.base.AbstractContextTest;
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.TableFuelSearchingArgumentsProvider;
-import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.NotAcceptableFuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.notacceptable.*;
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.notfound.*;
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.success.*;
@@ -10,7 +9,6 @@ import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -20,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelsearcher.testutil.FuelControllerRequestUtil.doRequest;
@@ -146,7 +145,7 @@ public final class FuelSearchingIT extends AbstractContextTest {
     @ParameterizedTest
     @MethodSource("notAcceptableFuelSearchingArgumentsProvider")
     public void fuelShouldNotBeFoundBecauseOfNotValidSpecification(final FuelSpecification specification,
-                                                                   final List<String> failedPropertyNames)
+                                                                   final Set<String> failedPropertyNames)
             throws Exception {
         final String actualResponse = doRequest(this.mockMvc, specification, NOT_ACCEPTABLE);
         System.out.println();

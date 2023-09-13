@@ -3,6 +3,7 @@ package by.aurorasoft.fuelsearcher.it.argumentsprovider.notacceptable;
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.NotAcceptableFuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpecificationBuilder;
 
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -22,7 +23,7 @@ public final class EighteenthNotAcceptableTableFuelSearchingArgumentsProvider ex
                                 .machinery("Krone Swadro 807")
                                 .workingWidth("6.2")
                                 .build())
-                        .failedPropertyNames(new String[]{"длина гона"})
+                        .failedPropertyNames(Set.of("длина гона"))
                         .build()
         );
     }
