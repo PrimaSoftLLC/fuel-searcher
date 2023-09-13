@@ -7,9 +7,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import static java.lang.String.join;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.util.regex.Pattern.compile;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -17,8 +22,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @UtilityClass
 public final class FuelControllerRequestUtil {
     private static final String CONTROLLER_URL = "/fuel";
-
-    private static final String EXPECTED_CONTENT_TYPE = "application/json";
 
     private static final String TEMPLATE_REGEX_MESSAGE_ERROR = "\\{\"httpStatus\":\"%s\","
             + "\"message\":\"%s\","
@@ -28,11 +31,14 @@ public final class FuelControllerRequestUtil {
             "NOT_FOUND", "Fuel with given properties doesn't exist"
     );
 
-    private static final String TEMPLATE_REGEX_MESSAGE_ERROR_NOT_VALID_SPECIFICATION = TEMPLATE_REGEX_MESSAGE_ERROR.formatted(
-            "NOT_ACCEPTABLE", "Specification should contain properties: %s"
+    private static final String REGEX_MESSAGE_ERROR_NOT_VALID_SPECIFICATION = TEMPLATE_REGEX_MESSAGE_ERROR.formatted(
+            "NOT_ACCEPTABLE", "Specification should contain properties: (.+)"
     );
-
-    private static final String DELIMITER_SPECIFICATION_PROPERTIES = ", ";
+    private static final Pattern PATTERN_MESSAGE_ERROR_NOT_VALID_SPECIFICATION = compile(
+            REGEX_MESSAGE_ERROR_NOT_VALID_SPECIFICATION
+    );
+    private static final int GROUP_NUMBER_FAILED_PROPERTY_NAMES = 1;
+    private static final String SEPARATOR_FAILED_PROPERTY_NAMES = ", ";
 
     private static final String PARAM_NAME_TABLE_NAME = "tableName";
     private static final String PARAM_NAME_TRACTOR = "tractor";
@@ -62,20 +68,24 @@ public final class FuelControllerRequestUtil {
             throws Exception {
         return mockMvc.perform(createRequestBuilder(specification))
                 .andExpect(status().is(expectedHttpStatus.value()))
-                .andExpect(content().contentType(EXPECTED_CONTENT_TYPE))
+                .andExpect(content().contentType(APPLICATION_JSON))
                 .andReturn()
                 .getResponse()
-                .getContentAsString();
+                .getContentAsString(UTF_8);
     }
 
     public static boolean isNoSuchFuelError(final String response) {
         return response.matches(REGEX_MESSAGE_ERROR_NO_SUCH_FUEL);
     }
 
-    public static boolean isNotValidSpecificationError(final String response,
-                                                       final String... expectedFailedPropertyNames) {
-        final String regexMessageError = findRegexMessageErrorNotValidSpecification(expectedFailedPropertyNames);
-        return response.matches(regexMessageError);
+    public static boolean isNotValidSpecificationError(final String response) {
+        return response.matches(REGEX_MESSAGE_ERROR_NOT_VALID_SPECIFICATION);
+    }
+
+    public static Set<String> findFailedPropertyNames(final String response) {
+        final String failedPropertyNamesPart = findFailedPropertyNamesPart(response);
+        final String[] failedPropertyNames = failedPropertyNamesPart.split(SEPARATOR_FAILED_PROPERTY_NAMES);
+        return Set.of(failedPropertyNames);
     }
 
     private static MockHttpServletRequestBuilder createRequestBuilder(final FuelSpecification specification) {
@@ -112,11 +122,13 @@ public final class FuelControllerRequestUtil {
         optionalProperty.ifPresent(property -> requestBuilder.param(paramName, property));
     }
 
-    private static String findRegexMessageErrorNotValidSpecification(final String... expectedFailedPropertyNames) {
-        final String seperatedExpectedFailedPropertyNames = join(
-                DELIMITER_SPECIFICATION_PROPERTIES, expectedFailedPropertyNames
-        );
-        return TEMPLATE_REGEX_MESSAGE_ERROR_NOT_VALID_SPECIFICATION.formatted(seperatedExpectedFailedPropertyNames);
+    private static String findFailedPropertyNamesPart(final String response) {
+        final Matcher matcher = PATTERN_MESSAGE_ERROR_NOT_VALID_SPECIFICATION.matcher(response);
+        if (matcher.matches()) {
+            throw new IllegalArgumentException(
+                    "Given response isn't specification error. Given response: %s".formatted(response)
+            );
+        }
+        return matcher.group(GROUP_NUMBER_FAILED_PROPERTY_NAMES);
     }
-
 }

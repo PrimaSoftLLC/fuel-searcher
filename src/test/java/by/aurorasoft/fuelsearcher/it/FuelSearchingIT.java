@@ -148,7 +148,7 @@ public final class FuelSearchingIT extends AbstractContextTest {
                                                                    final Set<String> failedPropertyNames)
             throws Exception {
         final String actualResponse = doRequest(this.mockMvc, specification, NOT_ACCEPTABLE);
-        System.out.println();
+        
     }
 
     private static Stream<Arguments> successFuelSearchingArgumentsProvider() {
