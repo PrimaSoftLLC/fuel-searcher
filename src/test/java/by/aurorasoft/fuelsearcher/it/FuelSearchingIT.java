@@ -2,6 +2,7 @@ package by.aurorasoft.fuelsearcher.it;
 
 import by.aurorasoft.fuelsearcher.base.AbstractContextTest;
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.TableFuelSearchingArgumentsProvider;
+import by.aurorasoft.fuelsearcher.it.argumentsprovider.notfound.*;
 import by.aurorasoft.fuelsearcher.it.argumentsprovider.success.*;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
@@ -52,6 +53,36 @@ public final class FuelSearchingIT extends AbstractContextTest {
             new TwentyFifthSuccessTableFuelSearchingArgumentsProvider(),
             new TwentySixthSuccessTableFuelSearchingArgumentsProvider(),
             new TwentySeventhSuccessTableFuelSearchingArgumentsProvider()
+    );
+
+    private static final List<NotFoundTableFuelSearchingArgumentsProvider> NOT_FOUND_ARGUMENTS_PROVIDERS = List.of(
+            new FirstNotFoundTableFuelSearchingArgumentsProvider(),
+            new SecondNotFoundTableFuelSearchingArgumentsProvider(),
+            new ThirdNotFoundTableFuelSearchingArgumentsProvider(),
+            new FourthNotFoundTableFuelSearchingArgumentsProvider(),
+            new FifthNotFoundTableFuelSearchingArgumentsProvider(),
+            new SixthNotFoundTableFuelSearchingArgumentsProvider(),
+            new SeventhNotFoundTableFuelSearchingArgumentsProvider(),
+            new EighthNotFoundTableFuelSearchingArgumentsProvider(),
+            new NinthNotFoundTableFuelSearchingArgumentsProvider(),
+            new TenthNotFoundTableFuelSearchingArgumentsProvider(),
+            new EleventhNotFoundTableFuelSearchingArgumentsProvider(),
+            new TwelfthNotFoundTableFuelSearchingArgumentsProvider(),
+            new ThirteenthNotFoundTableFuelSearchingArgumentsProvider(),
+            new FourteenthNotFoundTableFuelSearchingArgumentsProvider(),
+            new FifteenthNotFoundTableFuelSearchingArgumentsProvider(),
+            new SixteenthNotFoundTableFuelSearchingArgumentsProvider(),
+            new SeventeenthNotFoundTableFuelSearchingArgumentsProvider(),
+            new EighteenthNotFoundTableFuelSearchingArgumentsProvider(),
+            new NineteenthNotFoundTableFuelSearchingArgumentsProvider(),
+            new TwentiethNotFoundTableFuelSearchingArgumentsProvider(),
+            new TwentyFirstNotFoundTableFuelSearchingArgumentsProvider(),
+            new TwentySecondNotFoundTableFuelSearchingArgumentsProvider(),
+            new TwentyThirdNotFoundTableFuelSearchingArgumentsProvider(),
+            new TwentyFourthNotFoundTableFuelSearchingArgumentsProvider(),
+            new TwentyFifthNotFoundTableFuelSearchingArgumentsProvider(),
+            new TwentySixthNotFoundTableFuelSearchingArgumentsProvider(),
+            new TwentySeventhNotFoundTableFuelSearchingArgumentsProvider()
     );
 
     @Autowired
