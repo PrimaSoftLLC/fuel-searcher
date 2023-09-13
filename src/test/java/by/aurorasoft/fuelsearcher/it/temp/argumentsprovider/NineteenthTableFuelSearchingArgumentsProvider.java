@@ -1,16 +1,16 @@
-package by.aurorasoft.fuelsearcher.it.argumentsprovider;
+package by.aurorasoft.fuelsearcher.it.temp.argumentsprovider;
 
-import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelSearchingArguments;
+import by.aurorasoft.fuelsearcher.it.temp.argumentsprovider.model.FuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpecificationBuilder;
 
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-public final class SixteenthTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
-    private static final String TABLE_NAME = "КОШЕНИЕ ТРАВ С ПЛЮЩЕНИЕМ";
+public final class NineteenthTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
+    private static final String TABLE_NAME = "ПРЕССОВАНИЕ СЕНА ПОСЛЕ КОМБАЙНА";
 
-    public SixteenthTableFuelSearchingArgumentsProvider() {
+    public NineteenthTableFuelSearchingArgumentsProvider() {
         super(TABLE_NAME);
     }
 
@@ -21,81 +21,81 @@ public final class SixteenthTableFuelSearchingArgumentsProvider extends TableFue
         return Stream.of(
                 FuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
-                                .tractor("Fendt-933")
-                                .machinery("Krone-B 1000 CV Collet")
-                                .workingWidth("9.7")
-                                .yield("до 10")
+                                .tractor("Fendt 515c")
+                                .machinery("KRONE Comprima CV 150 XC")
+                                .workingWidth("5.5")
+                                .yield("До 1")
                                 .routingLength("Менее 150")
                                 .build())
-                        .expected(new Fuel(31.5, 4.7))
+                        .expected(new Fuel(12.8, 4.35))
                         .build(),
                 FuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
-                                .tractor("Беларус 3022")
-                                .machinery("КМР-9П")
-                                .workingWidth("9")
-                                .yield("свыше 35")
+                                .tractor("Fendt 515c")
+                                .machinery("KRONE Comprima CV 150 XC")
+                                .workingWidth("5.5")
+                                .yield("4.6-5")
                                 .routingLength("150-200")
                                 .build())
-                        .expected(new Fuel(27.9, 7.4))
+                        .expected(new Fuel(50.7, 1.17))
                         .build(),
                 FuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
-                                .tractor("Беларус 920.2")
-                                .machinery("KRONE EC-280")
-                                .workingWidth("2.8")
-                                .yield("свыше 35")
-                                .routingLength("Менее 150")
+                                .tractor("Fendt 515c")
+                                .machinery("KRONE Comprima CV 150 XC")
+                                .workingWidth("5.5")
+                                .yield("4.1-4.5")
+                                .routingLength("150-200")
                                 .build())
-                        .expected(new Fuel(7.5, 5.6))
+                        .expected(new Fuel(48.6, 1.21))
                         .build(),
                 //not existing tractor
                 FuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
                                 .tractor("not existing")
-                                .machinery("KRONE EC-280")
-                                .workingWidth("2.8")
-                                .yield("свыше 35")
-                                .routingLength("Менее 150")
+                                .machinery("KRONE Comprima CV 150 XC")
+                                .workingWidth("5.5")
+                                .yield("4.1-4.5")
+                                .routingLength("151-200")
                                 .build())
                         .build(),
                 //not existing machinery
                 FuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
-                                .tractor("Беларус 920.2")
+                                .tractor("Fendt 515c")
                                 .machinery("not existing")
-                                .workingWidth("2.8")
-                                .yield("свыше 35")
-                                .routingLength("Менее 150")
+                                .workingWidth("5.5")
+                                .yield("4.1-4.5")
+                                .routingLength("151-200")
                                 .build())
                         .build(),
                 //not existing working width
                 FuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
-                                .tractor("Беларус 920.2")
-                                .machinery("KRONE EC-280")
-                                .workingWidth("not exsting")
-                                .yield("свыше 35")
-                                .routingLength("Менее 150")
+                                .tractor("Fendt 515c")
+                                .machinery("KRONE Comprima CV 150 XC")
+                                .workingWidth("not existing")
+                                .yield("4.1-4.5")
+                                .routingLength("151-200")
                                 .build())
                         .build(),
                 //not existing yield
                 FuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
-                                .tractor("Беларус 920.2")
-                                .machinery("KRONE EC-280")
-                                .workingWidth("2.8")
+                                .tractor("Fendt 515c")
+                                .machinery("KRONE Comprima CV 150 XC")
+                                .workingWidth("5.5")
                                 .yield("not existing")
-                                .routingLength("Менее 150")
+                                .routingLength("151-200")
                                 .build())
                         .build(),
                 //not existing routing length
                 FuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
-                                .tractor("Беларус 920.2")
-                                .machinery("KRONE EC-280")
-                                .workingWidth("2.8")
-                                .yield("свыше 35")
+                                .tractor("Fendt 515c")
+                                .machinery("KRONE Comprima CV 150 XC")
+                                .workingWidth("5.5")
+                                .yield("4.1-4.5")
                                 .routingLength("not existing")
                                 .build())
                         .build()

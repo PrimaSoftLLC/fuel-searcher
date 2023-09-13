@@ -1,7 +1,7 @@
-package by.aurorasoft.fuelsearcher.it;
+package by.aurorasoft.fuelsearcher.it.temp;
 
 import by.aurorasoft.fuelsearcher.base.AbstractContextTest;
-import by.aurorasoft.fuelsearcher.it.argumentsprovider.*;
+import by.aurorasoft.fuelsearcher.it.temp.argumentsprovider.*;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import com.fasterxml.jackson.core.JsonProcessingException;

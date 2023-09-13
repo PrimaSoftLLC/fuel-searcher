@@ -1,16 +1,16 @@
-package by.aurorasoft.fuelsearcher.it.argumentsprovider;
+package by.aurorasoft.fuelsearcher.it.temp.argumentsprovider;
 
-import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelSearchingArguments;
+import by.aurorasoft.fuelsearcher.it.temp.argumentsprovider.model.FuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpecificationBuilder;
 
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-public final class FifteenthTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
-    private static final String TABLE_NAME = "КОШЕНИЕ СЕЯНЫХ И ЕСТЕСТВЕННЫХ ТРАВ";
+public final class TwentyFirstTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
+    private static final String TABLE_NAME = "ПРЕССОВАНИЕ ПРОВЯЛЕННОЙ МАССЫ ПОСЛЕ КОМБАЙНА";
 
-    public FifteenthTableFuelSearchingArgumentsProvider() {
+    public TwentyFirstTableFuelSearchingArgumentsProvider() {
         super(TABLE_NAME);
     }
 
@@ -21,42 +21,42 @@ public final class FifteenthTableFuelSearchingArgumentsProvider extends TableFue
         return Stream.of(
                 FuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
-                                .tractor("Беларус 2522")
-                                .machinery("KDT 941")
-                                .workingWidth("9.14")
-                                .yield("до 10")
+                                .tractor("Беларус 1221")
+                                .machinery("KRONE CF Ultima 155 XC")
+                                .workingWidth("5")
+                                .yield("до 5")
                                 .routingLength("Менее 150")
                                 .build())
-                        .expected(new Fuel(28.1, 4.7))
-                        .build(),
-                FuelSearchingArguments.builder()
-                        .specification(specificationBuilderSupplier.get()
-                                .tractor("Беларус 1523")
-                                .machinery("Novocat Alfa Motion 351")
-                                .workingWidth("3.46")
-                                .yield("свыше 35")
-                                .routingLength("201-300")
-                                .build())
-                        .expected(new Fuel(11.4, 4.9))
+                        .expected(new Fuel(46.1, 1.87))
                         .build(),
                 FuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 1221")
-                                .machinery("КДЛ-3.14")
-                                .workingWidth("3.14")
-                                .yield("20-25")
-                                .routingLength("201-300")
+                                .machinery("KRONE CF Ultima 155 XC")
+                                .workingWidth("5")
+                                .yield("свыше 15.5")
+                                .routingLength("Более 1000")
                                 .build())
-                        .expected(new Fuel(11.7, 4.4))
+                        .expected(new Fuel(155.6, 0.74))
+                        .build(),
+                FuelSearchingArguments.builder()
+                        .specification(specificationBuilderSupplier.get()
+                                .tractor("Беларус 1221")
+                                .machinery("KRONE CF Ultima 155 XC")
+                                .workingWidth("5")
+                                .yield("14.5-15.5")
+                                .routingLength("401-600")
+                                .build())
+                        .expected(new Fuel(140.9, 0.78))
                         .build(),
                 //not existing tractor
                 FuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
                                 .tractor("not existing")
-                                .machinery("КДЛ-3.14")
-                                .workingWidth("3.14")
-                                .yield("20-25")
-                                .routingLength("201-300")
+                                .machinery("KRONE CF Ultima 155 XC")
+                                .workingWidth("5")
+                                .yield("14.5-15.5")
+                                .routingLength("401-600")
                                 .build())
                         .build(),
                 //not existing machinery
@@ -64,38 +64,38 @@ public final class FifteenthTableFuelSearchingArgumentsProvider extends TableFue
                         .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 1221")
                                 .machinery("not existing")
-                                .workingWidth("3.14")
-                                .yield("20-25")
-                                .routingLength("201-300")
+                                .workingWidth("5")
+                                .yield("14.5-15.5")
+                                .routingLength("401-600")
                                 .build())
                         .build(),
                 //not existing working width
                 FuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 1221")
-                                .machinery("КДЛ-3.14")
+                                .machinery("KRONE CF Ultima 155 XC")
                                 .workingWidth("not existing")
-                                .yield("20-25")
-                                .routingLength("201-300")
+                                .yield("14.5-15.5")
+                                .routingLength("401-600")
                                 .build())
                         .build(),
                 //not existing yield
                 FuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 1221")
-                                .machinery("КДЛ-3.14")
-                                .workingWidth("3.14")
+                                .machinery("KRONE CF Ultima 155 XC")
+                                .workingWidth("5")
                                 .yield("not existing")
-                                .routingLength("201-300")
+                                .routingLength("401-600")
                                 .build())
                         .build(),
                 //not existing routing length
                 FuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
                                 .tractor("Беларус 1221")
-                                .machinery("КДЛ-3.14")
-                                .workingWidth("3.14")
-                                .yield("20-25")
+                                .machinery("KRONE CF Ultima 155 XC")
+                                .workingWidth("5")
+                                .yield("14.5-15.5")
                                 .routingLength("not existing")
                                 .build())
                         .build()

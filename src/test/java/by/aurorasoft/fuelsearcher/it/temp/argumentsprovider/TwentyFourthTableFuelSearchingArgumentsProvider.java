@@ -1,6 +1,6 @@
-package by.aurorasoft.fuelsearcher.it.argumentsprovider;
+package by.aurorasoft.fuelsearcher.it.temp.argumentsprovider;
 
-import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelSearchingArguments;
+import by.aurorasoft.fuelsearcher.it.temp.argumentsprovider.model.FuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpecificationBuilder;

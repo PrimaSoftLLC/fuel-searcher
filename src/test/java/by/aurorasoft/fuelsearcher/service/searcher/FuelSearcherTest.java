@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static java.util.Optional.ofNullable;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -32,7 +33,6 @@ public final class FuelSearcherTest {
         final XWPFTable givenSubTable = mock(XWPFTable.class);
         throw new RuntimeException();
     }
-
 
 
     private static FuelTable createTable(final String name) {
@@ -71,7 +71,7 @@ public final class FuelSearcherTest {
         @Override
         protected Optional<XWPFTable> findSubTable(final List<IBodyElement> elements,
                                                    final FuelSpecification specification) {
-            return Optional.of(this.subTable);
+            return ofNullable(this.subTable);
         }
     }
 }

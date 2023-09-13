@@ -1,16 +1,16 @@
-package by.aurorasoft.fuelsearcher.it.argumentsprovider;
+package by.aurorasoft.fuelsearcher.it.temp.argumentsprovider;
 
-import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.FuelSearchingArguments;
+import by.aurorasoft.fuelsearcher.it.temp.argumentsprovider.model.FuelSearchingArguments;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpecificationBuilder;
 
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-public final class SeventeenthTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
-    private static final String TABLE_NAME = "ВОРОШЕНИЕ СЕНА";
+public final class EighteenthTableFuelSearchingArgumentsProvider extends TableFuelSearchingArgumentsProvider {
+    private static final String TABLE_NAME = "СГРЕБАНИЕ СЕНА В ВАЛКИ";
 
-    public SeventeenthTableFuelSearchingArgumentsProvider() {
+    public EighteenthTableFuelSearchingArgumentsProvider() {
         super(TABLE_NAME);
     }
 
@@ -21,62 +21,54 @@ public final class SeventeenthTableFuelSearchingArgumentsProvider extends TableF
         return Stream.of(
                 FuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
-                                .tractor("Беларус 1221")
-                                .machinery("ГРЛ-9.6")
-                                .workingWidth("9.6")
+                                .tractor("Беларус 920.2")
+                                .machinery("Krone Swadro 807")
+                                .workingWidth("6.2")
                                 .routingLength("Менее 150")
                                 .build())
-                        .expected(new Fuel(27.8, 2.3))
+                        .expected(new Fuel(18.4, 2.46))
                         .build(),
                 FuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
-                                .tractor("Беларус 1221")
-                                .machinery("Spider 600/6 ALP")
-                                .workingWidth("6")
+                                .tractor("Беларус 80/82.1+")
+                                .machinery("MILLENNIUM V18-7GW")
+                                .workingWidth("10.5")
                                 .routingLength("401-600")
                                 .build())
-                        .expected(new Fuel(32.2, 1.9))
+                        .expected(new Fuel(39.6, 1.28))
                         .build(),
                 FuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
-                                .tractor("Беларус 82")
-                                .machinery("Tonutti Millennium V16")
-                                .workingWidth("9.6")
+                                .tractor("Беларус 80/82.1")
+                                .machinery("Claas Liner 1650 Twin")
+                                .workingWidth("6.8")
                                 .routingLength("Более 1000")
                                 .build())
-                        .expected(new Fuel(45.2, 1.4))
-                        .build(),
-                FuelSearchingArguments.builder()
-                        .specification(specificationBuilderSupplier.get()
-                                .tractor("not existing")
-                                .machinery("Tonutti Millennium V16")
-                                .workingWidth("9.6")
-                                .routingLength("Более 1000")
-                                .build())
+                        .expected(new Fuel(29.1, 1.78))
                         .build(),
                 //not existing tractor
                 FuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
                                 .tractor("not existing")
-                                .machinery("Tonutti Millennium V16")
-                                .workingWidth("9.6")
+                                .machinery("Claas Liner 1650 Twin")
+                                .workingWidth("6.8")
                                 .routingLength("Более 1000")
                                 .build())
                         .build(),
                 //not existing machinery
                 FuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
-                                .tractor("Беларус 82")
+                                .tractor("Беларус 80/82.1")
                                 .machinery("not existing")
-                                .workingWidth("9.6")
+                                .workingWidth("6.8")
                                 .routingLength("Более 1000")
                                 .build())
                         .build(),
                 //not existing working width
                 FuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
-                                .tractor("Беларус 82")
-                                .machinery("Tonutti Millennium V16")
+                                .tractor("Беларус 80/82.1")
+                                .machinery("Claas Liner 1650 Twin")
                                 .workingWidth("not existing")
                                 .routingLength("Более 1000")
                                 .build())
@@ -84,9 +76,9 @@ public final class SeventeenthTableFuelSearchingArgumentsProvider extends TableF
                 //not existing routing length
                 FuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
-                                .tractor("Беларус 82")
-                                .machinery("Tonutti Millennium V16")
-                                .workingWidth("9.6")
+                                .tractor("Беларус 80/82.1")
+                                .machinery("Claas Liner 1650 Twin")
+                                .workingWidth("6.8")
                                 .routingLength("not existing")
                                 .build())
                         .build()
