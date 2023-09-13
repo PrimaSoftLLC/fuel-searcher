@@ -124,7 +124,7 @@ public final class FuelControllerRequestUtil {
 
     private static String findFailedPropertyNamesPart(final String response) {
         final Matcher matcher = PATTERN_MESSAGE_ERROR_NOT_VALID_SPECIFICATION.matcher(response);
-        if (matcher.matches()) {
+        if (!matcher.matches()) {
             throw new IllegalArgumentException(
                     "Given response isn't specification error. Given response: %s".formatted(response)
             );

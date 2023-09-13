@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static by.aurorasoft.fuelsearcher.testutil.FuelControllerRequestUtil.*;
 import static java.util.Arrays.asList;
@@ -85,11 +86,11 @@ public final class FuelControllerTest {
         when(this.mockedValidatingManager.validate(eq(givenSpecification))).thenReturn(givenValidatingResult);
 
         final String actualResponse = doRequest(this.mockMvc, givenSpecification, NOT_ACCEPTABLE);
-        assertTrue(
-                isNotValidSpecificationError(
-                        actualResponse, givenFailedPropertyNames
-                )
-        );
+        assertTrue(isNotValidSpecificationError(actualResponse));
+
+        final Set<String> actualFailedPropertyNames = findFailedPropertyNames(actualResponse);
+        final Set<String> expectedFailedPropertyNames = Set.of(givenFailedPropertyNames);
+        assertEquals(expectedFailedPropertyNames, actualFailedPropertyNames);
 
         verify(this.mockedSearchingManager, times(0)).find(any(FuelSpecification.class));
     }
