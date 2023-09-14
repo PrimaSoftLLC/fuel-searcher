@@ -204,6 +204,11 @@ public final class XWPFTableRowFilteringUtilTest {
         }
     }
 
+    @Test
+    public void rowsShouldBeFoundByGroup() {
+        throw new RuntimeException();
+    }
+
     @SuppressWarnings("SameParameterValue")
     private static XWPFTableRow createRowMatchingContent(final boolean match,
                                                          final MockedStatic<XWPFTableRowUtil> mockedRowUtil,
