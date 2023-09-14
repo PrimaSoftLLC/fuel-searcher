@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findFirstRowByContent;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findUnitedRowsByContent;
 import static java.util.stream.IntStream.range;
 import static org.junit.Assert.assertEquals;
@@ -67,7 +69,33 @@ public final class XWPFTableRowFilteringUtilTest extends AbstractContextTest {
 
     @Test
     public void firstRowShouldBeFoundByContent() {
-        throw new RuntimeException();
+        final int givenContentCellIndex = 1;
+        final String givenContent = "Беларус 3525";
+
+        final Optional<XWPFTableRow> optionalActual = findFirstRowByContent(
+                this.rowsFilteredByGroup,
+                givenContentCellIndex,
+                givenContent
+        );
+        assertTrue(optionalActual.isPresent());
+        final XWPFTableRow actual = optionalActual.get();
+
+        final int expectedRowIndex = 20;
+        final boolean rowFilteringSuccess = isRowFilteringSuccess(this.rowsFilteredByGroup, actual, expectedRowIndex);
+        assertTrue(rowFilteringSuccess);
+    }
+
+    @Test
+    public void firstRowShouldNotBeFoundByContent() {
+        final int givenContentCellIndex = 1;
+        final String givenContent = "not-existing-tractor";
+
+        final Optional<XWPFTableRow> optionalActual = findFirstRowByContent(
+                this.rowsFilteredByGroup,
+                givenContentCellIndex,
+                givenContent
+        );
+        assertTrue(optionalActual.isEmpty());
     }
 
     private static List<XWPFTableRow> findSubTableRowsOfFirstTable(final FuelDocument fuelDocument) {
@@ -94,19 +122,21 @@ public final class XWPFTableRowFilteringUtilTest extends AbstractContextTest {
     private static boolean isRowFilteringSuccess(final List<XWPFTableRow> initialRows,
                                                  final List<XWPFTableRow> actualFilteredRows,
                                                  final List<Integer> expectedFilteredRowIndexes) {
-        return range(0, actualFilteredRows.size()).allMatch(
-                i -> isRowFilteringSuccess(i, initialRows, actualFilteredRows, expectedFilteredRowIndexes)
-        );
+        return range(0, actualFilteredRows.size())
+                .allMatch(
+                        i -> isRowFilteringSuccess(
+                                initialRows,
+                                actualFilteredRows.get(i),
+                                expectedFilteredRowIndexes.get(i)
+                        )
+                );
     }
 
-    private static boolean isRowFilteringSuccess(final int researchActualFilteredRowIndex,
-                                                 final List<XWPFTableRow> initialRows,
-                                                 final List<XWPFTableRow> actualFilteredRows,
-                                                 final List<Integer> expectedFilteredRowIndexes) {
-        final XWPFTableRow actualRow = actualFilteredRows.get(researchActualFilteredRowIndex);
-        final int expectedRowIndex = expectedFilteredRowIndexes.get(researchActualFilteredRowIndex);
+    private static boolean isRowFilteringSuccess(final List<XWPFTableRow> initialRows,
+                                                 final XWPFTableRow actualFilteredRow,
+                                                 final int expectedRowIndex) {
         final XWPFTableRow expectedRow = initialRows.get(expectedRowIndex);
-        return expectedRow == actualRow;
+        return expectedRow == actualFilteredRow;
     }
 
 //    @Test
