@@ -1,6 +1,5 @@
 package by.aurorasoft.fuelsearcher.util;
 
-import by.aurorasoft.fuelsearcher.model.IntPair;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.junit.Test;
@@ -371,29 +370,6 @@ public final class XWPFTableRowFilteringUtilTest {
             final OptionalInt optionalActual = findIndexFirstCellByContent(givenRow, givenContent);
             assertTrue(optionalActual.isEmpty());
         }
-    }
-
-    @Test
-    public void rowsShouldBeExtractedByIndexBorders() {
-        final XWPFTableRow firstGivenRow = mock(XWPFTableRow.class);
-        final XWPFTableRow secondGivenRow = mock(XWPFTableRow.class);
-        final XWPFTableRow thirdGivenRow = mock(XWPFTableRow.class);
-        final XWPFTableRow fourthGivenRow = mock(XWPFTableRow.class);
-        final XWPFTableRow fifthGivenRow = mock(XWPFTableRow.class);
-        final XWPFTableRow sixthGivenRow = mock(XWPFTableRow.class);
-        final List<XWPFTableRow> givenRows = List.of(
-                firstGivenRow,
-                secondGivenRow,
-                thirdGivenRow,
-                fourthGivenRow,
-                fifthGivenRow,
-                sixthGivenRow
-        );
-        final IntPair givenIndexBorders = new IntPair(2, 5);
-
-        final List<XWPFTableRow> actual = extractRows(givenRows, givenIndexBorders);
-        final List<XWPFTableRow> expected = List.of(thirdGivenRow, fourthGivenRow, fifthGivenRow);
-        assertEquals(expected, actual);
     }
 
     @SuppressWarnings("SameParameterValue")

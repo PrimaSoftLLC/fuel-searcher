@@ -1,6 +1,5 @@
 package by.aurorasoft.fuelsearcher.util;
 
-import by.aurorasoft.fuelsearcher.model.IntPair;
 import lombok.experimental.UtilityClass;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
@@ -16,6 +15,7 @@ import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellTextEqualIg
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isChildUnitedRow;
 import static java.util.stream.IntStream.range;
 
+//TODO: refactor and refactor tests
 @UtilityClass
 public final class XWPFTableRowFilteringUtil {
 
@@ -78,10 +78,23 @@ public final class XWPFTableRowFilteringUtil {
                 .findFirst();
     }
 
-    public static List<XWPFTableRow> extractRows(final List<XWPFTableRow> rows, final IntPair indexBorders) {
-        final int indexFirstRow = indexBorders.getFirst();
-        final int nextIndexLastRow = indexBorders.getSecond();
-        return rows.subList(indexFirstRow, nextIndexLastRow);
+    //TODO: test
+    public static List<XWPFTableRow> findRowsByGroup(final List<XWPFTableRow> rows,
+                                                     final String groupValue,
+                                                     final String groupValueRegex,
+                                                     final int groupValueCellIndex) {
+        return findRowIndexesByContent(rows, groupValueCellIndex, groupValue)
+                .map(indexRowGroupValue -> indexRowGroupValue + 1)
+                .mapToObj(
+                        indexFirstGroupRow -> findGroupRows(
+                                rows,
+                                indexFirstGroupRow,
+                                groupValueCellIndex,
+                                groupValueRegex
+                        )
+                )
+                .flatMap(Collection::stream)
+                .toList();
     }
 
     private static OptionalInt findIndexFirstMatchingContentRow(final List<XWPFTableRow> rows,
@@ -108,10 +121,37 @@ public final class XWPFTableRowFilteringUtil {
     private static int findNextIndexLastChildUnitedRow(final List<XWPFTableRow> rows,
                                                        final int indexFirstRow,
                                                        final int contentCellIndex) {
+        final int nextIndexLastRow = rows.size();
         return range(indexFirstRow + 1, rows.size())
                 .dropWhile(rowIndex -> isChildUnitedRow(rows.get(rowIndex), contentCellIndex))
                 .findFirst()
-                .orElse(rows.size());
+                .orElse(nextIndexLastRow);
+    }
+
+    private static List<XWPFTableRow> findGroupRows(final List<XWPFTableRow> rows,
+                                                    final int indexFirstGroupRow,
+                                                    final int filtrationCellIndex,
+                                                    final String groupValueRegex) {
+        final int nextIndexLastGroupRow = findNextIndexLastGroupRow(
+                rows,
+                indexFirstGroupRow,
+                filtrationCellIndex,
+                groupValueRegex
+        );
+        return rows.subList(indexFirstGroupRow, nextIndexLastGroupRow);
+    }
+
+    private static int findNextIndexLastGroupRow(final List<XWPFTableRow> rows,
+                                                 final int indexFirstGroupRow,
+                                                 final int filtrationCellIndex,
+                                                 final String groupValueRegex) {
+        final int nextIndexLastRow = rows.size();
+        return findIndexFirstRowByContentRegex(
+                rows,
+                indexFirstGroupRow,
+                filtrationCellIndex,
+                groupValueRegex
+        ).orElse(nextIndexLastRow);
     }
 
     @FunctionalInterface
