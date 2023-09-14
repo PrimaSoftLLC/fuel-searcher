@@ -19,31 +19,6 @@ import static java.util.stream.IntStream.range;
 @UtilityClass
 public final class XWPFTableRowFilteringUtil {
 
-    public static OptionalInt findIndexFirstRowByContent(final List<XWPFTableRow> rows,
-                                                         final int contentCellIndex,
-                                                         final String content) {
-        return findIndexFirstMatchingContentRow(
-                rows,
-                0,
-                contentCellIndex,
-                content,
-                XWPFTableRowUtil::isCellTextEqualIgnoringWhitespacesAndCase
-        );
-    }
-
-    public static OptionalInt findIndexFirstRowByContentRegex(final List<XWPFTableRow> rows,
-                                                              final int startFindingIndex,
-                                                              final int contentCellIndex,
-                                                              final String regex) {
-        return findIndexFirstMatchingContentRow(
-                rows,
-                startFindingIndex,
-                contentCellIndex,
-                regex,
-                XWPFTableRowUtil::isCellTextMatchRegex
-        );
-    }
-
     //returns several united rows
     public static List<XWPFTableRow> findUnitedRowsByContent(final List<XWPFTableRow> rows,
                                                              final int contentCellIndex,
@@ -53,14 +28,6 @@ public final class XWPFTableRowFilteringUtil {
                 .flatMap(Collection::stream)
                 .toList();
     }
-
-    public static IntStream findRowIndexesByContent(final List<XWPFTableRow> rows,
-                                                    final int contentCellIndex,
-                                                    final String content) {
-        return range(0, rows.size())
-                .filter(i -> isCellTextEqualIgnoringWhitespacesAndCase(rows.get(i), contentCellIndex, content));
-    }
-
 
     public static Optional<XWPFTableRow> findFirstRowByContent(final List<XWPFTableRow> rows,
                                                                final int contentCellIndex,
@@ -97,6 +64,31 @@ public final class XWPFTableRowFilteringUtil {
                 .toList();
     }
 
+    private static OptionalInt findIndexFirstRowByContent(final List<XWPFTableRow> rows,
+                                                          final int contentCellIndex,
+                                                          final String content) {
+        return findIndexFirstMatchingContentRow(
+                rows,
+                0,
+                contentCellIndex,
+                content,
+                XWPFTableRowUtil::isCellTextEqualIgnoringWhitespacesAndCase
+        );
+    }
+
+    private static OptionalInt findIndexFirstRowByContentRegex(final List<XWPFTableRow> rows,
+                                                               final int startFindingIndex,
+                                                               final int contentCellIndex,
+                                                               final String regex) {
+        return findIndexFirstMatchingContentRow(
+                rows,
+                startFindingIndex,
+                contentCellIndex,
+                regex,
+                XWPFTableRowUtil::isCellTextMatchRegex
+        );
+    }
+
     private static OptionalInt findIndexFirstMatchingContentRow(final List<XWPFTableRow> rows,
                                                                 final int startFindingIndex,
                                                                 final int contentCellIndex,
@@ -105,6 +97,13 @@ public final class XWPFTableRowFilteringUtil {
         return range(startFindingIndex, rows.size())
                 .filter(i -> matcher.isMatch(rows.get(i), contentCellIndex, content))
                 .findFirst();
+    }
+
+    private static IntStream findRowIndexesByContent(final List<XWPFTableRow> rows,
+                                                     final int contentCellIndex,
+                                                     final String content) {
+        return range(0, rows.size())
+                .filter(i -> isCellTextEqualIgnoringWhitespacesAndCase(rows.get(i), contentCellIndex, content));
     }
 
     private static List<XWPFTableRow> extractUnitedRows(final List<XWPFTableRow> rows,
