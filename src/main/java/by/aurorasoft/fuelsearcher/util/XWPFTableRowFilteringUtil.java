@@ -38,7 +38,7 @@ public final class XWPFTableRowFilteringUtil {
                 .findFirst();
     }
 
-    public static OptionalInt findIndexFirstCellByContent(final XWPFTableRow row, final String content) {
+    public static OptionalInt findFirstCellIndexByContent(final XWPFTableRow row, final String content) {
         final List<XWPFTableCell> cells = row.getTableCells();
         return range(0, cells.size())
                 .filter(i -> isCellTextEqualIgnoringWhitespacesAndCase(cells.get(i), content))

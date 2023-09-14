@@ -21,7 +21,7 @@ import java.util.function.ToIntFunction;
 import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.extractCellDoubleValue;
-import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findIndexFirstCellByContent;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findFirstCellIndexByContent;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.IntStream.range;
@@ -72,7 +72,7 @@ public abstract class FuelSearcher implements Translatable {
                                                     final FuelSpecification specification,
                                                     final XWPFTableRow fuelRow) {
         final String fuelHeader = this.headerExtractor.extract(specification);
-        return findIndexFirstCellByContent(headersRow, fuelHeader)
+        return findFirstCellIndexByContent(headersRow, fuelHeader)
                 .stream()
                 .map(fuelHeaderCellIndex -> this.findCellIndexGenerationNorm(fuelHeaderCellIndex, fuelHeader))
                 .mapToObj(generationNormCellIndex -> createFuelLocation(fuelRow, generationNormCellIndex))
