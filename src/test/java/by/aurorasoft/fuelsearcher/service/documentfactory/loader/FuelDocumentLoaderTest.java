@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
@@ -22,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public final class FuelDocumentLoaderTest extends AbstractContextTest {
-    private static final List<FuelTableResearcher> TABLE_RESEARCHERS = List.of(
+    private static final Set<FuelTableResearcher> TABLE_RESEARCHERS = Set.of(
             new SimpleFuelTableResearcher("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ"),
             new SimpleFuelTableResearcher("ВСПАШКА СТЕРНИ"),
             new SimpleFuelTableResearcher("ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ"),
