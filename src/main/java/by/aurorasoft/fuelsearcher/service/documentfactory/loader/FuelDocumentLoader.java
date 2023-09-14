@@ -2,7 +2,6 @@ package by.aurorasoft.fuelsearcher.service.documentfactory.loader;
 
 import by.aurorasoft.fuelsearcher.model.FuelDocument;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
-import lombok.Value;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -165,12 +164,6 @@ public final class FuelDocumentLoader {
             final Matcher matcher = TABLE_TITLE_PATTERN.matcher(source);
             return matcher.matches() ? Optional.of(matcher.group(TABLE_NAME_GROUP_NUMBER)) : empty();
         }
-    }
-
-    @Value
-    private static class ElementBoundedToTableTitle {
-        String tableName;
-        IBodyElement element;
     }
 
     private static final class FuelDocumentLoadingException extends RuntimeException {
