@@ -14,41 +14,68 @@ import java.util.Objects;
 
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findUnitedRowsByContent;
 import static java.util.stream.IntStream.range;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public final class XWPFTableRowFilteringUtilTest extends AbstractContextTest {
     private static final String FIRST_TABLE_NAME = "ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ";
 
+    private static final int INDEX_FIRST_ROW_FILTERED_BY_GROUP = 5;
+    private static final int INDEX_SECOND_ROW_FILTERED_BY_GROUP = 52;
+
     @Autowired
     private FuelDocument fuelDocument;
 
-    private List<XWPFTableRow> rows;
+    private List<XWPFTableRow> rowsFilteredByGroup;
 
     @Before
     public void initializeRows() {
-        this.rows = findFirstTableRows(this.fuelDocument);
+        this.rowsFilteredByGroup = findRowsFilteredByGroup(this.fuelDocument);
     }
 
     @Test
     public void unitedRowsShouldBeFoundByContent() {
-        final int givenContentCellIndex = 1;
-        final String givenContent = "Fendt 936";
+        final int givenContentCellIndex = 2;
+        final String givenContent = "ППУ-13";
 
-        final List<XWPFTableRow> actual = findUnitedRowsByContent(this.rows, givenContentCellIndex, givenContent);
+        final List<XWPFTableRow> actual = findUnitedRowsByContent(
+                this.rowsFilteredByGroup,
+                givenContentCellIndex,
+                givenContent
+        );
 
-        final List<Integer> expectedRowIndexes = List.of(29, 30, 31, 32, 82, 83, 84, 85, 135, 136, 137, 138);
+        final List<Integer> expectedRowIndexes = List.of(8, 9, 10, 11, 16, 17, 18, 19);
+        assertEquals(expectedRowIndexes.size(), actual.size());
+
         final boolean testSuccess = range(0, expectedRowIndexes.size())
                 .allMatch(i -> {
                     final XWPFTableRow actualRow = actual.get(i);
                     final int expectedRowIndex = expectedRowIndexes.get(i);
-                    final XWPFTableRow expectedRow = this.rows.get(expectedRowIndex);
+                    final XWPFTableRow expectedRow = this.rowsFilteredByGroup.get(expectedRowIndex);
                     return expectedRow == actualRow;
                 });
         assertTrue(testSuccess);
     }
 
-    //TODO: удалить верхушку таблицы
-    private static List<XWPFTableRow> findFirstTableRows(final FuelDocument fuelDocument) {
+    @Test
+    public void unitedRowsShouldNotBeFoundByContent() {
+        final int givenContentCellIndex = 2;
+        final String givenContent = "not-existing-mechanism";
+
+        final List<XWPFTableRow> actual = findUnitedRowsByContent(
+                this.rowsFilteredByGroup,
+                givenContentCellIndex,
+                givenContent
+        );
+        assertTrue(actual.isEmpty());
+    }
+
+    @Test
+    public void firstRowShouldBeFoundByContent() {
+        throw new RuntimeException();
+    }
+
+    private static List<XWPFTableRow> findRowsFilteredByGroup(final FuelDocument fuelDocument) {
         return fuelDocument.getTables()
                 .stream()
                 .filter(XWPFTableRowFilteringUtilTest::isFirstTable)
@@ -57,12 +84,17 @@ public final class XWPFTableRowFilteringUtilTest extends AbstractContextTest {
                 .map(elements -> elements.get(0))
                 .map(element -> (XWPFTable) element)
                 .map(XWPFTable::getRows)
+                .map(XWPFTableRowFilteringUtilTest::extractRowsFilteredByGroup)
                 .orElseThrow(() -> new IllegalArgumentException("Table for testing wasn't found"));
     }
 
     private static boolean isFirstTable(final FuelTable table) {
         final String tableName = table.getName();
         return Objects.equals(tableName, FIRST_TABLE_NAME);
+    }
+
+    private static List<XWPFTableRow> extractRowsFilteredByGroup(final List<XWPFTableRow> tableRows) {
+        return tableRows.subList(INDEX_FIRST_ROW_FILTERED_BY_GROUP, INDEX_SECOND_ROW_FILTERED_BY_GROUP + 1);
     }
 
 //    @Test
