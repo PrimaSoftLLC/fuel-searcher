@@ -30,7 +30,8 @@ public final class XWPFTableRowFilteringUtilTest extends AbstractContextTest {
 
     @Before
     public void initializeRows() {
-        this.rowsFilteredByGroup = findRowsFilteredByGroup(this.fuelDocument);
+        final List<XWPFTableRow> tableRows = findSubTableRowsOfFirstTable(this.fuelDocument);
+        this.rowsFilteredByGroup = extractRowsFilteredByGroup(tableRows);
     }
 
     @Test
@@ -47,14 +48,8 @@ public final class XWPFTableRowFilteringUtilTest extends AbstractContextTest {
         final List<Integer> expectedRowIndexes = List.of(8, 9, 10, 11, 16, 17, 18, 19);
         assertEquals(expectedRowIndexes.size(), actual.size());
 
-        final boolean testSuccess = range(0, expectedRowIndexes.size())
-                .allMatch(i -> {
-                    final XWPFTableRow actualRow = actual.get(i);
-                    final int expectedRowIndex = expectedRowIndexes.get(i);
-                    final XWPFTableRow expectedRow = this.rowsFilteredByGroup.get(expectedRowIndex);
-                    return expectedRow == actualRow;
-                });
-        assertTrue(testSuccess);
+        final boolean rowFilteringSuccess = isRowFilteringSuccess(this.rowsFilteredByGroup, actual, expectedRowIndexes);
+        assertTrue(rowFilteringSuccess);
     }
 
     @Test
@@ -75,7 +70,7 @@ public final class XWPFTableRowFilteringUtilTest extends AbstractContextTest {
         throw new RuntimeException();
     }
 
-    private static List<XWPFTableRow> findRowsFilteredByGroup(final FuelDocument fuelDocument) {
+    private static List<XWPFTableRow> findSubTableRowsOfFirstTable(final FuelDocument fuelDocument) {
         return fuelDocument.getTables()
                 .stream()
                 .filter(XWPFTableRowFilteringUtilTest::isFirstTable)
@@ -84,7 +79,6 @@ public final class XWPFTableRowFilteringUtilTest extends AbstractContextTest {
                 .map(elements -> elements.get(0))
                 .map(element -> (XWPFTable) element)
                 .map(XWPFTable::getRows)
-                .map(XWPFTableRowFilteringUtilTest::extractRowsFilteredByGroup)
                 .orElseThrow(() -> new IllegalArgumentException("Table for testing wasn't found"));
     }
 
@@ -95,6 +89,24 @@ public final class XWPFTableRowFilteringUtilTest extends AbstractContextTest {
 
     private static List<XWPFTableRow> extractRowsFilteredByGroup(final List<XWPFTableRow> tableRows) {
         return tableRows.subList(INDEX_FIRST_ROW_FILTERED_BY_GROUP, INDEX_SECOND_ROW_FILTERED_BY_GROUP + 1);
+    }
+
+    private static boolean isRowFilteringSuccess(final List<XWPFTableRow> initialRows,
+                                                 final List<XWPFTableRow> actualFilteredRows,
+                                                 final List<Integer> expectedFilteredRowIndexes) {
+        return range(0, actualFilteredRows.size()).allMatch(
+                i -> isRowFilteringSuccess(i, initialRows, actualFilteredRows, expectedFilteredRowIndexes)
+        );
+    }
+
+    private static boolean isRowFilteringSuccess(final int researchActualFilteredRowIndex,
+                                                 final List<XWPFTableRow> initialRows,
+                                                 final List<XWPFTableRow> actualFilteredRows,
+                                                 final List<Integer> expectedFilteredRowIndexes) {
+        final XWPFTableRow actualRow = actualFilteredRows.get(researchActualFilteredRowIndex);
+        final int expectedRowIndex = expectedFilteredRowIndexes.get(researchActualFilteredRowIndex);
+        final XWPFTableRow expectedRow = initialRows.get(expectedRowIndex);
+        return expectedRow == actualRow;
     }
 
 //    @Test

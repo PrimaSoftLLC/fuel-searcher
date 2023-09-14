@@ -24,7 +24,7 @@ public final class XWPFTableRowFilteringUtil {
                                                              final int contentCellIndex,
                                                              final String content) {
         return findRowIndexesByContent(rows, contentCellIndex, content)
-                .mapToObj(indexFirstRow -> findUnitedRows(rows, indexFirstRow, contentCellIndex))
+                .mapToObj(firstRowIndex -> findUnitedRows(rows, firstRowIndex, contentCellIndex))
                 .flatMap(Collection::stream)
                 .toList();
     }
