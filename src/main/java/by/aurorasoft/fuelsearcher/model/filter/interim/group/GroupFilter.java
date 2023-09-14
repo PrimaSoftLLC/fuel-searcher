@@ -10,8 +10,8 @@ import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findRows
 
 public abstract class GroupFilter extends InterimFilter {
 
-    public GroupFilter(final SpecificationPropertyExtractor filtrationValueExtractor, final int filtrationCellIndex) {
-        super(filtrationValueExtractor, filtrationCellIndex);
+    public GroupFilter(final SpecificationPropertyExtractor filtrationValueExtractor, final int groupValueCellIndex) {
+        super(filtrationValueExtractor, groupValueCellIndex);
     }
 
     @Override
