@@ -96,6 +96,37 @@ public final class FuelSearcherTest {
         assertSame(givenFilter, actual);
     }
 
+    @Test
+    public void propertiesShouldBeFound()
+            throws Exception {
+        final Object firstGivenAdditionalProperty = new Object();
+        final Object secondGivenAdditionalProperty = new Object();
+        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder()
+                .firstAdditionalProperty(firstGivenAdditionalProperty)
+                .secondAdditionalProperty(secondGivenAdditionalProperty)
+                .build();
+
+        final FuelTable givenTable = mock(FuelTable.class);
+        injectFuelTable(givenBuilder, givenTable);
+
+        final FuelHeaderMetadata givenHeaderMetadata = mock(FuelHeaderMetadata.class);
+        injectHeaderMetadata(givenBuilder, givenHeaderMetadata);
+
+        final FilterChainBuilder givenFilterChainBuilder = mock(FilterChainBuilder.class);
+        injectFilterChainBuilder(givenBuilder, givenFilterChainBuilder);
+
+        final Stream<Object> actual = givenBuilder.findProperties();
+        final List<Object> actualAsList = actual.toList();
+        final List<Object> expectedAsList = List.of(
+                givenTable,
+                givenHeaderMetadata,
+                givenFilterChainBuilder,
+                firstGivenAdditionalProperty,
+                secondGivenAdditionalProperty
+        );
+        assertEquals(expectedAsList, actualAsList);
+    }
+
     private static FuelTable createTable(final String name) {
         final FuelTable givenTable = mock(FuelTable.class);
         when(givenTable.getName()).thenReturn(name);
@@ -190,6 +221,35 @@ public final class FuelSearcherTest {
         try {
             final Object property = field.get(source);
             return propertyType.cast(property);
+        } finally {
+            field.setAccessible(false);
+        }
+    }
+
+    private static void injectFuelTable(final SearcherBuilder<?> builder, final FuelTable table)
+            throws Exception {
+        injectProperty(builder, FIELD_NAME_FUEL_TABLE, table);
+    }
+
+    private static void injectHeaderMetadata(final SearcherBuilder<?> builder, final FuelHeaderMetadata metadata)
+            throws Exception {
+        injectProperty(builder, FIELD_NAME_HEADER_METADATA, metadata);
+    }
+
+    private static void injectFilterChainBuilder(final SearcherBuilder<?> builder,
+                                                 final FilterChainBuilder filterChainBuilder)
+            throws Exception {
+        injectProperty(builder, FIELD_NAME_FILTER_CHAIN_BUILDER, filterChainBuilder);
+    }
+
+    private static void injectProperty(final SearcherBuilder<?> builder,
+                                       final String fieldName,
+                                       final Object propertyValue)
+            throws Exception {
+        final Field field = SearcherBuilder.class.getDeclaredField(fieldName);
+        field.setAccessible(true);
+        try {
+            field.set(builder, propertyValue);
         } finally {
             field.setAccessible(false);
         }
