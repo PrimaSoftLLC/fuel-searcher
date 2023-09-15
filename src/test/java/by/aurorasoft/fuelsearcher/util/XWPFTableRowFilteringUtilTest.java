@@ -28,21 +28,21 @@ public final class XWPFTableRowFilteringUtilTest extends AbstractContextTest {
     @Autowired
     private FuelDocument fuelDocument;
 
-    private List<XWPFTableRow> rowsFilteredByGroup;
+    private List<XWPFTableRow> rows;
 
     @Before
     public void initializeRows() {
-        final List<XWPFTableRow> tableRows = findSubTableRowsOfFirstTable(this.fuelDocument);
-        this.rowsFilteredByGroup = extractRowsFilteredByGroup(tableRows);
+        this.rows = findSubTableRowsOfFirstTable(this.fuelDocument);
     }
 
     @Test
     public void unitedRowsShouldBeFoundByContent() {
+        final List<XWPFTableRow> givenRows = this.extractFirstGroupRows();
         final int givenContentCellIndex = 2;
         final String givenContent = "ППУ-13";
 
         final List<XWPFTableRow> actual = findUnitedRowsByContent(
-                this.rowsFilteredByGroup,
+                givenRows,
                 givenContentCellIndex,
                 givenContent
         );
@@ -50,17 +50,18 @@ public final class XWPFTableRowFilteringUtilTest extends AbstractContextTest {
         final List<Integer> expectedRowIndexes = List.of(8, 9, 10, 11, 16, 17, 18, 19);
         assertEquals(expectedRowIndexes.size(), actual.size());
 
-        final boolean rowFilteringSuccess = isRowFilteringSuccess(this.rowsFilteredByGroup, actual, expectedRowIndexes);
+        final boolean rowFilteringSuccess = isRowFilteringSuccess(givenRows, actual, expectedRowIndexes);
         assertTrue(rowFilteringSuccess);
     }
 
     @Test
     public void lastUnitedRowsInGroupShouldBeFoundByContent() {
+        final List<XWPFTableRow> givenRows = this.extractFirstGroupRows();
         final int givenContentCellIndex = 2;
         final String givenContent = "ППО-9-30/45";
 
         final List<XWPFTableRow> actual = findUnitedRowsByContent(
-                this.rowsFilteredByGroup,
+                givenRows,
                 givenContentCellIndex,
                 givenContent
         );
@@ -68,17 +69,18 @@ public final class XWPFTableRowFilteringUtilTest extends AbstractContextTest {
         final List<Integer> expectedRowIndexes = List.of(48, 49, 50, 51);
         assertEquals(expectedRowIndexes.size(), actual.size());
 
-        final boolean rowFilteringSuccess = isRowFilteringSuccess(this.rowsFilteredByGroup, actual, expectedRowIndexes);
+        final boolean rowFilteringSuccess = isRowFilteringSuccess(givenRows, actual, expectedRowIndexes);
         assertTrue(rowFilteringSuccess);
     }
 
     @Test
     public void unitedRowsShouldNotBeFoundByContent() {
+        final List<XWPFTableRow> givenRows = this.extractFirstGroupRows();
         final int givenContentCellIndex = 2;
         final String givenContent = "not-existing-mechanism";
 
         final List<XWPFTableRow> actual = findUnitedRowsByContent(
-                this.rowsFilteredByGroup,
+                givenRows,
                 givenContentCellIndex,
                 givenContent
         );
@@ -87,11 +89,12 @@ public final class XWPFTableRowFilteringUtilTest extends AbstractContextTest {
 
     @Test
     public void firstRowShouldBeFoundByContent() {
+        final List<XWPFTableRow> givenRows = this.extractFirstGroupRows();
         final int givenContentCellIndex = 1;
         final String givenContent = "Беларус 3525";
 
         final Optional<XWPFTableRow> optionalActual = findFirstRowByContent(
-                this.rowsFilteredByGroup,
+                givenRows,
                 givenContentCellIndex,
                 givenContent
         );
@@ -99,17 +102,18 @@ public final class XWPFTableRowFilteringUtilTest extends AbstractContextTest {
         final XWPFTableRow actual = optionalActual.get();
 
         final int expectedRowIndex = 20;
-        final boolean rowFilteringSuccess = isRowFilteringSuccess(this.rowsFilteredByGroup, actual, expectedRowIndex);
+        final boolean rowFilteringSuccess = isRowFilteringSuccess(givenRows, actual, expectedRowIndex);
         assertTrue(rowFilteringSuccess);
     }
 
     @Test
     public void firstRowShouldNotBeFoundByContent() {
+        final List<XWPFTableRow> givenRows = this.extractFirstGroupRows();
         final int givenContentCellIndex = 1;
         final String givenContent = "not-existing-tractor";
 
         final Optional<XWPFTableRow> optionalActual = findFirstRowByContent(
-                this.rowsFilteredByGroup,
+                givenRows,
                 givenContentCellIndex,
                 givenContent
         );
@@ -118,8 +122,9 @@ public final class XWPFTableRowFilteringUtilTest extends AbstractContextTest {
 
     @Test
     public void firstCellIndexShouldBeFoundByContent() {
+        final List<XWPFTableRow> givenRows = this.extractFirstGroupRows();
         final int givenRowIndex = 4;
-        final XWPFTableRow givenRow = this.rowsFilteredByGroup.get(givenRowIndex);
+        final XWPFTableRow givenRow = givenRows.get(givenRowIndex);
         final String givenContent = "9.4";
 
         final OptionalInt optionalActual = findFirstCellIndexByContent(givenRow, givenContent);
@@ -131,13 +136,16 @@ public final class XWPFTableRowFilteringUtilTest extends AbstractContextTest {
 
     @Test
     public void firstCellIndexShouldNotBeFoundByContent() {
+        final List<XWPFTableRow> givenRows = this.extractFirstGroupRows();
         final int givenRowIndex = 4;
-        final XWPFTableRow givenRow = this.rowsFilteredByGroup.get(givenRowIndex);
+        final XWPFTableRow givenRow = givenRows.get(givenRowIndex);
         final String givenContent = "not-existing-content";
 
         final OptionalInt optionalActual = findFirstCellIndexByContent(givenRow, givenContent);
         assertTrue(optionalActual.isEmpty());
     }
+
+
 
     private static List<XWPFTableRow> findSubTableRowsOfFirstTable(final FuelDocument fuelDocument) {
         return fuelDocument.getTables()
@@ -156,8 +164,11 @@ public final class XWPFTableRowFilteringUtilTest extends AbstractContextTest {
         return Objects.equals(tableName, FIRST_TABLE_NAME);
     }
 
-    private static List<XWPFTableRow> extractRowsFilteredByGroup(final List<XWPFTableRow> tableRows) {
-        return tableRows.subList(INDEX_FIRST_ROW_FILTERED_BY_GROUP, INDEX_LAST_ROW_FILTERED_BY_GROUP + 1);
+    private List<XWPFTableRow> extractFirstGroupRows() {
+        return this.rows.subList(
+                INDEX_FIRST_ROW_FILTERED_BY_GROUP,
+                INDEX_LAST_ROW_FILTERED_BY_GROUP + 1
+        );
     }
 
     private static boolean isRowFilteringSuccess(final List<XWPFTableRow> initialRows,

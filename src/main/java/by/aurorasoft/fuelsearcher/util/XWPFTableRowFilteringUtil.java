@@ -15,7 +15,6 @@ import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellTextEqualIg
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isChildUnitedRow;
 import static java.util.stream.IntStream.range;
 
-//TODO: refactor and refactor tests
 @UtilityClass
 public final class XWPFTableRowFilteringUtil {
 
