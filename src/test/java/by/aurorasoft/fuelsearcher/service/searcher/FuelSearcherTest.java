@@ -20,8 +20,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import static java.util.Optional.ofNullable;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -170,17 +169,26 @@ public final class FuelSearcherTest {
         assertSame(givenHeaderExtractor, actualHeaderExtractor);
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void searcherShouldNotBeBuiltAfterStateValidationBecauseOfFuelTableIsNotValid()
             throws Exception {
+        final String givenNotValidElementsMessage = "message";
         final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder()
                 .validElements(false)
+                .notValidElementsMessage(givenNotValidElementsMessage)
                 .build();
 
         final FuelTable givenTable = mock(FuelTable.class);
         injectFuelTable(givenBuilder, givenTable);
 
-        givenBuilder.buildAfterStateValidation();
+        boolean exceptionArisen = false;
+        try {
+            givenBuilder.buildAfterStateValidation();
+        } catch (final IllegalStateException exception) {
+            assertEquals(givenNotValidElementsMessage, exception.getMessage());
+            exceptionArisen = true;
+        }
+        assertTrue(exceptionArisen);
     }
 
     private static FuelTable createTable(final String name) {
