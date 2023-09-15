@@ -28,7 +28,7 @@ import static java.util.stream.IntStream.range;
 import static java.util.stream.Stream.concat;
 
 public abstract class FuelSearcher implements Translatable {
-    private static final int ROW_INDEX_HEADERS = 1;
+    private static final int HEADER_ROW_INDEX = 1;
 
     private final FuelTable table;
     private final Map<String, Integer> fuelOffsetsByHeaders;
@@ -62,24 +62,24 @@ public abstract class FuelSearcher implements Translatable {
                                                         final FuelSpecification specification);
 
     private Optional<Fuel> findFuel(final List<XWPFTableRow> subTableRows, final FuelSpecification specification) {
-        final XWPFTableRow headersRow = subTableRows.get(ROW_INDEX_HEADERS);
+        final XWPFTableRow headerRow = subTableRows.get(HEADER_ROW_INDEX);
         return this.filterChain.filter(subTableRows, specification)
-                .flatMap(fuelRow -> this.findFuelLocation(headersRow, specification, fuelRow))
+                .flatMap(fuelRow -> this.findFuelLocation(headerRow, specification, fuelRow))
                 .map(FuelSearcher::extractFuel);
     }
 
-    private Optional<FuelLocation> findFuelLocation(final XWPFTableRow headersRow,
+    private Optional<FuelLocation> findFuelLocation(final XWPFTableRow headerRow,
                                                     final FuelSpecification specification,
                                                     final XWPFTableRow fuelRow) {
         final String fuelHeader = this.headerExtractor.extract(specification);
-        return findFirstCellIndexByContent(headersRow, fuelHeader)
+        return findFirstCellIndexByContent(headerRow, fuelHeader)
                 .stream()
-                .map(fuelHeaderCellIndex -> this.findCellIndexGenerationNorm(fuelHeaderCellIndex, fuelHeader))
+                .map(fuelHeaderCellIndex -> this.findGenerationNormCellIndex(fuelHeaderCellIndex, fuelHeader))
                 .mapToObj(generationNormCellIndex -> createFuelLocation(fuelRow, generationNormCellIndex))
                 .findFirst();
     }
 
-    private int findCellIndexGenerationNorm(final int fuelHeaderCellIndex, final String fuelHeader) {
+    private int findGenerationNormCellIndex(final int fuelHeaderCellIndex, final String fuelHeader) {
         final int fuelOffset = this.findFuelOffset(fuelHeader);
         return fuelHeaderCellIndex + fuelOffset;
     }
@@ -122,7 +122,6 @@ public abstract class FuelSearcher implements Translatable {
         final int cellIndex = cellIndexGetter.applyAsInt(location);
         return extractCellDoubleValue(row, cellIndex);
     }
-
 
     private record FuelLocation(XWPFTableRow row, int cellIndexGenerationNorm, int cellIndexConsumption) {
     }
