@@ -152,9 +152,7 @@ public abstract class FuelSearcher implements Translatable {
 
         @Override
         protected final Stream<Object> findProperties() {
-            final Stream<Object> currentProperties = Stream.of(
-                    this.table, this.headerMetadata, this.filterChainBuilder
-            );
+            final Stream<Object> currentProperties = Stream.of(this.table, this.headerMetadata, this.filterChainBuilder);
             final Stream<Object> additionalProperties = this.findAdditionalProperties();
             return concat(currentProperties, additionalProperties);
         }

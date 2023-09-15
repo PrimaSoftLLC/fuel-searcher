@@ -1,9 +1,12 @@
 package by.aurorasoft.fuelsearcher.service.searcher;
 
 import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
+import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
 import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
+import by.aurorasoft.fuelsearcher.service.searcher.FilterChain.FilterChainBuilder;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher.SearcherBuilder;
 import lombok.Builder;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
@@ -26,6 +29,9 @@ public final class FuelSearcherTest {
     private static final String FIELD_NAME_FUEL_TABLE = "table";
     private static final String FIELD_NAME_HEADER_METADATA = "headerMetadata";
     private static final String FIELD_NAME_FILTER_CHAIN_BUILDER = "filterChainBuilder";
+
+    private static final String FIELD_NAME_INTERIM_FILTERS = "interimFilters";
+    private static final String FIELD_NAME_FINAL_FILTER = "finalFilter";
 
     @Test
     public void aliasShouldBeFound() {
@@ -50,7 +56,7 @@ public final class FuelSearcherTest {
     }
 
     @Test
-    public void headerMetadataShouldBeAccumulated()
+    public void headerMetadataShouldBeAccumulatedByBuilder()
             throws Exception {
         final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder().build();
         final FuelHeaderMetadata givenMetadata = mock(FuelHeaderMetadata.class);
@@ -59,6 +65,35 @@ public final class FuelSearcherTest {
 
         final FuelHeaderMetadata actual = findHeaderMetadata(givenBuilder);
         assertSame(givenMetadata, actual);
+    }
+
+    @Test
+    public void interimFiltersShouldBeAccumulatedByBuilder()
+            throws Exception {
+        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder().build();
+        final InterimFilter firstGivenInterimFilter = mock(InterimFilter.class);
+        final InterimFilter secondGivenInterimFilter = mock(InterimFilter.class);
+
+        givenBuilder.interimFilter(firstGivenInterimFilter);
+        givenBuilder.interimFilter(secondGivenInterimFilter);
+
+        final FilterChainBuilder actualFilterChainBuilder = findFilterChainBuilder(givenBuilder);
+        final List<InterimFilter> actual = findInterimFilters(actualFilterChainBuilder);
+        final List<InterimFilter> expected = List.of(firstGivenInterimFilter, secondGivenInterimFilter);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void finalFilterShouldBeAccumulatedByBuilder()
+            throws Exception {
+        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder().build();
+        final FinalFilter givenFilter = mock(FinalFilter.class);
+
+        givenBuilder.finalFilter(givenFilter);
+
+        final FilterChainBuilder actualFilterChainBuilder = findFilterChainBuilder(givenBuilder);
+        final FinalFilter actual = findFinalFilter(actualFilterChainBuilder);
+        assertSame(givenFilter, actual);
     }
 
     private static FuelTable createTable(final String name) {
@@ -77,12 +112,29 @@ public final class FuelSearcherTest {
 
     private static FuelTable findFuelTable(final SearcherBuilder<?> builder)
             throws Exception {
-        return findProperty(builder, FIELD_NAME_FUEL_TABLE, FuelTable.class);
+        return findProperty(
+                builder,
+                FIELD_NAME_FUEL_TABLE,
+                FuelTable.class
+        );
     }
 
     private static FuelHeaderMetadata findHeaderMetadata(final SearcherBuilder<?> builder)
             throws Exception {
-        return findProperty(builder, FIELD_NAME_HEADER_METADATA, FuelHeaderMetadata.class);
+        return findProperty(
+                builder,
+                FIELD_NAME_HEADER_METADATA,
+                FuelHeaderMetadata.class
+        );
+    }
+
+    private static FilterChainBuilder findFilterChainBuilder(final SearcherBuilder<?> builder)
+            throws Exception {
+        return findProperty(
+                builder,
+                FIELD_NAME_FILTER_CHAIN_BUILDER,
+                FilterChainBuilder.class
+        );
     }
 
     private static <P> P findProperty(final SearcherBuilder<?> builder,
@@ -93,6 +145,37 @@ public final class FuelSearcherTest {
                 builder,
                 fieldName,
                 SearcherBuilder.class,
+                propertyType
+        );
+    }
+
+    @SuppressWarnings("unchecked")
+    private static List<InterimFilter> findInterimFilters(final FilterChainBuilder builder)
+            throws Exception {
+        return findProperty(
+                builder,
+                FIELD_NAME_INTERIM_FILTERS,
+                List.class
+        );
+    }
+
+    private static FinalFilter findFinalFilter(final FilterChainBuilder builder)
+            throws Exception {
+        return findProperty(
+                builder,
+                FIELD_NAME_FINAL_FILTER,
+                FinalFilter.class
+        );
+    }
+
+    private static <P> P findProperty(final FilterChainBuilder builder,
+                                      final String fieldName,
+                                      final Class<P> propertyType)
+            throws Exception {
+        return findProperty(
+                builder,
+                fieldName,
+                FilterChainBuilder.class,
                 propertyType
         );
     }
