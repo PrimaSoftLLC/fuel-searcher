@@ -33,6 +33,10 @@ public final class FuelSearcherTest {
     private static final String FIELD_NAME_INTERIM_FILTERS = "interimFilters";
     private static final String FIELD_NAME_FINAL_FILTER = "finalFilter";
 
+    private static final String FIELD_NAME_FUEL_OFFSETS_BY_HEADERS = "fuelOffsetsByHeaders";
+    private static final String FIELD_NAME_FILTER_CHAIN = "filterChain";
+    private static final String FIELD_NAME_HEADER_EXTRACTOR = "headerExtractor";
+
     @Test
     public void aliasShouldBeFound() {
         final String givenTableName = "table-name";
@@ -127,6 +131,58 @@ public final class FuelSearcherTest {
         assertEquals(expectedAsList, actualAsList);
     }
 
+    @Test
+    public void searcherShouldBeBuiltAfterStateValidation()
+            throws Exception {
+        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder()
+                .validElements(true)
+                .build();
+
+        final FuelTable givenTable = mock(FuelTable.class);
+        injectFuelTable(givenBuilder, givenTable);
+
+        final String[] givenHeaderValues = {"first-header", "second-header", "third-header"};
+        final SpecificationPropertyExtractor givenHeaderExtractor = mock(SpecificationPropertyExtractor.class);
+        final FuelHeaderMetadata givenHeaderMetadata = createHeaderMetadata(givenHeaderValues, givenHeaderExtractor);
+        injectHeaderMetadata(givenBuilder, givenHeaderMetadata);
+
+        final FilterChain givenFilterChain = mock(FilterChain.class);
+        final FilterChainBuilder givenFilterChainBuilder = createFilterChainBuilder(givenFilterChain);
+        injectFilterChainBuilder(givenBuilder, givenFilterChainBuilder);
+
+        final TestFuelSearcher actual = givenBuilder.buildAfterStateValidation();
+
+        final FuelTable actualTable = findFuelTable(actual);
+        assertSame(givenTable, actualTable);
+
+        final Map<String, Integer> actualFuelOffsetsByHeaders = findFuelOffsetsByHeaders(actual);
+        final Map<String, Integer> expectedFuelOffsetsByHeaders = Map.of(
+                "first-header", 0,
+                "second-header", 1,
+                "third-header", 2
+        );
+        assertEquals(expectedFuelOffsetsByHeaders, actualFuelOffsetsByHeaders);
+
+        final FilterChain actualFilterChain = findFilterChain(actual);
+        assertSame(givenFilterChain, actualFilterChain);
+
+        final SpecificationPropertyExtractor actualHeaderExtractor = findHeaderExtractor(actual);
+        assertSame(givenHeaderExtractor, actualHeaderExtractor);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void searcherShouldNotBeBuiltAfterStateValidationBecauseOfFuelTableIsNotValid()
+            throws Exception {
+        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder()
+                .validElements(false)
+                .build();
+
+        final FuelTable givenTable = mock(FuelTable.class);
+        injectFuelTable(givenBuilder, givenTable);
+
+        givenBuilder.buildAfterStateValidation();
+    }
+
     private static FuelTable createTable(final String name) {
         final FuelTable givenTable = mock(FuelTable.class);
         when(givenTable.getName()).thenReturn(name);
@@ -211,6 +267,34 @@ public final class FuelSearcherTest {
         );
     }
 
+    private static FuelTable findFuelTable(final FuelSearcher searcher)
+            throws Exception {
+        return findProperty(searcher, FIELD_NAME_FUEL_TABLE, FuelTable.class);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static Map<String, Integer> findFuelOffsetsByHeaders(final FuelSearcher searcher)
+            throws Exception {
+        return findProperty(searcher, FIELD_NAME_FUEL_OFFSETS_BY_HEADERS, Map.class);
+    }
+
+    private static FilterChain findFilterChain(final FuelSearcher searcher)
+            throws Exception {
+        return findProperty(searcher, FIELD_NAME_FILTER_CHAIN, FilterChain.class);
+    }
+
+    private SpecificationPropertyExtractor findHeaderExtractor(final FuelSearcher searcher)
+            throws Exception {
+        return findProperty(searcher, FIELD_NAME_HEADER_EXTRACTOR, SpecificationPropertyExtractor.class);
+    }
+
+    private static <P> P findProperty(final FuelSearcher searcher,
+                                      final String fieldName,
+                                      final Class<P> propertyType)
+            throws Exception {
+        return findProperty(searcher, fieldName, FuelSearcher.class, propertyType);
+    }
+
     private static <S, P> P findProperty(final S source,
                                          final String fieldName,
                                          final Class<S> sourceType,
@@ -253,6 +337,20 @@ public final class FuelSearcherTest {
         } finally {
             field.setAccessible(false);
         }
+    }
+
+    private static FuelHeaderMetadata createHeaderMetadata(final String[] values,
+                                                           final SpecificationPropertyExtractor headerExtractor) {
+        final FuelHeaderMetadata metadata = mock(FuelHeaderMetadata.class);
+        when(metadata.getValues()).thenReturn(values);
+        when(metadata.getHeaderExtractor()).thenReturn(headerExtractor);
+        return metadata;
+    }
+
+    private static FilterChainBuilder createFilterChainBuilder(final FilterChain builtFilterChain) {
+        final FilterChainBuilder builder = mock(FilterChainBuilder.class);
+        when(builder.build()).thenReturn(builtFilterChain);
+        return builder;
     }
 
     private static final class TestFuelSearcher extends FuelSearcher {

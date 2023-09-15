@@ -20,8 +20,8 @@ import java.util.Optional;
 import java.util.function.ToIntFunction;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.extractCellDoubleValue;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findFirstCellIndexByContent;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.extractCellDoubleValue;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.IntStream.range;
@@ -187,7 +187,7 @@ public abstract class FuelSearcher implements Translatable {
             final List<IBodyElement> elements = fuelTable.getElements();
             if (!this.isValidElements(elements)) {
                 final String exceptionDescription = this.findNotValidElementsMessage();
-                throw new IllegalArgumentException(exceptionDescription);
+                throw new IllegalStateException(exceptionDescription);
             }
         }
 
