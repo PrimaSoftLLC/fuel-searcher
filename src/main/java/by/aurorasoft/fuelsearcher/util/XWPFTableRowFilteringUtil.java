@@ -11,7 +11,6 @@ import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
 import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.isCellTextEqualIgnoringWhitespacesAndCase;
-import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellTextEqualIgnoringWhitespacesAndCase;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isChildUnitedRow;
 import static java.util.stream.IntStream.range;
 
@@ -92,63 +91,87 @@ public final class XWPFTableRowFilteringUtil {
                                                                 final int contentCellIndex,
                                                                 final String content,
                                                                 final RowContentMatcher matcher) {
+        return findMatchingContentRowIndexes(
+                rows,
+                startFindingIndex,
+                contentCellIndex,
+                content,
+                matcher
+        ).findFirst();
+    }
+
+    private static IntStream findMatchingContentRowIndexes(final List<XWPFTableRow> rows,
+                                                           final int startFindingIndex,
+                                                           final int contentCellIndex,
+                                                           final String content,
+                                                           final RowContentMatcher matcher) {
         return range(startFindingIndex, rows.size())
-                .filter(i -> matcher.isMatch(rows.get(i), contentCellIndex, content))
-                .findFirst();
+                .filter(
+                        i -> matcher.isMatch(
+                                rows.get(i),
+                                contentCellIndex,
+                                content
+                        )
+                );
     }
 
     private static IntStream findRowIndexesByContent(final List<XWPFTableRow> rows,
                                                      final int contentCellIndex,
                                                      final String content) {
-        return range(0, rows.size())
-                .filter(i -> isCellTextEqualIgnoringWhitespacesAndCase(rows.get(i), contentCellIndex, content));
+        return findMatchingContentRowIndexes(
+                rows,
+                0,
+                contentCellIndex,
+                content,
+                XWPFTableRowUtil::isCellTextEqualIgnoringWhitespacesAndCase
+        );
     }
 
     private static List<XWPFTableRow> findUnitedRows(final List<XWPFTableRow> rows,
-                                                     final int indexFirstRow,
+                                                     final int firstRowIndex,
                                                      final int contentCellIndex) {
-        final int nextIndexLastChildUnitedRow = findNextIndexLastChildUnitedRow(
+        final int lastChildNextIndexUnitedRow = findLastChildNextIndexUnitedRow(
                 rows,
-                indexFirstRow,
+                firstRowIndex,
                 contentCellIndex
         );
-        return rows.subList(indexFirstRow, nextIndexLastChildUnitedRow);
+        return rows.subList(firstRowIndex, lastChildNextIndexUnitedRow);
     }
 
-    private static int findNextIndexLastChildUnitedRow(final List<XWPFTableRow> rows,
-                                                       final int indexFirstRow,
+    private static int findLastChildNextIndexUnitedRow(final List<XWPFTableRow> rows,
+                                                       final int firstRowIndex,
                                                        final int contentCellIndex) {
-        final int nextIndexLastRow = rows.size();
-        return range(indexFirstRow + 1, rows.size())
+        final int lastRowNextIndex = rows.size();
+        return range(firstRowIndex + 1, rows.size())
                 .dropWhile(rowIndex -> isChildUnitedRow(rows.get(rowIndex), contentCellIndex))
                 .findFirst()
-                .orElse(nextIndexLastRow);
+                .orElse(lastRowNextIndex);
     }
 
     private static List<XWPFTableRow> findGroupRows(final List<XWPFTableRow> rows,
-                                                    final int indexFirstGroupRow,
+                                                    final int firstGroupRowIndex,
                                                     final int filtrationCellIndex,
                                                     final String groupValueRegex) {
         final int nextIndexLastGroupRow = findNextIndexLastGroupRow(
                 rows,
-                indexFirstGroupRow,
+                firstGroupRowIndex,
                 filtrationCellIndex,
                 groupValueRegex
         );
-        return rows.subList(indexFirstGroupRow, nextIndexLastGroupRow);
+        return rows.subList(firstGroupRowIndex, nextIndexLastGroupRow);
     }
 
     private static int findNextIndexLastGroupRow(final List<XWPFTableRow> rows,
-                                                 final int indexFirstGroupRow,
+                                                 final int firstGroupRowIndex,
                                                  final int filtrationCellIndex,
                                                  final String groupValueRegex) {
-        final int nextIndexLastRow = rows.size();
+        final int lastRowNextIndex = rows.size();
         return findIndexFirstRowByContentRegex(
                 rows,
-                indexFirstGroupRow,
+                firstGroupRowIndex,
                 filtrationCellIndex,
                 groupValueRegex
-        ).orElse(nextIndexLastRow);
+        ).orElse(lastRowNextIndex);
     }
 
     @FunctionalInterface
