@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.OptionalInt;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findFirstRowByContent;
-import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findUnitedRowsByContent;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.*;
 import static java.util.stream.IntStream.range;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -95,6 +95,29 @@ public final class XWPFTableRowFilteringUtilTest extends AbstractContextTest {
                 givenContentCellIndex,
                 givenContent
         );
+        assertTrue(optionalActual.isEmpty());
+    }
+
+    @Test
+    public void firstCellIndexShouldBeFoundByContent() {
+        final int givenRowIndex = 4;
+        final XWPFTableRow givenRow = this.rowsFilteredByGroup.get(givenRowIndex);
+        final String givenContent = "9.4";
+
+        final OptionalInt optionalActual = findFirstCellIndexByContent(givenRow, givenContent);
+        assertTrue(optionalActual.isPresent());
+        final int actual = optionalActual.getAsInt();
+        final int expected = 5;
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void firstCellIndexShouldNotBeFoundByContent() {
+        final int givenRowIndex = 4;
+        final XWPFTableRow givenRow = this.rowsFilteredByGroup.get(givenRowIndex);
+        final String givenContent = "not-existing-content";
+
+        final OptionalInt optionalActual = findFirstCellIndexByContent(givenRow, givenContent);
         assertTrue(optionalActual.isEmpty());
     }
 
