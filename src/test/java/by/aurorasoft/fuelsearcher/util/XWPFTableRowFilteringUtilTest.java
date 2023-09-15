@@ -23,7 +23,7 @@ public final class XWPFTableRowFilteringUtilTest extends AbstractContextTest {
     private static final String FIRST_TABLE_NAME = "ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ";
 
     private static final int INDEX_FIRST_ROW_FILTERED_BY_GROUP = 5;
-    private static final int INDEX_SECOND_ROW_FILTERED_BY_GROUP = 52;
+    private static final int INDEX_LAST_ROW_FILTERED_BY_GROUP = 56;
 
     @Autowired
     private FuelDocument fuelDocument;
@@ -48,6 +48,24 @@ public final class XWPFTableRowFilteringUtilTest extends AbstractContextTest {
         );
 
         final List<Integer> expectedRowIndexes = List.of(8, 9, 10, 11, 16, 17, 18, 19);
+        assertEquals(expectedRowIndexes.size(), actual.size());
+
+        final boolean rowFilteringSuccess = isRowFilteringSuccess(this.rowsFilteredByGroup, actual, expectedRowIndexes);
+        assertTrue(rowFilteringSuccess);
+    }
+
+    @Test
+    public void lastUnitedRowsInGroupShouldBeFoundByContent() {
+        final int givenContentCellIndex = 2;
+        final String givenContent = "ППО-9-30/45";
+
+        final List<XWPFTableRow> actual = findUnitedRowsByContent(
+                this.rowsFilteredByGroup,
+                givenContentCellIndex,
+                givenContent
+        );
+
+        final List<Integer> expectedRowIndexes = List.of(48, 49, 50, 51);
         assertEquals(expectedRowIndexes.size(), actual.size());
 
         final boolean rowFilteringSuccess = isRowFilteringSuccess(this.rowsFilteredByGroup, actual, expectedRowIndexes);
@@ -139,7 +157,7 @@ public final class XWPFTableRowFilteringUtilTest extends AbstractContextTest {
     }
 
     private static List<XWPFTableRow> extractRowsFilteredByGroup(final List<XWPFTableRow> tableRows) {
-        return tableRows.subList(INDEX_FIRST_ROW_FILTERED_BY_GROUP, INDEX_SECOND_ROW_FILTERED_BY_GROUP + 1);
+        return tableRows.subList(INDEX_FIRST_ROW_FILTERED_BY_GROUP, INDEX_LAST_ROW_FILTERED_BY_GROUP + 1);
     }
 
     private static boolean isRowFilteringSuccess(final List<XWPFTableRow> initialRows,

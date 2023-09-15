@@ -45,17 +45,16 @@ public final class XWPFTableRowFilteringUtil {
                 .findFirst();
     }
 
-    //TODO: test
     public static List<XWPFTableRow> findRowsByGroup(final List<XWPFTableRow> rows,
                                                      final String groupValue,
                                                      final String groupValueRegex,
                                                      final int groupValueCellIndex) {
         return findRowIndexesByContent(rows, groupValueCellIndex, groupValue)
-                .map(indexRowGroupValue -> indexRowGroupValue + 1)
+                .map(groupValueRowIndex -> groupValueRowIndex + 1)
                 .mapToObj(
-                        indexFirstGroupRow -> findGroupRows(
+                        firstGroupRowIndex -> findGroupRows(
                                 rows,
-                                indexFirstGroupRow,
+                                firstGroupRowIndex,
                                 groupValueCellIndex,
                                 groupValueRegex
                         )
