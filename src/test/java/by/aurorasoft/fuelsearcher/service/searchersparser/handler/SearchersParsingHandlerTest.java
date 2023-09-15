@@ -12,7 +12,6 @@ import org.xml.sax.Attributes;
 import java.util.Optional;
 
 import static java.util.Optional.empty;
-import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)

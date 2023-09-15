@@ -1,6 +1,5 @@
 package by.aurorasoft.fuelsearcher.service.dictionary;
 
-import lombok.RequiredArgsConstructor;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
@@ -102,10 +101,7 @@ public final class DictionaryTest {
         }
     }
 
-    @RequiredArgsConstructor
-    private static final class TestObject implements Translatable {
-        private final String alias;
-
+    private record TestObject(String alias) implements Translatable {
         @Override
         public String findAlias() {
             return this.alias;

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public final class SpecificationValidatorDictionary extends Dictionary<SpecificationValidator> {
 
     public SpecificationValidatorDictionary(final SearchersParsingResult searchersParsingResult) {
-        super(searchersParsingResult.getSpecificationValidators());
+        super(searchersParsingResult.specificationValidators());
     }
 
 }

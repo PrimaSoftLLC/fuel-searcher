@@ -4,7 +4,6 @@ import by.aurorasoft.fuelsearcher.controller.exception.NoSuchFuelException;
 import by.aurorasoft.fuelsearcher.controller.exception.NotValidSpecificationException;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidatingResult;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -58,12 +57,10 @@ public final class FuelControllerExceptionHandler {
         return join(DELIMITER_SPECIFICATION_PROPERTIES, failedPropertyNames);
     }
 
-    @Value
-    private static class RestErrorResponse {
-        HttpStatus httpStatus;
-        String message;
-
-        @JsonFormat(shape = STRING, pattern = "yyyy-MM-dd HH-mm-ss")
-        LocalDateTime dateTime;
+    private record RestErrorResponse(
+            HttpStatus httpStatus,
+            String message,
+            @JsonFormat(shape = STRING, pattern = "yyyy-MM-dd HH-mm-ss") LocalDateTime dateTime
+    ) {
     }
 }

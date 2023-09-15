@@ -71,7 +71,7 @@ public final class SearchersParsingContext {
     }
 
     public void accumulateFuelTable(final FuelTable fuelTable) {
-        final String tableName = fuelTable.getName();
+        final String tableName = fuelTable.name();
         this.specificationValidatorBuilder.tableName(tableName);
         this.accumulateComponentToCurrentSearcherBuilder(
                 fuelTable,

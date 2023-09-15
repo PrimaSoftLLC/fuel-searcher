@@ -2,7 +2,6 @@ package by.aurorasoft.fuelsearcher.service.documentfactory.loader;
 
 import by.aurorasoft.fuelsearcher.model.FuelDocument;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
-import lombok.Value;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -55,8 +54,8 @@ public final class FuelDocumentLoader {
         return asStream(new ElementBoundedToTableNameIterator(document))
                 .collect(
                         groupingBy(
-                                ElementBoundedToTableTitle::getTableName,
-                                mapping(ElementBoundedToTableTitle::getElement, toList())
+                                ElementBoundedToTableTitle::tableName,
+                                mapping(ElementBoundedToTableTitle::element, toList())
                         )
                 );
     }
@@ -168,10 +167,7 @@ public final class FuelDocumentLoader {
         }
     }
 
-    @Value
-    private static class ElementBoundedToTableTitle {
-        String tableName;
-        IBodyElement element;
+    private record ElementBoundedToTableTitle(String tableName, IBodyElement element) {
     }
 
 

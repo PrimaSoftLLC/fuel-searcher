@@ -2,7 +2,6 @@ package by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.tr
 
 import by.aurorasoft.fuelsearcher.service.dictionary.Translatable;
 import by.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsingContext;
-import lombok.RequiredArgsConstructor;
 import org.junit.Test;
 
 import java.util.List;
@@ -33,10 +32,7 @@ public final class SimpleTranslatingTagHandlerTest {
         return context;
     }
 
-    @RequiredArgsConstructor
-    private static final class TestValue implements Translatable {
-        private final String alias;
-
+    private record TestValue(String alias) implements Translatable {
         @Override
         public String findAlias() {
             return this.alias;

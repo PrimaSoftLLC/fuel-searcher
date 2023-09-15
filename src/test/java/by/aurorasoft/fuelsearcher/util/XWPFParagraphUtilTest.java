@@ -12,7 +12,6 @@ import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.*;
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 public final class XWPFParagraphUtilTest {

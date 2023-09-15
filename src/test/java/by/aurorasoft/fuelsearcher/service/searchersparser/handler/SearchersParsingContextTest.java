@@ -513,7 +513,7 @@ public final class SearchersParsingContextTest {
     @SuppressWarnings("SameParameterValue")
     private static FuelTable createFuelTable(final String tableName) {
         final FuelTable fuelTable = mock(FuelTable.class);
-        when(fuelTable.getName()).thenReturn(tableName);
+        when(fuelTable.name()).thenReturn(tableName);
         return fuelTable;
     }
 

@@ -27,7 +27,6 @@ import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.extractCellDouble
 import static java.lang.Double.NaN;
 import static java.util.Optional.ofNullable;
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.*;
 
 public final class FuelSearcherTest {
@@ -427,7 +426,7 @@ public final class FuelSearcherTest {
     @SuppressWarnings("SameParameterValue")
     private static FuelTable createTable(final String name) {
         final FuelTable givenTable = mock(FuelTable.class);
-        when(givenTable.getName()).thenReturn(name);
+        when(givenTable.name()).thenReturn(name);
         return givenTable;
     }
 

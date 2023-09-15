@@ -1,6 +1,5 @@
 package by.aurorasoft.fuelsearcher.service.builder;
 
-import lombok.Value;
 import org.junit.Test;
 
 import java.util.stream.Stream;
@@ -34,10 +33,7 @@ public final class BuilderRequiringAllPropertiesTest {
         givenBuilder.build();
     }
 
-    @Value
-    private static class TestObject {
-        Object firstProperty;
-        Object secondProperty;
+    private record TestObject(Object firstProperty, Object secondProperty) {
     }
 
     private static final class TestBuilderRequiringAllProperties extends BuilderRequiringAllProperties<TestObject> {

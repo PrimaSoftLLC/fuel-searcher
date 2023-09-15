@@ -19,9 +19,9 @@ public final class FuelDocumentCorrector {
     private final List<ParagraphCorrector> correctors;
 
     public void correct(final FuelDocument document) {
-        document.getTables()
+        document.tables()
                 .stream()
-                .map(FuelTable::getElements)
+                .map(FuelTable::elements)
                 .flatMap(Collection::stream)
                 .flatMap(FuelDocumentCorrector::mapToParagraphStream)
                 .forEach(this::correct);

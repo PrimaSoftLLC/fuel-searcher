@@ -23,7 +23,6 @@ import static by.aurorasoft.fuelsearcher.util.XWPFContentComparingUtil.areEqualI
 import static by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.extractParagraphText;
 import static java.util.Collections.emptyMap;
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.*;
 
 public final class CompositeFuelSearcherTest {

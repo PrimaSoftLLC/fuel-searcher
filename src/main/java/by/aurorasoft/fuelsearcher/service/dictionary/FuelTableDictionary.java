@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public final class FuelTableDictionary extends Dictionary<FuelTable> {
 
     public FuelTableDictionary(final FuelDocument document) {
-        super(document.getTables());
+        super(document.tables());
     }
 
 }

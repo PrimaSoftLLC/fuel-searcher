@@ -15,7 +15,6 @@ import java.util.function.Supplier;
 import static java.lang.Integer.MIN_VALUE;
 import static java.util.OptionalInt.empty;
 import static org.junit.Assert.assertSame;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 public final class FilterTagHandlerTest {

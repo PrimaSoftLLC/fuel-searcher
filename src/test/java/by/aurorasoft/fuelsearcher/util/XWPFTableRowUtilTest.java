@@ -12,7 +12,6 @@ import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellTextEqualIg
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellTextMatchRegex;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.*;
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 public final class XWPFTableRowUtilTest {

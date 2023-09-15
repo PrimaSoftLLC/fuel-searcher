@@ -1,12 +1,14 @@
 package by.aurorasoft.fuelsearcher.it.argumentsprovider.notfound;
 
-import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.NotFoundFuelSearchingArguments;
+import by.aurorasoft.fuelsearcher.it.argumentsprovider.model.NotAcceptableFuelSearchingArguments;
+import by.aurorasoft.fuelsearcher.it.argumentsprovider.notacceptable.NotAcceptableTableFuelSearchingArgumentsProvider;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification.FuelSpecificationBuilder;
 
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-public final class NotExistingTableFuelSearchingArgumentsProvider extends NotFoundTableFuelSearchingArgumentsProvider {
+public final class NotExistingTableFuelSearchingArgumentsProvider extends NotAcceptableTableFuelSearchingArgumentsProvider {
     private static final String TABLE_NAME = "НЕСУЩЕСТВУЮЩАЯ ТАБЛИЦА";
 
     public NotExistingTableFuelSearchingArgumentsProvider() {
@@ -14,9 +16,9 @@ public final class NotExistingTableFuelSearchingArgumentsProvider extends NotFou
     }
 
     @Override
-    protected Stream<NotFoundFuelSearchingArguments> createArguments(final Supplier<FuelSpecificationBuilder> specificationBuilderSupplier) {
+    protected Stream<NotAcceptableFuelSearchingArguments> createArguments(final Supplier<FuelSpecificationBuilder> specificationBuilderSupplier) {
         return Stream.of(
-                NotFoundFuelSearchingArguments.builder()
+                NotAcceptableFuelSearchingArguments.builder()
                         .specification(specificationBuilderSupplier.get()
                                 .tractor("К 744Р3")
                                 .machinery("ППУ-13")
@@ -25,6 +27,7 @@ public final class NotExistingTableFuelSearchingArgumentsProvider extends NotFou
                                 .routingLength("201-300")
                                 .specificResistance("Удельное сопротивление плуга 60...65 кПа")
                                 .build())
+                        .failedPropertyNames(Set.of("имя таблицы"))
                         .build()
         );
     }

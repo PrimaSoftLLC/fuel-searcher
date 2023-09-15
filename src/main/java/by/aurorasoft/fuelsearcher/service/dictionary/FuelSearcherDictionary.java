@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public final class FuelSearcherDictionary extends Dictionary<FuelSearcher> {
 
     public FuelSearcherDictionary(final SearchersParsingResult searchersParsingResult) {
-        super(searchersParsingResult.getSearchers());
+        super(searchersParsingResult.searchers());
     }
 
 }

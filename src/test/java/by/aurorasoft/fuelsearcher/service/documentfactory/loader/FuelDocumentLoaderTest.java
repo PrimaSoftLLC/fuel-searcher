@@ -62,7 +62,7 @@ public final class FuelDocumentLoaderTest extends AbstractContextTest {
     @Test
     public void documentShouldBeLoaded() {
         final FuelDocument actual = this.loader.load(this.documentPath);
-        final List<FuelTable> actualTables = actual.getTables();
+        final List<FuelTable> actualTables = actual.tables();
         assertEquals(TABLE_RESEARCHERS.size(), actualTables.size());
         assertTrue(areEveryMatchAnyResearcher(actualTables));
     }
@@ -86,8 +86,8 @@ public final class FuelDocumentLoaderTest extends AbstractContextTest {
         private final String expectedTableName;
 
         public final boolean isMatch(final FuelTable actualTable) {
-            final String actualTableName = actualTable.getName();
-            final List<IBodyElement> actualTableElements = actualTable.getElements();
+            final String actualTableName = actualTable.name();
+            final List<IBodyElement> actualTableElements = actualTable.elements();
             return this.isTableNameMatch(actualTableName) && this.areElementsMatch(actualTableElements);
         }
 

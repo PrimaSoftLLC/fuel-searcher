@@ -98,7 +98,8 @@ public final class FuelSearchingArgumentsProvidingUtil {
             new TwentyFourthNotAcceptableTableFuelSearchingArgumentsProvider(),
             new TwentyFifthNotAcceptableTableFuelSearchingArgumentsProvider(),
             new TwentySixthNotAcceptableTableFuelSearchingArgumentsProvider(),
-            new TwentySeventhNotAcceptableTableFuelSearchingArgumentsProvider()
+            new TwentySeventhNotAcceptableTableFuelSearchingArgumentsProvider(),
+            new NotExistingTableFuelSearchingArgumentsProvider()
     );
 
     public static Stream<Arguments> provideSuccessFuelSearchingArguments() {

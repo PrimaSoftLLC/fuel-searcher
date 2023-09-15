@@ -47,11 +47,11 @@ public abstract class FuelSearcher implements Translatable {
 
     @Override
     public final String findAlias() {
-        return this.table.getName();
+        return this.table.name();
     }
 
     public final Optional<Fuel> find(final FuelSpecification specification) {
-        final List<IBodyElement> elements = this.table.getElements();
+        final List<IBodyElement> elements = this.table.elements();
         return this.findSubTable(elements, specification)
                 .map(XWPFTable::getRows)
                 .flatMap(subTableRows -> this.findFuel(subTableRows, specification))
@@ -183,7 +183,7 @@ public abstract class FuelSearcher implements Translatable {
         }
 
         private void validateFuelTable(final FuelTable fuelTable) {
-            final List<IBodyElement> elements = fuelTable.getElements();
+            final List<IBodyElement> elements = fuelTable.elements();
             if (!this.isValidElements(elements)) {
                 final String exceptionDescription = this.findNotValidElementsMessage();
                 throw new IllegalStateException(exceptionDescription);

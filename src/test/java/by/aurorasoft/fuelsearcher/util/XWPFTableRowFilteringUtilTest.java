@@ -210,11 +210,11 @@ public final class XWPFTableRowFilteringUtilTest extends AbstractContextTest {
     }
 
     private static List<XWPFTableRow> findSubTableRowsOfFirstTable(final FuelDocument fuelDocument) {
-        return fuelDocument.getTables()
+        return fuelDocument.tables()
                 .stream()
                 .filter(XWPFTableRowFilteringUtilTest::isFirstTable)
                 .findFirst()
-                .map(FuelTable::getElements)
+                .map(FuelTable::elements)
                 .map(elements -> elements.get(0))
                 .map(element -> (XWPFTable) element)
                 .map(XWPFTable::getRows)
@@ -222,7 +222,7 @@ public final class XWPFTableRowFilteringUtilTest extends AbstractContextTest {
     }
 
     private static boolean isFirstTable(final FuelTable table) {
-        final String tableName = table.getName();
+        final String tableName = table.name();
         return Objects.equals(tableName, FIRST_TABLE_NAME);
     }
 

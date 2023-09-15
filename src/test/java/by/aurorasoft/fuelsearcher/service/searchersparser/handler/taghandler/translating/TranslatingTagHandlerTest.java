@@ -5,7 +5,6 @@ import by.aurorasoft.fuelsearcher.service.dictionary.Translatable;
 import by.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsingContext;
 import by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.translating.exception.NoSuchKeyException;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -75,10 +74,7 @@ public final class TranslatingTagHandlerTest {
         givenTagHandler.handleEndTag(givenContext);
     }
 
-    @RequiredArgsConstructor
-    private static final class TestValue implements Translatable {
-        private final String alias;
-
+    private record TestValue(String alias) implements Translatable {
         @Override
         public String findAlias() {
             return this.alias;

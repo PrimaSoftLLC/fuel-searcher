@@ -15,7 +15,6 @@ import java.util.Optional;
 import static by.aurorasoft.fuelsearcher.service.validator.SpecificationValidatingResult.createNotValidValidatingResult;
 import static java.util.Optional.empty;
 import static org.junit.Assert.assertSame;
-import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)

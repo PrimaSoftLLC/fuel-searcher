@@ -59,13 +59,13 @@ public final class FuelDocumentCorrectorTest {
             final XWPFTable secondGivenTable = createTable(secondGivenCell);
 
             final FuelTable firstGivenFuelTable = mock(FuelTable.class);
-            when(firstGivenFuelTable.getElements()).thenReturn(List.of(fifthGivenParagraph, firstGivenTable));
+            when(firstGivenFuelTable.elements()).thenReturn(List.of(fifthGivenParagraph, firstGivenTable));
 
             final FuelTable secondGivenFuelTable = mock(FuelTable.class);
-            when(secondGivenFuelTable.getElements()).thenReturn(List.of(sixthGivenParagraph, secondGivenTable));
+            when(secondGivenFuelTable.elements()).thenReturn(List.of(sixthGivenParagraph, secondGivenTable));
 
             final FuelDocument givenDocument = mock(FuelDocument.class);
-            when(givenDocument.getTables()).thenReturn(List.of(firstGivenFuelTable, secondGivenFuelTable));
+            when(givenDocument.tables()).thenReturn(List.of(firstGivenFuelTable, secondGivenFuelTable));
 
             this.documentCorrector.correct(givenDocument);
 
@@ -90,10 +90,10 @@ public final class FuelDocumentCorrectorTest {
     public void documentShouldNotBeCorrectedBecauseOfOneOfElementsIsNotParagraphOrTable() {
         final IBodyElement givenElement = mock(IBodyElement.class);
         final FuelTable givenFuelTable = mock(FuelTable.class);
-        when(givenFuelTable.getElements()).thenReturn(List.of(givenElement));
+        when(givenFuelTable.elements()).thenReturn(List.of(givenElement));
 
         final FuelDocument givenDocument = mock(FuelDocument.class);
-        when(givenDocument.getTables()).thenReturn(List.of(givenFuelTable));
+        when(givenDocument.tables()).thenReturn(List.of(givenFuelTable));
 
         this.documentCorrector.correct(givenDocument);
     }
