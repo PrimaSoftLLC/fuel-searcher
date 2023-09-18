@@ -1,9 +1,6 @@
 package by.aurorasoft.fuelsearcher.model.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,9 +11,11 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "table_metadata")
 @NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
 @ToString(callSuper = true)
+@Builder
 public class TableMetadataEntity extends BaseEntity<Long> {
 
     @Id
