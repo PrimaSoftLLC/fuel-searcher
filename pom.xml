@@ -28,6 +28,13 @@
         <org.postgresql.version>42.5.1</org.postgresql.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -74,6 +81,12 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${org.postgresql.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.NikolayNN.crud-generic</groupId>
+            <artifactId>crud-abstract-generic</artifactId>
+            <version>9.0</version>
         </dependency>
 
         <dependency>
