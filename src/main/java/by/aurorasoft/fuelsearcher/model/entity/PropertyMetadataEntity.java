@@ -27,8 +27,8 @@ public class PropertyMetadataEntity extends BaseEntity<Long> {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "column_name")
-    private String columnName;
+    @Column(name = "property_name")
+    private String propertyName;
 
     @Type(StringArrayType.class)
     @Column(name = "allowable_values")
