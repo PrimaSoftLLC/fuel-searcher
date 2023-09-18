@@ -34,5 +34,5 @@ public class TableMetadataEntity extends BaseEntity<Long> {
 
     @OneToMany(mappedBy = "tableMetadata", fetch = LAZY)
     @ToString.Exclude
-    private List<ColumnMetadataEntity> columnsMetadata;
+    private List<PropertyMetadataEntity> propertiesMetadata;
 }

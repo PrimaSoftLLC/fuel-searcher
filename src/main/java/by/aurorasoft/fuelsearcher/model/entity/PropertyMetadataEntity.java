@@ -20,7 +20,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Setter
 @Getter
 @ToString(callSuper = true)
-public class ColumnMetadataEntity extends BaseEntity<Long> {
+public class PropertyMetadataEntity extends BaseEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
