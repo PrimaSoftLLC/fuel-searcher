@@ -14,4 +14,4 @@ CREATE TABLE property_metadata
 
 ALTER TABLE property_metadata
     ADD CONSTRAINT fk_property_metadata_to_table_metadata
-        FOREIGN KEY (property_metadata_id) REFERENCES table_metadata (id);
+        FOREIGN KEY (table_metadata_id) REFERENCES table_metadata (id);
