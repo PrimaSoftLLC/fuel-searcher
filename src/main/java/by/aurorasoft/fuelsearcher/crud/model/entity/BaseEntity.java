@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.model.entity;
+package by.aurorasoft.fuelsearcher.crud.model.entity;
 
 import by.nhorushko.crudgeneric.v2.domain.AbstractEntity;
 

@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.model.entity;
+package by.aurorasoft.fuelsearcher.crud.model.entity;
 
 import com.vladmihalcea.hibernate.type.array.StringArrayType;
 import lombok.*;
