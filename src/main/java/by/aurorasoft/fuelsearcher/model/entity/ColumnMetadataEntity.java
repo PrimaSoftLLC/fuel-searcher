@@ -9,10 +9,9 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -34,4 +33,9 @@ public class ColumnMetadataEntity extends BaseEntity<Long> {
     @Type(StringArrayType.class)
     @Column(name = "allowable_values")
     private String[] allowableValues;
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "table_metadata_id")
+    @ToString.Exclude
+    private TableMetadataEntity tableMetadata;
 }
