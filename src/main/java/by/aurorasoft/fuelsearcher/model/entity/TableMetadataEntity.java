@@ -10,7 +10,10 @@ import lombok.ToString;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.List;
 
+import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -18,7 +21,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @NoArgsConstructor
 @Setter
 @Getter
-@ToString
+@ToString(callSuper = true)
 public class TableMetadataEntity extends BaseEntity<Long> {
 
     @Id
@@ -28,4 +31,8 @@ public class TableMetadataEntity extends BaseEntity<Long> {
 
     @Column(name = "tableName")
     private String tableName;
+
+    @OneToMany(mappedBy = "tableMetadata", fetch = LAZY)
+    @ToString.Exclude
+    private List<ColumnMetadataEntity> columnsMetadata;
 }
