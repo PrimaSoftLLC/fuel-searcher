@@ -13,12 +13,12 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("fuelTable")
+@RequestMapping("/fuelTable")
 @RequiredArgsConstructor
 public class FuelTableController {
     private final FuelDocument document;
 
-    @GetMapping("tableNames")
+    @GetMapping("/tableNames")
     public ResponseEntity<List<String>> findTableNames() {
         final List<String> tableNames = this.findAllTableNames();
         return ok(tableNames);
