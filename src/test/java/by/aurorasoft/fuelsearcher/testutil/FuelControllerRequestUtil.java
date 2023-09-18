@@ -4,6 +4,7 @@ import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import lombok.experimental.UtilityClass;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 import java.util.Optional;
@@ -12,12 +13,8 @@ import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.regex.Pattern.compile;
-import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @UtilityClass
 public final class FuelControllerRequestUtil {
@@ -66,12 +63,8 @@ public final class FuelControllerRequestUtil {
                                    final FuelSpecification specification,
                                    final HttpStatus expectedHttpStatus)
             throws Exception {
-        return mockMvc.perform(createRequestBuilder(specification))
-                .andExpect(status().is(expectedHttpStatus.value()))
-                .andExpect(content().contentType(APPLICATION_JSON))
-                .andReturn()
-                .getResponse()
-                .getContentAsString(UTF_8);
+        final RequestBuilder requestBuilder = createRequestBuilder(specification);
+        return ControllerRequestUtil.doRequest(mockMvc, requestBuilder, expectedHttpStatus);
     }
 
     public static boolean isNoSuchFuelError(final String response) {
