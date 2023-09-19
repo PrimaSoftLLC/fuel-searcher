@@ -26,7 +26,8 @@ public class TableMetadataEntity extends BaseEntity<Long> {
     @Column(name = "tableName")
     private String tableName;
 
-    @OneToMany(mappedBy = "tableMetadata", fetch = LAZY)
+    @OneToMany(fetch = LAZY)
+    @JoinColumn(name = "table_metadata_id", referencedColumnName = "id")
     @ToString.Exclude
     private List<PropertyMetadataEntity> propertiesMetadata;
 }
