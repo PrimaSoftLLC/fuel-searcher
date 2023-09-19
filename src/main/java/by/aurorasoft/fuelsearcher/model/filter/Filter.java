@@ -14,6 +14,11 @@ public abstract class Filter<R> {
     private final SpecificationPropertyExtractor filtrationValueExtractor;
     private final int filtrationCellIndex;
 
+    //TODO: test
+    public final String findPropertyName() {
+        return this.filtrationValueExtractor.getPropertyName();
+    }
+
     public final R filter(final List<XWPFTableRow> rows, final FuelSpecification specification) {
         final String filtrationValue = this.filtrationValueExtractor.extract(specification);
         return this.filter(rows, filtrationValue, this.filtrationCellIndex);

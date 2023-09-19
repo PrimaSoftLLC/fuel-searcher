@@ -2,6 +2,7 @@ package by.aurorasoft.fuelsearcher.service.searchersparser.propertymetadatasearc
 
 import by.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.model.filter.Filter;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
@@ -10,15 +11,15 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @RequiredArgsConstructor
-public abstract class PropertyMetadataSearcher {
+public abstract class FilterPropertyMetadataSearcher {
     private final FuelTable fuelTable;
-    private final String propertyName;
-    private final int cellIndex;
+    private final Filter<?> filter;
 
     public PropertyMetadata find() {
+        final String propertyName = this.filter.findPropertyName();
         final String[] allowableValues = this.findPropertyValuesInSubTables();
         return PropertyMetadata.builder()
-                .propertyName(this.propertyName)
+                .propertyName(propertyName)
                 .allowableValues(allowableValues)
                 .build();
     }
@@ -31,9 +32,14 @@ public abstract class PropertyMetadataSearcher {
                 .stream()
                 .filter(XWPFTable.class::isInstance)
                 .map(XWPFTable.class::cast)
-                .map(XWPFTable::getRows)
-                .flatMap(subTableRows -> this.findPropertyValuesInSubTable(subTableRows, this.cellIndex))
+                .flatMap(this::findPropertyValuesInSubTable)
                 .distinct()
                 .toArray(String[]::new);
+    }
+
+    private Stream<String> findPropertyValuesInSubTable(final XWPFTable subTable) {
+        final List<XWPFTableRow> subTableRows = subTable.getRows();
+        final int cellIndex = this.filter.getFiltrationCellIndex();
+        return this.findPropertyValuesInSubTable(subTableRows, cellIndex);
     }
 }
