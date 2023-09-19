@@ -17,12 +17,9 @@ import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.extractCellText;
 public abstract class FilterPropertyMetadataSearcher<F extends Filter<?>> {
     private static final int LAST_HEADER_ROW_INDEX = 3;
 
-    private final FuelTable fuelTable;
-    private final F filter;
-
-    public final PropertyMetadata find() {
-        final String propertyName = this.filter.findPropertyName();
-        final String[] allowableValues = this.findPropertyValuesInSubTables();
+    public final PropertyMetadata find(final FuelTable fuelTable, final F filter) {
+        final String propertyName = filter.findPropertyName();
+        final String[] allowableValues = this.findPropertyValuesInSubTables(fuelTable, filter);
         return PropertyMetadata.builder()
                 .propertyName(propertyName)
                 .allowableValues(allowableValues)
@@ -32,22 +29,22 @@ public abstract class FilterPropertyMetadataSearcher<F extends Filter<?>> {
     protected abstract Stream<XWPFTableRow> findRowsWithPropertyValues(final List<XWPFTableRow> subTableDataRows,
                                                                        final F filter);
 
-    private String[] findPropertyValuesInSubTables() {
-        return this.fuelTable.elements()
+    private String[] findPropertyValuesInSubTables(final FuelTable fuelTable, final F filter) {
+        return fuelTable.elements()
                 .stream()
                 .filter(XWPFTable.class::isInstance)
                 .map(XWPFTable.class::cast)
-                .flatMap(this::findPropertyValuesInSubTable)
+                .flatMap(subTable -> this.findPropertyValuesInSubTable(subTable, filter))
                 .distinct()
                 .toArray(String[]::new);
     }
 
-    private Stream<String> findPropertyValuesInSubTable(final XWPFTable subTable) {
+    private Stream<String> findPropertyValuesInSubTable(final XWPFTable subTable, final F filter) {
         final List<XWPFTableRow> subTableDataRows = findSubTableDataRows(subTable);
-        final int filtrationCellIndex = this.filter.getFiltrationCellIndex();
+        final int filtrationCellIndex = filter.getFiltrationCellIndex();
         return this.findRowsWithPropertyValues(
                 subTableDataRows,
-                this.filter
+                filter
         ).map(row -> extractCellText(row, filtrationCellIndex));
     }
 

@@ -5,6 +5,7 @@ import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata.TableMetadataBuil
 import by.aurorasoft.fuelsearcher.model.FuelTable;
 import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
+import by.aurorasoft.fuelsearcher.model.filter.interim.unit.UnitFilter;
 import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher;
@@ -14,6 +15,7 @@ import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher.SearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleSearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.searchersparser.SearchersParsingResult;
+import by.aurorasoft.fuelsearcher.service.searchersparser.metadatasearcher.UnitFilterPropertyMetadataSearcher;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator.SpecificationValidatorBuilder;
 import lombok.Getter;
@@ -49,8 +51,6 @@ public final class SearchersParsingContext {
     private SpecificationValidatorBuilder specificationValidatorBuilder;
 
     private TableMetadataBuilder tableMetadataBuilder;
-
-    private
 
     @Setter
     @Getter
@@ -118,6 +118,10 @@ public final class SearchersParsingContext {
                 InterimFilter::getFiltrationValueExtractor,
                 SearcherBuilder::interimFilter
         );
+
+        if (filter instanceof UnitFilter) {
+            final new UnitFilterPropertyMetadataSearcher(this.findCurrentBuilder().getTable(), (UnitFilter) filter).find();
+        }
     }
 
     public void accumulateFilter(final FinalFilter filter) {

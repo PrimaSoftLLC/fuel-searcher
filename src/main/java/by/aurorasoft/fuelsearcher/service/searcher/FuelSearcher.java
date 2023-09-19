@@ -10,6 +10,7 @@ import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.Specific
 import by.aurorasoft.fuelsearcher.service.builder.BuilderRequiringAllProperties;
 import by.aurorasoft.fuelsearcher.service.dictionary.Translatable;
 import by.aurorasoft.fuelsearcher.service.searcher.FilterChain.FilterChainBuilder;
+import lombok.Getter;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
@@ -127,8 +128,12 @@ public abstract class FuelSearcher implements Translatable {
     }
 
     public static abstract class SearcherBuilder<S extends FuelSearcher> extends BuilderRequiringAllProperties<S> {
+
+        @Getter
         private FuelTable table;
+
         private FuelHeaderMetadata headerMetadata;
+
         private FilterChainBuilder filterChainBuilder;
 
         public final void table(final FuelTable fuelTable) {
