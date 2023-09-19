@@ -24,4 +24,9 @@ public class TableMetadataService
         final Optional<TableMetadataEntity> optionalEntity = super.repository.findByTableName(tableName);
         return optionalEntity.map(super.mapper::toDto);
     }
+
+    //TODO: test
+    public void deleteAll() {
+        super.repository.deleteAll();
+    }
 }
