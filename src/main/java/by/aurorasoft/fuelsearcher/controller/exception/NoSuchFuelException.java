@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelsearcher.controller.exception;
 
-public final class NoSuchFuelException extends RuntimeException {
+public final class NoSuchFuelException extends NoSuchEntityException {
 
     @SuppressWarnings("unused")
     public NoSuchFuelException() {
