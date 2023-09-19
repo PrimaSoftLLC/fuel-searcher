@@ -21,7 +21,7 @@ public class MetadataRefreshingService {
     private final SearchersParsingResult parsingResult;
 
     @Transactional
-    @EventListener(ApplicationStartedEvent.class)
+//    @EventListener(ApplicationStartedEvent.class)
     public void refresh() {
         this.tableMetadataService.deleteAll();
         this.saveNewMetadata();

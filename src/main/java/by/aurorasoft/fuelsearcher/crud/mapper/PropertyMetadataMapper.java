@@ -12,21 +12,22 @@ import javax.persistence.EntityManager;
 @Component
 public final class PropertyMetadataMapper
         extends AbsMapperEntityDto<PropertyMetadataEntity, PropertyMetadata> {
-    private static final Long NOT_DEFINED_
-
-    private final EntityManager entityManager;
+//    private static final Long NOT_DEFINED_
+//
+//    private final EntityManager entityManager;
 
     public PropertyMetadataMapper(final ModelMapper modelMapper, final EntityManager entityManager) {
         super(modelMapper, PropertyMetadataEntity.class, PropertyMetadata.class);
-        this.entityManager = entityManager;
+//        this.entityManager = entityManager;
     }
 
     @Override
     protected PropertyMetadata create(final PropertyMetadataEntity entity) {
-        return new PropertyMetadata(
-                entity.getId(),
-                entity.getPropertyName(),
-                entity.getAllowableValues()
-        );
+//        return new PropertyMetadata(
+//                entity.getId(),
+//                entity.getPropertyName(),
+//                entity.getAllowableValues()
+//        );
+        return null;
     }
 }
