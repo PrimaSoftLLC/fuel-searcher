@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("tableMetadata")
+@RequestMapping("/tableMetadata")
 @RequiredArgsConstructor
 public class TableMetadataController {
     private static final String EXCEPTION_DESCRIPTION_NO_SUCH_METADATA = "There is no metadata for table '%s'";
