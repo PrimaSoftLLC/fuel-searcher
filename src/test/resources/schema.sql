@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS property_metadata;
+DROP TABLE IF EXISTS table_metadata;
+
 CREATE TABLE table_metadata
 (
     id         SERIAL       NOT NULL PRIMARY KEY,
