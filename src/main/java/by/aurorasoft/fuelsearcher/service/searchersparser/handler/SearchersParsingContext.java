@@ -1,5 +1,6 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler;
 
+import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
 import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
@@ -27,11 +28,14 @@ import java.util.function.Supplier;
 
 import static lombok.AccessLevel.PRIVATE;
 
+//TODO: refactor tests
 public final class SearchersParsingContext {
 
     private final List<FuelSearcher> searchers;
 
     private final List<SpecificationValidator> specificationValidators;
+
+    private final List<TableMetadata> tablesMetadata;
 
     @Setter(value = PRIVATE)
     @Getter(value = PRIVATE)
@@ -42,6 +46,8 @@ public final class SearchersParsingContext {
     private CompositeSearcherBuilder compositeSearcherBuilder;
 
     private SpecificationValidatorBuilder specificationValidatorBuilder;
+
+    private TableMetadataBuilder
 
     @Setter
     @Getter
@@ -54,6 +60,7 @@ public final class SearchersParsingContext {
     public SearchersParsingContext() {
         this.searchers = new ArrayList<>();
         this.specificationValidators = new ArrayList<>();
+        this.tablesMetadata = new ArrayList<>();
     }
 
     public void startParseSimpleSearcher() {
@@ -127,7 +134,7 @@ public final class SearchersParsingContext {
     }
 
     public SearchersParsingResult findResult() {
-        return new SearchersParsingResult(this.searchers, this.specificationValidators, null);
+        return new SearchersParsingResult(this.searchers, this.specificationValidators, this.tablesMetadata);
     }
 
     private <B extends SearcherBuilder<?>> void startParseSearcher(final Supplier<B> builderSupplier,
