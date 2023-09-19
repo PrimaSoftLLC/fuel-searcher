@@ -1,6 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler;
 
 import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata;
+import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata.TableMetadataBuilder;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
 import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
@@ -47,7 +48,9 @@ public final class SearchersParsingContext {
 
     private SpecificationValidatorBuilder specificationValidatorBuilder;
 
-    private TableMetadataBuilder
+    private TableMetadataBuilder tableMetadataBuilder;
+
+    private
 
     @Setter
     @Getter
@@ -80,6 +83,7 @@ public final class SearchersParsingContext {
     public void accumulateFuelTable(final FuelTable fuelTable) {
         final String tableName = fuelTable.name();
         this.specificationValidatorBuilder.tableName(tableName);
+        this.tableMetadataBuilder.tableName(tableName);
         this.accumulateComponentToCurrentSearcherBuilder(
                 fuelTable,
                 SearcherBuilder::table
@@ -142,6 +146,7 @@ public final class SearchersParsingContext {
         final B searcherBuilder = builderSupplier.get();
         builderSetter.accept(searcherBuilder);
         this.specificationValidatorBuilder = SpecificationValidator.builder();
+        this.tableMetadataBuilder = TableMetadata.builder();
     }
 
     private <T> void accumulateComponentToCurrentSearcherBuilder(final T component,
@@ -169,6 +174,7 @@ public final class SearchersParsingContext {
     private <B extends SearcherBuilder<?>> void buildSearcher(final Function<SearchersParsingContext, B> builderGetter,
                                                               final BiConsumer<SearchersParsingContext, B> builderSetter) {
         this.buildSpecificationValidator();
+        this.buildTableMetadata();
         final B builder = builderGetter.apply(this);
         final FuelSearcher searcher = builder.build();
         this.searchers.add(searcher);
@@ -179,5 +185,11 @@ public final class SearchersParsingContext {
         final SpecificationValidator validator = this.specificationValidatorBuilder.build();
         this.specificationValidators.add(validator);
         this.specificationValidatorBuilder = null;
+    }
+
+    private void buildTableMetadata() {
+        final TableMetadata metadata = this.tableMetadataBuilder.build();
+        this.tablesMetadata.add(metadata);
+        this.tableMetadataBuilder = null;
     }
 }

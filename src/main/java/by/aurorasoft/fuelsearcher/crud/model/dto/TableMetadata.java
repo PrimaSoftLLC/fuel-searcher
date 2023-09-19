@@ -4,7 +4,6 @@ import by.aurorasoft.fuelsearcher.service.builder.BuilderRequiringAllProperties;
 import by.nhorushko.crudgeneric.v2.domain.AbstractDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.Value;
 
@@ -16,7 +15,6 @@ import static lombok.AccessLevel.PRIVATE;
 
 //TODO: tests
 @Value
-@AllArgsConstructor
 public class TableMetadata implements AbstractDto<Long> {
 
     @JsonIgnore
