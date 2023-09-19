@@ -127,7 +127,7 @@ public final class SearchersParsingContext {
     }
 
     public SearchersParsingResult findResult() {
-        return new SearchersParsingResult(this.searchers, this.specificationValidators);
+        return new SearchersParsingResult(this.searchers, this.specificationValidators, null);
     }
 
     private <B extends SearcherBuilder<?>> void startParseSearcher(final Supplier<B> builderSupplier,
