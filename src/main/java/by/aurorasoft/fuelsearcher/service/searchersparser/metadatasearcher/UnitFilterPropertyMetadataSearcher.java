@@ -16,12 +16,12 @@ public final class UnitFilterPropertyMetadataSearcher extends FilterPropertyMeta
     }
 
     @Override
-    protected Stream<XWPFTableRow> findFiltrationRows(final List<XWPFTableRow> subTableDataRows,
-                                                      final UnitFilter filter) {
+    protected Stream<XWPFTableRow> findRowsWithPropertyValues(final List<XWPFTableRow> subTableDataRows,
+                                                              final UnitFilter filter) {
         final int filtrationCellIndex = filter.getFiltrationCellIndex();
         return subTableDataRows.stream()
                 .filter(
-                        row -> isCellEmpty(
+                        row -> !isCellEmpty(
                                 row,
                                 filtrationCellIndex
                         )

@@ -16,8 +16,8 @@ public final class GroupFilterPropertyMetadataSearcher extends FilterPropertyMet
     }
 
     @Override
-    protected Stream<XWPFTableRow> findFiltrationRows(final List<XWPFTableRow> subTableDataRows,
-                                                      final GroupFilter filter) {
+    protected Stream<XWPFTableRow> findRowsWithPropertyValues(final List<XWPFTableRow> subTableDataRows,
+                                                              final GroupFilter filter) {
         final int filtrationCellIndex = filter.getFiltrationCellIndex();
         final String groupValueRegex = filter.findGroupValueRegex();
         return subTableDataRows.stream()

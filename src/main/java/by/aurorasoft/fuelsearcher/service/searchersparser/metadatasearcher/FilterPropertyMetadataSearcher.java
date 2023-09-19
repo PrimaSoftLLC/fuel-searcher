@@ -29,8 +29,8 @@ public abstract class FilterPropertyMetadataSearcher<F extends Filter<?>> {
                 .build();
     }
 
-    protected abstract Stream<XWPFTableRow> findFiltrationRows(final List<XWPFTableRow> subTableDataRows,
-                                                               final F filter);
+    protected abstract Stream<XWPFTableRow> findRowsWithPropertyValues(final List<XWPFTableRow> subTableDataRows,
+                                                                       final F filter);
 
     private String[] findPropertyValuesInSubTables() {
         return this.fuelTable.elements()
@@ -45,7 +45,7 @@ public abstract class FilterPropertyMetadataSearcher<F extends Filter<?>> {
     private Stream<String> findPropertyValuesInSubTable(final XWPFTable subTable) {
         final List<XWPFTableRow> subTableDataRows = findSubTableDataRows(subTable);
         final int filtrationCellIndex = this.filter.getFiltrationCellIndex();
-        return this.findFiltrationRows(
+        return this.findRowsWithPropertyValues(
                 subTableDataRows,
                 this.filter
         ).map(row -> extractCellText(row, filtrationCellIndex));
