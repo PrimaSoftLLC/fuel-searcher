@@ -1,7 +1,6 @@
 package by.aurorasoft.fuelsearcher.controller;
 
-import by.aurorasoft.fuelsearcher.model.FuelDocument;
-import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.service.tableservice.FuelTableService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,19 +15,11 @@ import static org.springframework.http.ResponseEntity.ok;
 @RequestMapping("/fuelTable")
 @RequiredArgsConstructor
 public class FuelTableController {
-    private final FuelDocument document;
+    private final FuelTableService tableService;
 
     @GetMapping("/tableNames")
     public ResponseEntity<List<String>> findTableNames() {
-        final List<String> tableNames = this.findAllTableNames();
+        final List<String> tableNames = this.tableService.findTableNames();
         return ok(tableNames);
     }
-
-    private List<String> findAllTableNames() {
-        return this.document.tables()
-                .stream()
-                .map(FuelTable::name)
-                .toList();
-    }
-
 }
