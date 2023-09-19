@@ -27,5 +27,5 @@ public abstract class GroupFilter extends InterimFilter {
         );
     }
 
-    protected abstract String findGroupValueRegex();
+    public abstract String findGroupValueRegex();
 }

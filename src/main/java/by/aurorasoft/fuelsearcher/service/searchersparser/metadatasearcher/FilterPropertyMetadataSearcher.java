@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.service.searchersparser.propertymetadatasearcher;
+package by.aurorasoft.fuelsearcher.service.searchersparser.metadatasearcher;
 
 import by.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
