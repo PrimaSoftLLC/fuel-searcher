@@ -26,13 +26,9 @@ public final class TableMetadataMapperTest extends AbstractContextTest {
                         List.of(
                                 PropertyMetadata.builder()
                                         .id(256L)
-                                        .propertyName("first-property")
-                                        .allowableValues(new String[]{"first-value", "second-value"})
                                         .build(),
                                 PropertyMetadata.builder()
                                         .id(257L)
-                                        .propertyName("second-property")
-                                        .allowableValues(new String[]{"third-value", "fourth-value"})
                                         .build()
                         )
                 )
@@ -46,13 +42,9 @@ public final class TableMetadataMapperTest extends AbstractContextTest {
                         List.of(
                                 PropertyMetadataEntity.builder()
                                         .id(256L)
-                                        .propertyName("first-property")
-                                        .allowableValues(new String[]{"first-value", "second-value"})
                                         .build(),
                                 PropertyMetadataEntity.builder()
                                         .id(257L)
-                                        .propertyName("second-property")
-                                        .allowableValues(new String[]{"third-value", "fourth-value"})
                                         .build()
                         )
                 )
