@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
-//TODO: tests with json
 @Value
 @AllArgsConstructor
 @Builder
