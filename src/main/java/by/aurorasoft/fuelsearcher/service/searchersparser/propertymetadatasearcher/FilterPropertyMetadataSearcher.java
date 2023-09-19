@@ -10,13 +10,15 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.extractCellText;
+
 //TODO: test
 @RequiredArgsConstructor
-public abstract class FilterPropertyMetadataSearcher {
+public abstract class FilterPropertyMetadataSearcher<F extends Filter<?>> {
     private static final int LAST_HEADER_ROW_INDEX = 3;
 
     private final FuelTable fuelTable;
-    private final Filter<?> filter;
+    private final F filter;
 
     public final PropertyMetadata find() {
         final String propertyName = this.filter.findPropertyName();
@@ -27,8 +29,8 @@ public abstract class FilterPropertyMetadataSearcher {
                 .build();
     }
 
-    protected abstract Stream<String> findPropertyValuesInSubTable(final List<XWPFTableRow> subTableDataRows,
-                                                                   final int cellIndex);
+    protected abstract Stream<XWPFTableRow> findFiltrationRows(final List<XWPFTableRow> subTableDataRows,
+                                                               final F filter);
 
     private String[] findPropertyValuesInSubTables() {
         return this.fuelTable.elements()
@@ -41,12 +43,15 @@ public abstract class FilterPropertyMetadataSearcher {
     }
 
     private Stream<String> findPropertyValuesInSubTable(final XWPFTable subTable) {
-        final List<XWPFTableRow> subTableDataRows = findSubTableDataRow(subTable);
-        final int cellIndex = this.filter.getFiltrationCellIndex();
-        return this.findPropertyValuesInSubTable(subTableDataRows, cellIndex);
+        final List<XWPFTableRow> subTableDataRows = findSubTableDataRows(subTable);
+        final int filtrationCellIndex = this.filter.getFiltrationCellIndex();
+        return this.findFiltrationRows(
+                subTableDataRows,
+                this.filter
+        ).map(row -> extractCellText(row, filtrationCellIndex));
     }
 
-    private static List<XWPFTableRow> findSubTableDataRow(final XWPFTable subTable) {
+    private static List<XWPFTableRow> findSubTableDataRows(final XWPFTable subTable) {
         final List<XWPFTableRow> subTableRows = subTable.getRows();
         final int firstDataRowIndex = LAST_HEADER_ROW_INDEX + 1;
         final int lastDataRowIndex = subTableRows.size();
