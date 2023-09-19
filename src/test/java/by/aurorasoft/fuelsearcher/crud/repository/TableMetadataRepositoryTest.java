@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
+import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -43,7 +45,7 @@ public final class TableMetadataRepositoryTest extends AbstractContextTest {
     @Test
     public void metadataShouldBeSaved() {
         final TableMetadataEntity givenMetadata = TableMetadataEntity.builder()
-                .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
+                .tableName("имя таблицы")
                 .build();
 
         super.startQueryCount();
@@ -51,9 +53,20 @@ public final class TableMetadataRepositoryTest extends AbstractContextTest {
         super.checkQueryCount(1);
     }
 
+
     private static void checkEquals(final TableMetadataEntity expected, final TableMetadataEntity actual) {
         assertEquals(expected.getId(), actual.getId());
         assertEquals(expected.getTableName(), actual.getTableName());
-        assertEquals(expected.getPropertiesMetadata(), actual.getPropertiesMetadata());
+        assertEquals(
+                findPropertyMetadataIds(expected),
+                findPropertyMetadataIds(actual)
+        );
+    }
+
+    private static Set<Long> findPropertyMetadataIds(final TableMetadataEntity metadata) {
+        return metadata.getPropertiesMetadata()
+                .stream()
+                .map(PropertyMetadataEntity::getId)
+                .collect(toSet());
     }
 }
