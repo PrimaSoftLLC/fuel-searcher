@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static java.util.Collections.unmodifiableList;
 import static lombok.AccessLevel.PRIVATE;
 
-//TODO: tests
 @Value
 @AllArgsConstructor
 public class TableMetadata implements AbstractDto<Long> {
@@ -50,7 +50,8 @@ public class TableMetadata implements AbstractDto<Long> {
 
         @Override
         protected TableMetadata buildAfterStateValidation() {
-            return new TableMetadata(null, this.tableName, this.propertiesMetadata);
+            final List<PropertyMetadata> copyPropertiesMetadata = unmodifiableList(this.propertiesMetadata);
+            return new TableMetadata(null, this.tableName, copyPropertiesMetadata);
         }
 
         private void initializePropertiesMetadataIfNecessary() {
