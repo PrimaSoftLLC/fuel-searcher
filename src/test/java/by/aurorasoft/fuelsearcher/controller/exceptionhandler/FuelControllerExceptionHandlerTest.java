@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelsearcher.controller.exceptionhandler;
 
-import by.aurorasoft.fuelsearcher.controller.exception.NoSuchFuelException;
+import by.aurorasoft.fuelsearcher.controller.exception.NoSuchEntityException;
 import by.aurorasoft.fuelsearcher.controller.exception.NotValidSpecificationException;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidatingResult;
 import org.junit.Test;
@@ -33,7 +33,7 @@ public final class FuelControllerExceptionHandlerTest {
     public void noSuchFuelExceptionShouldBeHandled()
             throws Exception {
         final String givenExceptionDescription = "exception-description";
-        final NoSuchFuelException givenException = new NoSuchFuelException(givenExceptionDescription);
+        final NoSuchEntityException givenException = new NoSuchEntityException(givenExceptionDescription);
 
         final ResponseEntity<?> actual = this.exceptionHandler.handleException(givenException);
         final HttpStatus expectedHttpStatus = NOT_FOUND;

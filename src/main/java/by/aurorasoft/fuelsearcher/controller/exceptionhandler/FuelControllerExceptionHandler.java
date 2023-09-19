@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelsearcher.controller.exceptionhandler;
 
-import by.aurorasoft.fuelsearcher.controller.exception.NoSuchFuelException;
+import by.aurorasoft.fuelsearcher.controller.exception.NoSuchEntityException;
 import by.aurorasoft.fuelsearcher.controller.exception.NotValidSpecificationException;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidatingResult;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -24,7 +24,7 @@ public final class FuelControllerExceptionHandler {
     private static final String DELIMITER_SPECIFICATION_PROPERTIES = ", ";
 
     @ExceptionHandler
-    public ResponseEntity<RestErrorResponse> handleException(final NoSuchFuelException exception) {
+    public ResponseEntity<RestErrorResponse> handleException(final NoSuchEntityException exception) {
         final String message = exception.getMessage();
         return createResponseEntity(message, NOT_FOUND);
     }

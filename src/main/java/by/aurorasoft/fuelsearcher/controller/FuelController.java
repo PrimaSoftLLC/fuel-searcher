@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelsearcher.controller;
 
-import by.aurorasoft.fuelsearcher.controller.exception.NoSuchFuelException;
+import by.aurorasoft.fuelsearcher.controller.exception.NoSuchEntityException;
 import by.aurorasoft.fuelsearcher.controller.exception.NotValidSpecificationException;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
@@ -71,7 +71,7 @@ public class FuelController {
         this.validateSpecification(specification);
         return this.searchingManager.find(specification)
                 .map(ResponseEntity::ok)
-                .orElseThrow(() -> new NoSuchFuelException(EXCEPTION_DESCRIPTION_NO_SUCH_FUEL));
+                .orElseThrow(() -> new NoSuchEntityException(EXCEPTION_DESCRIPTION_NO_SUCH_FUEL));
     }
 
     private void validateSpecification(final FuelSpecification specification) {
