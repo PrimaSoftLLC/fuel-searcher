@@ -27,7 +27,7 @@ public abstract class FilterPropertyMetadataSearcher {
                 .build();
     }
 
-    protected abstract Stream<String> findPropertyValuesInSubTable(final List<XWPFTableRow> subTableRows,
+    protected abstract Stream<String> findPropertyValuesInSubTable(final List<XWPFTableRow> subTableDataRows,
                                                                    final int cellIndex);
 
     private String[] findPropertyValuesInSubTables() {
@@ -41,12 +41,12 @@ public abstract class FilterPropertyMetadataSearcher {
     }
 
     private Stream<String> findPropertyValuesInSubTable(final XWPFTable subTable) {
-        final List<XWPFTableRow> subTableRows = subTable.getRows();
+        final List<XWPFTableRow> subTableDataRows = findSubTableDataRow(subTable);
         final int cellIndex = this.filter.getFiltrationCellIndex();
-        return this.findPropertyValuesInSubTable(subTableRows, cellIndex);
+        return this.findPropertyValuesInSubTable(subTableDataRows, cellIndex);
     }
 
-    private static List<XWPFTableRow> findDataRow(final XWPFTable subTable) {
+    private static List<XWPFTableRow> findSubTableDataRow(final XWPFTable subTable) {
         final List<XWPFTableRow> subTableRows = subTable.getRows();
         final int firstDataRowIndex = LAST_HEADER_ROW_INDEX + 1;
         final int lastDataRowIndex = subTableRows.size();
