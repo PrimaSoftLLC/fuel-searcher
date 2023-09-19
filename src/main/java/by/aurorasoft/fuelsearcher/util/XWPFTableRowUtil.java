@@ -20,6 +20,12 @@ public final class XWPFTableRowUtil {
         return extractCellValue(row, cellIndex, XWPFTableCellUtil::extractText);
     }
 
+    //TODO: test
+    public static boolean isCellEmpty(final XWPFTableRow row, final int cellIndex) {
+        final XWPFTableCell cell = row.getCell(cellIndex);
+        return isEmpty(cell);
+    }
+
     public static boolean isCellTextEqualIgnoringWhitespacesAndCase(final XWPFTableRow row,
                                                                     final int cellIndex,
                                                                     final String expected) {
