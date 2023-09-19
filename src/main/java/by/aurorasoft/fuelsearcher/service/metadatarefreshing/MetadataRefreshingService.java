@@ -4,6 +4,8 @@ import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata;
 import by.aurorasoft.fuelsearcher.crud.service.TableMetadataService;
 import by.aurorasoft.fuelsearcher.service.searchersparser.SearchersParsingResult;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.context.event.ApplicationStartedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,7 @@ public class MetadataRefreshingService {
     private final SearchersParsingResult parsingResult;
 
     @Transactional
+    @EventListener(ApplicationStartedEvent.class)
     public void refresh() {
         this.tableMetadataService.deleteAll();
         this.saveNewMetadata();
