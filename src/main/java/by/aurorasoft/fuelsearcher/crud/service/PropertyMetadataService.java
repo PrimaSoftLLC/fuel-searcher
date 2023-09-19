@@ -17,8 +17,4 @@ public class PropertyMetadataService
         super(mapper, repository);
     }
 
-    //TODO: test
-    public void deleteAll() {
-        super.repository.deleteAll();
-    }
 }
