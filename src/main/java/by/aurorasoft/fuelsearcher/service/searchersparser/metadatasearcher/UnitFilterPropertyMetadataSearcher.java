@@ -6,7 +6,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellEmpty;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isChildUnitedRow;
 
 public final class UnitFilterPropertyMetadataSearcher extends FilterPropertyMetadataSearcher<UnitFilter> {
 
@@ -16,7 +16,7 @@ public final class UnitFilterPropertyMetadataSearcher extends FilterPropertyMeta
         final int filtrationCellIndex = filter.getFiltrationCellIndex();
         return subTableDataRows.stream()
                 .filter(
-                        row -> !isCellEmpty(
+                        row -> !isChildUnitedRow(
                                 row,
                                 filtrationCellIndex
                         )

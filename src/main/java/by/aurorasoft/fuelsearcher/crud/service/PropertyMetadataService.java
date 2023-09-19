@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PropertyMetadataService
         extends AbsServiceCRUD<Long, PropertyMetadataEntity, PropertyMetadata, PropertyMetadataRepository> {
-
     public PropertyMetadataService(final PropertyMetadataMapper mapper, final PropertyMetadataRepository repository) {
         super(mapper, repository);
     }

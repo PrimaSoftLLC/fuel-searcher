@@ -4,6 +4,7 @@ import by.nhorushko.crudgeneric.v2.domain.AbstractDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Value;
 
 //TODO: tests with json
@@ -18,4 +19,6 @@ public class PropertyMetadata implements AbstractDto<Long> {
     String propertyName;
 
     String[] allowableValues;
+
+    Long tableMetadataId;
 }

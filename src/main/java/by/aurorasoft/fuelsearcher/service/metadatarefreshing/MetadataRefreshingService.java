@@ -1,6 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.metadatarefreshing;
 
 import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata;
+import by.aurorasoft.fuelsearcher.crud.service.PropertyMetadataService;
 import by.aurorasoft.fuelsearcher.crud.service.TableMetadataService;
 import by.aurorasoft.fuelsearcher.service.searchersparser.SearchersParsingResult;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MetadataRefreshingService {
     private final TableMetadataService tableMetadataService;
+    private final PropertyMetadataService propertyMetadataService;
     private final SearchersParsingResult parsingResult;
 
     @Transactional
@@ -27,6 +29,7 @@ public class MetadataRefreshingService {
 
     private void saveNewMetadata() {
         final List<TableMetadata> newMetadata = this.parsingResult.tablesMetadata();
-        this.tableMetadataService.saveAll(newMetadata);
+        final List<TableMetadata> newSavedMetadata = this.tableMetadataService.saveAll(newMetadata);
+        newSavedMetadata.forEach(tableMetadata -> this.propertyMetadataService.saveAll(tableMetadata.getPropertiesMetadata()));
     }
 }

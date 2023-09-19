@@ -6,11 +6,20 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellNullOrEmpty;
+
 public final class FinalFilterPropertyMetadataSearcher extends FilterPropertyMetadataSearcher<FinalFilter> {
 
     @Override
     protected Stream<XWPFTableRow> findRowsWithPropertyValues(final List<XWPFTableRow> subTableDataRows,
                                                               final FinalFilter filter) {
-        return subTableDataRows.stream();
+        final int filtrationCellIndex = filter.getFiltrationCellIndex();
+        return subTableDataRows.stream()
+                .filter(
+                        row -> !isCellNullOrEmpty(
+                                row,
+                                filtrationCellIndex
+                        )
+                );
     }
 }

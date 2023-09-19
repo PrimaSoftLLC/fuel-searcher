@@ -1,10 +1,12 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler;
 
+import by.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
 import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata;
 import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata.TableMetadataBuilder;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
 import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
+import by.aurorasoft.fuelsearcher.model.filter.interim.group.GroupFilter;
 import by.aurorasoft.fuelsearcher.model.filter.interim.unit.UnitFilter;
 import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
@@ -15,6 +17,8 @@ import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher.SearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleSearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.searchersparser.SearchersParsingResult;
+import by.aurorasoft.fuelsearcher.service.searchersparser.metadatasearcher.FinalFilterPropertyMetadataSearcher;
+import by.aurorasoft.fuelsearcher.service.searchersparser.metadatasearcher.GroupFilterPropertyMetadataSearcher;
 import by.aurorasoft.fuelsearcher.service.searchersparser.metadatasearcher.UnitFilterPropertyMetadataSearcher;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator.SpecificationValidatorBuilder;
@@ -120,7 +124,12 @@ public final class SearchersParsingContext {
         );
 
         if (filter instanceof UnitFilter) {
-            final new UnitFilterPropertyMetadataSearcher(this.findCurrentBuilder().getTable(), (UnitFilter) filter).find();
+            final PropertyMetadata propertyMetadata = new UnitFilterPropertyMetadataSearcher().find(this.findCurrentBuilder().getTable(), (UnitFilter) filter);
+            this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
+        }
+        if (filter instanceof GroupFilter) {
+            final PropertyMetadata propertyMetadata = new GroupFilterPropertyMetadataSearcher().find(this.findCurrentBuilder().getTable(), (GroupFilter) filter);
+            this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
         }
     }
 
@@ -130,6 +139,9 @@ public final class SearchersParsingContext {
                 FinalFilter::getFiltrationValueExtractor,
                 SearcherBuilder::finalFilter
         );
+
+        final PropertyMetadata propertyMetadata = new FinalFilterPropertyMetadataSearcher().find(this.findCurrentBuilder().getTable(), filter);
+        this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
     }
 
     public void accumulateSubTableTitleTemplate(final String template) {

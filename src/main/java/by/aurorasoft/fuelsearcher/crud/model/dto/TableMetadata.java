@@ -15,6 +15,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 //TODO: tests
 @Value
+@AllArgsConstructor
 public class TableMetadata implements AbstractDto<Long> {
 
     @JsonIgnore
