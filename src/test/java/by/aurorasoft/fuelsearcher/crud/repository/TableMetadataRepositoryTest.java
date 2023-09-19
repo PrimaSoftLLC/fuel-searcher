@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import static java.util.stream.Collectors.toSet;
+import static org.hibernate.Hibernate.isInitialized;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -53,6 +54,40 @@ public final class TableMetadataRepositoryTest extends AbstractContextTest {
         super.checkQueryCount(1);
     }
 
+    @Test
+    public void metadataShouldBeFoundByTableName() {
+        final String givenTableName = "ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ";
+
+        super.startQueryCount();
+        final Optional<TableMetadataEntity> optionalActual = this.repository.findTableMetadata(givenTableName);
+        super.checkQueryCount(1);
+
+        assertTrue(optionalActual.isPresent());
+        final TableMetadataEntity actual = optionalActual.get();
+        assertTrue(isInitialized(actual.getPropertiesMetadata()));
+        final TableMetadataEntity expected = TableMetadataEntity.builder()
+                .id(255L)
+                .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
+                .propertiesMetadata(
+                        List.of(
+                                super.entityManager.getReference(PropertyMetadataEntity.class, 255L),
+                                super.entityManager.getReference(PropertyMetadataEntity.class, 256L)
+                        )
+                )
+                .build();
+        checkEquals(expected, actual);
+    }
+
+    @Test
+    public void metadataShouldNotBeFoundByTableName() {
+        final String givenTableName = "НЕСУЩЕСТВУЮЩАЯ ТАБЛИЦА";
+
+        super.startQueryCount();
+        final Optional<TableMetadataEntity> optionalActual = this.repository.findTableMetadata(givenTableName);
+        super.checkQueryCount(1);
+
+        assertTrue(optionalActual.isEmpty());
+    }
 
     private static void checkEquals(final TableMetadataEntity expected, final TableMetadataEntity actual) {
         assertEquals(expected.getId(), actual.getId());
