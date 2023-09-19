@@ -10,12 +10,15 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import java.util.List;
 import java.util.stream.Stream;
 
+//TODO: test
 @RequiredArgsConstructor
 public abstract class FilterPropertyMetadataSearcher {
+    private static final int LAST_HEADER_ROW_INDEX = 3;
+
     private final FuelTable fuelTable;
     private final Filter<?> filter;
 
-    public PropertyMetadata find() {
+    public final PropertyMetadata find() {
         final String propertyName = this.filter.findPropertyName();
         final String[] allowableValues = this.findPropertyValuesInSubTables();
         return PropertyMetadata.builder()
@@ -41,5 +44,12 @@ public abstract class FilterPropertyMetadataSearcher {
         final List<XWPFTableRow> subTableRows = subTable.getRows();
         final int cellIndex = this.filter.getFiltrationCellIndex();
         return this.findPropertyValuesInSubTable(subTableRows, cellIndex);
+    }
+
+    private static List<XWPFTableRow> findDataRow(final XWPFTable subTable) {
+        final List<XWPFTableRow> subTableRows = subTable.getRows();
+        final int firstDataRowIndex = LAST_HEADER_ROW_INDEX + 1;
+        final int lastDataRowIndex = subTableRows.size();
+        return subTableRows.subList(firstDataRowIndex, lastDataRowIndex);
     }
 }
