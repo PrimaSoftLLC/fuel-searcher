@@ -8,6 +8,8 @@ import by.nhorushko.crudgeneric.v2.service.AbsServiceCRUD;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @Transactional
 public class TableMetadataService
@@ -15,5 +17,11 @@ public class TableMetadataService
 
     public TableMetadataService(final TableMetadataMapper mapper, final TableMetadataRepository repository) {
         super(mapper, repository);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<TableMetadata> findByTableName(final String tableName) {
+        final Optional<TableMetadataEntity> optionalEntity = super.repository.findByTableName(tableName);
+        return optionalEntity.map(super.mapper::toDto);
     }
 }

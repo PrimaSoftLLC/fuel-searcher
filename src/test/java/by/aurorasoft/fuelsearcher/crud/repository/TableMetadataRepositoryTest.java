@@ -59,7 +59,7 @@ public final class TableMetadataRepositoryTest extends AbstractContextTest {
         final String givenTableName = "ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ";
 
         super.startQueryCount();
-        final Optional<TableMetadataEntity> optionalActual = this.repository.findTableMetadata(givenTableName);
+        final Optional<TableMetadataEntity> optionalActual = this.repository.findByTableName(givenTableName);
         super.checkQueryCount(1);
 
         assertTrue(optionalActual.isPresent());
@@ -83,7 +83,7 @@ public final class TableMetadataRepositoryTest extends AbstractContextTest {
         final String givenTableName = "НЕСУЩЕСТВУЮЩАЯ ТАБЛИЦА";
 
         super.startQueryCount();
-        final Optional<TableMetadataEntity> optionalActual = this.repository.findTableMetadata(givenTableName);
+        final Optional<TableMetadataEntity> optionalActual = this.repository.findByTableName(givenTableName);
         super.checkQueryCount(1);
 
         assertTrue(optionalActual.isEmpty());
