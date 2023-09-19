@@ -11,7 +11,7 @@ public final class FertilizerTypeGroupFilter extends GroupFilter {
     }
 
     @Override
-    protected String findGroupValueRegex() {
+    public String findGroupValueRegex() {
         return GROUP_VALUE_REGEX;
     }
 }

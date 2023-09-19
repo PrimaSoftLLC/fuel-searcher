@@ -10,7 +10,7 @@ public final class SowingNormGroupFilter extends GroupFilter {
     }
 
     @Override
-    protected String findGroupValueRegex() {
+    public String findGroupValueRegex() {
         return GROUP_VALUE_REGEX;
     }
 
