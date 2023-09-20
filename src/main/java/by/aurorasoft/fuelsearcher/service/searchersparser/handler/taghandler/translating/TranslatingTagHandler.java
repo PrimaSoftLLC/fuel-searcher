@@ -9,7 +9,7 @@ import by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.tra
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public abstract class TranslatingTagHandler<V extends Translatable<String>> extends TagHandler {
+public abstract class TranslatingTagHandler<V extends Translatable> extends TagHandler {
     private final Dictionary<V> dictionary;
     private final NoSuchKeyExceptionFactory<?> noSuchKeyExceptionFactory;
 

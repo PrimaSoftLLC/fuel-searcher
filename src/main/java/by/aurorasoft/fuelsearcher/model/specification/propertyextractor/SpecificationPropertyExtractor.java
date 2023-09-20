@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 @RequiredArgsConstructor
-public abstract class SpecificationPropertyExtractor implements Translatable<String> {
+public abstract class SpecificationPropertyExtractor implements Translatable {
     private final Function<FuelSpecification, Optional<String>> propertyFounder;
 
     @Getter

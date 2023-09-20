@@ -7,7 +7,7 @@ import org.apache.poi.xwpf.usermodel.IBodyElement;
 import java.util.List;
 
 @Builder
-public record FuelTable(String name, List<IBodyElement> elements) implements Translatable<String> {
+public record FuelTable(String name, List<IBodyElement> elements) implements Translatable {
 
     @Override
     public String findAlias() {

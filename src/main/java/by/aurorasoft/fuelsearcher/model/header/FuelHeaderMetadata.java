@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public abstract class FuelHeaderMetadata implements Translatable<String> {
+public abstract class FuelHeaderMetadata implements Translatable {
     private final String[] values;
     private final SpecificationPropertyExtractor headerExtractor;
 
