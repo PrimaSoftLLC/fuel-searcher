@@ -9,7 +9,6 @@ import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellNullOrEmpty;
 
-//TODO: test
 @Component
 public final class FinalFilterPropertyMetadataSearcher extends FilterPropertyMetadataSearcher<FinalFilter> {
 
