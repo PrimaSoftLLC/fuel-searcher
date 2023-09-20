@@ -21,7 +21,7 @@ public abstract class FilterPropertyMetadataSearcher<F extends Filter<?>> extend
     }
 
     @Override
-    protected final PropertyMetadata findByConcreteSource(final List<IBodyElement> tableElements, final F filter) {
+    protected final PropertyMetadata findAllowableValues(final List<IBodyElement> tableElements, final F filter) {
         final String propertyName = filter.findPropertyName();
         final String[] allowableValues = this.findPropertyValuesInSubTables(tableElements, filter);
         return PropertyMetadata.builder()

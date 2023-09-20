@@ -16,11 +16,25 @@ public abstract class PropertyMetadataSearcher<S> {
     private final Class<S> sourceType;
 
     public final PropertyMetadata find(final FuelTable fuelTable, final Object source) {
-        final List<IBodyElement> tableElements = fuelTable.elements();
         final S concreteSource = this.sourceType.cast(source);
-        return this.findByConcreteSource(tableElements, concreteSource);
+        final String propertyName = this.findPropertyName(concreteSource);
+        final String[] allowableValues = this.findAllowableValues(fuelTable, concreteSource);
+        return this.createMetadata(propertyName, allowableValues);
     }
 
-    protected abstract PropertyMetadata findByConcreteSource(final List<IBodyElement> tableElements, final S source);
+    protected abstract String findPropertyName(final S source);
 
+    protected abstract String[] findAllowableValues(final List<IBodyElement> tableElements, final S source);
+
+    private String[] findAllowableValues(final FuelTable fuelTable, final S source) {
+        final List<IBodyElement> tableElements = fuelTable.elements();
+        return this.findAllowableValues(tableElements, source);
+    }
+
+    private PropertyMetadata createMetadata(final String propertyName, final String[] allowableValues) {
+        return PropertyMetadata.builder()
+                .propertyName(propertyName)
+                .allowableValues(allowableValues)
+                .build();
+    }
 }
