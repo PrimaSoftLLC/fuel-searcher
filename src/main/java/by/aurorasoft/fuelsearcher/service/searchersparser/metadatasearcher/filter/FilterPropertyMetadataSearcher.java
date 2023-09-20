@@ -11,7 +11,6 @@ import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.extractCellText;
 
-//TODO: test
 public abstract class FilterPropertyMetadataSearcher<F extends Filter<?>> extends PropertyMetadataSearcher<F> {
     private static final int LAST_HEADER_ROW_INDEX = 3;
 
