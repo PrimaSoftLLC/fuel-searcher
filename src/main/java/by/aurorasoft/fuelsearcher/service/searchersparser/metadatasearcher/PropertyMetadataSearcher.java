@@ -2,7 +2,6 @@ package by.aurorasoft.fuelsearcher.service.searchersparser.metadatasearcher;
 
 import by.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 
@@ -11,9 +10,11 @@ import java.util.List;
 //TODO: test
 @RequiredArgsConstructor
 public abstract class PropertyMetadataSearcher<S> {
-
-    @Getter
     private final Class<S> sourceType;
+
+    public final boolean isAbleToFind(final Object source) {
+        return this.sourceType.isInstance(source);
+    }
 
     public final PropertyMetadata find(final FuelTable fuelTable, final Object source) {
         final S concreteSource = this.sourceType.cast(source);
