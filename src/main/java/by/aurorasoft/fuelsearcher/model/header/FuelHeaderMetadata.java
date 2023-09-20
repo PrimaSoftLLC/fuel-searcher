@@ -13,6 +13,11 @@ public abstract class FuelHeaderMetadata implements Translatable {
 
     @Override
     public final String findAlias() {
+        return this.findPropertyName();
+    }
+
+    //TODO: test
+    public final String findPropertyName() {
         return this.headerExtractor.getPropertyName();
     }
 }
