@@ -279,14 +279,13 @@ public final class FuelSearcherTest {
     }
 
     @Test
-    public void fuelTableShouldBeAccumulatedByBuilder()
-            throws Exception {
+    public void fuelTableShouldBeAccumulatedByBuilder() {
         final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder().build();
         final FuelTable givenTable = mock(FuelTable.class);
 
         givenBuilder.table(givenTable);
 
-        final FuelTable actual = findFuelTable(givenBuilder);
+        final FuelTable actual = givenBuilder.getTable();
         assertSame(givenTable, actual);
     }
 
@@ -428,15 +427,6 @@ public final class FuelSearcherTest {
         final FuelTable givenTable = mock(FuelTable.class);
         when(givenTable.name()).thenReturn(name);
         return givenTable;
-    }
-
-    private static FuelTable findFuelTable(final SearcherBuilder<?> builder)
-            throws Exception {
-        return findProperty(
-                builder,
-                FIELD_NAME_FUEL_TABLE,
-                FuelTable.class
-        );
     }
 
     private static FuelHeaderMetadata findHeaderMetadata(final SearcherBuilder<?> builder)

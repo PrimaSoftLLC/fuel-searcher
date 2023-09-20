@@ -1,7 +1,6 @@
-package by.aurorasoft.fuelsearcher.crud.model;
+package by.aurorasoft.fuelsearcher.crud.model.dto;
 
 import by.aurorasoft.fuelsearcher.base.AbstractContextTest;
-import by.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
