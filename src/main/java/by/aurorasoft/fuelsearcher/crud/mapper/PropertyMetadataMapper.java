@@ -43,6 +43,6 @@ public final class PropertyMetadataMapper extends AbsMapperEntityDto<PropertyMet
 
     private static Long findTableMetadataId(final PropertyMetadataEntity propertyMetadata) {
         final TableMetadataEntity tableMetadata = propertyMetadata.getTableMetadata();
-        return tableMetadata.getId() != null ? tableMetadata.getId() : NOT_DEFINED_TABLE_METADATA_ID;
+        return tableMetadata != null ? tableMetadata.getId() : NOT_DEFINED_TABLE_METADATA_ID;
     }
 }
