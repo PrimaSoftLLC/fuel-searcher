@@ -8,7 +8,12 @@ import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellNullOrEmpty;
 
+//TODO: test
 public final class FinalFilterPropertyMetadataSearcher extends FilterPropertyMetadataSearcher<FinalFilter> {
+
+    public FinalFilterPropertyMetadataSearcher() {
+        super(FinalFilter.class);
+    }
 
     @Override
     protected Stream<XWPFTableRow> findRowsWithPropertyValues(final List<XWPFTableRow> subTableDataRows,
