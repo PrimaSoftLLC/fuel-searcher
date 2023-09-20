@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.metadatasearcher.filter;
 
-import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
+import by.aurorasoft.fuelsearcher.model.filter.interim.unit.UnitFilter;
 import by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.junit.Test;
@@ -11,16 +11,18 @@ import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellNullOrEmpty;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.*;
 
-public final class FinalFilterPropertyMetadataSearcherTest {
-    private final FinalFilterPropertyMetadataSearcher searcher = new FinalFilterPropertyMetadataSearcher();
+public final class UnitFilterPropertyMetadataSearcherTest {
+    private final UnitFilterPropertyMetadataSearcher searcher = new UnitFilterPropertyMetadataSearcher();
 
     @Test
     public void rowsWithPropertyValuesShouldBeFound() {
         try (final MockedStatic<XWPFTableRowUtil> mockedRowUtil = mockStatic(XWPFTableRowUtil.class)) {
             final int givenFiltrationCellIndex = 5;
-            final FinalFilter givenFilter = createFilter(givenFiltrationCellIndex);
+            final UnitFilter givenFilter = createFilter(givenFiltrationCellIndex);
 
             final XWPFTableRow firstGivenRow = mock(XWPFTableRow.class);
             mockedRowUtil.when(
@@ -64,8 +66,8 @@ public final class FinalFilterPropertyMetadataSearcherTest {
     }
 
     @SuppressWarnings("SameParameterValue")
-    private static FinalFilter createFilter(final int filtrationCellIndex) {
-        final FinalFilter filter = mock(FinalFilter.class);
+    private static UnitFilter createFilter(final int filtrationCellIndex) {
+        final UnitFilter filter = mock(UnitFilter.class);
         when(filter.getFiltrationCellIndex()).thenReturn(filtrationCellIndex);
         return filter;
     }
