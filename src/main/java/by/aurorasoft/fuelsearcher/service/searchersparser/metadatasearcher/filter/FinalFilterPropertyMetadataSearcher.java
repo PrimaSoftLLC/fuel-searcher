@@ -2,6 +2,7 @@ package by.aurorasoft.fuelsearcher.service.searchersparser.metadatasearcher.filt
 
 import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -9,6 +10,7 @@ import java.util.stream.Stream;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellNullOrEmpty;
 
 //TODO: test
+@Component
 public final class FinalFilterPropertyMetadataSearcher extends FilterPropertyMetadataSearcher<FinalFilter> {
 
     public FinalFilterPropertyMetadataSearcher() {
