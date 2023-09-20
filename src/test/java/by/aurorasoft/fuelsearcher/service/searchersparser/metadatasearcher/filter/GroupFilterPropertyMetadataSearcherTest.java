@@ -1,0 +1,78 @@
+package by.aurorasoft.fuelsearcher.service.searchersparser.metadatasearcher.filter;
+
+import by.aurorasoft.fuelsearcher.model.filter.interim.group.GroupFilter;
+import by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil;
+import org.apache.poi.xwpf.usermodel.XWPFTableRow;
+import org.junit.Test;
+import org.mockito.MockedStatic;
+
+import java.util.List;
+import java.util.stream.Stream;
+
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellTextMatchRegex;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
+
+public final class GroupFilterPropertyMetadataSearcherTest {
+    private final GroupFilterPropertyMetadataSearcher searcher = new GroupFilterPropertyMetadataSearcher();
+
+    @Test
+    public void rowsWithPropertyValuesShouldBeFound() {
+        try (final MockedStatic<XWPFTableRowUtil> mockedRowUtil = mockStatic(XWPFTableRowUtil.class)) {
+            final int givenFiltrationCellIndex = 5;
+            final String givenGroupValueRegex = "group-value-regex";
+            final GroupFilter givenFilter = createFilter(givenFiltrationCellIndex, givenGroupValueRegex);
+
+            final XWPFTableRow firstGivenRow = mock(XWPFTableRow.class);
+            mockedRowUtil.when(
+                    () -> isCellTextMatchRegex(
+                            same(firstGivenRow),
+                            eq(givenFiltrationCellIndex),
+                            same(givenGroupValueRegex)
+                    )
+            ).thenReturn(false);
+
+            final XWPFTableRow secondGivenRow = mock(XWPFTableRow.class);
+            mockedRowUtil.when(
+                    () -> isCellTextMatchRegex(
+                            same(secondGivenRow),
+                            eq(givenFiltrationCellIndex),
+                            same(givenGroupValueRegex)
+                    )
+            ).thenReturn(true);
+
+            final XWPFTableRow thirdGivenRow = mock(XWPFTableRow.class);
+            mockedRowUtil.when(
+                    () -> isCellTextMatchRegex(
+                            same(thirdGivenRow),
+                            eq(givenFiltrationCellIndex),
+                            same(givenGroupValueRegex)
+                    )
+            ).thenReturn(false);
+
+            final XWPFTableRow fourthGivenRow = mock(XWPFTableRow.class);
+            mockedRowUtil.when(
+                    () -> isCellTextMatchRegex(
+                            same(fourthGivenRow),
+                            eq(givenFiltrationCellIndex),
+                            same(givenGroupValueRegex)
+                    )
+            ).thenReturn(true);
+
+            final List<XWPFTableRow> givenRows = List.of(firstGivenRow, secondGivenRow, thirdGivenRow, fourthGivenRow);
+
+            final Stream<XWPFTableRow> actual = this.searcher.findRowsWithPropertyValues(givenRows, givenFilter);
+            final List<XWPFTableRow> actualAsList = actual.toList();
+            final List<XWPFTableRow> expectedAsList = List.of(secondGivenRow, fourthGivenRow);
+            assertEquals(expectedAsList, actualAsList);
+        }
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    private static GroupFilter createFilter(final int filtrationCellIndex, final String groupValueRegex) {
+        final GroupFilter filter = mock(GroupFilter.class);
+        when(filter.getFiltrationCellIndex()).thenReturn(filtrationCellIndex);
+        when(filter.findGroupValueRegex()).thenReturn(groupValueRegex);
+        return filter;
+    }
+}
