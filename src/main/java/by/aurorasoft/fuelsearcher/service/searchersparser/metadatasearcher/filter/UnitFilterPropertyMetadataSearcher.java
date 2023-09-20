@@ -2,13 +2,20 @@ package by.aurorasoft.fuelsearcher.service.searchersparser.metadatasearcher.filt
 
 import by.aurorasoft.fuelsearcher.model.filter.interim.unit.UnitFilter;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isChildUnitedRow;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellNullOrEmpty;
 
+//TODO: test
+@Component
 public final class UnitFilterPropertyMetadataSearcher extends FilterPropertyMetadataSearcher<UnitFilter> {
+
+    public UnitFilterPropertyMetadataSearcher() {
+        super(UnitFilter.class);
+    }
 
     @Override
     protected Stream<XWPFTableRow> findRowsWithPropertyValues(final List<XWPFTableRow> subTableDataRows,
@@ -16,7 +23,7 @@ public final class UnitFilterPropertyMetadataSearcher extends FilterPropertyMeta
         final int filtrationCellIndex = filter.getFiltrationCellIndex();
         return subTableDataRows.stream()
                 .filter(
-                        row -> !isChildUnitedRow(
+                        row -> !isCellNullOrEmpty(
                                 row,
                                 filtrationCellIndex
                         )
