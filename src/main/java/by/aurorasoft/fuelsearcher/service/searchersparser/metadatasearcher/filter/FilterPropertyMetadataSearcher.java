@@ -1,6 +1,5 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.metadatasearcher.filter;
 
-import by.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
 import by.aurorasoft.fuelsearcher.model.filter.Filter;
 import by.aurorasoft.fuelsearcher.service.searchersparser.metadatasearcher.PropertyMetadataSearcher;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
@@ -21,19 +20,12 @@ public abstract class FilterPropertyMetadataSearcher<F extends Filter<?>> extend
     }
 
     @Override
-    protected final PropertyMetadata findAllowableValues(final List<IBodyElement> tableElements, final F filter) {
-        final String propertyName = filter.findPropertyName();
-        final String[] allowableValues = this.findPropertyValuesInSubTables(tableElements, filter);
-        return PropertyMetadata.builder()
-                .propertyName(propertyName)
-                .allowableValues(allowableValues)
-                .build();
+    protected final String findPropertyName(final F filter) {
+        return filter.findPropertyName();
     }
 
-    protected abstract Stream<XWPFTableRow> findRowsWithPropertyValues(final List<XWPFTableRow> subTableDataRows,
-                                                                       final F filter);
-
-    private String[] findPropertyValuesInSubTables(final List<IBodyElement> tableElements, final F filter) {
+    @Override
+    protected final String[] findAllowableValues(final List<IBodyElement> tableElements, final F filter) {
         return tableElements.stream()
                 .filter(XWPFTable.class::isInstance)
                 .map(XWPFTable.class::cast)
@@ -41,6 +33,9 @@ public abstract class FilterPropertyMetadataSearcher<F extends Filter<?>> extend
                 .distinct()
                 .toArray(String[]::new);
     }
+
+    protected abstract Stream<XWPFTableRow> findRowsWithPropertyValues(final List<XWPFTableRow> subTableDataRows,
+                                                                       final F filter);
 
     private Stream<String> findPropertyValuesInSubTable(final XWPFTable subTable, final F filter) {
         final List<XWPFTableRow> subTableDataRows = findSubTableDataRows(subTable);
