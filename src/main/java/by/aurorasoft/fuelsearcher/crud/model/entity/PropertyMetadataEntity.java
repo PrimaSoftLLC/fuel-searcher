@@ -40,5 +40,4 @@ public class PropertyMetadataEntity extends BaseEntity<Long> {
     @JoinColumn(name = "table_metadata_id")
     @ToString.Exclude
     private TableMetadataEntity tableMetadata;
-
 }
