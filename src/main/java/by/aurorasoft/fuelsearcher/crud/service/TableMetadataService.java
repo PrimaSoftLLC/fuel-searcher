@@ -25,7 +25,6 @@ public class TableMetadataService
         return optionalEntity.map(super.mapper::toDto);
     }
 
-    //TODO: test
     public void deleteAll() {
         super.repository.deleteAll();
     }
