@@ -14,9 +14,9 @@ import org.springframework.context.annotation.PropertySource;
 public class FuelConfiguration {
 
     @Bean
-    public FuelDocument document(final FuelDocumentFactory documentFactory,
+    public FuelDocument document(final FuelDocumentFactory factory,
                                  @Value("${fuel-document.path}") final String filePath) {
-        return documentFactory.create(filePath);
+        return factory.create(filePath);
     }
 
     @Bean
