@@ -48,19 +48,17 @@ public final class FuelControllerExceptionHandler {
 
     private static String findMessage(final NotValidSpecificationException exception) {
         final SpecificationValidatingResult validatingResult = exception.getValidatingResult();
-        final String seperatedFailedPropertyNames = findSeperatedFailedPropertyNames(validatingResult);
-        return TEMPLATE_MESSAGE_NOT_VALID_SPECIFICATION.formatted(seperatedFailedPropertyNames);
+        final String separatedFailedPropertyNames = findSeparatedFailedPropertyNames(validatingResult);
+        return TEMPLATE_MESSAGE_NOT_VALID_SPECIFICATION.formatted(separatedFailedPropertyNames);
     }
 
-    private static String findSeperatedFailedPropertyNames(final SpecificationValidatingResult validatingResult) {
+    private static String findSeparatedFailedPropertyNames(final SpecificationValidatingResult validatingResult) {
         final List<String> failedPropertyNames = validatingResult.findFailedPropertyNames();
         return join(DELIMITER_SPECIFICATION_PROPERTIES, failedPropertyNames);
     }
 
-    private record RestErrorResponse(
-            HttpStatus httpStatus,
-            String message,
-            @JsonFormat(shape = STRING, pattern = "yyyy-MM-dd HH-mm-ss") LocalDateTime dateTime
-    ) {
+    private record RestErrorResponse(HttpStatus httpStatus,
+                                     String message,
+                                     @JsonFormat(shape = STRING, pattern = "yyyy-MM-dd HH-mm-ss") LocalDateTime dateTime) {
     }
 }
