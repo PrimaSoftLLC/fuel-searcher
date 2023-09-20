@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-//TODO: refactor and refactor tests
 @Component
 public final class TableMetadataMapper extends AbsMapperEntityDto<TableMetadataEntity, TableMetadata> {
 
