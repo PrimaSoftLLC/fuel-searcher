@@ -1,9 +1,9 @@
-package by.aurorasoft.fuelsearcher.service.searchersparser.metadatasearcher;
+package by.aurorasoft.fuelsearcher.service.searchersparser.metadatasearcher.filter;
 
 import by.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
-import by.aurorasoft.fuelsearcher.model.FuelTable;
 import by.aurorasoft.fuelsearcher.model.filter.Filter;
-import lombok.RequiredArgsConstructor;
+import by.aurorasoft.fuelsearcher.service.searchersparser.metadatasearcher.PropertyMetadataSearcher;
+import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
@@ -13,13 +13,17 @@ import java.util.stream.Stream;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.extractCellText;
 
 //TODO: test
-@RequiredArgsConstructor
-public abstract class FilterPropertyMetadataSearcher<F extends Filter<?>> {
+public abstract class FilterPropertyMetadataSearcher<F extends Filter<?>> extends PropertyMetadataSearcher<F> {
     private static final int LAST_HEADER_ROW_INDEX = 3;
 
-    public final PropertyMetadata find(final FuelTable fuelTable, final F filter) {
+    public FilterPropertyMetadataSearcher(final Class<F> filterType) {
+        super(filterType);
+    }
+
+    @Override
+    protected final PropertyMetadata findByConcreteSource(final List<IBodyElement> tableElements, final F filter) {
         final String propertyName = filter.findPropertyName();
-        final String[] allowableValues = this.findPropertyValuesInSubTables(fuelTable, filter);
+        final String[] allowableValues = this.findPropertyValuesInSubTables(tableElements, filter);
         return PropertyMetadata.builder()
                 .propertyName(propertyName)
                 .allowableValues(allowableValues)
@@ -29,9 +33,8 @@ public abstract class FilterPropertyMetadataSearcher<F extends Filter<?>> {
     protected abstract Stream<XWPFTableRow> findRowsWithPropertyValues(final List<XWPFTableRow> subTableDataRows,
                                                                        final F filter);
 
-    private String[] findPropertyValuesInSubTables(final FuelTable fuelTable, final F filter) {
-        return fuelTable.elements()
-                .stream()
+    private String[] findPropertyValuesInSubTables(final List<IBodyElement> tableElements, final F filter) {
+        return tableElements.stream()
                 .filter(XWPFTable.class::isInstance)
                 .map(XWPFTable.class::cast)
                 .flatMap(subTable -> this.findPropertyValuesInSubTable(subTable, filter))
