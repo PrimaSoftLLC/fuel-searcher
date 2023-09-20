@@ -8,7 +8,7 @@ import by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.tra
 
 import java.util.stream.Stream;
 
-public abstract class SimpleTranslatingTagHandler<V extends Translatable> extends TranslatingTagHandler<V> {
+public abstract class SimpleTranslatingTagHandler<V extends Translatable<String>> extends TranslatingTagHandler<V> {
 
     public SimpleTranslatingTagHandler(final String tagName,
                                        final Dictionary<V> dictionary,

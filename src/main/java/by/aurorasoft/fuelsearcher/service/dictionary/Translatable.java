@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelsearcher.service.dictionary;
 
 @FunctionalInterface
-public interface Translatable {
-    String findAlias();
+public interface Translatable<A> {
+    A findAlias();
 }

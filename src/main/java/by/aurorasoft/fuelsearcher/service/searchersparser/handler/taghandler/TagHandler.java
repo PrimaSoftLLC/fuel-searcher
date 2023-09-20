@@ -5,7 +5,7 @@ import by.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsi
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public abstract class TagHandler implements Translatable {
+public abstract class TagHandler implements Translatable<String> {
     private final String tagName;
 
     @Override

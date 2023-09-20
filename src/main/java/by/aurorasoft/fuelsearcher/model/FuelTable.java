@@ -3,12 +3,11 @@ package by.aurorasoft.fuelsearcher.model;
 import by.aurorasoft.fuelsearcher.service.dictionary.Translatable;
 import lombok.Builder;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
-import org.apache.poi.xwpf.usermodel.XWPFTable;
 
 import java.util.List;
 
 @Builder
-public record FuelTable(String name, List<IBodyElement> elements) implements Translatable {
+public record FuelTable(String name, List<IBodyElement> elements) implements Translatable<String> {
 
     @Override
     public String findAlias() {

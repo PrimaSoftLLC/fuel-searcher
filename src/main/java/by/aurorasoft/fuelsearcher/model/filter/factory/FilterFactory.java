@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public abstract class FilterFactory<F extends Filter<?>, E extends SpecificationPropertyExtractor>
-        implements Translatable {
+        implements Translatable<String> {
     private final E filtrationValueExtractor;
 
     @Override

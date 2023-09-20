@@ -28,7 +28,7 @@ import static java.util.stream.Collectors.toMap;
 import static java.util.stream.IntStream.range;
 import static java.util.stream.Stream.concat;
 
-public abstract class FuelSearcher implements Translatable {
+public abstract class FuelSearcher implements Translatable<String> {
     private static final int HEADER_ROW_INDEX = 1;
 
     private final FuelTable table;

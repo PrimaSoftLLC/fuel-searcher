@@ -16,7 +16,7 @@ import static java.util.Collections.unmodifiableList;
 import static lombok.AccessLevel.PRIVATE;
 
 @RequiredArgsConstructor(access = PRIVATE)
-public final class SpecificationValidator implements Translatable {
+public final class SpecificationValidator implements Translatable<String> {
     private final String tableName;
     private final List<SpecificationPropertyExtractor> requiredPropertyExtractors;
 
