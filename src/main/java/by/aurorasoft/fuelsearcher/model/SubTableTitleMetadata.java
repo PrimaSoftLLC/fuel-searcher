@@ -19,6 +19,10 @@ public class SubTableTitleMetadata {
     String template;
     List<SpecificationPropertyExtractor> argumentExtractors;
 
+    public static SubTableTitleMetadataBuilder builder() {
+        return new SubTableTitleMetadataBuilder();
+    }
+
     @NoArgsConstructor(access = PRIVATE)
     public static final class SubTableTitleMetadataBuilder extends BuilderRequiringAllProperties<SubTableTitleMetadata> {
         private String template;

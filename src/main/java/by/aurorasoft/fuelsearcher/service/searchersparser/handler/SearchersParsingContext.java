@@ -4,6 +4,8 @@ import by.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
 import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata;
 import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata.TableMetadataBuilder;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata;
+import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata.SubTableTitleMetadataBuilder;
 import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
 import by.aurorasoft.fuelsearcher.model.filter.interim.group.GroupFilter;
@@ -52,6 +54,8 @@ public final class SearchersParsingContext {
     @Getter(value = PRIVATE)
     private CompositeSearcherBuilder compositeSearcherBuilder;
 
+    private SubTableTitleMetadataBuilder subTableTitleMetadataBuilder;
+
     private SpecificationValidatorBuilder specificationValidatorBuilder;
 
     private TableMetadataBuilder tableMetadataBuilder;
@@ -82,6 +86,7 @@ public final class SearchersParsingContext {
                 CompositeFuelSearcher::builder,
                 this::setCompositeSearcherBuilder
         );
+        this.subTableTitleMetadataBuilder = SubTableTitleMetadata.builder();
     }
 
     public void accumulateFuelTable(final FuelTable fuelTable) {
@@ -102,6 +107,8 @@ public final class SearchersParsingContext {
     }
 
     public void buildCompositeSearcher() {
+        this.compositeSearcherBuilder.subTableTitleMetadata(this.subTableTitleMetadataBuilder.build());
+        this.subTableTitleMetadataBuilder = null;
         this.buildSearcher(
                 SearchersParsingContext::getCompositeSearcherBuilder,
                 SearchersParsingContext::setCompositeSearcherBuilder
@@ -145,12 +152,12 @@ public final class SearchersParsingContext {
     }
 
     public void accumulateSubTableTitleTemplate(final String template) {
-        this.compositeSearcherBuilder.subTableTitleTemplate(template);
+        this.subTableTitleMetadataBuilder.template(template);
     }
 
     public void accumulateSubTableTitleTemplateArgumentExtractor(final SpecificationPropertyExtractor extractor) {
         this.specificationValidatorBuilder.requiredPropertyExtractor(extractor);
-        this.compositeSearcherBuilder.subTableTitleTemplateArgumentExtractor(extractor);
+        this.subTableTitleMetadataBuilder.argumentExtractor(extractor);
     }
 
     public SearchersParsingResult findResult() {
