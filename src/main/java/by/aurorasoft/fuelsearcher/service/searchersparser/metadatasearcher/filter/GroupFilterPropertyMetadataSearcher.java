@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellTextMatchRegex;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findRowsWithCellMatchingRegex;
 
 @Component
 public final class GroupFilterPropertyMetadataSearcher extends FilterPropertyMetadataSearcher<GroupFilter> {
@@ -21,13 +21,10 @@ public final class GroupFilterPropertyMetadataSearcher extends FilterPropertyMet
                                                               final GroupFilter filter) {
         final int filtrationCellIndex = filter.getFiltrationCellIndex();
         final String groupValueRegex = filter.findGroupValueRegex();
-        return subTableDataRows.stream()
-                .filter(
-                        row -> isCellTextMatchRegex(
-                                row,
-                                filtrationCellIndex,
-                                groupValueRegex
-                        )
-                );
+        return findRowsWithCellMatchingRegex(
+                subTableDataRows,
+                filtrationCellIndex,
+                groupValueRegex
+        );
     }
 }
