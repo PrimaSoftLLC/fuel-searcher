@@ -1,7 +1,6 @@
-package by.aurorasoft.fuelsearcher.service.searchersparser.metadatasearcher.fuelheader;
+package by.aurorasoft.fuelsearcher.service.searchersparser.metadatasearcher;
 
 import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
-import by.aurorasoft.fuelsearcher.service.searchersparser.metadatasearcher.FuelHeaderPropertyMetadataSearcher;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.junit.Test;
 
@@ -18,7 +17,7 @@ public final class FuelHeaderPropertyMetadataSearcherTest {
 
     @Test
     public void propertyNameShouldBeFound() {
-        final TestFuelHeaderPropertyMetadataSearcher givenSearcher = new TestFuelHeaderPropertyMetadataSearcher();
+        final FuelHeaderPropertyMetadataSearcher givenSearcher = new FuelHeaderPropertyMetadataSearcher();
 
         final String givenPropertyName = "property-name";
         final FuelHeaderMetadata givenHeaderMetadata = createHeaderMetadata(givenPropertyName);
@@ -29,7 +28,7 @@ public final class FuelHeaderPropertyMetadataSearcherTest {
 
     @Test
     public void allowableValuesShouldBeFound() {
-        final TestFuelHeaderPropertyMetadataSearcher givenSearcher = new TestFuelHeaderPropertyMetadataSearcher();
+        final FuelHeaderPropertyMetadataSearcher givenSearcher = new FuelHeaderPropertyMetadataSearcher();
 
         final List<IBodyElement> givenTableElements = emptyList();
 
@@ -44,7 +43,7 @@ public final class FuelHeaderPropertyMetadataSearcherTest {
 
     @Test
     public void allowableValuesShouldNotBeDuplicated() {
-        final TestFuelHeaderPropertyMetadataSearcher givenSearcher = new TestFuelHeaderPropertyMetadataSearcher();
+        final FuelHeaderPropertyMetadataSearcher givenSearcher = new FuelHeaderPropertyMetadataSearcher();
 
         final boolean actual = givenSearcher.isAllowableValuesDuplicated();
         assertFalse(actual);
@@ -70,14 +69,5 @@ public final class FuelHeaderPropertyMetadataSearcherTest {
         final FuelHeaderMetadata metadata = mock(FuelHeaderMetadata.class);
         when(propertyExtractor.apply(metadata)).thenReturn(property);
         return metadata;
-    }
-
-    private static final class TestFuelHeaderPropertyMetadataSearcher
-            extends FuelHeaderPropertyMetadataSearcher<FuelHeaderMetadata> {
-
-        public TestFuelHeaderPropertyMetadataSearcher() {
-            super(FuelHeaderMetadata.class);
-        }
-
     }
 }
