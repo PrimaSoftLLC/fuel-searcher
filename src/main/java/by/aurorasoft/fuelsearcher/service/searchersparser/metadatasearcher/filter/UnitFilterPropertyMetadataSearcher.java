@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellNullOrEmpty;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findRowsWithNotNullAndNotEmptyCell;
 
 @Component
 public final class UnitFilterPropertyMetadataSearcher extends FilterPropertyMetadataSearcher<UnitFilter> {
@@ -20,12 +20,9 @@ public final class UnitFilterPropertyMetadataSearcher extends FilterPropertyMeta
     protected Stream<XWPFTableRow> findRowsWithPropertyValues(final List<XWPFTableRow> subTableDataRows,
                                                               final UnitFilter filter) {
         final int filtrationCellIndex = filter.getFiltrationCellIndex();
-        return subTableDataRows.stream()
-                .filter(
-                        row -> !isCellNullOrEmpty(
-                                row,
-                                filtrationCellIndex
-                        )
-                );
+        return findRowsWithNotNullAndNotEmptyCell(
+                subTableDataRows,
+                filtrationCellIndex
+        );
     }
 }
