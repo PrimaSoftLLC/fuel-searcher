@@ -22,7 +22,7 @@ public final class TableMetadataServiceTest extends AbstractContextTest {
 
     @Test
     public void metadataShouldBeFoundByTableName() {
-        final String givenTableName = "ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ";
+        final String givenTableName = "ПЕРВАЯ ТАБЛИЦА";
 
         final Optional<TableMetadata> optionalActual = this.service.findByTableName(givenTableName);
         assertTrue(optionalActual.isPresent());
