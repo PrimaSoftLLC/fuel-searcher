@@ -9,7 +9,6 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFContentUtil.removeDuplicatesIgnoringWhitespacesAndCase;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.extractCellText;
 
 public abstract class FilterPropertyMetadataSearcher<F extends Filter<?>> extends PropertyMetadataSearcher<F> {
@@ -25,25 +24,25 @@ public abstract class FilterPropertyMetadataSearcher<F extends Filter<?>> extend
     }
 
     @Override
-    protected final String[] findAllowableValues(final List<IBodyElement> tableElements, final F filter) {
-        final Stream<String> allPropertyValues = this.findAllPropertyValues(tableElements, filter);
-        return removeDuplicatesIgnoringWhitespacesAndCase(allPropertyValues);
-    }
-
-    protected abstract Stream<XWPFTableRow> findRowsWithPropertyValues(final List<XWPFTableRow> subTableDataRows,
-                                                                       final F filter);
-
-    private Stream<String> findAllPropertyValues(final List<IBodyElement> tableElements, final F filter) {
+    protected final Stream<String> findAllowableValues(final List<IBodyElement> tableElements, final F filter) {
         return tableElements.stream()
                 .filter(XWPFTable.class::isInstance)
                 .map(XWPFTable.class::cast)
-                .flatMap(subTable -> this.findPropertyValuesInSubTable(subTable, filter));
+                .flatMap(subTable -> this.findAllowableValuesInSubTable(subTable, filter));
     }
 
-    private Stream<String> findPropertyValuesInSubTable(final XWPFTable subTable, final F filter) {
+    @Override
+    protected final boolean isAllowableValuesDuplicated() {
+        return true;
+    }
+
+    protected abstract Stream<XWPFTableRow> findRowsWithAllowableValues(final List<XWPFTableRow> subTableDataRows,
+                                                                        final F filter);
+
+    private Stream<String> findAllowableValuesInSubTable(final XWPFTable subTable, final F filter) {
         final List<XWPFTableRow> subTableDataRows = findSubTableDataRows(subTable);
         final int filtrationCellIndex = filter.getFiltrationCellIndex();
-        return this.findRowsWithPropertyValues(
+        return this.findRowsWithAllowableValues(
                 subTableDataRows,
                 filter
         ).map(row -> extractCellText(row, filtrationCellIndex));

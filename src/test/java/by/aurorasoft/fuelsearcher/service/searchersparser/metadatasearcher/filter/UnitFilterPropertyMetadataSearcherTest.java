@@ -43,7 +43,7 @@ public final class UnitFilterPropertyMetadataSearcherTest {
                     )
             ).thenReturn(givenRowsWithPropertyValues);
 
-            final Stream<XWPFTableRow> actual = this.searcher.findRowsWithPropertyValues(
+            final Stream<XWPFTableRow> actual = this.searcher.findRowsWithAllowableValues(
                     givenSubTableDataRows,
                     givenFilter
             );

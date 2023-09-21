@@ -17,8 +17,8 @@ public final class UnitFilterPropertyMetadataSearcher extends FilterPropertyMeta
     }
 
     @Override
-    protected Stream<XWPFTableRow> findRowsWithPropertyValues(final List<XWPFTableRow> subTableDataRows,
-                                                              final UnitFilter filter) {
+    protected Stream<XWPFTableRow> findRowsWithAllowableValues(final List<XWPFTableRow> subTableDataRows,
+                                                               final UnitFilter filter) {
         final int filtrationCellIndex = filter.getFiltrationCellIndex();
         return findRowsWithNotNullAndNotEmptyCell(
                 subTableDataRows,

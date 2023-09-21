@@ -180,8 +180,8 @@ public final class FilterPropertyMetadataSearcherTest {
         }
 
         @Override
-        protected Stream<XWPFTableRow> findRowsWithPropertyValues(final List<XWPFTableRow> subTableDataRows,
-                                                                  final TestFilter filter) {
+        protected Stream<XWPFTableRow> findRowsWithAllowableValues(final List<XWPFTableRow> subTableDataRows,
+                                                                   final TestFilter filter) {
             return subTableDataRows.stream();
         }
     }
