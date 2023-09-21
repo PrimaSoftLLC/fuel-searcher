@@ -12,8 +12,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.isCellTextEqualIgnoringWhitespacesAndCase;
-import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellNullOrEmpty;
-import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isChildUnitedRow;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.*;
 import static java.util.stream.IntStream.range;
 
 @UtilityClass
@@ -63,7 +62,7 @@ public final class XWPFTableRowFilteringUtil {
                 .toList();
     }
 
-    //TODO: test
+    //TODO: refactor and test
     public static Stream<XWPFTableRow> findRowsWithNotNullAndNotEmptyCell(final List<XWPFTableRow> rows,
                                                                           final int cellIndex) {
         return rows.stream()
@@ -71,6 +70,20 @@ public final class XWPFTableRowFilteringUtil {
                         row -> !isCellNullOrEmpty(
                                 row,
                                 cellIndex
+                        )
+                );
+    }
+
+    //TODO: refactor and test
+    public static Stream<XWPFTableRow> findRowsWithCellMatchingRegex(final List<XWPFTableRow> rows,
+                                                                     final int cellIndex,
+                                                                     final String regex) {
+        return rows.stream()
+                .filter(
+                        row -> isCellTextMatchRegex(
+                                row,
+                                cellIndex,
+                                regex
                         )
                 );
     }
