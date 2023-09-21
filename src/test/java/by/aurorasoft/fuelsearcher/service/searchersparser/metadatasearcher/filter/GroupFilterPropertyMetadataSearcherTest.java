@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.metadatasearcher.filter;
 
 import by.aurorasoft.fuelsearcher.model.filter.interim.group.GroupFilter;
-import by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil;
+import by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.junit.Test;
 import org.mockito.MockedStatic;
@@ -9,7 +9,7 @@ import org.mockito.MockedStatic;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellTextMatchRegex;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findRowsWithCellMatchingRegex;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -18,52 +18,37 @@ public final class GroupFilterPropertyMetadataSearcherTest {
 
     @Test
     public void rowsWithPropertyValuesShouldBeFound() {
-        try (final MockedStatic<XWPFTableRowUtil> mockedRowUtil = mockStatic(XWPFTableRowUtil.class)) {
+        try (final MockedStatic<XWPFTableRowFilteringUtil> mockedFilteringUtil = mockStatic(XWPFTableRowFilteringUtil.class)) {
             final int givenFiltrationCellIndex = 5;
             final String givenGroupValueRegex = "group-value-regex";
             final GroupFilter givenFilter = createFilter(givenFiltrationCellIndex, givenGroupValueRegex);
 
             final XWPFTableRow firstGivenRow = mock(XWPFTableRow.class);
-            mockedRowUtil.when(
-                    () -> isCellTextMatchRegex(
-                            same(firstGivenRow),
-                            eq(givenFiltrationCellIndex),
-                            same(givenGroupValueRegex)
-                    )
-            ).thenReturn(false);
-
             final XWPFTableRow secondGivenRow = mock(XWPFTableRow.class);
-            mockedRowUtil.when(
-                    () -> isCellTextMatchRegex(
-                            same(secondGivenRow),
-                            eq(givenFiltrationCellIndex),
-                            same(givenGroupValueRegex)
-                    )
-            ).thenReturn(true);
-
             final XWPFTableRow thirdGivenRow = mock(XWPFTableRow.class);
-            mockedRowUtil.when(
-                    () -> isCellTextMatchRegex(
-                            same(thirdGivenRow),
-                            eq(givenFiltrationCellIndex),
-                            same(givenGroupValueRegex)
-                    )
-            ).thenReturn(false);
-
             final XWPFTableRow fourthGivenRow = mock(XWPFTableRow.class);
-            mockedRowUtil.when(
-                    () -> isCellTextMatchRegex(
-                            same(fourthGivenRow),
+            final List<XWPFTableRow> givenSubTableDataRows = List.of(
+                    firstGivenRow,
+                    secondGivenRow,
+                    thirdGivenRow,
+                    fourthGivenRow
+            );
+
+            final Stream<XWPFTableRow> givenRowsWithPropertyValues = Stream.of(secondGivenRow, thirdGivenRow);
+            mockedFilteringUtil.when(
+                    () -> findRowsWithCellMatchingRegex(
+                            same(givenSubTableDataRows),
                             eq(givenFiltrationCellIndex),
                             same(givenGroupValueRegex)
                     )
-            ).thenReturn(true);
+            ).thenReturn(givenRowsWithPropertyValues);
 
-            final List<XWPFTableRow> givenRows = List.of(firstGivenRow, secondGivenRow, thirdGivenRow, fourthGivenRow);
-
-            final Stream<XWPFTableRow> actual = this.searcher.findRowsWithPropertyValues(givenRows, givenFilter);
+            final Stream<XWPFTableRow> actual = this.searcher.findRowsWithPropertyValues(
+                    givenSubTableDataRows,
+                    givenFilter
+            );
             final List<XWPFTableRow> actualAsList = actual.toList();
-            final List<XWPFTableRow> expectedAsList = List.of(secondGivenRow, fourthGivenRow);
+            final List<XWPFTableRow> expectedAsList = List.of(secondGivenRow, thirdGivenRow);
             assertEquals(expectedAsList, actualAsList);
         }
     }
