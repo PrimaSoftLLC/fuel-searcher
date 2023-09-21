@@ -1,6 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searcher;
 
 import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import lombok.NoArgsConstructor;
@@ -8,7 +9,10 @@ import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -22,18 +26,15 @@ import static lombok.AccessLevel.PRIVATE;
  * For tables with several sub tables
  */
 public final class CompositeFuelSearcher extends FuelSearcher {
-    private final String subTableTitleTemplate;
-    private final List<SpecificationPropertyExtractor> subTableTitleTemplateArgumentExtractors;
+    private final SubTableTitleMetadata subTableTitleMetadata;
 
     private CompositeFuelSearcher(final FuelTable fuelTable,
                                   final Map<String, Integer> fuelOffsetsByHeaders,
                                   final FilterChain filterChain,
                                   final SpecificationPropertyExtractor headerExtractor,
-                                  final String subTableTitleTemplate,
-                                  final List<SpecificationPropertyExtractor> subTableTitleTemplateArgumentExtractors) {
+                                  final SubTableTitleMetadata subTableTitleMetadata) {
         super(fuelTable, fuelOffsetsByHeaders, filterChain, headerExtractor);
-        this.subTableTitleTemplate = subTableTitleTemplate;
-        this.subTableTitleTemplateArgumentExtractors = subTableTitleTemplateArgumentExtractors;
+        this.subTableTitleMetadata = subTableTitleMetadata;
     }
 
     public static CompositeSearcherBuilder builder() {
@@ -56,12 +57,14 @@ public final class CompositeFuelSearcher extends FuelSearcher {
     }
 
     private String findSubTableTitleContent(final FuelSpecification specification) {
+        final String subTableTitleTemplate = this.subTableTitleMetadata.getTemplate();
         final Object[] titleTemplateArguments = this.extractTitleTemplateArguments(specification);
-        return format(this.subTableTitleTemplate, titleTemplateArguments);
+        return format(subTableTitleTemplate, titleTemplateArguments);
     }
 
     private Object[] extractTitleTemplateArguments(final FuelSpecification specification) {
-        return this.subTableTitleTemplateArgumentExtractors.stream()
+        return this.subTableTitleMetadata.getArgumentExtractors()
+                .stream()
                 .map(extractor -> extractor.extract(specification))
                 .toArray(Object[]::new);
     }
@@ -86,16 +89,10 @@ public final class CompositeFuelSearcher extends FuelSearcher {
         private static final String NOT_VALID_ELEMENTS_MESSAGE = "Paragraphs should be located in not even indexes, "
                 + "tables should be located in even indexes";
 
-        private String subTableTitleTemplate;
-        private List<SpecificationPropertyExtractor> subTableTitleTemplateArgumentExtractors;
+        private SubTableTitleMetadata subTableTitleMetadata;
 
-        public void subTableTitleTemplate(final String template) {
-            this.subTableTitleTemplate = template;
-        }
-
-        public void subTableTitleTemplateArgumentExtractor(final SpecificationPropertyExtractor extractor) {
-            this.createSubTableTitleTemplateArgumentExtractorsIfNecessary();
-            this.subTableTitleTemplateArgumentExtractors.add(extractor);
+        public void subTableTitleMetadata(final SubTableTitleMetadata metadata) {
+            this.subTableTitleMetadata = metadata;
         }
 
         @Override
@@ -118,20 +115,13 @@ public final class CompositeFuelSearcher extends FuelSearcher {
                     fuelOffsetsByHeaders,
                     filterChain,
                     headerExtractor,
-                    this.subTableTitleTemplate,
-                    this.subTableTitleTemplateArgumentExtractors
+                    this.subTableTitleMetadata
             );
         }
 
         @Override
         protected Stream<Object> findAdditionalProperties() {
-            return Stream.of(this.subTableTitleTemplate, this.subTableTitleTemplateArgumentExtractors);
-        }
-
-        private void createSubTableTitleTemplateArgumentExtractorsIfNecessary() {
-            if (this.subTableTitleTemplateArgumentExtractors == null) {
-                this.subTableTitleTemplateArgumentExtractors = new ArrayList<>();
-            }
+            return Stream.of(this.subTableTitleMetadata);
         }
 
         private static boolean areParagraphsOnEvenIndexes(final List<IBodyElement> elements) {
