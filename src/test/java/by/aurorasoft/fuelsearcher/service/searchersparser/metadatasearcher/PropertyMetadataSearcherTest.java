@@ -2,13 +2,19 @@ package by.aurorasoft.fuelsearcher.service.searchersparser.metadatasearcher;
 
 import by.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.util.XWPFContentUtil;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.junit.Test;
+import org.mockito.MockedStatic;
 
 import java.util.List;
+import java.util.stream.Stream;
 
+import static by.aurorasoft.fuelsearcher.util.XWPFContentUtil.removeDuplicatesIgnoringWhitespacesAndCase;
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockStatic;
 
 public final class PropertyMetadataSearcherTest {
 
@@ -31,12 +37,13 @@ public final class PropertyMetadataSearcherTest {
     }
 
     @Test
-    public void metadataShouldBeFound() {
+    public void metadataShouldBeFoundWithoutRemovingDuplicatedAllowableValues() {
         final String givenPropertyName = "property-name";
-        final String[] givenAllowableValues = {"first-value", "second-value", "third-value"};
+        final List<String> givenAllowableValues = List.of("first-value", "second-value", "third-value");
         final TestPropertyMetadataSearcher givenSearcher = new TestPropertyMetadataSearcher(
                 givenPropertyName,
-                givenAllowableValues
+                givenAllowableValues,
+                false
         );
 
         final FuelTable givenFuelTable = mock(FuelTable.class);
@@ -45,18 +52,48 @@ public final class PropertyMetadataSearcherTest {
         final PropertyMetadata actual = givenSearcher.find(givenFuelTable, givenSource);
         final PropertyMetadata expected = PropertyMetadata.builder()
                 .propertyName(givenPropertyName)
-                .allowableValues(givenAllowableValues)
+                .allowableValues(new String[]{"first-value", "second-value", "third-value"})
                 .build();
         assertEquals(expected, actual);
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void metadataShouldBeFoundWithRemovingDuplicatedAllowableValues() {
+        try (final MockedStatic<XWPFContentUtil> mockedContentUtil = mockStatic(XWPFContentUtil.class)) {
+            final String givenPropertyName = "property-name";
+            final List<String> givenAllowableValues = List.of("first-value", "second-value", "third-value");
+            final TestPropertyMetadataSearcher givenSearcher = new TestPropertyMetadataSearcher(
+                    givenPropertyName,
+                    givenAllowableValues,
+                    true
+            );
+
+            final Stream<String> givenUniqueAllowableValues = Stream.of("first-value", "second-value");
+            mockedContentUtil.when(
+                    () -> removeDuplicatesIgnoringWhitespacesAndCase(any(Stream.class))
+            ).thenReturn(givenUniqueAllowableValues);
+
+            final FuelTable givenFuelTable = mock(FuelTable.class);
+            final TestSource givenSource = new TestSource();
+
+            final PropertyMetadata actual = givenSearcher.find(givenFuelTable, givenSource);
+            final PropertyMetadata expected = PropertyMetadata.builder()
+                    .propertyName(givenPropertyName)
+                    .allowableValues(new String[]{"first-value", "second-value"})
+                    .build();
+            assertEquals(expected, actual);
+        }
     }
 
     @Test(expected = ClassCastException.class)
     public void metadataShouldNotBeFoundBecauseOfNotSuitableType() {
         final String givenPropertyName = "property-name";
-        final String[] givenAllowableValues = {"first-value", "second-value", "third-value"};
+        final List<String> givenAllowableValues = List.of("first-value", "second-value", "third-value");
         final TestPropertyMetadataSearcher givenSearcher = new TestPropertyMetadataSearcher(
                 givenPropertyName,
-                givenAllowableValues
+                givenAllowableValues,
+                false
         );
 
         final FuelTable givenFuelTable = mock(FuelTable.class);
@@ -71,16 +108,20 @@ public final class PropertyMetadataSearcherTest {
 
     private static final class TestPropertyMetadataSearcher extends PropertyMetadataSearcher<TestSource> {
         private final String propertyName;
-        private final String[] allowableValues;
+        private final List<String> allowableValues;
+        private final boolean allowableValuesDuplicated;
 
         public TestPropertyMetadataSearcher() {
-            this(null, null);
+            this(null, null, false);
         }
 
-        public TestPropertyMetadataSearcher(final String propertyName, final String[] allowableValues) {
+        public TestPropertyMetadataSearcher(final String propertyName,
+                                            final List<String> allowableValues,
+                                            final boolean allowableValuesDuplicated) {
             super(TestSource.class);
             this.propertyName = propertyName;
             this.allowableValues = allowableValues;
+            this.allowableValuesDuplicated = allowableValuesDuplicated;
         }
 
         @Override
@@ -89,8 +130,13 @@ public final class PropertyMetadataSearcherTest {
         }
 
         @Override
-        protected String[] findAllowableValues(final List<IBodyElement> tableElements, final TestSource source) {
-            return this.allowableValues;
+        protected Stream<String> findAllowableValues(final List<IBodyElement> tableElements, final TestSource source) {
+            return this.allowableValues.stream();
+        }
+
+        @Override
+        protected boolean isAllowableValuesDuplicated() {
+            return this.allowableValuesDuplicated;
         }
     }
 
