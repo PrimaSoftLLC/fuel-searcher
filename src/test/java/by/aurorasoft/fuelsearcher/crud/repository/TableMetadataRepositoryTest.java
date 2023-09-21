@@ -32,7 +32,7 @@ public final class TableMetadataRepositoryTest extends AbstractContextTest {
         final TableMetadataEntity actual = optionalActual.get();
         final TableMetadataEntity expected = TableMetadataEntity.builder()
                 .id(givenId)
-                .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
+                .tableName("ПЕРВАЯ ТАБЛИЦА")
                 .propertiesMetadata(
                         List.of(
                                 super.entityManager.getReference(PropertyMetadataEntity.class, 255L),
@@ -56,7 +56,7 @@ public final class TableMetadataRepositoryTest extends AbstractContextTest {
 
     @Test
     public void metadataShouldBeFoundByTableName() {
-        final String givenTableName = "ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ";
+        final String givenTableName = "ПЕРВАЯ ТАБЛИЦА";
 
         super.startQueryCount();
         final Optional<TableMetadataEntity> optionalActual = this.repository.findByTableName(givenTableName);
@@ -67,7 +67,7 @@ public final class TableMetadataRepositoryTest extends AbstractContextTest {
         assertTrue(isInitialized(actual.getPropertiesMetadata()));
         final TableMetadataEntity expected = TableMetadataEntity.builder()
                 .id(255L)
-                .tableName("ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ")
+                .tableName(givenTableName)
                 .propertiesMetadata(
                         List.of(
                                 super.entityManager.getReference(PropertyMetadataEntity.class, 255L),
