@@ -12,7 +12,6 @@ import java.util.stream.Stream;
 
 import static lombok.AccessLevel.PRIVATE;
 
-//TODO: test
 @Value
 @AllArgsConstructor(access = PRIVATE)
 public class SubTableTitleMetadata {
