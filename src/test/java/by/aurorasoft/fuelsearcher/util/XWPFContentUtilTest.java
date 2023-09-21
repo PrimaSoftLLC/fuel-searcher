@@ -2,11 +2,11 @@ package by.aurorasoft.fuelsearcher.util;
 
 import org.junit.Test;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFContentComparingUtil.areEqualIgnoringWhitespacesAndCase;
+import static by.aurorasoft.fuelsearcher.util.XWPFContentUtil.areEqualIgnoringWhitespacesAndCase;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public final class XWPFContentComparingUtilTest {
+public final class XWPFContentUtilTest {
 
     @Test
     public void stringShouldBeEqualIgnoringWhitespacesAndCases() {

@@ -12,7 +12,7 @@ import java.util.*;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFContentComparingUtil.areEqualIgnoringWhitespacesAndCase;
+import static by.aurorasoft.fuelsearcher.util.XWPFContentUtil.areEqualIgnoringWhitespacesAndCase;
 import static by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.extractParagraphText;
 import static java.lang.String.format;
 import static java.util.stream.IntStream.iterate;

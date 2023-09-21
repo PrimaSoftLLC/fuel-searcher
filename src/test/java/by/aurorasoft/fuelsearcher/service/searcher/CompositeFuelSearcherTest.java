@@ -4,7 +4,7 @@ import by.aurorasoft.fuelsearcher.model.FuelTable;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher.CompositeSearcherBuilder;
-import by.aurorasoft.fuelsearcher.util.XWPFContentComparingUtil;
+import by.aurorasoft.fuelsearcher.util.XWPFContentUtil;
 import by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFContentComparingUtil.areEqualIgnoringWhitespacesAndCase;
+import static by.aurorasoft.fuelsearcher.util.XWPFContentUtil.areEqualIgnoringWhitespacesAndCase;
 import static by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.extractParagraphText;
 import static java.util.Collections.emptyMap;
 import static org.junit.Assert.*;
@@ -44,7 +44,7 @@ public final class CompositeFuelSearcherTest {
     public void subTableShouldBeFound()
             throws Exception {
         try (final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil = mockStatic(XWPFParagraphUtil.class);
-             final MockedStatic<XWPFContentComparingUtil> mockedContentComparingUtil = mockStatic(XWPFContentComparingUtil.class)) {
+             final MockedStatic<XWPFContentUtil> mockedContentComparingUtil = mockStatic(XWPFContentUtil.class)) {
             final String expectedSubTableTitleTemplate = "first-property and second-property";
 
             final XWPFParagraph firstGivenParagraph = createParagraph(
@@ -97,7 +97,7 @@ public final class CompositeFuelSearcherTest {
     public void subTableShouldNotBeFound()
             throws Exception {
         try (final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil = mockStatic(XWPFParagraphUtil.class);
-             final MockedStatic<XWPFContentComparingUtil> mockedContentComparingUtil = mockStatic(XWPFContentComparingUtil.class)) {
+             final MockedStatic<XWPFContentUtil> mockedContentComparingUtil = mockStatic(XWPFContentUtil.class)) {
             final String expectedSubTableTitleTemplate = "first-property and second-property";
 
             final XWPFParagraph firstGivenParagraph = createParagraph(
@@ -438,7 +438,7 @@ public final class CompositeFuelSearcherTest {
                                                  final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil,
                                                  final boolean matchSubTableTitleContent,
                                                  final String expectedSubTableTitleContent,
-                                                 final MockedStatic<XWPFContentComparingUtil> mockedContentComparingUtil) {
+                                                 final MockedStatic<XWPFContentUtil> mockedContentComparingUtil) {
         final XWPFParagraph paragraph = mock(XWPFParagraph.class);
         mockedParagraphUtil.when(() -> extractParagraphText(same(paragraph))).thenReturn(content);
         mockedContentComparingUtil.when(

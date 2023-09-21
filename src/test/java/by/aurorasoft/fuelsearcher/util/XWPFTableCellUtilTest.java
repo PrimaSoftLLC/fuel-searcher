@@ -7,7 +7,7 @@ import org.mockito.MockedStatic;
 
 import java.util.List;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFContentComparingUtil.areEqualIgnoringWhitespacesAndCase;
+import static by.aurorasoft.fuelsearcher.util.XWPFContentUtil.areEqualIgnoringWhitespacesAndCase;
 import static by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.extractText;
 import static by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.isEmpty;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.*;
@@ -140,7 +140,7 @@ public final class XWPFTableCellUtilTest {
     @Test
     public void cellTextShouldBeEqualGivenContentIgnoringWhitespacesAndCase() {
         try (final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil = mockStatic(XWPFParagraphUtil.class);
-             final MockedStatic<XWPFContentComparingUtil> mockedContentComparingUtil = mockStatic(XWPFContentComparingUtil.class)) {
+             final MockedStatic<XWPFContentUtil> mockedContentComparingUtil = mockStatic(XWPFContentUtil.class)) {
             final String givenText = "cell-text";
             final XWPFTableCell givenCell = createCell(givenText, mockedParagraphUtil);
 
@@ -157,7 +157,7 @@ public final class XWPFTableCellUtilTest {
     @Test
     public void cellTextShouldNotBeEqualGivenContentIgnoringWhitespacesAndCase() {
         try (final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil = mockStatic(XWPFParagraphUtil.class);
-             final MockedStatic<XWPFContentComparingUtil> mockedContentComparingUtil = mockStatic(XWPFContentComparingUtil.class)) {
+             final MockedStatic<XWPFContentUtil> mockedContentComparingUtil = mockStatic(XWPFContentUtil.class)) {
             final String givenText = "cell-text";
             final XWPFTableCell givenCell = createCell(givenText, mockedParagraphUtil);
 
