@@ -6,6 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 
 import java.util.List;
+import java.util.stream.Stream;
+
+import static by.aurorasoft.fuelsearcher.util.XWPFContentUtil.removeDuplicatesIgnoringWhitespacesAndCase;
 
 @RequiredArgsConstructor
 public abstract class PropertyMetadataSearcher<S> {
@@ -18,17 +21,27 @@ public abstract class PropertyMetadataSearcher<S> {
     public final PropertyMetadata find(final FuelTable fuelTable, final Object source) {
         final S concreteSource = this.sourceType.cast(source);
         final String propertyName = this.findPropertyName(concreteSource);
-        final String[] allowableValues = this.findAllowableValues(fuelTable, concreteSource);
-        return this.createMetadata(propertyName, allowableValues);
+        final String[] uniqueAllowableValues = this.findUniqueAllowableValues(fuelTable, concreteSource);
+        return this.createMetadata(propertyName, uniqueAllowableValues);
     }
 
     protected abstract String findPropertyName(final S source);
 
-    protected abstract String[] findAllowableValues(final List<IBodyElement> tableElements, final S source);
+    protected abstract Stream<String> findAllowableValues(final List<IBodyElement> tableElements, final S source);
 
-    private String[] findAllowableValues(final FuelTable fuelTable, final S source) {
+    protected abstract boolean isAllowableValuesDuplicated();
+
+    private String[] findUniqueAllowableValues(final FuelTable fuelTable, final S source) {
         final List<IBodyElement> tableElements = fuelTable.elements();
-        return this.findAllowableValues(tableElements, source);
+        final Stream<String> allowableValues = this.findAllowableValues(tableElements, source);
+        final Stream<String> uniqueAllowableValues = this.removeDuplicatedAllowableValuesIfNecessary(allowableValues);
+        return uniqueAllowableValues.toArray(String[]::new);
+    }
+
+    private Stream<String> removeDuplicatedAllowableValuesIfNecessary(final Stream<String> allowableValues) {
+        return this.isAllowableValuesDuplicated()
+                ? removeDuplicatesIgnoringWhitespacesAndCase(allowableValues)
+                : allowableValues;
     }
 
     private PropertyMetadata createMetadata(final String propertyName, final String[] allowableValues) {
