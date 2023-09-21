@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.metadatasearcher.filter;
 
 import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
-import by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil;
+import by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.junit.Test;
 import org.mockito.MockedStatic;
@@ -9,7 +9,7 @@ import org.mockito.MockedStatic;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellNullOrEmpty;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findRowsWithNotNullAndNotEmptyCell;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -18,47 +18,35 @@ public final class FinalFilterPropertyMetadataSearcherTest {
 
     @Test
     public void rowsWithPropertyValuesShouldBeFound() {
-        try (final MockedStatic<XWPFTableRowUtil> mockedRowUtil = mockStatic(XWPFTableRowUtil.class)) {
+        try (final MockedStatic<XWPFTableRowFilteringUtil> mockedFilteringUtil = mockStatic(XWPFTableRowFilteringUtil.class)) {
             final int givenFiltrationCellIndex = 5;
             final FinalFilter givenFilter = createFilter(givenFiltrationCellIndex);
 
             final XWPFTableRow firstGivenRow = mock(XWPFTableRow.class);
-            mockedRowUtil.when(
-                    () -> isCellNullOrEmpty(
-                            same(firstGivenRow),
-                            eq(givenFiltrationCellIndex)
-                    )
-            ).thenReturn(true);
-
             final XWPFTableRow secondGivenRow = mock(XWPFTableRow.class);
-            mockedRowUtil.when(
-                    () -> isCellNullOrEmpty(
-                            same(secondGivenRow),
-                            eq(givenFiltrationCellIndex)
-                    )
-            ).thenReturn(false);
-
             final XWPFTableRow thirdGivenRow = mock(XWPFTableRow.class);
-            mockedRowUtil.when(
-                    () -> isCellNullOrEmpty(
-                            same(thirdGivenRow),
-                            eq(givenFiltrationCellIndex)
-                    )
-            ).thenReturn(true);
-
             final XWPFTableRow fourthGivenRow = mock(XWPFTableRow.class);
-            mockedRowUtil.when(
-                    () -> isCellNullOrEmpty(
-                            same(fourthGivenRow),
+            final List<XWPFTableRow> givenSubTableDataRows = List.of(
+                    firstGivenRow,
+                    secondGivenRow,
+                    thirdGivenRow,
+                    fourthGivenRow
+            );
+
+            final Stream<XWPFTableRow> givenRowsWithPropertyValues = Stream.of(secondGivenRow, thirdGivenRow);
+            mockedFilteringUtil.when(
+                    () -> findRowsWithNotNullAndNotEmptyCell(
+                            same(givenSubTableDataRows),
                             eq(givenFiltrationCellIndex)
                     )
-            ).thenReturn(false);
+            ).thenReturn(givenRowsWithPropertyValues);
 
-            final List<XWPFTableRow> givenRows = List.of(firstGivenRow, secondGivenRow, thirdGivenRow, fourthGivenRow);
-
-            final Stream<XWPFTableRow> actual = this.searcher.findRowsWithPropertyValues(givenRows, givenFilter);
+            final Stream<XWPFTableRow> actual = this.searcher.findRowsWithPropertyValues(
+                    givenSubTableDataRows,
+                    givenFilter
+            );
             final List<XWPFTableRow> actualAsList = actual.toList();
-            final List<XWPFTableRow> expectedAsList = List.of(secondGivenRow, fourthGivenRow);
+            final List<XWPFTableRow> expectedAsList = List.of(secondGivenRow, thirdGivenRow);
             assertEquals(expectedAsList, actualAsList);
         }
     }
