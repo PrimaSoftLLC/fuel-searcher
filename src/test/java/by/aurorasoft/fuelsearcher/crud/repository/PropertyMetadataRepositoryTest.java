@@ -27,7 +27,7 @@ public final class PropertyMetadataRepositoryTest extends AbstractContextTest {
         final PropertyMetadataEntity actual = optionalActual.get();
         final PropertyMetadataEntity expected = PropertyMetadataEntity.builder()
                 .id(givenId)
-                .propertyName("тип удобрения")
+                .propertyName("третье свойство")
                 .allowableValues(new String[]{"значение-1", "значение-2"})
                 .tableMetadata(super.entityManager.getReference(TableMetadataEntity.class, 256L))
                 .build();
@@ -37,7 +37,7 @@ public final class PropertyMetadataRepositoryTest extends AbstractContextTest {
     @Test
     public void metadataShouldBeSaved() {
         final PropertyMetadataEntity givenMetadata = PropertyMetadataEntity.builder()
-                .propertyName("тип удобрения")
+                .propertyName("имя свойства")
                 .allowableValues(new String[]{"значение-1", "значение-2"})
                 .tableMetadata(super.entityManager.getReference(TableMetadataEntity.class, 255L))
                 .build();
