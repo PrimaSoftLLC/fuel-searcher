@@ -9,8 +9,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.isCellTextEqualIgnoringWhitespacesAndCase;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellNullOrEmpty;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isChildUnitedRow;
 import static java.util.stream.IntStream.range;
 
@@ -59,6 +61,18 @@ public final class XWPFTableRowFilteringUtil {
                 )
                 .flatMap(Collection::stream)
                 .toList();
+    }
+
+    //TODO: test
+    public static Stream<XWPFTableRow> findRowsWithNotNullAndNotEmptyCell(final List<XWPFTableRow> rows,
+                                                                          final int cellIndex) {
+        return rows.stream()
+                .filter(
+                        row -> !isCellNullOrEmpty(
+                                row,
+                                cellIndex
+                        )
+                );
     }
 
     private static OptionalInt findIndexFirstRowByContent(final List<XWPFTableRow> rows,
