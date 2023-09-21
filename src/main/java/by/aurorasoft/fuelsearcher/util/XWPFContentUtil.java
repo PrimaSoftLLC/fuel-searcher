@@ -12,13 +12,13 @@ public final class XWPFContentUtil {
     private static final String EMPTY_STRING = "";
 
     //TODO: test
-    public static String[] removeDuplicatesIgnoringWhitespacesAndCase(final Stream<String> source) {
+    public static Stream<String> removeDuplicatesIgnoringWhitespacesAndCase(final Stream<String> source) {
         final Set<String> accumulatedContentsWithoutWhitespacesInUpperCase = new HashSet<>();
         return source.filter(
                 sourceContent -> accumulatedContentsWithoutWhitespacesInUpperCase.add(
                         removeWhitespacesAndTransformToUpperCase(sourceContent)
                 )
-        ).toArray(String[]::new);
+        );
     }
 
     public static boolean areEqualIgnoringWhitespacesAndCase(final String first, final String second) {
