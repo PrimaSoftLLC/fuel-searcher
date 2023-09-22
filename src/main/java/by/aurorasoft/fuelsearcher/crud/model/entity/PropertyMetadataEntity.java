@@ -8,7 +8,7 @@ import org.hibernate.annotations.TypeDef;
 import javax.persistence.*;
 
 import static javax.persistence.FetchType.LAZY;
-import static javax.persistence.GenerationType.IDENTITY;
+import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Table(name = "property_metadata")
@@ -25,8 +25,9 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class PropertyMetadataEntity extends BaseEntity<Long> {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id")
+    @GeneratedValue(strategy = SEQUENCE, generator = "property_metadata_id_seq")
+    @SequenceGenerator(name = "property_metadata_id_seq", sequenceName = "property_metadata_id_seq")
     private Long id;
 
     @Column(name = "property_name")
