@@ -5,6 +5,7 @@ import by.aurorasoft.fuelsearcher.crud.service.PropertyMetadataService;
 import by.aurorasoft.fuelsearcher.crud.service.TableMetadataService;
 import by.aurorasoft.fuelsearcher.service.searchersparser.SearchersParsingResult;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
@@ -12,16 +13,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-//TODO: test and refactor
 @Service
 @RequiredArgsConstructor
+@ConditionalOnProperty(prefix = "meta-data-refreshing", name = "enable", havingValue = "true")
 public class MetadataRefreshingService {
     private final TableMetadataService tableMetadataService;
     private final PropertyMetadataService propertyMetadataService;
     private final SearchersParsingResult parsingResult;
 
     @Transactional
-//    @EventListener(ApplicationStartedEvent.class)
+    @EventListener(ApplicationStartedEvent.class)
     public void refresh() {
         this.tableMetadataService.deleteAll();
         this.saveNewMetadata();
@@ -30,6 +31,6 @@ public class MetadataRefreshingService {
     private void saveNewMetadata() {
         final List<TableMetadata> newMetadata = this.parsingResult.tablesMetadata();
         final List<TableMetadata> newSavedMetadata = this.tableMetadataService.saveAll(newMetadata);
-        newSavedMetadata.forEach(tableMetadata -> this.propertyMetadataService.saveAll(tableMetadata.getPropertiesMetadata()));
+//        newSavedMetadata.forEach(tableMetadata -> this.propertyMetadataService.saveAll(tableMetadata.getPropertiesMetadata()));
     }
 }
