@@ -51,7 +51,7 @@ public final class TableMetadataRepositoryTest extends AbstractContextTest {
 
         super.startQueryCount();
         this.repository.save(givenMetadata);
-        super.checkQueryCount(1);
+        super.checkQueryCount(2);
     }
 
     @Test

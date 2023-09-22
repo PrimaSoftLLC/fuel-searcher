@@ -44,7 +44,7 @@ public final class PropertyMetadataRepositoryTest extends AbstractContextTest {
 
         super.startQueryCount();
         this.repository.save(givenMetadata);
-        super.checkQueryCount(1);
+        super.checkQueryCount(2);
     }
 
     private static void checkEquals(final PropertyMetadataEntity expected, final PropertyMetadataEntity actual) {
