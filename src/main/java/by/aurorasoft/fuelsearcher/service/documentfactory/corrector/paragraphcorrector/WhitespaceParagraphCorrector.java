@@ -5,11 +5,11 @@ import org.springframework.stereotype.Component;
 import java.util.regex.MatchResult;
 
 @Component
-public final class NbspParagraphCorrector extends ParagraphCorrector {
-    private static final String REPLACED_REGEX = "\\p{Z}+";
+public final class WhitespaceParagraphCorrector extends ParagraphCorrector {
+    private static final String REPLACED_REGEX = "[\\p{Z} ]+";
     private static final String REPLACEMENT = " ";
 
-    public NbspParagraphCorrector() {
+    public WhitespaceParagraphCorrector() {
         super(REPLACED_REGEX);
     }
 

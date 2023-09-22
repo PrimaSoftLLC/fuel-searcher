@@ -4,8 +4,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public final class NbspParagraphCorrectorTest {
-    private final NbspParagraphCorrector corrector = new NbspParagraphCorrector();
+public final class WhitespaceParagraphCorrectorTest {
+    private final WhitespaceParagraphCorrector corrector = new WhitespaceParagraphCorrector();
 
     @Test
     public void replacementShouldBeCreated() {
