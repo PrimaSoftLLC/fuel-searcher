@@ -8,8 +8,6 @@ import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata;
 import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata.SubTableTitleMetadataBuilder;
 import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
-import by.aurorasoft.fuelsearcher.model.filter.interim.group.GroupFilter;
-import by.aurorasoft.fuelsearcher.model.filter.interim.unit.UnitFilter;
 import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher;
@@ -19,9 +17,7 @@ import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher.SearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleSearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.searchersparser.SearchersParsingResult;
-import by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearcher.filter.FinalFilterPropertyMetadataSearcher;
-import by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearcher.filter.GroupFilterPropertyMetadataSearcher;
-import by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearcher.filter.UnitFilterPropertyMetadataSearcher;
+import by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearcher.PropertyMetadataSearchingManager;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator.SpecificationValidatorBuilder;
 import lombok.Getter;
@@ -39,6 +35,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 //TODO: refactor tests
 public final class SearchersParsingContext {
+    private final PropertyMetadataSearchingManager propertyMetadataSearchingManager;
 
     private final List<FuelSearcher> searchers;
 
@@ -68,7 +65,8 @@ public final class SearchersParsingContext {
     @Getter
     private Attributes lastAttributes;
 
-    public SearchersParsingContext() {
+    public SearchersParsingContext(final PropertyMetadataSearchingManager propertyMetadataSearchingManager) {
+        this.propertyMetadataSearchingManager = propertyMetadataSearchingManager;
         this.searchers = new ArrayList<>();
         this.specificationValidators = new ArrayList<>();
         this.tablesMetadata = new ArrayList<>();
@@ -121,6 +119,8 @@ public final class SearchersParsingContext {
                 FuelHeaderMetadata::getHeaderExtractor,
                 SearcherBuilder::headerMetadata
         );
+        final PropertyMetadata propertyMetadata = this.propertyMetadataSearchingManager.find(this.findCurrentBuilder().getTable(), metadata);
+        this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
     }
 
     public void accumulateFilter(final InterimFilter filter) {
@@ -129,15 +129,8 @@ public final class SearchersParsingContext {
                 InterimFilter::getFiltrationValueExtractor,
                 SearcherBuilder::interimFilter
         );
-
-        if (filter instanceof UnitFilter) {
-            final PropertyMetadata propertyMetadata = new UnitFilterPropertyMetadataSearcher().find(this.findCurrentBuilder().getTable(), (UnitFilter) filter);
-            this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
-        }
-        if (filter instanceof GroupFilter) {
-            final PropertyMetadata propertyMetadata = new GroupFilterPropertyMetadataSearcher().find(this.findCurrentBuilder().getTable(), (GroupFilter) filter);
-            this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
-        }
+        final PropertyMetadata propertyMetadata = this.propertyMetadataSearchingManager.find(this.findCurrentBuilder().getTable(), filter);
+        this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
     }
 
     public void accumulateFilter(final FinalFilter filter) {
@@ -146,8 +139,7 @@ public final class SearchersParsingContext {
                 FinalFilter::getFiltrationValueExtractor,
                 SearcherBuilder::finalFilter
         );
-
-        final PropertyMetadata propertyMetadata = new FinalFilterPropertyMetadataSearcher().find(this.findCurrentBuilder().getTable(), filter);
+        final PropertyMetadata propertyMetadata = this.propertyMetadataSearchingManager.find(this.findCurrentBuilder().getTable(), filter);
         this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
     }
 
