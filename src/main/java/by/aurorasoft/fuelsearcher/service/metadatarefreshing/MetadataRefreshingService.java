@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-//TODO: test
+//TODO: test and refactor
 @Service
 @RequiredArgsConstructor
 public class MetadataRefreshingService {
