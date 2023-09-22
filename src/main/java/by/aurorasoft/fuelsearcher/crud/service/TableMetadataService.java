@@ -26,6 +26,6 @@ public class TableMetadataService
     }
 
     public void deleteAll() {
-        super.repository.deleteAll();
+        super.repository.deleteAllInBatch();
     }
 }

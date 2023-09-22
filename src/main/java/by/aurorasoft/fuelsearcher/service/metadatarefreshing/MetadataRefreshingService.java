@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -25,7 +24,6 @@ public class MetadataRefreshingService {
     private final PropertyMetadataService propertyMetadataService;
     private final SearchersParsingResult parsingResult;
 
-    @Transactional
     @EventListener(ApplicationStartedEvent.class)
     public void refresh() {
         this.tableMetadataService.deleteAll();
