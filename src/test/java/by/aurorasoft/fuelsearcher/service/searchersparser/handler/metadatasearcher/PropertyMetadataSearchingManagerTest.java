@@ -1,7 +1,9 @@
-package by.aurorasoft.fuelsearcher.service.searchersparser.metadatasearcher;
+package by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearcher;
 
 import by.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearcher.PropertyMetadataSearcher;
+import by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearcher.PropertyMetadataSearchingManager;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

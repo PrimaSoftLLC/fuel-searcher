@@ -1,7 +1,7 @@
-package by.aurorasoft.fuelsearcher.service.searchersparser.metadatasearcher.filter;
+package by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearcher.filter;
 
 import by.aurorasoft.fuelsearcher.model.filter.Filter;
-import by.aurorasoft.fuelsearcher.service.searchersparser.metadatasearcher.PropertyMetadataSearcher;
+import by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearcher.PropertyMetadataSearcher;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;

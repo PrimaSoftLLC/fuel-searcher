@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.service.searchersparser.metadatasearcher;
+package by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearcher;
 
 import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
