@@ -33,7 +33,7 @@ import java.util.function.Supplier;
 
 import static lombok.AccessLevel.PRIVATE;
 
-//TODO: refactor tests
+//TODO: refactor and refactor tests
 public final class SearchersParsingContext {
     private final PropertyMetadataSearchingManager propertyMetadataSearchingManager;
 
