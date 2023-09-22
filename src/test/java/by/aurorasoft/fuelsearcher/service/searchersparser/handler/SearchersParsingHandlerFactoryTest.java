@@ -2,6 +2,7 @@ package by.aurorasoft.fuelsearcher.service.searchersparser.handler;
 
 import by.aurorasoft.fuelsearcher.service.dictionary.TagHandlerDictionary;
 import by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext;
+import by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContextFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,13 +11,17 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.lang.reflect.Field;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public final class SearchersParsingHandlerFactoryTest {
     private static final String HANDLER_FIELD_NAME_TAG_HANDLER_DICTIONARY = "handlerDictionary";
     private static final String HANDLER_FIELD_NAME_CONTEXT = "context";
+
+    @Mock
+    private SearchersParsingContextFactory mockedContextFactory;
 
     @Mock
     private TagHandlerDictionary mockedHandlerDictionary;
@@ -25,19 +30,25 @@ public final class SearchersParsingHandlerFactoryTest {
 
     @Before
     public void initializeParsingHandlerFactory() {
-        this.parsingHandlerFactory = new SearchersParsingHandlerFactory(null, this.mockedHandlerDictionary);
+        this.parsingHandlerFactory = new SearchersParsingHandlerFactory(
+                this.mockedContextFactory,
+                this.mockedHandlerDictionary
+        );
     }
 
     @Test
     public void parsingHandlerShouldBeCreated()
             throws Exception {
+        final SearchersParsingContext givenContext = mock(SearchersParsingContext.class);
+        when(this.mockedContextFactory.create()).thenReturn(givenContext);
+
         final SearchersParsingHandler actual = this.parsingHandlerFactory.create();
 
         final TagHandlerDictionary actualHandlerDictionary = findTagHandlerDictionary(actual);
         assertSame(this.mockedHandlerDictionary, actualHandlerDictionary);
 
         final SearchersParsingContext actualContext = findContext(actual);
-        assertNotNull(actualContext);
+        assertSame(givenContext, actualContext);
     }
 
     private static TagHandlerDictionary findTagHandlerDictionary(final SearchersParsingHandler handler)
