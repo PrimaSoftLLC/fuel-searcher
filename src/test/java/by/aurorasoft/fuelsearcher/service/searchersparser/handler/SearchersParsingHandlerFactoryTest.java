@@ -25,7 +25,7 @@ public final class SearchersParsingHandlerFactoryTest {
 
     @Before
     public void initializeParsingHandlerFactory() {
-        this.parsingHandlerFactory = new SearchersParsingHandlerFactory(this.mockedHandlerDictionary);
+        this.parsingHandlerFactory = new SearchersParsingHandlerFactory(null, this.mockedHandlerDictionary);
     }
 
     @Test
