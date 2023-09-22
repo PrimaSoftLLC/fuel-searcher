@@ -16,7 +16,6 @@ public abstract class FuelHeaderMetadata implements Translatable {
         return this.findPropertyName();
     }
 
-    //TODO: test
     public final String findPropertyName() {
         return this.headerExtractor.getPropertyName();
     }
