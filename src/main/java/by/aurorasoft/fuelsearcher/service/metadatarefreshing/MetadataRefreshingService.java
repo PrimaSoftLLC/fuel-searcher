@@ -1,5 +1,6 @@
 package by.aurorasoft.fuelsearcher.service.metadatarefreshing;
 
+import by.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
 import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata;
 import by.aurorasoft.fuelsearcher.crud.service.PropertyMetadataService;
 import by.aurorasoft.fuelsearcher.crud.service.TableMetadataService;
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Stream;
+
+import static by.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata.replaceTableMetadata;
 
 @Service
 @RequiredArgsConstructor
@@ -29,8 +33,21 @@ public class MetadataRefreshingService {
     }
 
     private void saveNewMetadata() {
-        final List<TableMetadata> newMetadata = this.parsingResult.tablesMetadata();
-        final List<TableMetadata> newSavedMetadata = this.tableMetadataService.saveAll(newMetadata);
-//        newSavedMetadata.forEach(tableMetadata -> this.propertyMetadataService.saveAll(tableMetadata.getPropertiesMetadata()));
+        final List<TableMetadata> newTableMetadata = this.parsingResult.tablesMetadata();
+        final List<TableMetadata> savedTableMetadata = this.tableMetadataService.saveAll(newTableMetadata);
+        final List<PropertyMetadata> newPropertiesMetadata = findPropertiesMetadata(savedTableMetadata);
+        this.propertyMetadataService.saveAll(newPropertiesMetadata);
+    }
+
+    private static List<PropertyMetadata> findPropertiesMetadata(final List<TableMetadata> tablesMetadata) {
+        return tablesMetadata.stream()
+                .flatMap(MetadataRefreshingService::findPropertiesMetadata)
+                .toList();
+    }
+
+    private static Stream<PropertyMetadata> findPropertiesMetadata(final TableMetadata tableMetadata) {
+        return tableMetadata.getPropertiesMetadata()
+                .stream()
+                .map(propertyMetadata -> replaceTableMetadata(propertyMetadata, tableMetadata));
     }
 }

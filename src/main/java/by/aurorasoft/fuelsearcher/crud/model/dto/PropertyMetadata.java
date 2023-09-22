@@ -20,4 +20,14 @@ public class PropertyMetadata implements AbstractDto<Long> {
 
     @JsonIgnore
     Long tableMetadataId;
+
+    public static PropertyMetadata replaceTableMetadata(final PropertyMetadata source,
+                                                        final TableMetadata tableMetadata) {
+        return new PropertyMetadata(
+                source.getId(),
+                source.getPropertyName(),
+                source.getAllowableValues(),
+                tableMetadata.getId()
+        );
+    }
 }
