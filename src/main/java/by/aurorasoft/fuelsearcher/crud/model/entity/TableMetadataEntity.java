@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
+import static javax.persistence.CascadeType.PERSIST;
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -26,7 +27,7 @@ public class TableMetadataEntity extends BaseEntity<Long> {
     @Column(name = "tableName")
     private String tableName;
 
-    @OneToMany(mappedBy = "tableMetadata", fetch = LAZY)
+    @OneToMany(mappedBy = "tableMetadata", fetch = LAZY, cascade = PERSIST)
     @ToString.Exclude
     private List<PropertyMetadataEntity> propertiesMetadata;
 }
