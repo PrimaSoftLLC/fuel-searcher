@@ -41,6 +41,26 @@ public final class PropertyMetadataMapperTest extends AbstractContextTest {
         checkEquals(expected, actual);
     }
 
+    @Test
+    public void dtoShouldBeMappedToEntityWithNotDefinedTableMetadata() {
+        final Long givenId = 255L;
+        final String givenPropertyName = "property-name";
+        final String[] givenAllowableValues = new String[]{"first-value", "second-value", "third-value"};
+        final PropertyMetadata givenDto = PropertyMetadata.builder()
+                .id(givenId)
+                .propertyName(givenPropertyName)
+                .allowableValues(givenAllowableValues)
+                .build();
+
+        final PropertyMetadataEntity actual = this.mapper.toEntity(givenDto);
+        final PropertyMetadataEntity expected = PropertyMetadataEntity.builder()
+                .id(givenId)
+                .propertyName(givenPropertyName)
+                .allowableValues(givenAllowableValues)
+                .build();
+        checkEquals(expected, actual);
+    }
+
     @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test(expected = EntityNotFoundException.class)
     public void dtoShouldNotBeMappedToEntityBecauseOfNoTableMetadataWithGivenId() {

@@ -19,4 +19,4 @@ fuel-searcher-config:
   path : ./src/test/resources/fuel-searchers.xml
 
 meta-data-refreshing:
-  enable: true
+  enable: false
