@@ -9,6 +9,8 @@ spring:
       hibernate:
         generate_statistics: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          batch_size: 20
     show-sql: true
 
 fuel-document:

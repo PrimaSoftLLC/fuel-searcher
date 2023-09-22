@@ -8,6 +8,8 @@ spring:
     properties:
       hibernate:
         generate_statistics: true
+        jdbc:
+          batch_size: 20
   sql:
     init:
       mode: always
