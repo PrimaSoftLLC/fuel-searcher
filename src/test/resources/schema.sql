@@ -7,6 +7,8 @@ CREATE TABLE table_metadata
     table_name VARCHAR(256) NOT NULL
 );
 
+ALTER SEQUENCE table_metadata_id_seq INCREMENT 50;
+
 CREATE TABLE property_metadata
 (
     id                SERIAL       NOT NULL PRIMARY KEY,
@@ -14,6 +16,8 @@ CREATE TABLE property_metadata
     property_name     VARCHAR(256) NOT NULL,
     allowable_values  TEXT[] NOT NULL
 );
+
+ALTER SEQUENCE property_metadata_id_seq INCREMENT 50;
 
 ALTER TABLE property_metadata
     ADD CONSTRAINT fk_property_metadata_to_table_metadata
