@@ -123,7 +123,7 @@ public final class FilterChainTest {
     }
 
     @Test
-    public void propertiesShouldBeFound() {
+    public void builderPropertiesShouldBeFound() {
         final FilterChainBuilder givenBuilder = FilterChain.builder();
 
         final InterimFilter firstGivenInterimFilter = mock(InterimFilter.class);
@@ -144,7 +144,7 @@ public final class FilterChainTest {
     }
 
     @Test
-    public void chainShouldBeBuilt()
+    public void chainShouldBeBuiltAfterStateValidation()
             throws Exception {
         final FilterChainBuilder givenBuilder = FilterChain.builder();
 
