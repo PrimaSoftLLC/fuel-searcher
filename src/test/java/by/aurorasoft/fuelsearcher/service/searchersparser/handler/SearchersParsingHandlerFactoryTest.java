@@ -1,6 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler;
 
 import by.aurorasoft.fuelsearcher.service.dictionary.TagHandlerDictionary;
+import by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

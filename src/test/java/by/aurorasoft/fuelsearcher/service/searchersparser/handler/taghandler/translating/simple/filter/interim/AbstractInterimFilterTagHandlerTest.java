@@ -2,7 +2,7 @@ package by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.tr
 
 import by.aurorasoft.fuelsearcher.model.filter.factory.interim.InterimFilterFactory;
 import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
-import by.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsingContext;
+import by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext;
 import org.junit.Test;
 
 import java.util.OptionalInt;

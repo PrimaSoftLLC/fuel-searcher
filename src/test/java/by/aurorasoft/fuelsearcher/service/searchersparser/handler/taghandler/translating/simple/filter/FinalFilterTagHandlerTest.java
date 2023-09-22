@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.translating.simple.filter;
 
 import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
-import by.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsingContext;
+import by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext;
 import org.junit.Test;
 
 import java.util.OptionalInt;

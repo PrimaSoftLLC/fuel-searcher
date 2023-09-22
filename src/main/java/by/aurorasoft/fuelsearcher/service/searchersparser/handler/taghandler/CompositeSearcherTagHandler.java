@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler;
 
-import by.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsingContext;
+import by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext;
 import org.springframework.stereotype.Component;
 
 @Component
