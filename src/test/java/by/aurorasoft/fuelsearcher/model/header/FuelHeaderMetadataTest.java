@@ -4,6 +4,7 @@ import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.Specific
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -19,11 +20,14 @@ public final class FuelHeaderMetadataTest {
         assertEquals(givenPropertyName, actual);
     }
 
-    private static final class TestFuelHeaderMetadata extends FuelHeaderMetadata {
+    @Test
+    public void propertyNameShouldBeFound() {
+        final String givenProperty = "property";
+        final SpecificationPropertyExtractor givenHeaderExtractor = createHeaderExtractor(givenProperty);
+        final FuelHeaderMetadata givenMetadata = new TestFuelHeaderMetadata(givenHeaderExtractor);
 
-        public TestFuelHeaderMetadata(final SpecificationPropertyExtractor headerExtractor) {
-            super(null, headerExtractor);
-        }
+        final String actual = givenMetadata.findPropertyName();
+        assertSame(givenProperty, actual);
     }
 
     @SuppressWarnings("SameParameterValue")
@@ -33,4 +37,10 @@ public final class FuelHeaderMetadataTest {
         return extractor;
     }
 
+    private static final class TestFuelHeaderMetadata extends FuelHeaderMetadata {
+
+        public TestFuelHeaderMetadata(final SpecificationPropertyExtractor headerExtractor) {
+            super(null, headerExtractor);
+        }
+    }
 }
