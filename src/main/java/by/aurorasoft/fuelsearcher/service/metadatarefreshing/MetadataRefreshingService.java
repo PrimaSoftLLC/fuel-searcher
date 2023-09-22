@@ -14,8 +14,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata.replaceTableMetadata;
-
 @Service
 @RequiredArgsConstructor
 @ConditionalOnProperty(prefix = "meta-data-refreshing", name = "enable", havingValue = "true")
@@ -47,5 +45,15 @@ public class MetadataRefreshingService {
         return tableMetadata.getPropertiesMetadata()
                 .stream()
                 .map(propertyMetadata -> replaceTableMetadata(propertyMetadata, tableMetadata));
+    }
+
+    private static PropertyMetadata replaceTableMetadata(final PropertyMetadata source,
+                                                         final TableMetadata tableMetadata) {
+        return new PropertyMetadata(
+                source.getId(),
+                source.getPropertyName(),
+                source.getAllowableValues(),
+                tableMetadata.getId()
+        );
     }
 }
