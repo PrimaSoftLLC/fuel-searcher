@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static java.lang.Integer.MIN_VALUE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.mockito.ArgumentMatchers.same;
@@ -15,6 +16,18 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public final class FilterTest {
+
+    @Test
+    public void propertyNameShouldBeFound() {
+        final String givenPropertyName = "property-name";
+        final SpecificationPropertyExtractor givenFiltrationValueExtractor = createFiltrationValueExtractor(
+                givenPropertyName
+        );
+        final TestFilter givenFilter = new TestFilter(givenFiltrationValueExtractor);
+
+        final String actual = givenFilter.findPropertyName();
+        assertSame(givenPropertyName, actual);
+    }
 
     @Test
     public void rowsShouldBeFiltered() {
@@ -44,6 +57,13 @@ public final class FilterTest {
         assertEquals(givenFiltrationCellIndex, actualFiltrationCellIndex);
     }
 
+    @SuppressWarnings("SameParameterValue")
+    private static SpecificationPropertyExtractor createFiltrationValueExtractor(final String propertyName) {
+        final SpecificationPropertyExtractor extractor = mock(SpecificationPropertyExtractor.class);
+        when(extractor.getPropertyName()).thenReturn(propertyName);
+        return extractor;
+    }
+
     private static final class TestFilter extends Filter<List<XWPFTableRow>> {
         private final List<XWPFTableRow> filteringResultRows;
 
@@ -55,6 +75,10 @@ public final class FilterTest {
 
         @Getter
         private int lastFiltrationCellIndex;
+
+        public TestFilter(final SpecificationPropertyExtractor filtrationValueExtractor) {
+            this(filtrationValueExtractor, MIN_VALUE, null);
+        }
 
         public TestFilter(final SpecificationPropertyExtractor filtrationValueExtractor,
                           final int filtrationCellIndex,

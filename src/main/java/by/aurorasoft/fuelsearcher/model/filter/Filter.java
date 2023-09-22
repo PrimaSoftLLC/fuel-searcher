@@ -14,7 +14,6 @@ public abstract class Filter<R> {
     private final SpecificationPropertyExtractor filtrationValueExtractor;
     private final int filtrationCellIndex;
 
-    //TODO: test
     public final String findPropertyName() {
         return this.filtrationValueExtractor.getPropertyName();
     }
