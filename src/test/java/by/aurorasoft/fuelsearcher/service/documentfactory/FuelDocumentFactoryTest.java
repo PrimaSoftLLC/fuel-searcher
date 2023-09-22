@@ -16,16 +16,16 @@ import static org.mockito.Mockito.*;
 public final class FuelDocumentFactoryTest {
 
     @Mock
-    private FuelDocumentLoader mockedDocumentLoader;
+    private FuelDocumentLoader mockedLoader;
 
     @Mock
-    private FuelDocumentCorrector mockedDocumentCorrector;
+    private FuelDocumentCorrector mockedCorrector;
 
     private FuelDocumentFactory documentFactory;
 
     @Before
     public void initializeDocumentFactory() {
-        this.documentFactory = new FuelDocumentFactory(this.mockedDocumentLoader, this.mockedDocumentCorrector);
+        this.documentFactory = new FuelDocumentFactory(this.mockedLoader, this.mockedCorrector);
     }
 
     @Test
@@ -33,12 +33,12 @@ public final class FuelDocumentFactoryTest {
         final String givenFilePath = "file-path";
 
         final FuelDocument givenDocument = mock(FuelDocument.class);
-        when(this.mockedDocumentLoader.load(same(givenFilePath))).thenReturn(givenDocument);
+        when(this.mockedLoader.load(same(givenFilePath))).thenReturn(givenDocument);
 
         final FuelDocument actual = this.documentFactory.create(givenFilePath);
         assertSame(givenDocument, actual);
 
-        verify(this.mockedDocumentCorrector, times(1)).correct(same(givenDocument));
+        verify(this.mockedCorrector, times(1)).correct(same(givenDocument));
     }
 
 }

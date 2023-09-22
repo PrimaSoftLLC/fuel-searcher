@@ -9,12 +9,12 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public final class FuelDocumentFactory {
-    private final FuelDocumentLoader documentLoader;
-    private final FuelDocumentCorrector documentCorrector;
+    private final FuelDocumentLoader loader;
+    private final FuelDocumentCorrector corrector;
 
     public FuelDocument create(final String filePath) {
-        final FuelDocument fuelDocument = this.documentLoader.load(filePath);
-        this.documentCorrector.correct(fuelDocument);
+        final FuelDocument fuelDocument = this.loader.load(filePath);
+        this.corrector.correct(fuelDocument);
         return fuelDocument;
     }
 }
