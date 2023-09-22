@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
-import static javax.persistence.GenerationType.IDENTITY;
+import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Table(name = "table_metadata")
@@ -19,8 +19,9 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class TableMetadataEntity extends BaseEntity<Long> {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id")
+    @GeneratedValue(strategy = SEQUENCE, generator = "table_metadata_id_seq")
+    @SequenceGenerator(name = "table_metadata_id_seq", sequenceName = "table_metadata_id_seq")
     private Long id;
 
     @Column(name = "tableName")
