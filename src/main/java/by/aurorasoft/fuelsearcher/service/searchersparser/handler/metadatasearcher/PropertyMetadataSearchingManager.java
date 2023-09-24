@@ -15,6 +15,7 @@ public final class PropertyMetadataSearchingManager {
 
     private final List<PropertyMetadataSearcher<?>> searchers;
 
+    //TODO: do interface for source with findPropertyName
     public PropertyMetadata find(final FuelTable fuelTable, final Object source) {
         return this.searchers.stream()
                 .filter(searcher -> searcher.isAbleToFind(source))
