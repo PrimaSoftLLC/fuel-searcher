@@ -57,7 +57,7 @@ public final class CompositeFuelSearcher extends FuelSearcher {
     }
 
     private String findSubTableTitleContent(final FuelSpecification specification) {
-        final String subTableTitleTemplate = this.subTableTitleMetadata.getTemplateWithPropertyNames();
+        final String subTableTitleTemplate = this.subTableTitleMetadata.getTemplateWithStringFillers();
         final Object[] titleTemplateArguments = this.extractTitleTemplateArguments(specification);
         return format(subTableTitleTemplate, titleTemplateArguments);
     }
