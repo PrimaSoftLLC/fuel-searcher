@@ -3,6 +3,7 @@ package by.aurorasoft.fuelsearcher.model;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelsearcher.service.builder.BuilderRequiringAllProperties;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Value;
 
@@ -16,11 +17,15 @@ import static java.util.stream.IntStream.range;
 import static lombok.AccessLevel.PRIVATE;
 
 //TODO: refactor tests
-@Value
-public class SubTableTitleMetadata {
-    String templateWithStringFillers;
-    String regex;
-    List<SubTableTitleArgumentMetadata> argumentsMetadata;
+public final class SubTableTitleMetadata {
+
+    @Getter
+    private final String templateWithStringFillers;
+
+    private final String regex;
+
+    @Getter
+    private final List<SubTableTitleArgumentMetadata> argumentsMetadata;
 
     private SubTableTitleMetadata(final String templateWithStringFillers,
                                   final String regex,
