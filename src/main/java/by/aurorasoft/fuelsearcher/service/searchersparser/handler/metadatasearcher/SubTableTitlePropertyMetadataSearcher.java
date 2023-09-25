@@ -43,20 +43,21 @@ public final class SubTableTitlePropertyMetadataSearcher extends PropertyMetadat
     private static String extractPropertyValue(final XWPFParagraph subTableTitleParagraph,
                                                final SubTableTitlePropertyMetadata metadata) {
         final String title = extractText(subTableTitleParagraph);
-        final Matcher titleMatcher = createTitleMatcher(title, metadata);
-        if (!titleMatcher.matches()) {
-            throw new SubTableTitlePropertyMetadataSearchingException(
-                    "Property metadata searching was failed for title of sub table: '%s'".formatted(title)
-            );
-        }
+        final Matcher titleMatcher = matchTitle(title, metadata);
         final int propertyGroupIndex = metadata.findGroupIndexInRegex();
         return titleMatcher.group(propertyGroupIndex);
     }
 
-    private static Matcher createTitleMatcher(final String title, final SubTableTitlePropertyMetadata metadata) {
+    private static Matcher matchTitle(final String title, final SubTableTitlePropertyMetadata metadata) {
         final String regex = metadata.findTitleRegex();
         final Pattern pattern = compile(regex);
-        return pattern.matcher(title);
+        final Matcher matcher = pattern.matcher(title);
+        if (!matcher.matches()) {
+            throw new SubTableTitlePropertyMetadataSearchingException(
+                    "Searching property metadata was failed for title of sub table: '%s'".formatted(title)
+            );
+        }
+        return matcher;
     }
 
     private static final class SubTableTitlePropertyMetadataSearchingException extends RuntimeException {
