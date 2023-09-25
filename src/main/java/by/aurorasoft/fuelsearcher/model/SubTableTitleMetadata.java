@@ -27,7 +27,7 @@ public class SubTableTitleMetadata {
                                   final List<SpecificationPropertyExtractor> argumentExtractors) {
         this.templateWithStringFillers = templateWithStringFillers;
         this.regex = regex;
-        this.argumentsMetadata = this.findPropertiesMetadata(argumentExtractors);
+        this.argumentsMetadata = this.findArgumentsMetadata(argumentExtractors);
     }
 
     public Stream<SpecificationPropertyExtractor> findArgumentsExtractors() {
@@ -39,9 +39,9 @@ public class SubTableTitleMetadata {
         return new SubTableTitleMetadataBuilder();
     }
 
-    private List<SubTableTitleArgumentMetadata> findPropertiesMetadata(
+    private List<SubTableTitleArgumentMetadata> findArgumentsMetadata(
             final List<SpecificationPropertyExtractor> argumentExtractors) {
-        return range(0, this.argumentsMetadata.size())
+        return range(0, argumentExtractors.size())
                 .mapToObj(
                         i -> this.new SubTableTitleArgumentMetadata(
                                 i,
