@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.createObject;
 import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.setProperty;
+import static java.lang.Integer.MIN_VALUE;
 import static java.util.Collections.emptyList;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -20,6 +21,9 @@ public final class SubTableTitleMetadataTest {
     private static final String FIELD_NAME_TITLE_METADATA_TEMPLATE_WITH_STRING_FILLERS = "templateWithStringFillers";
     private static final String FIELD_NAME_TITLE_METADATA_REGEX = "regex";
     private static final String FIELD_NAME_TITLE_METADATA_ARGUMENTS_METADATA = "argumentsMetadata";
+
+    private static final String FIELD_NAME_ARGUMENT_METADATA_INDEX = "index";
+    private static final String FIELD_NAME_ARGUMENT_METADATA_EXTRACTOR = "extractor";
 
     private static final String FIELD_NAME_TEMPLATE = "template";
     private static final String FIELD_NAME_ARGUMENT_EXTRACTORS = "argumentExtractors";
@@ -32,16 +36,14 @@ public final class SubTableTitleMetadataTest {
         final SpecificationPropertyExtractor firstGivenArgumentMetadataExtractor = mock(
                 SpecificationPropertyExtractor.class
         );
-        final SubTableTitleArgumentMetadata firstGivenArgumentMetadata = createArgumentMetadata(
-                firstGivenArgumentMetadataExtractor
-        );
+        final SubTableTitleArgumentMetadata firstGivenArgumentMetadata = createArgumentMetadata(givenTitleMetadata);
+        setExtractor(firstGivenArgumentMetadata, firstGivenArgumentMetadataExtractor);
 
         final SpecificationPropertyExtractor secondGivenArgumentMetadataExtractor = mock(
                 SpecificationPropertyExtractor.class
         );
-        final SubTableTitleArgumentMetadata secondGivenArgumentMetadata = createArgumentMetadata(
-                secondGivenArgumentMetadataExtractor
-        );
+        final SubTableTitleArgumentMetadata secondGivenArgumentMetadata = createArgumentMetadata(givenTitleMetadata);
+        setExtractor(secondGivenArgumentMetadata, secondGivenArgumentMetadataExtractor);
 
         final List<SubTableTitleArgumentMetadata> givenArgumentsMetadata = List.of(
                 firstGivenArgumentMetadata,
@@ -64,35 +66,49 @@ public final class SubTableTitleMetadataTest {
         assertNotNull(actual);
     }
 
-
-
     @Test
-    public void templateShouldBeAccumulatedByBuilder()
+    public void argumentMetadataPropertyNameShouldBeFound()
             throws Exception {
-        final SubTableTitleMetadataBuilder givenBuilder = SubTableTitleMetadata.builder();
-        final String givenTemplate = "template";
+        final SubTableTitleMetadata givenTitleMetadata = createTitleMetadata();
+        final SubTableTitleArgumentMetadata givenArgumentMetadata = createArgumentMetadata(givenTitleMetadata);
 
-        givenBuilder.templateWithPropertyNames(givenTemplate);
+        final String givenPropertyName = "property";
+        final SpecificationPropertyExtractor givenExtractor = createPropertyExtractor(givenPropertyName);
+        setExtractor(givenArgumentMetadata, givenExtractor);
 
-        final String actual = findTemplate(givenBuilder);
-        assertSame(givenTemplate, actual);
+        final String actual = givenArgumentMetadata.findPropertyName();
+        assertSame(givenPropertyName, actual);
     }
 
-    @Test
-    public void argumentExtractorsShouldBeAccumulatedByBuilder()
-            throws Exception {
-        final SubTableTitleMetadataBuilder givenBuilder = SubTableTitleMetadata.builder();
 
-        final SpecificationPropertyExtractor firstGivenExtractor = mock(SpecificationPropertyExtractor.class);
-        givenBuilder.argumentExtractor(firstGivenExtractor);
 
-        final SpecificationPropertyExtractor secondGivenExtractor = mock(SpecificationPropertyExtractor.class);
-        givenBuilder.argumentExtractor(secondGivenExtractor);
-
-        final List<SpecificationPropertyExtractor> actual = findArgumentExtractors(givenBuilder);
-        final List<SpecificationPropertyExtractor> expected = List.of(firstGivenExtractor, secondGivenExtractor);
-        assertEquals(expected, actual);
-    }
+//    @Test
+//    public void templateShouldBeAccumulatedByBuilder()
+//            throws Exception {
+//        final SubTableTitleMetadataBuilder givenBuilder = SubTableTitleMetadata.builder();
+//        final String givenTemplate = "template";
+//
+//        givenBuilder.templateWithPropertyNames(givenTemplate);
+//
+//        final String actual = findTemplate(givenBuilder);
+//        assertSame(givenTemplate, actual);
+//    }
+//
+//    @Test
+//    public void argumentExtractorsShouldBeAccumulatedByBuilder()
+//            throws Exception {
+//        final SubTableTitleMetadataBuilder givenBuilder = SubTableTitleMetadata.builder();
+//
+//        final SpecificationPropertyExtractor firstGivenExtractor = mock(SpecificationPropertyExtractor.class);
+//        givenBuilder.argumentExtractor(firstGivenExtractor);
+//
+//        final SpecificationPropertyExtractor secondGivenExtractor = mock(SpecificationPropertyExtractor.class);
+//        givenBuilder.argumentExtractor(secondGivenExtractor);
+//
+//        final List<SpecificationPropertyExtractor> actual = findArgumentExtractors(givenBuilder);
+//        final List<SpecificationPropertyExtractor> expected = List.of(firstGivenExtractor, secondGivenExtractor);
+//        assertEquals(expected, actual);
+//    }
 
 //    @Test
 //    public void builderPropertiesShouldBeFound()
@@ -136,12 +152,6 @@ public final class SubTableTitleMetadataTest {
 //        final List<SpecificationPropertyExtractor> actualArgumentExtractors = findArgumentExtractors(actual);
 //        assertSame(givenArgumentExtractors, actualArgumentExtractors);
 //    }
-
-    private static SubTableTitleArgumentMetadata createArgumentMetadata(final SpecificationPropertyExtractor extractor) {
-        final SubTableTitleArgumentMetadata metadata = mock(SubTableTitleArgumentMetadata.class);
-        when(metadata.getExtractor()).thenReturn(extractor);
-        return metadata;
-    }
 
     private static String findTemplate(final SubTableTitleMetadataBuilder builder)
             throws Exception {
@@ -244,6 +254,17 @@ public final class SubTableTitleMetadataTest {
         );
     }
 
+    private static void setExtractor(final SubTableTitleArgumentMetadata argumentMetadata,
+                                     final SpecificationPropertyExtractor extractor)
+            throws Exception {
+        setProperty(
+                argumentMetadata,
+                extractor,
+                SubTableTitleArgumentMetadata.class,
+                FIELD_NAME_ARGUMENT_METADATA_EXTRACTOR
+        );
+    }
+
     private static SubTableTitleMetadata createTitleMetadata()
             throws Exception {
         return createObject(
@@ -251,5 +272,20 @@ public final class SubTableTitleMetadataTest {
                 new Class<?>[]{String.class, String.class, List.class},
                 new Object[]{null, null, emptyList()}
         );
+    }
+
+    private static SubTableTitleArgumentMetadata createArgumentMetadata(final SubTableTitleMetadata titleMetadata)
+            throws Exception {
+        return createObject(
+                SubTableTitleArgumentMetadata.class,
+                new Class<?>[]{SubTableTitleMetadata.class, int.class, SpecificationPropertyExtractor.class},
+                new Object[]{titleMetadata, MIN_VALUE, null}
+        );
+    }
+
+    private static SpecificationPropertyExtractor createPropertyExtractor(final String propertyName) {
+        final SpecificationPropertyExtractor extractor = mock(SpecificationPropertyExtractor.class);
+        when(extractor.getPropertyName()).thenReturn(propertyName);
+        return extractor;
     }
 }

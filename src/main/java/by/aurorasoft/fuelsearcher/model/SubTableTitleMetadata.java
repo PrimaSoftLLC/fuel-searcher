@@ -5,7 +5,6 @@ import by.aurorasoft.fuelsearcher.service.builder.BuilderRequiringAllProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Value;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,11 +54,12 @@ public final class SubTableTitleMetadata {
                 .toList();
     }
 
-    @Value
     @AllArgsConstructor(access = PRIVATE)
-    public class SubTableTitleArgumentMetadata {
-        int index;
-        SpecificationPropertyExtractor extractor;
+    public final class SubTableTitleArgumentMetadata {
+        private final int index;
+
+        @Getter(value = PRIVATE)
+        private final SpecificationPropertyExtractor extractor;
 
         public String findPropertyName() {
             return this.extractor.getPropertyName();
