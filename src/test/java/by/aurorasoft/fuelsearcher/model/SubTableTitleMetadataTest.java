@@ -80,6 +80,32 @@ public final class SubTableTitleMetadataTest {
         assertSame(givenPropertyName, actual);
     }
 
+    @Test
+    public void argumentMetadataTitleRegexShouldBeFound()
+            throws Exception {
+        final String givenTitleMetadataRegex = "regex";
+        final SubTableTitleMetadata givenTitleMetadata = createTitleMetadata();
+        setRegex(givenTitleMetadata, givenTitleMetadataRegex);
+
+        final SubTableTitleArgumentMetadata givenArgumentMetadata = createArgumentMetadata(givenTitleMetadata);
+
+        final String actual = givenArgumentMetadata.findTitleRegex();
+        assertSame(givenTitleMetadataRegex, actual);
+    }
+
+    @Test
+    public void argumentMetadataGroupIndexInRegexShouldBeFound()
+            throws Exception {
+        final SubTableTitleMetadata givenTitleMetadata = createTitleMetadata();
+
+        final int givenIndex = 5;
+        final SubTableTitleArgumentMetadata givenArgumentMetadata = createArgumentMetadata(givenTitleMetadata);
+        setIndex(givenArgumentMetadata, givenIndex);
+
+        final int actual = givenArgumentMetadata.findGroupIndexInRegex();
+        final int expected = givenIndex + 1;
+        assertEquals(expected, actual);
+    }
 
 
 //    @Test
@@ -243,6 +269,16 @@ public final class SubTableTitleMetadataTest {
 //        setProperty(builder, FIELD_NAME_ARGUMENT_EXTRACTORS, argumentExtractors);
 //    }
 
+    private static void setRegex(final SubTableTitleMetadata titleMetadata, final String regex)
+            throws Exception {
+        setProperty(
+                titleMetadata,
+                regex,
+                SubTableTitleMetadata.class,
+                FIELD_NAME_TITLE_METADATA_REGEX
+        );
+    }
+
     private static void setArgumentsMetadata(final SubTableTitleMetadata titleMetadata,
                                              final List<SubTableTitleArgumentMetadata> argumentsMetadata)
             throws Exception {
@@ -262,6 +298,16 @@ public final class SubTableTitleMetadataTest {
                 extractor,
                 SubTableTitleArgumentMetadata.class,
                 FIELD_NAME_ARGUMENT_METADATA_EXTRACTOR
+        );
+    }
+
+    private static void setIndex(final SubTableTitleArgumentMetadata argumentMetadata, final int index)
+            throws Exception {
+        setProperty(
+                argumentMetadata,
+                index,
+                SubTableTitleArgumentMetadata.class,
+                FIELD_NAME_ARGUMENT_METADATA_INDEX
         );
     }
 
