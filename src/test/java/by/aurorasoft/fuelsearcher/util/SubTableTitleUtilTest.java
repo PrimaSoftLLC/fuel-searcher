@@ -68,4 +68,20 @@ public final class SubTableTitleUtilTest {
         final String actual = findTemplateRegex(givenTemplate);
         assertEquals(givenTemplate, actual);
     }
+
+    @Test
+    public void templateRegexesShouldBeFound() {
+        final List<String> actual = GIVEN_TEMPLATES_WITH_PROPERTY_NAMES.stream()
+                .map(SubTableTitleUtil::findTemplateRegex)
+                .toList();
+        final List<String> expected = List.of(
+                "РАЗБРАСЫВАТЕЛЕМ (.+) \\(трактор (.+)\\)",
+                "Опрыскивателем (.+)",
+                "(.+) с разбрасывателем (.+)\\. Производительность погрузчика более 60 т/ч",
+                "(.+) с (.+)",
+                "(.+) Соотношение массы зерна к массе соломы (.+)",
+                "ТРАКТОР (.+) \\+ (.+)\\. При механизированной погрузке и разгрузке"
+        );
+        assertEquals(expected, actual);
+    }
 }
