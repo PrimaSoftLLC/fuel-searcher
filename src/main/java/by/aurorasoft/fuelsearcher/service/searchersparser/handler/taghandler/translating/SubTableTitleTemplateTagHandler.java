@@ -38,8 +38,8 @@ public final class SubTableTitleTemplateTagHandler extends TranslatingTagHandler
 
     @Override
     protected void accumulateAdditionalValues(final SearchersParsingContext context) {
-        final String subTableTitleTemplateWithPropertyNames = context.getLastContent();
-        context.accumulateSubTableTitleTemplate(subTableTitleTemplateWithPropertyNames);
+        final String templateWithPropertyNames = context.getLastContent();
+        context.accumulateSubTableTitleTemplate(templateWithPropertyNames);
     }
 
     private static final class NoSuchSpecificationPropertyExtractorException extends NoSuchKeyException {
