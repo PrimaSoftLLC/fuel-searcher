@@ -33,14 +33,14 @@ public final class SubTableTitleUtil {
 
     private static final String PROPERTY_NAME_PLACE_REGEX = "\\{([^{}]+)}";
     private static final int PROPERTY_NAME_GROUP_NUMBER = 1;
-    private static final Pattern PROPERTY_NAME_PLACE_PATTERN = compile(PROPERTY_NAME_PLACE_REGEX);
+    private static final Pattern PROPERTY_NAME_PATTERN = compile(PROPERTY_NAME_PLACE_REGEX);
 
     private static final String STRING_FILLER = "%s";
 
     private static final String PROPERTY_NAME_REGEX = "(.+)";
 
     public static Stream<String> findPropertyNames(final String templateWithPropertyNames) {
-        return PROPERTY_NAME_PLACE_PATTERN.matcher(templateWithPropertyNames)
+        return PROPERTY_NAME_PATTERN.matcher(templateWithPropertyNames)
                 .results()
                 .map(matchResult -> matchResult.group(PROPERTY_NAME_GROUP_NUMBER));
     }
