@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelsearcher.util.SubTableTitleUtil.findPropertyNames;
+import static by.aurorasoft.fuelsearcher.util.SubTableTitleUtil.findTemplateRegex;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -42,5 +43,29 @@ public final class SubTableTitleUtilTest {
         final Stream<String> actual = findPropertyNames(givenTemplate);
         final boolean actualEmpty = actual.findFirst().isEmpty();
         assertTrue(actualEmpty);
+    }
+
+    @Test
+    public void templatesWithStringFillersShouldBeFound() {
+        final List<String> actual = GIVEN_TEMPLATES_WITH_PROPERTY_NAMES.stream()
+                .map(SubTableTitleUtil::findTemplateWithStringFillers)
+                .toList();
+        final List<String> expected = List.of(
+                "РАЗБРАСЫВАТЕЛЕМ %s (трактор %s)",
+                "Опрыскивателем %s",
+                "%s с разбрасывателем %s. Производительность погрузчика более 60 т/ч",
+                "%s с %s",
+                "%s Соотношение массы зерна к массе соломы %s",
+                "ТРАКТОР %s + %s. При механизированной погрузке и разгрузке"
+        );
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void templateWithStringFillersShouldBeFoundWithoutStringFillers() {
+        final String givenTemplate = "template";
+
+        final String actual = findTemplateRegex(givenTemplate);
+        assertEquals(givenTemplate, actual);
     }
 }

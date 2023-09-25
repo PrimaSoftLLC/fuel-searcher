@@ -15,7 +15,6 @@ import static java.util.function.Function.identity;
 import static java.util.regex.Pattern.compile;
 import static java.util.stream.Collectors.toMap;
 
-//TODO: refactor and tests
 @UtilityClass
 public final class SubTableTitleUtil {
     private static final String SLASH = "\\";
