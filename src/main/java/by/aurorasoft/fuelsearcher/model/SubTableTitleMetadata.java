@@ -30,6 +30,11 @@ public class SubTableTitleMetadata {
         this.argumentsMetadata = this.findPropertiesMetadata(argumentExtractors);
     }
 
+    public Stream<SpecificationPropertyExtractor> findArgumentsExtractors() {
+        return this.argumentsMetadata.stream()
+                .map(SubTableTitleArgumentMetadata::getExtractor);
+    }
+
     public static SubTableTitleMetadataBuilder builder() {
         return new SubTableTitleMetadataBuilder();
     }

@@ -63,8 +63,7 @@ public final class CompositeFuelSearcher extends FuelSearcher {
     }
 
     private Object[] extractTitleTemplateArguments(final FuelSpecification specification) {
-        return this.subTableTitleMetadata.getArgumentsMetadata()
-                .stream()
+        return this.subTableTitleMetadata.findArgumentsExtractors()
                 .map(extractor -> extractor.extract(specification))
                 .toArray(Object[]::new);
     }
