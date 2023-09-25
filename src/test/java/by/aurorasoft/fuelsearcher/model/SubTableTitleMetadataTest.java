@@ -27,7 +27,7 @@ public final class SubTableTitleMetadataTest {
         final SubTableTitleMetadataBuilder givenBuilder = SubTableTitleMetadata.builder();
         final String givenTemplate = "template";
 
-        givenBuilder.template(givenTemplate);
+        givenBuilder.templateWithPropertyNames(givenTemplate);
 
         final String actual = findTemplate(givenBuilder);
         assertSame(givenTemplate, actual);

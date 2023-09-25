@@ -144,7 +144,7 @@ public final class SearchersParsingContext {
     }
 
     public void accumulateSubTableTitleTemplate(final String template) {
-        this.subTableTitleMetadataBuilder.template(template);
+        this.subTableTitleMetadataBuilder.templateWithPropertyNames(template);
     }
 
     public void accumulateSubTableTitleTemplateArgumentExtractor(final SpecificationPropertyExtractor extractor) {

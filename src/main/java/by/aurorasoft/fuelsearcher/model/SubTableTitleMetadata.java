@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static by.aurorasoft.fuelsearcher.util.SubTableTitleUtil.findTemplateRegex;
+import static by.aurorasoft.fuelsearcher.util.SubTableTitleUtil.findTemplateWithStringFillers;
 import static java.util.stream.IntStream.range;
 import static lombok.AccessLevel.PRIVATE;
 
@@ -21,10 +23,10 @@ public class SubTableTitleMetadata {
     String regex;
     List<SpecificationPropertyExtractor> argumentExtractors;
 
-    public List<SubTableTitlePropertyMetadata> findPropertiesMetadata() {
+    public List<SubTableTitleArgumentMetadata> findPropertiesMetadata() {
         return range(0, this.argumentExtractors.size())
                 .mapToObj(
-                        i -> new SubTableTitlePropertyMetadata(
+                        i -> new SubTableTitleArgumentMetadata(
                                 i,
                                 this.argumentExtractors.get(i)
                         )
@@ -38,7 +40,7 @@ public class SubTableTitleMetadata {
 
     @Value
     @AllArgsConstructor(access = PRIVATE)
-    public class SubTableTitlePropertyMetadata {
+    public class SubTableTitleArgumentMetadata {
         int index;
         SpecificationPropertyExtractor extractor;
 
@@ -55,13 +57,12 @@ public class SubTableTitleMetadata {
         }
     }
 
-    //TODO: stop in refactoring it
     @NoArgsConstructor(access = PRIVATE)
     public static final class SubTableTitleMetadataBuilder extends BuilderRequiringAllProperties<SubTableTitleMetadata> {
         private String templateWithPropertyNames;
         private List<SpecificationPropertyExtractor> argumentExtractors;
 
-        public void template(final String template) {
+        public void templateWithPropertyNames(final String template) {
             this.templateWithPropertyNames = template;
         }
 
@@ -77,7 +78,9 @@ public class SubTableTitleMetadata {
 
         @Override
         protected SubTableTitleMetadata buildAfterStateValidation() {
-            return new SubTableTitleMetadata(this.templateWithPropertyNames, this.argumentExtractors);
+            final String templateWithStringFillers = findTemplateWithStringFillers(this.templateWithPropertyNames);
+            final String templateRegex = findTemplateRegex(this.templateWithPropertyNames);
+            return new SubTableTitleMetadata(templateWithStringFillers, templateRegex, this.argumentExtractors);
         }
 
         private void initializeArgumentExtractorsIfNecessary() {
