@@ -20,7 +20,8 @@ public final class ChargingMethodAndTransportDistanceUnitFilterFactory
             final ChargingMethodAndTransportDistanceExtractor chargingMethodAndTransportDistanceExtractor,
             final int filtrationCellIndex) {
         return new ChargingMethodAndTransportDistanceUnitFilter(
-                chargingMethodAndTransportDistanceExtractor, filtrationCellIndex
+                chargingMethodAndTransportDistanceExtractor,
+                filtrationCellIndex
         );
     }
 }
