@@ -3,30 +3,30 @@ package by.aurorasoft.fuelsearcher.model;
 import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata.SubTableTitleArgumentMetadata;
 import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata.SubTableTitleMetadataBuilder;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
+import by.aurorasoft.fuelsearcher.util.SubTableTitleUtil;
 import org.junit.Test;
+import org.mockito.MockedStatic;
 
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.createObject;
-import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.setProperty;
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.*;
+import static by.aurorasoft.fuelsearcher.util.SubTableTitleUtil.findTemplateRegex;
+import static by.aurorasoft.fuelsearcher.util.SubTableTitleUtil.findTemplateWithStringFillers;
 import static java.lang.Integer.MIN_VALUE;
 import static java.util.Collections.emptyList;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public final class SubTableTitleMetadataTest {
-    private static final String FIELD_NAME_TITLE_METADATA_TEMPLATE_WITH_STRING_FILLERS = "templateWithStringFillers";
     private static final String FIELD_NAME_TITLE_METADATA_REGEX = "regex";
     private static final String FIELD_NAME_TITLE_METADATA_ARGUMENTS_METADATA = "argumentsMetadata";
 
     private static final String FIELD_NAME_ARGUMENT_METADATA_INDEX = "index";
     private static final String FIELD_NAME_ARGUMENT_METADATA_EXTRACTOR = "extractor";
 
-    private static final String FIELD_NAME_TEMPLATE = "template";
-    private static final String FIELD_NAME_ARGUMENT_EXTRACTORS = "argumentExtractors";
+    private static final String FIELD_NAME_BUILDER_TEMPLATE_WITH_PROPERTY_NAMES = "templateWithPropertyNames";
+    private static final String FIELD_NAME_BUILDER_ARGUMENT_EXTRACTORS = "argumentExtractors";
 
     @Test
     public void titleMetadataArgumentExtractorsShouldBeFound()
@@ -107,168 +107,148 @@ public final class SubTableTitleMetadataTest {
         assertEquals(expected, actual);
     }
 
-
-//    @Test
-//    public void templateShouldBeAccumulatedByBuilder()
-//            throws Exception {
-//        final SubTableTitleMetadataBuilder givenBuilder = SubTableTitleMetadata.builder();
-//        final String givenTemplate = "template";
-//
-//        givenBuilder.templateWithPropertyNames(givenTemplate);
-//
-//        final String actual = findTemplate(givenBuilder);
-//        assertSame(givenTemplate, actual);
-//    }
-//
-//    @Test
-//    public void argumentExtractorsShouldBeAccumulatedByBuilder()
-//            throws Exception {
-//        final SubTableTitleMetadataBuilder givenBuilder = SubTableTitleMetadata.builder();
-//
-//        final SpecificationPropertyExtractor firstGivenExtractor = mock(SpecificationPropertyExtractor.class);
-//        givenBuilder.argumentExtractor(firstGivenExtractor);
-//
-//        final SpecificationPropertyExtractor secondGivenExtractor = mock(SpecificationPropertyExtractor.class);
-//        givenBuilder.argumentExtractor(secondGivenExtractor);
-//
-//        final List<SpecificationPropertyExtractor> actual = findArgumentExtractors(givenBuilder);
-//        final List<SpecificationPropertyExtractor> expected = List.of(firstGivenExtractor, secondGivenExtractor);
-//        assertEquals(expected, actual);
-//    }
-
-//    @Test
-//    public void builderPropertiesShouldBeFound()
-//            throws Exception {
-//        final SubTableTitleMetadataBuilder givenBuilder = SubTableTitleMetadata.builder();
-//
-//        final String givenTemplate = "template";
-//        setTemplate(givenBuilder, givenTemplate);
-//
-//        final List<SpecificationPropertyExtractor> givenArgumentExtractors = List.of(
-//                mock(SpecificationPropertyExtractor.class),
-//                mock(SpecificationPropertyExtractor.class)
-//        );
-//        setArgumentExtractors(givenBuilder, givenArgumentExtractors);
-//
-//        final Stream<Object> actual = givenBuilder.findProperties();
-//        final List<Object> actualAsList = actual.toList();
-//        final List<Object> expectedAsList = List.of(givenTemplate, givenArgumentExtractors);
-//        assertEquals(expectedAsList, actualAsList);
-//    }
-//
-//    @Test
-//    public void metadataShouldBeBuiltAfterStateValidation()
-//            throws Exception {
-//        final SubTableTitleMetadataBuilder givenBuilder = SubTableTitleMetadata.builder();
-//
-//        final String givenTemplate = "template";
-//        setTemplate(givenBuilder, givenTemplate);
-//
-//        final List<SpecificationPropertyExtractor> givenArgumentExtractors = List.of(
-//                mock(SpecificationPropertyExtractor.class),
-//                mock(SpecificationPropertyExtractor.class)
-//        );
-//        setArgumentExtractors(givenBuilder, givenArgumentExtractors);
-//
-//        final SubTableTitleMetadata actual = givenBuilder.buildAfterStateValidation();
-//
-//        final String actualTemplate = findTemplate(actual);
-//        assertSame(givenTemplate, actualTemplate);
-//
-//        final List<SpecificationPropertyExtractor> actualArgumentExtractors = findArgumentExtractors(actual);
-//        assertSame(givenArgumentExtractors, actualArgumentExtractors);
-//    }
-
-    private static String findTemplate(final SubTableTitleMetadataBuilder builder)
+    @Test
+    public void templateWithPropertyNamesShouldBeAccumulatedByBuilder()
             throws Exception {
-        return findProperty(
-                builder,
-                FIELD_NAME_TEMPLATE,
-                String.class
-        );
+        final SubTableTitleMetadataBuilder givenBuilder = SubTableTitleMetadata.builder();
+        final String givenTemplate = "{трактор} с {механизм}";
+
+        givenBuilder.templateWithPropertyNames(givenTemplate);
+
+        final String actual = findTemplateWithPropertyNames(givenBuilder);
+        assertSame(givenTemplate, actual);
     }
 
-    @SuppressWarnings("unchecked")
-    private static List<SpecificationPropertyExtractor> findArgumentExtractors(
-            final SubTableTitleMetadataBuilder builder)
+    @Test
+    public void argumentExtractorsShouldBeAccumulatedByBuilder()
             throws Exception {
-        return findProperty(
-                builder,
-                FIELD_NAME_ARGUMENT_EXTRACTORS,
-                List.class
+        final SubTableTitleMetadataBuilder givenBuilder = SubTableTitleMetadata.builder();
+
+        final SpecificationPropertyExtractor firstGivenExtractor = mock(SpecificationPropertyExtractor.class);
+        givenBuilder.argumentExtractor(firstGivenExtractor);
+
+        final SpecificationPropertyExtractor secondGivenExtractor = mock(SpecificationPropertyExtractor.class);
+        givenBuilder.argumentExtractor(secondGivenExtractor);
+
+        final List<SpecificationPropertyExtractor> actual = findArgumentExtractors(givenBuilder);
+        final List<SpecificationPropertyExtractor> expected = List.of(
+                firstGivenExtractor,
+                secondGivenExtractor
         );
+        assertEquals(expected, actual);
     }
 
-    private static <P> P findProperty(final SubTableTitleMetadataBuilder builder,
-                                      final String fieldName,
-                                      final Class<P> propertyType)
+    @Test
+    public void propertiesShouldBeFound()
             throws Exception {
-        return findProperty(
-                builder,
-                fieldName,
-                SubTableTitleMetadataBuilder.class,
-                propertyType
+        final SubTableTitleMetadataBuilder givenBuilder = SubTableTitleMetadata.builder();
+
+        final String givenTemplateWithPropertyNames = "{трактор} с {механизм}";
+        setTemplateWithPropertyNames(givenBuilder, givenTemplateWithPropertyNames);
+
+        final List<SpecificationPropertyExtractor> givenArgumentExtractors = List.of(
+                mock(SpecificationPropertyExtractor.class),
+                mock(SpecificationPropertyExtractor.class)
         );
+        setArgumentExtractors(givenBuilder, givenArgumentExtractors);
+
+        final Stream<Object> actual = givenBuilder.findProperties();
+        final List<Object> actualAsList = actual.toList();
+        final List<Object> expectedAsList = List.of(givenTemplateWithPropertyNames, givenArgumentExtractors);
+        assertEquals(expectedAsList, actualAsList);
     }
 
-    private static String findTemplate(final SubTableTitleMetadata metadata)
+    @Test
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public void titleMetadataShouldBeBuiltAfterStateValidation()
             throws Exception {
-        return findProperty(
-                metadata,
-                FIELD_NAME_TEMPLATE,
-                String.class
-        );
-    }
+        try (final MockedStatic<SubTableTitleUtil> mockedTitleUtil = mockStatic(SubTableTitleUtil.class)) {
+            final SubTableTitleMetadataBuilder givenBuilder = SubTableTitleMetadata.builder();
 
-    @SuppressWarnings("unchecked")
-    private static List<SpecificationPropertyExtractor> findArgumentExtractors(final SubTableTitleMetadata metadata)
-            throws Exception {
-        return findProperty(
-                metadata,
-                FIELD_NAME_ARGUMENT_EXTRACTORS,
-                List.class
-        );
-    }
+            final String givenTemplateWithPropertyNames = "{трактор} с {механизм}";
+            setTemplateWithPropertyNames(givenBuilder, givenTemplateWithPropertyNames);
 
-    private static <P> P findProperty(final SubTableTitleMetadata metadata,
-                                      final String fieldName,
-                                      final Class<P> propertyType)
-            throws Exception {
-        return findProperty(
-                metadata,
-                fieldName,
-                SubTableTitleMetadata.class,
-                propertyType
-        );
-    }
+            final SpecificationPropertyExtractor firstGivenArgumentExtractor = mock(
+                    SpecificationPropertyExtractor.class
+            );
+            final SpecificationPropertyExtractor secondGivenArgumentExtractor = mock(
+                    SpecificationPropertyExtractor.class
+            );
+            final List<SpecificationPropertyExtractor> givenArgumentExtractors = List.of(
+                    firstGivenArgumentExtractor,
+                    secondGivenArgumentExtractor
+            );
+            setArgumentExtractors(givenBuilder, givenArgumentExtractors);
 
-    private static <S, P> P findProperty(final S source,
-                                         final String fieldName,
-                                         final Class<S> sourceType,
-                                         final Class<P> propertyType)
-            throws Exception {
-        final Field field = sourceType.getDeclaredField(fieldName);
-        field.setAccessible(true);
-        try {
-            final Object property = field.get(source);
-            return propertyType.cast(property);
-        } finally {
-            field.setAccessible(false);
+            final String givenTemplateWithStringFillers = "%s с %s";
+            mockedTitleUtil.when(() -> findTemplateWithStringFillers(same(givenTemplateWithPropertyNames)))
+                    .thenReturn(givenTemplateWithStringFillers);
+
+            final String givenTemplateRegex = "(.+) с (.+)";
+            mockedTitleUtil.when(() -> findTemplateRegex(same(givenTemplateWithPropertyNames)))
+                    .thenReturn(givenTemplateRegex);
+
+            final SubTableTitleMetadata actual = givenBuilder.buildAfterStateValidation();
+
+            final String actualTemplateWithStringFillers = actual.getTemplateWithStringFillers();
+            assertSame(givenTemplateWithStringFillers, actualTemplateWithStringFillers);
+
+            final String actualRegex = findRegex(actual);
+            assertSame(givenTemplateRegex, actualRegex);
+
+            final List<SubTableTitleArgumentMetadata> actualArgumentsMetadata = actual.getArgumentsMetadata();
+            assertEquals(2, actualArgumentsMetadata.size());
+
+            final SubTableTitleArgumentMetadata actualFirstArgumentMetadata = actualArgumentsMetadata.get(0);
+
+            final int actualFirstArgumentMetadataIndex = findIndex(actualFirstArgumentMetadata);
+            final int expectedFirstArgumentMetadataIndex = 0;
+            assertEquals(expectedFirstArgumentMetadataIndex, actualFirstArgumentMetadataIndex);
+
+            final SpecificationPropertyExtractor actualFirstArgumentMetadataExtractor = findExtractor(
+                    actualFirstArgumentMetadata
+            );
+            assertSame(firstGivenArgumentExtractor, actualFirstArgumentMetadataExtractor);
+
+            final SubTableTitleArgumentMetadata actualSecondArgumentMetadata = actualArgumentsMetadata.get(1);
+
+            final int actualSecondArgumentMetadataIndex = findIndex(actualSecondArgumentMetadata);
+            final int expectedSecondArgumentMetadataIndex = 1;
+            assertEquals(expectedSecondArgumentMetadataIndex, actualSecondArgumentMetadataIndex);
+
+            final SpecificationPropertyExtractor actualSecondArgumentMetadataExtractor = findExtractor(
+                    actualSecondArgumentMetadata
+            );
+            assertSame(secondGivenArgumentExtractor, actualSecondArgumentMetadataExtractor);
         }
     }
 
-//    @SuppressWarnings("SameParameterValue")
-//    private static void setTemplate(final SubTableTitleMetadataBuilder builder, final String template)
-//            throws Exception {
-//        setProperty(builder, FIELD_NAME_TEMPLATE, template);
-//    }
-//
-//    private static void setArgumentExtractors(final SubTableTitleMetadataBuilder builder,
-//                                              final List<SpecificationPropertyExtractor> argumentExtractors)
-//            throws Exception {
-//        setProperty(builder, FIELD_NAME_ARGUMENT_EXTRACTORS, argumentExtractors);
-//    }
+    private static SubTableTitleMetadata createTitleMetadata()
+            throws Exception {
+        return createObject(
+                SubTableTitleMetadata.class,
+                new Class<?>[]{String.class, String.class, List.class},
+                new Object[]{null, null, emptyList()}
+        );
+    }
 
+    private static SubTableTitleArgumentMetadata createArgumentMetadata(final SubTableTitleMetadata titleMetadata)
+            throws Exception {
+        return createObject(
+                SubTableTitleArgumentMetadata.class,
+                new Class<?>[]{SubTableTitleMetadata.class, int.class, SpecificationPropertyExtractor.class},
+                new Object[]{titleMetadata, MIN_VALUE, null}
+        );
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    private static SpecificationPropertyExtractor createPropertyExtractor(final String propertyName) {
+        final SpecificationPropertyExtractor extractor = mock(SpecificationPropertyExtractor.class);
+        when(extractor.getPropertyName()).thenReturn(propertyName);
+        return extractor;
+    }
+
+    @SuppressWarnings("SameParameterValue")
     private static void setRegex(final SubTableTitleMetadata titleMetadata, final String regex)
             throws Exception {
         setProperty(
@@ -301,6 +281,7 @@ public final class SubTableTitleMetadataTest {
         );
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static void setIndex(final SubTableTitleArgumentMetadata argumentMetadata, final int index)
             throws Exception {
         setProperty(
@@ -311,27 +292,77 @@ public final class SubTableTitleMetadataTest {
         );
     }
 
-    private static SubTableTitleMetadata createTitleMetadata()
+    @SuppressWarnings("SameParameterValue")
+    private static void setTemplateWithPropertyNames(final SubTableTitleMetadataBuilder builder, final String template)
             throws Exception {
-        return createObject(
+        setProperty(
+                builder,
+                template,
+                SubTableTitleMetadataBuilder.class,
+                FIELD_NAME_BUILDER_TEMPLATE_WITH_PROPERTY_NAMES
+        );
+    }
+
+    private static void setArgumentExtractors(final SubTableTitleMetadataBuilder builder,
+                                              final List<SpecificationPropertyExtractor> extractors)
+            throws Exception {
+        setProperty(
+                builder,
+                extractors,
+                SubTableTitleMetadataBuilder.class,
+                FIELD_NAME_BUILDER_ARGUMENT_EXTRACTORS
+        );
+    }
+
+    private static String findTemplateWithPropertyNames(final SubTableTitleMetadataBuilder builder)
+            throws Exception {
+        return findProperty(
+                builder,
+                SubTableTitleMetadataBuilder.class,
+                FIELD_NAME_BUILDER_TEMPLATE_WITH_PROPERTY_NAMES,
+                String.class
+        );
+    }
+
+    private static String findRegex(final SubTableTitleMetadata metadata)
+            throws Exception {
+        return findProperty(
+                metadata,
                 SubTableTitleMetadata.class,
-                new Class<?>[]{String.class, String.class, List.class},
-                new Object[]{null, null, emptyList()}
+                FIELD_NAME_TITLE_METADATA_REGEX,
+                String.class
         );
     }
 
-    private static SubTableTitleArgumentMetadata createArgumentMetadata(final SubTableTitleMetadata titleMetadata)
+    private static int findIndex(final SubTableTitleArgumentMetadata metadata)
             throws Exception {
-        return createObject(
+        return findProperty(
+                metadata,
                 SubTableTitleArgumentMetadata.class,
-                new Class<?>[]{SubTableTitleMetadata.class, int.class, SpecificationPropertyExtractor.class},
-                new Object[]{titleMetadata, MIN_VALUE, null}
+                FIELD_NAME_ARGUMENT_METADATA_INDEX,
+                Integer.class
         );
     }
 
-    private static SpecificationPropertyExtractor createPropertyExtractor(final String propertyName) {
-        final SpecificationPropertyExtractor extractor = mock(SpecificationPropertyExtractor.class);
-        when(extractor.getPropertyName()).thenReturn(propertyName);
-        return extractor;
+    private static SpecificationPropertyExtractor findExtractor(final SubTableTitleArgumentMetadata metadata)
+            throws Exception {
+        return findProperty(
+                metadata,
+                SubTableTitleArgumentMetadata.class,
+                FIELD_NAME_ARGUMENT_METADATA_EXTRACTOR,
+                SpecificationPropertyExtractor.class
+        );
+    }
+
+    @SuppressWarnings("unchecked")
+    private static List<SpecificationPropertyExtractor> findArgumentExtractors(
+            final SubTableTitleMetadataBuilder builder)
+            throws Exception {
+        return findProperty(
+                builder,
+                SubTableTitleMetadataBuilder.class,
+                FIELD_NAME_BUILDER_ARGUMENT_EXTRACTORS,
+                List.class
+        );
     }
 }
