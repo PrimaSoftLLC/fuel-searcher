@@ -105,6 +105,10 @@ public final class SearchersParsingContext {
     }
 
     public void buildCompositeSearcher() {
+        final SubTableTitleMetadata metadata = this.subTableTitleMetadataBuilder.build();
+        metadata.getArgumentsMetadata().forEach(argumentMetadata -> this.tableMetadataBuilder.propertyMetadata(
+                this.propertyMetadataSearchingManager.find(this.findCurrentBuilder().getTable(), argumentMetadata)));
+
         this.compositeSearcherBuilder.subTableTitleMetadata(this.subTableTitleMetadataBuilder.build());
         this.subTableTitleMetadataBuilder = null;
         this.buildSearcher(
