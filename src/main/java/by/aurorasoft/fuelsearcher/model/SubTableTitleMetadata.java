@@ -16,7 +16,6 @@ import static by.aurorasoft.fuelsearcher.util.SubTableTitleUtil.findTemplateWith
 import static java.util.stream.IntStream.range;
 import static lombok.AccessLevel.PRIVATE;
 
-//TODO: refactor tests
 public final class SubTableTitleMetadata {
 
     @Getter

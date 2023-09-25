@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
 public final class ReflectionUtil {
 
     public static <T> T createObject(final Class<T> objectType,
-                                     final Class<?> constructorParameterTypes,
+                                     final Class<?>[] constructorParameterTypes,
                                      final Object[] constructorParameterValues)
             throws Exception {
         final Constructor<T> constructor = objectType.getDeclaredConstructor(constructorParameterTypes);
@@ -22,13 +22,14 @@ public final class ReflectionUtil {
     }
 
     public static <T> void setProperty(final T object,
+                                       final Object propertyValue,
                                        final Class<? super T> objectType,
                                        final String fieldName)
             throws Exception {
         final Field field = objectType.getDeclaredField(fieldName);
         field.setAccessible(true);
         try {
-            field.set(object, objectType);
+            field.set(object, propertyValue);
         } finally {
             field.setAccessible(false);
         }
