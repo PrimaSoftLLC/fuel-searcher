@@ -15,27 +15,35 @@ import static by.aurorasoft.fuelsearcher.util.SubTableTitleUtil.findTemplateWith
 import static java.util.stream.IntStream.range;
 import static lombok.AccessLevel.PRIVATE;
 
-//TODO: refactor and refactor tests
+//TODO: refactor tests
 @Value
-@AllArgsConstructor(access = PRIVATE)
 public class SubTableTitleMetadata {
     String templateWithStringFillers;
     String regex;
-    List<SpecificationPropertyExtractor> argumentExtractors;
+    List<SubTableTitleArgumentMetadata> argumentsMetadata;
 
-    public List<SubTableTitleArgumentMetadata> findPropertiesMetadata() {
-        return range(0, this.argumentExtractors.size())
-                .mapToObj(
-                        i -> new SubTableTitleArgumentMetadata(
-                                i,
-                                this.argumentExtractors.get(i)
-                        )
-                )
-                .toList();
+    private SubTableTitleMetadata(final String templateWithStringFillers,
+                                  final String regex,
+                                  final List<SpecificationPropertyExtractor> argumentExtractors) {
+        this.templateWithStringFillers = templateWithStringFillers;
+        this.regex = regex;
+        this.argumentsMetadata = this.findPropertiesMetadata(argumentExtractors);
     }
 
     public static SubTableTitleMetadataBuilder builder() {
         return new SubTableTitleMetadataBuilder();
+    }
+
+    private List<SubTableTitleArgumentMetadata> findPropertiesMetadata(
+            final List<SpecificationPropertyExtractor> argumentExtractors) {
+        return range(0, this.argumentsMetadata.size())
+                .mapToObj(
+                        i -> this.new SubTableTitleArgumentMetadata(
+                                i,
+                                argumentExtractors.get(i)
+                        )
+                )
+                .toList();
     }
 
     @Value
