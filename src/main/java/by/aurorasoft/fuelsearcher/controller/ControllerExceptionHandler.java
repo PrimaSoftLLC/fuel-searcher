@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.controller.exceptionhandler;
+package by.aurorasoft.fuelsearcher.controller;
 
 import by.aurorasoft.fuelsearcher.controller.exception.NoSuchEntityException;
 import by.aurorasoft.fuelsearcher.controller.exception.NotValidSpecificationException;
@@ -19,7 +19,7 @@ import static org.springframework.http.HttpStatus.NOT_ACCEPTABLE;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @ControllerAdvice
-public final class FuelControllerExceptionHandler {
+public final class ControllerExceptionHandler {
     private static final String TEMPLATE_MESSAGE_NOT_VALID_SPECIFICATION = "Not valid properties: %s";
     private static final String DELIMITER_SPECIFICATION_PROPERTIES = ", ";
 

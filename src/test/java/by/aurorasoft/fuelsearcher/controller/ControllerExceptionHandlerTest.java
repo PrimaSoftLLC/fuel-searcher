@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.controller.exceptionhandler;
+package by.aurorasoft.fuelsearcher.controller;
 
 import by.aurorasoft.fuelsearcher.controller.exception.NoSuchEntityException;
 import by.aurorasoft.fuelsearcher.controller.exception.NotValidSpecificationException;
@@ -7,10 +7,10 @@ import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
 import static java.lang.Class.forName;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -18,16 +18,16 @@ import static org.mockito.Mockito.when;
 import static org.springframework.http.HttpStatus.NOT_ACCEPTABLE;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
-public final class FuelControllerExceptionHandlerTest {
+public final class ControllerExceptionHandlerTest {
     private static final String CLASS_NAME_ERROR_RESPONSE
-            = "by.aurorasoft.fuelsearcher.controller.exceptionhandler.FuelControllerExceptionHandler$RestErrorResponse";
+            = "by.aurorasoft.fuelsearcher.controller.ControllerExceptionHandler$RestErrorResponse";
     private static final Class<?> CLASS_ERROR_RESPONSE = findClassErrorResponse();
 
     private static final String FIELD_NAME_ERROR_RESPONSE_HTTP_STATUS = "httpStatus";
     private static final String FIELD_NAME_ERROR_RESPONSE_MESSAGE = "message";
     private static final String FIELD_NAME_ERROR_RESPONSE_DATE_TIME = "dateTime";
 
-    private final FuelControllerExceptionHandler exceptionHandler = new FuelControllerExceptionHandler();
+    private final ControllerExceptionHandler exceptionHandler = new ControllerExceptionHandler();
 
     @Test
     public void noSuchFuelExceptionShouldBeHandled()
@@ -69,8 +69,8 @@ public final class FuelControllerExceptionHandlerTest {
         assertSame(expectedHttpStatus, actualErrorResponseHttpStatus);
 
         final String actualErrorResponseMessage = findErrorResponseMessage(actualErrorResponse);
-        final String expectedErrorResponseMessage = "Specification should contain properties: first-property, "
-                + "second-property, third-property";
+        final String expectedErrorResponseMessage = "Not valid properties: "
+                + "first-property, second-property, third-property";
         assertEquals(expectedErrorResponseMessage, actualErrorResponseMessage);
 
         final LocalDateTime actualErrorResponseDateTime = findErrorResponseDateTime(actualErrorResponse);
@@ -87,31 +87,42 @@ public final class FuelControllerExceptionHandlerTest {
 
     private static HttpStatus findErrorResponseHttpStatus(final Object errorResponse)
             throws Exception {
-        return findErrorResponseProperty(errorResponse, FIELD_NAME_ERROR_RESPONSE_HTTP_STATUS, HttpStatus.class);
+        return findErrorResponseProperty(
+                errorResponse,
+                FIELD_NAME_ERROR_RESPONSE_HTTP_STATUS,
+                HttpStatus.class
+        );
     }
 
     private static String findErrorResponseMessage(final Object errorResponse)
             throws Exception {
-        return findErrorResponseProperty(errorResponse, FIELD_NAME_ERROR_RESPONSE_MESSAGE, String.class);
+        return findErrorResponseProperty(
+                errorResponse,
+                FIELD_NAME_ERROR_RESPONSE_MESSAGE,
+                String.class
+        );
     }
 
     private static LocalDateTime findErrorResponseDateTime(final Object errorResponse)
             throws Exception {
-        return findErrorResponseProperty(errorResponse, FIELD_NAME_ERROR_RESPONSE_DATE_TIME, LocalDateTime.class);
+        return findErrorResponseProperty(
+                errorResponse,
+                FIELD_NAME_ERROR_RESPONSE_DATE_TIME,
+                LocalDateTime.class
+        );
     }
 
-    private static <T> T findErrorResponseProperty(final Object errorResponse,
+    @SuppressWarnings("unchecked")
+    private static <P> P findErrorResponseProperty(final Object errorResponse,
                                                    final String fieldName,
-                                                   final Class<T> propertyType)
+                                                   final Class<P> propertyType)
             throws Exception {
-        final Field field = CLASS_ERROR_RESPONSE.getDeclaredField(fieldName);
-        field.setAccessible(true);
-        try {
-            final Object property = field.get(errorResponse);
-            return propertyType.cast(property);
-        } finally {
-            field.setAccessible(false);
-        }
+        return findProperty(
+                errorResponse,
+                (Class<Object>) CLASS_ERROR_RESPONSE,
+                fieldName,
+                propertyType
+        );
     }
 
     private static SpecificationValidatingResult createValidatingResult(final List<String> failedPropertyNames) {
