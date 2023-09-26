@@ -55,12 +55,13 @@ public final class SubTableTitleMetadata {
     }
 
     @AllArgsConstructor(access = PRIVATE)
-    public final class SubTableTitleArgumentMetadata {
+    public final class SubTableTitleArgumentMetadata implements PropertyMetadataSource {
         private final int index;
 
         @Getter(value = PRIVATE)
         private final SpecificationPropertyExtractor extractor;
 
+        @Override
         public String findPropertyName() {
             return this.extractor.getPropertyName();
         }
