@@ -12,8 +12,10 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
+//TODO: refactor tests
 @Service
 @RequiredArgsConstructor
 @ConditionalOnProperty(prefix = "meta-data-refreshing", name = "enable", havingValue = "true")
@@ -29,10 +31,15 @@ public class MetadataRefreshingService {
     }
 
     private void saveNewMetadata() {
-        final List<TableMetadata> newTableMetadata = this.parsingResult.tablesMetadata();
+        final List<TableMetadata> newTableMetadata = this.findNewTablesMetadata();
         final List<TableMetadata> savedTableMetadata = this.tableMetadataService.saveAll(newTableMetadata);
         final List<PropertyMetadata> newPropertiesMetadata = findPropertiesMetadata(savedTableMetadata);
         this.propertyMetadataService.saveAll(newPropertiesMetadata);
+    }
+
+    private List<TableMetadata> findNewTablesMetadata() {
+        final Optional<List<TableMetadata>> optionalNewTableMetadata = this.parsingResult.takeAwayTablesMetadata();
+        return optionalNewTableMetadata.orElseThrow(ThereIsNoNewTablesMetadataException::new);
     }
 
     private static List<PropertyMetadata> findPropertiesMetadata(final List<TableMetadata> tablesMetadata) {
@@ -55,5 +62,28 @@ public class MetadataRefreshingService {
                 source.getAllowableValues(),
                 tableMetadata.getId()
         );
+    }
+
+    private static final class ThereIsNoNewTablesMetadataException extends RuntimeException {
+
+        public ThereIsNoNewTablesMetadataException() {
+
+        }
+
+        @SuppressWarnings("unused")
+        public ThereIsNoNewTablesMetadataException(final String description) {
+            super(description);
+        }
+
+        @SuppressWarnings("unused")
+        public ThereIsNoNewTablesMetadataException(final Exception cause) {
+            super(cause);
+        }
+
+        @SuppressWarnings("unused")
+        public ThereIsNoNewTablesMetadataException(final String description, final Exception cause) {
+            super(description, cause);
+        }
+
     }
 }
