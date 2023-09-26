@@ -22,11 +22,6 @@ public final class SubTableTitleArgumentMetadataSearcher extends PropertyMetadat
     }
 
     @Override
-    protected String findPropertyName(final SubTableTitleArgumentMetadata metadata) {
-        return metadata.findPropertyName();
-    }
-
-    @Override
     protected Stream<String> findAllowableValues(final List<IBodyElement> tableElements,
                                                  final SubTableTitleArgumentMetadata metadata) {
         return tableElements.stream()
