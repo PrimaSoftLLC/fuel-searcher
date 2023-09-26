@@ -6,12 +6,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static java.util.Collections.unmodifiableList;
+import static by.aurorasoft.fuelsearcher.testutil.CollectionUtil.isImmutableList;
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.setProperty;
 import static org.junit.Assert.*;
 
 public final class TableMetadataTest extends AbstractContextTest {
@@ -116,7 +117,7 @@ public final class TableMetadataTest extends AbstractContextTest {
         final TableMetadataBuilder givenBuilder = TableMetadata.builder();
 
         final String givenTableName = "table-name";
-        injectTableName(givenBuilder, givenTableName);
+        setTableName(givenBuilder, givenTableName);
 
         final List<PropertyMetadata> givenPropertiesMetadata = List.of(
                 createPropertyMetadata(255L),
@@ -136,7 +137,7 @@ public final class TableMetadataTest extends AbstractContextTest {
         final TableMetadataBuilder givenBuilder = TableMetadata.builder();
 
         final String givenTableName = "table-name";
-        injectTableName(givenBuilder, givenTableName);
+        setTableName(givenBuilder, givenTableName);
 
         final List<PropertyMetadata> givenPropertiesMetadata = new ArrayList<>() {
             {
@@ -150,68 +151,56 @@ public final class TableMetadataTest extends AbstractContextTest {
         final TableMetadata expected = new TableMetadata(null, givenTableName, givenPropertiesMetadata);
         assertEquals(expected, actual);
 
-        assertTrue(isUnmodifiable(actual.getPropertiesMetadata()));
+        assertTrue(isImmutableList(actual.getPropertiesMetadata()));
     }
 
     private static String findTableName(final TableMetadataBuilder builder)
             throws Exception {
-        return findProperty(builder, FIELD_NAME_TABLE_NAME, String.class);
+        return findProperty(
+                builder,
+                TableMetadataBuilder.class,
+                FIELD_NAME_TABLE_NAME,
+                String.class
+        );
     }
 
     @SuppressWarnings("unchecked")
     private static List<PropertyMetadata> findPropertiesMetadata(final TableMetadataBuilder builder)
             throws Exception {
-        return findProperty(builder, FIELD_NAME_PROPERTIES_METADATA, List.class);
+        return findProperty(
+                builder,
+                TableMetadataBuilder.class,
+                FIELD_NAME_PROPERTIES_METADATA,
+                List.class
+        );
     }
 
-    private static <P> P findProperty(final TableMetadataBuilder builder,
-                                      final String fieldName,
-                                      final Class<P> propertyType)
-            throws Exception {
-        final Field field = TableMetadataBuilder.class.getDeclaredField(fieldName);
-        field.setAccessible(true);
-        try {
-            final Object property = field.get(builder);
-            return propertyType.cast(property);
-        } finally {
-            field.setAccessible(false);
-        }
-    }
 
     @SuppressWarnings("SameParameterValue")
-    private static void injectTableName(final TableMetadataBuilder builder, final String tableName)
+    private static void setTableName(final TableMetadataBuilder builder, final String tableName)
             throws Exception {
-        injectProperty(builder, FIELD_NAME_TABLE_NAME, tableName);
+        setProperty(
+                builder,
+                tableName,
+                TableMetadataBuilder.class,
+                FIELD_NAME_TABLE_NAME
+        );
     }
 
     private static void injectPropertiesMetadata(final TableMetadataBuilder builder,
                                                  final List<PropertyMetadata> propertiesMetadata)
             throws Exception {
-        injectProperty(builder, FIELD_NAME_PROPERTIES_METADATA, propertiesMetadata);
-    }
-
-    private static void injectProperty(final TableMetadataBuilder builder,
-                                       final String fieldName,
-                                       final Object propertyValue)
-            throws Exception {
-        final Field field = TableMetadataBuilder.class.getDeclaredField(fieldName);
-        field.setAccessible(true);
-        try {
-            field.set(builder, propertyValue);
-        } finally {
-            field.setAccessible(false);
-        }
+        setProperty(
+                builder,
+                propertiesMetadata,
+                TableMetadataBuilder.class,
+                FIELD_NAME_PROPERTIES_METADATA
+        );
     }
 
     private static PropertyMetadata createPropertyMetadata(final Long id) {
         return PropertyMetadata.builder()
                 .id(id)
                 .build();
-    }
-
-    private static boolean isUnmodifiable(final List<?> research) {
-        final List<Object> tempUnmodifiableList = unmodifiableList(new ArrayList<>());
-        final Class<?> unmodifiableListType = tempUnmodifiableList.getClass();
-        return unmodifiableListType.isInstance(research);
     }
 }
