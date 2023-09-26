@@ -8,14 +8,13 @@ import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.TractorE
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator.SpecificationValidatorBuilder;
 import org.junit.Test;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static by.aurorasoft.fuelsearcher.testutil.CollectionUtil.isImmutableList;
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.createObject;
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
 import static java.util.Collections.emptyList;
-import static java.util.Collections.unmodifiableList;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
@@ -191,15 +190,11 @@ public final class SpecificationValidatorTest {
     private static SpecificationValidator createValidator(final String tableName,
                                                           final List<SpecificationPropertyExtractor> propertyExtractors)
             throws Exception {
-        final Constructor<SpecificationValidator> constructor = SpecificationValidator.class.getDeclaredConstructor(
-                String.class, List.class
+        return createObject(
+                SpecificationValidator.class,
+                new Class<?>[]{String.class, List.class},
+                new Object[]{tableName, propertyExtractors}
         );
-        constructor.setAccessible(true);
-        try {
-            return constructor.newInstance(tableName, propertyExtractors);
-        } finally {
-            constructor.setAccessible(false);
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -256,26 +251,5 @@ public final class SpecificationValidatorTest {
                 FIELD_NAME_TABLE_NAME,
                 String.class
         );
-    }
-
-    private static <S, P> P findProperty(final S source,
-                                         final Class<S> sourceType,
-                                         final String fieldName,
-                                         final Class<P> propertyType)
-            throws Exception {
-        final Field field = sourceType.getDeclaredField(fieldName);
-        field.setAccessible(true);
-        try {
-            final Object property = field.get(source);
-            return propertyType.cast(property);
-        } finally {
-            field.setAccessible(false);
-        }
-    }
-
-    private static <T> boolean isImmutableList(final List<T> research) {
-        final List<T> tempImmutableList = unmodifiableList(new ArrayList<>());
-        final Class<?> typeImmutableList = tempImmutableList.getClass();
-        return typeImmutableList.isInstance(research);
     }
 }
