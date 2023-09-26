@@ -14,6 +14,7 @@ import static java.util.Optional.ofNullable;
 import static lombok.AccessLevel.NONE;
 import static lombok.AccessLevel.PRIVATE;
 
+//TODO: test
 @AllArgsConstructor
 @Getter
 public final class SearchersParsingResult {
