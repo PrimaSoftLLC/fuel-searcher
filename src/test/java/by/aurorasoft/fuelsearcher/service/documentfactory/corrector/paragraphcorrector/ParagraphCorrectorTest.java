@@ -2,7 +2,6 @@ package by.aurorasoft.fuelsearcher.service.documentfactory.corrector.paragraphco
 
 import by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -13,6 +12,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.regex.MatchResult;
 
 import static by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.replaceText;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -38,7 +38,7 @@ public final class ParagraphCorrectorTest {
 
             final String expected = "replacement text textreplacement text replacementword";
             final String actual = this.stringArgumentCaptor.getValue();
-            Assert.assertEquals(expected, actual);
+            assertEquals(expected, actual);
         }
     }
 
