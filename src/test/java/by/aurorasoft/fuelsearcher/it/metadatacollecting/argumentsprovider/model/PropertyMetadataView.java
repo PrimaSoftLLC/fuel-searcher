@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.it.metadatacollecting.model;
+package by.aurorasoft.fuelsearcher.it.metadatacollecting.argumentsprovider.model;
 
 import lombok.Builder;
 
