@@ -1,7 +1,6 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearcher.filter;
 
 import by.aurorasoft.fuelsearcher.model.filter.Filter;
-import by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearcher.filter.FilterPropertyMetadataSearcher;
 import by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -16,21 +15,11 @@ import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.extractCellText;
 import static java.lang.Integer.MIN_VALUE;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 public final class FilterPropertyMetadataSearcherTest {
-
-    @Test
-    public void propertyNameShouldBeFound() {
-        final TestFilterPropertyMetadataSearcher givenSearcher = new TestFilterPropertyMetadataSearcher();
-
-        final String givenPropertyName = "property-name";
-        final TestFilter givenFilter = createFilter(givenPropertyName);
-
-        final String actual = givenSearcher.findPropertyName(givenFilter);
-        assertSame(givenPropertyName, actual);
-    }
 
     @Test
     public void allowableValuesShouldBeFound() {

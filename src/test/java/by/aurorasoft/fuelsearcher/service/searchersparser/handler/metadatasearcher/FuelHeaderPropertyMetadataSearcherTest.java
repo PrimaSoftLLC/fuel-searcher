@@ -17,17 +17,6 @@ import static org.mockito.Mockito.when;
 public final class FuelHeaderPropertyMetadataSearcherTest {
 
     @Test
-    public void propertyNameShouldBeFound() {
-        final FuelHeaderPropertyMetadataSearcher givenSearcher = new FuelHeaderPropertyMetadataSearcher();
-
-        final String givenPropertyName = "property-name";
-        final FuelHeaderMetadata givenHeaderMetadata = createHeaderMetadata(givenPropertyName);
-
-        final String actual = givenSearcher.findPropertyName(givenHeaderMetadata);
-        assertSame(givenPropertyName, actual);
-    }
-
-    @Test
     public void allowableValuesShouldBeFound() {
         final FuelHeaderPropertyMetadataSearcher givenSearcher = new FuelHeaderPropertyMetadataSearcher();
 

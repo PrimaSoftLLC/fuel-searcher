@@ -29,7 +29,7 @@ public final class FuelControllerRequestUtil {
     );
 
     private static final String REGEX_MESSAGE_ERROR_NOT_VALID_SPECIFICATION = TEMPLATE_REGEX_MESSAGE_ERROR.formatted(
-            "NOT_ACCEPTABLE", "Specification should contain properties: (.+)"
+            "NOT_ACCEPTABLE", "Not valid properties: (.+)"
     );
     private static final Pattern PATTERN_MESSAGE_ERROR_NOT_VALID_SPECIFICATION = compile(
             REGEX_MESSAGE_ERROR_NOT_VALID_SPECIFICATION
