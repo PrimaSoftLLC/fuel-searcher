@@ -1,9 +1,9 @@
 package by.aurorasoft.fuelsearcher.service.validator;
 
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
+import by.aurorasoft.fuelsearcher.testutil.ReflectionUtil;
 import org.junit.Test;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 import static by.aurorasoft.fuelsearcher.service.validator.SpecificationValidatingResult.createNotValidValidatingResult;
@@ -95,12 +95,11 @@ public final class SpecificationValidatingResultTest {
     private static List<SpecificationPropertyExtractor> findFailedPropertyExtractors(
             final SpecificationValidatingResult validatingResult)
             throws Exception {
-        final Field field = SpecificationValidatingResult.class.getDeclaredField(FIELD_NAME_FAILED_PROPERTY_EXTRACTORS);
-        field.setAccessible(true);
-        try {
-            return (List<SpecificationPropertyExtractor>) field.get(validatingResult);
-        } finally {
-            field.setAccessible(false);
-        }
+        return ReflectionUtil.findProperty(
+                validatingResult,
+                SpecificationValidatingResult.class,
+                FIELD_NAME_FAILED_PROPERTY_EXTRACTORS,
+                List.class
+        );
     }
 }
