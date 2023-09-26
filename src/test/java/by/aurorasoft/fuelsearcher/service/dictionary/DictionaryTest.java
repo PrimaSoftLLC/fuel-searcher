@@ -2,11 +2,11 @@ package by.aurorasoft.fuelsearcher.service.dictionary;
 
 import org.junit.Test;
 
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
 import static org.junit.Assert.*;
 
 public final class DictionaryTest {
@@ -92,13 +92,12 @@ public final class DictionaryTest {
     @SuppressWarnings("unchecked")
     private static Map<String, TestObject> findValuesByAliases(final Dictionary<TestObject> dictionary)
             throws Exception {
-        final Field field = Dictionary.class.getDeclaredField(FIELD_NAME_VALUES_BY_ALIAS);
-        field.setAccessible(true);
-        try {
-            return (Map<String, TestObject>) field.get(dictionary);
-        } finally {
-            field.setAccessible(false);
-        }
+        return findProperty(
+                dictionary,
+                Dictionary.class,
+                FIELD_NAME_VALUES_BY_ALIAS,
+                Map.class
+        );
     }
 
     private record TestObject(String alias) implements Translatable {
