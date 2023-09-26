@@ -4,6 +4,7 @@ import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,9 +15,9 @@ import static java.util.Optional.ofNullable;
 import static lombok.AccessLevel.NONE;
 import static lombok.AccessLevel.PRIVATE;
 
-//TODO: test
 @AllArgsConstructor
 @Getter
+@Builder
 public final class SearchersParsingResult {
     private final List<FuelSearcher> searchers;
     private final List<SpecificationValidator> specificationValidators;
