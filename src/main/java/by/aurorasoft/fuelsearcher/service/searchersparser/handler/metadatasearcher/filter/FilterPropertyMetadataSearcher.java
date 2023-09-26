@@ -19,11 +19,6 @@ public abstract class FilterPropertyMetadataSearcher<F extends Filter<?>> extend
     }
 
     @Override
-    protected final String findPropertyName(final F filter) {
-        return filter.findPropertyName();
-    }
-
-    @Override
     protected final Stream<String> findAllowableValues(final List<IBodyElement> tableElements, final F filter) {
         return tableElements.stream()
                 .filter(XWPFTable.class::isInstance)
