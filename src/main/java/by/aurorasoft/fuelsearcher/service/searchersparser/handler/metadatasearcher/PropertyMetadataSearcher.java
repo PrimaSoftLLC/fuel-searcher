@@ -2,6 +2,7 @@ package by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearc
 
 import by.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.model.PropertyMetadataSource;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 
@@ -11,21 +12,19 @@ import java.util.stream.Stream;
 import static by.aurorasoft.fuelsearcher.util.XWPFContentUtil.removeDuplicatesIgnoringWhitespacesAndCase;
 
 @RequiredArgsConstructor
-public abstract class PropertyMetadataSearcher<S> {
+public abstract class PropertyMetadataSearcher<S extends PropertyMetadataSource> {
     private final Class<S> sourceType;
 
-    public final boolean isAbleToFind(final Object source) {
+    public final boolean isAbleToFind(final PropertyMetadataSource source) {
         return this.sourceType.isInstance(source);
     }
 
-    public final PropertyMetadata find(final FuelTable fuelTable, final Object source) {
+    public final PropertyMetadata find(final FuelTable fuelTable, final PropertyMetadataSource source) {
         final S concreteSource = this.sourceType.cast(source);
-        final String propertyName = this.findPropertyName(concreteSource);
+        final String propertyName = source.findPropertyName();
         final String[] uniqueAllowableValues = this.findUniqueAllowableValues(fuelTable, concreteSource);
         return this.createMetadata(propertyName, uniqueAllowableValues);
     }
-
-    protected abstract String findPropertyName(final S source);
 
     protected abstract Stream<String> findAllowableValues(final List<IBodyElement> tableElements, final S source);
 
