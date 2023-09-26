@@ -2,12 +2,14 @@ package by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.tr
 
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext;
+import by.aurorasoft.fuelsearcher.util.SubTableTitleUtil;
 import org.junit.Test;
+import org.mockito.MockedStatic;
 
-import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.assertEquals;
+import static by.aurorasoft.fuelsearcher.util.SubTableTitleUtil.findPropertyNames;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 public final class SubTableTitleTemplateTagHandlerTest {
@@ -22,14 +24,18 @@ public final class SubTableTitleTemplateTagHandlerTest {
 
     @Test
     public void aliasesShouldBeFound() {
-        final SearchersParsingContext givenContext = createContext(
-                "{комбайн} }Соотношение{ массы зерна к массе соломы {соотношение массы зерна к массе соломы}"
-        );
+        try (final MockedStatic<SubTableTitleUtil> mockedTitleUtil = mockStatic(SubTableTitleUtil.class)) {
+            final String givenSubTableTitleTemplateWithPropertyNames = "{механизм} с {трактор}";
+            final SearchersParsingContext givenContext = createContext(givenSubTableTitleTemplateWithPropertyNames);
 
-        final Stream<String> actual = this.tagHandler.findAliases(givenContext);
-        final List<String> actualAsList = actual.toList();
-        final List<String> expectedAsList = List.of("комбайн", "соотношение массы зерна к массе соломы");
-        assertEquals(expectedAsList, actualAsList);
+            final Stream<String> givenPropertyNames = Stream.of("механизм", "трактор");
+            mockedTitleUtil.when(
+                    () -> findPropertyNames(same(givenSubTableTitleTemplateWithPropertyNames))
+            ).thenReturn(givenPropertyNames);
+
+            final Stream<String> actual = this.tagHandler.findAliases(givenContext);
+            assertSame(givenPropertyNames, actual);
+        }
     }
 
     @Test
@@ -46,15 +52,13 @@ public final class SubTableTitleTemplateTagHandlerTest {
 
     @Test
     public void additionalValuesShouldBeAccumulated() {
-        final SearchersParsingContext givenContext = createContext(
-                "{комбайн} }Соотношение{ массы зерна к массе соломы {соотношение массы зерна к массе соломы}"
-        );
+        final String givenSubTableTitleTemplateWithPropertyNames = "{механизм} с {трактор}";
+        final SearchersParsingContext givenContext = createContext(givenSubTableTitleTemplateWithPropertyNames);
 
         this.tagHandler.accumulateAdditionalValues(givenContext);
 
-        final String expectedSubTableTitleTemplate = "%s }Соотношение{ массы зерна к массе соломы %s";
         verify(givenContext, times(1)).accumulateSubTableTitleTemplate(
-                expectedSubTableTitleTemplate
+                same(givenSubTableTitleTemplateWithPropertyNames)
         );
     }
 
