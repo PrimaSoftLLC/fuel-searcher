@@ -2,6 +2,7 @@ package by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearc
 
 import by.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.model.PropertyMetadataSource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,7 @@ public final class PropertyMetadataSearchingManager {
 
     private final List<PropertyMetadataSearcher<?>> searchers;
 
-    //TODO: do interface for source with findPropertyName
-    public PropertyMetadata find(final FuelTable fuelTable, final Object source) {
+    public PropertyMetadata find(final FuelTable fuelTable, final PropertyMetadataSource source) {
         return this.searchers.stream()
                 .filter(searcher -> searcher.isAbleToFind(source))
                 .findFirst()
