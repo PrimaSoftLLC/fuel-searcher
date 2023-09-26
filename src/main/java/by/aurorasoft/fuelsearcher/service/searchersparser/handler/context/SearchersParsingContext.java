@@ -96,10 +96,10 @@ public final class SearchersParsingContext {
     }
 
     public void buildSimpleSearcher() {
-        this.buildSearcher(
-                SearchersParsingContext::getSimpleSearcherBuilder,
-                SearchersParsingContext::setSimpleSearcherBuilder
-        );
+//        this.buildSearcher(
+//                SearchersParsingContext::getSimpleSearcherBuilder,
+//                SearchersParsingContext::setSimpleSearcherBuilder
+//        );
     }
 
     public void buildCompositeSearcher() {
@@ -109,10 +109,10 @@ public final class SearchersParsingContext {
 
         this.compositeSearcherBuilder.subTableTitleMetadata(this.subTableTitleMetadataBuilder.build());
         this.subTableTitleMetadataBuilder = null;
-        this.buildSearcher(
-                SearchersParsingContext::getCompositeSearcherBuilder,
-                SearchersParsingContext::setCompositeSearcherBuilder
-        );
+//        this.buildSearcher(
+//                SearchersParsingContext::getCompositeSearcherBuilder,
+//                SearchersParsingContext::setCompositeSearcherBuilder
+//        );
     }
 
     public void accumulateFuelHeaderMetadata(final FuelHeaderMetadata metadata) {
@@ -191,20 +191,22 @@ public final class SearchersParsingContext {
 
     private <B extends SearcherBuilder<?>> void buildSearcher(final Supplier<B> builderGetter,
                                                               final Consumer<B> builderSetter) {
-        this.buildSpecificationValidator();
-        this.buildTableMetadata();
-        final B builder = builderGetter.apply(this);
+//        this.buildSpecificationValidator();
+//        this.buildTableMetadata();
+//        final B builder = builderGetter.apply(this);
+//
+//        buildAndAccumulateResultComponent(
+//                builder,
+//                this.searchers::add,
+//                builderSetter
+//        );
 
-        buildAndAccumulateResultComponent(
-                builder,
-                this.searchers::add,
-                builderSetter
-        );
+        final B builder = null;
 
         //TODO: do method for this and next two methods: buildSpecificationValidator and buildTableMetadata
         final FuelSearcher searcher = builder.build();
         this.searchers.add(searcher);
-        builderSetter.accept(this, null);
+//        builderSetter.accept(this, null);
     }
 
     //TODO: refactored
