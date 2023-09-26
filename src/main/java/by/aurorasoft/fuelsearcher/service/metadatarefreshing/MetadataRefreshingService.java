@@ -38,8 +38,10 @@ public class MetadataRefreshingService {
     }
 
     private List<TableMetadata> findNewTablesMetadata() {
-        final Optional<List<TableMetadata>> optionalNewTableMetadata = this.parsingResult.takeAwayTablesMetadata();
-        return optionalNewTableMetadata.orElseThrow(NoNewTablesMetadataException::new);
+        final Optional<List<TableMetadata>> optionalNewTablesMetadata = this.parsingResult.takeAwayTablesMetadata();
+        return optionalNewTablesMetadata
+                .filter(newTablesMetadata -> !newTablesMetadata.isEmpty())
+                .orElseThrow(NoNewTablesMetadataException::new);
     }
 
     private static List<PropertyMetadata> findPropertiesMetadata(final List<TableMetadata> tablesMetadata) {
