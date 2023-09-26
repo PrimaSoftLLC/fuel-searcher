@@ -8,13 +8,13 @@ import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.junit.Test;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.createObject;
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
 import static java.util.Collections.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -143,49 +143,51 @@ public final class SimpleFuelSearcherTest {
 
     private static SimpleFuelSearcher createSearcher()
             throws Exception {
-        final Constructor<SimpleFuelSearcher> constructor = SimpleFuelSearcher.class.getDeclaredConstructor(
-                FuelTable.class, Map.class, FilterChain.class, SpecificationPropertyExtractor.class
+        return createObject(
+                SimpleFuelSearcher.class,
+                new Class<?>[]{FuelTable.class, Map.class, FilterChain.class, SpecificationPropertyExtractor.class},
+                new Object[]{null, null, null, null}
         );
-        constructor.setAccessible(true);
-        try {
-            return constructor.newInstance(null, null, null, null);
-        } finally {
-            constructor.setAccessible(false);
-        }
     }
 
     private static FuelTable findTable(final FuelSearcher searcher)
             throws Exception {
-        return findProperty(searcher, FIELD_NAME_TABLE, FuelTable.class);
+        return findProperty(
+                searcher,
+                FuelSearcher.class,
+                FIELD_NAME_TABLE,
+                FuelTable.class
+        );
     }
 
     @SuppressWarnings("unchecked")
     private static Map<String, Integer> findFuelOffsetsByHeaders(final FuelSearcher searcher)
             throws Exception {
-        return findProperty(searcher, FIELD_NAME_FUEL_OFFSETS_BY_HEADERS, Map.class);
+        return findProperty(
+                searcher,
+                FuelSearcher.class,
+                FIELD_NAME_FUEL_OFFSETS_BY_HEADERS,
+                Map.class
+        );
     }
 
     private static FilterChain findFilterChain(final FuelSearcher searcher)
             throws Exception {
-        return findProperty(searcher, FIELD_NAME_FILTER_CHAIN, FilterChain.class);
+        return findProperty(
+                searcher,
+                FuelSearcher.class,
+                FIELD_NAME_FILTER_CHAIN,
+                FilterChain.class
+        );
     }
 
     private static SpecificationPropertyExtractor findHeaderExtractor(final FuelSearcher searcher)
             throws Exception {
-        return findProperty(searcher, FIELD_NAME_HEADER_EXTRACTOR, SpecificationPropertyExtractor.class);
-    }
-
-    private static <P> P findProperty(final FuelSearcher searcher,
-                                      final String fieldName,
-                                      final Class<P> propertyType)
-            throws Exception {
-        final Field field = FuelSearcher.class.getDeclaredField(fieldName);
-        field.setAccessible(true);
-        try {
-            final Object property = field.get(searcher);
-            return propertyType.cast(property);
-        } finally {
-            field.setAccessible(false);
-        }
+        return findProperty(
+                searcher,
+                FuelSearcher.class,
+                FIELD_NAME_HEADER_EXTRACTOR,
+                SpecificationPropertyExtractor.class
+        );
     }
 }
