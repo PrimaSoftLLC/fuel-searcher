@@ -7,12 +7,12 @@ import by.aurorasoft.fuelsearcher.service.searcher.FilterChain.FilterChainBuilde
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.junit.Test;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.createObject;
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
 import static java.util.Optional.empty;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.same;
@@ -167,65 +167,52 @@ public final class FilterChainTest {
 
     private static FilterChain createChain(final List<InterimFilter> interimFilters, final FinalFilter finalFilter)
             throws Exception {
-        final Constructor<FilterChain> constructor = FilterChain.class.getDeclaredConstructor(
-                List.class, FinalFilter.class
+        return createObject(
+                FilterChain.class,
+                new Class<?>[]{List.class, FinalFilter.class},
+                new Object[]{interimFilters, finalFilter}
         );
-        constructor.setAccessible(true);
-        try {
-            return constructor.newInstance(interimFilters, finalFilter);
-        } finally {
-            constructor.setAccessible(false);
-        }
     }
 
     @SuppressWarnings("unchecked")
     private static List<InterimFilter> findInterimFilters(final FilterChainBuilder builder)
             throws Exception {
-        return findProperty(builder, FIELD_NAME_INTERIM_FILTERS, List.class);
+        return findProperty(
+                builder,
+                FilterChainBuilder.class,
+                FIELD_NAME_INTERIM_FILTERS,
+                List.class
+        );
     }
 
     private static FinalFilter findFinalFilter(final FilterChainBuilder builder)
             throws Exception {
-        return findProperty(builder, FIELD_NAME_FINAL_FILTER, FinalFilter.class);
-    }
-
-    private static <P> P findProperty(final FilterChainBuilder builder,
-                                      final String fieldName,
-                                      final Class<P> propertyType)
-            throws Exception {
-        return findProperty(builder, fieldName, FilterChainBuilder.class, propertyType);
+        return findProperty(
+                builder,
+                FilterChainBuilder.class,
+                FIELD_NAME_FINAL_FILTER,
+                FinalFilter.class
+        );
     }
 
     @SuppressWarnings("unchecked")
     private static List<InterimFilter> findInterimFilters(final FilterChain chain)
             throws Exception {
-        return findProperty(chain, FIELD_NAME_INTERIM_FILTERS, List.class);
+        return findProperty(
+                chain,
+                FilterChain.class,
+                FIELD_NAME_INTERIM_FILTERS,
+                List.class
+        );
     }
 
     private static FinalFilter findFinalFilter(final FilterChain chain)
             throws Exception {
-        return findProperty(chain, FIELD_NAME_FINAL_FILTER, FinalFilter.class);
-    }
-
-    private static <P> P findProperty(final FilterChain chain,
-                                      final String fieldName,
-                                      final Class<P> propertyType)
-            throws Exception {
-        return findProperty(chain, fieldName, FilterChain.class, propertyType);
-    }
-
-    private static <S, P> P findProperty(final S source,
-                                         final String fieldName,
-                                         final Class<S> sourceType,
-                                         final Class<P> propertyType)
-            throws Exception {
-        final Field field = sourceType.getDeclaredField(fieldName);
-        field.setAccessible(true);
-        try {
-            final Object property = field.get(source);
-            return propertyType.cast(property);
-        } finally {
-            field.setAccessible(false);
-        }
+        return findProperty(
+                chain,
+                FilterChain.class,
+                FIELD_NAME_FINAL_FILTER,
+                FinalFilter.class
+        );
     }
 }
