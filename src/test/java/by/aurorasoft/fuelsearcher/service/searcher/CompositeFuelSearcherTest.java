@@ -13,13 +13,12 @@ import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.junit.Test;
 import org.mockito.MockedStatic;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.*;
 import static by.aurorasoft.fuelsearcher.util.XWPFContentUtil.areEqualIgnoringWhitespacesAndCase;
 import static by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.extractParagraphText;
 import static java.util.Collections.emptyMap;
@@ -296,22 +295,9 @@ public final class CompositeFuelSearcherTest {
             throws Exception {
         return createObject(
                 SubTableTitleMetadata.class,
-                new Class<?>[]{String.class, List.class},
-                new Object[]{template, argumentExtractors}
+                new Class<?>[]{String.class, String.class, List.class},
+                new Object[]{template, null, argumentExtractors}
         );
-    }
-
-    private static <T> T createObject(final Class<T> objectType,
-                                      final Class<?>[] constructorParameterTypes,
-                                      final Object[] constructorParameterValues)
-            throws Exception {
-        final Constructor<T> constructor = objectType.getDeclaredConstructor(constructorParameterTypes);
-        constructor.setAccessible(true);
-        try {
-            return constructor.newInstance(constructorParameterValues);
-        } finally {
-            constructor.setAccessible(false);
-        }
     }
 
     private static SpecificationPropertyExtractor createPropertyExtractor(final String property,
@@ -325,6 +311,7 @@ public final class CompositeFuelSearcherTest {
             throws Exception {
         return findProperty(
                 builder,
+                CompositeSearcherBuilder.class,
                 FIELD_NAME_SUB_TABLE_TITLE_METADATA,
                 SubTableTitleMetadata.class
         );
@@ -334,6 +321,7 @@ public final class CompositeFuelSearcherTest {
             throws Exception {
         return findProperty(
                 searcher,
+                FuelSearcher.class,
                 FIELD_NAME_TABLE,
                 FuelTable.class
         );
@@ -344,6 +332,7 @@ public final class CompositeFuelSearcherTest {
             throws Exception {
         return findProperty(
                 searcher,
+                FuelSearcher.class,
                 FIELD_NAME_FUEL_OFFSETS_BY_HEADERS,
                 Map.class
         );
@@ -353,6 +342,7 @@ public final class CompositeFuelSearcherTest {
             throws Exception {
         return findProperty(
                 searcher,
+                FuelSearcher.class,
                 FIELD_NAME_FILTER_CHAIN,
                 FilterChain.class
         );
@@ -362,6 +352,7 @@ public final class CompositeFuelSearcherTest {
             throws Exception {
         return findProperty(
                 searcher,
+                FuelSearcher.class,
                 FIELD_NAME_HEADER_EXTRACTOR,
                 SpecificationPropertyExtractor.class
         );
@@ -371,62 +362,10 @@ public final class CompositeFuelSearcherTest {
             throws Exception {
         return findProperty(
                 searcher,
+                CompositeFuelSearcher.class,
                 FIELD_NAME_SUB_TABLE_TITLE_METADATA,
                 SubTableTitleMetadata.class
         );
-    }
-
-    @SuppressWarnings("SameParameterValue")
-    private static <P> P findProperty(final CompositeSearcherBuilder builder,
-                                      final String fieldName,
-                                      final Class<P> propertyType)
-            throws Exception {
-        return findProperty(
-                builder,
-                fieldName,
-                CompositeSearcherBuilder.class,
-                propertyType
-        );
-    }
-
-    private static <P> P findProperty(final FuelSearcher searcher,
-                                      final String fieldName,
-                                      final Class<P> propertyType)
-            throws Exception {
-        return findProperty(
-                searcher,
-                fieldName,
-                FuelSearcher.class,
-                propertyType
-        );
-    }
-
-    @SuppressWarnings("SameParameterValue")
-    private static <P> P findProperty(final CompositeFuelSearcher searcher,
-                                      final String fieldName,
-                                      final Class<P> propertyType)
-            throws Exception {
-        return findProperty(
-                searcher,
-                fieldName,
-                CompositeFuelSearcher.class,
-                propertyType
-        );
-    }
-
-    private static <S, P> P findProperty(final S source,
-                                         final String fieldName,
-                                         final Class<S> sourceType,
-                                         final Class<P> propertyType)
-            throws Exception {
-        final Field field = sourceType.getDeclaredField(fieldName);
-        field.setAccessible(true);
-        try {
-            final Object property = field.get(source);
-            return propertyType.cast(property);
-        } finally {
-            field.setAccessible(false);
-        }
     }
 
     private static void setSubTableTitleMetadata(final CompositeSearcherBuilder builder,
@@ -434,23 +373,10 @@ public final class CompositeFuelSearcherTest {
             throws Exception {
         setProperty(
                 builder,
-                FIELD_NAME_SUB_TABLE_TITLE_METADATA,
-                metadata
+                metadata,
+                CompositeSearcherBuilder.class,
+                FIELD_NAME_SUB_TABLE_TITLE_METADATA
         );
-    }
-
-    @SuppressWarnings("SameParameterValue")
-    private static void setProperty(final CompositeSearcherBuilder builder,
-                                    final String fieldName,
-                                    final Object property)
-            throws Exception {
-        final Field field = CompositeSearcherBuilder.class.getDeclaredField(fieldName);
-        field.setAccessible(true);
-        try {
-            field.set(builder, property);
-        } finally {
-            field.setAccessible(false);
-        }
     }
 
     @SuppressWarnings("SameParameterValue")
