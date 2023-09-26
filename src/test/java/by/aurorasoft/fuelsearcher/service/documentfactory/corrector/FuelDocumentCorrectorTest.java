@@ -38,7 +38,10 @@ public final class FuelDocumentCorrectorTest {
     @Before
     public void initializeDocumentCorrector() {
         this.documentCorrector = new FuelDocumentCorrector(
-                List.of(this.firstMockedParagraphCorrector, this.secondMockedParagraphCorrector)
+                List.of(
+                        this.firstMockedParagraphCorrector,
+                        this.secondMockedParagraphCorrector
+                )
         );
     }
 
@@ -52,10 +55,16 @@ public final class FuelDocumentCorrectorTest {
             final XWPFParagraph fifthGivenParagraph = mock(XWPFParagraph.class);
             final XWPFParagraph sixthGivenParagraph = mock(XWPFParagraph.class);
 
-            final XWPFTableCell firstGivenCell = createNotEmptyCell(List.of(firstGivenParagraph, secondGivenParagraph), mockedCellUtil);
+            final XWPFTableCell firstGivenCell = createNotEmptyCell(
+                    List.of(firstGivenParagraph, secondGivenParagraph),
+                    mockedCellUtil
+            );
             final XWPFTable firstGivenTable = createTable(firstGivenCell);
 
-            final XWPFTableCell secondGivenCell = createEmptyCell(List.of(thirdGivenParagraph, fourthGivenParagraph), mockedCellUtil);
+            final XWPFTableCell secondGivenCell = createEmptyCell(
+                    List.of(thirdGivenParagraph, fourthGivenParagraph),
+                    mockedCellUtil
+            );
             final XWPFTable secondGivenTable = createTable(secondGivenCell);
 
             final FuelTable firstGivenFuelTable = mock(FuelTable.class);
