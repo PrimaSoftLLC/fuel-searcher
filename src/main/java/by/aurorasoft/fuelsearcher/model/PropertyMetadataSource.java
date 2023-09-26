@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelsearcher.model;
 
 @FunctionalInterface
-public interface MetadataSource {
+public interface PropertyMetadataSource {
     String findPropertyName();
 }
