@@ -39,7 +39,7 @@ public class MetadataRefreshingService {
 
     private List<TableMetadata> findNewTablesMetadata() {
         final Optional<List<TableMetadata>> optionalNewTableMetadata = this.parsingResult.takeAwayTablesMetadata();
-        return optionalNewTableMetadata.orElseThrow(ThereIsNoNewTablesMetadataException::new);
+        return optionalNewTableMetadata.orElseThrow(NoNewTablesMetadataException::new);
     }
 
     private static List<PropertyMetadata> findPropertiesMetadata(final List<TableMetadata> tablesMetadata) {
@@ -64,24 +64,24 @@ public class MetadataRefreshingService {
         );
     }
 
-    private static final class ThereIsNoNewTablesMetadataException extends RuntimeException {
+    private static final class NoNewTablesMetadataException extends RuntimeException {
 
-        public ThereIsNoNewTablesMetadataException() {
+        public NoNewTablesMetadataException() {
 
         }
 
         @SuppressWarnings("unused")
-        public ThereIsNoNewTablesMetadataException(final String description) {
+        public NoNewTablesMetadataException(final String description) {
             super(description);
         }
 
         @SuppressWarnings("unused")
-        public ThereIsNoNewTablesMetadataException(final Exception cause) {
+        public NoNewTablesMetadataException(final Exception cause) {
             super(cause);
         }
 
         @SuppressWarnings("unused")
-        public ThereIsNoNewTablesMetadataException(final String description, final Exception cause) {
+        public NoNewTablesMetadataException(final String description, final Exception cause) {
             super(description, cause);
         }
 
