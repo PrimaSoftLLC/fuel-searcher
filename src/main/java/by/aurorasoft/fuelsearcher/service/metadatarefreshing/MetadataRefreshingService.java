@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-//TODO: refactor tests
 @Service
 @RequiredArgsConstructor
 @ConditionalOnProperty(prefix = "meta-data-refreshing", name = "enable", havingValue = "true")
@@ -31,9 +30,9 @@ public class MetadataRefreshingService {
     }
 
     private void saveNewMetadata() {
-        final List<TableMetadata> newTableMetadata = this.findNewTablesMetadata();
-        final List<TableMetadata> savedTableMetadata = this.tableMetadataService.saveAll(newTableMetadata);
-        final List<PropertyMetadata> newPropertiesMetadata = findPropertiesMetadata(savedTableMetadata);
+        final List<TableMetadata> newTablesMetadata = this.findNewTablesMetadata();
+        final List<TableMetadata> savedTablesMetadata = this.tableMetadataService.saveAll(newTablesMetadata);
+        final List<PropertyMetadata> newPropertiesMetadata = findPropertiesMetadata(savedTablesMetadata);
         this.propertyMetadataService.saveAll(newPropertiesMetadata);
     }
 
