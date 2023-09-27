@@ -6,14 +6,14 @@ import by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.Search
 import by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.translating.simple.filter.FilterTagHandler;
 import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
 
-public abstract class AbstractInterimFilterTagHandler<
+public abstract class InterimFilterTagHandler<
         FILTER extends InterimFilter,
         FILTER_FACTORY extends InterimFilterFactory<? extends FILTER, ?>
         >
         extends FilterTagHandler<FILTER, FILTER_FACTORY> {
 
-    public AbstractInterimFilterTagHandler(final String tagName,
-                                           final InterimFilterFactoryDictionary<FILTER_FACTORY> filterFactoryDictionary) {
+    public InterimFilterTagHandler(final String tagName,
+                                   final InterimFilterFactoryDictionary<FILTER_FACTORY> filterFactoryDictionary) {
         super(tagName, filterFactoryDictionary);
     }
 

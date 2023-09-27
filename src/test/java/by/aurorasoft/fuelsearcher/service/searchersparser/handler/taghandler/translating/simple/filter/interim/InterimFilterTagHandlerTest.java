@@ -9,7 +9,7 @@ import java.util.OptionalInt;
 
 import static org.mockito.Mockito.*;
 
-public final class AbstractInterimFilterTagHandlerTest {
+public final class InterimFilterTagHandlerTest {
     private final TestInterimFilterTagHandler tagHandler = new TestInterimFilterTagHandler();
 
     @Test
@@ -23,7 +23,7 @@ public final class AbstractInterimFilterTagHandlerTest {
     }
 
     private static final class TestInterimFilterTagHandler
-            extends AbstractInterimFilterTagHandler<InterimFilter, InterimFilterFactory<?, ?>> {
+            extends InterimFilterTagHandler<InterimFilter, InterimFilterFactory<?, ?>> {
 
         public TestInterimFilterTagHandler() {
             super(null, null);

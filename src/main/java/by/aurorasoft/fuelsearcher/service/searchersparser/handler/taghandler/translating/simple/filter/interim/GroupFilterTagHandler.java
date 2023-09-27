@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.OptionalInt;
 
 @Component
-public final class GroupFilterTagHandler extends AbstractInterimFilterTagHandler<GroupFilter, GroupFilterFactory<?, ?>> {
+public final class GroupFilterTagHandler extends InterimFilterTagHandler<GroupFilter, GroupFilterFactory<?, ?>> {
     private static final String TAG_NAME = "filter-by-group";
     private static final int DEFAULT_FILTRATION_CELL_INDEX = 0;
 

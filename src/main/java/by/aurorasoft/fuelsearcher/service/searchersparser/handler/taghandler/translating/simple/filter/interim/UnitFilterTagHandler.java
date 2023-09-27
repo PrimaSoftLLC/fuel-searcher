@@ -11,7 +11,7 @@ import java.util.OptionalInt;
 import static java.util.OptionalInt.empty;
 
 @Component
-public final class UnitFilterTagHandler extends AbstractInterimFilterTagHandler<UnitFilter, UnitFilterFactory<?, ?>> {
+public final class UnitFilterTagHandler extends InterimFilterTagHandler<UnitFilter, UnitFilterFactory<?, ?>> {
     private static final String TAG_NAME = "filter-by";
 
     public UnitFilterTagHandler(final UnitFilterFactoryDictionary filterFactoryDictionary) {
