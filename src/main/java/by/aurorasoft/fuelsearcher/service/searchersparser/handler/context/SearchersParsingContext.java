@@ -107,8 +107,8 @@ public final class SearchersParsingContext {
 
     public void buildCompositeSearcher() {
         final SubTableTitleMetadata metadata = this.subTableTitleMetadataBuilder.build();
-        metadata.getArgumentsMetadata().forEach(argumentMetadata -> this.tableMetadataBuilder.propertyMetadata(
-                this.propertyMetadataSearchingManager.findIfNecessary(this.findCurrentSearcherBuilder().getTable(), argumentMetadata)));
+//        metadata.getArgumentsMetadata().forEach(argumentMetadata -> this.tableMetadataBuilder.propertyMetadata(
+//                this.propertyMetadataSearchingManager.findIfNecessary(this.findCurrentSearcherBuilder().getTable(), argumentMetadata)));
 
         buildAndAccumulateComponent(
                 this::getSubTableTitleMetadataBuilder,
@@ -127,8 +127,8 @@ public final class SearchersParsingContext {
                 FuelHeaderMetadata::getHeaderExtractor,
                 SearcherBuilder::headerMetadata
         );
-        final PropertyMetadata propertyMetadata = this.propertyMetadataSearchingManager.findIfNecessary(this.findCurrentSearcherBuilder().getTable(), metadata);
-        this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
+//        final PropertyMetadata propertyMetadata = this.propertyMetadataSearchingManager.findIfNecessary(this.findCurrentSearcherBuilder().getTable(), metadata);
+//        this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
     }
 
     public void accumulateFilter(final InterimFilter filter) {
@@ -137,8 +137,8 @@ public final class SearchersParsingContext {
                 InterimFilter::getFiltrationValueExtractor,
                 SearcherBuilder::interimFilter
         );
-        final PropertyMetadata propertyMetadata = this.propertyMetadataSearchingManager.findIfNecessary(this.findCurrentSearcherBuilder().getTable(), filter);
-        this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
+//        final PropertyMetadata propertyMetadata = this.propertyMetadataSearchingManager.findIfNecessary(this.findCurrentSearcherBuilder().getTable(), filter);
+//        this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
     }
 
     public void accumulateFilter(final FinalFilter filter) {
@@ -147,8 +147,8 @@ public final class SearchersParsingContext {
                 FinalFilter::getFiltrationValueExtractor,
                 SearcherBuilder::finalFilter
         );
-        final PropertyMetadata propertyMetadata = this.propertyMetadataSearchingManager.findIfNecessary(this.findCurrentSearcherBuilder().getTable(), filter);
-        this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
+//        final PropertyMetadata propertyMetadata = this.propertyMetadataSearchingManager.findIfNecessary(this.findCurrentSearcherBuilder().getTable(), filter);
+//        this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
     }
 
     public void accumulateSubTableTitleTemplate(final String template) {
@@ -250,8 +250,8 @@ public final class SearchersParsingContext {
     //TODO: already refactored
     private void accumulatePropertyMetadata(final PropertyMetadataSource source) {
         final FuelTable currentTable = this.findCurrentTable();
-        final PropertyMetadata propertyMetadata = this.propertyMetadataSearchingManager.findIfNecessary(currentTable, source);
-        this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
+//        final PropertyMetadata propertyMetadata = this.propertyMetadataSearchingManager.findIfNecessary(currentTable, source);
+//        this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
     }
 
     //TODO: already refactored
