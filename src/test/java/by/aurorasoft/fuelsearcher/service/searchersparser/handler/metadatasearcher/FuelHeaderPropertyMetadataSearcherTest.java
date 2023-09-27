@@ -19,7 +19,6 @@ public final class FuelHeaderPropertyMetadataSearcherTest {
 
     @Test
     public void allowableValuesShouldBeFound() {
-
         final List<IBodyElement> givenTableElements = emptyList();
 
         final String[] givenAllowableValues = {"first-value", "second-value", "third-value"};

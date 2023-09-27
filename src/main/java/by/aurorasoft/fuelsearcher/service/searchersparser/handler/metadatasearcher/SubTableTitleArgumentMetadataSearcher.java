@@ -13,7 +13,6 @@ import java.util.stream.Stream;
 import static by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.extractText;
 import static java.util.regex.Pattern.compile;
 
-//TODO: test
 @Component
 public final class SubTableTitleArgumentMetadataSearcher extends PropertyMetadataSearcher<SubTableTitleArgumentMetadata> {
 
