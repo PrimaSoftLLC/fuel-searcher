@@ -1,34 +1,59 @@
-//package by.aurorasoft.fuelsearcher.service.searchersparser.handler;
-//
-//import by.aurorasoft.fuelsearcher.model.FuelTable;
-//import by.aurorasoft.fuelsearcher.model.filter.Filter;
-//import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
-//import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
-//import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
-//import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
-//import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher;
-//import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher.CompositeSearcherBuilder;
-//import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
-//import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher;
-//import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleSearcherBuilder;
-//import by.aurorasoft.fuelsearcher.service.searchersparser.SearchersParsingResult;
-//import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator;
-//import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator.SpecificationValidatorBuilder;
-//import org.junit.Test;
-//
-//import java.lang.reflect.Field;
-//import java.util.List;
-//
-//import static org.junit.Assert.*;
-//import static org.mockito.Mockito.*;
-//
-//public final class SearchersParsingContextTest {
-//    private static final String FIELD_NAME_SEARCHERS = "searchers";
-//    private static final String FIELD_NAME_SPECIFICATION_VALIDATORS = "specificationValidators";
-//    private static final String FIELD_NAME_SIMPLE_SEARCHER_BUILDER = "simpleSearcherBuilder";
-//    private static final String FIELD_NAME_COMPOSITE_SEARCHER_BUILDER = "compositeSearcherBuilder";
-//    private static final String FIELD_NAME_SPECIFICATION_VALIDATOR_BUILDER = "specificationValidatorBuilder";
-//
+package by.aurorasoft.fuelsearcher.service.searchersparser.handler;
+
+import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata;
+import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
+import by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext;
+import by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearcher.PropertyMetadataSearchingManager;
+import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator;
+import org.junit.Test;
+
+import java.util.List;
+
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+
+public final class SearchersParsingContextTest {
+    private static final String FIELD_NAME_PROPERTY_METADATA_SEARCHING_MANAGER = "propertyMetadataSearchingManager";
+    private static final String FIELD_NAME_SEARCHERS = "searchers";
+    private static final String FIELD_NAME_SPECIFICATION_VALIDATORS = "specificationValidators";
+    private static final String FIELD_NAME_TABLES_METADATA = "tablesMetadata";
+    private static final String FIELD_NAME_SIMPLE_SEARCHER_BUILDER = "simpleSearcherBuilder";
+    private static final String FIELD_NAME_COMPOSITE_SEARCHER_BUILDER = "compositeSearcherBuilder";
+    private static final String FIELD_NAME_SUB_TABLE_TITLE_METADATA_BUILDER = "subTableTitleMetadataBuilder";
+    private static final String FIELD_NAME_SPECIFICATION_VALIDATOR_BUILDER = "specificationValidatorBuilder";
+    private static final String FIELD_NAME_TABLE_METADATA_BUILDER = "tableMetadataBuilder";
+
+    @Test
+    public void notCollectedMetadataContextShouldBeCreated()
+            throws Exception {
+        final SearchersParsingContext actual = new SearchersParsingContext();
+
+        final PropertyMetadataSearchingManager actualMetadataSearchingManager = findPropertyMetadataSearchingManager(
+                actual
+        );
+        assertNull(actualMetadataSearchingManager);
+
+        final List<FuelSearcher> actualSearchers = findSearchers(actual);
+        assertTrue(actualSearchers.isEmpty());
+
+        final List<SpecificationValidator> actualSpecificationValidators = findSpecificationValidators(actual);
+        assertTrue(actualSpecificationValidators.isEmpty());
+
+        final List<TableMetadata> actualTablesMetadata = findTablesMetadata(actual);
+        assertNull(actualTablesMetadata);
+    }
+
+    @Test
+    public void collectedMetadataContextShouldBeCreated() {
+        final PropertyMetadataSearchingManager givenMetadataSearchingManager = mock(
+                PropertyMetadataSearchingManager.class
+        );
+
+
+    }
+
 //    @Test
 //    public void contextShouldBeCreated()
 //            throws Exception {
@@ -51,7 +76,7 @@
 //        );
 //        assertNull(actualSpecificationValidatorBuilder);
 //    }
-//
+
 //    @Test
 //    public void parsingSimpleSearcherShouldBeStarted()
 //            throws Exception {
@@ -67,7 +92,7 @@
 //        );
 //        assertNotNull(specificationValidatorBuilder);
 //    }
-//
+
 //    @Test
 //    public void parsingCompositeSearcherShouldBeStarted()
 //            throws Exception {
@@ -405,7 +430,7 @@
 //        final SearchersParsingResult expected = new SearchersParsingResult(givenSearchers, givenSpecificationValidators);
 //        assertEquals(expected, actual);
 //    }
-//
+
 //    @SuppressWarnings("unchecked")
 //    private static List<FuelSearcher> findSearchers(final SearchersParsingContext context)
 //            throws Exception {
@@ -537,4 +562,48 @@
 //        when(filter.getFiltrationValueExtractor()).thenReturn(filtrationValueExtractor);
 //        return filter;
 //    }
-//}
+
+    private static PropertyMetadataSearchingManager findPropertyMetadataSearchingManager(
+            final SearchersParsingContext context
+    ) throws Exception {
+        return findProperty(
+                context,
+                SearchersParsingContext.class,
+                FIELD_NAME_PROPERTY_METADATA_SEARCHING_MANAGER,
+                PropertyMetadataSearchingManager.class
+        );
+    }
+
+    @SuppressWarnings("unchecked")
+    private static List<FuelSearcher> findSearchers(final SearchersParsingContext context)
+            throws Exception {
+        return findProperty(
+                context,
+                SearchersParsingContext.class,
+                FIELD_NAME_SEARCHERS,
+                List.class
+        );
+    }
+
+    @SuppressWarnings("unchecked")
+    private static List<SpecificationValidator> findSpecificationValidators(final SearchersParsingContext context)
+            throws Exception {
+        return findProperty(
+                context,
+                SearchersParsingContext.class,
+                FIELD_NAME_SPECIFICATION_VALIDATORS,
+                List.class
+        );
+    }
+
+    @SuppressWarnings("unchecked")
+    private static List<TableMetadata> findTablesMetadata(final SearchersParsingContext context)
+            throws Exception {
+        return findProperty(
+                context,
+                SearchersParsingContext.class,
+                FIELD_NAME_TABLES_METADATA,
+                List.class
+        );
+    }
+}
