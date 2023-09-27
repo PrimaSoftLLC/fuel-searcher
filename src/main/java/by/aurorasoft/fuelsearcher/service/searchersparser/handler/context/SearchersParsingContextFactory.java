@@ -4,6 +4,10 @@ import by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearch
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import static by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext.createCollectedMetadataContext;
+import static by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext.createNotCollectedMetadataContext;
+
+//TODO: refactor tests miwth mocked methods 'createCollectedMetadataContext' and 'createNotCollectedMetadataContext'
 @Component
 public final class SearchersParsingContextFactory {
     private final PropertyMetadataSearchingManager propertyMetadataSearchingManager;
@@ -17,7 +21,7 @@ public final class SearchersParsingContextFactory {
 
     public SearchersParsingContext create() {
         return this.metadataCollectingRequired
-                ? new SearchersParsingContext(this.propertyMetadataSearchingManager)
-                : new SearchersParsingContext();
+                ? createCollectedMetadataContext(this.propertyMetadataSearchingManager)
+                : createNotCollectedMetadataContext();
     }
 }
