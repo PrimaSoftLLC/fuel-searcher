@@ -3,16 +3,15 @@ package by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearc
 import by.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
 import by.aurorasoft.fuelsearcher.model.PropertyMetadataSource;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.*;
 
@@ -28,12 +27,17 @@ public final class PropertyMetadataSearchingManagerTest {
     @Mock
     private PropertyMetadataSearcher<?> thirdMockedSearcher;
 
+    private PropertyMetadataSearchingManager searchingManager;
+
+    @Before
+    public void initializeSearchingManager() {
+        this.searchingManager = new PropertyMetadataSearchingManager(
+                List.of(this.firstMockedSearcher, this.secondMockedSearcher, this.thirdMockedSearcher)
+        );
+    }
+
     @Test
     public void metadataShouldBeFound() {
-        final PropertyMetadataSearchingManager givenSearchingManager = this.createSearchingManager(
-                true
-        );
-
         final FuelTable givenFuelTable = mock(FuelTable.class);
         final PropertyMetadataSource givenSource = createMetadataSource();
 
@@ -43,12 +47,7 @@ public final class PropertyMetadataSearchingManagerTest {
         final PropertyMetadata givenMetadata = mock(PropertyMetadata.class);
         when(this.secondMockedSearcher.find(same(givenFuelTable), same(givenSource))).thenReturn(givenMetadata);
 
-        final Optional<PropertyMetadata> optionalActual = givenSearchingManager.findIfNecessary(
-                givenFuelTable,
-                givenSource
-        );
-        assertTrue(optionalActual.isPresent());
-        final PropertyMetadata actual = optionalActual.get();
+        final PropertyMetadata actual = this.searchingManager.find(givenFuelTable, givenSource);
         assertSame(givenMetadata, actual);
 
         verify(this.firstMockedSearcher, times(1)).isAbleToFind(same(givenSource));
@@ -62,10 +61,6 @@ public final class PropertyMetadataSearchingManagerTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void metadataShouldNotBeFoundBecauseOfNoSuitableSearcher() {
-        final PropertyMetadataSearchingManager givenSearchingManager = this.createSearchingManager(
-                true
-        );
-
         final FuelTable givenFuelTable = mock(FuelTable.class);
         final PropertyMetadataSource givenSource = createMetadataSource();
 
@@ -73,30 +68,9 @@ public final class PropertyMetadataSearchingManagerTest {
         when(this.secondMockedSearcher.isAbleToFind(same(givenSource))).thenReturn(false);
         when(this.thirdMockedSearcher.isAbleToFind(same(givenSource))).thenReturn(false);
 
-        givenSearchingManager.findIfNecessary(givenFuelTable, givenSource);
+        this.searchingManager.find(givenFuelTable, givenSource);
     }
 
-    @Test
-    public void metadataShouldNotBeFoundBecauseOfSearchingIsNotRequired() {
-        final PropertyMetadataSearchingManager givenSearchingManager = this.createSearchingManager(
-                false
-        );
-        final FuelTable givenFuelTable = mock(FuelTable.class);
-        final PropertyMetadataSource givenSource = createMetadataSource();
-
-        final Optional<PropertyMetadata> optionalActual = givenSearchingManager.findIfNecessary(
-                givenFuelTable,
-                givenSource
-        );
-        assertTrue(optionalActual.isEmpty());
-    }
-
-    private PropertyMetadataSearchingManager createSearchingManager(final boolean metadataRefreshingEnabled) {
-        return new PropertyMetadataSearchingManager(
-                List.of(this.firstMockedSearcher, this.secondMockedSearcher, this.thirdMockedSearcher),
-                metadataRefreshingEnabled
-        );
-    }
 
     private static PropertyMetadataSource createMetadataSource() {
         return () -> {
