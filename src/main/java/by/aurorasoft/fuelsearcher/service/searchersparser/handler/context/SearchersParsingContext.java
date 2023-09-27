@@ -72,21 +72,19 @@ public final class SearchersParsingContext {
     @Getter
     private Attributes lastAttributes;
 
-    //+
-    public static SearchersParsingContext createNotCollectedMetadataContext() {
+    //TODO: refactored
+    public static SearchersParsingContext createContextNotCollectingMetadata() {
         return new SearchersParsingContext(null, null);
     }
 
-    /**
-     * creates context which collects metadata
-     */
-    public static SearchersParsingContext createCollectedMetadataContext(
+    //TODO: refactored
+    public static SearchersParsingContext createContextCollectingMetadata(
             final PropertyMetadataSearchingManager metadataSearchingManager
     ) {
         return new SearchersParsingContext(metadataSearchingManager, new ArrayList<>());
     }
 
-    //TODO: already refactored
+    //TODO: refactored
     private SearchersParsingContext(final PropertyMetadataSearchingManager propertyMetadataSearchingManager,
                                     final List<TableMetadata> tablesMetadata) {
         this.propertyMetadataSearchingManager = propertyMetadataSearchingManager;

@@ -1,17 +1,21 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler;
 
 import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata;
+import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata.TableMetadataBuilder;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
+import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleSearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext;
 import by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearcher.PropertyMetadataSearchingManager;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator;
+import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator.SpecificationValidatorBuilder;
 import org.junit.Test;
 
 import java.util.List;
 
+import static by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext.createContextCollectingMetadata;
+import static by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext.createContextNotCollectingMetadata;
 import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
 public final class SearchersParsingContextTest {
@@ -26,9 +30,9 @@ public final class SearchersParsingContextTest {
     private static final String FIELD_NAME_TABLE_METADATA_BUILDER = "tableMetadataBuilder";
 
     @Test
-    public void notCollectedMetadataContextShouldBeCreated()
+    public void contextNotCollectingMetadataShouldBeCreated()
             throws Exception {
-        final SearchersParsingContext actual = new SearchersParsingContext();
+        final SearchersParsingContext actual = createContextNotCollectingMetadata();
 
         final PropertyMetadataSearchingManager actualMetadataSearchingManager = findPropertyMetadataSearchingManager(
                 actual
@@ -46,12 +50,54 @@ public final class SearchersParsingContextTest {
     }
 
     @Test
-    public void collectedMetadataContextShouldBeCreated() {
+    public void contextCollectingMetadataShouldBeCreated()
+            throws Exception {
         final PropertyMetadataSearchingManager givenMetadataSearchingManager = mock(
                 PropertyMetadataSearchingManager.class
         );
 
+        final SearchersParsingContext actual = createContextCollectingMetadata(givenMetadataSearchingManager);
 
+        final PropertyMetadataSearchingManager actualMetadataSearchingManager = findPropertyMetadataSearchingManager(
+                actual
+        );
+        assertSame(givenMetadataSearchingManager, actualMetadataSearchingManager);
+
+        final List<FuelSearcher> actualSearchers = findSearchers(actual);
+        assertTrue(actualSearchers.isEmpty());
+
+        final List<SpecificationValidator> actualSpecificationValidators = findSpecificationValidators(actual);
+        assertTrue(actualSpecificationValidators.isEmpty());
+
+        final List<TableMetadata> actualTablesMetadata = findTablesMetadata(actual);
+        assertTrue(actualTablesMetadata.isEmpty());
+    }
+
+    @Test
+    public void contextCollectingMetadataShouldStartParseSimpleSearcher()
+            throws Exception {
+        final PropertyMetadataSearchingManager givenMetadataSearchingManager = mock(
+                PropertyMetadataSearchingManager.class
+        );
+        final SearchersParsingContext givenContext = createContextCollectingMetadata(givenMetadataSearchingManager);
+
+        givenContext.startParseSimpleSearcher();
+
+        final SimpleSearcherBuilder actualSimpleSearcherBuilder = findSimpleSearcherBuilder(givenContext);
+        assertNotNull(actualSimpleSearcherBuilder);
+
+        final SpecificationValidatorBuilder actualSpecificationValidatorBuilder = findSpecificationValidatorBuilder(
+                givenContext
+        );
+        assertNotNull(actualSpecificationValidatorBuilder);
+
+        final TableMetadataBuilder actualTableMetadataBuilder = findTableMetadataBuilder(givenContext);
+        assertNotNull(actualTableMetadataBuilder);
+    }
+
+    @Test
+    public void contextNotCollectingMetadataShouldStartParseSimpleSearcher() {
+        throw new RuntimeException();
     }
 
 //    @Test
@@ -604,6 +650,37 @@ public final class SearchersParsingContextTest {
                 SearchersParsingContext.class,
                 FIELD_NAME_TABLES_METADATA,
                 List.class
+        );
+    }
+
+    private static SimpleSearcherBuilder findSimpleSearcherBuilder(final SearchersParsingContext context)
+            throws Exception {
+        return findProperty(
+                context,
+                SearchersParsingContext.class,
+                FIELD_NAME_SIMPLE_SEARCHER_BUILDER,
+                SimpleSearcherBuilder.class
+        );
+    }
+
+    private static SpecificationValidatorBuilder findSpecificationValidatorBuilder(
+            final SearchersParsingContext context
+    ) throws Exception {
+        return findProperty(
+                context,
+                SearchersParsingContext.class,
+                FIELD_NAME_SPECIFICATION_VALIDATOR_BUILDER,
+                SpecificationValidatorBuilder.class
+        );
+    }
+
+    private static TableMetadataBuilder findTableMetadataBuilder(final SearchersParsingContext context)
+            throws Exception {
+        return findProperty(
+                context,
+                SearchersParsingContext.class,
+                FIELD_NAME_TABLE_METADATA_BUILDER,
+                TableMetadataBuilder.class
         );
     }
 }
