@@ -32,7 +32,11 @@ public final class PropertyMetadataSearchingManagerTest {
     @Before
     public void initializeSearchingManager() {
         this.searchingManager = new PropertyMetadataSearchingManager(
-                List.of(this.firstMockedSearcher, this.secondMockedSearcher, this.thirdMockedSearcher)
+                List.of(
+                        this.firstMockedSearcher,
+                        this.secondMockedSearcher,
+                        this.thirdMockedSearcher
+                )
         );
     }
 
