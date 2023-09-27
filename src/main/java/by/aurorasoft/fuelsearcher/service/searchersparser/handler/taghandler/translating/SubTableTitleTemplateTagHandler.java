@@ -10,7 +10,6 @@ import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelsearcher.util.SubTableTitleUtil.findPropertyNames;
 
-//TODO: refactor tests
 @Component
 public final class SubTableTitleTemplateTagHandler extends TranslatingTagHandler<SpecificationPropertyExtractor> {
     private static final String TAG_NAME = "sub-table-title-template";
