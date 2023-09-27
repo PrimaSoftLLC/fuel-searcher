@@ -50,7 +50,7 @@ public final class PropertyMetadataSearchingManagerTest {
         final PropertyMetadata givenMetadata = mock(PropertyMetadata.class);
         when(this.secondMockedSearcher.find(same(givenFuelTable), same(givenSource))).thenReturn(givenMetadata);
 
-        final PropertyMetadata actual = this.searchingManager.find(givenFuelTable, givenSource);
+        final PropertyMetadata actual = this.searchingManager.findIfNecessary(givenFuelTable, givenSource);
         assertSame(givenMetadata, actual);
 
         verify(this.firstMockedSearcher, times(1)).isAbleToFind(same(givenSource));
@@ -71,7 +71,7 @@ public final class PropertyMetadataSearchingManagerTest {
         when(this.secondMockedSearcher.isAbleToFind(same(givenSource))).thenReturn(false);
         when(this.thirdMockedSearcher.isAbleToFind(same(givenSource))).thenReturn(false);
 
-        this.searchingManager.find(givenFuelTable, givenSource);
+        this.searchingManager.findIfNecessary(givenFuelTable, givenSource);
     }
 
     private static PropertyMetadataSource createMetadataSource() {

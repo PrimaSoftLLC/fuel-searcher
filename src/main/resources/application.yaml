@@ -19,5 +19,5 @@ fuel-document:
 fuel-searcher-config:
   path : ./src/main/resources/fuel-searchers.xml
 
-meta-data-refreshing:
+metadata-refreshing:
   enable: true
