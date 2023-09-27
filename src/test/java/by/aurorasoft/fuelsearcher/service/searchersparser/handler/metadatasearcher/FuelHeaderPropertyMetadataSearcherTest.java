@@ -1,7 +1,6 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearcher;
 
 import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
-import by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearcher.FuelHeaderPropertyMetadataSearcher;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.junit.Test;
 
@@ -10,7 +9,8 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 import static java.util.Collections.emptyList;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -37,14 +37,6 @@ public final class FuelHeaderPropertyMetadataSearcherTest {
 
         final boolean actual = givenSearcher.isAllowableValuesDuplicated();
         assertFalse(actual);
-    }
-
-    @SuppressWarnings("SameParameterValue")
-    private static FuelHeaderMetadata createHeaderMetadata(final String propertyName) {
-        return createHeaderMetadata(
-                propertyName,
-                FuelHeaderMetadata::findPropertyName
-        );
     }
 
     private static FuelHeaderMetadata createHeaderMetadata(final String[] allowableValues) {
