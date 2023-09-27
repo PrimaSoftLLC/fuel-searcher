@@ -1,50 +1,55 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler.context;
 
 import by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearcher.PropertyMetadataSearchingManager;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.lang.reflect.Field;
-
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
 @RunWith(MockitoJUnitRunner.class)
 public final class SearchersParsingContextFactoryTest {
-    private static final String FIELD_NAME_PROPERTY_METADATA_SEARCHING_MANAGER = "propertyMetadataSearchingManager";
+    private static final String FIELD_NAME_METADATA_SEARCHING_MANAGER = "propertyMetadataSearchingManager";
 
     @Mock
-    private PropertyMetadataSearchingManager mockedPropertyMetadataSearchingManager;
+    private PropertyMetadataSearchingManager mockedMetadataSearchingManager;
 
-    private SearchersParsingContextFactory factory;
+    @Test
+    public void contextShouldBeCreatedWithMetadataSearchingManager()
+            throws Exception {
+        final SearchersParsingContextFactory givenFactory = createContextFactory(true);
 
-    @Before
-    public void initializeFactory() {
-        this.factory = new SearchersParsingContextFactory(this.mockedPropertyMetadataSearchingManager);
+        final SearchersParsingContext actual = givenFactory.create();
+
+        final PropertyMetadataSearchingManager actualSearchingManager = findMetadataSearchingManager(actual);
+        assertSame(this.mockedMetadataSearchingManager, actualSearchingManager);
     }
 
     @Test
-    public void contextShouldBeCreated()
+    public void contextShouldBeCreatedWithoutMetadataSearchingManager()
             throws Exception {
-        final SearchersParsingContext actual = this.factory.create();
+        final SearchersParsingContextFactory givenFactory = createContextFactory(false);
 
-        final PropertyMetadataSearchingManager actualSearchingManager = findPropertyMetadataSearchingManager(actual);
-        assertSame(this.mockedPropertyMetadataSearchingManager, actualSearchingManager);
+        final SearchersParsingContext actual = givenFactory.create();
+
+        final PropertyMetadataSearchingManager actualSearchingManager = findMetadataSearchingManager(actual);
+        assertNull(actualSearchingManager);
     }
 
-    private static PropertyMetadataSearchingManager findPropertyMetadataSearchingManager(
-            final SearchersParsingContext context)
+    private SearchersParsingContextFactory createContextFactory(final boolean metadataRefreshingEnabled) {
+        return new SearchersParsingContextFactory(this.mockedMetadataSearchingManager, metadataRefreshingEnabled);
+    }
+
+    private static PropertyMetadataSearchingManager findMetadataSearchingManager(final SearchersParsingContext context)
             throws Exception {
-        final Field field = SearchersParsingContext.class.getDeclaredField(
-                FIELD_NAME_PROPERTY_METADATA_SEARCHING_MANAGER
+        return findProperty(
+                context,
+                SearchersParsingContext.class,
+                FIELD_NAME_METADATA_SEARCHING_MANAGER,
+                PropertyMetadataSearchingManager.class
         );
-        field.setAccessible(true);
-        try {
-            return (PropertyMetadataSearchingManager) field.get(context);
-        } finally {
-            field.setAccessible(false);
-        }
     }
 }
