@@ -28,29 +28,21 @@ import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.IntStream.range;
 import static java.util.stream.Stream.concat;
-import static lombok.AccessLevel.NONE;
 
 @Getter
 public abstract class FuelSearcher implements Translatable {
     private static final int HEADER_ROW_INDEX = 1;
 
     private final FuelTable table;
-
-    @Getter(value = NONE)
-    private final Map<String, Integer> fuelOffsetsByHeaders;
-
+    private final FuelHeaderMetadata headerMetadata;
     private final FilterChain filterChain;
 
-    private final SpecificationPropertyExtractor headerExtractor;
-
     public FuelSearcher(final FuelTable table,
-                        final Map<String, Integer> fuelOffsetsByHeaders, //put in FuelHeaderMetadata
-                        final FilterChain filterChain,
-                        final SpecificationPropertyExtractor headerExtractor) {
+                        final FuelHeaderMetadata headerMetadata,
+                        final FilterChain filterChain) {
         this.table = table;
-        this.fuelOffsetsByHeaders = fuelOffsetsByHeaders;
+        this.headerMetadata = headerMetadata;
         this.filterChain = filterChain;
-        this.headerExtractor = headerExtractor;
     }
 
     @Override
@@ -67,7 +59,7 @@ public abstract class FuelSearcher implements Translatable {
     public final List<SpecificationPropertyExtractor> findPropertyExtractors() {
         return concat(
                 this.filterChain.findPropertyExtractors(),
-                Stream.of(this.headerExtractor)
+                Stream.of(this.headerMetadata.getValueExtractor())
         ).toList();
     }
 
@@ -75,7 +67,7 @@ public abstract class FuelSearcher implements Translatable {
         return concat(
                 this.filterChain.findFilters(),
 
-        )
+                )
     }
 
     public final Optional<Fuel> find(final FuelSpecification specification) {
@@ -85,6 +77,8 @@ public abstract class FuelSearcher implements Translatable {
                 .flatMap(subTableRows -> this.findFuel(subTableRows, specification))
                 .filter(Fuel::isDefinedFuel);
     }
+
+    protected abstract Stream<>
 
     protected abstract Optional<XWPFTable> findSubTable(final List<IBodyElement> elements,
                                                         final FuelSpecification specification);
@@ -193,7 +187,7 @@ public abstract class FuelSearcher implements Translatable {
             this.validateFuelTable(this.table);
             final Map<String, Integer> fuelOffsetsByHeaders = createFuelOffsetsByHeaders(this.headerMetadata);
             final FilterChain filterChain = this.filterChainBuilder.build();
-            final SpecificationPropertyExtractor headerExtractor = this.headerMetadata.getHeaderExtractor();
+            final SpecificationPropertyExtractor headerExtractor = this.headerMetadata.getValueExtractor();
             return this.build(this.table, fuelOffsetsByHeaders, filterChain, headerExtractor);
         }
 

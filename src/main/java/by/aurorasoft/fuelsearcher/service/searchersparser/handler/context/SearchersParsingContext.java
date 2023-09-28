@@ -122,7 +122,7 @@ public final class SearchersParsingContext {
     public void accumulateFuelHeaderMetadata(final FuelHeaderMetadata metadata) {
         this.accumulateComponentWithRequiredPropertyExtractorToCurrentSearcherBuilder(
                 metadata,
-                FuelHeaderMetadata::getHeaderExtractor,
+                FuelHeaderMetadata::getValueExtractor,
                 SearcherBuilder::headerMetadata
         );
         this.accumulatePropertyMetadataIfMetadataCollectingRequired(metadata);

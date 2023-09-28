@@ -12,7 +12,7 @@ import java.util.Map;
 @Getter
 public abstract class FuelHeaderMetadata implements Translatable, PropertyMetadataSource {
     private final Map<String, Integer> fuelOffsetsByValues;
-    private final SpecificationPropertyExtractor headerExtractor;
+    private final SpecificationPropertyExtractor valueExtractor;
 
     @Override
     public final String findAlias() {
@@ -21,6 +21,6 @@ public abstract class FuelHeaderMetadata implements Translatable, PropertyMetada
 
     @Override
     public final String findPropertyName() {
-        return this.headerExtractor.getPropertyName();
+        return this.valueExtractor.getPropertyName();
     }
 }

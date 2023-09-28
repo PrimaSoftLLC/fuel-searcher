@@ -547,7 +547,7 @@ public final class FuelSearcherTest {
                                                            final SpecificationPropertyExtractor headerExtractor) {
         final FuelHeaderMetadata metadata = mock(FuelHeaderMetadata.class);
         when(metadata.getValues()).thenReturn(values);
-        when(metadata.getHeaderExtractor()).thenReturn(headerExtractor);
+        when(metadata.getValueExtractor()).thenReturn(headerExtractor);
         return metadata;
     }
 

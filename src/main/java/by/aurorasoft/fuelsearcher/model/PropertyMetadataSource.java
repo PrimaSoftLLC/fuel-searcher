@@ -1,6 +1,13 @@
 package by.aurorasoft.fuelsearcher.model;
 
-@FunctionalInterface
-public interface PropertyMetadataSource {
-    String findPropertyName();
+import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+public abstract class PropertyMetadataSource {
+    private final SpecificationPropertyExtractor propertyExtractor;
+
+    public final String findPropertyName() {
+        return this.propertyExtractor.getPropertyName();
+    }
 }
