@@ -66,19 +66,20 @@ public final class SearchersParsingContextTest {
 
         final SearchersParsingContext actual = createContextCollectingMetadata(givenMetadataSearchingManager);
 
-        final PropertyMetadataSearchingManager actualMetadataSearchingManager = findPropertyMetadataSearchingManager(
-                actual
-        );
-        assertSame(givenMetadataSearchingManager, actualMetadataSearchingManager);
-
-        final List<FuelSearcher> actualSearchers = findSearchers(actual);
-        assertTrue(actualSearchers.isEmpty());
-
-        final List<SpecificationValidator> actualSpecificationValidators = findSpecificationValidators(actual);
-        assertTrue(actualSpecificationValidators.isEmpty());
-
-        final List<TableMetadata> actualTablesMetadata = findTablesMetadata(actual);
-        assertTrue(actualTablesMetadata.isEmpty());
+        final ContextStateValidator contextStateValidator = ContextStateValidator.builder()
+                .metadataSearchingManagerPredicate(Objects::nonNull)
+                .searchersPredicate(Collection::isEmpty)
+                .specificationValidatorsPredicate(Collection::isEmpty)
+                .tablesMetadataPredicate(Collection::isEmpty)
+                .simpleSearcherBuilderPredicate(Objects::isNull)
+                .compositeSearcherBuilderPredicate(Objects::isNull)
+                .subTableTitleMetadataBuilderPredicate(Objects::isNull)
+                .specificationValidatorBuilderPredicate(Objects::isNull)
+                .tableMetadataBuilderPredicate(Objects::isNull)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateValidator.isValid(actual));
     }
 
     @Test
