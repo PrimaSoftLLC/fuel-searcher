@@ -239,7 +239,7 @@ public final class SearchersParsingContext {
     private <S extends FuelSearcher, B extends SearcherBuilder<S>> void buildAndAccumulateSearcher(final Supplier<B> builderGetter,
                                                                                                    final Consumer<B> builderSetter) {
         this.buildAndAccumulateSpecificationValidator();
-        this.buildTableMetadata();
+        this.buildAndAccumulateTableMetadata();
         buildAndAccumulateComponent(
                 builderGetter,
                 this.searchers::add,
@@ -255,12 +255,14 @@ public final class SearchersParsingContext {
         );
     }
 
-    private void buildTableMetadata() {
-        buildAndAccumulateComponent(
-                this::getTableMetadataBuilder,
-                this.tablesMetadata::add,
-                this::setTableMetadataBuilder
-        );
+    private void buildAndAccumulateTableMetadata() {
+        if (this.isMetadataCollectingRequired()) {
+            buildAndAccumulateComponent(
+                    this::getTableMetadataBuilder,
+                    this.tablesMetadata::add,
+                    this::setTableMetadataBuilder
+            );
+        }
     }
 
     private static <T, B extends BuilderRequiringAllProperties<T>> void buildAndAccumulateComponent(
