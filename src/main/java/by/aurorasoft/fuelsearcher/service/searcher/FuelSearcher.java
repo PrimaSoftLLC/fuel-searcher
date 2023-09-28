@@ -2,6 +2,7 @@ package by.aurorasoft.fuelsearcher.service.searcher;
 
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.model.PropertyMetadataSource;
 import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
 import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
@@ -68,6 +69,10 @@ public abstract class FuelSearcher implements Translatable {
                 this.filterChain.findPropertyExtractors(),
                 Stream.of(this.headerExtractor)
         ).toList();
+    }
+
+    public final Stream<PropertyMetadataSource> findPropertyMetadataSources() {
+
     }
 
     public final Optional<Fuel> find(final FuelSpecification specification) {
