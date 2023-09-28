@@ -1,9 +1,13 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler.context;
 
+import by.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
 import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata;
 import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata.TableMetadataBuilder;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata;
+import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata.SubTableTitleArgumentMetadata;
 import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata.SubTableTitleMetadataBuilder;
+import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher.CompositeSearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher;
@@ -13,6 +17,10 @@ import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator.SpecificationValidatorBuilder;
 import lombok.Builder;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.xml.sax.Attributes;
 
 import java.util.Collection;
@@ -26,9 +34,11 @@ import static by.aurorasoft.fuelsearcher.service.searchersparser.handler.context
 import static by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext.createContextNotCollectingMetadata;
 import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
 import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.setProperty;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public final class SearchersParsingContextTest {
     private static final String FIELD_NAME_PROPERTY_METADATA_SEARCHING_MANAGER = "propertyMetadataSearchingManager";
     private static final String FIELD_NAME_SEARCHERS = "searchers";
@@ -39,6 +49,9 @@ public final class SearchersParsingContextTest {
     private static final String FIELD_NAME_SUB_TABLE_TITLE_METADATA_BUILDER = "subTableTitleMetadataBuilder";
     private static final String FIELD_NAME_SPECIFICATION_VALIDATOR_BUILDER = "specificationValidatorBuilder";
     private static final String FIELD_NAME_TABLE_METADATA_BUILDER = "tableMetadataBuilder";
+
+    @Captor
+    private ArgumentCaptor<PropertyMetadata> propertyMetadataArgumentCaptor;
 
     @Test
     public void contextNotCollectingMetadataShouldBeCreated() {
@@ -426,6 +439,143 @@ public final class SearchersParsingContextTest {
                 .lastAttributesPredicate(Objects::isNull)
                 .build();
         assertTrue(contextStateMatcher.isMatch(givenContext));
+    }
+
+    @Test
+    public void contextCollectingMetadataShouldBuildCompositeSearcher() {
+        final PropertyMetadataSearchingManager givenMetadataSearchingManager = mock(
+                PropertyMetadataSearchingManager.class
+        );
+        final SearchersParsingContext givenContext = createContextCollectingMetadata(givenMetadataSearchingManager);
+
+        final SubTableTitleMetadataBuilder givenSubTableTitleMetadataBuilder = mock(SubTableTitleMetadataBuilder.class);
+        setSubTableTitleMetadataBuilder(givenContext, givenSubTableTitleMetadataBuilder);
+
+        final CompositeSearcherBuilder givenCompositeSearcherBuilder = mock(CompositeSearcherBuilder.class);
+        setCompositeSearcherBuilder(givenContext, givenCompositeSearcherBuilder);
+
+        final TableMetadataBuilder givenTableMetadataBuilder = mock(TableMetadataBuilder.class);
+        setTableMetadataBuilder(givenContext, givenTableMetadataBuilder);
+
+        final SpecificationValidatorBuilder givenSpecificationValidatorBuilder = mock(
+                SpecificationValidatorBuilder.class
+        );
+        setSpecificationValidatorBuilder(givenContext, givenSpecificationValidatorBuilder);
+
+        final SubTableTitleMetadata givenSubTableTitleMetadata = mock(SubTableTitleMetadata.class);
+        when(givenSubTableTitleMetadataBuilder.build()).thenReturn(givenSubTableTitleMetadata);
+
+        final FuelTable givenCurrentTable = mock(FuelTable.class);
+        when(givenCompositeSearcherBuilder.getTable()).thenReturn(givenCurrentTable);
+
+        final SubTableTitleArgumentMetadata firstGivenPropertyMetadataSource = mock(
+                SubTableTitleArgumentMetadata.class
+        );
+        final SubTableTitleArgumentMetadata secondGivenPropertyMetadataSource = mock(
+                SubTableTitleArgumentMetadata.class
+        );
+        when(givenSubTableTitleMetadata.getArgumentsMetadata()).thenReturn(
+                List.of(
+                        firstGivenPropertyMetadataSource,
+                        secondGivenPropertyMetadataSource
+                )
+        );
+
+        final PropertyMetadata firstGivenPropertyMetadata = createPropertyMetadata(255L);
+        when(givenMetadataSearchingManager.find(same(givenCurrentTable), same(firstGivenPropertyMetadataSource)))
+                .thenReturn(firstGivenPropertyMetadata);
+
+        final PropertyMetadata secondGivenPropertyMetadata = createPropertyMetadata(256L);
+        when(givenMetadataSearchingManager.find(same(givenCurrentTable), same(secondGivenPropertyMetadataSource)))
+                .thenReturn(secondGivenPropertyMetadata);
+
+        final SpecificationValidator givenSpecificationValidator = mock(SpecificationValidator.class);
+        when(givenSpecificationValidatorBuilder.build()).thenReturn(givenSpecificationValidator);
+
+        final TableMetadata givenTableMetadata = createTableMetadata(255L);
+        when(givenTableMetadataBuilder.build()).thenReturn(givenTableMetadata);
+
+        final CompositeFuelSearcher givenSearcher = mock(CompositeFuelSearcher.class);
+        when(givenCompositeSearcherBuilder.build()).thenReturn(givenSearcher);
+
+        givenContext.buildCompositeSearcher();
+
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
+                .metadataSearchingManagerPredicate(actual -> actual == givenMetadataSearchingManager)
+                .searchersPredicate(actual -> Objects.equals(List.of(givenSearcher), actual))
+                .specificationValidatorsPredicate(actual -> Objects.equals(List.of(givenSpecificationValidator), actual))
+                .tablesMetadataPredicate(actual -> Objects.equals(List.of(givenTableMetadata), actual))
+                .simpleSearcherBuilderPredicate(Objects::isNull)
+                .compositeSearcherBuilderPredicate(Objects::isNull)
+                .subTableTitleMetadataBuilderPredicate(Objects::isNull)
+                .specificationValidatorBuilderPredicate(Objects::isNull)
+                .tableMetadataBuilderPredicate(Objects::isNull)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateMatcher.isMatch(givenContext));
+
+        verify(givenCompositeSearcherBuilder, times(1)).subTableTitleMetadata(
+                same(givenSubTableTitleMetadata)
+        );
+
+        verify(givenTableMetadataBuilder, times(2)).propertyMetadata(
+                this.propertyMetadataArgumentCaptor.capture()
+        );
+        final List<PropertyMetadata> expectedCapturedPropertiesMetadata = List.of(
+                firstGivenPropertyMetadata,
+                secondGivenPropertyMetadata
+        );
+        final List<PropertyMetadata> actualCapturedPropertiesMetadata = this.propertyMetadataArgumentCaptor
+                .getAllValues();
+        assertEquals(expectedCapturedPropertiesMetadata, actualCapturedPropertiesMetadata);
+    }
+
+    @Test
+    public void contextNotCollectingMetadataShouldBuildCompositeSearcher() {
+        final SearchersParsingContext givenContext = createContextNotCollectingMetadata();
+
+        final SubTableTitleMetadataBuilder givenSubTableTitleMetadataBuilder = mock(SubTableTitleMetadataBuilder.class);
+        setSubTableTitleMetadataBuilder(givenContext, givenSubTableTitleMetadataBuilder);
+
+        final CompositeSearcherBuilder givenCompositeSearcherBuilder = mock(CompositeSearcherBuilder.class);
+        setCompositeSearcherBuilder(givenContext, givenCompositeSearcherBuilder);
+
+        final TableMetadataBuilder givenTableMetadataBuilder = mock(TableMetadataBuilder.class);
+        setTableMetadataBuilder(givenContext, givenTableMetadataBuilder);
+
+        final SpecificationValidatorBuilder givenSpecificationValidatorBuilder = mock(
+                SpecificationValidatorBuilder.class
+        );
+        setSpecificationValidatorBuilder(givenContext, givenSpecificationValidatorBuilder);
+
+        final SpecificationValidator givenSpecificationValidator = mock(SpecificationValidator.class);
+        when(givenSpecificationValidatorBuilder.build()).thenReturn(givenSpecificationValidator);
+
+        final CompositeFuelSearcher givenSearcher = mock(CompositeFuelSearcher.class);
+        when(givenCompositeSearcherBuilder.build()).thenReturn(givenSearcher);
+
+        givenContext.buildCompositeSearcher();
+
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
+                .metadataSearchingManagerPredicate(Objects::isNull)
+                .searchersPredicate(actual -> Objects.equals(List.of(givenSearcher), actual))
+                .specificationValidatorsPredicate(actual -> Objects.equals(List.of(givenSpecificationValidator), actual))
+                .tablesMetadataPredicate(Objects::isNull)
+                .simpleSearcherBuilderPredicate(Objects::isNull)
+                .compositeSearcherBuilderPredicate(Objects::isNull)
+                .subTableTitleMetadataBuilderPredicate(actual -> givenSubTableTitleMetadataBuilder == actual)
+                .specificationValidatorBuilderPredicate(Objects::isNull)
+                .tableMetadataBuilderPredicate(actual -> givenTableMetadataBuilder == actual)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateMatcher.isMatch(givenContext));
+
+        verify(givenCompositeSearcherBuilder, times(0)).subTableTitleMetadata(
+                any(SubTableTitleMetadata.class)
+        );
+        verify(givenTableMetadataBuilder, times(0)).propertyMetadata(any(PropertyMetadata.class));
     }
 
     private static final class ContextStateMatcher {
@@ -1166,6 +1316,16 @@ public final class SearchersParsingContextTest {
         );
     }
 
+    private static void setSubTableTitleMetadataBuilder(final SearchersParsingContext context,
+                                                        final SubTableTitleMetadataBuilder builder) {
+        setProperty(
+                context,
+                builder,
+                SearchersParsingContext.class,
+                FIELD_NAME_SUB_TABLE_TITLE_METADATA_BUILDER
+        );
+    }
+
     private static FuelTable createFuelTable(final String name) {
         final FuelTable fuelTable = mock(FuelTable.class);
         when(fuelTable.name()).thenReturn(name);
@@ -1174,5 +1334,11 @@ public final class SearchersParsingContextTest {
 
     private static TableMetadata createTableMetadata(final Long id) {
         return new TableMetadata(id, null, null);
+    }
+
+    private static PropertyMetadata createPropertyMetadata(final Long id) {
+        return PropertyMetadata.builder()
+                .id(id)
+                .build();
     }
 }

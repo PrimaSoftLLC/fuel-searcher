@@ -107,10 +107,7 @@ public final class SearchersParsingContext {
                 tableName,
                 TableMetadataBuilder::tableName
         );
-        this.accumulateComponentToCurrentSearcherBuilder(
-                fuelTable,
-                SearcherBuilder::table
-        );
+        this.accumulateComponentToCurrentSearcherBuilder(fuelTable, SearcherBuilder::table);
     }
 
     public void buildSimpleSearcher() {
@@ -119,10 +116,7 @@ public final class SearchersParsingContext {
 
     public void buildCompositeSearcher() {
         this.buildAndAccumulateSubTableTitleMetadata();
-        this.buildAndAccumulateSearcher(
-                this::getCompositeSearcherBuilder,
-                this::setCompositeSearcherBuilder
-        );
+        this.buildAndAccumulateSearcher(this::getCompositeSearcherBuilder, this::setCompositeSearcherBuilder);
     }
 
     public void accumulateFuelHeaderMetadata(final FuelHeaderMetadata metadata) {
@@ -131,8 +125,8 @@ public final class SearchersParsingContext {
                 FuelHeaderMetadata::getHeaderExtractor,
                 SearcherBuilder::headerMetadata
         );
-//        final PropertyMetadata propertyMetadata = this.propertyMetadataSearchingManager.findIfNecessary(this.findCurrentSearcherBuilder().getTable(), metadata);
-//        this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
+        final PropertyMetadata propertyMetadata = this.propertyMetadataSearchingManager.find(this.findCurrentSearcherBuilder().getTable(), metadata);
+        this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
     }
 
     public void accumulateFilter(final InterimFilter filter) {
@@ -141,8 +135,8 @@ public final class SearchersParsingContext {
                 InterimFilter::getFiltrationValueExtractor,
                 SearcherBuilder::interimFilter
         );
-//        final PropertyMetadata propertyMetadata = this.propertyMetadataSearchingManager.findIfNecessary(this.findCurrentSearcherBuilder().getTable(), filter);
-//        this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
+        final PropertyMetadata propertyMetadata = this.propertyMetadataSearchingManager.find(this.findCurrentSearcherBuilder().getTable(), filter);
+        this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
     }
 
     public void accumulateFilter(final FinalFilter filter) {
@@ -151,8 +145,8 @@ public final class SearchersParsingContext {
                 FinalFilter::getFiltrationValueExtractor,
                 SearcherBuilder::finalFilter
         );
-//        final PropertyMetadata propertyMetadata = this.propertyMetadataSearchingManager.findIfNecessary(this.findCurrentSearcherBuilder().getTable(), filter);
-//        this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
+        final PropertyMetadata propertyMetadata = this.propertyMetadataSearchingManager.find(this.findCurrentSearcherBuilder().getTable(), filter);
+        this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
     }
 
     public void accumulateSubTableTitleTemplate(final String template) {
@@ -225,7 +219,7 @@ public final class SearchersParsingContext {
         } else if (this.compositeSearcherBuilder != null) {
             return this.compositeSearcherBuilder;
         } else {
-            throw new IllegalStateException("There is not current initialized builder");
+            throw new IllegalStateException("There is no current initialized builder");
         }
     }
 
@@ -259,12 +253,14 @@ public final class SearchersParsingContext {
     }
 
     private void buildAndAccumulateSubTableTitleMetadata() {
-        final SubTableTitleMetadata metadata = buildAndAccumulateComponent(
-                this::getSubTableTitleMetadataBuilder,
-                this.compositeSearcherBuilder::subTableTitleMetadata,
-                this::setSubTableTitleMetadataBuilder
-        );
-        metadata.getArgumentsMetadata().forEach(this::accumulatePropertyMetadata);
+        if (this.isMetadataCollectingRequired()) {
+            final SubTableTitleMetadata metadata = buildAndAccumulateComponent(
+                    this::getSubTableTitleMetadataBuilder,
+                    this.compositeSearcherBuilder::subTableTitleMetadata,
+                    this::setSubTableTitleMetadataBuilder
+            );
+            metadata.getArgumentsMetadata().forEach(this::accumulatePropertyMetadata);
+        }
     }
 
     private static <T, B extends BuilderRequiringAllProperties<T>> T buildAndAccumulateComponent(
