@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.service.searchersparser.handler;
+package by.aurorasoft.fuelsearcher.service.searchersparser.handler.context;
 
 import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata;
 import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata.TableMetadataBuilder;
@@ -6,7 +6,6 @@ import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata.SubTableTitleMetad
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher.CompositeSearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleSearcherBuilder;
-import by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext;
 import by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearcher.PropertyMetadataSearchingManager;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator.SpecificationValidatorBuilder;
@@ -42,7 +41,7 @@ public final class SearchersParsingContextTest {
     public void contextNotCollectingMetadataShouldBeCreated() {
         final SearchersParsingContext actual = createContextNotCollectingMetadata();
 
-        final ContextStateValidator contextStateValidator = ContextStateValidator.builder()
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
                 .metadataSearchingManagerPredicate(Objects::isNull)
                 .searchersPredicate(Collection::isEmpty)
                 .specificationValidatorsPredicate(Collection::isEmpty)
@@ -55,7 +54,7 @@ public final class SearchersParsingContextTest {
                 .lastContentPredicate(Objects::isNull)
                 .lastAttributesPredicate(Objects::isNull)
                 .build();
-        assertTrue(contextStateValidator.isValid(actual));
+        assertTrue(contextStateMatcher.isMatch(actual));
     }
 
     @Test
@@ -66,7 +65,7 @@ public final class SearchersParsingContextTest {
 
         final SearchersParsingContext actual = createContextCollectingMetadata(givenMetadataSearchingManager);
 
-        final ContextStateValidator contextStateValidator = ContextStateValidator.builder()
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
                 .metadataSearchingManagerPredicate(Objects::nonNull)
                 .searchersPredicate(Collection::isEmpty)
                 .specificationValidatorsPredicate(Collection::isEmpty)
@@ -79,7 +78,7 @@ public final class SearchersParsingContextTest {
                 .lastContentPredicate(Objects::isNull)
                 .lastAttributesPredicate(Objects::isNull)
                 .build();
-        assertTrue(contextStateValidator.isValid(actual));
+        assertTrue(contextStateMatcher.isMatch(actual));
     }
 
     @Test
@@ -91,16 +90,20 @@ public final class SearchersParsingContextTest {
 
         givenContext.startParseSimpleSearcher();
 
-        final SimpleSearcherBuilder actualSimpleSearcherBuilder = findSimpleSearcherBuilder(givenContext);
-        assertNotNull(actualSimpleSearcherBuilder);
-
-        final SpecificationValidatorBuilder actualSpecificationValidatorBuilder = findSpecificationValidatorBuilder(
-                givenContext
-        );
-        assertNotNull(actualSpecificationValidatorBuilder);
-
-        final TableMetadataBuilder actualTableMetadataBuilder = findTableMetadataBuilder(givenContext);
-        assertNotNull(actualTableMetadataBuilder);
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
+                .metadataSearchingManagerPredicate(Objects::nonNull)
+                .searchersPredicate(Collection::isEmpty)
+                .specificationValidatorsPredicate(Collection::isEmpty)
+                .tablesMetadataPredicate(Collection::isEmpty)
+                .simpleSearcherBuilderPredicate(Objects::nonNull)
+                .compositeSearcherBuilderPredicate(Objects::isNull)
+                .subTableTitleMetadataBuilderPredicate(Objects::isNull)
+                .specificationValidatorBuilderPredicate(Objects::nonNull)
+                .tableMetadataBuilderPredicate(Objects::nonNull)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateMatcher.isMatch(givenContext));
     }
 
     @Test
@@ -170,7 +173,7 @@ public final class SearchersParsingContextTest {
         assertNull(actualSubTableTitleMetadataBuilder);
     }
 
-    private static final class ContextStateValidator {
+    private static final class ContextStateMatcher {
         private final Predicate<SearchersParsingContext> metadataSearchingManagerPredicate;
         private final Predicate<SearchersParsingContext> searchersPredicate;
         private final Predicate<SearchersParsingContext> specificationValidatorsPredicate;
@@ -184,17 +187,17 @@ public final class SearchersParsingContextTest {
         private final Predicate<SearchersParsingContext> lastAttributesPredicate;
 
         @Builder
-        public ContextStateValidator(final Predicate<PropertyMetadataSearchingManager> metadataSearchingManagerPredicate,
-                                     final Predicate<List<FuelSearcher>> searchersPredicate,
-                                     final Predicate<List<SpecificationValidator>> specificationValidatorsPredicate,
-                                     final Predicate<List<TableMetadata>> tablesMetadataPredicate,
-                                     final Predicate<SimpleSearcherBuilder> simpleSearcherBuilderPredicate,
-                                     final Predicate<CompositeSearcherBuilder> compositeSearcherBuilderPredicate,
-                                     final Predicate<SubTableTitleMetadataBuilder> subTableTitleMetadataBuilderPredicate,
-                                     final Predicate<SpecificationValidatorBuilder> specificationValidatorBuilderPredicate,
-                                     final Predicate<TableMetadataBuilder> tableMetadataBuilderPredicate,
-                                     final Predicate<String> lastContentPredicate,
-                                     final Predicate<Attributes> lastAttributesPredicate) {
+        public ContextStateMatcher(final Predicate<PropertyMetadataSearchingManager> metadataSearchingManagerPredicate,
+                                   final Predicate<List<FuelSearcher>> searchersPredicate,
+                                   final Predicate<List<SpecificationValidator>> specificationValidatorsPredicate,
+                                   final Predicate<List<TableMetadata>> tablesMetadataPredicate,
+                                   final Predicate<SimpleSearcherBuilder> simpleSearcherBuilderPredicate,
+                                   final Predicate<CompositeSearcherBuilder> compositeSearcherBuilderPredicate,
+                                   final Predicate<SubTableTitleMetadataBuilder> subTableTitleMetadataBuilderPredicate,
+                                   final Predicate<SpecificationValidatorBuilder> specificationValidatorBuilderPredicate,
+                                   final Predicate<TableMetadataBuilder> tableMetadataBuilderPredicate,
+                                   final Predicate<String> lastContentPredicate,
+                                   final Predicate<Attributes> lastAttributesPredicate) {
             this.metadataSearchingManagerPredicate = mapToContextPredicate(
                     metadataSearchingManagerPredicate,
                     SearchersParsingContextTest::findPropertyMetadataSearchingManager
@@ -241,7 +244,7 @@ public final class SearchersParsingContextTest {
             );
         }
 
-        public boolean isValid(final SearchersParsingContext context) {
+        public boolean isMatch(final SearchersParsingContext context) {
             final Predicate<SearchersParsingContext> contextStatePredicate = this.createContextStatePredicate();
             return contextStatePredicate.test(context);
         }
