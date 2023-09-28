@@ -1,12 +1,12 @@
 package by.aurorasoft.fuelsearcher.service.searcher;
 
+import by.aurorasoft.fuelsearcher.model.filter.Filter;
 import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelsearcher.service.builder.BuilderRequiringAllProperties;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
@@ -19,7 +19,6 @@ import java.util.stream.Stream;
 import static lombok.AccessLevel.PRIVATE;
 
 @AllArgsConstructor(access = PRIVATE)
-@Getter
 public final class FilterChain {
     private final List<InterimFilter> interimFilters;
     private final FinalFilter finalFilter;
@@ -33,13 +32,18 @@ public final class FilterChain {
         return filteringFunction.apply(rows);
     }
 
+    //TODO: test
     public Stream<SpecificationPropertyExtractor> findPropertyExtractors() {
-
+        return Stream.concat(
+                this.interimFilters.stream(),
+                Stream.of(this.finalFilter)
+        ).map(Filter::getFiltrationValueExtractor);
     }
 
     private FinalFilteringFunction createFilteringFunction(final FuelSpecification specification) {
         final FinalFilteringFunction finalFilteringFunction = createFinalFilteringFunction(
-                this.finalFilter, specification
+                this.finalFilter,
+                specification
         );
         return this.interimFilters.stream()
                 .map(filter -> createInterimFilteringFunction(filter, specification))

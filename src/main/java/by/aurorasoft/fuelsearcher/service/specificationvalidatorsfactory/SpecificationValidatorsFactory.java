@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+//TODO: test
 @Component
 public final class SpecificationValidatorsFactory {
 
