@@ -10,7 +10,7 @@ import java.util.Map;
 
 @AllArgsConstructor
 @Getter
-public abstract class FuelHeaderMetadata implements Translatable, PropertyMetadataSource {
+public abstract class FuelHeaderMetadata extends PropertyMetadataSource implements Translatable {
     private final Map<String, Integer> fuelOffsetsByValues;
     private final SpecificationPropertyExtractor valueExtractor;
 
@@ -19,8 +19,17 @@ public abstract class FuelHeaderMetadata implements Translatable, PropertyMetada
         return this.findPropertyName();
     }
 
-    @Override
-    public final String findPropertyName() {
-        return this.valueExtractor.getPropertyName();
-    }
+    /*
+    private static Map<String, Integer> createFuelOffsetsByHeaders(final FuelHeaderMetadata metadata) {
+            final String[] values = metadata.get();
+            return range(0, values.length)
+                    .boxed()
+                    .collect(
+                            toMap(
+                                    i -> values[i],
+                                    identity()
+                            )
+                    );
+        }
+     */
 }
