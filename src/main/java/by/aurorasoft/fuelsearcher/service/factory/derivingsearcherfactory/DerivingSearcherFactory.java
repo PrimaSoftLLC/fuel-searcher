@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.service.derivingsearcherfactory;
+package by.aurorasoft.fuelsearcher.service.factory.derivingsearcherfactory;
 
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
 import lombok.RequiredArgsConstructor;

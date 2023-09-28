@@ -1,8 +1,8 @@
-package by.aurorasoft.fuelsearcher.service.documentfactory.corrector;
+package by.aurorasoft.fuelsearcher.service.factory.documentfactory.corrector;
 
 import by.aurorasoft.fuelsearcher.model.FuelDocument;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
-import by.aurorasoft.fuelsearcher.service.documentfactory.corrector.paragraphcorrector.ParagraphCorrector;
+import by.aurorasoft.fuelsearcher.service.factory.documentfactory.corrector.paragraphcorrector.ParagraphCorrector;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.xwpf.usermodel.*;
 import org.springframework.stereotype.Component;

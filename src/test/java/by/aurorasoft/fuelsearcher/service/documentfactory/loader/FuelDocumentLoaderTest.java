@@ -3,6 +3,7 @@ package by.aurorasoft.fuelsearcher.service.documentfactory.loader;
 import by.aurorasoft.fuelsearcher.base.AbstractContextTest;
 import by.aurorasoft.fuelsearcher.model.FuelDocument;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.service.factory.documentfactory.loader.FuelDocumentLoader;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;

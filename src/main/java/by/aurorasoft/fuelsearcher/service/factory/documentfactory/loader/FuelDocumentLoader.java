@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.service.documentfactory.loader;
+package by.aurorasoft.fuelsearcher.service.factory.documentfactory.loader;
 
 import by.aurorasoft.fuelsearcher.model.FuelDocument;
 import by.aurorasoft.fuelsearcher.model.FuelTable;

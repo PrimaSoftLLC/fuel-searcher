@@ -1,5 +1,6 @@
 package by.aurorasoft.fuelsearcher.service.documentfactory.corrector.paragraphcorrector;
 
+import by.aurorasoft.fuelsearcher.service.factory.documentfactory.corrector.paragraphcorrector.ParagraphCorrector;
 import by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.junit.Test;

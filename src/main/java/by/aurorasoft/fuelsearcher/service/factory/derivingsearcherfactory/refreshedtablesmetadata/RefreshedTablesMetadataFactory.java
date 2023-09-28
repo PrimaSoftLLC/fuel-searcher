@@ -1,10 +1,10 @@
-package by.aurorasoft.fuelsearcher.service.derivingsearcherfactory.refreshedtablesmetadata;
+package by.aurorasoft.fuelsearcher.service.factory.derivingsearcherfactory.refreshedtablesmetadata;
 
 import by.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
 import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
-import by.aurorasoft.fuelsearcher.service.derivingsearcherfactory.DerivingSearcherFactory;
-import by.aurorasoft.fuelsearcher.service.derivingsearcherfactory.refreshedtablesmetadata.metadatasearcher.PropertyMetadataSearchingManager;
+import by.aurorasoft.fuelsearcher.service.factory.derivingsearcherfactory.DerivingSearcherFactory;
+import by.aurorasoft.fuelsearcher.service.factory.derivingsearcherfactory.refreshedtablesmetadata.metadatasearcher.PropertyMetadataSearchingManager;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
 import org.springframework.stereotype.Component;
 

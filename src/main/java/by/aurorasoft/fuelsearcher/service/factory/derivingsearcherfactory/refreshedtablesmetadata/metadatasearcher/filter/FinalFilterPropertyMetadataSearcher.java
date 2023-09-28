@@ -1,6 +1,6 @@
-package by.aurorasoft.fuelsearcher.service.derivingsearcherfactory.refreshedtablesmetadata.metadatasearcher.filter;
+package by.aurorasoft.fuelsearcher.service.factory.derivingsearcherfactory.refreshedtablesmetadata.metadatasearcher.filter;
 
-import by.aurorasoft.fuelsearcher.model.filter.interim.unit.UnitFilter;
+import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.springframework.stereotype.Component;
 
@@ -10,15 +10,15 @@ import java.util.stream.Stream;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findRowsWithNotNullAndNotEmptyCell;
 
 @Component
-public final class UnitFilterPropertyMetadataSearcher extends FilterPropertyMetadataSearcher<UnitFilter> {
+public final class FinalFilterPropertyMetadataSearcher extends FilterPropertyMetadataSearcher<FinalFilter> {
 
-    public UnitFilterPropertyMetadataSearcher() {
-        super(UnitFilter.class);
+    public FinalFilterPropertyMetadataSearcher() {
+        super(FinalFilter.class);
     }
 
     @Override
     protected Stream<XWPFTableRow> findRowsWithAllowableValues(final List<XWPFTableRow> subTableDataRows,
-                                                               final UnitFilter filter) {
+                                                               final FinalFilter filter) {
         final int filtrationCellIndex = filter.getFiltrationCellIndex();
         return findRowsWithNotNullAndNotEmptyCell(
                 subTableDataRows,

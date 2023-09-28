@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.service.derivingsearcherfactory.refreshedtablesmetadata.metadatasearcher.filter;
+package by.aurorasoft.fuelsearcher.service.factory.derivingsearcherfactory.refreshedtablesmetadata.metadatasearcher.filter;
 
 import by.aurorasoft.fuelsearcher.model.filter.interim.group.GroupFilter;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;

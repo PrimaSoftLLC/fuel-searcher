@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.service.documentfactory.corrector.paragraphcorrector;
+package by.aurorasoft.fuelsearcher.service.factory.documentfactory.corrector.paragraphcorrector;
 
 import org.springframework.stereotype.Component;
 

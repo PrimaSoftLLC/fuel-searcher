@@ -2,7 +2,8 @@ package by.aurorasoft.fuelsearcher.service.documentfactory.corrector;
 
 import by.aurorasoft.fuelsearcher.model.FuelDocument;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
-import by.aurorasoft.fuelsearcher.service.documentfactory.corrector.paragraphcorrector.ParagraphCorrector;
+import by.aurorasoft.fuelsearcher.service.factory.documentfactory.corrector.FuelDocumentCorrector;
+import by.aurorasoft.fuelsearcher.service.factory.documentfactory.corrector.paragraphcorrector.ParagraphCorrector;
 import by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil;
 import org.apache.poi.xwpf.usermodel.*;
 import org.junit.Before;

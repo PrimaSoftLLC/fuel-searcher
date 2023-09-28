@@ -1,8 +1,8 @@
 package by.aurorasoft.fuelsearcher.configuration;
 
 import by.aurorasoft.fuelsearcher.model.FuelDocument;
-import by.aurorasoft.fuelsearcher.service.derivingsearcherfactory.SpecificationValidatorsFactory;
-import by.aurorasoft.fuelsearcher.service.documentfactory.FuelDocumentFactory;
+import by.aurorasoft.fuelsearcher.service.factory.derivingsearcherfactory.SpecificationValidatorsFactory;
+import by.aurorasoft.fuelsearcher.service.factory.documentfactory.FuelDocumentFactory;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searchersparser.FuelSearchersParser;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator;

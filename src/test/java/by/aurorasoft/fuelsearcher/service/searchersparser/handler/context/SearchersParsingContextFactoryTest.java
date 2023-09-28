@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler.context;
 
-import by.aurorasoft.fuelsearcher.service.derivingsearcherfactory.refreshedtablesmetadata.metadatasearcher.PropertyMetadataSearchingManager;
+import by.aurorasoft.fuelsearcher.service.factory.derivingsearcherfactory.refreshedtablesmetadata.metadatasearcher.PropertyMetadataSearchingManager;
 import by.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsingContext;
 import org.junit.Test;
 import org.junit.runner.RunWith;

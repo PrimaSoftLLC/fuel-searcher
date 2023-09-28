@@ -1,5 +1,6 @@
 package by.aurorasoft.fuelsearcher.service.documentfactory.corrector.paragraphcorrector;
 
+import by.aurorasoft.fuelsearcher.service.factory.documentfactory.corrector.paragraphcorrector.RealNumberParagraphCorrector;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
