@@ -14,7 +14,9 @@ import lombok.Builder;
 import org.junit.Test;
 import org.xml.sax.Attributes;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -40,19 +42,20 @@ public final class SearchersParsingContextTest {
     public void contextNotCollectingMetadataShouldBeCreated() {
         final SearchersParsingContext actual = createContextNotCollectingMetadata();
 
-        final PropertyMetadataSearchingManager actualMetadataSearchingManager = findPropertyMetadataSearchingManager(
-                actual
-        );
-        assertNull(actualMetadataSearchingManager);
-
-        final List<FuelSearcher> actualSearchers = findSearchers(actual);
-        assertTrue(actualSearchers.isEmpty());
-
-        final List<SpecificationValidator> actualSpecificationValidators = findSpecificationValidators(actual);
-        assertTrue(actualSpecificationValidators.isEmpty());
-
-        final List<TableMetadata> actualTablesMetadata = findTablesMetadata(actual);
-        assertNull(actualTablesMetadata);
+        final ContextStateValidator contextStateValidator = ContextStateValidator.builder()
+                .metadataSearchingManagerPredicate(Objects::isNull)
+                .searchersPredicate(Collection::isEmpty)
+                .specificationValidatorsPredicate(Collection::isEmpty)
+                .tablesMetadataPredicate(Objects::isNull)
+                .simpleSearcherBuilderPredicate(Objects::isNull)
+                .compositeSearcherBuilderPredicate(Objects::isNull)
+                .subTableTitleMetadataBuilderPredicate(Objects::isNull)
+                .specificationValidatorBuilderPredicate(Objects::isNull)
+                .tableMetadataBuilderPredicate(Objects::isNull)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateValidator.isValid(actual));
     }
 
     @Test
