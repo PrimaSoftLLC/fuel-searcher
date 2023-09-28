@@ -155,8 +155,6 @@ public abstract class FuelSearcher implements Translatable {
     }
 
     public static abstract class SearcherBuilder<S extends FuelSearcher> extends BuilderRequiringAllProperties<S> {
-
-        @Getter
         private FuelTable table;
 
         private FuelHeaderMetadata headerMetadata;

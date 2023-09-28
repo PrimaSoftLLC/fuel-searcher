@@ -23,7 +23,7 @@ public final class SimpleSearcherTagHandlerTest {
 
         this.tagHandler.handleEndTag(givenContext);
 
-        verify(givenContext, times(1)).buildSimpleSearcher();
+        verify(givenContext, times(1)).buildAndAccumulateSimpleSearcher();
     }
 
 }

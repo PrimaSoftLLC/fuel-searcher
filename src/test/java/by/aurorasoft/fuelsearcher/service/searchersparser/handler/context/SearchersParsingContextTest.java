@@ -384,7 +384,7 @@ public final class SearchersParsingContextTest {
         final SimpleFuelSearcher givenAccumulatedSearcher = mock(SimpleFuelSearcher.class);
         when(givenSimpleSearcherBuilder.build()).thenReturn(givenAccumulatedSearcher);
 
-        givenContext.buildSimpleSearcher();
+        givenContext.buildAndAccumulateSimpleSearcher();
 
         final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
                 .metadataSearchingManagerPredicate(actual -> actual == givenMetadataSearchingManager)
@@ -423,7 +423,7 @@ public final class SearchersParsingContextTest {
         final SimpleFuelSearcher givenAccumulatedSearcher = mock(SimpleFuelSearcher.class);
         when(givenSimpleSearcherBuilder.build()).thenReturn(givenAccumulatedSearcher);
 
-        givenContext.buildSimpleSearcher();
+        givenContext.buildAndAccumulateSimpleSearcher();
 
         final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
                 .metadataSearchingManagerPredicate(Objects::isNull)
@@ -498,7 +498,7 @@ public final class SearchersParsingContextTest {
         final CompositeFuelSearcher givenSearcher = mock(CompositeFuelSearcher.class);
         when(givenCompositeSearcherBuilder.build()).thenReturn(givenSearcher);
 
-        givenContext.buildCompositeSearcher();
+        givenContext.buildAndAccumulateCompositeSearcher();
 
         final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
                 .metadataSearchingManagerPredicate(actual -> actual == givenMetadataSearchingManager)
@@ -555,7 +555,7 @@ public final class SearchersParsingContextTest {
         final CompositeFuelSearcher givenSearcher = mock(CompositeFuelSearcher.class);
         when(givenCompositeSearcherBuilder.build()).thenReturn(givenSearcher);
 
-        givenContext.buildCompositeSearcher();
+        givenContext.buildAndAccumulateCompositeSearcher();
 
         final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
                 .metadataSearchingManagerPredicate(Objects::isNull)

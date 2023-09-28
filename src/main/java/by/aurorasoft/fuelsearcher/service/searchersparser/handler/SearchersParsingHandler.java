@@ -19,10 +19,6 @@ public final class SearchersParsingHandler extends DefaultHandler {
     private final TagHandlerDictionary handlerDictionary;
     private final SearchersParsingContext context;
 
-    public List<FuelSearcher> findParsedSearchers() {
-        return this.context.findParsedSearchers();
-    }
-
     @Override
     public void startElement(final String uri,
                              final String localName,
@@ -42,6 +38,10 @@ public final class SearchersParsingHandler extends DefaultHandler {
         final String copy = copyValueOf(chars, start, length);
         final String trimmedCopy = copy.trim();
         this.context.setLastContent(trimmedCopy);
+    }
+
+    public List<FuelSearcher> findParsedSearchers() {
+        return this.context.findParsedSearchers();
     }
 
     private void handleTag(final String tagName, final BiConsumer<TagHandler, SearchersParsingContext> handlingFunction) {

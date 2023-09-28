@@ -23,6 +23,6 @@ public final class CompositeSearcherTagHandlerTest {
 
         this.tagHandler.handleEndTag(givenContext);
 
-        verify(givenContext, times(1)).buildCompositeSearcher();
+        verify(givenContext, times(1)).buildAndAccumulateCompositeSearcher();
     }
 }

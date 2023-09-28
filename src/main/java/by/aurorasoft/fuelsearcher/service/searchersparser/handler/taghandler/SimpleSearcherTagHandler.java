@@ -18,7 +18,7 @@ public final class SimpleSearcherTagHandler extends TagHandler {
 
     @Override
     public void handleEndTag(final SearchersParsingContext context) {
-        context.buildSimpleSearcher();
+        context.buildAndAccumulateSimpleSearcher();
     }
 
 }

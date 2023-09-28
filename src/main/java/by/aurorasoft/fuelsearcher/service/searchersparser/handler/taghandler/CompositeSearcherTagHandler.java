@@ -18,6 +18,6 @@ public final class CompositeSearcherTagHandler extends TagHandler {
 
     @Override
     public void handleEndTag(final SearchersParsingContext context) {
-        context.buildCompositeSearcher();
+        context.buildAndAccumulateCompositeSearcher();
     }
 }
