@@ -41,7 +41,7 @@ public final class FuelSearchersParserTest {
         when(this.mockedParsingHandlerFactory.create()).thenReturn(givenParsingHandler);
 
         final SearchersParsingResult givenResult = mock(SearchersParsingResult.class);
-        when(givenParsingHandler.findParsingResult()).thenReturn(givenResult);
+        when(givenParsingHandler.findParsedSearchers()).thenReturn(givenResult);
 
         final SearchersParsingResult actual = this.searchersParser.parse(givenFilePath);
         assertSame(givenResult, actual);

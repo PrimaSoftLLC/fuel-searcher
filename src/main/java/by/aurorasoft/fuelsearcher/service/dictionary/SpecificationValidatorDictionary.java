@@ -1,6 +1,5 @@
 package by.aurorasoft.fuelsearcher.service.dictionary;
 
-import by.aurorasoft.fuelsearcher.service.searchersparser.SearchersParsingResult;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator;
 import org.springframework.stereotype.Component;
 

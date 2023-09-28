@@ -18,7 +18,6 @@ import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher.SearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleSearcherBuilder;
-import by.aurorasoft.fuelsearcher.service.searchersparser.SearchersParsingResult;
 import by.aurorasoft.fuelsearcher.service.derivingsearcherfactory.refreshedtablesmetadata.metadatasearcher.PropertyMetadataSearchingManager;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator.SpecificationValidatorBuilder;
@@ -36,13 +35,7 @@ import java.util.function.Supplier;
 import static lombok.AccessLevel.PRIVATE;
 
 public final class SearchersParsingContext {
-    private final PropertyMetadataSearchingManager propertyMetadataSearchingManager;
-
     private final List<FuelSearcher> searchers;
-
-    private final List<SpecificationValidator> specificationValidators;
-
-    private final List<TableMetadata> tablesMetadata;
 
     @Setter(value = PRIVATE)
     @Getter(value = PRIVATE)
@@ -157,7 +150,7 @@ public final class SearchersParsingContext {
         }
     }
 
-    public SearchersParsingResult findResult() {
+    public List<FuelSearcher> findParsedSearchers() {
         return new SearchersParsingResult(this.searchers, this.specificationValidators, this.tablesMetadata);
     }
 

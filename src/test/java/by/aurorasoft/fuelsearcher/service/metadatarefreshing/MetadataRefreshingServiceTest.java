@@ -4,7 +4,6 @@ import by.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
 import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata;
 import by.aurorasoft.fuelsearcher.crud.service.PropertyMetadataService;
 import by.aurorasoft.fuelsearcher.crud.service.TableMetadataService;
-import by.aurorasoft.fuelsearcher.service.searchersparser.SearchersParsingResult;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

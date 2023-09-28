@@ -1,13 +1,14 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler;
 
 import by.aurorasoft.fuelsearcher.service.dictionary.TagHandlerDictionary;
+import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext;
 import by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.TagHandler;
-import by.aurorasoft.fuelsearcher.service.searchersparser.SearchersParsingResult;
 import lombok.RequiredArgsConstructor;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 
@@ -18,8 +19,8 @@ public final class SearchersParsingHandler extends DefaultHandler {
     private final TagHandlerDictionary handlerDictionary;
     private final SearchersParsingContext context;
 
-    public SearchersParsingResult findParsingResult() {
-        return this.context.findResult();
+    public List<FuelSearcher> findParsedSearchers() {
+        return this.context.findParsedSearchers();
     }
 
     @Override
