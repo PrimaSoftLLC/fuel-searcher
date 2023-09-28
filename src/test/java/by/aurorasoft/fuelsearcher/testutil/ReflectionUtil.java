@@ -10,28 +10,34 @@ public final class ReflectionUtil {
 
     public static <T> T createObject(final Class<T> objectType,
                                      final Class<?>[] constructorParameterTypes,
-                                     final Object[] constructorParameterValues)
-            throws Exception {
-        final Constructor<T> constructor = objectType.getDeclaredConstructor(constructorParameterTypes);
-        constructor.setAccessible(true);
+                                     final Object[] constructorParameterValues) {
         try {
-            return constructor.newInstance(constructorParameterValues);
-        } finally {
-            constructor.setAccessible(false);
+            final Constructor<T> constructor = objectType.getDeclaredConstructor(constructorParameterTypes);
+            constructor.setAccessible(true);
+            try {
+                return constructor.newInstance(constructorParameterValues);
+            } finally {
+                constructor.setAccessible(false);
+            }
+        } catch (final Exception cause) {
+            throw new RuntimeException(cause);
         }
     }
 
     public static <T> void setProperty(final T object,
                                        final Object propertyValue,
                                        final Class<? super T> objectType,
-                                       final String fieldName)
-            throws Exception {
-        final Field field = objectType.getDeclaredField(fieldName);
-        field.setAccessible(true);
+                                       final String fieldName) {
         try {
-            field.set(object, propertyValue);
-        } finally {
-            field.setAccessible(false);
+            final Field field = objectType.getDeclaredField(fieldName);
+            field.setAccessible(true);
+            try {
+                field.set(object, propertyValue);
+            } finally {
+                field.setAccessible(false);
+            }
+        } catch (final Exception cause) {
+            throw new RuntimeException(cause);
         }
     }
 
@@ -40,13 +46,17 @@ public final class ReflectionUtil {
                                         final String fieldName,
                                         final Class<P> propertyType)
             throws Exception {
-        final Field field = sourceType.getDeclaredField(fieldName);
-        field.setAccessible(true);
         try {
-            final Object property = field.get(source);
-            return propertyType.cast(property);
-        } finally {
-            field.setAccessible(false);
+            final Field field = sourceType.getDeclaredField(fieldName);
+            field.setAccessible(true);
+            try {
+                final Object property = field.get(source);
+                return propertyType.cast(property);
+            } finally {
+                field.setAccessible(false);
+            }
+        } catch (final Exception cause) {
+            throw new RuntimeException(cause);
         }
     }
 

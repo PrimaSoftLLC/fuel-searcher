@@ -2,6 +2,8 @@ package by.aurorasoft.fuelsearcher.service.searchersparser.handler;
 
 import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata;
 import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata.TableMetadataBuilder;
+import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher;
+import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher.CompositeSearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleSearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext;
@@ -112,6 +114,28 @@ public final class SearchersParsingContextTest {
 
         final TableMetadataBuilder actualTableMetadataBuilder = findTableMetadataBuilder(givenContext);
         assertNull(actualTableMetadataBuilder);
+    }
+
+    @Test
+    public void contextCollectingMetadataShouldStartParseCompositeSearcher()
+            throws Exception {
+        final PropertyMetadataSearchingManager givenMetadataSearchingManager = mock(
+                PropertyMetadataSearchingManager.class
+        );
+        final SearchersParsingContext givenContext = createContextCollectingMetadata(givenMetadataSearchingManager);
+
+        givenContext.startParseCompositeSearcher();
+
+        final CompositeSearcherBuilder actualSimpleSearcherBuilder = findSimpleSearcherBuilder(givenContext);
+        assertNotNull(actualSimpleSearcherBuilder);
+
+        final SpecificationValidatorBuilder actualSpecificationValidatorBuilder = findSpecificationValidatorBuilder(
+                givenContext
+        );
+        assertNotNull(actualSpecificationValidatorBuilder);
+
+        final TableMetadataBuilder actualTableMetadataBuilder = findTableMetadataBuilder(givenContext);
+        assertNotNull(actualTableMetadataBuilder);
     }
 
 //    @Test
@@ -695,6 +719,16 @@ public final class SearchersParsingContextTest {
                 SearchersParsingContext.class,
                 FIELD_NAME_TABLE_METADATA_BUILDER,
                 TableMetadataBuilder.class
+        );
+    }
+
+    private static CompositeSearcherBuilder findCompositeSearcherBuilder(final SearchersParsingContext context)
+            throws Exception {
+        return findProperty(
+                context,
+                SearchersParsingContext.class,
+                FIELD_NAME_COMPOSITE_SEARCHER_BUILDER,
+                CompositeSearcherBuilder.class
         );
     }
 }
