@@ -11,16 +11,15 @@ import static java.util.stream.Collectors.toMap;
 import static java.util.stream.IntStream.range;
 
 @RequiredArgsConstructor
-public abstract class FuelHeaderMetadataFactory<E extends SpecificationPropertyExtractor> {
+public abstract class FuelHeaderMetadataFactory<E extends SpecificationPropertyExtractor, M extends FuelHeaderMetadata> {
     private final E propertyExtractor;
 
-    public final FuelHeaderMetadata create(final String[] headerValues) {
+    public final M create(final String[] headerValues) {
         final Map<String, Integer> fuelOffsetsByHeaders = createFuelOffsetsByHeaders(headerValues);
         return this.create(this.propertyExtractor, fuelOffsetsByHeaders);
     }
 
-    protected abstract FuelHeaderMetadata create(final E propertyExtractor,
-                                                 final Map<String, Integer> fuelOffsetsByHeaders);
+    protected abstract M create(final E propertyExtractor, final Map<String, Integer> fuelOffsetsByHeaders);
 
     private static Map<String, Integer> createFuelOffsetsByHeaders(final String[] headerValues) {
         return range(0, headerValues.length)

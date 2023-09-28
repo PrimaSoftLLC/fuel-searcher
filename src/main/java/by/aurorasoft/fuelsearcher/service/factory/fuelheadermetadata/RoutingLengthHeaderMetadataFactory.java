@@ -7,7 +7,8 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 @Component
-public final class RoutingLengthHeaderMetadataFactory extends FuelHeaderMetadataFactory<RoutingLengthExtractor> {
+public final class RoutingLengthHeaderMetadataFactory
+        extends FuelHeaderMetadataFactory<RoutingLengthExtractor, RoutingLengthHeaderMetadata> {
 
     public RoutingLengthHeaderMetadataFactory(final RoutingLengthExtractor propertyExtractor) {
         super(propertyExtractor);

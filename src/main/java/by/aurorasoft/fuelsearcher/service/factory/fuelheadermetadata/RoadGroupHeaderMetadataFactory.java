@@ -7,7 +7,8 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 @Component
-public final class RoadGroupHeaderMetadataFactory extends FuelHeaderMetadataFactory<RoadGroupExtractor> {
+public final class RoadGroupHeaderMetadataFactory
+        extends FuelHeaderMetadataFactory<RoadGroupExtractor, RoadGroupHeaderMetadata> {
 
     public RoadGroupHeaderMetadataFactory(final RoadGroupExtractor roadGroupExtractor) {
         super(roadGroupExtractor);
