@@ -13,6 +13,7 @@ import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleSearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.derivingsearcherfactory.refreshedtablesmetadata.metadatasearcher.PropertyMetadataSearchingManager;
+import by.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsingContext;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator.SpecificationValidatorBuilder;
 import lombok.Builder;
@@ -30,8 +31,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext.createContextCollectingMetadata;
-import static by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext.createContextNotCollectingMetadata;
+import static by.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsingContext.createContextCollectingMetadata;
+import static by.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsingContext.createContextNotCollectingMetadata;
 import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
 import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.setProperty;
 import static org.junit.Assert.assertEquals;

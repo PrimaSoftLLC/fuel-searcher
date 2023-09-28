@@ -3,7 +3,7 @@ package by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.tr
 import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelsearcher.model.filter.factory.conclusive.FinalFilterFactory;
 import by.aurorasoft.fuelsearcher.service.dictionary.filter.FinalFilterFactoryDictionary;
-import by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext;
+import by.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsingContext;
 import org.springframework.stereotype.Component;
 
 import java.util.OptionalInt;

@@ -2,7 +2,7 @@ package by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.tr
 
 import by.aurorasoft.fuelsearcher.service.dictionary.Dictionary;
 import by.aurorasoft.fuelsearcher.service.dictionary.Translatable;
-import by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext;
+import by.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsingContext;
 import by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.TagHandler;
 import by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.translating.exception.NoSuchKeyException.NoSuchKeyExceptionFactory;
 

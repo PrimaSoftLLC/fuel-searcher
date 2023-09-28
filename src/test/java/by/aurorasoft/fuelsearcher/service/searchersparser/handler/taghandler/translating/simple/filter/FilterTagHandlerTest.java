@@ -2,7 +2,7 @@ package by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.tr
 
 import by.aurorasoft.fuelsearcher.model.filter.Filter;
 import by.aurorasoft.fuelsearcher.model.filter.factory.FilterFactory;
-import by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext;
+import by.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsingContext;
 import lombok.Getter;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.junit.Test;

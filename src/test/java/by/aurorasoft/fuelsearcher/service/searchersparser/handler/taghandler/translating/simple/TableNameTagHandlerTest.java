@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.translating.simple;
 
 import by.aurorasoft.fuelsearcher.model.FuelTable;
-import by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext;
+import by.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsingContext;
 import org.junit.Test;
 
 import static org.mockito.Mockito.*;

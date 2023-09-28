@@ -2,7 +2,6 @@ package by.aurorasoft.fuelsearcher.service.searchersparser.handler;
 
 import by.aurorasoft.fuelsearcher.service.dictionary.TagHandlerDictionary;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
-import by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext;
 import by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.TagHandler;
 import lombok.RequiredArgsConstructor;
 import org.xml.sax.Attributes;

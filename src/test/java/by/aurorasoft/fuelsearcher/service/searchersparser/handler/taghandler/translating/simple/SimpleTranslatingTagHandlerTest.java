@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.translating.simple;
 
 import by.aurorasoft.fuelsearcher.service.dictionary.Translatable;
-import by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext;
+import by.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsingContext;
 import org.junit.Test;
 
 import java.util.List;

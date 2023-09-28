@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.service.searchersparser.handler.context;
+package by.aurorasoft.fuelsearcher.service.searchersparser.handler;
 
 import by.aurorasoft.fuelsearcher.model.FuelTable;
 import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata;
@@ -26,6 +26,7 @@ import java.util.function.Supplier;
 
 import static lombok.AccessLevel.PRIVATE;
 
+//TODO: refactor tests
 public final class SearchersParsingContext {
     private final List<FuelSearcher> searchers;
 
