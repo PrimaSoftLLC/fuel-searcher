@@ -34,7 +34,6 @@ import java.util.function.Supplier;
 
 import static lombok.AccessLevel.PRIVATE;
 
-//TODO: refactor and refactor tests
 public final class SearchersParsingContext {
     private final PropertyMetadataSearchingManager propertyMetadataSearchingManager;
 
@@ -72,19 +71,16 @@ public final class SearchersParsingContext {
     @Getter
     private Attributes lastAttributes;
 
-    //TODO: refactored
     public static SearchersParsingContext createContextNotCollectingMetadata() {
         return new SearchersParsingContext(null, null);
     }
 
-    //TODO: refactored
     public static SearchersParsingContext createContextCollectingMetadata(
             final PropertyMetadataSearchingManager metadataSearchingManager
     ) {
         return new SearchersParsingContext(metadataSearchingManager, new ArrayList<>());
     }
 
-    //TODO: refactored
     private SearchersParsingContext(final PropertyMetadataSearchingManager propertyMetadataSearchingManager,
                                     final List<TableMetadata> tablesMetadata) {
         this.propertyMetadataSearchingManager = propertyMetadataSearchingManager;
@@ -93,12 +89,10 @@ public final class SearchersParsingContext {
         this.tablesMetadata = tablesMetadata;
     }
 
-    //TODO: already refactored
     public void startParseSimpleSearcher() {
         this.startParseSearcher(SimpleFuelSearcher::builder, this::setSimpleSearcherBuilder);
     }
 
-    //TODO: already refactored
     public void startParseCompositeSearcher() {
         this.startParseSearcher(CompositeFuelSearcher::builder, this::setCompositeSearcherBuilder);
         this.subTableTitleMetadataBuilder = this.createSubTableTitleMetadataBuilder();
@@ -192,7 +186,6 @@ public final class SearchersParsingContext {
         return new SearchersParsingResult(this.searchers, this.specificationValidators, this.tablesMetadata);
     }
 
-    //TODO: already refactored
     private <B extends SearcherBuilder<?>> void startParseSearcher(final Supplier<B> builderSupplier,
                                                                    final Consumer<B> builderSetter) {
         final B searcherBuilder = builderSupplier.get();
@@ -201,29 +194,24 @@ public final class SearchersParsingContext {
         this.tableMetadataBuilder = this.createTableMetadataBuilder();
     }
 
-    //TODO: already refactored
     private TableMetadataBuilder createTableMetadataBuilder() {
         return this.createBuilderIfMetadataCollectingRequired(TableMetadata::builder);
     }
 
-    //TODO: already refactored
     private SubTableTitleMetadataBuilder createSubTableTitleMetadataBuilder() {
         return this.createBuilderIfMetadataCollectingRequired(SubTableTitleMetadata::builder);
     }
 
-    //TODO: already refactored
     private <B extends BuilderRequiringAllProperties<?>> B createBuilderIfMetadataCollectingRequired(
             final Supplier<B> builderSupplier
     ) {
         return this.isMetadataCollectingRequired() ? builderSupplier.get() : null;
     }
 
-    //TODO: already refactored
     private boolean isMetadataCollectingRequired() {
         return this.propertyMetadataSearchingManager != null;
     }
 
-    //TODO: already refactored
     private <T> void accumulateComponentToCurrentSearcherBuilder(final T component,
                                                                  final BiConsumer<SearcherBuilder<?>, T> accumulatingOperation) {
         final SearcherBuilder<?> currentBuilder = this.findCurrentSearcherBuilder();

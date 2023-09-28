@@ -96,8 +96,22 @@ public final class SearchersParsingContextTest {
     }
 
     @Test
-    public void contextNotCollectingMetadataShouldStartParseSimpleSearcher() {
-        throw new RuntimeException();
+    public void contextNotCollectingMetadataShouldStartParseSimpleSearcher()
+            throws Exception {
+        final SearchersParsingContext givenContext = createContextNotCollectingMetadata();
+
+        givenContext.startParseSimpleSearcher();
+
+        final SimpleSearcherBuilder actualSimpleSearcherBuilder = findSimpleSearcherBuilder(givenContext);
+        assertNotNull(actualSimpleSearcherBuilder);
+
+        final SpecificationValidatorBuilder actualSpecificationValidatorBuilder = findSpecificationValidatorBuilder(
+                givenContext
+        );
+        assertNotNull(actualSpecificationValidatorBuilder);
+
+        final TableMetadataBuilder actualTableMetadataBuilder = findTableMetadataBuilder(givenContext);
+        assertNull(actualTableMetadataBuilder);
     }
 
 //    @Test
