@@ -55,7 +55,7 @@ public final class SubTableTitleMetadata {
     }
 
     @AllArgsConstructor(access = PRIVATE)
-    public final class SubTableTitleArgumentMetadata implements PropertyMetadataSource {
+    public final class SubTableTitleArgumentMetadata extends PropertyMetadataSource {
         private final int index;
 
         @Getter(value = PRIVATE)
