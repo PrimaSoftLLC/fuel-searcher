@@ -44,8 +44,7 @@ public final class ReflectionUtil {
     public static <S, P> P findProperty(final S source,
                                         final Class<? super S> sourceType,
                                         final String fieldName,
-                                        final Class<P> propertyType)
-            throws Exception {
+                                        final Class<P> propertyType) {
         try {
             final Field field = sourceType.getDeclaredField(fieldName);
             field.setAccessible(true);

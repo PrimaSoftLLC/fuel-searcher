@@ -22,6 +22,7 @@ public final class SearchersParsingResult {
     private final List<FuelSearcher> searchers;
     private final List<SpecificationValidator> specificationValidators;
 
+    //TODO: possible add volatile
     @Getter(value = NONE)
     @Setter(value = PRIVATE)
     private List<TableMetadata> tablesMetadata;

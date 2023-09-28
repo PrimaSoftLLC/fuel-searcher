@@ -2,7 +2,7 @@ package by.aurorasoft.fuelsearcher.service.searchersparser.handler;
 
 import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata;
 import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata.TableMetadataBuilder;
-import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher;
+import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata.SubTableTitleMetadataBuilder;
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher.CompositeSearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleSearcherBuilder;
@@ -10,9 +10,14 @@ import by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.Search
 import by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearcher.PropertyMetadataSearchingManager;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator;
 import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator.SpecificationValidatorBuilder;
+import lombok.Builder;
 import org.junit.Test;
+import org.xml.sax.Attributes;
 
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext.createContextCollectingMetadata;
 import static by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext.createContextNotCollectingMetadata;
@@ -32,8 +37,7 @@ public final class SearchersParsingContextTest {
     private static final String FIELD_NAME_TABLE_METADATA_BUILDER = "tableMetadataBuilder";
 
     @Test
-    public void contextNotCollectingMetadataShouldBeCreated()
-            throws Exception {
+    public void contextNotCollectingMetadataShouldBeCreated() {
         final SearchersParsingContext actual = createContextNotCollectingMetadata();
 
         final PropertyMetadataSearchingManager actualMetadataSearchingManager = findPropertyMetadataSearchingManager(
@@ -52,8 +56,7 @@ public final class SearchersParsingContextTest {
     }
 
     @Test
-    public void contextCollectingMetadataShouldBeCreated()
-            throws Exception {
+    public void contextCollectingMetadataShouldBeCreated() {
         final PropertyMetadataSearchingManager givenMetadataSearchingManager = mock(
                 PropertyMetadataSearchingManager.class
         );
@@ -76,8 +79,7 @@ public final class SearchersParsingContextTest {
     }
 
     @Test
-    public void contextCollectingMetadataShouldStartParseSimpleSearcher()
-            throws Exception {
+    public void contextCollectingMetadataShouldStartParseSimpleSearcher() {
         final PropertyMetadataSearchingManager givenMetadataSearchingManager = mock(
                 PropertyMetadataSearchingManager.class
         );
@@ -98,8 +100,7 @@ public final class SearchersParsingContextTest {
     }
 
     @Test
-    public void contextNotCollectingMetadataShouldStartParseSimpleSearcher()
-            throws Exception {
+    public void contextNotCollectingMetadataShouldStartParseSimpleSearcher() {
         final SearchersParsingContext givenContext = createContextNotCollectingMetadata();
 
         givenContext.startParseSimpleSearcher();
@@ -117,8 +118,7 @@ public final class SearchersParsingContextTest {
     }
 
     @Test
-    public void contextCollectingMetadataShouldStartParseCompositeSearcher()
-            throws Exception {
+    public void contextCollectingMetadataShouldStartParseCompositeSearcher() {
         final PropertyMetadataSearchingManager givenMetadataSearchingManager = mock(
                 PropertyMetadataSearchingManager.class
         );
@@ -126,8 +126,8 @@ public final class SearchersParsingContextTest {
 
         givenContext.startParseCompositeSearcher();
 
-        final CompositeSearcherBuilder actualSimpleSearcherBuilder = findSimpleSearcherBuilder(givenContext);
-        assertNotNull(actualSimpleSearcherBuilder);
+        final CompositeSearcherBuilder actualCompositeSearcherBuilder = findCompositeSearcherBuilder(givenContext);
+        assertNotNull(actualCompositeSearcherBuilder);
 
         final SpecificationValidatorBuilder actualSpecificationValidatorBuilder = findSpecificationValidatorBuilder(
                 givenContext
@@ -136,6 +136,135 @@ public final class SearchersParsingContextTest {
 
         final TableMetadataBuilder actualTableMetadataBuilder = findTableMetadataBuilder(givenContext);
         assertNotNull(actualTableMetadataBuilder);
+
+        final SubTableTitleMetadataBuilder actualSubTableTitleMetadataBuilder = findSubTableTitleMetadataBuilder(
+                givenContext
+        );
+        assertNotNull(actualSubTableTitleMetadataBuilder);
+    }
+
+    @Test
+    public void contextNotCollectingMetadataShouldStartParseCompositeSearcher() {
+        final SearchersParsingContext givenContext = createContextNotCollectingMetadata();
+
+        givenContext.startParseCompositeSearcher();
+
+        final CompositeSearcherBuilder actualCompositeSearcherBuilder = findCompositeSearcherBuilder(givenContext);
+        assertNotNull(actualCompositeSearcherBuilder);
+
+        final SpecificationValidatorBuilder actualSpecificationValidatorBuilder = findSpecificationValidatorBuilder(
+                givenContext
+        );
+        assertNotNull(actualSpecificationValidatorBuilder);
+
+        final TableMetadataBuilder actualTableMetadataBuilder = findTableMetadataBuilder(givenContext);
+        assertNull(actualTableMetadataBuilder);
+
+        final SubTableTitleMetadataBuilder actualSubTableTitleMetadataBuilder = findSubTableTitleMetadataBuilder(
+                givenContext
+        );
+        assertNull(actualSubTableTitleMetadataBuilder);
+    }
+
+    private static final class ContextStateValidator {
+        private final Predicate<SearchersParsingContext> metadataSearchingManagerPredicate;
+        private final Predicate<SearchersParsingContext> searchersPredicate;
+        private final Predicate<SearchersParsingContext> specificationValidatorsPredicate;
+        private final Predicate<SearchersParsingContext> tablesMetadataPredicate;
+        private final Predicate<SearchersParsingContext> simpleSearcherBuilderPredicate;
+        private final Predicate<SearchersParsingContext> compositeSearcherBuilderPredicate;
+        private final Predicate<SearchersParsingContext> subTableTitleMetadataBuilderPredicate;
+        private final Predicate<SearchersParsingContext> specificationValidatorBuilderPredicate;
+        private final Predicate<SearchersParsingContext> tableMetadataBuilderPredicate;
+        private final Predicate<SearchersParsingContext> lastContentPredicate;
+        private final Predicate<SearchersParsingContext> lastAttributesPredicate;
+
+        @Builder
+        public ContextStateValidator(final Predicate<PropertyMetadataSearchingManager> metadataSearchingManagerPredicate,
+                                     final Predicate<List<FuelSearcher>> searchersPredicate,
+                                     final Predicate<List<SpecificationValidator>> specificationValidatorsPredicate,
+                                     final Predicate<List<TableMetadata>> tablesMetadataPredicate,
+                                     final Predicate<SimpleSearcherBuilder> simpleSearcherBuilderPredicate,
+                                     final Predicate<CompositeSearcherBuilder> compositeSearcherBuilderPredicate,
+                                     final Predicate<SubTableTitleMetadataBuilder> subTableTitleMetadataBuilderPredicate,
+                                     final Predicate<SpecificationValidatorBuilder> specificationValidatorBuilderPredicate,
+                                     final Predicate<TableMetadataBuilder> tableMetadataBuilderPredicate,
+                                     final Predicate<String> lastContentPredicate,
+                                     final Predicate<Attributes> lastAttributesPredicate) {
+            this.metadataSearchingManagerPredicate = mapToContextPredicate(
+                    metadataSearchingManagerPredicate,
+                    SearchersParsingContextTest::findPropertyMetadataSearchingManager
+            );
+            this.searchersPredicate = mapToContextPredicate(
+                    searchersPredicate,
+                    SearchersParsingContextTest::findSearchers
+            );
+            this.specificationValidatorsPredicate = mapToContextPredicate(
+                    specificationValidatorsPredicate,
+                    SearchersParsingContextTest::findSpecificationValidators
+            );
+            this.tablesMetadataPredicate = mapToContextPredicate(
+                    tablesMetadataPredicate,
+                    SearchersParsingContextTest::findTablesMetadata
+            );
+            this.simpleSearcherBuilderPredicate = mapToContextPredicate(
+                    simpleSearcherBuilderPredicate,
+                    SearchersParsingContextTest::findSimpleSearcherBuilder
+            );
+            this.compositeSearcherBuilderPredicate = mapToContextPredicate(
+                    compositeSearcherBuilderPredicate,
+                    SearchersParsingContextTest::findCompositeSearcherBuilder
+            );
+            this.subTableTitleMetadataBuilderPredicate = mapToContextPredicate(
+                    subTableTitleMetadataBuilderPredicate,
+                    SearchersParsingContextTest::findSubTableTitleMetadataBuilder
+            );
+            this.specificationValidatorBuilderPredicate = mapToContextPredicate(
+                    specificationValidatorBuilderPredicate,
+                    SearchersParsingContextTest::findSpecificationValidatorBuilder
+            );
+            this.tableMetadataBuilderPredicate = mapToContextPredicate(
+                    tableMetadataBuilderPredicate,
+                    SearchersParsingContextTest::findTableMetadataBuilder
+            );
+            this.lastContentPredicate = mapToContextPredicate(
+                    lastContentPredicate,
+                    SearchersParsingContext::getLastContent
+            );
+            this.lastAttributesPredicate = mapToContextPredicate(
+                    lastAttributesPredicate,
+                    SearchersParsingContext::getLastAttributes
+            );
+        }
+
+        public boolean isValid(final SearchersParsingContext context) {
+            final Predicate<SearchersParsingContext> contextStatePredicate = this.createContextStatePredicate();
+            return contextStatePredicate.test(context);
+        }
+
+        private static <P> Predicate<SearchersParsingContext> mapToContextPredicate(
+                final Predicate<P> propertyPredicate,
+                final Function<SearchersParsingContext, P> propertyExtractor
+        ) {
+            return context -> propertyPredicate.test(propertyExtractor.apply(context));
+        }
+
+        private Predicate<SearchersParsingContext> createContextStatePredicate() {
+            return Stream.of(
+                    this.metadataSearchingManagerPredicate,
+                    this.searchersPredicate,
+                    this.specificationValidatorsPredicate,
+                    this.tablesMetadataPredicate,
+                    this.simpleSearcherBuilderPredicate,
+                    this.compositeSearcherBuilderPredicate,
+                    this.subTableTitleMetadataBuilderPredicate,
+                    this.specificationValidatorBuilderPredicate,
+                    this.specificationValidatorBuilderPredicate,
+                    this.tableMetadataBuilderPredicate,
+                    this.lastContentPredicate,
+                    this.lastAttributesPredicate
+            ).reduce(Predicate::and).orElseThrow(IllegalStateException::new);
+        }
     }
 
 //    @Test
@@ -649,7 +778,7 @@ public final class SearchersParsingContextTest {
 
     private static PropertyMetadataSearchingManager findPropertyMetadataSearchingManager(
             final SearchersParsingContext context
-    ) throws Exception {
+    ) {
         return findProperty(
                 context,
                 SearchersParsingContext.class,
@@ -659,8 +788,7 @@ public final class SearchersParsingContextTest {
     }
 
     @SuppressWarnings("unchecked")
-    private static List<FuelSearcher> findSearchers(final SearchersParsingContext context)
-            throws Exception {
+    private static List<FuelSearcher> findSearchers(final SearchersParsingContext context) {
         return findProperty(
                 context,
                 SearchersParsingContext.class,
@@ -670,8 +798,7 @@ public final class SearchersParsingContextTest {
     }
 
     @SuppressWarnings("unchecked")
-    private static List<SpecificationValidator> findSpecificationValidators(final SearchersParsingContext context)
-            throws Exception {
+    private static List<SpecificationValidator> findSpecificationValidators(final SearchersParsingContext context) {
         return findProperty(
                 context,
                 SearchersParsingContext.class,
@@ -681,8 +808,7 @@ public final class SearchersParsingContextTest {
     }
 
     @SuppressWarnings("unchecked")
-    private static List<TableMetadata> findTablesMetadata(final SearchersParsingContext context)
-            throws Exception {
+    private static List<TableMetadata> findTablesMetadata(final SearchersParsingContext context) {
         return findProperty(
                 context,
                 SearchersParsingContext.class,
@@ -691,8 +817,7 @@ public final class SearchersParsingContextTest {
         );
     }
 
-    private static SimpleSearcherBuilder findSimpleSearcherBuilder(final SearchersParsingContext context)
-            throws Exception {
+    private static SimpleSearcherBuilder findSimpleSearcherBuilder(final SearchersParsingContext context) {
         return findProperty(
                 context,
                 SearchersParsingContext.class,
@@ -703,7 +828,7 @@ public final class SearchersParsingContextTest {
 
     private static SpecificationValidatorBuilder findSpecificationValidatorBuilder(
             final SearchersParsingContext context
-    ) throws Exception {
+    ) {
         return findProperty(
                 context,
                 SearchersParsingContext.class,
@@ -712,8 +837,7 @@ public final class SearchersParsingContextTest {
         );
     }
 
-    private static TableMetadataBuilder findTableMetadataBuilder(final SearchersParsingContext context)
-            throws Exception {
+    private static TableMetadataBuilder findTableMetadataBuilder(final SearchersParsingContext context) {
         return findProperty(
                 context,
                 SearchersParsingContext.class,
@@ -722,13 +846,21 @@ public final class SearchersParsingContextTest {
         );
     }
 
-    private static CompositeSearcherBuilder findCompositeSearcherBuilder(final SearchersParsingContext context)
-            throws Exception {
+    private static CompositeSearcherBuilder findCompositeSearcherBuilder(final SearchersParsingContext context) {
         return findProperty(
                 context,
                 SearchersParsingContext.class,
                 FIELD_NAME_COMPOSITE_SEARCHER_BUILDER,
                 CompositeSearcherBuilder.class
+        );
+    }
+
+    private static SubTableTitleMetadataBuilder findSubTableTitleMetadataBuilder(final SearchersParsingContext context) {
+        return findProperty(
+                context,
+                SearchersParsingContext.class,
+                FIELD_NAME_SUB_TABLE_TITLE_METADATA_BUILDER,
+                SubTableTitleMetadataBuilder.class
         );
     }
 }
