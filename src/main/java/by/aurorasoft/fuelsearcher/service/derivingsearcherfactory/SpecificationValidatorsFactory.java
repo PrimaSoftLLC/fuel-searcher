@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.service.specificationvalidatorsfactory;
+package by.aurorasoft.fuelsearcher.service.derivingsearcherfactory;
 
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
@@ -7,17 +7,15 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-//TODO: test
 @Component
-public final class SpecificationValidatorsFactory {
+public final class SpecificationValidatorsFactory extends DerivingSearcherFactory<SpecificationValidator> {
 
-    public List<SpecificationValidator> create(final List<FuelSearcher> searchers) {
-        return searchers.stream()
-                .map(SpecificationValidatorsFactory::createAppropriateValidator)
-                .toList();
+    public SpecificationValidatorsFactory(final List<FuelSearcher> searchers) {
+        super(searchers);
     }
 
-    private static SpecificationValidator createAppropriateValidator(final FuelSearcher searcher) {
+    @Override
+    protected SpecificationValidator createDerivedObject(final FuelSearcher searcher) {
         final String tableName = searcher.findTableName();
         final List<SpecificationPropertyExtractor> requiredPropertyExtractors = searcher.findPropertyExtractors();
         return new SpecificationValidator(tableName, requiredPropertyExtractors);
