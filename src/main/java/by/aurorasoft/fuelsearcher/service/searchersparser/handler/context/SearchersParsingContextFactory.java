@@ -1,6 +1,6 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler.context;
 
-import by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearcher.PropertyMetadataSearchingManager;
+import by.aurorasoft.fuelsearcher.service.derivingsearcherfactory.refreshedtablesmetadata.metadatasearcher.PropertyMetadataSearchingManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearcher.filter;
 
 import by.aurorasoft.fuelsearcher.model.filter.interim.unit.UnitFilter;
-import by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearcher.filter.UnitFilterPropertyMetadataSearcher;
+import by.aurorasoft.fuelsearcher.service.derivingsearcherfactory.refreshedtablesmetadata.metadatasearcher.filter.UnitFilterPropertyMetadataSearcher;
 import by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.junit.Test;

@@ -3,6 +3,7 @@ package by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearc
 import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata;
 import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata.SubTableTitleArgumentMetadata;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
+import by.aurorasoft.fuelsearcher.service.derivingsearcherfactory.refreshedtablesmetadata.metadatasearcher.SubTableTitleArgumentMetadataSearcher;
 import by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
