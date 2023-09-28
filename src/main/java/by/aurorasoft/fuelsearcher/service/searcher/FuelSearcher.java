@@ -25,10 +25,8 @@ import java.util.stream.Stream;
 import static by.aurorasoft.fuelsearcher.util.StreamUtil.concat;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findFirstCellIndexByContent;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.extractCellDoubleValue;
-import static java.util.function.Function.identity;
-import static java.util.stream.Collectors.toMap;
-import static java.util.stream.IntStream.range;
 
+//TODO: refactor tests
 @Getter
 public abstract class FuelSearcher implements Translatable {
     private static final int HEADER_ROW_INDEX = 1;
@@ -95,13 +93,17 @@ public abstract class FuelSearcher implements Translatable {
     private Optional<FuelLocation> findFuelLocation(final XWPFTableRow headerRow,
                                                     final FuelSpecification specification,
                                                     final XWPFTableRow fuelRow) {
-        final SpecificationPropertyExtractor headerExtractor = this.headerMetadata.getValueExtractor();
-        final String fuelHeader = headerExtractor.extract(specification);
+        final String fuelHeader = this.findFuelHeader(specification);
         return findFirstCellIndexByContent(headerRow, fuelHeader)
                 .stream()
                 .map(fuelHeaderCellIndex -> this.findGenerationNormCellIndex(fuelHeaderCellIndex, fuelHeader))
                 .mapToObj(generationNormCellIndex -> createFuelLocation(fuelRow, generationNormCellIndex))
                 .findFirst();
+    }
+
+    private String findFuelHeader(final FuelSpecification specification) {
+        final SpecificationPropertyExtractor headerExtractor = this.headerMetadata.getValueExtractor();
+        return headerExtractor.extract(specification);
     }
 
     private int findGenerationNormCellIndex(final int fuelHeaderCellIndex, final String fuelHeader) {
@@ -161,8 +163,8 @@ public abstract class FuelSearcher implements Translatable {
 
         private FilterChainBuilder filterChainBuilder;
 
-        public final void table(final FuelTable fuelTable) {
-            this.table = fuelTable;
+        public final void table(final FuelTable table) {
+            this.table = table;
         }
 
         public final void headerMetadata(final FuelHeaderMetadata metadata) {
@@ -190,18 +192,16 @@ public abstract class FuelSearcher implements Translatable {
         protected final S buildAfterStateValidation() {
             this.validateFuelTable(this.table);
             final FilterChain filterChain = this.filterChainBuilder.build();
-            final SpecificationPropertyExtractor headerExtractor = this.headerMetadata.getValueExtractor();
-            return this.build(this.table, fuelOffsetsByHeaders, filterChain, headerExtractor);
+            return this.build(this.table, this.headerMetadata, filterChain);
         }
 
         protected abstract boolean isValidElements(final List<IBodyElement> elements);
 
         protected abstract String findNotValidElementsMessage();
 
-        protected abstract S build(final FuelTable fuelTable,
-                                   final Map<String, Integer> fuelOffsetsByHeaders,
-                                   final FilterChain filterChain,
-                                   final SpecificationPropertyExtractor headerExtractor);
+        protected abstract S build(final FuelTable table,
+                                   final FuelHeaderMetadata headerMetadata,
+                                   final FilterChain filterChain);
 
         protected abstract Stream<Object> findAdditionalProperties();
 
