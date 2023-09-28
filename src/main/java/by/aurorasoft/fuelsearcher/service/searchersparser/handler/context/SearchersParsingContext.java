@@ -1,5 +1,6 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler.context;
 
+import by.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
 import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata;
 import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata.TableMetadataBuilder;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
@@ -117,15 +118,7 @@ public final class SearchersParsingContext {
     }
 
     public void buildCompositeSearcher() {
-        final SubTableTitleMetadata metadata = this.subTableTitleMetadataBuilder.build();
-//        metadata.getArgumentsMetadata().forEach(argumentMetadata -> this.tableMetadataBuilder.propertyMetadata(
-//                this.propertyMetadataSearchingManager.findIfNecessary(this.findCurrentSearcherBuilder().getTable(), argumentMetadata)));
-
-        buildAndAccumulateComponent(
-                this::getSubTableTitleMetadataBuilder,
-                this.compositeSearcherBuilder::subTableTitleMetadata,
-                this::setSubTableTitleMetadataBuilder
-        );
+        this.buildAndAccumulateSubTableTitleMetadata();
         this.buildAndAccumulateSearcher(
                 this::getCompositeSearcherBuilder,
                 this::setCompositeSearcherBuilder
@@ -265,7 +258,16 @@ public final class SearchersParsingContext {
         }
     }
 
-    private static <T, B extends BuilderRequiringAllProperties<T>> void buildAndAccumulateComponent(
+    private void buildAndAccumulateSubTableTitleMetadata() {
+        final SubTableTitleMetadata metadata = buildAndAccumulateComponent(
+                this::getSubTableTitleMetadataBuilder,
+                this.compositeSearcherBuilder::subTableTitleMetadata,
+                this::setSubTableTitleMetadataBuilder
+        );
+        metadata.getArgumentsMetadata().forEach(this::accumulatePropertyMetadata);
+    }
+
+    private static <T, B extends BuilderRequiringAllProperties<T>> T buildAndAccumulateComponent(
             final Supplier<B> componentBuilderGetter,
             final Consumer<T> accumulatingOperation,
             final Consumer<B> builderSetter) {
@@ -273,17 +275,13 @@ public final class SearchersParsingContext {
         final T component = componentBuilder.build();
         accumulatingOperation.accept(component);
         builderSetter.accept(null);
-    }
-
-    private void accumulateSubTableTitleMetadata() {
-        final SubTableTitleMetadata metadata = this.subTableTitleMetadataBuilder.build();
-        metadata.getArgumentsMetadata().forEach(this::accumulatePropertyMetadata);
+        return component;
     }
 
     private void accumulatePropertyMetadata(final PropertyMetadataSource source) {
         final FuelTable currentTable = this.findCurrentTable();
-//        final PropertyMetadata propertyMetadata = this.propertyMetadataSearchingManager.findIfNecessary(currentTable, source);
-//        this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
+        final PropertyMetadata propertyMetadata = this.propertyMetadataSearchingManager.find(currentTable, source);
+        this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
     }
 
     private FuelTable findCurrentTable() {
