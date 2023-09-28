@@ -96,7 +96,7 @@ public final class SearchersParsingContext {
 
     public void startParseCompositeSearcher() {
         this.startParseSearcher(CompositeFuelSearcher::builder, this::setCompositeSearcherBuilder);
-        this.subTableTitleMetadataBuilder = this.createSubTableTitleMetadataBuilder();
+        this.subTableTitleMetadataBuilder = SubTableTitleMetadata.builder();
     }
 
     public void accumulateFuelTable(final FuelTable fuelTable) {
@@ -152,7 +152,9 @@ public final class SearchersParsingContext {
 
     public void accumulateSubTableTitleTemplateArgumentExtractor(final SpecificationPropertyExtractor extractor) {
         this.specificationValidatorBuilder.requiredPropertyExtractor(extractor);
-        this.subTableTitleMetadataBuilder.argumentExtractor(extractor);
+        if (this.isMetadataCollectingRequired()) {
+            this.subTableTitleMetadataBuilder.argumentExtractor(extractor);
+        }
     }
 
     public SearchersParsingResult findResult() {

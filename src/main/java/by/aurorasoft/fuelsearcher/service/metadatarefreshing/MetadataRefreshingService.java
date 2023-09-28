@@ -5,6 +5,7 @@ import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata;
 import by.aurorasoft.fuelsearcher.crud.service.PropertyMetadataService;
 import by.aurorasoft.fuelsearcher.crud.service.TableMetadataService;
 import by.aurorasoft.fuelsearcher.service.searchersparser.SearchersParsingResult;
+import by.aurorasoft.fuelsearcher.service.searchersparser.handler.metadatasearcher.PropertyMetadataSearchingManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
@@ -17,7 +18,6 @@ import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
-@ConditionalOnProperty(prefix = "metadata-refreshing", name = "enable", havingValue = "true")
 public class MetadataRefreshingService {
     private final TableMetadataService tableMetadataService;
     private final PropertyMetadataService propertyMetadataService;

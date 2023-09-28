@@ -48,6 +48,11 @@ public abstract class FuelSearcher implements Translatable {
 
     @Override
     public final String findAlias() {
+        return this.findTableName();
+    }
+
+    //TODO: test
+    public final String findTableName() {
         return this.table.name();
     }
 
