@@ -19,7 +19,7 @@ public final class FuelHeaderPropertyMetadataSearcher extends PropertyMetadataSe
     @Override
     protected Stream<String> findAllowableValues(final List<IBodyElement> tableElements,
                                                  final FuelHeaderMetadata headerMetadata) {
-        final String[] allowableValues = headerMetadata.getValues();
+        final String[] allowableValues = headerMetadata.findValues();
         return stream(allowableValues);
     }
 

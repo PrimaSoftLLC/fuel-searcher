@@ -17,7 +17,6 @@ import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.function.ToIntFunction;
 import java.util.stream.Stream;
@@ -112,16 +111,11 @@ public abstract class FuelSearcher implements Translatable {
     }
 
     private int findFuelOffset(final String fuelHeader) {
-        final Map<String, Integer> fuelOffsetsByValues = this.headerMetadata.getFuelOffsetsByValues();
-        return fuelOffsetsByValues.computeIfAbsent(
-                fuelHeader,
-                FuelSearcher::throwFuelOffsetNotExistException
-        );
-    }
-
-    private static Integer throwFuelOffsetNotExistException(final String fuelHeader) {
-        throw new FuelOffsetNotExistException(
-                "Fuel's offset for header's value '%s' doesn't exist".formatted(fuelHeader)
+        final Optional<Integer> optionalFuelOffset = this.headerMetadata.findFuelOffset(fuelHeader);
+        return optionalFuelOffset.orElseThrow(
+                () -> new FuelOffsetNotExistException(
+                        "Fuel's offset for header's value '%s' doesn't exist".formatted(fuelHeader)
+                )
         );
     }
 
