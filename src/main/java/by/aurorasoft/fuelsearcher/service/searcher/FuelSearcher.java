@@ -101,7 +101,7 @@ public abstract class FuelSearcher implements Translatable {
     }
 
     private String findFuelHeader(final FuelSpecification specification) {
-        final SpecificationPropertyExtractor headerExtractor = this.headerMetadata.getValueExtractor();
+        final SpecificationPropertyExtractor headerExtractor = this.headerMetadata.getPropertyExtractor();
         return headerExtractor.extract(specification);
     }
 

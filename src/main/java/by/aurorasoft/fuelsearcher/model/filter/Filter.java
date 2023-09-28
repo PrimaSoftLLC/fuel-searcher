@@ -4,24 +4,22 @@ import by.aurorasoft.fuelsearcher.model.PropertyMetadataSource;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.util.List;
 
-@RequiredArgsConstructor
+//TODO: refactor and refactor tests
 @Getter
-public abstract class Filter<R> implements PropertyMetadataSource {
-    private final SpecificationPropertyExtractor filtrationValueExtractor;
+public abstract class Filter<R> extends PropertyMetadataSource {
     private final int filtrationCellIndex;
 
-    @Override
-    public final String findPropertyName() {
-        return this.filtrationValueExtractor.getPropertyName();
+    public Filter(final SpecificationPropertyExtractor filtrationValueExtractor, final int filtrationCellIndex) {
+        super(filtrationValueExtractor);
+        this.filtrationCellIndex = filtrationCellIndex;
     }
 
     public final R filter(final List<XWPFTableRow> rows, final FuelSpecification specification) {
-        final String filtrationValue = this.filtrationValueExtractor.extract(specification);
+        final String filtrationValue = this.getPropertyExtractor().extract(specification);
         return this.filter(rows, filtrationValue, this.filtrationCellIndex);
     }
 
