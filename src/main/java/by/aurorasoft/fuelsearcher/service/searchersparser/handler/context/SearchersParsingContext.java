@@ -125,8 +125,7 @@ public final class SearchersParsingContext {
                 FuelHeaderMetadata::getHeaderExtractor,
                 SearcherBuilder::headerMetadata
         );
-        final PropertyMetadata propertyMetadata = this.propertyMetadataSearchingManager.find(this.findCurrentSearcherBuilder().getTable(), metadata);
-        this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
+        this.accumulatePropertyMetadataIfMetadataCollectingRequired(metadata);
     }
 
     public void accumulateFilter(final InterimFilter filter) {
@@ -135,8 +134,7 @@ public final class SearchersParsingContext {
                 InterimFilter::getFiltrationValueExtractor,
                 SearcherBuilder::interimFilter
         );
-        final PropertyMetadata propertyMetadata = this.propertyMetadataSearchingManager.find(this.findCurrentSearcherBuilder().getTable(), filter);
-        this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
+        this.accumulatePropertyMetadataIfMetadataCollectingRequired(filter);
     }
 
     public void accumulateFilter(final FinalFilter filter) {
@@ -145,8 +143,7 @@ public final class SearchersParsingContext {
                 FinalFilter::getFiltrationValueExtractor,
                 SearcherBuilder::finalFilter
         );
-        final PropertyMetadata propertyMetadata = this.propertyMetadataSearchingManager.find(this.findCurrentSearcherBuilder().getTable(), filter);
-        this.tableMetadataBuilder.propertyMetadata(propertyMetadata);
+        this.accumulatePropertyMetadataIfMetadataCollectingRequired(filter);
     }
 
     public void accumulateSubTableTitleTemplate(final String template) {
@@ -272,6 +269,12 @@ public final class SearchersParsingContext {
         accumulatingOperation.accept(component);
         builderSetter.accept(null);
         return component;
+    }
+
+    private void accumulatePropertyMetadataIfMetadataCollectingRequired(final PropertyMetadataSource source) {
+        if (this.isMetadataCollectingRequired()) {
+            this.accumulatePropertyMetadata(source);
+        }
     }
 
     private void accumulatePropertyMetadata(final PropertyMetadataSource source) {

@@ -578,6 +578,8 @@ public final class SearchersParsingContextTest {
         verify(givenTableMetadataBuilder, times(0)).propertyMetadata(any(PropertyMetadata.class));
     }
 
+
+
     private static final class ContextStateMatcher {
         private final Predicate<SearchersParsingContext> metadataSearchingManagerPredicate;
         private final Predicate<SearchersParsingContext> searchersPredicate;
