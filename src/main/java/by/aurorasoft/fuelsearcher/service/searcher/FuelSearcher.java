@@ -27,13 +27,19 @@ import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.IntStream.range;
 import static java.util.stream.Stream.concat;
+import static lombok.AccessLevel.NONE;
 
+@Getter
 public abstract class FuelSearcher implements Translatable {
     private static final int HEADER_ROW_INDEX = 1;
 
     private final FuelTable table;
+
+    @Getter(value = NONE)
     private final Map<String, Integer> fuelOffsetsByHeaders;
+
     private final FilterChain filterChain;
+
     private final SpecificationPropertyExtractor headerExtractor;
 
     public FuelSearcher(final FuelTable table,
@@ -54,6 +60,13 @@ public abstract class FuelSearcher implements Translatable {
     //TODO: test
     public final String findTableName() {
         return this.table.name();
+    }
+
+    public final List<SpecificationPropertyExtractor> findPropertyExtractors() {
+        return concat(
+                this.filterChain.findPropertyExtractors(),
+                Stream.of(this.headerExtractor)
+        ).toList();
     }
 
     public final Optional<Fuel> find(final FuelSpecification specification) {

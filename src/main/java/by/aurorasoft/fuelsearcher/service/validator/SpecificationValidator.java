@@ -15,14 +15,11 @@ import java.util.stream.Stream;
 import static java.util.Collections.unmodifiableList;
 import static lombok.AccessLevel.PRIVATE;
 
-@RequiredArgsConstructor(access = PRIVATE)
+//TODO: refactor tests
+@RequiredArgsConstructor
 public final class SpecificationValidator implements Translatable {
     private final String tableName;
     private final List<SpecificationPropertyExtractor> requiredPropertyExtractors;
-
-    public static SpecificationValidatorBuilder builder() {
-        return new SpecificationValidatorBuilder();
-    }
 
     @Override
     public String findAlias() {
@@ -65,39 +62,5 @@ public final class SpecificationValidator implements Translatable {
                                                      final FuelSpecification specification) {
         final Optional<String> optionalProperty = extractor.find(specification);
         return optionalProperty.isEmpty();
-    }
-
-    public static final class SpecificationValidatorBuilder
-            extends BuilderRequiringAllProperties<SpecificationValidator> {
-        private String tableName;
-        private List<SpecificationPropertyExtractor> requiredPropertyExtractors;
-
-        public void tableName(final String tableName) {
-            this.tableName = tableName;
-        }
-
-        public void requiredPropertyExtractor(final SpecificationPropertyExtractor extractor) {
-            this.initializeRequiredPropertyExtractorsIfNecessary();
-            this.requiredPropertyExtractors.add(extractor);
-        }
-
-        @Override
-        protected Stream<Object> findProperties() {
-            return Stream.of(this.tableName, this.requiredPropertyExtractors);
-        }
-
-        @Override
-        protected SpecificationValidator buildAfterStateValidation() {
-            final List<SpecificationPropertyExtractor> immutableExtractors = unmodifiableList(
-                    this.requiredPropertyExtractors
-            );
-            return new SpecificationValidator(this.tableName, immutableExtractors);
-        }
-
-        private void initializeRequiredPropertyExtractorsIfNecessary() {
-            if (this.requiredPropertyExtractors == null) {
-                this.requiredPropertyExtractors = new ArrayList<>();
-            }
-        }
     }
 }

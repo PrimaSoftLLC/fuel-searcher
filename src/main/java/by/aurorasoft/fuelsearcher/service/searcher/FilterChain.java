@@ -3,8 +3,10 @@ package by.aurorasoft.fuelsearcher.service.searcher;
 import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
+import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelsearcher.service.builder.BuilderRequiringAllProperties;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
@@ -17,7 +19,8 @@ import java.util.stream.Stream;
 import static lombok.AccessLevel.PRIVATE;
 
 @AllArgsConstructor(access = PRIVATE)
-public class FilterChain {
+@Getter
+public final class FilterChain {
     private final List<InterimFilter> interimFilters;
     private final FinalFilter finalFilter;
 
@@ -28,6 +31,10 @@ public class FilterChain {
     public Optional<XWPFTableRow> filter(final List<XWPFTableRow> rows, final FuelSpecification specification) {
         final FinalFilteringFunction filteringFunction = this.createFilteringFunction(specification);
         return filteringFunction.apply(rows);
+    }
+
+    public Stream<SpecificationPropertyExtractor> findPropertyExtractors() {
+
     }
 
     private FinalFilteringFunction createFilteringFunction(final FuelSpecification specification) {
