@@ -6,10 +6,12 @@ import by.aurorasoft.fuelsearcher.service.dictionary.Translatable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.Map;
+
 @AllArgsConstructor
 @Getter
 public abstract class FuelHeaderMetadata implements Translatable, PropertyMetadataSource {
-    private final String[] values;
+    private final Map<String, Integer> fuelOffsetsByValues;
     private final SpecificationPropertyExtractor headerExtractor;
 
     @Override

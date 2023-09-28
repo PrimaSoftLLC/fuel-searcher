@@ -33,11 +33,16 @@ public final class FilterChain {
     }
 
     //TODO: test
-    public Stream<SpecificationPropertyExtractor> findPropertyExtractors() {
+    public Stream<Filter<?>> findFilters() {
         return Stream.concat(
                 this.interimFilters.stream(),
                 Stream.of(this.finalFilter)
-        ).map(Filter::getFiltrationValueExtractor);
+        );
+    }
+
+    //TODO: test
+    public Stream<SpecificationPropertyExtractor> findPropertyExtractors() {
+        return this.findFilters().map(Filter::getFiltrationValueExtractor);
     }
 
     private FinalFilteringFunction createFilteringFunction(final FuelSpecification specification) {

@@ -44,7 +44,7 @@ public abstract class FuelSearcher implements Translatable {
     private final SpecificationPropertyExtractor headerExtractor;
 
     public FuelSearcher(final FuelTable table,
-                        final Map<String, Integer> fuelOffsetsByHeaders,
+                        final Map<String, Integer> fuelOffsetsByHeaders, //put in FuelHeaderMetadata
                         final FilterChain filterChain,
                         final SpecificationPropertyExtractor headerExtractor) {
         this.table = table;
@@ -72,7 +72,10 @@ public abstract class FuelSearcher implements Translatable {
     }
 
     public final Stream<PropertyMetadataSource> findPropertyMetadataSources() {
+        return concat(
+                this.filterChain.findFilters(),
 
+        )
     }
 
     public final Optional<Fuel> find(final FuelSpecification specification) {
