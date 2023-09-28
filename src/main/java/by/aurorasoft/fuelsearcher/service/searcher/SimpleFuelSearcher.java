@@ -1,14 +1,14 @@
 package by.aurorasoft.fuelsearcher.service.searcher;
 
 import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.model.PropertyMetadataSource;
+import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
-import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import lombok.NoArgsConstructor;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -22,10 +22,13 @@ import static lombok.AccessLevel.PRIVATE;
 public final class SimpleFuelSearcher extends FuelSearcher {
 
     private SimpleFuelSearcher(final FuelTable table,
-                               final Map<String, Integer> fuelOffsetsByHeaders,
-                               final FilterChain filterChain,
-                               final SpecificationPropertyExtractor headerExtractor) {
-        super(table, fuelOffsetsByHeaders, filterChain, headerExtractor);
+                               final FuelHeaderMetadata headerMetadata,
+                               final FilterChain filterChain) {
+        super(table, headerMetadata, filterChain);
+    }
+
+    public static SimpleSearcherBuilder builder() {
+        return new SimpleSearcherBuilder();
     }
 
     @Override
@@ -35,8 +38,9 @@ public final class SimpleFuelSearcher extends FuelSearcher {
         return Optional.of(subTable);
     }
 
-    public static SimpleSearcherBuilder builder() {
-        return new SimpleSearcherBuilder();
+    @Override
+    protected Stream<PropertyMetadataSource> findAdditionalPropertyMetadataSources() {
+        return empty();
     }
 
     @NoArgsConstructor(access = PRIVATE)
@@ -55,10 +59,9 @@ public final class SimpleFuelSearcher extends FuelSearcher {
 
         @Override
         protected SimpleFuelSearcher build(final FuelTable table,
-                                           final Map<String, Integer> fuelOffsetsByHeaders,
-                                           final FilterChain filterChain,
-                                           final SpecificationPropertyExtractor headerExtractor) {
-            return new SimpleFuelSearcher(table, fuelOffsetsByHeaders, filterChain, headerExtractor);
+                                           final FuelHeaderMetadata headerMetadata,
+                                           final FilterChain filterChain) {
+            return new SimpleFuelSearcher(table, headerMetadata, filterChain);
         }
 
         @Override
