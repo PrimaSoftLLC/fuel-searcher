@@ -2,18 +2,12 @@ package by.aurorasoft.fuelsearcher.service.validator;
 
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
-import by.aurorasoft.fuelsearcher.service.builder.BuilderRequiringAllProperties;
 import by.aurorasoft.fuelsearcher.service.dictionary.Translatable;
 import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Stream;
-
-import static java.util.Collections.unmodifiableList;
-import static lombok.AccessLevel.PRIVATE;
 
 //TODO: refactor tests
 @RequiredArgsConstructor
