@@ -23,7 +23,7 @@ import java.util.stream.Stream;
 import static by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext.createContextCollectingMetadata;
 import static by.aurorasoft.fuelsearcher.service.searchersparser.handler.context.SearchersParsingContext.createContextNotCollectingMetadata;
 import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
 public final class SearchersParsingContextTest {
@@ -112,16 +112,20 @@ public final class SearchersParsingContextTest {
 
         givenContext.startParseSimpleSearcher();
 
-        final SimpleSearcherBuilder actualSimpleSearcherBuilder = findSimpleSearcherBuilder(givenContext);
-        assertNotNull(actualSimpleSearcherBuilder);
-
-        final SpecificationValidatorBuilder actualSpecificationValidatorBuilder = findSpecificationValidatorBuilder(
-                givenContext
-        );
-        assertNotNull(actualSpecificationValidatorBuilder);
-
-        final TableMetadataBuilder actualTableMetadataBuilder = findTableMetadataBuilder(givenContext);
-        assertNull(actualTableMetadataBuilder);
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
+                .metadataSearchingManagerPredicate(Objects::isNull)
+                .searchersPredicate(Collection::isEmpty)
+                .specificationValidatorsPredicate(Collection::isEmpty)
+                .tablesMetadataPredicate(Objects::isNull)
+                .simpleSearcherBuilderPredicate(Objects::nonNull)
+                .compositeSearcherBuilderPredicate(Objects::isNull)
+                .subTableTitleMetadataBuilderPredicate(Objects::isNull)
+                .specificationValidatorBuilderPredicate(Objects::nonNull)
+                .tableMetadataBuilderPredicate(Objects::isNull)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateMatcher.isMatch(givenContext));
     }
 
     @Test
@@ -133,21 +137,20 @@ public final class SearchersParsingContextTest {
 
         givenContext.startParseCompositeSearcher();
 
-        final CompositeSearcherBuilder actualCompositeSearcherBuilder = findCompositeSearcherBuilder(givenContext);
-        assertNotNull(actualCompositeSearcherBuilder);
-
-        final SpecificationValidatorBuilder actualSpecificationValidatorBuilder = findSpecificationValidatorBuilder(
-                givenContext
-        );
-        assertNotNull(actualSpecificationValidatorBuilder);
-
-        final TableMetadataBuilder actualTableMetadataBuilder = findTableMetadataBuilder(givenContext);
-        assertNotNull(actualTableMetadataBuilder);
-
-        final SubTableTitleMetadataBuilder actualSubTableTitleMetadataBuilder = findSubTableTitleMetadataBuilder(
-                givenContext
-        );
-        assertNotNull(actualSubTableTitleMetadataBuilder);
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
+                .metadataSearchingManagerPredicate(Objects::nonNull)
+                .searchersPredicate(Collection::isEmpty)
+                .specificationValidatorsPredicate(Collection::isEmpty)
+                .tablesMetadataPredicate(Collection::isEmpty)
+                .simpleSearcherBuilderPredicate(Objects::isNull)
+                .compositeSearcherBuilderPredicate(Objects::nonNull)
+                .subTableTitleMetadataBuilderPredicate(Objects::nonNull)
+                .specificationValidatorBuilderPredicate(Objects::nonNull)
+                .tableMetadataBuilderPredicate(Objects::nonNull)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateMatcher.isMatch(givenContext));
     }
 
     @Test
@@ -156,21 +159,20 @@ public final class SearchersParsingContextTest {
 
         givenContext.startParseCompositeSearcher();
 
-        final CompositeSearcherBuilder actualCompositeSearcherBuilder = findCompositeSearcherBuilder(givenContext);
-        assertNotNull(actualCompositeSearcherBuilder);
-
-        final SpecificationValidatorBuilder actualSpecificationValidatorBuilder = findSpecificationValidatorBuilder(
-                givenContext
-        );
-        assertNotNull(actualSpecificationValidatorBuilder);
-
-        final TableMetadataBuilder actualTableMetadataBuilder = findTableMetadataBuilder(givenContext);
-        assertNull(actualTableMetadataBuilder);
-
-        final SubTableTitleMetadataBuilder actualSubTableTitleMetadataBuilder = findSubTableTitleMetadataBuilder(
-                givenContext
-        );
-        assertNull(actualSubTableTitleMetadataBuilder);
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
+                .metadataSearchingManagerPredicate(Objects::isNull)
+                .searchersPredicate(Collection::isEmpty)
+                .specificationValidatorsPredicate(Collection::isEmpty)
+                .tablesMetadataPredicate(Objects::isNull)
+                .simpleSearcherBuilderPredicate(Objects::isNull)
+                .compositeSearcherBuilderPredicate(Objects::nonNull)
+                .subTableTitleMetadataBuilderPredicate(Objects::isNull)
+                .specificationValidatorBuilderPredicate(Objects::nonNull)
+                .tableMetadataBuilderPredicate(Objects::isNull)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateMatcher.isMatch(givenContext));
     }
 
     private static final class ContextStateMatcher {
