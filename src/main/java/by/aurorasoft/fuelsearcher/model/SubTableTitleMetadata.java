@@ -2,7 +2,6 @@ package by.aurorasoft.fuelsearcher.model;
 
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelsearcher.service.builder.BuilderRequiringAllProperties;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -34,8 +33,9 @@ public final class SubTableTitleMetadata {
     }
 
     public Stream<SpecificationPropertyExtractor> findArgumentsExtractors() {
-        return this.argumentsMetadata.stream()
-                .map(SubTableTitleArgumentMetadata::getExtractor);
+        return this.argumentsMetadata
+                .stream()
+                .map(SubTableTitleArgumentMetadata::getPropertyExtractor);
     }
 
     public static SubTableTitleMetadataBuilder builder() {
@@ -47,23 +47,20 @@ public final class SubTableTitleMetadata {
         return range(0, argumentExtractors.size())
                 .mapToObj(
                         i -> this.new SubTableTitleArgumentMetadata(
-                                i,
-                                argumentExtractors.get(i)
+                                argumentExtractors.get(i),
+                                i
                         )
                 )
                 .toList();
     }
 
-    @AllArgsConstructor(access = PRIVATE)
     public final class SubTableTitleArgumentMetadata extends PropertyMetadataSource {
         private final int index;
 
-        @Getter(value = PRIVATE)
-        private final SpecificationPropertyExtractor extractor;
-
-        @Override
-        public String findPropertyName() {
-            return this.extractor.getPropertyName();
+        public SubTableTitleArgumentMetadata(final SpecificationPropertyExtractor propertyExtractor,
+                                             final int index) {
+            super(propertyExtractor);
+            this.index = index;
         }
 
         public String findTitleRegex() {
