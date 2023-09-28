@@ -62,6 +62,7 @@ public abstract class FuelSearcher implements Translatable {
         return this.table.name();
     }
 
+    //TODO: test
     public final List<SpecificationPropertyExtractor> findPropertyExtractors() {
         return concat(
                 this.filterChain.findPropertyExtractors(),
