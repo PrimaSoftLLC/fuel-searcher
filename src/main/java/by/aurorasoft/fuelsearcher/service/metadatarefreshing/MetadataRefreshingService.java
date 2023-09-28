@@ -4,21 +4,23 @@ import by.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
 import by.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata;
 import by.aurorasoft.fuelsearcher.crud.service.PropertyMetadataService;
 import by.aurorasoft.fuelsearcher.crud.service.TableMetadataService;
+import by.aurorasoft.fuelsearcher.service.derivingsearcherfactory.refreshedtablesmetadata.RefreshedTablesMetadataFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
+@ConditionalOnProperty(prefix = "metadata-refreshing", name = "enable", havingValue = "true")
 public class MetadataRefreshingService {
     private final TableMetadataService tableMetadataService;
     private final PropertyMetadataService propertyMetadataService;
-    private final SearchersParsingResult parsingResult;
+    private final RefreshedTablesMetadataFactory refreshedTablesMetadataFactory;
 
     @EventListener(ApplicationStartedEvent.class)
     public void refresh() {
@@ -27,17 +29,10 @@ public class MetadataRefreshingService {
     }
 
     private void saveNewMetadata() {
-        final List<TableMetadata> newTablesMetadata = this.findNewTablesMetadata();
+        final List<TableMetadata> newTablesMetadata = this.refreshedTablesMetadataFactory.create();
         final List<TableMetadata> savedTablesMetadata = this.tableMetadataService.saveAll(newTablesMetadata);
         final List<PropertyMetadata> newPropertiesMetadata = findPropertiesMetadata(savedTablesMetadata);
         this.propertyMetadataService.saveAll(newPropertiesMetadata);
-    }
-
-    private List<TableMetadata> findNewTablesMetadata() {
-        final Optional<List<TableMetadata>> optionalNewTablesMetadata = this.parsingResult.takeAwayTablesMetadata();
-        return optionalNewTablesMetadata
-                .filter(newTablesMetadata -> !newTablesMetadata.isEmpty())
-                .orElseThrow(NoNewTablesMetadataException::new);
     }
 
     private static List<PropertyMetadata> findPropertiesMetadata(final List<TableMetadata> tablesMetadata) {
@@ -60,28 +55,5 @@ public class MetadataRefreshingService {
                 source.getAllowableValues(),
                 tableMetadata.getId()
         );
-    }
-
-    private static final class NoNewTablesMetadataException extends RuntimeException {
-
-        public NoNewTablesMetadataException() {
-
-        }
-
-        @SuppressWarnings("unused")
-        public NoNewTablesMetadataException(final String description) {
-            super(description);
-        }
-
-        @SuppressWarnings("unused")
-        public NoNewTablesMetadataException(final Exception cause) {
-            super(cause);
-        }
-
-        @SuppressWarnings("unused")
-        public NoNewTablesMetadataException(final String description, final Exception cause) {
-            super(description, cause);
-        }
-
     }
 }
