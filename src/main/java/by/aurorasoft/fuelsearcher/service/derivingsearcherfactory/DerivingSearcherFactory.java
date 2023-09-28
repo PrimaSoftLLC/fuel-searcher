@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.service.factory;
+package by.aurorasoft.fuelsearcher.service.derivingsearcherfactory;
 
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
 import lombok.RequiredArgsConstructor;
@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @RequiredArgsConstructor
-public abstract class DerivedFromFuelSearcherFactory<T> {
+public abstract class DerivingSearcherFactory<T> {
     private final List<FuelSearcher> searchers;
 
     public final List<T> create() {
