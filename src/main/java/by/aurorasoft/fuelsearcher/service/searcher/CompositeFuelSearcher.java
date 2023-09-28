@@ -1,16 +1,16 @@
 package by.aurorasoft.fuelsearcher.service.searcher;
 
 import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.model.PropertyMetadataSource;
 import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata;
+import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
-import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import lombok.NoArgsConstructor;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.stream.IntStream;
@@ -28,12 +28,11 @@ import static lombok.AccessLevel.PRIVATE;
 public final class CompositeFuelSearcher extends FuelSearcher {
     private final SubTableTitleMetadata subTableTitleMetadata;
 
-    private CompositeFuelSearcher(final FuelTable fuelTable,
-                                  final Map<String, Integer> fuelOffsetsByHeaders,
+    private CompositeFuelSearcher(final FuelTable table,
+                                  final FuelHeaderMetadata headerMetadata,
                                   final FilterChain filterChain,
-                                  final SpecificationPropertyExtractor headerExtractor,
                                   final SubTableTitleMetadata subTableTitleMetadata) {
-        super(fuelTable, fuelOffsetsByHeaders, filterChain, headerExtractor);
+        super(table, headerMetadata, filterChain);
         this.subTableTitleMetadata = subTableTitleMetadata;
     }
 
@@ -47,6 +46,13 @@ public final class CompositeFuelSearcher extends FuelSearcher {
                 .stream()
                 .mapToObj(titleIndex -> extractSubTableByTitleIndex(titleIndex, elements))
                 .findFirst();
+    }
+
+    @Override
+    protected Stream<? extends PropertyMetadataSource> findAdditionalPropertyMetadataSources() {
+        return this.subTableTitleMetadata
+                .getArgumentsMetadata()
+                .stream();
     }
 
     private OptionalInt findSubTableTitleIndex(final List<IBodyElement> elements, final FuelSpecification specification) {
@@ -106,16 +112,9 @@ public final class CompositeFuelSearcher extends FuelSearcher {
 
         @Override
         protected CompositeFuelSearcher build(final FuelTable table,
-                                              final Map<String, Integer> fuelOffsetsByHeaders,
-                                              final FilterChain filterChain,
-                                              final SpecificationPropertyExtractor headerExtractor) {
-            return new CompositeFuelSearcher(
-                    table,
-                    fuelOffsetsByHeaders,
-                    filterChain,
-                    headerExtractor,
-                    this.subTableTitleMetadata
-            );
+                                              final FuelHeaderMetadata headerMetadata,
+                                              final FilterChain filterChain) {
+            return new CompositeFuelSearcher(table, headerMetadata, filterChain, this.subTableTitleMetadata);
         }
 
         @Override
