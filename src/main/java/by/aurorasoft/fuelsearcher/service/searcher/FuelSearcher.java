@@ -70,7 +70,7 @@ public abstract class FuelSearcher implements Translatable {
 
     //TODO: test
     @SuppressWarnings("unchecked")
-    public final Stream<PropertyMetadataSource> findPropertyMetadataSources() {
+    public final Stream<? extends PropertyMetadataSource> findPropertyMetadataSources() {
         return concat(
                 this.filterChain.findFilters(),
                 Stream.of(this.headerMetadata),
@@ -81,7 +81,7 @@ public abstract class FuelSearcher implements Translatable {
     protected abstract Optional<XWPFTable> findSubTable(final List<IBodyElement> elements,
                                                         final FuelSpecification specification);
 
-    protected abstract Stream<PropertyMetadataSource> findAdditionalPropertyMetadataSources();
+    protected abstract Stream<? extends PropertyMetadataSource> findAdditionalPropertyMetadataSources();
 
     private Optional<Fuel> findFuel(final List<XWPFTableRow> subTableRows, final FuelSpecification specification) {
         final XWPFTableRow headerRow = subTableRows.get(HEADER_ROW_INDEX);

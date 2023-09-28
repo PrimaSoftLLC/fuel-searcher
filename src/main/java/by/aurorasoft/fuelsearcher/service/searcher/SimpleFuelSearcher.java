@@ -39,7 +39,7 @@ public final class SimpleFuelSearcher extends FuelSearcher {
     }
 
     @Override
-    protected Stream<PropertyMetadataSource> findAdditionalPropertyMetadataSources() {
+    protected Stream<? extends PropertyMetadataSource> findAdditionalPropertyMetadataSources() {
         return empty();
     }
 
