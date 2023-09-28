@@ -112,17 +112,6 @@ public final class SearchersParsingContext {
         );
     }
 
-    private <B extends BuilderRequiringAllProperties<?>, C> void accumulateComponentIfMetadataCollectingRequired(
-            final Supplier<B> builderGetter,
-            final C component,
-            final BiConsumer<B, C> accumulatingOperation
-    ) {
-        if (this.isMetadataCollectingRequired()) {
-            final B builder = builderGetter.get();
-            accumulatingOperation.accept(builder, component);
-        }
-    }
-
     public void buildSimpleSearcher() {
         this.buildAndAccumulateSearcher(this::getSimpleSearcherBuilder, this::setSimpleSearcherBuilder);
     }
@@ -210,6 +199,17 @@ public final class SearchersParsingContext {
 
     private boolean isMetadataCollectingRequired() {
         return this.propertyMetadataSearchingManager != null;
+    }
+
+    private <B extends BuilderRequiringAllProperties<?>, C> void accumulateComponentIfMetadataCollectingRequired(
+            final Supplier<B> builderGetter,
+            final C component,
+            final BiConsumer<B, C> accumulatingOperation
+    ) {
+        if (this.isMetadataCollectingRequired()) {
+            final B builder = builderGetter.get();
+            accumulatingOperation.accept(builder, component);
+        }
     }
 
     private <T> void accumulateComponentToCurrentSearcherBuilder(final T component,
