@@ -6,7 +6,8 @@ public final class ChargingMethodAndTransportDistanceUnitFilter extends UnitFilt
 
     public ChargingMethodAndTransportDistanceUnitFilter(
             final ChargingMethodAndTransportDistanceExtractor chargingMethodAndTransportDistanceExtractor,
-            final int filtrationCellIndex) {
+            final int filtrationCellIndex
+    ) {
         super(chargingMethodAndTransportDistanceExtractor, filtrationCellIndex);
     }
 }
