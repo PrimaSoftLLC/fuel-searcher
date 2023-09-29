@@ -9,7 +9,8 @@ import static org.junit.Assert.assertTrue;
 
 public final class ProcessingDepthGroupFilterTest {
     private final ProcessingDepthGroupFilter filter = new ProcessingDepthGroupFilter(
-            null, MIN_VALUE
+            null,
+            MIN_VALUE
     );
 
     @Test
