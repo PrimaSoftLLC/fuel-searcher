@@ -30,6 +30,7 @@ public abstract class FuelHeaderMetadata extends PropertyMetadataSource implemen
     }
 
     public final Optional<Integer> findFuelOffset(final String headerValue) {
-        return ofNullable(this.fuelOffsetsByValues.get(headerValue));
+        final Integer fuelOffset = this.fuelOffsetsByValues.get(headerValue);
+        return ofNullable(fuelOffset);
     }
 }
