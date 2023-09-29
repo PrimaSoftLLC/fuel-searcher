@@ -7,12 +7,6 @@ public final class SpecificResistanceGroupFilter extends GroupFilter {
 
     public SpecificResistanceGroupFilter(final SpecificResistanceExtractor specificResistanceExtractor,
                                          final int filtrationCellIndex) {
-        super(specificResistanceExtractor, filtrationCellIndex);
+        super(specificResistanceExtractor, filtrationCellIndex, GROUP_VALUE_REGEX);
     }
-
-    @Override
-    public String findGroupValueRegex() {
-        return GROUP_VALUE_REGEX;
-    }
-
 }

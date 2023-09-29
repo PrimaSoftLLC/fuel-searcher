@@ -6,12 +6,6 @@ public final class SowingNormGroupFilter extends GroupFilter {
     private static final String GROUP_VALUE_REGEX = "Норма высева (семян )?\\d+(-\\d+)? кг/га";
 
     public SowingNormGroupFilter(final SowingNormExtractor sowingNormExtractor, final int filtrationCellIndex) {
-        super(sowingNormExtractor, filtrationCellIndex);
+        super(sowingNormExtractor, filtrationCellIndex, GROUP_VALUE_REGEX);
     }
-
-    @Override
-    public String findGroupValueRegex() {
-        return GROUP_VALUE_REGEX;
-    }
-
 }

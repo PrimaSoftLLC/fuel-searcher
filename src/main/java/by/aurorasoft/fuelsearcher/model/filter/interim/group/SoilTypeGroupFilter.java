@@ -6,12 +6,6 @@ public final class SoilTypeGroupFilter extends GroupFilter {
     private static final String GROUP_VALUE_REGEX = "((Минеральные)|(Торфяные)|(Легкие)|(Средние)|(Тяжелые)) почвы";
 
     public SoilTypeGroupFilter(final SoilTypeExtractor soilTypeExtractor, final int filtrationCellIndex) {
-        super(soilTypeExtractor, filtrationCellIndex);
+        super(soilTypeExtractor, filtrationCellIndex, GROUP_VALUE_REGEX);
     }
-
-    @Override
-    public String findGroupValueRegex() {
-        return GROUP_VALUE_REGEX;
-    }
-
 }

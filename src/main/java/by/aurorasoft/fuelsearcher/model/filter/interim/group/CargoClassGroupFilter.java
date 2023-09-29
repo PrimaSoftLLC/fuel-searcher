@@ -6,11 +6,6 @@ public final class CargoClassGroupFilter extends GroupFilter {
     private static final String GROUP_VALUE_REGEX = "Грузы (I|II|III|IV) класса";
 
     public CargoClassGroupFilter(final CargoClassExtractor cargoClassExtractor, final int filtrationCellIndex) {
-        super(cargoClassExtractor, filtrationCellIndex);
-    }
-
-    @Override
-    public String findGroupValueRegex() {
-        return GROUP_VALUE_REGEX;
+        super(cargoClassExtractor, filtrationCellIndex, GROUP_VALUE_REGEX);
     }
 }

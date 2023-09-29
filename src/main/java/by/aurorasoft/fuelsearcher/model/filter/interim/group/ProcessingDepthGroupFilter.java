@@ -7,12 +7,6 @@ public final class ProcessingDepthGroupFilter extends GroupFilter {
 
     public ProcessingDepthGroupFilter(final ProcessingDepthExtractor processingDepthExtractor,
                                       final int filtrationCellIndex) {
-        super(processingDepthExtractor, filtrationCellIndex);
+        super(processingDepthExtractor, filtrationCellIndex, GROUP_VALUE_REGEX);
     }
-
-    @Override
-    public String findGroupValueRegex() {
-        return GROUP_VALUE_REGEX;
-    }
-
 }

@@ -7,11 +7,6 @@ public final class FertilizerTypeGroupFilter extends GroupFilter {
 
     public FertilizerTypeGroupFilter(final FertilizerTypeExtractor fertilizerTypeExtractor,
                                      final int filtrationCellIndex) {
-        super(fertilizerTypeExtractor, filtrationCellIndex);
-    }
-
-    @Override
-    public String findGroupValueRegex() {
-        return GROUP_VALUE_REGEX;
+        super(fertilizerTypeExtractor, filtrationCellIndex, GROUP_VALUE_REGEX);
     }
 }
