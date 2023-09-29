@@ -1,9 +1,11 @@
 package by.aurorasoft.fuelsearcher.configuration;
 
 import by.aurorasoft.fuelsearcher.model.FuelDocument;
+import by.aurorasoft.fuelsearcher.service.factory.derivingsearcherfactory.SpecificationValidatorsFactory;
 import by.aurorasoft.fuelsearcher.service.factory.documentfactory.FuelDocumentFactory;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searchersparser.FuelSearchersParser;
+import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator;
 import org.junit.Test;
 
 import java.util.List;
@@ -41,5 +43,19 @@ public final class FuelConfigurationTest {
 
         final List<FuelSearcher> actual = this.configuration.fuelSearchers(givenParser, givenFilePath);
         assertSame(givenSearchers, actual);
+    }
+
+    @Test
+    public void specificationValidatorsShouldBeCreated() {
+        final SpecificationValidatorsFactory givenFactory = mock(SpecificationValidatorsFactory.class);
+
+        final List<SpecificationValidator> givenValidators = List.of(
+                mock(SpecificationValidator.class),
+                mock(SpecificationValidator.class)
+        );
+        when(givenFactory.create()).thenReturn(givenValidators);
+
+        final List<SpecificationValidator> actual = givenFactory.create();
+        assertSame(givenValidators, actual);
     }
 }
