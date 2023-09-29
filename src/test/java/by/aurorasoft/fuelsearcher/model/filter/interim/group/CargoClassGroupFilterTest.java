@@ -8,10 +8,11 @@ import static java.lang.Integer.MIN_VALUE;
 import static org.junit.Assert.assertTrue;
 
 public final class CargoClassGroupFilterTest {
+    private final CargoClassGroupFilter filter = new CargoClassGroupFilter(null, MIN_VALUE);
 
     @Test
     public void groupValuesShouldMatchRegex() {
-        final CargoClassGroupFilter givenFilter = new CargoClassGroupFilter(null, MIN_VALUE);
+        final String givenGroupValueRegex = this.filter.getGroupValueRegex();
         final Set<String> givenGroupValues = Set.of(
                 "Грузы I класса",
                 "Грузы II класса",
@@ -19,17 +20,15 @@ public final class CargoClassGroupFilterTest {
                 "Грузы IV класса"
         );
 
-        final String groupValueRegex = givenFilter.getGroupValueRegex();
-
         final boolean groupValuesMatchRegex = givenGroupValues
                 .stream()
-                .allMatch(value -> value.matches(groupValueRegex));
+                .allMatch(value -> value.matches(givenGroupValueRegex));
         assertTrue(groupValuesMatchRegex);
     }
 
     @Test
     public void groupValuesShouldNotMatchRegex() {
-        final CargoClassGroupFilter givenFilter = new CargoClassGroupFilter(null, MIN_VALUE);
+        final String givenGroupValueRegex = this.filter.getGroupValueRegex();
         final Set<String> givenGroupValues = Set.of(
                 "Грузы 1 класса",
                 "Грузы класса",
@@ -37,11 +36,9 @@ public final class CargoClassGroupFilterTest {
                 "Грузы V класса"
         );
 
-        final String groupValueRegex = givenFilter.getGroupValueRegex();
-
         final boolean groupValuesNotMatchRegex = givenGroupValues
                 .stream()
-                .noneMatch(value -> value.matches(groupValueRegex));
+                .noneMatch(value -> value.matches(givenGroupValueRegex));
         assertTrue(groupValuesNotMatchRegex);
     }
 
