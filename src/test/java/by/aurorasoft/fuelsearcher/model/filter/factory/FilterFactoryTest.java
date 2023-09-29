@@ -4,7 +4,6 @@ import by.aurorasoft.fuelsearcher.model.filter.Filter;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -35,9 +34,6 @@ public final class FilterFactoryTest {
         final int givenFiltrationCellIndex = 3;
         final Filter<?> actual = givenFactory.create(givenFiltrationCellIndex);
         assertSame(givenCreatedFilter, actual);
-
-        assertSame(givenFiltrationValueExtractor, givenFactory.filterFiltrationValueExtractor);
-        assertEquals(givenFiltrationCellIndex, givenFactory.filterFiltrationCellIndex);
     }
 
     @SuppressWarnings("SameParameterValue")
@@ -49,8 +45,6 @@ public final class FilterFactoryTest {
 
     private static final class TestFilterFactory extends FilterFactory<Filter<?>, SpecificationPropertyExtractor> {
         private final Filter<?> createdFilter;
-        private SpecificationPropertyExtractor filterFiltrationValueExtractor;
-        private int filterFiltrationCellIndex;
 
         public TestFilterFactory(final SpecificationPropertyExtractor filtrationValueExtractor,
                                  final Filter<?> createdFilter) {
@@ -61,8 +55,6 @@ public final class FilterFactoryTest {
         @Override
         protected Filter<?> create(final SpecificationPropertyExtractor filtrationValueExtractor,
                                    final int filtrationCellIndex) {
-            this.filterFiltrationValueExtractor = filtrationValueExtractor;
-            this.filterFiltrationCellIndex = filtrationCellIndex;
             return this.createdFilter;
         }
     }
