@@ -11,7 +11,7 @@ public final class SowingNormGroupFilterTest {
     public void groupValueRegexShouldBeFound() {
         final SowingNormGroupFilter givenFilter = new SowingNormGroupFilter(null, MIN_VALUE);
 
-        final String actual = givenFilter.findGroupValueRegex();
+        final String actual = givenFilter.getGroupValueRegex();
         final String expected = "Норма высева (семян )?\\d+(-\\d+)? кг/га";
         assertEquals(expected, actual);
     }

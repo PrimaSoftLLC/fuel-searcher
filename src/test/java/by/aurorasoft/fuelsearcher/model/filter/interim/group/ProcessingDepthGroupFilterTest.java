@@ -13,7 +13,7 @@ public final class ProcessingDepthGroupFilterTest {
                 null, MIN_VALUE
         );
 
-        final String actual = givenFilter.findGroupValueRegex();
+        final String actual = givenFilter.getGroupValueRegex();
         final String expected = "Глубина обработки \\d+...\\d+ см";
         assertEquals(expected, actual);
     }

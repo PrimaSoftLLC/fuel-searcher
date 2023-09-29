@@ -11,7 +11,7 @@ public final class RoadGroupGroupFilterTest {
     public void groupValueRegexShouldBeFound() {
         final RoadGroupGroupFilter givenFilter = new RoadGroupGroupFilter(null, MIN_VALUE);
 
-        final String actual = givenFilter.findGroupValueRegex();
+        final String actual = givenFilter.getGroupValueRegex();
         final String expected = "((Первая)|(Вторая)|(Третья)) группа дорог";
         assertEquals(expected, actual);
     }

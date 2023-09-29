@@ -13,7 +13,7 @@ public final class SpecificResistanceGroupFilterTest {
                 null, MIN_VALUE
         );
 
-        final String actual = givenFilter.findGroupValueRegex();
+        final String actual = givenFilter.getGroupValueRegex();
         final String expected = "Удельное сопротивление (плуга )?\\d+...\\d+ кПа";
         assertEquals(expected, actual);
     }

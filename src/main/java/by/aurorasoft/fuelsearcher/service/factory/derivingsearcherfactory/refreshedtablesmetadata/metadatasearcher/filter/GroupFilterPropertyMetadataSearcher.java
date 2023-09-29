@@ -20,7 +20,7 @@ public final class GroupFilterPropertyMetadataSearcher extends FilterPropertyMet
     protected Stream<XWPFTableRow> findRowsWithAllowableValues(final List<XWPFTableRow> subTableDataRows,
                                                                final GroupFilter filter) {
         final int filtrationCellIndex = filter.getFiltrationCellIndex();
-        final String groupValueRegex = filter.findGroupValueRegex();
+        final String groupValueRegex = filter.getGroupValueRegex();
         return findRowsWithCellMatchingRegex(
                 subTableDataRows,
                 filtrationCellIndex,

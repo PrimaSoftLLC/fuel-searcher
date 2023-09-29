@@ -47,16 +47,10 @@ public final class GroupFilterTest {
     }
 
     private static final class TestGroupFilter extends GroupFilter {
-        private final String groupValueRegex;
 
         public TestGroupFilter(final String groupValueRegex) {
-            super(null, MIN_VALUE);
-            this.groupValueRegex = groupValueRegex;
+            super(null, MIN_VALUE, groupValueRegex);
         }
 
-        @Override
-        public String findGroupValueRegex() {
-            return this.groupValueRegex;
-        }
     }
 }

@@ -11,7 +11,7 @@ public final class FertilizerTypeGroupFilterTest {
     public void groupValueRegexShouldBeFound() {
         final FertilizerTypeGroupFilter givenFilter = new FertilizerTypeGroupFilter(null, MIN_VALUE);
 
-        final String actual = givenFilter.findGroupValueRegex();
+        final String actual = givenFilter.getGroupValueRegex();
         final String expected = "((Гранулированные)|(Кристаллические)|(Пылевидные)) удобрения";
         assertEquals(expected, actual);
     }

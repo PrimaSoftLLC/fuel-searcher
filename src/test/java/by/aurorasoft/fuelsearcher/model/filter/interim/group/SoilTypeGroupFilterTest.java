@@ -11,7 +11,7 @@ public final class SoilTypeGroupFilterTest {
     public void groupValueRegexShouldBeFound() {
         final SoilTypeGroupFilter givenFilter = new SoilTypeGroupFilter(null, MIN_VALUE);
 
-        final String actual = givenFilter.findGroupValueRegex();
+        final String actual = givenFilter.getGroupValueRegex();
         final String expected = "((Минеральные)|(Торфяные)|(Легкие)|(Средние)|(Тяжелые)) почвы";
         assertEquals(expected, actual);
     }
