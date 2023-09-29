@@ -11,14 +11,16 @@ public final class ChargingMethodAndTransportDistanceUnitFilterFactory
         ChargingMethodAndTransportDistanceExtractor> {
 
     public ChargingMethodAndTransportDistanceUnitFilterFactory(
-            final ChargingMethodAndTransportDistanceExtractor chargingMethodAndTransportDistanceExtractor) {
+            final ChargingMethodAndTransportDistanceExtractor chargingMethodAndTransportDistanceExtractor
+    ) {
         super(chargingMethodAndTransportDistanceExtractor);
     }
 
     @Override
     protected ChargingMethodAndTransportDistanceUnitFilter create(
             final ChargingMethodAndTransportDistanceExtractor chargingMethodAndTransportDistanceExtractor,
-            final int filtrationCellIndex) {
+            final int filtrationCellIndex
+    ) {
         return new ChargingMethodAndTransportDistanceUnitFilter(
                 chargingMethodAndTransportDistanceExtractor,
                 filtrationCellIndex
