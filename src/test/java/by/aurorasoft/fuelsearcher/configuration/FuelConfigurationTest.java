@@ -2,7 +2,11 @@ package by.aurorasoft.fuelsearcher.configuration;
 
 import by.aurorasoft.fuelsearcher.model.FuelDocument;
 import by.aurorasoft.fuelsearcher.service.factory.documentfactory.FuelDocumentFactory;
+import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
+import by.aurorasoft.fuelsearcher.service.searchersparser.FuelSearchersParser;
 import org.junit.Test;
+
+import java.util.List;
 
 import static org.junit.Assert.assertSame;
 import static org.mockito.ArgumentMatchers.same;
@@ -24,15 +28,18 @@ public final class FuelConfigurationTest {
         assertSame(givenFuelDocument, actual);
     }
 
-//    @Test
-//    public void searchersParsingResultShouldBeCreated() {
-//        final FuelSearchersParser givenParser = mock(FuelSearchersParser.class);
-//
-//        final SearchersParsingResult givenParsingResult = mock(SearchersParsingResult.class);
-//        final String givenFilePath = "file-path";
-//        when(givenParser.parse(same(givenFilePath))).thenReturn(givenParsingResult);
-//
-//        final SearchersParsingResult actual = this.configuration.searchersParsingResult(givenParser, givenFilePath);
-//        assertSame(givenParsingResult, actual);
-//    }
+    @Test
+    public void fuelSearchersShouldBeCreated() {
+        final FuelSearchersParser givenParser = mock(FuelSearchersParser.class);
+
+        final List<FuelSearcher> givenSearchers = List.of(
+                mock(FuelSearcher.class),
+                mock(FuelSearcher.class)
+        );
+        final String givenFilePath = "file-path";
+        when(givenParser.parse(same(givenFilePath))).thenReturn(givenSearchers);
+
+        final List<FuelSearcher> actual = this.configuration.fuelSearchers(givenParser, givenFilePath);
+        assertSame(givenSearchers, actual);
+    }
 }
