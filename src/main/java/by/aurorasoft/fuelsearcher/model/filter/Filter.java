@@ -8,7 +8,6 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.util.List;
 
-//TODO: refactor and refactor tests
 @Getter
 public abstract class Filter<R> extends PropertyMetadataSource {
     private final int filtrationCellIndex;
@@ -19,11 +18,16 @@ public abstract class Filter<R> extends PropertyMetadataSource {
     }
 
     public final R filter(final List<XWPFTableRow> rows, final FuelSpecification specification) {
-        final String filtrationValue = this.getPropertyExtractor().extract(specification);
+        final String filtrationValue = this.extractFiltrationValue(specification);
         return this.filter(rows, filtrationValue, this.filtrationCellIndex);
     }
 
     protected abstract R filter(final List<XWPFTableRow> rows,
                                 final String filtrationValue,
                                 final int filtrationCellIndex);
+
+    private String extractFiltrationValue(final FuelSpecification specification) {
+        final SpecificationPropertyExtractor filtrationValueExtractor = super.getPropertyExtractor();
+        return filtrationValueExtractor.extract(specification);
+    }
 }
