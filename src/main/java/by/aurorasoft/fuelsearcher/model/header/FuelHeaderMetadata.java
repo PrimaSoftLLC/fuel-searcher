@@ -23,7 +23,7 @@ public abstract class FuelHeaderMetadata extends PropertyMetadataSource implemen
         return this.findPropertyName();
     }
 
-    public final String[] findValues() {
+    public final String[] findHeaderValues() {
         return this.fuelOffsetsByValues
                 .keySet()
                 .toArray(String[]::new);
