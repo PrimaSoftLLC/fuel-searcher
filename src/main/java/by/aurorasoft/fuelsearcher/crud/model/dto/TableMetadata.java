@@ -8,7 +8,6 @@ import lombok.Value;
 
 import java.util.List;
 
-//TODO: refactor tests
 @Value
 @AllArgsConstructor
 @Builder
