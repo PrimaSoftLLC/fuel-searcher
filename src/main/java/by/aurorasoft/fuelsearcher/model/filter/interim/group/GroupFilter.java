@@ -15,9 +15,9 @@ public abstract class GroupFilter extends InterimFilter {
     }
 
     @Override
-    protected List<XWPFTableRow> filter(final List<XWPFTableRow> rows,
-                                        final String groupValue,
-                                        final int groupValueCellIndex) {
+    protected final List<XWPFTableRow> filter(final List<XWPFTableRow> rows,
+                                              final String groupValue,
+                                              final int groupValueCellIndex) {
         final String groupValueRegex = this.findGroupValueRegex();
         return findRowsByGroup(
                 rows,
