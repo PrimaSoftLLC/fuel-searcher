@@ -5,31 +5,39 @@ import org.junit.Test;
 import java.util.Set;
 
 import static java.lang.Integer.MIN_VALUE;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public final class FertilizerTypeGroupFilterTest {
-
-    @Test
-    public void groupValueRegexShouldBeFound() {
-        final FertilizerTypeGroupFilter givenFilter = new FertilizerTypeGroupFilter(null, MIN_VALUE);
-
-        final String actual = givenFilter.getGroupValueRegex();
-        final String expected = "((Гранулированные)|(Кристаллические)|(Пылевидные)) удобрения";
-        assertEquals(expected, actual);
-    }
+    private final FertilizerTypeGroupFilter filter = new FertilizerTypeGroupFilter(null, MIN_VALUE);
 
     @Test
     public void groupValuesShouldMatchRegex() {
-        final FertilizerTypeGroupFilter givenFilter = new FertilizerTypeGroupFilter(null, MIN_VALUE);
+        final String givenGroupValueRegex = this.filter.getGroupValueRegex();
         final Set<String> givenGroupValues = Set.of(
                 "Гранулированные удобрения",
                 "Кристаллические удобрения",
                 "Пылевидные удобрения"
         );
 
-        final String groupValueRegex = givenFilter.getGroupValueRegex();
+        final boolean groupValuesMatchRegex = givenGroupValues
+                .stream()
+                .allMatch(value -> value.matches(givenGroupValueRegex));
+        assertTrue(groupValuesMatchRegex);
+    }
 
+    @Test
+    public void groupValuesShouldNotMatchRegex() {
+        final String givenGroupValueRegex = this.filter.getGroupValueRegex();
+        final Set<String> givenGroupValues = Set.of(
+                " удобрения",
+                "Какие-то удобрения",
+                "Пылевидые удобрения"
+        );
 
+        final boolean groupValuesNotMatchRegex = givenGroupValues
+                .stream()
+                .noneMatch(value -> value.matches(givenGroupValueRegex));
+        assertTrue(groupValuesNotMatchRegex);
     }
 
 }
