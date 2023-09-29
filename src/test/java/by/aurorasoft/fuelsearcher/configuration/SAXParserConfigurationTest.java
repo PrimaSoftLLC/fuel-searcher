@@ -15,7 +15,7 @@ public final class SAXParserConfigurationTest {
 
     @Test
     public void parserFactoryShouldBeCreated() {
-        final SAXParserFactory actual = configuration.saxParserFactory();
+        final SAXParserFactory actual = this.configuration.saxParserFactory();
         assertNotNull(actual);
     }
 
