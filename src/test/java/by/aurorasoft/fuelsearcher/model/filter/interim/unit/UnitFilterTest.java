@@ -21,7 +21,9 @@ public final class UnitFilterTest {
     public void rowsShouldBeFiltered() {
         try (final MockedStatic<XWPFTableRowFilteringUtil> mockedUtilities = mockStatic(XWPFTableRowFilteringUtil.class)) {
             final List<XWPFTableRow> givenRows = List.of(
-                    mock(XWPFTableRow.class), mock(XWPFTableRow.class), mock(XWPFTableRow.class)
+                    mock(XWPFTableRow.class),
+                    mock(XWPFTableRow.class),
+                    mock(XWPFTableRow.class)
             );
             final String givenFiltrationValue = "filtration-value";
             final int givenFiltrationCellIndex = 5;
@@ -29,11 +31,17 @@ public final class UnitFilterTest {
 
             final List<XWPFTableRow> givenResultRows = List.of(mock(XWPFTableRow.class), mock(XWPFTableRow.class));
             mockedUtilities.when(
-                    () -> findUnitedRowsByContent(same(givenRows), eq(givenFiltrationCellIndex), same(givenFiltrationValue))
+                    () -> findUnitedRowsByContent(
+                            same(givenRows),
+                            eq(givenFiltrationCellIndex),
+                            same(givenFiltrationValue)
+                    )
             ).thenReturn(givenResultRows);
 
             final List<XWPFTableRow> actual = givenFilter.filter(
-                    givenRows, givenFiltrationValue, givenFiltrationCellIndex
+                    givenRows,
+                    givenFiltrationValue,
+                    givenFiltrationCellIndex
             );
             assertSame(givenResultRows, actual);
         }
