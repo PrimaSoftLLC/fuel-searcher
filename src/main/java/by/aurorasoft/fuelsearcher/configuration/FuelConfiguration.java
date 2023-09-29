@@ -13,14 +13,13 @@ import org.springframework.context.annotation.PropertySource;
 
 import java.util.List;
 
-//TODO: refactor tests
 @Configuration
 @PropertySource(value = "classpath:fuel-header-metadata.properties", encoding = "UTF-8")
 public class FuelConfiguration {
 
     @Bean
-    public FuelDocument document(final FuelDocumentFactory factory,
-                                 @Value("${fuel-document.path}") final String filePath) {
+    public FuelDocument fuelDocument(final FuelDocumentFactory factory,
+                                     @Value("${fuel-document.path}") final String filePath) {
         return factory.create(filePath);
     }
 
