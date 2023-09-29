@@ -17,7 +17,8 @@ public final class FertilizerTypeGroupFilterFactoryTest {
         final int givenFiltrationCellIndex = 5;
 
         final FertilizerTypeGroupFilter actual = this.factory.create(
-                givenFertilizerTypeExtractor, givenFiltrationCellIndex
+                givenFertilizerTypeExtractor,
+                givenFiltrationCellIndex
         );
 
         assertSame(givenFertilizerTypeExtractor, actual.getPropertyExtractor());
