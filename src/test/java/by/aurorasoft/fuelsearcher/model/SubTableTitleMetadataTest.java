@@ -22,15 +22,15 @@ public final class SubTableTitleMetadataTest {
     private static final String FIELD_NAME_TITLE_METADATA_REGEX = "regex";
     private static final String FIELD_NAME_TITLE_METADATA_ARGUMENTS_METADATA = "argumentsMetadata";
 
+    private static final String FIELD_NAME_PROPERTY_METADATA_SOURCE_PROPERTY_EXTRACTOR = "propertyExtractor";
+
     private static final String FIELD_NAME_ARGUMENT_METADATA_INDEX = "index";
-    private static final String FIELD_NAME_ARGUMENT_METADATA_EXTRACTOR = "extractor";
 
     private static final String FIELD_NAME_BUILDER_TEMPLATE_WITH_PROPERTY_NAMES = "templateWithPropertyNames";
     private static final String FIELD_NAME_BUILDER_ARGUMENT_EXTRACTORS = "argumentExtractors";
 
     @Test
-    public void titleMetadataArgumentExtractorsShouldBeFound()
-            throws Exception {
+    public void titleMetadataArgumentExtractorsShouldBeFound() {
         final SubTableTitleMetadata givenTitleMetadata = createTitleMetadata();
 
         final SpecificationPropertyExtractor firstGivenArgumentMetadataExtractor = mock(
@@ -67,8 +67,7 @@ public final class SubTableTitleMetadataTest {
     }
 
     @Test
-    public void argumentMetadataPropertyNameShouldBeFound()
-            throws Exception {
+    public void argumentMetadataPropertyNameShouldBeFound() {
         final SubTableTitleMetadata givenTitleMetadata = createTitleMetadata();
         final SubTableTitleArgumentMetadata givenArgumentMetadata = createArgumentMetadata(givenTitleMetadata);
 
@@ -81,8 +80,7 @@ public final class SubTableTitleMetadataTest {
     }
 
     @Test
-    public void argumentMetadataTitleRegexShouldBeFound()
-            throws Exception {
+    public void argumentMetadataTitleRegexShouldBeFound() {
         final String givenTitleMetadataRegex = "regex";
         final SubTableTitleMetadata givenTitleMetadata = createTitleMetadata();
         setRegex(givenTitleMetadata, givenTitleMetadataRegex);
@@ -94,8 +92,7 @@ public final class SubTableTitleMetadataTest {
     }
 
     @Test
-    public void argumentMetadataGroupIndexInRegexShouldBeFound()
-            throws Exception {
+    public void argumentMetadataGroupIndexInRegexShouldBeFound() {
         final SubTableTitleMetadata givenTitleMetadata = createTitleMetadata();
 
         final int givenIndex = 5;
@@ -108,8 +105,7 @@ public final class SubTableTitleMetadataTest {
     }
 
     @Test
-    public void templateWithPropertyNamesShouldBeAccumulatedByBuilder()
-            throws Exception {
+    public void templateWithPropertyNamesShouldBeAccumulatedByBuilder() {
         final SubTableTitleMetadataBuilder givenBuilder = SubTableTitleMetadata.builder();
         final String givenTemplate = "{трактор} с {механизм}";
 
@@ -120,8 +116,7 @@ public final class SubTableTitleMetadataTest {
     }
 
     @Test
-    public void argumentExtractorsShouldBeAccumulatedByBuilder()
-            throws Exception {
+    public void argumentExtractorsShouldBeAccumulatedByBuilder() {
         final SubTableTitleMetadataBuilder givenBuilder = SubTableTitleMetadata.builder();
 
         final SpecificationPropertyExtractor firstGivenExtractor = mock(SpecificationPropertyExtractor.class);
@@ -139,8 +134,7 @@ public final class SubTableTitleMetadataTest {
     }
 
     @Test
-    public void propertiesShouldBeFound()
-            throws Exception {
+    public void propertiesShouldBeFound() {
         final SubTableTitleMetadataBuilder givenBuilder = SubTableTitleMetadata.builder();
 
         final String givenTemplateWithPropertyNames = "{трактор} с {механизм}";
@@ -160,8 +154,7 @@ public final class SubTableTitleMetadataTest {
 
     @Test
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public void titleMetadataShouldBeBuiltAfterStateValidation()
-            throws Exception {
+    public void titleMetadataShouldBeBuiltAfterStateValidation() {
         try (final MockedStatic<SubTableTitleUtil> mockedTitleUtil = mockStatic(SubTableTitleUtil.class)) {
             final SubTableTitleMetadataBuilder givenBuilder = SubTableTitleMetadata.builder();
 
@@ -223,8 +216,7 @@ public final class SubTableTitleMetadataTest {
         }
     }
 
-    private static SubTableTitleMetadata createTitleMetadata()
-            throws Exception {
+    private static SubTableTitleMetadata createTitleMetadata() {
         return createObject(
                 SubTableTitleMetadata.class,
                 new Class<?>[]{String.class, String.class, List.class},
@@ -232,12 +224,11 @@ public final class SubTableTitleMetadataTest {
         );
     }
 
-    private static SubTableTitleArgumentMetadata createArgumentMetadata(final SubTableTitleMetadata titleMetadata)
-            throws Exception {
+    private static SubTableTitleArgumentMetadata createArgumentMetadata(final SubTableTitleMetadata titleMetadata) {
         return createObject(
                 SubTableTitleArgumentMetadata.class,
-                new Class<?>[]{SubTableTitleMetadata.class, int.class, SpecificationPropertyExtractor.class},
-                new Object[]{titleMetadata, MIN_VALUE, null}
+                new Class<?>[]{SubTableTitleMetadata.class, SpecificationPropertyExtractor.class, int.class},
+                new Object[]{titleMetadata, null, MIN_VALUE}
         );
     }
 
@@ -249,8 +240,7 @@ public final class SubTableTitleMetadataTest {
     }
 
     @SuppressWarnings("SameParameterValue")
-    private static void setRegex(final SubTableTitleMetadata titleMetadata, final String regex)
-            throws Exception {
+    private static void setRegex(final SubTableTitleMetadata titleMetadata, final String regex) {
         setProperty(
                 titleMetadata,
                 regex,
@@ -260,8 +250,7 @@ public final class SubTableTitleMetadataTest {
     }
 
     private static void setArgumentsMetadata(final SubTableTitleMetadata titleMetadata,
-                                             final List<SubTableTitleArgumentMetadata> argumentsMetadata)
-            throws Exception {
+                                             final List<SubTableTitleArgumentMetadata> argumentsMetadata) {
         setProperty(
                 titleMetadata,
                 argumentsMetadata,
@@ -270,20 +259,18 @@ public final class SubTableTitleMetadataTest {
         );
     }
 
-    private static void setExtractor(final SubTableTitleArgumentMetadata argumentMetadata,
-                                     final SpecificationPropertyExtractor extractor)
-            throws Exception {
+    private static void setExtractor(final PropertyMetadataSource propertyMetadataSource,
+                                     final SpecificationPropertyExtractor extractor) {
         setProperty(
-                argumentMetadata,
+                propertyMetadataSource,
                 extractor,
-                SubTableTitleArgumentMetadata.class,
-                FIELD_NAME_ARGUMENT_METADATA_EXTRACTOR
+                PropertyMetadataSource.class,
+                FIELD_NAME_PROPERTY_METADATA_SOURCE_PROPERTY_EXTRACTOR
         );
     }
 
     @SuppressWarnings("SameParameterValue")
-    private static void setIndex(final SubTableTitleArgumentMetadata argumentMetadata, final int index)
-            throws Exception {
+    private static void setIndex(final SubTableTitleArgumentMetadata argumentMetadata, final int index) {
         setProperty(
                 argumentMetadata,
                 index,
@@ -293,8 +280,7 @@ public final class SubTableTitleMetadataTest {
     }
 
     @SuppressWarnings("SameParameterValue")
-    private static void setTemplateWithPropertyNames(final SubTableTitleMetadataBuilder builder, final String template)
-            throws Exception {
+    private static void setTemplateWithPropertyNames(final SubTableTitleMetadataBuilder builder, final String template) {
         setProperty(
                 builder,
                 template,
@@ -304,8 +290,7 @@ public final class SubTableTitleMetadataTest {
     }
 
     private static void setArgumentExtractors(final SubTableTitleMetadataBuilder builder,
-                                              final List<SpecificationPropertyExtractor> extractors)
-            throws Exception {
+                                              final List<SpecificationPropertyExtractor> extractors) {
         setProperty(
                 builder,
                 extractors,
@@ -314,8 +299,7 @@ public final class SubTableTitleMetadataTest {
         );
     }
 
-    private static String findTemplateWithPropertyNames(final SubTableTitleMetadataBuilder builder)
-            throws Exception {
+    private static String findTemplateWithPropertyNames(final SubTableTitleMetadataBuilder builder) {
         return findProperty(
                 builder,
                 SubTableTitleMetadataBuilder.class,
@@ -324,8 +308,7 @@ public final class SubTableTitleMetadataTest {
         );
     }
 
-    private static String findRegex(final SubTableTitleMetadata metadata)
-            throws Exception {
+    private static String findRegex(final SubTableTitleMetadata metadata) {
         return findProperty(
                 metadata,
                 SubTableTitleMetadata.class,
@@ -334,8 +317,7 @@ public final class SubTableTitleMetadataTest {
         );
     }
 
-    private static int findIndex(final SubTableTitleArgumentMetadata metadata)
-            throws Exception {
+    private static int findIndex(final SubTableTitleArgumentMetadata metadata) {
         return findProperty(
                 metadata,
                 SubTableTitleArgumentMetadata.class,
@@ -344,20 +326,19 @@ public final class SubTableTitleMetadataTest {
         );
     }
 
-    private static SpecificationPropertyExtractor findExtractor(final SubTableTitleArgumentMetadata metadata)
-            throws Exception {
+    private static SpecificationPropertyExtractor findExtractor(final PropertyMetadataSource metadataSource) {
         return findProperty(
-                metadata,
-                SubTableTitleArgumentMetadata.class,
-                FIELD_NAME_ARGUMENT_METADATA_EXTRACTOR,
+                metadataSource,
+                PropertyMetadataSource.class,
+                FIELD_NAME_PROPERTY_METADATA_SOURCE_PROPERTY_EXTRACTOR,
                 SpecificationPropertyExtractor.class
         );
     }
 
     @SuppressWarnings("unchecked")
     private static List<SpecificationPropertyExtractor> findArgumentExtractors(
-            final SubTableTitleMetadataBuilder builder)
-            throws Exception {
+            final SubTableTitleMetadataBuilder builder
+    ) {
         return findProperty(
                 builder,
                 SubTableTitleMetadataBuilder.class,
