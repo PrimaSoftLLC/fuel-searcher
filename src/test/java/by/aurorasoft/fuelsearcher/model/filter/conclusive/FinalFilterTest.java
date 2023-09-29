@@ -23,18 +23,27 @@ public final class FinalFilterTest {
     @Test
     public void rowsShouldBeFilteredToRow() {
         try (final MockedStatic<XWPFTableRowFilteringUtil> mockedUtilities = mockStatic(XWPFTableRowFilteringUtil.class)) {
-            final List<XWPFTableRow> givenRows = List.of(mock(XWPFTableRow.class), mock(XWPFTableRow.class));
+            final List<XWPFTableRow> givenRows = List.of(
+                    mock(XWPFTableRow.class),
+                    mock(XWPFTableRow.class)
+            );
             final String givenFiltrationValue = "filtration-value";
             final int givenFiltrationCellIndex = 5;
             final TestFinalFilter givenFilter = new TestFinalFilter();
 
             final XWPFTableRow givenResultRow = mock(XWPFTableRow.class);
             mockedUtilities.when(
-                    () -> findFirstRowByContent(same(givenRows), eq(givenFiltrationCellIndex), same(givenFiltrationValue))
+                    () -> findFirstRowByContent(
+                            same(givenRows),
+                            eq(givenFiltrationCellIndex),
+                            same(givenFiltrationValue)
+                    )
             ).thenReturn(Optional.of(givenResultRow));
 
             final Optional<XWPFTableRow> optionalActual = givenFilter.filter(
-                    givenRows, givenFiltrationValue, givenFiltrationCellIndex
+                    givenRows,
+                    givenFiltrationValue,
+                    givenFiltrationCellIndex
             );
             assertTrue(optionalActual.isPresent());
             final XWPFTableRow actual = optionalActual.get();
@@ -45,17 +54,26 @@ public final class FinalFilterTest {
     @Test
     public void allRowsShouldBeFiltered() {
         try (final MockedStatic<XWPFTableRowFilteringUtil> mockedUtilities = mockStatic(XWPFTableRowFilteringUtil.class)) {
-            final List<XWPFTableRow> givenRows = List.of(mock(XWPFTableRow.class), mock(XWPFTableRow.class));
+            final List<XWPFTableRow> givenRows = List.of(
+                    mock(XWPFTableRow.class),
+                    mock(XWPFTableRow.class)
+            );
             final String givenFiltrationValue = "filtration-value";
             final int givenFiltrationCellIndex = 5;
             final TestFinalFilter givenFilter = new TestFinalFilter();
 
             mockedUtilities.when(
-                    () -> findFirstRowByContent(same(givenRows), eq(givenFiltrationCellIndex), same(givenFiltrationValue))
+                    () -> findFirstRowByContent(
+                            same(givenRows),
+                            eq(givenFiltrationCellIndex),
+                            same(givenFiltrationValue)
+                    )
             ).thenReturn(empty());
 
             final Optional<XWPFTableRow> optionalActual = givenFilter.filter(
-                    givenRows, givenFiltrationValue, givenFiltrationCellIndex
+                    givenRows,
+                    givenFiltrationValue,
+                    givenFiltrationCellIndex
             );
             assertTrue(optionalActual.isEmpty());
         }
