@@ -30,8 +30,7 @@ public final class ControllerExceptionHandlerTest {
     private final ControllerExceptionHandler exceptionHandler = new ControllerExceptionHandler();
 
     @Test
-    public void noSuchFuelExceptionShouldBeHandled()
-            throws Exception {
+    public void noSuchFuelExceptionShouldBeHandled() {
         final String givenExceptionDescription = "exception-description";
         final NoSuchEntityException givenException = new NoSuchEntityException(givenExceptionDescription);
 
@@ -52,8 +51,7 @@ public final class ControllerExceptionHandlerTest {
     }
 
     @Test
-    public void notValidSpecificationExceptionShouldBeHandled()
-            throws Exception {
+    public void notValidSpecificationExceptionShouldBeHandled() {
         final List<String> givenFailedPropertyNames = List.of("first-property", "second-property", "third-property");
         final SpecificationValidatingResult givenValidatingResult = createValidatingResult(givenFailedPropertyNames);
 
@@ -85,8 +83,7 @@ public final class ControllerExceptionHandlerTest {
         }
     }
 
-    private static HttpStatus findErrorResponseHttpStatus(final Object errorResponse)
-            throws Exception {
+    private static HttpStatus findErrorResponseHttpStatus(final Object errorResponse) {
         return findErrorResponseProperty(
                 errorResponse,
                 FIELD_NAME_ERROR_RESPONSE_HTTP_STATUS,
@@ -94,8 +91,7 @@ public final class ControllerExceptionHandlerTest {
         );
     }
 
-    private static String findErrorResponseMessage(final Object errorResponse)
-            throws Exception {
+    private static String findErrorResponseMessage(final Object errorResponse) {
         return findErrorResponseProperty(
                 errorResponse,
                 FIELD_NAME_ERROR_RESPONSE_MESSAGE,
@@ -103,8 +99,7 @@ public final class ControllerExceptionHandlerTest {
         );
     }
 
-    private static LocalDateTime findErrorResponseDateTime(final Object errorResponse)
-            throws Exception {
+    private static LocalDateTime findErrorResponseDateTime(final Object errorResponse) {
         return findErrorResponseProperty(
                 errorResponse,
                 FIELD_NAME_ERROR_RESPONSE_DATE_TIME,
@@ -115,8 +110,7 @@ public final class ControllerExceptionHandlerTest {
     @SuppressWarnings("unchecked")
     private static <P> P findErrorResponseProperty(final Object errorResponse,
                                                    final String fieldName,
-                                                   final Class<P> propertyType)
-            throws Exception {
+                                                   final Class<P> propertyType) {
         return findProperty(
                 errorResponse,
                 (Class<Object>) CLASS_ERROR_RESPONSE,

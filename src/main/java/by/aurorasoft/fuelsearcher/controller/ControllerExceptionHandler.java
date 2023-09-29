@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.function.Function;
 
 import static com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING;
 import static java.lang.String.join;
@@ -25,18 +26,28 @@ public final class ControllerExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<RestErrorResponse> handleException(final NoSuchEntityException exception) {
-        final String message = exception.getMessage();
-        return createResponseEntity(message, NOT_FOUND);
+        return createResponseEntity(
+                exception,
+                Exception::getMessage,
+                NOT_FOUND
+        );
     }
 
     @ExceptionHandler
     public ResponseEntity<RestErrorResponse> handleException(final NotValidSpecificationException exception) {
-        final String message = findMessage(exception);
-        return createResponseEntity(message, NOT_ACCEPTABLE);
+        return createResponseEntity(
+                exception,
+                ControllerExceptionHandler::findMessage,
+                NOT_ACCEPTABLE
+        );
     }
 
-    private static ResponseEntity<RestErrorResponse> createResponseEntity(final String message,
-                                                                          final HttpStatus httpStatus) {
+    private static <E extends Exception> ResponseEntity<RestErrorResponse> createResponseEntity(
+            final E exception,
+            final ExceptionMessageProvider<E> messageProvider,
+            final HttpStatus httpStatus
+    ) {
+        final String message = messageProvider.apply(exception);
         final RestErrorResponse errorResponse = createErrorResponse(message, httpStatus);
         return new ResponseEntity<>(errorResponse, httpStatus);
     }
@@ -60,5 +71,10 @@ public final class ControllerExceptionHandler {
     private record RestErrorResponse(HttpStatus httpStatus,
                                      String message,
                                      @JsonFormat(shape = STRING, pattern = "yyyy-MM-dd HH-mm-ss") LocalDateTime dateTime) {
+    }
+
+    @FunctionalInterface
+    private interface ExceptionMessageProvider<E extends Exception> extends Function<E, String> {
+
     }
 }
