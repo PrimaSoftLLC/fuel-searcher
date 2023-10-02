@@ -1,5 +1,6 @@
 package by.aurorasoft.fuelsearcher.service.searcher;
 
+import by.aurorasoft.fuelsearcher.model.filter.Filter;
 import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
@@ -11,7 +12,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.*;
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.createObject;
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
 import static java.util.Optional.empty;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.same;
@@ -90,6 +92,28 @@ public final class FilterChainTest {
         assertTrue(optionalActual.isEmpty());
     }
 
+    @Test
+    public void filtersShouldBeFound() {
+        final InterimFilter firstGivenInterimFilter = mock(InterimFilter.class);
+        final InterimFilter secondGivenInterimFilter = mock(InterimFilter.class);
+        final List<InterimFilter> givenInterimFilters = List.of(
+                firstGivenInterimFilter,
+                secondGivenInterimFilter
+        );
+
+        final FinalFilter givenFinalFilter = mock(FinalFilter.class);
+
+        final FilterChain givenChain = createChain(givenInterimFilters, givenFinalFilter);
+
+        final Stream<Filter<?>> actual = givenChain.findFilters();
+        final List<Filter<?>> actualAsList = actual.toList();
+        final List<Filter<?>> expectedAsList = List.of(
+                firstGivenInterimFilter,
+                secondGivenInterimFilter,
+                givenFinalFilter
+        );
+        assertEquals(expectedAsList, actualAsList);
+    }
 
     @Test
     public void interimFilterShouldBeAccumulatedByBuilder() {
@@ -199,22 +223,6 @@ public final class FilterChainTest {
                 chain,
                 FIELD_NAME_FINAL_FILTER,
                 FinalFilter.class
-        );
-    }
-
-    private static void setInterimFilters(final FilterChain chain, final List<InterimFilter> filters) {
-        setProperty(
-                chain,
-                filters,
-                FIELD_NAME_INTERIM_FILTERS
-        );
-    }
-
-    private static void setFinalFilter(final FilterChain chain, final FinalFilter filter) {
-        setProperty(
-                chain,
-                filter,
-                FIELD_NAME_FINAL_FILTER
         );
     }
 }

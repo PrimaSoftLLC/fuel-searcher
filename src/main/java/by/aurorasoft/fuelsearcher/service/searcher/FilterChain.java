@@ -31,7 +31,6 @@ public final class FilterChain {
         return filteringFunction.apply(rows);
     }
 
-    //TODO: test
     public Stream<Filter<?>> findFilters() {
         return Stream.concat(
                 this.interimFilters.stream(),
