@@ -180,29 +180,30 @@ public final class CompositeFuelSearcherTest {
         assertFalse(actual);
     }
 
-//    @Test
-//    public void elementsShouldNotBeValidBecauseOfTablesAreNotLocatedOnNotEvenIndexes() {
-//        final CompositeSearcherBuilder givenBuilder = CompositeFuelSearcher.builder();
-//        final List<IBodyElement> givenElements = List.of(
-//                mock(XWPFParagraph.class), mock(XWPFTable.class),
-//                mock(XWPFParagraph.class), mock(XWPFTable.class),
-//                mock(XWPFParagraph.class), mock(XWPFTable.class),
-//                mock(XWPFTable.class), mock(XWPFTable.class)
-//        );
-//
-//        final boolean actual = givenBuilder.isValidElements(givenElements);
-//        assertFalse(actual);
-//    }
-//
-//    @Test
-//    public void notValidElementsMessageShouldBeFound() {
-//        final CompositeSearcherBuilder givenBuilder = CompositeFuelSearcher.builder();
-//
-//        final String actual = givenBuilder.findNotValidElementsMessage();
-//        final String expected = "Paragraphs should be located in not even indexes, tables should be located in even indexes";
-//        assertEquals(expected, actual);
-//    }
-//
+    @Test
+    public void elementsShouldNotBeValidBecauseOfTablesAreNotLocatedOnNotEvenIndexes() {
+        final CompositeSearcherBuilder givenBuilder = CompositeFuelSearcher.builder();
+        final List<IBodyElement> givenElements = List.of(
+                mock(XWPFParagraph.class), mock(XWPFTable.class),
+                mock(XWPFParagraph.class), mock(XWPFTable.class),
+                mock(XWPFParagraph.class), mock(XWPFTable.class),
+                mock(XWPFTable.class), mock(XWPFTable.class)
+        );
+
+        final boolean actual = givenBuilder.isValidElements(givenElements);
+        assertFalse(actual);
+    }
+
+    @Test
+    public void notValidElementsMessageShouldBeFound() {
+        final CompositeSearcherBuilder givenBuilder = CompositeFuelSearcher.builder();
+
+        final String actual = givenBuilder.findNotValidElementsMessage();
+        final String expected = "Paragraphs should be located in not even indexes, "
+                + "tables should be located in even indexes";
+        assertEquals(expected, actual);
+    }
+
 //    @Test
 //    public void searcherShouldBeBuilt()
 //            throws Exception {
