@@ -1,43 +1,42 @@
-//package by.aurorasoft.fuelsearcher.service.searcher;
-//
-//import by.aurorasoft.fuelsearcher.model.FuelTable;
-//import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata;
-//import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
-//import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
-//import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher.CompositeSearcherBuilder;
-//import by.aurorasoft.fuelsearcher.util.XWPFContentUtil;
-//import by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil;
-//import org.apache.poi.xwpf.usermodel.IBodyElement;
-//import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-//import org.apache.poi.xwpf.usermodel.XWPFTable;
-//import org.junit.Test;
-//import org.mockito.MockedStatic;
-//
-//import java.util.List;
-//import java.util.Map;
-//import java.util.Optional;
-//import java.util.stream.Stream;
-//
-//import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.*;
-//import static by.aurorasoft.fuelsearcher.util.XWPFContentUtil.areEqualIgnoringWhitespacesAndCase;
-//import static by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.extractParagraphText;
-//import static java.util.Collections.emptyMap;
-//import static org.junit.Assert.*;
-//import static org.mockito.Mockito.*;
-//
-//public final class CompositeFuelSearcherTest {
-//    private static final String FIELD_NAME_TABLE = "table";
-//    private static final String FIELD_NAME_FUEL_OFFSETS_BY_HEADERS = "fuelOffsetsByHeaders";
-//    private static final String FIELD_NAME_FILTER_CHAIN = "filterChain";
-//    private static final String FIELD_NAME_HEADER_EXTRACTOR = "headerExtractor";
-//    private static final String FIELD_NAME_SUB_TABLE_TITLE_METADATA = "subTableTitleMetadata";
-//
-//    @Test
-//    public void builderShouldBeCreated() {
-//        final CompositeSearcherBuilder actual = CompositeFuelSearcher.builder();
-//        assertNotNull(actual);
-//    }
-//
+package by.aurorasoft.fuelsearcher.service.searcher;
+
+import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
+import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
+import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher.CompositeSearcherBuilder;
+import by.aurorasoft.fuelsearcher.util.XWPFContentUtil;
+import by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil;
+import org.apache.poi.xwpf.usermodel.IBodyElement;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.junit.Test;
+import org.mockito.MockedStatic;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Stream;
+
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.*;
+import static by.aurorasoft.fuelsearcher.util.XWPFContentUtil.areEqualIgnoringWhitespacesAndCase;
+import static by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.extractParagraphText;
+import static java.util.Collections.emptyMap;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
+public final class CompositeFuelSearcherTest {
+    private static final String FIELD_NAME_TABLE = "table";
+    private static final String FIELD_NAME_HEADER_METADATA = "headerMetadata";
+    private static final String FIELD_NAME_FILTER_CHAIN = "filterChain";
+    private static final String FIELD_NAME_SUB_TABLE_TITLE_METADATA = "subTableTitleMetadata";
+
+    @Test
+    public void builderShouldBeCreated() {
+        final CompositeSearcherBuilder actual = CompositeFuelSearcher.builder();
+        assertNotNull(actual);
+    }
+
 //    @Test
 //    public void subTableShouldBeFound()
 //            throws Exception {
@@ -268,128 +267,96 @@
 //        final List<Object> expectedAsList = List.of(givenSubTableTitleMetadata);
 //        assertEquals(expectedAsList, actualAsList);
 //    }
-//
-//    private static CompositeFuelSearcher createSearcher(final SubTableTitleMetadata subTableTitleMetadata)
-//            throws Exception {
-//        return createObject(
-//                CompositeFuelSearcher.class,
-//                new Class<?>[]{
-//                        FuelTable.class,
-//                        Map.class,
-//                        FilterChain.class,
-//                        SpecificationPropertyExtractor.class,
-//                        SubTableTitleMetadata.class
-//                },
-//                new Object[]{
-//                        null,
-//                        null,
-//                        null,
-//                        null,
-//                        subTableTitleMetadata
-//                }
-//        );
-//    }
-//
-//    private static SubTableTitleMetadata createSubTableTitleMetadata(final String template,
-//                                                                     final List<SpecificationPropertyExtractor> argumentExtractors)
-//            throws Exception {
-//        return createObject(
-//                SubTableTitleMetadata.class,
-//                new Class<?>[]{String.class, String.class, List.class},
-//                new Object[]{template, null, argumentExtractors}
-//        );
-//    }
-//
-//    private static SpecificationPropertyExtractor createPropertyExtractor(final String property,
-//                                                                          final FuelSpecification specification) {
-//        final SpecificationPropertyExtractor extractor = mock(SpecificationPropertyExtractor.class);
-//        when(extractor.extract(same(specification))).thenReturn(property);
-//        return extractor;
-//    }
-//
-//    private static SubTableTitleMetadata findSubTableTitleMetadata(final CompositeSearcherBuilder builder)
-//            throws Exception {
-//        return findProperty(
-//                builder,
-//                CompositeSearcherBuilder.class,
-//                FIELD_NAME_SUB_TABLE_TITLE_METADATA,
-//                SubTableTitleMetadata.class
-//        );
-//    }
-//
-//    private static FuelTable findTable(final FuelSearcher searcher)
-//            throws Exception {
-//        return findProperty(
-//                searcher,
-//                FuelSearcher.class,
-//                FIELD_NAME_TABLE,
-//                FuelTable.class
-//        );
-//    }
-//
-//    @SuppressWarnings("unchecked")
-//    private static Map<String, Integer> findFuelOffsetsByHeaders(final FuelSearcher searcher)
-//            throws Exception {
-//        return findProperty(
-//                searcher,
-//                FuelSearcher.class,
-//                FIELD_NAME_FUEL_OFFSETS_BY_HEADERS,
-//                Map.class
-//        );
-//    }
-//
-//    private static FilterChain findFilterChain(final FuelSearcher searcher)
-//            throws Exception {
-//        return findProperty(
-//                searcher,
-//                FuelSearcher.class,
-//                FIELD_NAME_FILTER_CHAIN,
-//                FilterChain.class
-//        );
-//    }
-//
-//    private static SpecificationPropertyExtractor findHeaderExtractor(final FuelSearcher searcher)
-//            throws Exception {
-//        return findProperty(
-//                searcher,
-//                FuelSearcher.class,
-//                FIELD_NAME_HEADER_EXTRACTOR,
-//                SpecificationPropertyExtractor.class
-//        );
-//    }
-//
-//    private static SubTableTitleMetadata findSubTableTitleMetadata(final CompositeFuelSearcher searcher)
-//            throws Exception {
-//        return findProperty(
-//                searcher,
-//                CompositeFuelSearcher.class,
-//                FIELD_NAME_SUB_TABLE_TITLE_METADATA,
-//                SubTableTitleMetadata.class
-//        );
-//    }
-//
-//    private static void setSubTableTitleMetadata(final CompositeSearcherBuilder builder,
-//                                                 final SubTableTitleMetadata metadata)
-//            throws Exception {
-//        setProperty(
-//                builder,
-//                metadata,
-//                CompositeSearcherBuilder.class,
-//                FIELD_NAME_SUB_TABLE_TITLE_METADATA
-//        );
-//    }
-//
-//    @SuppressWarnings("SameParameterValue")
-//    private static XWPFParagraph createParagraph(final String content,
-//                                                 final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil,
-//                                                 final boolean matchSubTableTitleContent,
-//                                                 final String expectedSubTableTitleContent,
-//                                                 final MockedStatic<XWPFContentUtil> mockedContentComparingUtil) {
-//        final XWPFParagraph paragraph = mock(XWPFParagraph.class);
-//        mockedParagraphUtil.when(() -> extractParagraphText(same(paragraph))).thenReturn(content);
-//        mockedContentComparingUtil.when(
-//                () -> areEqualIgnoringWhitespacesAndCase(same(content), eq(expectedSubTableTitleContent))
-//        ).thenReturn(matchSubTableTitleContent);
-//        return paragraph;
-//    }
-//}
+
+    private static CompositeFuelSearcher createSearcher(final SubTableTitleMetadata subTableTitleMetadata) {
+        return createObject(
+                CompositeFuelSearcher.class,
+                new Class<?>[]{
+                        FuelTable.class,
+                        Map.class,
+                        FilterChain.class,
+                        SpecificationPropertyExtractor.class,
+                        SubTableTitleMetadata.class
+                },
+                new Object[]{
+                        null,
+                        null,
+                        null,
+                        null,
+                        subTableTitleMetadata
+                }
+        );
+    }
+
+    private static SubTableTitleMetadata createSubTableTitleMetadata(final String template,
+                                                                     final List<SpecificationPropertyExtractor> argumentExtractors) {
+        return createObject(
+                SubTableTitleMetadata.class,
+                new Class<?>[]{String.class, String.class, List.class},
+                new Object[]{template, null, argumentExtractors}
+        );
+    }
+
+    private static SpecificationPropertyExtractor createPropertyExtractor(final String property,
+                                                                          final FuelSpecification specification) {
+        final SpecificationPropertyExtractor extractor = mock(SpecificationPropertyExtractor.class);
+        when(extractor.extract(same(specification))).thenReturn(property);
+        return extractor;
+    }
+
+    private static SubTableTitleMetadata findSubTableTitleMetadata(final CompositeSearcherBuilder builder) {
+        return findProperty(
+                builder,
+                FIELD_NAME_SUB_TABLE_TITLE_METADATA,
+                SubTableTitleMetadata.class
+        );
+    }
+
+    private static FuelTable findTable(final FuelSearcher searcher) {
+        return findProperty(
+                searcher,
+                FIELD_NAME_TABLE,
+                FuelTable.class
+        );
+    }
+
+    private static FilterChain findFilterChain(final FuelSearcher searcher)
+            throws Exception {
+        return findProperty(
+                searcher,
+                FIELD_NAME_FILTER_CHAIN,
+                FilterChain.class
+        );
+    }
+
+    private static SubTableTitleMetadata findSubTableTitleMetadata(final CompositeFuelSearcher searcher) {
+        return findProperty(
+                searcher,
+                FIELD_NAME_SUB_TABLE_TITLE_METADATA,
+                SubTableTitleMetadata.class
+        );
+    }
+
+    private static void setSubTableTitleMetadata(final CompositeSearcherBuilder builder,
+                                                 final SubTableTitleMetadata metadata) {
+        setProperty(
+                builder,
+                metadata,
+                FIELD_NAME_SUB_TABLE_TITLE_METADATA
+        );
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    private static XWPFParagraph createParagraph(final String content,
+                                                 final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil,
+                                                 final boolean matchSubTableTitleContent,
+                                                 final String expectedSubTableTitleContent,
+                                                 final MockedStatic<XWPFContentUtil> mockedContentComparingUtil) {
+        final XWPFParagraph paragraph = mock(XWPFParagraph.class);
+        mockedParagraphUtil.when(() -> extractParagraphText(same(paragraph))).thenReturn(content);
+        mockedContentComparingUtil.when(
+                () -> areEqualIgnoringWhitespacesAndCase(same(content), eq(expectedSubTableTitleContent))
+        ).thenReturn(matchSubTableTitleContent);
+        return paragraph;
+    }
+}
