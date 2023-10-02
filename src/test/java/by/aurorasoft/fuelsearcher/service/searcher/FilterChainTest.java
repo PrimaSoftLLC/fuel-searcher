@@ -11,8 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.createObject;
-import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.*;
 import static java.util.Optional.empty;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.same;
@@ -90,6 +89,7 @@ public final class FilterChainTest {
         final Optional<XWPFTableRow> optionalActual = givenFilterChain.filter(givenInitialRows, givenSpecification);
         assertTrue(optionalActual.isEmpty());
     }
+
 
     @Test
     public void interimFilterShouldBeAccumulatedByBuilder() {
@@ -199,6 +199,22 @@ public final class FilterChainTest {
                 chain,
                 FIELD_NAME_FINAL_FILTER,
                 FinalFilter.class
+        );
+    }
+
+    private static void setInterimFilters(final FilterChain chain, final List<InterimFilter> filters) {
+        setProperty(
+                chain,
+                filters,
+                FIELD_NAME_INTERIM_FILTERS
+        );
+    }
+
+    private static void setFinalFilter(final FilterChain chain, final FinalFilter filter) {
+        setProperty(
+                chain,
+                filter,
+                FIELD_NAME_FINAL_FILTER
         );
     }
 }
