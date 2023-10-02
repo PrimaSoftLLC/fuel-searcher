@@ -471,64 +471,54 @@ public final class FuelSearcherTest {
         assertEquals(expectedAsList, actualAsList);
     }
 
-//    @Test
-//    public void searcherShouldBeBuiltAfterStateValidation() {
-//        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder()
-//                .validElements(true)
-//                .build();
-//
-//        final FuelTable givenTable = mock(FuelTable.class);
-//        setFuelTable(givenBuilder, givenTable);
-//
-//        final String[] givenHeaderValues = {"first-header", "second-header", "third-header"};
-//        final SpecificationPropertyExtractor givenHeaderExtractor = mock(SpecificationPropertyExtractor.class);
-//        final FuelHeaderMetadata givenHeaderMetadata = createHeaderMetadata(givenHeaderValues, givenHeaderExtractor);
-//        setHeaderMetadata(givenBuilder, givenHeaderMetadata);
-//
-//        final FilterChain givenFilterChain = mock(FilterChain.class);
-//        final FilterChainBuilder givenFilterChainBuilder = createFilterChainBuilder(givenFilterChain);
-//        setFilterChainBuilder(givenBuilder, givenFilterChainBuilder);
-//
-//        final TestFuelSearcher actual = givenBuilder.buildAfterStateValidation();
-//
-//        final FuelTable actualTable = findFuelTable(actual);
-//        assertSame(givenTable, actualTable);
-//
-//        final Map<String, Integer> actualFuelOffsetsByHeaders = findFuelOffsetsByHeaders(actual);
-//        final Map<String, Integer> expectedFuelOffsetsByHeaders = Map.of(
-//                "first-header", 0,
-//                "second-header", 1,
-//                "third-header", 2
-//        );
-//        assertEquals(expectedFuelOffsetsByHeaders, actualFuelOffsetsByHeaders);
-//
-//        final FilterChain actualFilterChain = findFilterChain(actual);
-//        assertSame(givenFilterChain, actualFilterChain);
-//
-//        final SpecificationPropertyExtractor actualHeaderExtractor = findHeaderExtractor(actual);
-//        assertSame(givenHeaderExtractor, actualHeaderExtractor);
-//    }
-//
-//    @Test
-//    public void searcherShouldNotBeBuiltAfterStateValidationBecauseOfFuelTableIsNotValid() {
-//        final String givenNotValidElementsMessage = "message";
-//        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder()
-//                .validElements(false)
-//                .notValidElementsMessage(givenNotValidElementsMessage)
-//                .build();
-//
-//        final FuelTable givenTable = mock(FuelTable.class);
-//        setFuelTable(givenBuilder, givenTable);
-//
-//        boolean exceptionArisen = false;
-//        try {
-//            givenBuilder.buildAfterStateValidation();
-//        } catch (final IllegalStateException exception) {
-//            assertEquals(givenNotValidElementsMessage, exception.getMessage());
-//            exceptionArisen = true;
-//        }
-//        assertTrue(exceptionArisen);
-//    }
+    @Test
+    public void searcherShouldBeBuiltAfterStateValidation() {
+        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder()
+                .validElements(true)
+                .build();
+
+        final FuelTable givenTable = mock(FuelTable.class);
+        setFuelTable(givenBuilder, givenTable);
+
+        final FuelHeaderMetadata givenHeaderMetadata = mock(FuelHeaderMetadata.class);
+        setHeaderMetadata(givenBuilder, givenHeaderMetadata);
+
+        final FilterChain givenFilterChain = mock(FilterChain.class);
+        final FilterChainBuilder givenFilterChainBuilder = createFilterChainBuilder(givenFilterChain);
+        setFilterChainBuilder(givenBuilder, givenFilterChainBuilder);
+
+        final TestFuelSearcher actual = givenBuilder.buildAfterStateValidation();
+
+        final FuelTable actualTable = findTable(actual);
+        assertSame(givenTable, actualTable);
+
+        final FuelHeaderMetadata actualHeaderMetadata = findHeaderMetadata(actual);
+        assertSame(givenHeaderMetadata, actualHeaderMetadata);
+
+        final FilterChain actualFilterChain = findFilterChain(actual);
+        assertSame(givenFilterChain, actualFilterChain);
+    }
+
+    @Test
+    public void searcherShouldNotBeBuiltAfterStateValidationBecauseOfFuelTableIsNotValid() {
+        final String givenNotValidElementsMessage = "message";
+        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder()
+                .validElements(false)
+                .notValidElementsMessage(givenNotValidElementsMessage)
+                .build();
+
+        final FuelTable givenTable = mock(FuelTable.class);
+        setFuelTable(givenBuilder, givenTable);
+
+        boolean exceptionArisen = false;
+        try {
+            givenBuilder.buildAfterStateValidation();
+        } catch (final IllegalStateException exception) {
+            assertEquals(givenNotValidElementsMessage, exception.getMessage());
+            exceptionArisen = true;
+        }
+        assertTrue(exceptionArisen);
+    }
 
     @SuppressWarnings("SameParameterValue")
     private static FuelTable createTable(final String name) {
@@ -583,6 +573,14 @@ public final class FuelSearcherTest {
                 searcher,
                 FIELD_NAME_TABLE,
                 FuelTable.class
+        );
+    }
+
+    private static FuelHeaderMetadata findHeaderMetadata(final FuelSearcher searcher) {
+        return findProperty(
+                searcher,
+                FIELD_NAME_HEADER_METADATA,
+                FuelHeaderMetadata.class
         );
     }
 
@@ -644,13 +642,6 @@ public final class FuelSearcherTest {
         final S source = mock(sourceType);
         when(source.getPropertyExtractor()).thenReturn(propertyExtractor);
         return source;
-    }
-
-    private static FuelHeaderMetadata createHeaderMetadata(final String[] headerValues,
-                                                           final SpecificationPropertyExtractor propertyExtractor) {
-        final FuelHeaderMetadata metadata = createHeaderMetadata(propertyExtractor);
-        when(metadata.findHeaderValues()).thenReturn(headerValues);
-        return metadata;
     }
 
     private static FilterChainBuilder createFilterChainBuilder(final FilterChain builtFilterChain) {
