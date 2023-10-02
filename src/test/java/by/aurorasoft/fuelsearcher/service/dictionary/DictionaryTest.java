@@ -13,8 +13,7 @@ public final class DictionaryTest {
     private static final String FIELD_NAME_VALUES_BY_ALIAS = "valuesByAliases";
 
     @Test
-    public void dictionaryShouldBeCreated()
-            throws Exception {
+    public void dictionaryShouldBeCreated() {
         final String firstGivenAlias = "first";
         final TestObject firstGivenObject = new TestObject(firstGivenAlias);
 
@@ -90,11 +89,9 @@ public final class DictionaryTest {
     }
 
     @SuppressWarnings("unchecked")
-    private static Map<String, TestObject> findValuesByAliases(final Dictionary<TestObject> dictionary)
-            throws Exception {
+    private static Map<String, TestObject> findValuesByAliases(final Dictionary<TestObject> dictionary) {
         return findProperty(
                 dictionary,
-                Dictionary.class,
                 FIELD_NAME_VALUES_BY_ALIAS,
                 Map.class
         );
