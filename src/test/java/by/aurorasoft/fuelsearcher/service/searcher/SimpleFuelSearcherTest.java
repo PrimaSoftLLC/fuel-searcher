@@ -1,30 +1,36 @@
-//package by.aurorasoft.fuelsearcher.service.searcher;
-//
-//import by.aurorasoft.fuelsearcher.model.FuelTable;
-//import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
-//import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
-//import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleSearcherBuilder;
-//import org.apache.poi.xwpf.usermodel.IBodyElement;
-//import org.apache.poi.xwpf.usermodel.XWPFTable;
-//import org.junit.Test;
-//
-//import java.util.List;
-//import java.util.Map;
-//import java.util.Optional;
-//import java.util.stream.Stream;
-//
-//import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.createObject;
-//import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
-//import static java.util.Collections.*;
-//import static org.junit.Assert.*;
-//import static org.mockito.Mockito.mock;
-//
-//public final class SimpleFuelSearcherTest {
-//    private static final String FIELD_NAME_TABLE = "table";
-//    private static final String FIELD_NAME_FUEL_OFFSETS_BY_HEADERS = "fuelOffsetsByHeaders";
-//    private static final String FIELD_NAME_FILTER_CHAIN = "filterChain";
-//    private static final String FIELD_NAME_HEADER_EXTRACTOR = "headerExtractor";
-//
+package by.aurorasoft.fuelsearcher.service.searcher;
+
+import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
+import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
+import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleSearcherBuilder;
+import org.apache.poi.xwpf.usermodel.IBodyElement;
+import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.junit.Test;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Stream;
+
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.createObject;
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
+import static java.util.Collections.*;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+
+public final class SimpleFuelSearcherTest {
+    private static final String FIELD_NAME_TABLE = "table";
+    private static final String FIELD_NAME_FUEL_OFFSETS_BY_HEADERS = "fuelOffsetsByHeaders";
+    private static final String FIELD_NAME_FILTER_CHAIN = "filterChain";
+    private static final String FIELD_NAME_HEADER_EXTRACTOR = "headerExtractor";
+
+    @Test
+    public void builderShouldBeCreated() {
+        final SimpleSearcherBuilder actual = SimpleFuelSearcher.builder();
+        assertNotNull(actual);
+    }
+
 //    @Test
 //    public void subTableShouldBeFound()
 //            throws Exception {
@@ -39,7 +45,7 @@
 //        final XWPFTable actual = optionalActual.get();
 //        assertSame(element, actual);
 //    }
-//
+
 //    @Test(expected = IndexOutOfBoundsException.class)
 //    public void subTableShouldNotBeFoundBecauseOfElementsIsEmpty()
 //            throws Exception {
@@ -140,7 +146,7 @@
 //        final boolean actualEmpty = actual.findFirst().isEmpty();
 //        assertTrue(actualEmpty);
 //    }
-//
+
 //    private static SimpleFuelSearcher createSearcher()
 //            throws Exception {
 //        return createObject(
@@ -190,4 +196,4 @@
 //                SpecificationPropertyExtractor.class
 //        );
 //    }
-//}
+}
