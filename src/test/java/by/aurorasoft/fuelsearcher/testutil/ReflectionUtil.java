@@ -4,6 +4,11 @@ import lombok.experimental.UtilityClass;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.util.Objects;
+import java.util.stream.Stream;
+
+import static java.util.Arrays.stream;
+import static java.util.stream.Stream.iterate;
 
 @UtilityClass
 public final class ReflectionUtil {
@@ -42,11 +47,10 @@ public final class ReflectionUtil {
     }
 
     public static <S, P> P findProperty(final S source,
-                                        final Class<? super S> sourceType,
                                         final String fieldName,
                                         final Class<P> propertyType) {
         try {
-            final Field field = sourceType.getDeclaredField(fieldName);
+            final Field field = findFields(source, fieldName);
             field.setAccessible(true);
             try {
                 final Object property = field.get(source);
@@ -59,4 +63,51 @@ public final class ReflectionUtil {
         }
     }
 
+    private static Field findFields(final Object source, final String fieldName) {
+        final Class<?> sourceType = source.getClass();
+        return findInheritanceStream(sourceType)
+                .flatMap(ReflectionUtil::findDeclaredFields)
+                .filter(field -> Objects.equals(field.getName(), fieldName))
+                .findAny()
+                .orElseThrow(
+                        () -> new NoSuchFieldException(
+                                "%s doesn't have field %s".formatted(sourceType, fieldName)
+                        )
+                );
+    }
+
+    private static Stream<Class<?>> findInheritanceStream(final Class<?> root) {
+        return iterate(
+                root,
+                type -> type != Object.class,
+                Class::getSuperclass
+        );
+    }
+
+    private static Stream<Field> findDeclaredFields(final Class<?> type) {
+        final Field[] fields = type.getDeclaredFields();
+        return stream(fields);
+    }
+
+    private static final class NoSuchFieldException extends RuntimeException {
+
+        @SuppressWarnings("unused")
+        public NoSuchFieldException() {
+
+        }
+
+        public NoSuchFieldException(final String description) {
+            super(description);
+        }
+
+        @SuppressWarnings("unused")
+        public NoSuchFieldException(final Exception cause) {
+            super(cause);
+        }
+
+        @SuppressWarnings("unused")
+        public NoSuchFieldException(final String description, final Exception cause) {
+            super(description, cause);
+        }
+    }
 }
