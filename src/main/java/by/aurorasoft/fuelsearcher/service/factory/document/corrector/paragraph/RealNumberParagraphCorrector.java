@@ -9,8 +9,8 @@ import static java.util.Optional.empty;
 
 @Component
 public final class RealNumberParagraphCorrector extends ParagraphCorrector {
-    private static final char ZERO_CHARACTER = '0';
-    private static final char POINT_CHARACTER = '.';
+    private static final char ZERO = '0';
+    private static final char POINT = '.';
 
     private static final String REPLACED_REGEX = "(\\d+),(\\d+)";
     private static final int GROUP_NUMBER_INTEGER_PART = 1;
@@ -24,7 +24,7 @@ public final class RealNumberParagraphCorrector extends ParagraphCorrector {
     protected String createReplacement(final MatchResult matchResult) {
         final String integerPart = extractIntegerPart(matchResult);
         return extractReducedFractionalPart(matchResult)
-                .map(fractionalPart -> integerPart + POINT_CHARACTER + fractionalPart)
+                .map(fractionalPart -> integerPart + POINT + fractionalPart)
                 .orElse(integerPart);
     }
 
@@ -57,7 +57,7 @@ public final class RealNumberParagraphCorrector extends ParagraphCorrector {
     }
 
     private static boolean isZero(final char character) {
-        return character == ZERO_CHARACTER;
+        return character == ZERO;
     }
 
     private static void removeLastCharacter(final StringBuilder contentBuilder) {
