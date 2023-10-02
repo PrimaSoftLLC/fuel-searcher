@@ -141,18 +141,17 @@ public final class CompositeFuelSearcherTest {
         }
     }
 
-//    @Test
-//    public void subTableTitleMetadataShouldBeAccumulatedByBuilder()
-//            throws Exception {
-//        final CompositeSearcherBuilder givenBuilder = CompositeFuelSearcher.builder();
-//        final SubTableTitleMetadata givenSubTableTitleMetadata = mock(SubTableTitleMetadata.class);
-//
-//        givenBuilder.subTableTitleMetadata(givenSubTableTitleMetadata);
-//
-//        final SubTableTitleMetadata actual = findSubTableTitleMetadata(givenBuilder);
-//        assertSame(givenSubTableTitleMetadata, actual);
-//    }
-//
+    @Test
+    public void subTableTitleMetadataShouldBeAccumulatedByBuilder() {
+        final CompositeSearcherBuilder givenBuilder = CompositeFuelSearcher.builder();
+        final SubTableTitleMetadata givenSubTableTitleMetadata = mock(SubTableTitleMetadata.class);
+
+        givenBuilder.subTableTitleMetadata(givenSubTableTitleMetadata);
+
+        final SubTableTitleMetadata actual = findSubTableTitleMetadata(givenBuilder);
+        assertSame(givenSubTableTitleMetadata, actual);
+    }
+
 //    @Test
 //    public void elementsShouldBeValid() {
 //        final CompositeSearcherBuilder givenBuilder = CompositeFuelSearcher.builder();
