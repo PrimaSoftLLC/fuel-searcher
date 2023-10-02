@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.service.factory.document.corrector.paragraphcorrector;
+package by.aurorasoft.fuelsearcher.service.factory.document.corrector.paragraph;
 
 import by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -27,7 +27,8 @@ public final class ParagraphCorrectorTest {
             final String givenReplacedRegex = "existing";
             final String givenReplacement = "replacement";
             final TestParagraphCorrector givenCorrector = new TestParagraphCorrector(
-                    givenReplacedRegex, givenReplacement
+                    givenReplacedRegex,
+                    givenReplacement
             );
 
             final String givenParagraphContent = "existing text textexisting text existingword";

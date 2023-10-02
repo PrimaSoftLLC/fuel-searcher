@@ -1,15 +1,15 @@
-package by.aurorasoft.fuelsearcher.service.factory.document.corrector.paragraphcorrector;
+package by.aurorasoft.fuelsearcher.service.factory.document.corrector.paragraph;
 
 import org.springframework.stereotype.Component;
 
 import java.util.regex.MatchResult;
 
 @Component
-public final class NewLineParagraphCorrector extends ParagraphCorrector {
-    private static final String REPLACED_REGEX = "\n+";
+public final class WhitespaceParagraphCorrector extends ParagraphCorrector {
+    private static final String REPLACED_REGEX = "[\\p{Z} ]+";
     private static final String REPLACEMENT = " ";
 
-    public NewLineParagraphCorrector() {
+    public WhitespaceParagraphCorrector() {
         super(REPLACED_REGEX);
     }
 
