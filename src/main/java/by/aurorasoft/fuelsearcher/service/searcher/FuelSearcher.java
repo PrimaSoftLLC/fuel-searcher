@@ -69,7 +69,7 @@ public abstract class FuelSearcher implements Translatable {
 
     //TODO: test
     @SuppressWarnings("unchecked")
-    public final Stream<? extends PropertyMetadataSource> findPropertyMetadataSources() {
+    public final Stream<PropertyMetadataSource> findPropertyMetadataSources() {
         return concat(
                 this.filterChain.findFilters(),
                 Stream.of(this.headerMetadata),
