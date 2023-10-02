@@ -100,15 +100,15 @@ public final class SimpleFuelSearcherTest {
         assertFalse(actual);
     }
 
-//    @Test
-//    public void notValidElementsMessageShouldBeFound() {
-//        final SimpleSearcherBuilder givenBuilder = SimpleFuelSearcher.builder();
-//
-//        final String actual = givenBuilder.findNotValidElementsMessage();
-//        final String expected = "Fuel table should contain only one table-element";
-//        assertEquals(expected, actual);
-//    }
-//
+    @Test
+    public void notValidElementsMessageShouldBeFound() {
+        final SimpleSearcherBuilder givenBuilder = SimpleFuelSearcher.builder();
+
+        final String actual = givenBuilder.findNotValidElementsMessage();
+        final String expected = "Fuel table should contain only one table-element";
+        assertEquals(expected, actual);
+    }
+
 //    @Test
 //    public void searcherShouldBeBuilt() throws Exception {
 //        final SimpleSearcherBuilder givenBuilder = SimpleFuelSearcher.builder();
