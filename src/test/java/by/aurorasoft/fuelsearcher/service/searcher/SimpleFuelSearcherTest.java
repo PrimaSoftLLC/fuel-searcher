@@ -1,6 +1,7 @@
 package by.aurorasoft.fuelsearcher.service.searcher;
 
 import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.model.PropertyMetadataSource;
 import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleSearcherBuilder;
@@ -10,6 +11,7 @@ import org.junit.Test;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.createObject;
 import static java.util.Collections.emptyList;
@@ -62,21 +64,24 @@ public final class SimpleFuelSearcherTest {
         givenSearcher.findSubTable(givenElements, givenSpecification);
     }
 
-//    @Test
-//    public void builderShouldBeCreated() {
-//        final SimpleSearcherBuilder actual = SimpleFuelSearcher.builder();
-//        assertNotNull(actual);
-//    }
-//
-//    @Test
-//    public void elementsShouldBeValid() {
-//        final SimpleSearcherBuilder givenBuilder = SimpleFuelSearcher.builder();
-//        final List<IBodyElement> givenElements = List.of(mock(XWPFTable.class));
-//
-//        final boolean actual = givenBuilder.isValidElements(givenElements);
-//        assertTrue(actual);
-//    }
-//
+    @Test
+    public void additionalPropertyMetadataSourcesShouldBeFoundShouldBeFound() {
+        final SimpleFuelSearcher givenSearcher = createSearcher();
+
+        final Stream<? extends PropertyMetadataSource> actual = givenSearcher.findAdditionalPropertyMetadataSources();
+        final boolean actualEmpty = actual.findFirst().isEmpty();
+        assertTrue(actualEmpty);
+    }
+
+    @Test
+    public void elementsShouldBeValid() {
+        final SimpleSearcherBuilder givenBuilder = SimpleFuelSearcher.builder();
+        final List<IBodyElement> givenElements = List.of(mock(XWPFTable.class));
+
+        final boolean actual = givenBuilder.isValidElements(givenElements);
+        assertTrue(actual);
+    }
+
 //    @Test
 //    public void elementsShouldNotBeValidBecauseOfNotValidSize() {
 //        final SimpleSearcherBuilder givenBuilder = SimpleFuelSearcher.builder();
