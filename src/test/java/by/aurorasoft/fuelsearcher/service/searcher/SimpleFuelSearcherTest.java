@@ -1,29 +1,26 @@
 package by.aurorasoft.fuelsearcher.service.searcher;
 
 import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
-import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleSearcherBuilder;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.junit.Test;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.createObject;
-import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
-import static java.util.Collections.*;
+import static java.util.Collections.emptyList;
+import static java.util.Collections.singletonList;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
 public final class SimpleFuelSearcherTest {
     private static final String FIELD_NAME_TABLE = "table";
-    private static final String FIELD_NAME_FUEL_OFFSETS_BY_HEADERS = "fuelOffsetsByHeaders";
+    private static final String FIELD_NAME_HEADER_METADATA = "headerMetadata";
     private static final String FIELD_NAME_FILTER_CHAIN = "filterChain";
-    private static final String FIELD_NAME_HEADER_EXTRACTOR = "headerExtractor";
 
     @Test
     public void builderShouldBeCreated() {
@@ -31,43 +28,40 @@ public final class SimpleFuelSearcherTest {
         assertNotNull(actual);
     }
 
-//    @Test
-//    public void subTableShouldBeFound()
-//            throws Exception {
-//        final SimpleFuelSearcher givenSearcher = createSearcher();
-//
-//        final XWPFTable element = mock(XWPFTable.class);
-//        final List<IBodyElement> givenElements = singletonList(element);
-//        final FuelSpecification givenSpecification = mock(FuelSpecification.class);
-//
-//        final Optional<XWPFTable> optionalActual = givenSearcher.findSubTable(givenElements, givenSpecification);
-//        assertTrue(optionalActual.isPresent());
-//        final XWPFTable actual = optionalActual.get();
-//        assertSame(element, actual);
-//    }
+    @Test
+    public void subTableShouldBeFound() {
+        final SimpleFuelSearcher givenSearcher = createSearcher();
 
-//    @Test(expected = IndexOutOfBoundsException.class)
-//    public void subTableShouldNotBeFoundBecauseOfElementsIsEmpty()
-//            throws Exception {
-//        final SimpleFuelSearcher givenSearcher = createSearcher();
-//
-//        final List<IBodyElement> givenElements = emptyList();
-//        final FuelSpecification givenSpecification = mock(FuelSpecification.class);
-//
-//        givenSearcher.findSubTable(givenElements, givenSpecification);
-//    }
-//
-//    @Test(expected = ClassCastException.class)
-//    public void subTableShouldNotBeFoundBecauseOfFirstElementIsNotTable()
-//            throws Exception {
-//        final SimpleFuelSearcher givenSearcher = createSearcher();
-//
-//        final List<IBodyElement> givenElements = List.of(mock(IBodyElement.class));
-//        final FuelSpecification givenSpecification = mock(FuelSpecification.class);
-//
-//        givenSearcher.findSubTable(givenElements, givenSpecification);
-//    }
-//
+        final XWPFTable element = mock(XWPFTable.class);
+        final List<IBodyElement> givenElements = singletonList(element);
+        final FuelSpecification givenSpecification = mock(FuelSpecification.class);
+
+        final Optional<XWPFTable> optionalActual = givenSearcher.findSubTable(givenElements, givenSpecification);
+        assertTrue(optionalActual.isPresent());
+        final XWPFTable actual = optionalActual.get();
+        assertSame(element, actual);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void subTableShouldNotBeFoundBecauseOfElementsIsEmpty() {
+        final SimpleFuelSearcher givenSearcher = createSearcher();
+
+        final List<IBodyElement> givenElements = emptyList();
+        final FuelSpecification givenSpecification = mock(FuelSpecification.class);
+
+        givenSearcher.findSubTable(givenElements, givenSpecification);
+    }
+
+    @Test(expected = ClassCastException.class)
+    public void subTableShouldNotBeFoundBecauseOfFirstElementIsNotTable() {
+        final SimpleFuelSearcher givenSearcher = createSearcher();
+
+        final List<IBodyElement> givenElements = List.of(mock(IBodyElement.class));
+        final FuelSpecification givenSpecification = mock(FuelSpecification.class);
+
+        givenSearcher.findSubTable(givenElements, givenSpecification);
+    }
+
 //    @Test
 //    public void builderShouldBeCreated() {
 //        final SimpleSearcherBuilder actual = SimpleFuelSearcher.builder();
@@ -147,15 +141,14 @@ public final class SimpleFuelSearcherTest {
 //        assertTrue(actualEmpty);
 //    }
 
-//    private static SimpleFuelSearcher createSearcher()
-//            throws Exception {
-//        return createObject(
-//                SimpleFuelSearcher.class,
-//                new Class<?>[]{FuelTable.class, Map.class, FilterChain.class, SpecificationPropertyExtractor.class},
-//                new Object[]{null, null, null, null}
-//        );
-//    }
-//
+    private static SimpleFuelSearcher createSearcher() {
+        return createObject(
+                SimpleFuelSearcher.class,
+                new Class<?>[]{FuelTable.class, FuelHeaderMetadata.class, FilterChain.class},
+                new Object[]{null, null, null}
+        );
+    }
+
 //    private static FuelTable findTable(final FuelSearcher searcher)
 //            throws Exception {
 //        return findProperty(
