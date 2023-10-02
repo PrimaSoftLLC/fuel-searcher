@@ -1,12 +1,12 @@
 package by.aurorasoft.fuelsearcher.service.validator;
 
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
-import by.aurorasoft.fuelsearcher.testutil.ReflectionUtil;
 import org.junit.Test;
 
 import java.util.List;
 
 import static by.aurorasoft.fuelsearcher.service.validator.SpecificationValidatingResult.createNotValidValidatingResult;
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
 import static java.util.Collections.emptyList;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -72,8 +72,7 @@ public final class SpecificationValidatingResultTest {
     }
 
     @Test
-    public void validatingResultShouldBeCreatedByFailedPropertyExtractor()
-            throws Exception {
+    public void validatingResultShouldBeCreatedByFailedPropertyExtractor() {
         final SpecificationPropertyExtractor givenExtractor = mock(SpecificationPropertyExtractor.class);
 
         final SpecificationValidatingResult actual = createNotValidValidatingResult(givenExtractor);
@@ -93,11 +92,10 @@ public final class SpecificationValidatingResultTest {
 
     @SuppressWarnings("unchecked")
     private static List<SpecificationPropertyExtractor> findFailedPropertyExtractors(
-            final SpecificationValidatingResult validatingResult)
-            throws Exception {
-        return ReflectionUtil.findProperty(
+            final SpecificationValidatingResult validatingResult
+    ) {
+        return findProperty(
                 validatingResult,
-                SpecificationValidatingResult.class,
                 FIELD_NAME_FAILED_PROPERTY_EXTRACTORS,
                 List.class
         );
