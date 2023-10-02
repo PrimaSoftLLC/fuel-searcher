@@ -302,7 +302,6 @@ public final class SubTableTitleMetadataTest {
     private static String findTemplateWithPropertyNames(final SubTableTitleMetadataBuilder builder) {
         return findProperty(
                 builder,
-                SubTableTitleMetadataBuilder.class,
                 FIELD_NAME_BUILDER_TEMPLATE_WITH_PROPERTY_NAMES,
                 String.class
         );
@@ -311,7 +310,6 @@ public final class SubTableTitleMetadataTest {
     private static String findRegex(final SubTableTitleMetadata metadata) {
         return findProperty(
                 metadata,
-                SubTableTitleMetadata.class,
                 FIELD_NAME_TITLE_METADATA_REGEX,
                 String.class
         );
@@ -320,7 +318,6 @@ public final class SubTableTitleMetadataTest {
     private static int findIndex(final SubTableTitleArgumentMetadata metadata) {
         return findProperty(
                 metadata,
-                SubTableTitleArgumentMetadata.class,
                 FIELD_NAME_ARGUMENT_METADATA_INDEX,
                 Integer.class
         );
@@ -329,7 +326,6 @@ public final class SubTableTitleMetadataTest {
     private static SpecificationPropertyExtractor findExtractor(final PropertyMetadataSource metadataSource) {
         return findProperty(
                 metadataSource,
-                PropertyMetadataSource.class,
                 FIELD_NAME_PROPERTY_METADATA_SOURCE_PROPERTY_EXTRACTOR,
                 SpecificationPropertyExtractor.class
         );
@@ -341,7 +337,6 @@ public final class SubTableTitleMetadataTest {
     ) {
         return findProperty(
                 builder,
-                SubTableTitleMetadataBuilder.class,
                 FIELD_NAME_BUILDER_ARGUMENT_EXTRACTORS,
                 List.class
         );
