@@ -12,7 +12,6 @@ import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
 
 public final class FuelHeaderMetadataFactoryTest {
-    private static final String FIELD_NAME_PROPERTY_EXTRACTOR = "propertyExtractor";
     private static final String FIELD_NAME_FUEL_OFFSETS_BY_VALUES = "fuelOffsetsByValues";
 
     @Test
@@ -24,7 +23,7 @@ public final class FuelHeaderMetadataFactoryTest {
 
         final FuelHeaderMetadata actual = givenFactory.create(givenHeaderValues);
 
-        final SpecificationPropertyExtractor actualPropertyExtractor = findPropertyExtractor(actual);
+        final SpecificationPropertyExtractor actualPropertyExtractor = actual.getPropertyExtractor();
         assertSame(givenPropertyExtractor, actualPropertyExtractor);
 
         final Map<String, Integer> actualFuelOffsetsByHeaders = findFuelOffsetsByValues(actual);
@@ -34,14 +33,6 @@ public final class FuelHeaderMetadataFactoryTest {
                 "value-3", 2
         );
         assertEquals(expectedFuelOffsetsByHeaders, actualFuelOffsetsByHeaders);
-    }
-
-    private static SpecificationPropertyExtractor findPropertyExtractor(final FuelHeaderMetadata metadata) {
-        return findProperty(
-                metadata,
-                FIELD_NAME_PROPERTY_EXTRACTOR,
-                SpecificationPropertyExtractor.class
-        );
     }
 
     @SuppressWarnings("unchecked")
