@@ -15,14 +15,12 @@ import org.junit.Test;
 import org.mockito.MockedStatic;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.*;
 import static by.aurorasoft.fuelsearcher.util.XWPFContentUtil.areEqualIgnoringWhitespacesAndCase;
 import static by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.extractParagraphText;
-import static java.util.Collections.emptyMap;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -204,68 +202,47 @@ public final class CompositeFuelSearcherTest {
         assertEquals(expected, actual);
     }
 
-//    @Test
-//    public void searcherShouldBeBuilt()
-//            throws Exception {
-//        final CompositeSearcherBuilder givenBuilder = CompositeFuelSearcher.builder();
-//        final FuelTable givenFuelTable = mock(FuelTable.class);
-//        final Map<String, Integer> givenFuelOffsetsByHeaders = emptyMap();
-//        final FilterChain givenFilterChain = mock(FilterChain.class);
-//        final SpecificationPropertyExtractor givenHeaderExtractor = mock(SpecificationPropertyExtractor.class);
-//
-//        final String givenSubTableTitleTemplate = "sub-title-template";
-//        final List<SpecificationPropertyExtractor> givenSubTableTitleTemplateArgumentExtractors = List.of(
-//                mock(SpecificationPropertyExtractor.class), mock(SpecificationPropertyExtractor.class)
-//        );
-//        final SubTableTitleMetadata givenSubTableTitleMetadata = createSubTableTitleMetadata(
-//                givenSubTableTitleTemplate,
-//                givenSubTableTitleTemplateArgumentExtractors
-//        );
-//        setSubTableTitleMetadata(givenBuilder, givenSubTableTitleMetadata);
-//
-//        final CompositeFuelSearcher actual = givenBuilder.build(
-//                givenFuelTable,
-//                givenFuelOffsetsByHeaders,
-//                givenFilterChain,
-//                givenHeaderExtractor
-//        );
-//
-//        final FuelTable actualTable = findTable(actual);
-//        assertSame(givenFuelTable, actualTable);
-//
-//        final Map<String, Integer> actualFuelOffsetsByHeaders = findFuelOffsetsByHeaders(actual);
-//        assertSame(givenFuelOffsetsByHeaders, actualFuelOffsetsByHeaders);
-//
-//        final FilterChain actualFilterChain = findFilterChain(actual);
-//        assertSame(givenFilterChain, actualFilterChain);
-//
-//        final SpecificationPropertyExtractor actualHeaderExtractor = findHeaderExtractor(actual);
-//        assertSame(givenHeaderExtractor, actualHeaderExtractor);
-//
-//        final SubTableTitleMetadata actualSubTableTitleMetadata = findSubTableTitleMetadata(actual);
-//        assertSame(givenSubTableTitleMetadata, actualSubTableTitleMetadata);
-//    }
-//
-//    @Test
-//    public void additionalPropertiesShouldBeFound()
-//            throws Exception {
-//        final CompositeSearcherBuilder givenBuilder = CompositeFuelSearcher.builder();
-//
-//        final String givenSubTableTitleTemplate = "sub-title-template";
-//        final List<SpecificationPropertyExtractor> givenSubTableTitleTemplateArgumentExtractors = List.of(
-//                mock(SpecificationPropertyExtractor.class), mock(SpecificationPropertyExtractor.class)
-//        );
-//        final SubTableTitleMetadata givenSubTableTitleMetadata = createSubTableTitleMetadata(
-//                givenSubTableTitleTemplate,
-//                givenSubTableTitleTemplateArgumentExtractors
-//        );
-//        setSubTableTitleMetadata(givenBuilder, givenSubTableTitleMetadata);
-//
-//        final Stream<Object> actual = givenBuilder.findAdditionalProperties();
-//        final List<Object> actualAsList = actual.toList();
-//        final List<Object> expectedAsList = List.of(givenSubTableTitleMetadata);
-//        assertEquals(expectedAsList, actualAsList);
-//    }
+    @Test
+    public void searcherShouldBeBuilt() {
+        final CompositeSearcherBuilder givenBuilder = CompositeFuelSearcher.builder();
+        final FuelTable givenFuelTable = mock(FuelTable.class);
+        final FuelHeaderMetadata givenHeaderMetadata = mock(FuelHeaderMetadata.class);
+        final FilterChain givenFilterChain = mock(FilterChain.class);
+
+        final SubTableTitleMetadata givenSubTableTitleMetadata = mock(SubTableTitleMetadata.class);
+        setSubTableTitleMetadata(givenBuilder, givenSubTableTitleMetadata);
+
+        final CompositeFuelSearcher actual = givenBuilder.build(
+                givenFuelTable,
+                givenHeaderMetadata,
+                givenFilterChain
+        );
+
+        final FuelTable actualTable = findTable(actual);
+        assertSame(givenFuelTable, actualTable);
+
+        final FuelHeaderMetadata actualHeaderMetadata = findHeaderMetadata(actual);
+        assertSame(givenHeaderMetadata, actualHeaderMetadata);
+
+        final FilterChain actualFilterChain = findFilterChain(actual);
+        assertSame(givenFilterChain, actualFilterChain);
+
+        final SubTableTitleMetadata actualSubTableTitleMetadata = findSubTableTitleMetadata(actual);
+        assertSame(givenSubTableTitleMetadata, actualSubTableTitleMetadata);
+    }
+
+    @Test
+    public void additionalPropertiesShouldBeFound() {
+        final CompositeSearcherBuilder givenBuilder = CompositeFuelSearcher.builder();
+
+        final SubTableTitleMetadata givenSubTableTitleMetadata = mock(SubTableTitleMetadata.class);
+        setSubTableTitleMetadata(givenBuilder, givenSubTableTitleMetadata);
+
+        final Stream<Object> actual = givenBuilder.findAdditionalProperties();
+        final List<Object> actualAsList = actual.toList();
+        final List<Object> expectedAsList = List.of(givenSubTableTitleMetadata);
+        assertEquals(expectedAsList, actualAsList);
+    }
 
     private static CompositeFuelSearcher createSearcher(final SubTableTitleMetadata subTableTitleMetadata) {
         return createObject(
@@ -285,6 +262,7 @@ public final class CompositeFuelSearcherTest {
         );
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static SubTableTitleMetadata createSubTableTitleMetadata(final String template,
                                                                      final List<SpecificationPropertyExtractor> argumentExtractors) {
         return createObject(
@@ -317,8 +295,15 @@ public final class CompositeFuelSearcherTest {
         );
     }
 
-    private static FilterChain findFilterChain(final FuelSearcher searcher)
-            throws Exception {
+    private static FuelHeaderMetadata findHeaderMetadata(final FuelSearcher searcher) {
+        return findProperty(
+                searcher,
+                FIELD_NAME_HEADER_METADATA,
+                FuelHeaderMetadata.class
+        );
+    }
+
+    private static FilterChain findFilterChain(final FuelSearcher searcher) {
         return findProperty(
                 searcher,
                 FIELD_NAME_FILTER_CHAIN,
