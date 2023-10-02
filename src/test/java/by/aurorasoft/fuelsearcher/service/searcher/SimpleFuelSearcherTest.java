@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.createObject;
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 import static org.junit.Assert.*;
@@ -109,42 +110,37 @@ public final class SimpleFuelSearcherTest {
         assertEquals(expected, actual);
     }
 
-//    @Test
-//    public void searcherShouldBeBuilt() throws Exception {
-//        final SimpleSearcherBuilder givenBuilder = SimpleFuelSearcher.builder();
-//        final FuelTable givenFuelTable = mock(FuelTable.class);
-//        final Map<String, Integer> givenFuelOffsetsByHeaders = emptyMap();
-//        final FilterChain givenFilterChain = mock(FilterChain.class);
-//        final SpecificationPropertyExtractor givenHeaderExtractor = mock(SpecificationPropertyExtractor.class);
-//
-//        final SimpleFuelSearcher actual = givenBuilder.build(
-//                givenFuelTable,
-//                givenFuelOffsetsByHeaders,
-//                givenFilterChain,
-//                givenHeaderExtractor
-//        );
-//
-//        final FuelTable actualTable = findTable(actual);
-//        assertSame(givenFuelTable, actualTable);
-//
-//        final Map<String, Integer> actualFuelOffsetsByHeaders = findFuelOffsetsByHeaders(actual);
-//        assertSame(givenFuelOffsetsByHeaders, actualFuelOffsetsByHeaders);
-//
-//        final FilterChain actualFilterChain = findFilterChain(actual);
-//        assertSame(givenFilterChain, actualFilterChain);
-//
-//        final SpecificationPropertyExtractor actualHeaderExtractor = findHeaderExtractor(actual);
-//        assertSame(givenHeaderExtractor, actualHeaderExtractor);
-//    }
-//
-//    @Test
-//    public void builderAdditionalPropertiesShouldBeFound() {
-//        final SimpleSearcherBuilder givenBuilder = SimpleFuelSearcher.builder();
-//
-//        final Stream<Object> actual = givenBuilder.findAdditionalProperties();
-//        final boolean actualEmpty = actual.findFirst().isEmpty();
-//        assertTrue(actualEmpty);
-//    }
+    @Test
+    public void searcherShouldBeBuilt() {
+        final SimpleSearcherBuilder givenBuilder = SimpleFuelSearcher.builder();
+        final FuelTable givenFuelTable = mock(FuelTable.class);
+        final FuelHeaderMetadata givenHeaderMetadata = mock(FuelHeaderMetadata.class);
+        final FilterChain givenFilterChain = mock(FilterChain.class);
+
+        final SimpleFuelSearcher actual = givenBuilder.build(
+                givenFuelTable,
+                givenHeaderMetadata,
+                givenFilterChain
+        );
+
+        final FuelTable actualTable = findTable(actual);
+        assertSame(givenFuelTable, actualTable);
+
+        final FuelHeaderMetadata actualHeaderMetadata = findHeaderMetadata(actual);
+        assertSame(givenHeaderMetadata, actualHeaderMetadata);
+
+        final FilterChain actualFilterChain = findFilterChain(actual);
+        assertSame(givenFilterChain, actualFilterChain);
+    }
+
+    @Test
+    public void builderAdditionalPropertiesShouldBeFound() {
+        final SimpleSearcherBuilder givenBuilder = SimpleFuelSearcher.builder();
+
+        final Stream<Object> actual = givenBuilder.findAdditionalProperties();
+        final boolean actualEmpty = actual.findFirst().isEmpty();
+        assertTrue(actualEmpty);
+    }
 
     private static SimpleFuelSearcher createSearcher() {
         return createObject(
@@ -154,44 +150,27 @@ public final class SimpleFuelSearcherTest {
         );
     }
 
-//    private static FuelTable findTable(final FuelSearcher searcher)
-//            throws Exception {
-//        return findProperty(
-//                searcher,
-//                FuelSearcher.class,
-//                FIELD_NAME_TABLE,
-//                FuelTable.class
-//        );
-//    }
-//
-//    @SuppressWarnings("unchecked")
-//    private static Map<String, Integer> findFuelOffsetsByHeaders(final FuelSearcher searcher)
-//            throws Exception {
-//        return findProperty(
-//                searcher,
-//                FuelSearcher.class,
-//                FIELD_NAME_FUEL_OFFSETS_BY_HEADERS,
-//                Map.class
-//        );
-//    }
-//
-//    private static FilterChain findFilterChain(final FuelSearcher searcher)
-//            throws Exception {
-//        return findProperty(
-//                searcher,
-//                FuelSearcher.class,
-//                FIELD_NAME_FILTER_CHAIN,
-//                FilterChain.class
-//        );
-//    }
-//
-//    private static SpecificationPropertyExtractor findHeaderExtractor(final FuelSearcher searcher)
-//            throws Exception {
-//        return findProperty(
-//                searcher,
-//                FuelSearcher.class,
-//                FIELD_NAME_HEADER_EXTRACTOR,
-//                SpecificationPropertyExtractor.class
-//        );
-//    }
+    private static FuelTable findTable(final FuelSearcher searcher) {
+        return findProperty(
+                searcher,
+                FIELD_NAME_TABLE,
+                FuelTable.class
+        );
+    }
+
+    private static FuelHeaderMetadata findHeaderMetadata(final FuelSearcher searcher) {
+        return findProperty(
+                searcher,
+                FIELD_NAME_HEADER_METADATA,
+                FuelHeaderMetadata.class
+        );
+    }
+
+    private static FilterChain findFilterChain(final FuelSearcher searcher) {
+        return findProperty(
+                searcher,
+                FIELD_NAME_FILTER_CHAIN,
+                FilterChain.class
+        );
+    }
 }

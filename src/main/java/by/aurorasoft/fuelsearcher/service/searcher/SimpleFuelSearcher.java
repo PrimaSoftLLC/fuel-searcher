@@ -15,7 +15,6 @@ import java.util.stream.Stream;
 import static java.util.stream.Stream.empty;
 import static lombok.AccessLevel.PRIVATE;
 
-
 /**
  * For tables with one sub tables
  */
