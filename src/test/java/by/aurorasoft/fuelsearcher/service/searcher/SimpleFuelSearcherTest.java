@@ -82,24 +82,24 @@ public final class SimpleFuelSearcherTest {
         assertTrue(actual);
     }
 
-//    @Test
-//    public void elementsShouldNotBeValidBecauseOfNotValidSize() {
-//        final SimpleSearcherBuilder givenBuilder = SimpleFuelSearcher.builder();
-//        final List<IBodyElement> givenElements = List.of(mock(XWPFTable.class), mock(IBodyElement.class));
-//
-//        final boolean actual = givenBuilder.isValidElements(givenElements);
-//        assertFalse(actual);
-//    }
-//
-//    @Test
-//    public void elementsShouldNotBeValidBecauseOfFirstElementIsNotTable() {
-//        final SimpleSearcherBuilder givenBuilder = SimpleFuelSearcher.builder();
-//        final List<IBodyElement> givenElements = List.of(mock(IBodyElement.class));
-//
-//        final boolean actual = givenBuilder.isValidElements(givenElements);
-//        assertFalse(actual);
-//    }
-//
+    @Test
+    public void elementsShouldNotBeValidBecauseOfNotValidSize() {
+        final SimpleSearcherBuilder givenBuilder = SimpleFuelSearcher.builder();
+        final List<IBodyElement> givenElements = List.of(mock(XWPFTable.class), mock(IBodyElement.class));
+
+        final boolean actual = givenBuilder.isValidElements(givenElements);
+        assertFalse(actual);
+    }
+
+    @Test
+    public void elementsShouldNotBeValidBecauseOfFirstElementIsNotTable() {
+        final SimpleSearcherBuilder givenBuilder = SimpleFuelSearcher.builder();
+        final List<IBodyElement> givenElements = List.of(mock(IBodyElement.class));
+
+        final boolean actual = givenBuilder.isValidElements(givenElements);
+        assertFalse(actual);
+    }
+
 //    @Test
 //    public void notValidElementsMessageShouldBeFound() {
 //        final SimpleSearcherBuilder givenBuilder = SimpleFuelSearcher.builder();
