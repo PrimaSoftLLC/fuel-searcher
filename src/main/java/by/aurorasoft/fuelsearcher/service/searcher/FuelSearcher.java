@@ -54,7 +54,6 @@ public abstract class FuelSearcher implements Translatable {
                 .filter(Fuel::isDefinedFuel);
     }
 
-    //TODO: test
     public final String findTableName() {
         return this.table.name();
     }

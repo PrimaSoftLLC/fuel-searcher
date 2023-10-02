@@ -300,6 +300,18 @@ public final class FuelSearcherTest {
         assertTrue(optionalActual.isEmpty());
     }
 
+    @Test
+    public void tableNameShouldBeFound() {
+        final String givenTableName = "table-name";
+        final FuelTable givenTable = createTable(givenTableName);
+        final FuelSearcher givenSearcher = TestFuelSearcher.builder()
+                .table(givenTable)
+                .build();
+
+        final String actual = givenSearcher.findTableName();
+        assertSame(givenTableName, actual);
+    }
+
 //    @Test
 //    public void fuelTableShouldBeAccumulatedByBuilder() {
 //        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder().build();
