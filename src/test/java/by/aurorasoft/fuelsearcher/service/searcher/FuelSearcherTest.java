@@ -414,21 +414,21 @@ public final class FuelSearcherTest {
         assertSame(givenMetadata, actual);
     }
 
-//    @Test
-//    public void interimFiltersShouldBeAccumulatedByBuilder() {
-//        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder().build();
-//        final InterimFilter firstGivenInterimFilter = mock(InterimFilter.class);
-//        final InterimFilter secondGivenInterimFilter = mock(InterimFilter.class);
-//
-//        givenBuilder.interimFilter(firstGivenInterimFilter);
-//        givenBuilder.interimFilter(secondGivenInterimFilter);
-//
-//        final FilterChainBuilder actualFilterChainBuilder = findFilterChainBuilder(givenBuilder);
-//        final List<InterimFilter> actual = findInterimFilters(actualFilterChainBuilder);
-//        final List<InterimFilter> expected = List.of(firstGivenInterimFilter, secondGivenInterimFilter);
-//        assertEquals(expected, actual);
-//    }
-//
+    @Test
+    public void interimFiltersShouldBeAccumulatedByBuilder() {
+        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder().build();
+        final InterimFilter firstGivenInterimFilter = mock(InterimFilter.class);
+        final InterimFilter secondGivenInterimFilter = mock(InterimFilter.class);
+
+        givenBuilder.interimFilter(firstGivenInterimFilter);
+        givenBuilder.interimFilter(secondGivenInterimFilter);
+
+        final FilterChainBuilder actualFilterChainBuilder = findFilterChainBuilder(givenBuilder);
+        final List<InterimFilter> actual = findInterimFilters(actualFilterChainBuilder);
+        final List<InterimFilter> expected = List.of(firstGivenInterimFilter, secondGivenInterimFilter);
+        assertEquals(expected, actual);
+    }
+
 //    @Test
 //    public void finalFilterShouldBeAccumulatedByBuilder() {
 //        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder().build();
