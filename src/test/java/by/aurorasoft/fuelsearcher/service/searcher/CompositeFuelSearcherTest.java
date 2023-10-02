@@ -152,34 +152,34 @@ public final class CompositeFuelSearcherTest {
         assertSame(givenSubTableTitleMetadata, actual);
     }
 
-//    @Test
-//    public void elementsShouldBeValid() {
-//        final CompositeSearcherBuilder givenBuilder = CompositeFuelSearcher.builder();
-//        final List<IBodyElement> givenElements = List.of(
-//                mock(XWPFParagraph.class), mock(XWPFTable.class),
-//                mock(XWPFParagraph.class), mock(XWPFTable.class),
-//                mock(XWPFParagraph.class), mock(XWPFTable.class),
-//                mock(XWPFParagraph.class), mock(XWPFTable.class)
-//        );
-//
-//        final boolean actual = givenBuilder.isValidElements(givenElements);
-//        assertTrue(actual);
-//    }
-//
-//    @Test
-//    public void elementsShouldNotBeValidBecauseOfParagraphsAreNotLocatedOnEvenIndexes() {
-//        final CompositeSearcherBuilder givenBuilder = CompositeFuelSearcher.builder();
-//        final List<IBodyElement> givenElements = List.of(
-//                mock(XWPFParagraph.class), mock(XWPFTable.class),
-//                mock(XWPFParagraph.class), mock(XWPFTable.class),
-//                mock(XWPFParagraph.class), mock(XWPFParagraph.class),
-//                mock(XWPFParagraph.class), mock(XWPFTable.class)
-//        );
-//
-//        final boolean actual = givenBuilder.isValidElements(givenElements);
-//        assertFalse(actual);
-//    }
-//
+    @Test
+    public void elementsShouldBeValid() {
+        final CompositeSearcherBuilder givenBuilder = CompositeFuelSearcher.builder();
+        final List<IBodyElement> givenElements = List.of(
+                mock(XWPFParagraph.class), mock(XWPFTable.class),
+                mock(XWPFParagraph.class), mock(XWPFTable.class),
+                mock(XWPFParagraph.class), mock(XWPFTable.class),
+                mock(XWPFParagraph.class), mock(XWPFTable.class)
+        );
+
+        final boolean actual = givenBuilder.isValidElements(givenElements);
+        assertTrue(actual);
+    }
+
+    @Test
+    public void elementsShouldNotBeValidBecauseOfParagraphsAreNotLocatedOnEvenIndexes() {
+        final CompositeSearcherBuilder givenBuilder = CompositeFuelSearcher.builder();
+        final List<IBodyElement> givenElements = List.of(
+                mock(XWPFParagraph.class), mock(XWPFTable.class),
+                mock(XWPFParagraph.class), mock(XWPFTable.class),
+                mock(XWPFParagraph.class), mock(XWPFParagraph.class),
+                mock(XWPFParagraph.class), mock(XWPFTable.class)
+        );
+
+        final boolean actual = givenBuilder.isValidElements(givenElements);
+        assertFalse(actual);
+    }
+
 //    @Test
 //    public void elementsShouldNotBeValidBecauseOfTablesAreNotLocatedOnNotEvenIndexes() {
 //        final CompositeSearcherBuilder givenBuilder = CompositeFuelSearcher.builder();
