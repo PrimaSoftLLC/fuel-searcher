@@ -2,6 +2,7 @@
 //
 //import by.aurorasoft.fuelsearcher.model.Fuel;
 //import by.aurorasoft.fuelsearcher.model.FuelTable;
+//import by.aurorasoft.fuelsearcher.model.PropertyMetadataSource;
 //import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 //import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
 //import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
@@ -38,9 +39,7 @@
 //    private static final String FIELD_NAME_INTERIM_FILTERS = "interimFilters";
 //    private static final String FIELD_NAME_FINAL_FILTER = "finalFilter";
 //
-//    private static final String FIELD_NAME_FUEL_OFFSETS_BY_HEADERS = "fuelOffsetsByHeaders";
 //    private static final String FIELD_NAME_FILTER_CHAIN = "filterChain";
-//    private static final String FIELD_NAME_HEADER_EXTRACTOR = "headerExtractor";
 //
 //    @Test
 //    public void aliasShouldBeFound() {
@@ -533,8 +532,7 @@
 //    }
 //
 //    private static void setFilterChainBuilder(final SearcherBuilder<?> builder,
-//                                              final FilterChainBuilder filterChainBuilder)
-//            throws Exception {
+//                                              final FilterChainBuilder filterChainBuilder) {
 //        setProperty(
 //                builder,
 //                filterChainBuilder,
@@ -543,11 +541,11 @@
 //        );
 //    }
 //
-//    private static FuelHeaderMetadata createHeaderMetadata(final String[] values,
-//                                                           final SpecificationPropertyExtractor headerExtractor) {
+//    private static FuelHeaderMetadata createHeaderMetadata(final String[] headerValues,
+//                                                           final SpecificationPropertyExtractor propertyExtractor) {
 //        final FuelHeaderMetadata metadata = mock(FuelHeaderMetadata.class);
-//        when(metadata.getValues()).thenReturn(values);
-//        when(metadata.getValueExtractor()).thenReturn(headerExtractor);
+//        when(metadata.findHeaderValues()).thenReturn(headerValues);
+//        when(metadata.getPropertyExtractor()).thenReturn(propertyExtractor);
 //        return metadata;
 //    }
 //
@@ -559,28 +557,28 @@
 //
 //    private static final class TestFuelSearcher extends FuelSearcher {
 //        private final XWPFTable subTable;
-//
-//        public TestFuelSearcher(final FuelTable table,
-//                                final Map<String, Integer> fuelOffsetsByHeaders,
-//                                final FilterChain filterChain,
-//                                final SpecificationPropertyExtractor headerExtractor) {
-//            this(table, fuelOffsetsByHeaders, filterChain, headerExtractor, null);
-//        }
+//        private final Stream<PropertyMetadataSource> propertyMetadataSources;
 //
 //        @Builder
 //        public TestFuelSearcher(final FuelTable table,
-//                                final Map<String, Integer> fuelOffsetsByHeaders,
+//                                final FuelHeaderMetadata headerMetadata,
 //                                final FilterChain filterChain,
-//                                final SpecificationPropertyExtractor headerExtractor,
-//                                final XWPFTable subTable) {
-//            super(table, fuelOffsetsByHeaders, filterChain, headerExtractor);
+//                                final XWPFTable subTable,
+//                                final Stream<PropertyMetadataSource> propertyMetadataSources) {
+//            super(table, headerMetadata, filterChain);
 //            this.subTable = subTable;
+//            this.propertyMetadataSources = propertyMetadataSources;
 //        }
 //
 //        @Override
 //        protected Optional<XWPFTable> findSubTable(final List<IBodyElement> elements,
 //                                                   final FuelSpecification specification) {
 //            return ofNullable(this.subTable);
+//        }
+//
+//        @Override
+//        protected Stream<? extends PropertyMetadataSource> findAdditionalPropertyMetadataSources() {
+//            return this.propertyMetadataSources;
 //        }
 //    }
 //
@@ -613,16 +611,14 @@
 //        }
 //
 //        @Override
-//        protected TestFuelSearcher build(final FuelTable fuelTable,
-//                                         final Map<String, Integer> fuelOffsetsByHeaders,
-//                                         final FilterChain filterChain,
-//                                         final SpecificationPropertyExtractor headerExtractor) {
-//            return new TestFuelSearcher(
-//                    fuelTable,
-//                    fuelOffsetsByHeaders,
-//                    filterChain,
-//                    headerExtractor
-//            );
+//        protected TestFuelSearcher build(final FuelTable table,
+//                                         final FuelHeaderMetadata headerMetadata,
+//                                         final FilterChain filterChain) {
+//            return TestFuelSearcher.builder()
+//                    .table(table)
+//                    .headerMetadata(headerMetadata)
+//                    .filterChain(filterChain)
+//                    .build();
 //        }
 //
 //        @Override

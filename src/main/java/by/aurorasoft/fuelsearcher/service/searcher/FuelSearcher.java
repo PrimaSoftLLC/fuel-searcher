@@ -25,7 +25,6 @@ import static by.aurorasoft.fuelsearcher.util.StreamUtil.concat;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findFirstCellIndexByContent;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.extractCellDoubleValue;
 
-//TODO: refactor tests
 @Getter
 public abstract class FuelSearcher implements Translatable {
     private static final int HEADER_ROW_INDEX = 1;

@@ -32,10 +32,9 @@ public final class ReflectionUtil {
 
     public static <T> void setProperty(final T object,
                                        final Object propertyValue,
-                                       final Class<? super T> objectType,
                                        final String fieldName) {
         try {
-            final Field field = objectType.getDeclaredField(fieldName);
+            final Field field = findField(object, fieldName);
             field.setAccessible(true);
             try {
                 field.set(object, propertyValue);

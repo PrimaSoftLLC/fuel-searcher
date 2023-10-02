@@ -244,7 +244,6 @@ public final class SubTableTitleMetadataTest {
         setProperty(
                 titleMetadata,
                 regex,
-                SubTableTitleMetadata.class,
                 FIELD_NAME_TITLE_METADATA_REGEX
         );
     }
@@ -254,7 +253,6 @@ public final class SubTableTitleMetadataTest {
         setProperty(
                 titleMetadata,
                 argumentsMetadata,
-                SubTableTitleMetadata.class,
                 FIELD_NAME_TITLE_METADATA_ARGUMENTS_METADATA
         );
     }
@@ -264,7 +262,6 @@ public final class SubTableTitleMetadataTest {
         setProperty(
                 propertyMetadataSource,
                 extractor,
-                PropertyMetadataSource.class,
                 FIELD_NAME_PROPERTY_METADATA_SOURCE_PROPERTY_EXTRACTOR
         );
     }
@@ -274,7 +271,6 @@ public final class SubTableTitleMetadataTest {
         setProperty(
                 argumentMetadata,
                 index,
-                SubTableTitleArgumentMetadata.class,
                 FIELD_NAME_ARGUMENT_METADATA_INDEX
         );
     }
@@ -284,7 +280,6 @@ public final class SubTableTitleMetadataTest {
         setProperty(
                 builder,
                 template,
-                SubTableTitleMetadataBuilder.class,
                 FIELD_NAME_BUILDER_TEMPLATE_WITH_PROPERTY_NAMES
         );
     }
@@ -294,7 +289,6 @@ public final class SubTableTitleMetadataTest {
         setProperty(
                 builder,
                 extractors,
-                SubTableTitleMetadataBuilder.class,
                 FIELD_NAME_BUILDER_ARGUMENT_EXTRACTORS
         );
     }
