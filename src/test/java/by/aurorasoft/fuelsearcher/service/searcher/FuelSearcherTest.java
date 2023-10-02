@@ -38,7 +38,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public final class FuelSearcherTest {
-    private static final String FIELD_NAME_FUEL_TABLE = "table";
+    private static final String FIELD_NAME_TABLE = "table";
     private static final String FIELD_NAME_HEADER_METADATA = "headerMetadata";
     private static final String FIELD_NAME_FILTER_CHAIN_BUILDER = "filterChainBuilder";
 
@@ -392,17 +392,17 @@ public final class FuelSearcherTest {
         assertEquals(expected, actual);
     }
 
-//    @Test
-//    public void fuelTableShouldBeAccumulatedByBuilder() {
-//        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder().build();
-//        final FuelTable givenTable = mock(FuelTable.class);
-//
-//        givenBuilder.table(givenTable);
-//
-//        final FuelTable actual = givenBuilder.getTable();
-//        assertSame(givenTable, actual);
-//    }
-//
+    @Test
+    public void fuelTableShouldBeAccumulatedByBuilder() {
+        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder().build();
+        final FuelTable givenTable = mock(FuelTable.class);
+
+        givenBuilder.table(givenTable);
+
+        final FuelTable actual = findTable(givenBuilder);
+        assertSame(givenTable, actual);
+    }
+
 //    @Test
 //    public void headerMetadataShouldBeAccumulatedByBuilder()
 //            throws Exception {
@@ -538,6 +538,14 @@ public final class FuelSearcherTest {
         return givenTable;
     }
 
+    private static FuelTable findTable(final SearcherBuilder<?> builder) {
+        return findProperty(
+                builder,
+                FIELD_NAME_TABLE,
+                FuelTable.class
+        );
+    }
+
     private static FuelHeaderMetadata findHeaderMetadata(final SearcherBuilder<?> builder) {
         return findProperty(
                 builder,
@@ -571,10 +579,10 @@ public final class FuelSearcherTest {
         );
     }
 
-    private static FuelTable findFuelTable(final FuelSearcher searcher) {
+    private static FuelTable findTable(final FuelSearcher searcher) {
         return findProperty(
                 searcher,
-                FIELD_NAME_FUEL_TABLE,
+                FIELD_NAME_TABLE,
                 FuelTable.class
         );
     }
@@ -591,7 +599,7 @@ public final class FuelSearcherTest {
         setProperty(
                 builder,
                 table,
-                FIELD_NAME_FUEL_TABLE
+                FIELD_NAME_TABLE
         );
     }
 
@@ -641,9 +649,8 @@ public final class FuelSearcherTest {
 
     private static FuelHeaderMetadata createHeaderMetadata(final String[] headerValues,
                                                            final SpecificationPropertyExtractor propertyExtractor) {
-        final FuelHeaderMetadata metadata = mock(FuelHeaderMetadata.class);
+        final FuelHeaderMetadata metadata = createHeaderMetadata(propertyExtractor);
         when(metadata.findHeaderValues()).thenReturn(headerValues);
-        when(metadata.getPropertyExtractor()).thenReturn(propertyExtractor);
         return metadata;
     }
 

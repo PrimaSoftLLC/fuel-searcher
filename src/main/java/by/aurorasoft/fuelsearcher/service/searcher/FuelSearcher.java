@@ -33,9 +33,7 @@ public abstract class FuelSearcher implements Translatable {
     private final FuelHeaderMetadata headerMetadata;
     private final FilterChain filterChain;
 
-    public FuelSearcher(final FuelTable table,
-                        final FuelHeaderMetadata headerMetadata,
-                        final FilterChain filterChain) {
+    public FuelSearcher(final FuelTable table, final FuelHeaderMetadata headerMetadata, final FilterChain filterChain) {
         this.table = table;
         this.headerMetadata = headerMetadata;
         this.filterChain = filterChain;
