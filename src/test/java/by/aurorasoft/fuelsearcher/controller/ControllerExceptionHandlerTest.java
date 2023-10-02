@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
-import static java.lang.Class.forName;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -19,10 +18,6 @@ import static org.springframework.http.HttpStatus.NOT_ACCEPTABLE;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 public final class ControllerExceptionHandlerTest {
-    private static final String CLASS_NAME_ERROR_RESPONSE
-            = "by.aurorasoft.fuelsearcher.controller.ControllerExceptionHandler$RestErrorResponse";
-    private static final Class<?> CLASS_ERROR_RESPONSE = findClassErrorResponse();
-
     private static final String FIELD_NAME_ERROR_RESPONSE_HTTP_STATUS = "httpStatus";
     private static final String FIELD_NAME_ERROR_RESPONSE_MESSAGE = "message";
     private static final String FIELD_NAME_ERROR_RESPONSE_DATE_TIME = "dateTime";
@@ -75,16 +70,8 @@ public final class ControllerExceptionHandlerTest {
         assertNotNull(actualErrorResponseDateTime);
     }
 
-    private static Class<?> findClassErrorResponse() {
-        try {
-            return forName(CLASS_NAME_ERROR_RESPONSE);
-        } catch (final ClassNotFoundException cause) {
-            throw new RuntimeException(cause);
-        }
-    }
-
     private static HttpStatus findErrorResponseHttpStatus(final Object errorResponse) {
-        return findErrorResponseProperty(
+        return findProperty(
                 errorResponse,
                 FIELD_NAME_ERROR_RESPONSE_HTTP_STATUS,
                 HttpStatus.class
@@ -92,7 +79,7 @@ public final class ControllerExceptionHandlerTest {
     }
 
     private static String findErrorResponseMessage(final Object errorResponse) {
-        return findErrorResponseProperty(
+        return findProperty(
                 errorResponse,
                 FIELD_NAME_ERROR_RESPONSE_MESSAGE,
                 String.class
@@ -100,22 +87,10 @@ public final class ControllerExceptionHandlerTest {
     }
 
     private static LocalDateTime findErrorResponseDateTime(final Object errorResponse) {
-        return findErrorResponseProperty(
+        return findProperty(
                 errorResponse,
                 FIELD_NAME_ERROR_RESPONSE_DATE_TIME,
                 LocalDateTime.class
-        );
-    }
-
-    @SuppressWarnings("unchecked")
-    private static <P> P findErrorResponseProperty(final Object errorResponse,
-                                                   final String fieldName,
-                                                   final Class<P> propertyType) {
-        return findProperty(
-                errorResponse,
-                (Class<Object>) CLASS_ERROR_RESPONSE,
-                fieldName,
-                propertyType
         );
     }
 
