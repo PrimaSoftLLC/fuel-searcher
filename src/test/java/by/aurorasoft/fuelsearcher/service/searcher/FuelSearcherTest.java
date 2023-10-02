@@ -441,36 +441,36 @@ public final class FuelSearcherTest {
         assertSame(givenFilter, actual);
     }
 
-//    @Test
-//    public void propertiesShouldBeFound() {
-//        final Object firstGivenAdditionalProperty = new Object();
-//        final Object secondGivenAdditionalProperty = new Object();
-//        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder()
-//                .firstAdditionalProperty(firstGivenAdditionalProperty)
-//                .secondAdditionalProperty(secondGivenAdditionalProperty)
-//                .build();
-//
-//        final FuelTable givenTable = mock(FuelTable.class);
-//        setFuelTable(givenBuilder, givenTable);
-//
-//        final FuelHeaderMetadata givenHeaderMetadata = mock(FuelHeaderMetadata.class);
-//        setHeaderMetadata(givenBuilder, givenHeaderMetadata);
-//
-//        final FilterChainBuilder givenFilterChainBuilder = mock(FilterChainBuilder.class);
-//        setFilterChainBuilder(givenBuilder, givenFilterChainBuilder);
-//
-//        final Stream<Object> actual = givenBuilder.findProperties();
-//        final List<Object> actualAsList = actual.toList();
-//        final List<Object> expectedAsList = List.of(
-//                givenTable,
-//                givenHeaderMetadata,
-//                givenFilterChainBuilder,
-//                firstGivenAdditionalProperty,
-//                secondGivenAdditionalProperty
-//        );
-//        assertEquals(expectedAsList, actualAsList);
-//    }
-//
+    @Test
+    public void propertiesShouldBeFound() {
+        final Object firstGivenAdditionalProperty = new Object();
+        final Object secondGivenAdditionalProperty = new Object();
+        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder()
+                .firstAdditionalProperty(firstGivenAdditionalProperty)
+                .secondAdditionalProperty(secondGivenAdditionalProperty)
+                .build();
+
+        final FuelTable givenTable = mock(FuelTable.class);
+        setFuelTable(givenBuilder, givenTable);
+
+        final FuelHeaderMetadata givenHeaderMetadata = mock(FuelHeaderMetadata.class);
+        setHeaderMetadata(givenBuilder, givenHeaderMetadata);
+
+        final FilterChainBuilder givenFilterChainBuilder = mock(FilterChainBuilder.class);
+        setFilterChainBuilder(givenBuilder, givenFilterChainBuilder);
+
+        final Stream<Object> actual = givenBuilder.findProperties();
+        final List<Object> actualAsList = actual.toList();
+        final List<Object> expectedAsList = List.of(
+                givenTable,
+                givenHeaderMetadata,
+                givenFilterChainBuilder,
+                firstGivenAdditionalProperty,
+                secondGivenAdditionalProperty
+        );
+        assertEquals(expectedAsList, actualAsList);
+    }
+
 //    @Test
 //    public void searcherShouldBeBuiltAfterStateValidation() {
 //        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder()
