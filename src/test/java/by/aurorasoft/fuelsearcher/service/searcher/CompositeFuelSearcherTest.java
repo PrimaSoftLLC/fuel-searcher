@@ -2,6 +2,7 @@ package by.aurorasoft.fuelsearcher.service.searcher;
 
 import by.aurorasoft.fuelsearcher.model.FuelTable;
 import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata;
+import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher.CompositeSearcherBuilder;
@@ -37,111 +38,109 @@ public final class CompositeFuelSearcherTest {
         assertNotNull(actual);
     }
 
-//    @Test
-//    public void subTableShouldBeFound()
-//            throws Exception {
-//        try (final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil = mockStatic(XWPFParagraphUtil.class);
-//             final MockedStatic<XWPFContentUtil> mockedContentComparingUtil = mockStatic(XWPFContentUtil.class)) {
-//            final String expectedSubTableTitleTemplate = "first-property and second-property";
-//
-//            final XWPFParagraph firstGivenParagraph = createParagraph(
-//                    "third-property and fourth-property",
-//                    mockedParagraphUtil,
-//                    false,
-//                    expectedSubTableTitleTemplate,
-//                    mockedContentComparingUtil
-//            );
-//
-//            final XWPFParagraph secondGivenParagraph = createParagraph(
-//                    "first-property and second-property",
-//                    mockedParagraphUtil,
-//                    true,
-//                    expectedSubTableTitleTemplate,
-//                    mockedContentComparingUtil
-//            );
-//
-//            final XWPFTable firstGivenTable = mock(XWPFTable.class);
-//            final XWPFTable secondGivenTable = mock(XWPFTable.class);
-//
-//            final List<IBodyElement> givenElements = List.of(
-//                    firstGivenParagraph,
-//                    firstGivenTable,
-//                    secondGivenParagraph,
-//                    secondGivenTable
-//            );
-//
-//            final String givenSubTableTitleTemplate = "%s and %s";
-//
-//            final FuelSpecification givenSpecification = mock(FuelSpecification.class);
-//
-//            final List<SpecificationPropertyExtractor> givenSubTableTitleTemplateArgumentExtractors = List.of(
-//                    createPropertyExtractor("first-property", givenSpecification),
-//                    createPropertyExtractor("second-property", givenSpecification)
-//            );
-//            final SubTableTitleMetadata givenSubTableTitleMetadata = createSubTableTitleMetadata(
-//                    givenSubTableTitleTemplate,
-//                    givenSubTableTitleTemplateArgumentExtractors
-//            );
-//            final CompositeFuelSearcher givenSearcher = createSearcher(givenSubTableTitleMetadata);
-//
-//            final Optional<XWPFTable> optionalActual = givenSearcher.findSubTable(givenElements, givenSpecification);
-//            assertTrue(optionalActual.isPresent());
-//            final XWPFTable actual = optionalActual.get();
-//            assertSame(secondGivenTable, actual);
-//        }
-//    }
-//
-//    @Test
-//    public void subTableShouldNotBeFound()
-//            throws Exception {
-//        try (final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil = mockStatic(XWPFParagraphUtil.class);
-//             final MockedStatic<XWPFContentUtil> mockedContentComparingUtil = mockStatic(XWPFContentUtil.class)) {
-//            final String expectedSubTableTitleTemplate = "first-property and second-property";
-//
-//            final XWPFParagraph firstGivenParagraph = createParagraph(
-//                    "third-property and fourth-property",
-//                    mockedParagraphUtil,
-//                    false,
-//                    expectedSubTableTitleTemplate,
-//                    mockedContentComparingUtil
-//            );
-//
-//            final XWPFParagraph secondGivenParagraph = createParagraph(
-//                    "fifth-property and sixth-property",
-//                    mockedParagraphUtil,
-//                    false,
-//                    expectedSubTableTitleTemplate,
-//                    mockedContentComparingUtil
-//            );
-//
-//            final XWPFTable firstGivenTable = mock(XWPFTable.class);
-//            final XWPFTable secondGivenTable = mock(XWPFTable.class);
-//
-//            final List<IBodyElement> givenElements = List.of(
-//                    firstGivenParagraph,
-//                    firstGivenTable,
-//                    secondGivenParagraph,
-//                    secondGivenTable
-//            );
-//
-//            final String givenSubTableTitleTemplate = "%s and %s";
-//
-//            final FuelSpecification givenSpecification = mock(FuelSpecification.class);
-//            final List<SpecificationPropertyExtractor> givenSubTableTitleTemplateArgumentExtractors = List.of(
-//                    createPropertyExtractor("first-property", givenSpecification),
-//                    createPropertyExtractor("second-property", givenSpecification)
-//            );
-//            final SubTableTitleMetadata givenSubTableTitleMetadata = createSubTableTitleMetadata(
-//                    givenSubTableTitleTemplate,
-//                    givenSubTableTitleTemplateArgumentExtractors
-//            );
-//            final CompositeFuelSearcher givenSearcher = createSearcher(givenSubTableTitleMetadata);
-//
-//            final Optional<XWPFTable> optionalActual = givenSearcher.findSubTable(givenElements, givenSpecification);
-//            assertTrue(optionalActual.isEmpty());
-//        }
-//    }
-//
+    @Test
+    public void subTableShouldBeFound() {
+        try (final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil = mockStatic(XWPFParagraphUtil.class);
+             final MockedStatic<XWPFContentUtil> mockedContentComparingUtil = mockStatic(XWPFContentUtil.class)) {
+            final String expectedSubTableTitleTemplate = "first-property and second-property";
+
+            final XWPFParagraph firstGivenParagraph = createParagraph(
+                    "third-property and fourth-property",
+                    mockedParagraphUtil,
+                    false,
+                    expectedSubTableTitleTemplate,
+                    mockedContentComparingUtil
+            );
+
+            final XWPFParagraph secondGivenParagraph = createParagraph(
+                    "first-property and second-property",
+                    mockedParagraphUtil,
+                    true,
+                    expectedSubTableTitleTemplate,
+                    mockedContentComparingUtil
+            );
+
+            final XWPFTable firstGivenTable = mock(XWPFTable.class);
+            final XWPFTable secondGivenTable = mock(XWPFTable.class);
+
+            final List<IBodyElement> givenElements = List.of(
+                    firstGivenParagraph,
+                    firstGivenTable,
+                    secondGivenParagraph,
+                    secondGivenTable
+            );
+
+            final String givenSubTableTitleTemplate = "%s and %s";
+
+            final FuelSpecification givenSpecification = mock(FuelSpecification.class);
+
+            final List<SpecificationPropertyExtractor> givenSubTableTitleTemplateArgumentExtractors = List.of(
+                    createPropertyExtractor("first-property", givenSpecification),
+                    createPropertyExtractor("second-property", givenSpecification)
+            );
+            final SubTableTitleMetadata givenSubTableTitleMetadata = createSubTableTitleMetadata(
+                    givenSubTableTitleTemplate,
+                    givenSubTableTitleTemplateArgumentExtractors
+            );
+            final CompositeFuelSearcher givenSearcher = createSearcher(givenSubTableTitleMetadata);
+
+            final Optional<XWPFTable> optionalActual = givenSearcher.findSubTable(givenElements, givenSpecification);
+            assertTrue(optionalActual.isPresent());
+            final XWPFTable actual = optionalActual.get();
+            assertSame(secondGivenTable, actual);
+        }
+    }
+
+    @Test
+    public void subTableShouldNotBeFound() {
+        try (final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil = mockStatic(XWPFParagraphUtil.class);
+             final MockedStatic<XWPFContentUtil> mockedContentComparingUtil = mockStatic(XWPFContentUtil.class)) {
+            final String expectedSubTableTitleTemplate = "first-property and second-property";
+
+            final XWPFParagraph firstGivenParagraph = createParagraph(
+                    "third-property and fourth-property",
+                    mockedParagraphUtil,
+                    false,
+                    expectedSubTableTitleTemplate,
+                    mockedContentComparingUtil
+            );
+
+            final XWPFParagraph secondGivenParagraph = createParagraph(
+                    "fifth-property and sixth-property",
+                    mockedParagraphUtil,
+                    false,
+                    expectedSubTableTitleTemplate,
+                    mockedContentComparingUtil
+            );
+
+            final XWPFTable firstGivenTable = mock(XWPFTable.class);
+            final XWPFTable secondGivenTable = mock(XWPFTable.class);
+
+            final List<IBodyElement> givenElements = List.of(
+                    firstGivenParagraph,
+                    firstGivenTable,
+                    secondGivenParagraph,
+                    secondGivenTable
+            );
+
+            final String givenSubTableTitleTemplate = "%s and %s";
+
+            final FuelSpecification givenSpecification = mock(FuelSpecification.class);
+            final List<SpecificationPropertyExtractor> givenSubTableTitleTemplateArgumentExtractors = List.of(
+                    createPropertyExtractor("first-property", givenSpecification),
+                    createPropertyExtractor("second-property", givenSpecification)
+            );
+            final SubTableTitleMetadata givenSubTableTitleMetadata = createSubTableTitleMetadata(
+                    givenSubTableTitleTemplate,
+                    givenSubTableTitleTemplateArgumentExtractors
+            );
+            final CompositeFuelSearcher givenSearcher = createSearcher(givenSubTableTitleMetadata);
+
+            final Optional<XWPFTable> optionalActual = givenSearcher.findSubTable(givenElements, givenSpecification);
+            assertTrue(optionalActual.isEmpty());
+        }
+    }
+
 //    @Test
 //    public void subTableTitleMetadataShouldBeAccumulatedByBuilder()
 //            throws Exception {
@@ -273,13 +272,11 @@ public final class CompositeFuelSearcherTest {
                 CompositeFuelSearcher.class,
                 new Class<?>[]{
                         FuelTable.class,
-                        Map.class,
+                        FuelHeaderMetadata.class,
                         FilterChain.class,
-                        SpecificationPropertyExtractor.class,
                         SubTableTitleMetadata.class
                 },
                 new Object[]{
-                        null,
                         null,
                         null,
                         null,
