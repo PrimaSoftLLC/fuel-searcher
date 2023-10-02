@@ -30,8 +30,7 @@ public final class FilterChainTest {
     }
 
     @Test
-    public void rowsShouldBeFilteredToOneRow()
-            throws Exception {
+    public void rowsShouldBeFilteredToOneRow() {
         final InterimFilter firstGivenInterimFilter = mock(InterimFilter.class);
         final InterimFilter secondGivenInterimFilter = mock(InterimFilter.class);
         final List<InterimFilter> givenInterimFilters = List.of(firstGivenInterimFilter, secondGivenInterimFilter);
@@ -63,8 +62,7 @@ public final class FilterChainTest {
     }
 
     @Test
-    public void allRowsShouldBeFiltered()
-            throws Exception {
+    public void allRowsShouldBeFiltered() {
         final InterimFilter firstGivenInterimFilter = mock(InterimFilter.class);
         final InterimFilter secondGivenInterimFilter = mock(InterimFilter.class);
         final List<InterimFilter> givenInterimFilters = List.of(firstGivenInterimFilter, secondGivenInterimFilter);
@@ -94,8 +92,7 @@ public final class FilterChainTest {
     }
 
     @Test
-    public void interimFilterShouldBeAccumulatedByBuilder()
-            throws Exception {
+    public void interimFilterShouldBeAccumulatedByBuilder() {
         final FilterChainBuilder givenBuilder = FilterChain.builder();
 
         final InterimFilter firstGivenInterimFilter = mock(InterimFilter.class);
@@ -110,8 +107,7 @@ public final class FilterChainTest {
     }
 
     @Test
-    public void finalFilterShouldBeAccumulatedToBuilder()
-            throws Exception {
+    public void finalFilterShouldBeAccumulatedToBuilder() {
         final FilterChainBuilder givenBuilder = FilterChain.builder();
 
         final FinalFilter givenFinalFilter = mock(FinalFilter.class);
@@ -144,8 +140,7 @@ public final class FilterChainTest {
     }
 
     @Test
-    public void chainShouldBeBuiltAfterStateValidation()
-            throws Exception {
+    public void chainShouldBeBuiltAfterStateValidation() {
         final FilterChainBuilder givenBuilder = FilterChain.builder();
 
         final InterimFilter firstGivenInterimFilter = mock(InterimFilter.class);
@@ -165,8 +160,7 @@ public final class FilterChainTest {
         assertSame(givenFinalFilter, actualFinalFilter);
     }
 
-    private static FilterChain createChain(final List<InterimFilter> interimFilters, final FinalFilter finalFilter)
-            throws Exception {
+    private static FilterChain createChain(final List<InterimFilter> interimFilters, final FinalFilter finalFilter) {
         return createObject(
                 FilterChain.class,
                 new Class<?>[]{List.class, FinalFilter.class},
@@ -175,42 +169,34 @@ public final class FilterChainTest {
     }
 
     @SuppressWarnings("unchecked")
-    private static List<InterimFilter> findInterimFilters(final FilterChainBuilder builder)
-            throws Exception {
+    private static List<InterimFilter> findInterimFilters(final FilterChainBuilder builder) {
         return findProperty(
                 builder,
-                FilterChainBuilder.class,
                 FIELD_NAME_INTERIM_FILTERS,
                 List.class
         );
     }
 
-    private static FinalFilter findFinalFilter(final FilterChainBuilder builder)
-            throws Exception {
+    private static FinalFilter findFinalFilter(final FilterChainBuilder builder) {
         return findProperty(
                 builder,
-                FilterChainBuilder.class,
                 FIELD_NAME_FINAL_FILTER,
                 FinalFilter.class
         );
     }
 
     @SuppressWarnings("unchecked")
-    private static List<InterimFilter> findInterimFilters(final FilterChain chain)
-            throws Exception {
+    private static List<InterimFilter> findInterimFilters(final FilterChain chain) {
         return findProperty(
                 chain,
-                FilterChain.class,
                 FIELD_NAME_INTERIM_FILTERS,
                 List.class
         );
     }
 
-    private static FinalFilter findFinalFilter(final FilterChain chain)
-            throws Exception {
+    private static FinalFilter findFinalFilter(final FilterChain chain) {
         return findProperty(
                 chain,
-                FilterChain.class,
                 FIELD_NAME_FINAL_FILTER,
                 FinalFilter.class
         );
