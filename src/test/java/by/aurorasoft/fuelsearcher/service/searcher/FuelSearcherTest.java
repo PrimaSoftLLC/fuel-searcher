@@ -403,18 +403,17 @@ public final class FuelSearcherTest {
         assertSame(givenTable, actual);
     }
 
-//    @Test
-//    public void headerMetadataShouldBeAccumulatedByBuilder()
-//            throws Exception {
-//        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder().build();
-//        final FuelHeaderMetadata givenMetadata = mock(FuelHeaderMetadata.class);
-//
-//        givenBuilder.headerMetadata(givenMetadata);
-//
-//        final FuelHeaderMetadata actual = findHeaderMetadata(givenBuilder);
-//        assertSame(givenMetadata, actual);
-//    }
-//
+    @Test
+    public void headerMetadataShouldBeAccumulatedByBuilder() {
+        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder().build();
+        final FuelHeaderMetadata givenMetadata = mock(FuelHeaderMetadata.class);
+
+        givenBuilder.headerMetadata(givenMetadata);
+
+        final FuelHeaderMetadata actual = findHeaderMetadata(givenBuilder);
+        assertSame(givenMetadata, actual);
+    }
+
 //    @Test
 //    public void interimFiltersShouldBeAccumulatedByBuilder() {
 //        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder().build();
