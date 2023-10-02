@@ -315,7 +315,7 @@ public final class FuelSearcherTest {
     }
 
     @Test
-    public void propertyMetadataSourcesShouldBeFound() {
+    public void usedPropertyMetadataSourcesShouldBeFound() {
         final Filter<?> firstGivenFilter = mock(Filter.class);
         final Filter<?> secondGivenFilter = mock(Filter.class);
         final FilterChain givenFilterChain = createFilterChain(firstGivenFilter, secondGivenFilter);
@@ -335,7 +335,7 @@ public final class FuelSearcherTest {
                 .additionalPropertyMetadataSources(givenAdditionalPropertyMetadataSources)
                 .build();
 
-        final Stream<PropertyMetadataSource> actual = givenSearcher.findPropertyMetadataSources();
+        final Stream<PropertyMetadataSource> actual = givenSearcher.findUsedPropertyMetadataSources();
         final List<PropertyMetadataSource> actualAsList = actual.toList();
         final List<PropertyMetadataSource> expectedAsList = List.of(
                 firstGivenFilter,
@@ -345,6 +345,51 @@ public final class FuelSearcherTest {
                 secondGivenAdditionalPropertyMetadataSource
         );
         assertEquals(expectedAsList, actualAsList);
+    }
+
+    @Test
+    public void usedPropertyExtractorsShouldBeFound() {
+        final SpecificationPropertyExtractor firstGivenPropertyExtractor = mock(SpecificationPropertyExtractor.class);
+        final Filter<?> firstGivenFilter = createFilter(firstGivenPropertyExtractor);
+
+        final SpecificationPropertyExtractor secondGivenPropertyExtractor = mock(SpecificationPropertyExtractor.class);
+        final Filter<?> secondGivenFilter = createFilter(secondGivenPropertyExtractor);
+
+        final FilterChain givenFilterChain = createFilterChain(firstGivenFilter, secondGivenFilter);
+
+        final SpecificationPropertyExtractor thirdGivenPropertyExtractor = mock(SpecificationPropertyExtractor.class);
+        final FuelHeaderMetadata givenHeaderMetadata = createHeaderMetadata(thirdGivenPropertyExtractor);
+
+        final SpecificationPropertyExtractor fourthGivenPropertyExtractor = mock(SpecificationPropertyExtractor.class);
+        final PropertyMetadataSource firstGivenAdditionalPropertyMetadataSource = createMetadataSource(
+                fourthGivenPropertyExtractor
+        );
+
+        final SpecificationPropertyExtractor fifthGivenPropertyExtractor = mock(SpecificationPropertyExtractor.class);
+        final PropertyMetadataSource secondGivenAdditionalPropertyMetadataSource = createMetadataSource(
+                fifthGivenPropertyExtractor
+        );
+
+        final Stream<PropertyMetadataSource> givenAdditionalPropertyMetadataSources = Stream.of(
+                firstGivenAdditionalPropertyMetadataSource,
+                secondGivenAdditionalPropertyMetadataSource
+        );
+
+        final FuelSearcher givenSearcher = TestFuelSearcher.builder()
+                .filterChain(givenFilterChain)
+                .headerMetadata(givenHeaderMetadata)
+                .additionalPropertyMetadataSources(givenAdditionalPropertyMetadataSources)
+                .build();
+
+        final List<SpecificationPropertyExtractor> actual = givenSearcher.findUsedPropertyExtractors();
+        final List<SpecificationPropertyExtractor> expected = List.of(
+                firstGivenPropertyExtractor,
+                secondGivenPropertyExtractor,
+                thirdGivenPropertyExtractor,
+                fourthGivenPropertyExtractor,
+                fifthGivenPropertyExtractor
+        );
+        assertEquals(expected, actual);
     }
 
 //    @Test
@@ -571,6 +616,27 @@ public final class FuelSearcherTest {
         final FilterChain filterChain = mock(FilterChain.class);
         when(filterChain.findFilters()).thenReturn(stream(filters));
         return filterChain;
+    }
+
+    private static Filter<?> createFilter(final SpecificationPropertyExtractor propertyExtractor) {
+        return createMetadataSource(propertyExtractor, Filter.class);
+    }
+
+    private static FuelHeaderMetadata createHeaderMetadata(final SpecificationPropertyExtractor propertyExtractor) {
+        return createMetadataSource(propertyExtractor, FuelHeaderMetadata.class);
+    }
+
+    private static PropertyMetadataSource createMetadataSource(final SpecificationPropertyExtractor propertyExtractor) {
+        return createMetadataSource(propertyExtractor, PropertyMetadataSource.class);
+    }
+
+    private static <S extends PropertyMetadataSource> S createMetadataSource(
+            final SpecificationPropertyExtractor propertyExtractor,
+            final Class<S> sourceType
+    ) {
+        final S source = mock(sourceType);
+        when(source.getPropertyExtractor()).thenReturn(propertyExtractor);
+        return source;
     }
 
     private static FuelHeaderMetadata createHeaderMetadata(final String[] headerValues,

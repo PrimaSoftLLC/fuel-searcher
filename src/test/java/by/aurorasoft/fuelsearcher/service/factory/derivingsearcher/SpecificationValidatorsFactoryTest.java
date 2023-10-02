@@ -44,7 +44,7 @@ public final class SpecificationValidatorsFactoryTest {
                                                final List<SpecificationPropertyExtractor> givenPropertyExtractors) {
         final FuelSearcher givenSearcher = mock(FuelSearcher.class);
         when(givenSearcher.findTableName()).thenReturn(tableName);
-        when(givenSearcher.findPropertyExtractors()).thenReturn(givenPropertyExtractors);
+        when(givenSearcher.findUsedPropertyExtractors()).thenReturn(givenPropertyExtractors);
         return givenSearcher;
     }
 

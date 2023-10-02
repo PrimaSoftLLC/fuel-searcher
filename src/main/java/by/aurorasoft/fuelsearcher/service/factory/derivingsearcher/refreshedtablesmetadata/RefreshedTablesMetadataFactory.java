@@ -29,7 +29,7 @@ public final class RefreshedTablesMetadataFactory extends DerivingSearcherFactor
 
     private List<PropertyMetadata> findPropertiesMetadata(final FuelSearcher searcher) {
         final FuelTable table = searcher.getTable();
-        return searcher.findPropertyMetadataSources()
+        return searcher.findUsedPropertyMetadataSources()
                 .map(metadataSource -> this.propertyMetadataSearchingManager.find(table, metadataSource))
                 .toList();
     }

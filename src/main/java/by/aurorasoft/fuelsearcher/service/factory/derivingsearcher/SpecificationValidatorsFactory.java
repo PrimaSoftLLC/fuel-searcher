@@ -17,7 +17,7 @@ public final class SpecificationValidatorsFactory extends DerivingSearcherFactor
     @Override
     protected SpecificationValidator createDerivedObject(final FuelSearcher searcher) {
         final String tableName = searcher.findTableName();
-        final List<SpecificationPropertyExtractor> requiredPropertyExtractors = searcher.findPropertyExtractors();
+        final List<SpecificationPropertyExtractor> requiredPropertyExtractors = searcher.findUsedPropertyExtractors();
         return new SpecificationValidator(tableName, requiredPropertyExtractors);
     }
 }

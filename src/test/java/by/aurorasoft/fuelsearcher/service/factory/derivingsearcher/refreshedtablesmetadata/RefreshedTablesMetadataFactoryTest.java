@@ -81,7 +81,7 @@ public final class RefreshedTablesMetadataFactoryTest {
         final FuelSearcher searcher = mock(FuelSearcher.class);
         when(searcher.findTableName()).thenReturn(tableName);
         when(searcher.getTable()).thenReturn(table);
-        when(searcher.findPropertyMetadataSources()).thenReturn(stream(propertyMetadataSources));
+        when(searcher.findUsedPropertyMetadataSources()).thenReturn(stream(propertyMetadataSources));
         return searcher;
     }
 

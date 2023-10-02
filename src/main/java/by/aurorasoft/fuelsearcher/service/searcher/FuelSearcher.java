@@ -59,7 +59,7 @@ public abstract class FuelSearcher implements Translatable {
     }
 
     @SuppressWarnings("unchecked")
-    public final Stream<PropertyMetadataSource> findPropertyMetadataSources() {
+    public final Stream<PropertyMetadataSource> findUsedPropertyMetadataSources() {
         return concat(
                 this.filterChain.findFilters(),
                 Stream.of(this.headerMetadata),
@@ -67,9 +67,8 @@ public abstract class FuelSearcher implements Translatable {
         );
     }
 
-    //TODO: test
-    public final List<SpecificationPropertyExtractor> findPropertyExtractors() {
-        return this.findPropertyMetadataSources()
+    public final List<SpecificationPropertyExtractor> findUsedPropertyExtractors() {
+        return this.findUsedPropertyMetadataSources()
                 .map(PropertyMetadataSource::getPropertyExtractor)
                 .toList();
     }
