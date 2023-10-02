@@ -429,18 +429,18 @@ public final class FuelSearcherTest {
         assertEquals(expected, actual);
     }
 
-//    @Test
-//    public void finalFilterShouldBeAccumulatedByBuilder() {
-//        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder().build();
-//        final FinalFilter givenFilter = mock(FinalFilter.class);
-//
-//        givenBuilder.finalFilter(givenFilter);
-//
-//        final FilterChainBuilder actualFilterChainBuilder = findFilterChainBuilder(givenBuilder);
-//        final FinalFilter actual = findFinalFilter(actualFilterChainBuilder);
-//        assertSame(givenFilter, actual);
-//    }
-//
+    @Test
+    public void finalFilterShouldBeAccumulatedByBuilder() {
+        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder().build();
+        final FinalFilter givenFilter = mock(FinalFilter.class);
+
+        givenBuilder.finalFilter(givenFilter);
+
+        final FilterChainBuilder actualFilterChainBuilder = findFilterChainBuilder(givenBuilder);
+        final FinalFilter actual = findFinalFilter(actualFilterChainBuilder);
+        assertSame(givenFilter, actual);
+    }
+
 //    @Test
 //    public void propertiesShouldBeFound() {
 //        final Object firstGivenAdditionalProperty = new Object();
