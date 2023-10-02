@@ -3,6 +3,7 @@ package by.aurorasoft.fuelsearcher.service.searcher;
 import by.aurorasoft.fuelsearcher.model.Fuel;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
 import by.aurorasoft.fuelsearcher.model.PropertyMetadataSource;
+import by.aurorasoft.fuelsearcher.model.filter.Filter;
 import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
 import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
@@ -30,6 +31,7 @@ import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.setProperty;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findFirstCellIndexByContent;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.extractCellDoubleValue;
 import static java.lang.Double.NaN;
+import static java.util.Arrays.stream;
 import static java.util.Collections.emptyMap;
 import static java.util.Optional.ofNullable;
 import static org.junit.Assert.*;
@@ -312,6 +314,39 @@ public final class FuelSearcherTest {
         assertSame(givenTableName, actual);
     }
 
+    @Test
+    public void propertyMetadataSourcesShouldBeFound() {
+        final Filter<?> firstGivenFilter = mock(Filter.class);
+        final Filter<?> secondGivenFilter = mock(Filter.class);
+        final FilterChain givenFilterChain = createFilterChain(firstGivenFilter, secondGivenFilter);
+
+        final FuelHeaderMetadata givenHeaderMetadata = mock(FuelHeaderMetadata.class);
+
+        final PropertyMetadataSource firstGivenAdditionalPropertyMetadataSource = mock(PropertyMetadataSource.class);
+        final PropertyMetadataSource secondGivenAdditionalPropertyMetadataSource = mock(PropertyMetadataSource.class);
+        final Stream<PropertyMetadataSource> givenAdditionalPropertyMetadataSources = Stream.of(
+                firstGivenAdditionalPropertyMetadataSource,
+                secondGivenAdditionalPropertyMetadataSource
+        );
+
+        final FuelSearcher givenSearcher = TestFuelSearcher.builder()
+                .filterChain(givenFilterChain)
+                .headerMetadata(givenHeaderMetadata)
+                .additionalPropertyMetadataSources(givenAdditionalPropertyMetadataSources)
+                .build();
+
+        final Stream<PropertyMetadataSource> actual = givenSearcher.findPropertyMetadataSources();
+        final List<PropertyMetadataSource> actualAsList = actual.toList();
+        final List<PropertyMetadataSource> expectedAsList = List.of(
+                firstGivenFilter,
+                secondGivenFilter,
+                givenHeaderMetadata,
+                firstGivenAdditionalPropertyMetadataSource,
+                secondGivenAdditionalPropertyMetadataSource
+        );
+        assertEquals(expectedAsList, actualAsList);
+    }
+
 //    @Test
 //    public void fuelTableShouldBeAccumulatedByBuilder() {
 //        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder().build();
@@ -532,6 +567,12 @@ public final class FuelSearcherTest {
         );
     }
 
+    private static FilterChain createFilterChain(final Filter<?>... filters) {
+        final FilterChain filterChain = mock(FilterChain.class);
+        when(filterChain.findFilters()).thenReturn(stream(filters));
+        return filterChain;
+    }
+
     private static FuelHeaderMetadata createHeaderMetadata(final String[] headerValues,
                                                            final SpecificationPropertyExtractor propertyExtractor) {
         final FuelHeaderMetadata metadata = mock(FuelHeaderMetadata.class);
@@ -555,10 +596,10 @@ public final class FuelSearcherTest {
                                 final FuelHeaderMetadata headerMetadata,
                                 final FilterChain filterChain,
                                 final XWPFTable subTable,
-                                final Stream<PropertyMetadataSource> propertyMetadataSources) {
+                                final Stream<PropertyMetadataSource> additionalPropertyMetadataSources) {
             super(table, headerMetadata, filterChain);
             this.subTable = subTable;
-            this.propertyMetadataSources = propertyMetadataSources;
+            this.propertyMetadataSources = additionalPropertyMetadataSources;
         }
 
         @Override

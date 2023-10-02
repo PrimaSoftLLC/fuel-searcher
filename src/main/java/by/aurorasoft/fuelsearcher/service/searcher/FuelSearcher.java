@@ -58,14 +58,6 @@ public abstract class FuelSearcher implements Translatable {
         return this.table.name();
     }
 
-    //TODO: test
-    public final List<SpecificationPropertyExtractor> findPropertyExtractors() {
-        return this.findPropertyMetadataSources()
-                .map(PropertyMetadataSource::getPropertyExtractor)
-                .toList();
-    }
-
-    //TODO: test
     @SuppressWarnings("unchecked")
     public final Stream<PropertyMetadataSource> findPropertyMetadataSources() {
         return concat(
@@ -73,6 +65,13 @@ public abstract class FuelSearcher implements Translatable {
                 Stream.of(this.headerMetadata),
                 this.findAdditionalPropertyMetadataSources()
         );
+    }
+
+    //TODO: test
+    public final List<SpecificationPropertyExtractor> findPropertyExtractors() {
+        return this.findPropertyMetadataSources()
+                .map(PropertyMetadataSource::getPropertyExtractor)
+                .toList();
     }
 
     protected abstract Optional<XWPFTable> findSubTable(final List<IBodyElement> elements,
