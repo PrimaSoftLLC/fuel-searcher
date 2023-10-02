@@ -1,283 +1,305 @@
-//package by.aurorasoft.fuelsearcher.service.searcher;
-//
-//import by.aurorasoft.fuelsearcher.model.Fuel;
-//import by.aurorasoft.fuelsearcher.model.FuelTable;
-//import by.aurorasoft.fuelsearcher.model.PropertyMetadataSource;
-//import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
-//import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
-//import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
-//import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
-//import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
-//import by.aurorasoft.fuelsearcher.service.searcher.FilterChain.FilterChainBuilder;
-//import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher.SearcherBuilder;
-//import by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil;
-//import by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil;
-//import lombok.Builder;
-//import org.apache.poi.xwpf.usermodel.IBodyElement;
-//import org.apache.poi.xwpf.usermodel.XWPFTable;
-//import org.apache.poi.xwpf.usermodel.XWPFTableRow;
-//import org.junit.Test;
-//import org.mockito.MockedStatic;
-//
-//import java.util.*;
-//import java.util.stream.Stream;
-//
-//import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
-//import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.setProperty;
-//import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findFirstCellIndexByContent;
-//import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.extractCellDoubleValue;
-//import static java.lang.Double.NaN;
-//import static java.util.Optional.ofNullable;
-//import static org.junit.Assert.*;
-//import static org.mockito.Mockito.*;
-//
-//public final class FuelSearcherTest {
-//    private static final String FIELD_NAME_FUEL_TABLE = "table";
-//    private static final String FIELD_NAME_HEADER_METADATA = "headerMetadata";
-//    private static final String FIELD_NAME_FILTER_CHAIN_BUILDER = "filterChainBuilder";
-//
-//    private static final String FIELD_NAME_INTERIM_FILTERS = "interimFilters";
-//    private static final String FIELD_NAME_FINAL_FILTER = "finalFilter";
-//
-//    private static final String FIELD_NAME_FILTER_CHAIN = "filterChain";
-//
-//    @Test
-//    public void aliasShouldBeFound() {
-//        final String givenTableName = "table-name";
-//        final FuelTable givenTable = createTable(givenTableName);
-//        final FuelSearcher givenSearcher = TestFuelSearcher.builder()
-//                .table(givenTable)
-//                .build();
-//
-//        final String actual = givenSearcher.findAlias();
-//        assertEquals(givenTableName, actual);
-//    }
-//
-//    @Test
-//    public void fuelShouldBeFound() {
-//        try (final MockedStatic<XWPFTableRowFilteringUtil> mockedFilteringUtil = mockStatic(XWPFTableRowFilteringUtil.class);
-//             final MockedStatic<XWPFTableRowUtil> mockedRowUtil = mockStatic(XWPFTableRowUtil.class)) {
-//            final FuelSpecification givenSpecification = mock(FuelSpecification.class);
-//
-//            final FuelTable givenTable = mock(FuelTable.class);
-//            final XWPFTable givenSubTable = mock(XWPFTable.class);
-//            final FilterChain givenFilterChain = mock(FilterChain.class);
-//            final SpecificationPropertyExtractor givenHeaderExtractor = mock(SpecificationPropertyExtractor.class);
-//            final FuelSearcher givenSearcher = TestFuelSearcher.builder()
-//                    .table(givenTable)
-//                    .subTable(givenSubTable)
-//                    .filterChain(givenFilterChain)
-//                    .headerExtractor(givenHeaderExtractor)
-//                    .fuelOffsetsByHeaders(new HashMap<>() {
-//                        {
-//                            super.put("header", 2);
-//                        }
-//                    })
-//                    .build();
-//
-//            final XWPFTableRow firstGivenRow = mock(XWPFTableRow.class);
-//            final XWPFTableRow secondGivenRow = mock(XWPFTableRow.class);
-//            final XWPFTableRow thirdGivenRow = mock(XWPFTableRow.class);
-//            final List<XWPFTableRow> givenRows = List.of(firstGivenRow, secondGivenRow, thirdGivenRow);
-//            when(givenSubTable.getRows()).thenReturn(givenRows);
-//
-//            when(givenFilterChain.filter(same(givenRows), same(givenSpecification))).thenReturn(Optional.of(secondGivenRow));
-//
-//            final String givenHeader = "header";
-//            when(givenHeaderExtractor.extract(same(givenSpecification))).thenReturn(givenHeader);
-//
-//            final int givenFuelHeaderCellIndex = 3;
-//            mockedFilteringUtil.when(
-//                    () -> findFirstCellIndexByContent(same(secondGivenRow), same(givenHeader))
-//            ).thenReturn(OptionalInt.of(givenFuelHeaderCellIndex));
-//
-//            final int expectedGenerationNormCellIndex = 5;
-//            final double givenGenerationNorm = 5.5;
-//            mockedRowUtil.when(
-//                    () -> extractCellDoubleValue(same(secondGivenRow), eq(expectedGenerationNormCellIndex))
-//            ).thenReturn(givenGenerationNorm);
-//
-//            final int expectedConsumptionCellIndex = 6;
-//            final double givenConsumption = 6.6;
-//            mockedRowUtil.when(
-//                    () -> extractCellDoubleValue(same(secondGivenRow), eq(expectedConsumptionCellIndex))
-//            ).thenReturn(givenConsumption);
-//
-//            final Optional<Fuel> optionalActual = givenSearcher.find(givenSpecification);
-//            assertTrue(optionalActual.isPresent());
-//            final Fuel actual = optionalActual.get();
-//            final Fuel expected = new Fuel(givenGenerationNorm, givenConsumption);
-//            assertEquals(expected, actual);
-//        }
-//    }
-//
-//    @Test
-//    public void fuelShouldNotBeFoundBecauseOfAllRowsWereFiltered() {
-//        final FuelSpecification givenSpecification = mock(FuelSpecification.class);
-//
-//        final FuelTable givenTable = mock(FuelTable.class);
-//        final XWPFTable givenSubTable = mock(XWPFTable.class);
-//        final FilterChain givenFilterChain = mock(FilterChain.class);
-//        final FuelSearcher givenSearcher = TestFuelSearcher.builder()
-//                .table(givenTable)
-//                .subTable(givenSubTable)
-//                .filterChain(givenFilterChain)
-//                .build();
-//
-//        final XWPFTableRow firstGivenRow = mock(XWPFTableRow.class);
-//        final XWPFTableRow secondGivenRow = mock(XWPFTableRow.class);
-//        final XWPFTableRow thirdGivenRow = mock(XWPFTableRow.class);
-//        final List<XWPFTableRow> givenRows = List.of(firstGivenRow, secondGivenRow, thirdGivenRow);
-//        when(givenSubTable.getRows()).thenReturn(givenRows);
-//
-//        when(givenFilterChain.filter(same(givenRows), same(givenSpecification))).thenReturn(Optional.empty());
-//
-//        final Optional<Fuel> optionalActual = givenSearcher.find(givenSpecification);
-//        assertTrue(optionalActual.isEmpty());
-//    }
-//
-//    @Test
-//    public void fuelShouldNotBeFoundBecauseOfCellWasNotFoundByFuelHeader() {
-//        try (final MockedStatic<XWPFTableRowFilteringUtil> mockedFilteringUtil = mockStatic(XWPFTableRowFilteringUtil.class)) {
-//            final FuelSpecification givenSpecification = mock(FuelSpecification.class);
-//
-//            final FuelTable givenTable = mock(FuelTable.class);
-//            final XWPFTable givenSubTable = mock(XWPFTable.class);
-//            final FilterChain givenFilterChain = mock(FilterChain.class);
-//            final SpecificationPropertyExtractor givenHeaderExtractor = mock(SpecificationPropertyExtractor.class);
-//            final FuelSearcher givenSearcher = TestFuelSearcher.builder()
-//                    .table(givenTable)
-//                    .subTable(givenSubTable)
-//                    .filterChain(givenFilterChain)
-//                    .headerExtractor(givenHeaderExtractor)
-//                    .build();
-//
-//            final XWPFTableRow firstGivenRow = mock(XWPFTableRow.class);
-//            final XWPFTableRow secondGivenRow = mock(XWPFTableRow.class);
-//            final XWPFTableRow thirdGivenRow = mock(XWPFTableRow.class);
-//            final List<XWPFTableRow> givenRows = List.of(firstGivenRow, secondGivenRow, thirdGivenRow);
-//            when(givenSubTable.getRows()).thenReturn(givenRows);
-//
-//            when(givenFilterChain.filter(same(givenRows), same(givenSpecification))).thenReturn(Optional.of(secondGivenRow));
-//
-//            final String givenHeader = "header";
-//            when(givenHeaderExtractor.extract(same(givenSpecification))).thenReturn(givenHeader);
-//
-//            mockedFilteringUtil.when(
-//                    () -> findFirstCellIndexByContent(same(secondGivenRow), same(givenHeader))
-//            ).thenReturn(OptionalInt.empty());
-//
-//            final Optional<Fuel> optionalActual = givenSearcher.find(givenSpecification);
-//            assertTrue(optionalActual.isEmpty());
-//        }
-//    }
-//
-//    @Test(expected = Exception.class)
-//    public void fuelShouldNotBeFoundBecauseOfOffsetDoesNotExist() {
-//        try (final MockedStatic<XWPFTableRowFilteringUtil> mockedFilteringUtil = mockStatic(XWPFTableRowFilteringUtil.class)) {
-//            final FuelSpecification givenSpecification = mock(FuelSpecification.class);
-//
-//            final FuelTable givenTable = mock(FuelTable.class);
-//            final XWPFTable givenSubTable = mock(XWPFTable.class);
-//            final FilterChain givenFilterChain = mock(FilterChain.class);
-//            final SpecificationPropertyExtractor givenHeaderExtractor = mock(SpecificationPropertyExtractor.class);
-//            final FuelSearcher givenSearcher = TestFuelSearcher.builder()
-//                    .table(givenTable)
-//                    .subTable(givenSubTable)
-//                    .filterChain(givenFilterChain)
-//                    .headerExtractor(givenHeaderExtractor)
-//                    .fuelOffsetsByHeaders(new HashMap<>() {
-//                        {
-//                            super.put("header", 2);
-//                        }
-//                    })
-//                    .build();
-//
-//            final XWPFTableRow firstGivenRow = mock(XWPFTableRow.class);
-//            final XWPFTableRow secondGivenRow = mock(XWPFTableRow.class);
-//            final XWPFTableRow thirdGivenRow = mock(XWPFTableRow.class);
-//            final List<XWPFTableRow> givenRows = List.of(firstGivenRow, secondGivenRow, thirdGivenRow);
-//            when(givenSubTable.getRows()).thenReturn(givenRows);
-//
-//            when(givenFilterChain.filter(same(givenRows), same(givenSpecification))).thenReturn(Optional.of(secondGivenRow));
-//
-//            final String givenHeader = "header2";
-//            when(givenHeaderExtractor.extract(same(givenSpecification))).thenReturn(givenHeader);
-//
-//            final int givenFuelHeaderCellIndex = 3;
-//            mockedFilteringUtil.when(
-//                    () -> findFirstCellIndexByContent(same(secondGivenRow), same(givenHeader))
-//            ).thenReturn(OptionalInt.of(givenFuelHeaderCellIndex));
-//
-//            givenSearcher.find(givenSpecification);
-//        }
-//    }
-//
-//    @Test
-//    public void fuelShouldNotBeFoundBecauseOfNotDefinedFuelWasFound() {
-//        try (final MockedStatic<XWPFTableRowFilteringUtil> mockedFilteringUtil = mockStatic(XWPFTableRowFilteringUtil.class);
-//             final MockedStatic<XWPFTableRowUtil> mockedRowUtil = mockStatic(XWPFTableRowUtil.class)) {
-//            final FuelSpecification givenSpecification = mock(FuelSpecification.class);
-//
-//            final FuelTable givenTable = mock(FuelTable.class);
-//            final XWPFTable givenSubTable = mock(XWPFTable.class);
-//            final FilterChain givenFilterChain = mock(FilterChain.class);
-//            final SpecificationPropertyExtractor givenHeaderExtractor = mock(SpecificationPropertyExtractor.class);
-//            final FuelSearcher givenSearcher = TestFuelSearcher.builder()
-//                    .table(givenTable)
-//                    .subTable(givenSubTable)
-//                    .filterChain(givenFilterChain)
-//                    .headerExtractor(givenHeaderExtractor)
-//                    .fuelOffsetsByHeaders(new HashMap<>() {
-//                        {
-//                            super.put("header", 2);
-//                        }
-//                    })
-//                    .build();
-//
-//            final XWPFTableRow firstGivenRow = mock(XWPFTableRow.class);
-//            final XWPFTableRow secondGivenRow = mock(XWPFTableRow.class);
-//            final XWPFTableRow thirdGivenRow = mock(XWPFTableRow.class);
-//            final List<XWPFTableRow> givenRows = List.of(firstGivenRow, secondGivenRow, thirdGivenRow);
-//            when(givenSubTable.getRows()).thenReturn(givenRows);
-//
-//            when(givenFilterChain.filter(same(givenRows), same(givenSpecification))).thenReturn(Optional.of(secondGivenRow));
-//
-//            final String givenHeader = "header";
-//            when(givenHeaderExtractor.extract(same(givenSpecification))).thenReturn(givenHeader);
-//
-//            final int givenFuelHeaderCellIndex = 3;
-//            mockedFilteringUtil.when(
-//                    () -> findFirstCellIndexByContent(same(secondGivenRow), same(givenHeader))
-//            ).thenReturn(OptionalInt.of(givenFuelHeaderCellIndex));
-//
-//            final int expectedGenerationNormCellIndex = 5;
-//            mockedRowUtil.when(
-//                    () -> extractCellDoubleValue(same(secondGivenRow), eq(expectedGenerationNormCellIndex))
-//            ).thenReturn(NaN);
-//
-//            final int expectedConsumptionCellIndex = 6;
-//            mockedRowUtil.when(
-//                    () -> extractCellDoubleValue(same(secondGivenRow), eq(expectedConsumptionCellIndex))
-//            ).thenReturn(NaN);
-//
-//            final Optional<Fuel> optionalActual = givenSearcher.find(givenSpecification);
-//            assertTrue(optionalActual.isEmpty());
-//        }
-//    }
-//
-//    @Test
-//    public void fuelShouldNotBeFoundBecauseOfSubTableWasNotFound() {
-//        final FuelTable givenTable = mock(FuelTable.class);
-//        final FuelSearcher givenSearcher = TestFuelSearcher.builder()
-//                .table(givenTable)
-//                .build();
-//        final FuelSpecification givenSpecification = mock(FuelSpecification.class);
-//
-//        final Optional<Fuel> optionalActual = givenSearcher.find(givenSpecification);
-//        assertTrue(optionalActual.isEmpty());
-//    }
-//
+package by.aurorasoft.fuelsearcher.service.searcher;
+
+import by.aurorasoft.fuelsearcher.model.Fuel;
+import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.model.PropertyMetadataSource;
+import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
+import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
+import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
+import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
+import by.aurorasoft.fuelsearcher.service.searcher.FilterChain.FilterChainBuilder;
+import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher.SearcherBuilder;
+import by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil;
+import by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil;
+import lombok.Builder;
+import org.apache.poi.xwpf.usermodel.IBodyElement;
+import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.apache.poi.xwpf.usermodel.XWPFTableRow;
+import org.junit.Test;
+import org.mockito.MockedStatic;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.OptionalInt;
+import java.util.stream.Stream;
+
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.setProperty;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findFirstCellIndexByContent;
+import static by.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.extractCellDoubleValue;
+import static java.lang.Double.NaN;
+import static java.util.Collections.emptyMap;
+import static java.util.Optional.ofNullable;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
+public final class FuelSearcherTest {
+    private static final String FIELD_NAME_FUEL_TABLE = "table";
+    private static final String FIELD_NAME_HEADER_METADATA = "headerMetadata";
+    private static final String FIELD_NAME_FILTER_CHAIN_BUILDER = "filterChainBuilder";
+
+    private static final String FIELD_NAME_INTERIM_FILTERS = "interimFilters";
+    private static final String FIELD_NAME_FINAL_FILTER = "finalFilter";
+
+    private static final String FIELD_NAME_FILTER_CHAIN = "filterChain";
+
+    @Test
+    public void aliasShouldBeFound() {
+        final String givenTableName = "table-name";
+        final FuelTable givenTable = createTable(givenTableName);
+        final FuelSearcher givenSearcher = TestFuelSearcher.builder()
+                .table(givenTable)
+                .build();
+
+        final String actual = givenSearcher.findAlias();
+        assertSame(givenTableName, actual);
+    }
+
+    @Test
+    public void fuelShouldBeFound() {
+        try (final MockedStatic<XWPFTableRowFilteringUtil> mockedFilteringUtil = mockStatic(XWPFTableRowFilteringUtil.class);
+             final MockedStatic<XWPFTableRowUtil> mockedRowUtil = mockStatic(XWPFTableRowUtil.class)) {
+            final FuelSpecification givenSpecification = mock(FuelSpecification.class);
+
+            final FuelTable givenTable = mock(FuelTable.class);
+            final XWPFTable givenSubTable = mock(XWPFTable.class);
+
+            final SpecificationPropertyExtractor givenHeaderExtractor = mock(SpecificationPropertyExtractor.class);
+            final Map<String, Integer> givenFuelOffsetsByValues = Map.of(
+                    "header", 2
+            );
+            final FuelHeaderMetadata givenHeaderMetadata = new FuelHeaderMetadata(
+                    givenHeaderExtractor,
+                    givenFuelOffsetsByValues) {
+            };
+
+            final FilterChain givenFilterChain = mock(FilterChain.class);
+            final FuelSearcher givenSearcher = TestFuelSearcher.builder()
+                    .table(givenTable)
+                    .subTable(givenSubTable)
+                    .headerMetadata(givenHeaderMetadata)
+                    .filterChain(givenFilterChain)
+                    .build();
+
+            final XWPFTableRow firstGivenRow = mock(XWPFTableRow.class);
+            final XWPFTableRow secondGivenRow = mock(XWPFTableRow.class);
+            final XWPFTableRow thirdGivenRow = mock(XWPFTableRow.class);
+            final List<XWPFTableRow> givenRows = List.of(firstGivenRow, secondGivenRow, thirdGivenRow);
+            when(givenSubTable.getRows()).thenReturn(givenRows);
+
+            when(givenFilterChain.filter(same(givenRows), same(givenSpecification)))
+                    .thenReturn(Optional.of(secondGivenRow));
+
+            final String givenHeader = "header";
+            when(givenHeaderExtractor.extract(same(givenSpecification))).thenReturn(givenHeader);
+
+            final int givenFuelHeaderCellIndex = 3;
+            mockedFilteringUtil.when(
+                    () -> findFirstCellIndexByContent(same(secondGivenRow), same(givenHeader))
+            ).thenReturn(OptionalInt.of(givenFuelHeaderCellIndex));
+
+            final int expectedGenerationNormCellIndex = 5;
+            final double givenGenerationNorm = 5.5;
+            mockedRowUtil.when(
+                    () -> extractCellDoubleValue(same(secondGivenRow), eq(expectedGenerationNormCellIndex))
+            ).thenReturn(givenGenerationNorm);
+
+            final int expectedConsumptionCellIndex = 6;
+            final double givenConsumption = 6.6;
+            mockedRowUtil.when(
+                    () -> extractCellDoubleValue(same(secondGivenRow), eq(expectedConsumptionCellIndex))
+            ).thenReturn(givenConsumption);
+
+            final Optional<Fuel> optionalActual = givenSearcher.find(givenSpecification);
+            assertTrue(optionalActual.isPresent());
+            final Fuel actual = optionalActual.get();
+            final Fuel expected = new Fuel(givenGenerationNorm, givenConsumption);
+            assertEquals(expected, actual);
+        }
+    }
+
+    @Test
+    public void fuelShouldNotBeFoundBecauseOfAllRowsWereFiltered() {
+        final FuelSpecification givenSpecification = mock(FuelSpecification.class);
+
+        final FuelTable givenTable = mock(FuelTable.class);
+        final XWPFTable givenSubTable = mock(XWPFTable.class);
+        final FilterChain givenFilterChain = mock(FilterChain.class);
+        final FuelSearcher givenSearcher = TestFuelSearcher.builder()
+                .table(givenTable)
+                .subTable(givenSubTable)
+                .filterChain(givenFilterChain)
+                .build();
+
+        final XWPFTableRow firstGivenRow = mock(XWPFTableRow.class);
+        final XWPFTableRow secondGivenRow = mock(XWPFTableRow.class);
+        final XWPFTableRow thirdGivenRow = mock(XWPFTableRow.class);
+        final List<XWPFTableRow> givenRows = List.of(firstGivenRow, secondGivenRow, thirdGivenRow);
+        when(givenSubTable.getRows()).thenReturn(givenRows);
+
+        when(givenFilterChain.filter(same(givenRows), same(givenSpecification))).thenReturn(Optional.empty());
+
+        final Optional<Fuel> optionalActual = givenSearcher.find(givenSpecification);
+        assertTrue(optionalActual.isEmpty());
+    }
+
+    @Test
+    public void fuelShouldNotBeFoundBecauseOfCellWasNotFoundByFuelHeader() {
+        try (final MockedStatic<XWPFTableRowFilteringUtil> mockedFilteringUtil = mockStatic(XWPFTableRowFilteringUtil.class)) {
+            final FuelSpecification givenSpecification = mock(FuelSpecification.class);
+
+            final FuelTable givenTable = mock(FuelTable.class);
+            final XWPFTable givenSubTable = mock(XWPFTable.class);
+
+            final SpecificationPropertyExtractor givenHeaderExtractor = mock(SpecificationPropertyExtractor.class);
+            final Map<String, Integer> givenFuelOffsetsByValues = emptyMap();
+            final FuelHeaderMetadata givenHeaderMetadata = new FuelHeaderMetadata(
+                    givenHeaderExtractor,
+                    givenFuelOffsetsByValues) {
+            };
+
+            final FilterChain givenFilterChain = mock(FilterChain.class);
+            final FuelSearcher givenSearcher = TestFuelSearcher.builder()
+                    .table(givenTable)
+                    .subTable(givenSubTable)
+                    .headerMetadata(givenHeaderMetadata)
+                    .filterChain(givenFilterChain)
+                    .build();
+
+            final XWPFTableRow firstGivenRow = mock(XWPFTableRow.class);
+            final XWPFTableRow secondGivenRow = mock(XWPFTableRow.class);
+            final XWPFTableRow thirdGivenRow = mock(XWPFTableRow.class);
+            final List<XWPFTableRow> givenRows = List.of(firstGivenRow, secondGivenRow, thirdGivenRow);
+            when(givenSubTable.getRows()).thenReturn(givenRows);
+
+            when(givenFilterChain.filter(same(givenRows), same(givenSpecification)))
+                    .thenReturn(Optional.of(secondGivenRow));
+
+            final String givenHeader = "header";
+            when(givenHeaderExtractor.extract(same(givenSpecification))).thenReturn(givenHeader);
+
+            mockedFilteringUtil.when(
+                    () -> findFirstCellIndexByContent(same(secondGivenRow), same(givenHeader))
+            ).thenReturn(OptionalInt.empty());
+
+            final Optional<Fuel> optionalActual = givenSearcher.find(givenSpecification);
+            assertTrue(optionalActual.isEmpty());
+        }
+    }
+
+    @Test(expected = Exception.class)
+    public void fuelShouldNotBeFoundBecauseOfOffsetDoesNotExist() {
+        try (final MockedStatic<XWPFTableRowFilteringUtil> mockedFilteringUtil = mockStatic(XWPFTableRowFilteringUtil.class)) {
+            final FuelSpecification givenSpecification = mock(FuelSpecification.class);
+
+            final FuelTable givenTable = mock(FuelTable.class);
+            final XWPFTable givenSubTable = mock(XWPFTable.class);
+
+            final SpecificationPropertyExtractor givenHeaderExtractor = mock(SpecificationPropertyExtractor.class);
+            final Map<String, Integer> givenFuelOffsetsByValues = Map.of("header", 2);
+            final FuelHeaderMetadata givenHeaderMetadata = new FuelHeaderMetadata(
+                    givenHeaderExtractor,
+                    givenFuelOffsetsByValues) {
+            };
+
+            final FilterChain givenFilterChain = mock(FilterChain.class);
+            final FuelSearcher givenSearcher = TestFuelSearcher.builder()
+                    .table(givenTable)
+                    .subTable(givenSubTable)
+                    .headerMetadata(givenHeaderMetadata)
+                    .filterChain(givenFilterChain)
+                    .build();
+
+            final XWPFTableRow firstGivenRow = mock(XWPFTableRow.class);
+            final XWPFTableRow secondGivenRow = mock(XWPFTableRow.class);
+            final XWPFTableRow thirdGivenRow = mock(XWPFTableRow.class);
+            final List<XWPFTableRow> givenRows = List.of(firstGivenRow, secondGivenRow, thirdGivenRow);
+            when(givenSubTable.getRows()).thenReturn(givenRows);
+
+            when(givenFilterChain.filter(same(givenRows), same(givenSpecification))).thenReturn(Optional.of(secondGivenRow));
+
+            final String givenHeader = "header2";
+            when(givenHeaderExtractor.extract(same(givenSpecification))).thenReturn(givenHeader);
+
+            final int givenFuelHeaderCellIndex = 3;
+            mockedFilteringUtil.when(
+                    () -> findFirstCellIndexByContent(same(secondGivenRow), same(givenHeader))
+            ).thenReturn(OptionalInt.of(givenFuelHeaderCellIndex));
+
+            givenSearcher.find(givenSpecification);
+        }
+    }
+
+    @Test
+    public void fuelShouldNotBeFoundBecauseOfNotDefinedFuelWasFound() {
+        try (final MockedStatic<XWPFTableRowFilteringUtil> mockedFilteringUtil = mockStatic(XWPFTableRowFilteringUtil.class);
+             final MockedStatic<XWPFTableRowUtil> mockedRowUtil = mockStatic(XWPFTableRowUtil.class)) {
+            final FuelSpecification givenSpecification = mock(FuelSpecification.class);
+
+            final FuelTable givenTable = mock(FuelTable.class);
+            final XWPFTable givenSubTable = mock(XWPFTable.class);
+
+            final SpecificationPropertyExtractor givenHeaderExtractor = mock(SpecificationPropertyExtractor.class);
+            final Map<String, Integer> givenFuelOffsetsByValues = Map.of("header", 2);
+            final FuelHeaderMetadata givenHeaderMetadata = new FuelHeaderMetadata(
+                    givenHeaderExtractor,
+                    givenFuelOffsetsByValues) {
+            };
+
+            final FilterChain givenFilterChain = mock(FilterChain.class);
+            final FuelSearcher givenSearcher = TestFuelSearcher.builder()
+                    .table(givenTable)
+                    .subTable(givenSubTable)
+                    .headerMetadata(givenHeaderMetadata)
+                    .filterChain(givenFilterChain)
+                    .build();
+
+            final XWPFTableRow firstGivenRow = mock(XWPFTableRow.class);
+            final XWPFTableRow secondGivenRow = mock(XWPFTableRow.class);
+            final XWPFTableRow thirdGivenRow = mock(XWPFTableRow.class);
+            final List<XWPFTableRow> givenRows = List.of(firstGivenRow, secondGivenRow, thirdGivenRow);
+            when(givenSubTable.getRows()).thenReturn(givenRows);
+
+            when(givenFilterChain.filter(same(givenRows), same(givenSpecification)))
+                    .thenReturn(Optional.of(secondGivenRow));
+
+            final String givenHeader = "header";
+            when(givenHeaderExtractor.extract(same(givenSpecification))).thenReturn(givenHeader);
+
+            final int givenFuelHeaderCellIndex = 3;
+            mockedFilteringUtil.when(
+                    () -> findFirstCellIndexByContent(same(secondGivenRow), same(givenHeader))
+            ).thenReturn(OptionalInt.of(givenFuelHeaderCellIndex));
+
+            final int expectedGenerationNormCellIndex = 5;
+            mockedRowUtil.when(
+                    () -> extractCellDoubleValue(same(secondGivenRow), eq(expectedGenerationNormCellIndex))
+            ).thenReturn(NaN);
+
+            final int expectedConsumptionCellIndex = 6;
+            mockedRowUtil.when(
+                    () -> extractCellDoubleValue(same(secondGivenRow), eq(expectedConsumptionCellIndex))
+            ).thenReturn(NaN);
+
+            final Optional<Fuel> optionalActual = givenSearcher.find(givenSpecification);
+            assertTrue(optionalActual.isEmpty());
+        }
+    }
+
+    @Test
+    public void fuelShouldNotBeFoundBecauseOfSubTableWasNotFound() {
+        final FuelTable givenTable = mock(FuelTable.class);
+        final FuelSearcher givenSearcher = TestFuelSearcher.builder()
+                .table(givenTable)
+                .build();
+        final FuelSpecification givenSpecification = mock(FuelSpecification.class);
+
+        final Optional<Fuel> optionalActual = givenSearcher.find(givenSpecification);
+        assertTrue(optionalActual.isEmpty());
+    }
+
 //    @Test
 //    public void fuelTableShouldBeAccumulatedByBuilder() {
 //        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder().build();
@@ -302,8 +324,7 @@
 //    }
 //
 //    @Test
-//    public void interimFiltersShouldBeAccumulatedByBuilder()
-//            throws Exception {
+//    public void interimFiltersShouldBeAccumulatedByBuilder() {
 //        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder().build();
 //        final InterimFilter firstGivenInterimFilter = mock(InterimFilter.class);
 //        final InterimFilter secondGivenInterimFilter = mock(InterimFilter.class);
@@ -318,8 +339,7 @@
 //    }
 //
 //    @Test
-//    public void finalFilterShouldBeAccumulatedByBuilder()
-//            throws Exception {
+//    public void finalFilterShouldBeAccumulatedByBuilder() {
 //        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder().build();
 //        final FinalFilter givenFilter = mock(FinalFilter.class);
 //
@@ -331,8 +351,7 @@
 //    }
 //
 //    @Test
-//    public void propertiesShouldBeFound()
-//            throws Exception {
+//    public void propertiesShouldBeFound() {
 //        final Object firstGivenAdditionalProperty = new Object();
 //        final Object secondGivenAdditionalProperty = new Object();
 //        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder()
@@ -362,8 +381,7 @@
 //    }
 //
 //    @Test
-//    public void searcherShouldBeBuiltAfterStateValidation()
-//            throws Exception {
+//    public void searcherShouldBeBuiltAfterStateValidation() {
 //        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder()
 //                .validElements(true)
 //                .build();
@@ -401,8 +419,7 @@
 //    }
 //
 //    @Test
-//    public void searcherShouldNotBeBuiltAfterStateValidationBecauseOfFuelTableIsNotValid()
-//            throws Exception {
+//    public void searcherShouldNotBeBuiltAfterStateValidationBecauseOfFuelTableIsNotValid() {
 //        final String givenNotValidElementsMessage = "message";
 //        final TestSearcherBuilder givenBuilder = TestSearcherBuilder.builder()
 //                .validElements(false)
@@ -421,209 +438,171 @@
 //        }
 //        assertTrue(exceptionArisen);
 //    }
-//
-//    @SuppressWarnings("SameParameterValue")
-//    private static FuelTable createTable(final String name) {
-//        final FuelTable givenTable = mock(FuelTable.class);
-//        when(givenTable.name()).thenReturn(name);
-//        return givenTable;
-//    }
-//
-//    private static FuelHeaderMetadata findHeaderMetadata(final SearcherBuilder<?> builder)
-//            throws Exception {
-//        return findProperty(
-//                builder,
-//                SearcherBuilder.class,
-//                FIELD_NAME_HEADER_METADATA,
-//                FuelHeaderMetadata.class
-//        );
-//    }
-//
-//    private static FilterChainBuilder findFilterChainBuilder(final SearcherBuilder<?> builder)
-//            throws Exception {
-//        return findProperty(
-//                builder,
-//                SearcherBuilder.class,
-//                FIELD_NAME_FILTER_CHAIN_BUILDER,
-//                FilterChainBuilder.class
-//        );
-//    }
-//
-//    @SuppressWarnings("unchecked")
-//    private static List<InterimFilter> findInterimFilters(final FilterChainBuilder builder)
-//            throws Exception {
-//        return findProperty(
-//                builder,
-//                FilterChainBuilder.class,
-//                FIELD_NAME_INTERIM_FILTERS,
-//                List.class
-//        );
-//    }
-//
-//    private static FinalFilter findFinalFilter(final FilterChainBuilder builder)
-//            throws Exception {
-//        return findProperty(
-//                builder,
-//                FilterChainBuilder.class,
-//                FIELD_NAME_FINAL_FILTER,
-//                FinalFilter.class
-//        );
-//    }
-//
-//    private static FuelTable findFuelTable(final FuelSearcher searcher)
-//            throws Exception {
-//        return findProperty(
-//                searcher,
-//                FuelSearcher.class,
-//                FIELD_NAME_FUEL_TABLE,
-//                FuelTable.class
-//        );
-//    }
-//
-//    @SuppressWarnings("unchecked")
-//    private static Map<String, Integer> findFuelOffsetsByHeaders(final FuelSearcher searcher)
-//            throws Exception {
-//        return findProperty(
-//                searcher,
-//                FuelSearcher.class,
-//                FIELD_NAME_FUEL_OFFSETS_BY_HEADERS,
-//                Map.class
-//        );
-//    }
-//
-//    private static FilterChain findFilterChain(final FuelSearcher searcher)
-//            throws Exception {
-//        return findProperty(
-//                searcher,
-//                FuelSearcher.class,
-//                FIELD_NAME_FILTER_CHAIN,
-//                FilterChain.class
-//        );
-//    }
-//
-//    private SpecificationPropertyExtractor findHeaderExtractor(final FuelSearcher searcher)
-//            throws Exception {
-//        return findProperty(
-//                searcher,
-//                FuelSearcher.class,
-//                FIELD_NAME_HEADER_EXTRACTOR,
-//                SpecificationPropertyExtractor.class
-//        );
-//    }
-//
-//    private static void setFuelTable(final SearcherBuilder<?> builder, final FuelTable table)
-//            throws Exception {
-//        setProperty(
-//                builder,
-//                table,
-//                SearcherBuilder.class,
-//                FIELD_NAME_FUEL_TABLE
-//        );
-//    }
-//
-//    private static void setHeaderMetadata(final SearcherBuilder<?> builder, final FuelHeaderMetadata metadata)
-//            throws Exception {
-//        setProperty(
-//                builder,
-//                metadata,
-//                SearcherBuilder.class,
-//                FIELD_NAME_HEADER_METADATA
-//        );
-//    }
-//
-//    private static void setFilterChainBuilder(final SearcherBuilder<?> builder,
-//                                              final FilterChainBuilder filterChainBuilder) {
-//        setProperty(
-//                builder,
-//                filterChainBuilder,
-//                SearcherBuilder.class,
-//                FIELD_NAME_FILTER_CHAIN_BUILDER
-//        );
-//    }
-//
-//    private static FuelHeaderMetadata createHeaderMetadata(final String[] headerValues,
-//                                                           final SpecificationPropertyExtractor propertyExtractor) {
-//        final FuelHeaderMetadata metadata = mock(FuelHeaderMetadata.class);
-//        when(metadata.findHeaderValues()).thenReturn(headerValues);
-//        when(metadata.getPropertyExtractor()).thenReturn(propertyExtractor);
-//        return metadata;
-//    }
-//
-//    private static FilterChainBuilder createFilterChainBuilder(final FilterChain builtFilterChain) {
-//        final FilterChainBuilder builder = mock(FilterChainBuilder.class);
-//        when(builder.build()).thenReturn(builtFilterChain);
-//        return builder;
-//    }
-//
-//    private static final class TestFuelSearcher extends FuelSearcher {
-//        private final XWPFTable subTable;
-//        private final Stream<PropertyMetadataSource> propertyMetadataSources;
-//
-//        @Builder
-//        public TestFuelSearcher(final FuelTable table,
-//                                final FuelHeaderMetadata headerMetadata,
-//                                final FilterChain filterChain,
-//                                final XWPFTable subTable,
-//                                final Stream<PropertyMetadataSource> propertyMetadataSources) {
-//            super(table, headerMetadata, filterChain);
-//            this.subTable = subTable;
-//            this.propertyMetadataSources = propertyMetadataSources;
-//        }
-//
-//        @Override
-//        protected Optional<XWPFTable> findSubTable(final List<IBodyElement> elements,
-//                                                   final FuelSpecification specification) {
-//            return ofNullable(this.subTable);
-//        }
-//
-//        @Override
-//        protected Stream<? extends PropertyMetadataSource> findAdditionalPropertyMetadataSources() {
-//            return this.propertyMetadataSources;
-//        }
-//    }
-//
-//    private static final class TestSearcherBuilder extends SearcherBuilder<TestFuelSearcher> {
-//        private final boolean validElements;
-//        private final String notValidElementsMessage;
-//        private final Object firstAdditionalProperty;
-//        private final Object secondAdditionalProperty;
-//
-//        @Builder
-//        public TestSearcherBuilder(final boolean validElements,
-//                                   final String notValidElementsMessage,
-//                                   final Object firstAdditionalProperty,
-//                                   final Object secondAdditionalProperty) {
-//            this.validElements = validElements;
-//            this.notValidElementsMessage = notValidElementsMessage;
-//            this.firstAdditionalProperty = firstAdditionalProperty;
-//            this.secondAdditionalProperty = secondAdditionalProperty;
-//        }
-//
-//
-//        @Override
-//        protected boolean isValidElements(final List<IBodyElement> elements) {
-//            return this.validElements;
-//        }
-//
-//        @Override
-//        protected String findNotValidElementsMessage() {
-//            return this.notValidElementsMessage;
-//        }
-//
-//        @Override
-//        protected TestFuelSearcher build(final FuelTable table,
-//                                         final FuelHeaderMetadata headerMetadata,
-//                                         final FilterChain filterChain) {
-//            return TestFuelSearcher.builder()
-//                    .table(table)
-//                    .headerMetadata(headerMetadata)
-//                    .filterChain(filterChain)
-//                    .build();
-//        }
-//
-//        @Override
-//        protected Stream<Object> findAdditionalProperties() {
-//            return Stream.of(this.firstAdditionalProperty, this.secondAdditionalProperty);
-//        }
-//    }
-//}
+
+    @SuppressWarnings("SameParameterValue")
+    private static FuelTable createTable(final String name) {
+        final FuelTable givenTable = mock(FuelTable.class);
+        when(givenTable.name()).thenReturn(name);
+        return givenTable;
+    }
+
+    private static FuelHeaderMetadata findHeaderMetadata(final SearcherBuilder<?> builder) {
+        return findProperty(
+                builder,
+                FIELD_NAME_HEADER_METADATA,
+                FuelHeaderMetadata.class
+        );
+    }
+
+    private static FilterChainBuilder findFilterChainBuilder(final SearcherBuilder<?> builder) {
+        return findProperty(
+                builder,
+                FIELD_NAME_FILTER_CHAIN_BUILDER,
+                FilterChainBuilder.class
+        );
+    }
+
+    @SuppressWarnings("unchecked")
+    private static List<InterimFilter> findInterimFilters(final FilterChainBuilder builder) {
+        return findProperty(
+                builder,
+                FIELD_NAME_INTERIM_FILTERS,
+                List.class
+        );
+    }
+
+    private static FinalFilter findFinalFilter(final FilterChainBuilder builder) {
+        return findProperty(
+                builder,
+                FIELD_NAME_FINAL_FILTER,
+                FinalFilter.class
+        );
+    }
+
+    private static FuelTable findFuelTable(final FuelSearcher searcher) {
+        return findProperty(
+                searcher,
+                FIELD_NAME_FUEL_TABLE,
+                FuelTable.class
+        );
+    }
+
+    private static FilterChain findFilterChain(final FuelSearcher searcher) {
+        return findProperty(
+                searcher,
+                FIELD_NAME_FILTER_CHAIN,
+                FilterChain.class
+        );
+    }
+
+    private static void setFuelTable(final SearcherBuilder<?> builder, final FuelTable table) {
+        setProperty(
+                builder,
+                table,
+                FIELD_NAME_FUEL_TABLE
+        );
+    }
+
+    private static void setHeaderMetadata(final SearcherBuilder<?> builder, final FuelHeaderMetadata metadata) {
+        setProperty(
+                builder,
+                metadata,
+                FIELD_NAME_HEADER_METADATA
+        );
+    }
+
+    private static void setFilterChainBuilder(final SearcherBuilder<?> builder,
+                                              final FilterChainBuilder filterChainBuilder) {
+        setProperty(
+                builder,
+                filterChainBuilder,
+                FIELD_NAME_FILTER_CHAIN_BUILDER
+        );
+    }
+
+    private static FuelHeaderMetadata createHeaderMetadata(final String[] headerValues,
+                                                           final SpecificationPropertyExtractor propertyExtractor) {
+        final FuelHeaderMetadata metadata = mock(FuelHeaderMetadata.class);
+        when(metadata.findHeaderValues()).thenReturn(headerValues);
+        when(metadata.getPropertyExtractor()).thenReturn(propertyExtractor);
+        return metadata;
+    }
+
+    private static FilterChainBuilder createFilterChainBuilder(final FilterChain builtFilterChain) {
+        final FilterChainBuilder builder = mock(FilterChainBuilder.class);
+        when(builder.build()).thenReturn(builtFilterChain);
+        return builder;
+    }
+
+    private static final class TestFuelSearcher extends FuelSearcher {
+        private final XWPFTable subTable;
+        private final Stream<PropertyMetadataSource> propertyMetadataSources;
+
+        @Builder
+        public TestFuelSearcher(final FuelTable table,
+                                final FuelHeaderMetadata headerMetadata,
+                                final FilterChain filterChain,
+                                final XWPFTable subTable,
+                                final Stream<PropertyMetadataSource> propertyMetadataSources) {
+            super(table, headerMetadata, filterChain);
+            this.subTable = subTable;
+            this.propertyMetadataSources = propertyMetadataSources;
+        }
+
+        @Override
+        protected Optional<XWPFTable> findSubTable(final List<IBodyElement> elements,
+                                                   final FuelSpecification specification) {
+            return ofNullable(this.subTable);
+        }
+
+        @Override
+        protected Stream<? extends PropertyMetadataSource> findAdditionalPropertyMetadataSources() {
+            return this.propertyMetadataSources;
+        }
+    }
+
+    private static final class TestSearcherBuilder extends SearcherBuilder<TestFuelSearcher> {
+        private final boolean validElements;
+        private final String notValidElementsMessage;
+        private final Object firstAdditionalProperty;
+        private final Object secondAdditionalProperty;
+
+        @Builder
+        public TestSearcherBuilder(final boolean validElements,
+                                   final String notValidElementsMessage,
+                                   final Object firstAdditionalProperty,
+                                   final Object secondAdditionalProperty) {
+            this.validElements = validElements;
+            this.notValidElementsMessage = notValidElementsMessage;
+            this.firstAdditionalProperty = firstAdditionalProperty;
+            this.secondAdditionalProperty = secondAdditionalProperty;
+        }
+
+
+        @Override
+        protected boolean isValidElements(final List<IBodyElement> elements) {
+            return this.validElements;
+        }
+
+        @Override
+        protected String findNotValidElementsMessage() {
+            return this.notValidElementsMessage;
+        }
+
+        @Override
+        protected TestFuelSearcher build(final FuelTable table,
+                                         final FuelHeaderMetadata headerMetadata,
+                                         final FilterChain filterChain) {
+            return TestFuelSearcher.builder()
+                    .table(table)
+                    .headerMetadata(headerMetadata)
+                    .filterChain(filterChain)
+                    .build();
+        }
+
+        @Override
+        protected Stream<Object> findAdditionalProperties() {
+            return Stream.of(this.firstAdditionalProperty, this.secondAdditionalProperty);
+        }
+    }
+}
