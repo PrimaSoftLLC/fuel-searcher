@@ -6,6 +6,7 @@ import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata.SubTableTitleMetad
 import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
 import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
+import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher.CompositeSearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
@@ -24,6 +25,7 @@ import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
 import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.setProperty;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
@@ -498,6 +500,89 @@ public final class SearchersParsingContextTest {
         verify(givenCompositeSearcherBuilder, times(0)).finalFilter(same(givenFilter));
     }
 
+    @Test
+    public void subTableTitleTemplateShouldBeAccumulated() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final SubTableTitleMetadataBuilder givenSubTableTitleMetadataBuilder = mock(SubTableTitleMetadataBuilder.class);
+        setSubTableTitleMetadataBuilder(givenContext, givenSubTableTitleMetadataBuilder);
+
+        final String givenTemplate = "{first-property} and {second-property}";
+
+        givenContext.accumulateSubTableTitleTemplate(givenTemplate);
+
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
+                .searchersPredicate(Collection::isEmpty)
+                .simpleSearcherBuilderPredicate(Objects::isNull)
+                .compositeSearcherBuilderPredicate(Objects::isNull)
+                .subTableTitleMetadataBuilderPredicate(Objects::nonNull)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateMatcher.isMatch(givenContext));
+
+        verify(givenSubTableTitleMetadataBuilder, times(1)).templateWithPropertyNames(
+                same(givenTemplate)
+        );
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void subTableTitleTemplateShouldNotBeAccumulatedBecauseOfSubTableTitleMetadataBuilderIsNull() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+        final String givenTemplate = "{first-property} and {second-property}";
+
+        givenContext.accumulateSubTableTitleTemplate(givenTemplate);
+    }
+
+    @Test
+    public void subTableTitleTemplateArgumentExtractorShouldBeAccumulated() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final SubTableTitleMetadataBuilder givenSubTableTitleMetadataBuilder = mock(SubTableTitleMetadataBuilder.class);
+        setSubTableTitleMetadataBuilder(givenContext, givenSubTableTitleMetadataBuilder);
+
+        final SpecificationPropertyExtractor givenExtractor = mock(SpecificationPropertyExtractor.class);
+
+        givenContext.accumulateSubTableTitleTemplateArgumentExtractor(givenExtractor);
+
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
+                .searchersPredicate(Collection::isEmpty)
+                .simpleSearcherBuilderPredicate(Objects::isNull)
+                .compositeSearcherBuilderPredicate(Objects::isNull)
+                .subTableTitleMetadataBuilderPredicate(Objects::nonNull)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateMatcher.isMatch(givenContext));
+
+        verify(givenSubTableTitleMetadataBuilder, times(1)).argumentExtractor(
+                same(givenExtractor)
+        );
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void subTableTitleTemplateArgumentExtractorShouldNotBeAccumulatedBecauseOfSubTableTitleMetadataBuilderIsNull() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+        final SpecificationPropertyExtractor givenExtractor = mock(SpecificationPropertyExtractor.class);
+
+        givenContext.accumulateSubTableTitleTemplateArgumentExtractor(givenExtractor);
+    }
+
+    @Test
+    public void parsedSearchersShouldBeFound() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final List<FuelSearcher> givenSearchers = List.of(
+                mock(FuelSearcher.class),
+                mock(FuelSearcher.class),
+                mock(FuelSearcher.class)
+        );
+        setSearchers(givenContext, givenSearchers);
+
+        final List<FuelSearcher> actual = givenContext.findParsedSearchers();
+        assertSame(givenSearchers, actual);
+    }
+
     private static final class ContextStateMatcher {
         private final Predicate<SearchersParsingContext> searchersPredicate;
         private final Predicate<SearchersParsingContext> simpleSearcherBuilderPredicate;
@@ -620,6 +705,14 @@ public final class SearchersParsingContextTest {
                 context,
                 builder,
                 FIELD_NAME_SUB_TABLE_TITLE_METADATA_BUILDER
+        );
+    }
+
+    private static void setSearchers(final SearchersParsingContext context, final List<FuelSearcher> searchers) {
+        setProperty(
+                context,
+                searchers,
+                FIELD_NAME_SEARCHERS
         );
     }
 }
