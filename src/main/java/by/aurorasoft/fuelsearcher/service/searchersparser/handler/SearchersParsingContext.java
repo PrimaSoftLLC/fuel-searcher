@@ -54,11 +54,11 @@ public final class SearchersParsingContext {
         this.searchers = new ArrayList<>();
     }
 
-    public void startParseSimpleSearcher() {
+    public void startParsingSimpleSearcher() {
         this.simpleSearcherBuilder = SimpleFuelSearcher.builder();
     }
 
-    public void startParseCompositeSearcher() {
+    public void startParsingCompositeSearcher() {
         this.compositeSearcherBuilder = CompositeFuelSearcher.builder();
         this.subTableTitleMetadataBuilder = SubTableTitleMetadata.builder();
     }

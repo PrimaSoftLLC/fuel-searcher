@@ -13,7 +13,7 @@ public final class CompositeSearcherTagHandler extends TagHandler {
 
     @Override
     public void handleStartTag(final SearchersParsingContext context) {
-        context.startParseCompositeSearcher();
+        context.startParsingCompositeSearcher();
     }
 
     @Override

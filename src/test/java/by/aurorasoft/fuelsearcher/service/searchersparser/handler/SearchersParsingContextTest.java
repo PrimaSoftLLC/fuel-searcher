@@ -39,6 +39,40 @@ public final class SearchersParsingContextTest {
         assertTrue(contextStateMatcher.isMatch(actual));
     }
 
+    @Test
+    public void contextShouldStartParsingSimpleSearcher() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        givenContext.startParsingSimpleSearcher();
+
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
+                .searchersPredicate(Collection::isEmpty)
+                .simpleSearcherBuilderPredicate(Objects::nonNull)
+                .compositeSearcherBuilderPredicate(Objects::isNull)
+                .subTableTitleMetadataBuilderPredicate(Objects::isNull)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateMatcher.isMatch(givenContext));
+    }
+
+    @Test
+    public void contextShouldStartParsingCompositeSearcher() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        givenContext.startParsingCompositeSearcher();
+
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
+                .searchersPredicate(Collection::isEmpty)
+                .simpleSearcherBuilderPredicate(Objects::isNull)
+                .compositeSearcherBuilderPredicate(Objects::nonNull)
+                .subTableTitleMetadataBuilderPredicate(Objects::nonNull)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateMatcher.isMatch(givenContext));
+    }
+
     private static final class ContextStateMatcher {
         private final Predicate<SearchersParsingContext> searchersPredicate;
         private final Predicate<SearchersParsingContext> simpleSearcherBuilderPredicate;

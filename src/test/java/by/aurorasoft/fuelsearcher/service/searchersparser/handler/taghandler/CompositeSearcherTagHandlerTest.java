@@ -14,7 +14,7 @@ public final class CompositeSearcherTagHandlerTest {
 
         this.tagHandler.handleStartTag(givenContext);
 
-        verify(givenContext, times(1)).startParseCompositeSearcher();
+        verify(givenContext, times(1)).startParsingCompositeSearcher();
     }
 
     @Test

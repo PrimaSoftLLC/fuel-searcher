@@ -14,7 +14,7 @@ public final class SimpleSearcherTagHandlerTest {
 
         this.tagHandler.handleStartTag(givenContext);
 
-        verify(givenContext, times(1)).startParseSimpleSearcher();
+        verify(givenContext, times(1)).startParsingSimpleSearcher();
     }
 
     @Test
