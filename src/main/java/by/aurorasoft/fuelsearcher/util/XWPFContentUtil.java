@@ -12,18 +12,18 @@ public final class XWPFContentUtil {
     private static final String EMPTY_STRING = "";
 
     public static Stream<String> removeDuplicatesConsideringOnlyLettersAndDigits(final Stream<String> source) {
-        final Set<String> accumulatedUniqueContentsOnlyWithDigitsAndLetters = new HashSet<>();
+        final Set<String> accumulatedUniqueContentsOnlyWithDigitsAndLettersInUpperCase = new HashSet<>();
         return source.filter(
-                sourceContent -> accumulatedUniqueContentsOnlyWithDigitsAndLetters.add(
+                sourceContent -> accumulatedUniqueContentsOnlyWithDigitsAndLettersInUpperCase.add(
                         removeAllSymbolsExceptLettersAndDigitsAndTransformToUpperCase(sourceContent)
                 )
         );
     }
 
     public static boolean areEqualConsideringOnlyLettersAndDigits(final String first, final String second) {
-        final String firstWithoutNotConsideringSymbols = removeAllExceptLettersAndDigits(first);
-        final String secondWithoutNotConsideringSymbols = removeAllExceptLettersAndDigits(second);
-        return firstWithoutNotConsideringSymbols.equalsIgnoreCase(secondWithoutNotConsideringSymbols);
+        final String firstOnlyWithLettersAndDigits = removeAllExceptLettersAndDigits(first);
+        final String secondOnlyWithLettersAndDigits = removeAllExceptLettersAndDigits(second);
+        return firstOnlyWithLettersAndDigits.equalsIgnoreCase(secondOnlyWithLettersAndDigits);
     }
 
     private static String removeAllSymbolsExceptLettersAndDigitsAndTransformToUpperCase(final String source) {
