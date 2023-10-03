@@ -20,7 +20,8 @@ public final class DocumentMetadataArgumentsProvider implements ArgumentsProvide
             new SeventhTableMetadataArgumentsProvider(),
             new EighthTableMetadataArgumentsProvider(),
             new NinthTableMetadataArgumentsProvider(),
-            new TenthTableMetadataArgumentsProvider()
+            new TenthTableMetadataArgumentsProvider(),
+            new EleventhTableMetadataArgumentsProvider()
     );
 
     @Override
