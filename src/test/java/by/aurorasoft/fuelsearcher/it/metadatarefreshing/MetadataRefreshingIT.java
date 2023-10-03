@@ -1,6 +1,7 @@
 package by.aurorasoft.fuelsearcher.it.metadatarefreshing;
 
 import by.aurorasoft.fuelsearcher.base.AbstractContextTest;
+import by.aurorasoft.fuelsearcher.it.metadatarefreshing.model.argumentsprovider.DocumentMetadataArgumentsProvider;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -26,7 +27,7 @@ public final class MetadataRefreshingIT extends AbstractContextTest {
     private static final String PARAMETER_NAME_TABLE_NAME = "tableName";
 
     @ParameterizedTest
-    @ArgumentsSource(MetadataArgumentsProvider.class)
+    @ArgumentsSource(DocumentMetadataArgumentsProvider.class)
     public void propertyMetadataShouldBeRefreshed(final MetadataArguments arguments) {
         final String givenTableName = arguments.tableName();
         final String givenPropertyName = arguments.propertyName();
@@ -46,7 +47,7 @@ public final class MetadataRefreshingIT extends AbstractContextTest {
                 .getSingleResult();
     }
 
-    private static final class MetadataArgumentsProvider implements ArgumentsProvider {
+    private static final class TEMPDocumentMetadataArgumentsProvider implements ArgumentsProvider {
 
         @Override
         public Stream<? extends Arguments> provideArguments(final ExtensionContext extensionContext) {
@@ -176,17 +177,6 @@ public final class MetadataRefreshingIT extends AbstractContextTest {
             );
         }
 
-    }
-
-    private static Arguments createMetadataJunitArguments(final String tableName,
-                                                          final String propertyName,
-                                                          final String[] expectedPropertyAllowableValues) {
-        return Arguments.of(
-                new MetadataArguments(tableName, propertyName, expectedPropertyAllowableValues)
-        );
-    }
-
-    private record MetadataArguments(String tableName, String propertyName, String[] expectedPropertyAllowableValues) {
     }
 
     public static class MetadataRefreshingEnablePropertyOverrider
