@@ -5,9 +5,10 @@ import by.aurorasoft.fuelsearcher.it.metadatarefreshing.model.PropertyMetadataAr
 import java.util.stream.Stream;
 
 public final class FirstTableMetadataArgumentsProvider extends TableMetadataArgumentsProvider {
+    private static final String TABLE_NAME = "ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ";
 
-    public FirstTableMetadataArgumentsProvider(final String tableName) {
-        super(tableName);
+    public FirstTableMetadataArgumentsProvider() {
+        super(TABLE_NAME);
     }
 
     @Override
