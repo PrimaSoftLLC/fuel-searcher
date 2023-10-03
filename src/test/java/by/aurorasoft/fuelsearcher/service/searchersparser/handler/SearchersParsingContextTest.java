@@ -1,7 +1,10 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler;
 
 import by.aurorasoft.fuelsearcher.model.FuelTable;
+import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata;
 import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata.SubTableTitleMetadataBuilder;
+import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
+import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher.CompositeSearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher;
@@ -124,7 +127,7 @@ public final class SearchersParsingContextTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void fuelTableShouldNotBeAccumulatedBecauseOfNoInitializedBuilder() {
+    public void fuelTableShouldNotBeAccumulatedBecauseOfNoNotNullBuilder() {
         final SearchersParsingContext givenContext = new SearchersParsingContext();
 
         final FuelTable givenTable = mock(FuelTable.class);
@@ -132,7 +135,7 @@ public final class SearchersParsingContextTest {
     }
 
     @Test
-    public void fuelTableShouldBeAccumulatedBySimpleSearcherInCaseInitializedTwoSearcherBuilders() {
+    public void fuelTableShouldBeAccumulatedBySimpleSearcherInCaseTwoSearcherBuildersNotNull() {
         final SearchersParsingContext givenContext = new SearchersParsingContext();
 
         final SimpleSearcherBuilder givenSimpleSearcherBuilder = mock(SimpleSearcherBuilder.class);
@@ -182,10 +185,147 @@ public final class SearchersParsingContextTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void simpleSearcherShouldNotBeBuiltAndAccumulatedBecauseOfSimpleSearcherIsNotInitialized() {
+    public void simpleSearcherShouldNotBeBuiltAndAccumulatedBecauseOfSimpleSearcherIsNull() {
         final SearchersParsingContext givenContext = new SearchersParsingContext();
 
         givenContext.buildAndAccumulateSimpleSearcher();
+    }
+
+    @Test
+    public void compositeSearcherShouldBeBuiltAndAccumulated() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final SubTableTitleMetadataBuilder givenSubTableTitleMetadataBuilder = mock(SubTableTitleMetadataBuilder.class);
+        setSubTableTitleMetadataBuilder(givenContext, givenSubTableTitleMetadataBuilder);
+
+        final SubTableTitleMetadata givenBuiltSubTableTitleMetadata = mock(SubTableTitleMetadata.class);
+        when(givenSubTableTitleMetadataBuilder.build()).thenReturn(givenBuiltSubTableTitleMetadata);
+
+        final CompositeSearcherBuilder givenSearcherBuilder = mock(CompositeSearcherBuilder.class);
+        setCompositeSearcherBuilder(givenContext, givenSearcherBuilder);
+
+        final CompositeFuelSearcher givenBuiltSearcher = mock(CompositeFuelSearcher.class);
+        when(givenSearcherBuilder.build()).thenReturn(givenBuiltSearcher);
+
+        givenContext.buildAndAccumulateCompositeSearcher();
+
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
+                .searchersPredicate(actualSearchers -> Objects.equals(List.of(givenBuiltSearcher), actualSearchers))
+                .simpleSearcherBuilderPredicate(Objects::isNull)
+                .compositeSearcherBuilderPredicate(Objects::isNull)
+                .subTableTitleMetadataBuilderPredicate(Objects::isNull)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateMatcher.isMatch(givenContext));
+
+        verify(givenSearcherBuilder, times(1)).subTableTitleMetadata(
+                same(givenBuiltSubTableTitleMetadata)
+        );
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void compositeSearcherShouldNotBeBuiltAndAccumulatedBecauseOfSubTableTitleMetadataBuilderIsNull() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        givenContext.buildAndAccumulateCompositeSearcher();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void compositeSearcherShouldNotBeBuiltAndAccumulatedBecauseOfCompositeSearcherBuilderIsNull() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final SubTableTitleMetadataBuilder givenSubTableTitleMetadataBuilder = mock(SubTableTitleMetadataBuilder.class);
+        setSubTableTitleMetadataBuilder(givenContext, givenSubTableTitleMetadataBuilder);
+
+        final SubTableTitleMetadata givenBuiltSubTableTitleMetadata = mock(SubTableTitleMetadata.class);
+        when(givenSubTableTitleMetadataBuilder.build()).thenReturn(givenBuiltSubTableTitleMetadata);
+
+        givenContext.buildAndAccumulateCompositeSearcher();
+    }
+
+    @Test
+    public void headerMetadataShouldBeAccumulatedBySimpleSearcherBuilder() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final SimpleSearcherBuilder givenSearcherBuilder = mock(SimpleSearcherBuilder.class);
+        setSimpleSearcherBuilder(givenContext, givenSearcherBuilder);
+
+        final FuelHeaderMetadata givenHeaderMetadata = mock(FuelHeaderMetadata.class);
+
+        givenContext.accumulateFuelHeaderMetadata(givenHeaderMetadata);
+
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
+                .searchersPredicate(Collection::isEmpty)
+                .simpleSearcherBuilderPredicate(Objects::nonNull)
+                .compositeSearcherBuilderPredicate(Objects::isNull)
+                .subTableTitleMetadataBuilderPredicate(Objects::isNull)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateMatcher.isMatch(givenContext));
+
+        verify(givenSearcherBuilder, times(1)).headerMetadata(same(givenHeaderMetadata));
+    }
+
+    @Test
+    public void headerMetadataShouldBeAccumulatedToCompositeSearcherBuilder() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final CompositeSearcherBuilder givenSearcherBuilder = mock(CompositeSearcherBuilder.class);
+        setCompositeSearcherBuilder(givenContext, givenSearcherBuilder);
+
+        final FuelHeaderMetadata givenHeaderMetadata = mock(FuelHeaderMetadata.class);
+
+        givenContext.accumulateFuelHeaderMetadata(givenHeaderMetadata);
+
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
+                .searchersPredicate(Collection::isEmpty)
+                .simpleSearcherBuilderPredicate(Objects::isNull)
+                .compositeSearcherBuilderPredicate(Objects::nonNull)
+                .subTableTitleMetadataBuilderPredicate(Objects::isNull)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateMatcher.isMatch(givenContext));
+
+        verify(givenSearcherBuilder, times(1)).headerMetadata(same(givenHeaderMetadata));
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void headerMetadataShouldNotBeAccumulatedBecauseOfSearcherBuildersAreNull() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+        final FuelHeaderMetadata givenHeaderMetadata = mock(FuelHeaderMetadata.class);
+
+        givenContext.accumulateFuelHeaderMetadata(givenHeaderMetadata);
+    }
+
+    @Test
+    public void headerMetadataShouldBeAccumulatedBySimpleSearcherBuilderInCaseTwoBuildersAreNotNull() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final SimpleSearcherBuilder givenSimpleSearcherBuilder = mock(SimpleSearcherBuilder.class);
+        setSimpleSearcherBuilder(givenContext, givenSimpleSearcherBuilder);
+
+        final CompositeSearcherBuilder givenCompositeSearcherBuilder = mock(CompositeSearcherBuilder.class);
+        setCompositeSearcherBuilder(givenContext, givenCompositeSearcherBuilder);
+
+        final FuelHeaderMetadata givenHeaderMetadata = mock(FuelHeaderMetadata.class);
+
+        givenContext.accumulateFuelHeaderMetadata(givenHeaderMetadata);
+
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
+                .searchersPredicate(Collection::isEmpty)
+                .simpleSearcherBuilderPredicate(Objects::nonNull)
+                .compositeSearcherBuilderPredicate(Objects::nonNull)
+                .subTableTitleMetadataBuilderPredicate(Objects::isNull)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateMatcher.isMatch(givenContext));
+
+        verify(givenSimpleSearcherBuilder, times(1)).headerMetadata(same(givenHeaderMetadata));
+        verify(givenCompositeSearcherBuilder, times(0)).headerMetadata(same(givenHeaderMetadata));
     }
 
     private static final class ContextStateMatcher {
@@ -301,6 +441,15 @@ public final class SearchersParsingContextTest {
                 context,
                 builder,
                 FIELD_NAME_COMPOSITE_SEARCHER_BUILDER
+        );
+    }
+
+    private static void setSubTableTitleMetadataBuilder(final SearchersParsingContext context,
+                                                        final SubTableTitleMetadataBuilder builder) {
+        setProperty(
+                context,
+                builder,
+                FIELD_NAME_SUB_TABLE_TITLE_METADATA_BUILDER
         );
     }
 }
