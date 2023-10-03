@@ -4,11 +4,11 @@ import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import org.junit.Test;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
 public final class FuelHeaderMetadataFactoryTest {
@@ -33,6 +33,7 @@ public final class FuelHeaderMetadataFactoryTest {
                 "value-3", 2
         );
         assertEquals(expectedFuelOffsetsByHeaders, actualFuelOffsetsByHeaders);
+        assertTrue(actualFuelOffsetsByHeaders instanceof LinkedHashMap<String, Integer>);
     }
 
     @Test(expected = RuntimeException.class)
