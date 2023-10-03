@@ -3,6 +3,7 @@ package by.aurorasoft.fuelsearcher.service.searchersparser.handler;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
 import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata;
 import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata.SubTableTitleMetadataBuilder;
+import by.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
 import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
 import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher;
@@ -411,6 +412,90 @@ public final class SearchersParsingContextTest {
 
         verify(givenSimpleSearcherBuilder, times(1)).interimFilter(same(givenFilter));
         verify(givenCompositeSearcherBuilder, times(0)).interimFilter(same(givenFilter));
+    }
+
+    @Test
+    public void finalFilterShouldBeAccumulatedBySimpleSearcherBuilder() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final SimpleSearcherBuilder givenSearcherBuilder = mock(SimpleSearcherBuilder.class);
+        setSimpleSearcherBuilder(givenContext, givenSearcherBuilder);
+
+        final FinalFilter givenFilter = mock(FinalFilter.class);
+
+        givenContext.accumulateFilter(givenFilter);
+
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
+                .searchersPredicate(Collection::isEmpty)
+                .simpleSearcherBuilderPredicate(Objects::nonNull)
+                .compositeSearcherBuilderPredicate(Objects::isNull)
+                .subTableTitleMetadataBuilderPredicate(Objects::isNull)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateMatcher.isMatch(givenContext));
+
+        verify(givenSearcherBuilder, times(1)).finalFilter(same(givenFilter));
+    }
+
+    @Test
+    public void finalFilterShouldBeAccumulatedByCompositeSearcherBuilder() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final CompositeSearcherBuilder givenSearcherBuilder = mock(CompositeSearcherBuilder.class);
+        setCompositeSearcherBuilder(givenContext, givenSearcherBuilder);
+
+        final FinalFilter givenFilter = mock(FinalFilter.class);
+
+        givenContext.accumulateFilter(givenFilter);
+
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
+                .searchersPredicate(Collection::isEmpty)
+                .simpleSearcherBuilderPredicate(Objects::isNull)
+                .compositeSearcherBuilderPredicate(Objects::nonNull)
+                .subTableTitleMetadataBuilderPredicate(Objects::isNull)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateMatcher.isMatch(givenContext));
+
+        verify(givenSearcherBuilder, times(1)).finalFilter(same(givenFilter));
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void finalFilterShouldNotBeAccumulatedBecauseOfSearcherBuildersAreNull() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+        final FinalFilter givenFilter = mock(FinalFilter.class);
+
+        givenContext.accumulateFilter(givenFilter);
+    }
+
+    @Test
+    public void finalFilterShouldBeAccumulatedBySimpleSearcherBuilderInCaseTwoSearcherBuildersAreNotNull() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final SimpleSearcherBuilder givenSimpleSearcherBuilder = mock(SimpleSearcherBuilder.class);
+        setSimpleSearcherBuilder(givenContext, givenSimpleSearcherBuilder);
+
+        final CompositeSearcherBuilder givenCompositeSearcherBuilder = mock(CompositeSearcherBuilder.class);
+        setCompositeSearcherBuilder(givenContext, givenCompositeSearcherBuilder);
+
+        final FinalFilter givenFilter = mock(FinalFilter.class);
+
+        givenContext.accumulateFilter(givenFilter);
+
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
+                .searchersPredicate(Collection::isEmpty)
+                .simpleSearcherBuilderPredicate(Objects::nonNull)
+                .compositeSearcherBuilderPredicate(Objects::nonNull)
+                .subTableTitleMetadataBuilderPredicate(Objects::isNull)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateMatcher.isMatch(givenContext));
+
+        verify(givenSimpleSearcherBuilder, times(1)).finalFilter(same(givenFilter));
+        verify(givenCompositeSearcherBuilder, times(0)).finalFilter(same(givenFilter));
     }
 
     private static final class ContextStateMatcher {
