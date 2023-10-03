@@ -21,7 +21,8 @@ public final class DocumentMetadataArgumentsProvider implements ArgumentsProvide
             new EighthTableMetadataArgumentsProvider(),
             new NinthTableMetadataArgumentsProvider(),
             new TenthTableMetadataArgumentsProvider(),
-            new EleventhTableMetadataArgumentsProvider()
+            new EleventhTableMetadataArgumentsProvider(),
+            new TwelfthTableMetadataArgumentsProvider()
     );
 
     @Override
