@@ -3,6 +3,7 @@ package by.aurorasoft.fuelsearcher.service.searchersparser.handler;
 import by.aurorasoft.fuelsearcher.model.FuelTable;
 import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata;
 import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata.SubTableTitleMetadataBuilder;
+import by.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;
 import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher.CompositeSearcherBuilder;
@@ -301,7 +302,7 @@ public final class SearchersParsingContextTest {
     }
 
     @Test
-    public void headerMetadataShouldBeAccumulatedBySimpleSearcherBuilderInCaseTwoBuildersAreNotNull() {
+    public void headerMetadataShouldBeAccumulatedBySimpleSearcherBuilderInCaseTwoSearcherBuildersAreNotNull() {
         final SearchersParsingContext givenContext = new SearchersParsingContext();
 
         final SimpleSearcherBuilder givenSimpleSearcherBuilder = mock(SimpleSearcherBuilder.class);
@@ -326,6 +327,90 @@ public final class SearchersParsingContextTest {
 
         verify(givenSimpleSearcherBuilder, times(1)).headerMetadata(same(givenHeaderMetadata));
         verify(givenCompositeSearcherBuilder, times(0)).headerMetadata(same(givenHeaderMetadata));
+    }
+
+    @Test
+    public void interimFilterShouldBeAccumulatedBySimpleSearcherBuilder() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final SimpleSearcherBuilder givenSearcherBuilder = mock(SimpleSearcherBuilder.class);
+        setSimpleSearcherBuilder(givenContext, givenSearcherBuilder);
+
+        final InterimFilter givenFilter = mock(InterimFilter.class);
+
+        givenContext.accumulateFilter(givenFilter);
+
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
+                .searchersPredicate(Collection::isEmpty)
+                .simpleSearcherBuilderPredicate(Objects::nonNull)
+                .compositeSearcherBuilderPredicate(Objects::isNull)
+                .subTableTitleMetadataBuilderPredicate(Objects::isNull)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateMatcher.isMatch(givenContext));
+
+        verify(givenSearcherBuilder, times(1)).interimFilter(same(givenFilter));
+    }
+
+    @Test
+    public void interimFilterShouldBeAccumulatedByCompositeSearcherBuilder() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final CompositeSearcherBuilder givenSearcherBuilder = mock(CompositeSearcherBuilder.class);
+        setCompositeSearcherBuilder(givenContext, givenSearcherBuilder);
+
+        final InterimFilter givenFilter = mock(InterimFilter.class);
+
+        givenContext.accumulateFilter(givenFilter);
+
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
+                .searchersPredicate(Collection::isEmpty)
+                .simpleSearcherBuilderPredicate(Objects::isNull)
+                .compositeSearcherBuilderPredicate(Objects::nonNull)
+                .subTableTitleMetadataBuilderPredicate(Objects::isNull)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateMatcher.isMatch(givenContext));
+
+        verify(givenSearcherBuilder, times(1)).interimFilter(same(givenFilter));
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void interimFilterShouldNotBeAccumulatedBecauseOfSearcherBuildersAreNull() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+        final InterimFilter givenFilter = mock(InterimFilter.class);
+
+        givenContext.accumulateFilter(givenFilter);
+    }
+
+    @Test
+    public void interimFilterShouldBeAccumulatedBySimpleSearcherBuilderInCaseTwoSearcherBuildersAreNotNull() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final SimpleSearcherBuilder givenSimpleSearcherBuilder = mock(SimpleSearcherBuilder.class);
+        setSimpleSearcherBuilder(givenContext, givenSimpleSearcherBuilder);
+
+        final CompositeSearcherBuilder givenCompositeSearcherBuilder = mock(CompositeSearcherBuilder.class);
+        setCompositeSearcherBuilder(givenContext, givenCompositeSearcherBuilder);
+
+        final InterimFilter givenFilter = mock(InterimFilter.class);
+
+        givenContext.accumulateFilter(givenFilter);
+
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
+                .searchersPredicate(Collection::isEmpty)
+                .simpleSearcherBuilderPredicate(Objects::nonNull)
+                .compositeSearcherBuilderPredicate(Objects::nonNull)
+                .subTableTitleMetadataBuilderPredicate(Objects::isNull)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateMatcher.isMatch(givenContext));
+
+        verify(givenSimpleSearcherBuilder, times(1)).interimFilter(same(givenFilter));
+        verify(givenCompositeSearcherBuilder, times(0)).interimFilter(same(givenFilter));
     }
 
     private static final class ContextStateMatcher {
