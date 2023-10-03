@@ -1,4 +1,4 @@
-package by.aurorasoft.fuelsearcher.it.metadatarefreshing.model.argumentsprovider;
+package by.aurorasoft.fuelsearcher.it.metadatarefreshing.model.argumentsprovider.table;
 
 import by.aurorasoft.fuelsearcher.it.metadatarefreshing.model.PropertyMetadataArguments;
 import lombok.RequiredArgsConstructor;

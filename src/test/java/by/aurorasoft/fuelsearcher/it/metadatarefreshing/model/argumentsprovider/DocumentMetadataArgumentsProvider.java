@@ -1,6 +1,7 @@
 package by.aurorasoft.fuelsearcher.it.metadatarefreshing.model.argumentsprovider;
 
 
+import by.aurorasoft.fuelsearcher.it.metadatarefreshing.model.argumentsprovider.table.TableMetadataArgumentsProvider;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;

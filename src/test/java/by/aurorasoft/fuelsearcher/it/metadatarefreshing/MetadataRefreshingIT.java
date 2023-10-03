@@ -1,6 +1,7 @@
 package by.aurorasoft.fuelsearcher.it.metadatarefreshing;
 
 import by.aurorasoft.fuelsearcher.base.AbstractContextTest;
+import by.aurorasoft.fuelsearcher.it.metadatarefreshing.model.PropertyMetadataArguments;
 import by.aurorasoft.fuelsearcher.it.metadatarefreshing.model.argumentsprovider.DocumentMetadataArgumentsProvider;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -28,7 +29,7 @@ public final class MetadataRefreshingIT extends AbstractContextTest {
 
     @ParameterizedTest
     @ArgumentsSource(DocumentMetadataArgumentsProvider.class)
-    public void propertyMetadataShouldBeRefreshed(final MetadataArguments arguments) {
+    public void propertyMetadataShouldBeRefreshed(final PropertyMetadataArguments arguments) {
         final String givenTableName = arguments.tableName();
         final String givenPropertyName = arguments.propertyName();
 
