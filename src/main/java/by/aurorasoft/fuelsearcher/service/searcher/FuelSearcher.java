@@ -56,7 +56,6 @@ public abstract class FuelSearcher implements Translatable {
         return this.table.name();
     }
 
-    @SuppressWarnings("unchecked")
     public final Stream<PropertyMetadataSource> findUsedPropertyMetadataSources() {
         return concat(
                 this.filterChain.findFilters(),

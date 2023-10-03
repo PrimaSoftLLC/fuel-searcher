@@ -21,7 +21,7 @@ public final class StreamUtil {
         return StreamSupport.stream(iterable.spliterator(), parallel);
     }
 
-    //TODO: test
+    @SafeVarargs
     public static <T> Stream<T> concat(final Stream<? extends T>... streams) {
         return streams != null
                 ? Stream.of(streams).flatMap(identity())
