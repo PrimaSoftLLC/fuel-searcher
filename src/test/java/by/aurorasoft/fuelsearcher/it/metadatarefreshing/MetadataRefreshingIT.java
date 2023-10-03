@@ -113,6 +113,38 @@ public final class MetadataRefreshingIT extends AbstractContextTest {
                             "ВСПАШКА СТЕРНИ",
                             "глубина вспашки",
                             new String[]{"18-20", "21-22", "23-25", "25-27"}
+                    ),
+
+                    //Table #3
+                    createMetadataJunitArguments(
+                            "ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ",
+                            "длина гона",
+                            new String[]{"Менее 150", "150-200", "201-300", "301-400", "401-600", "601-1000", "Более 1000"}
+                    ),
+                    createMetadataJunitArguments(
+                            "ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ",
+                            "тип почвы",
+                            new String[]{"Минеральные почвы", "Торфяные почвы"}
+                    ),
+                    createMetadataJunitArguments(
+                            "ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ",
+                            "трактор",
+                            new String[]{"Беларус-3522", "Беларус-3022"}
+                    ),
+                    createMetadataJunitArguments(
+                            "ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ",
+                            "механизм",
+                            new String[]{"ПБН-6-50А"}
+                    ),
+                    createMetadataJunitArguments(
+                            "ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ",
+                            "количество корпусов",
+                            new String[]{"6"}
+                    ),
+                    createMetadataJunitArguments(
+                            "ВСПАШКА МЕЛИОРИРУЕМЫХ ЗЕМЕЛЬ",
+                            "глубина вспашки",
+                            new String[]{"21-22", "23-25", "25-27", "27-30", "30-35"}
                     )
             );
         }
