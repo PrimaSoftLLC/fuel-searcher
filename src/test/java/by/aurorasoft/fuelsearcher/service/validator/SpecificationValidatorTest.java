@@ -1,44 +1,37 @@
-//package by.aurorasoft.fuelsearcher.service.validator;
-//
-//import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
-//import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.MachineryExtractor;
-//import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.RoadGroupExtractor;
-//import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
-//import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.TractorExtractor;
-//import by.aurorasoft.fuelsearcher.service.validator.SpecificationValidator.SpecificationValidatorBuilder;
-//import org.junit.Test;
-//
-//import java.util.List;
-//import java.util.stream.Stream;
-//
-//import static by.aurorasoft.fuelsearcher.testutil.CollectionUtil.isImmutableList;
-//import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.createObject;
-//import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
-//import static java.util.Collections.emptyList;
-//import static org.junit.Assert.*;
-//import static org.mockito.Mockito.mock;
-//
-//public final class SpecificationValidatorTest {
-//    private static final String FIELD_NAME_FAILED_PROPERTY_EXTRACTORS = "failedPropertyExtractors";
-//    private static final String FIELD_NAME_REQUIRED_PROPERTY_EXTRACTORS = "requiredPropertyExtractors";
-//    private static final String FIELD_NAME_TABLE_NAME = "tableName";
-//
-//    @Test
-//    public void builderShouldBeCreated() {
-//        final SpecificationValidatorBuilder actual = SpecificationValidator.builder();
-//        assertNotNull(actual);
-//    }
-//
-//    @Test
-//    public void aliasShouldBeFound()
-//            throws Exception {
-//        final String givenTableName = "table-name";
-//        final SpecificationValidator givenValidator = createValidator(givenTableName, emptyList());
-//
-//        final String actual = givenValidator.findAlias();
-//        assertEquals(givenTableName, actual);
-//    }
-//
+package by.aurorasoft.fuelsearcher.service.validator;
+
+import by.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
+import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.MachineryExtractor;
+import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.RoadGroupExtractor;
+import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
+import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.TractorExtractor;
+import org.junit.Test;
+
+import java.util.List;
+import java.util.stream.Stream;
+
+import static by.aurorasoft.fuelsearcher.testutil.CollectionUtil.isImmutableList;
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.createObject;
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
+import static java.util.Collections.emptyList;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+
+public final class SpecificationValidatorTest {
+    private static final String FIELD_NAME_FAILED_PROPERTY_EXTRACTORS = "failedPropertyExtractors";
+
+    private static final String FIELD_NAME_TABLE_NAME = "tableName";
+    private static final String FIELD_NAME_REQUIRED_PROPERTY_EXTRACTORS = "requiredPropertyExtractors";
+
+    @Test
+    public void aliasShouldBeFound() {
+        final String givenTableName = "table-name";
+        final SpecificationValidator givenValidator = new SpecificationValidator(givenTableName, emptyList());
+
+        final String actual = givenValidator.findAlias();
+        assertSame(givenTableName, actual);
+    }
+
 //    @Test
 //    public void specificationShouldBeValidatedAsValid()
 //            throws Exception {
@@ -252,4 +245,4 @@
 //                String.class
 //        );
 //    }
-//}
+}
