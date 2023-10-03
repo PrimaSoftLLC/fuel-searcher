@@ -1,0 +1,108 @@
+package by.aurorasoft.fuelsearcher.it.metadatarefreshing;
+
+import by.aurorasoft.fuelsearcher.base.AbstractContextTest;
+import org.jetbrains.annotations.NotNull;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.ArgumentsProvider;
+import org.junit.jupiter.params.provider.ArgumentsSource;
+import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+
+import java.util.stream.Stream;
+
+import static org.junit.Assert.assertArrayEquals;
+import static org.springframework.test.context.support.TestPropertySourceUtils.addInlinedPropertiesToEnvironment;
+
+@ContextConfiguration(initializers = {MetadataRefreshingIT.MetadataRefreshingEnablePropertyOverrider.class})
+public final class MetadataRefreshingIT extends AbstractContextTest {
+    private static final String HQL_QUERY_TO_FIND_PROPERTY_ALLOWABLE_VALUES
+            = "SELECT e.allowableValues FROM PropertyMetadataEntity e "
+            + "WHERE e.propertyName = :propertyName AND e.tableMetadata.tableName = :tableName";
+    private static final String PARAMETER_NAME_PROPERTY_NAME = "propertyName";
+    private static final String PARAMETER_NAME_TABLE_NAME = "tableName";
+
+    @ParameterizedTest
+    @ArgumentsSource(MetadataArgumentsProvider.class)
+    public void propertyMetadataShouldBeRefreshed(final MetadataArguments arguments) {
+        final String givenTableName = arguments.tableName();
+        final String givenPropertyName = arguments.propertyName();
+
+        final String[] actualPropertyAllowableValues = this.findPropertyAllowableValues(
+                givenTableName,
+                givenPropertyName
+        );
+        final String[] expectedPropertyAllowableValues = arguments.expectedPropertyAllowableValues();
+        assertArrayEquals(expectedPropertyAllowableValues, actualPropertyAllowableValues);
+    }
+
+    private String[] findPropertyAllowableValues(final String tableName, final String propertyName) {
+        return super.entityManager.createQuery(HQL_QUERY_TO_FIND_PROPERTY_ALLOWABLE_VALUES, String[].class)
+                .setParameter(PARAMETER_NAME_TABLE_NAME, tableName)
+                .setParameter(PARAMETER_NAME_PROPERTY_NAME, propertyName)
+                .getSingleResult();
+    }
+
+    private static final class MetadataArgumentsProvider implements ArgumentsProvider {
+
+        @Override
+        public Stream<? extends Arguments> provideArguments(final ExtensionContext extensionContext) {
+            return Stream.of(
+                    //Table #1
+                    createMetadataJunitArguments(
+                            "ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ",
+                            "длина гона",
+                            new String[]{"Менее 150", "150-200", "201-300", "301-400", "401-600", "601-1000", "Более 1000"}
+                    ),
+                    createMetadataJunitArguments(
+                            "ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ",
+                            "удельное сопротивление",
+                            new String[]{"Удельное сопротивление 48...53 кПа", "Удельное сопротивление 54...59 кПа", "Удельное сопротивление 60...65 кПа"}
+                    ),
+                    createMetadataJunitArguments(
+                            "ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ",
+                            "трактор",
+                            new String[]{"FENDT 1050", "Кировец К-744 Р4", "Кировец К-744 Р3", "Fendt 936 Vario", "Беларус 3525", "Fendt 936", "Беларус 3522", "Кировец K744P2", "John Deere 8520", "К 744Р3"}
+                    ),
+                    createMetadataJunitArguments(
+                            "ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ",
+                            "механизм",
+                            new String[]{"Lemken Diamand 11", "ППО-8-40", "ППУ-13", "Kverneland RW 110", "Kverneland PG-100", "Vari Titan 10 7+3 L100", "ППШ-10-35", "Kuhn Challenger NSH-9", "ППО-9-45", "ППО-9-30/45"}
+                    ),
+                    createMetadataJunitArguments(
+                            "ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ",
+                            "количество корпусов",
+                            new String[]{"9", "8", "13", "12", "10"}
+                    ),
+                    createMetadataJunitArguments(
+                            "ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ",
+                            "глубина вспашки",
+                            new String[]{"18-20", "20-22", "23-25", "25-27"}
+                    )
+            );
+        }
+
+    }
+
+    private static Arguments createMetadataJunitArguments(final String tableName,
+                                                          final String propertyName,
+                                                          final String[] expectedPropertyAllowableValues) {
+        return Arguments.of(
+                new MetadataArguments(tableName, propertyName, expectedPropertyAllowableValues)
+        );
+    }
+
+    private record MetadataArguments(String tableName, String propertyName, String[] expectedPropertyAllowableValues) {
+    }
+
+    public static class MetadataRefreshingEnablePropertyOverrider
+            implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+
+        @Override
+        public void initialize(final @NotNull ConfigurableApplicationContext context) {
+            addInlinedPropertiesToEnvironment(context, "metadata-refreshing.enable=true");
+        }
+    }
+}
