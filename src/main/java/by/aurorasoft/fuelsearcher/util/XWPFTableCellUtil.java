@@ -42,7 +42,7 @@ public final class XWPFTableCellUtil {
         return isCellTextMatch(
                 cell,
                 expected,
-                XWPFContentUtil::areEqualIgnoringWhitespacesAndCase
+                XWPFContentUtil::areEqualConsideringOnlyLettersAndDigits
         );
     }
 

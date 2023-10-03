@@ -7,7 +7,7 @@ import org.mockito.MockedStatic;
 
 import java.util.List;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFContentUtil.areEqualIgnoringWhitespacesAndCase;
+import static by.aurorasoft.fuelsearcher.util.XWPFContentUtil.areEqualConsideringOnlyLettersAndDigits;
 import static by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.extractText;
 import static by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.isEmpty;
 import static by.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.*;
@@ -146,7 +146,7 @@ public final class XWPFTableCellUtilTest {
 
             final String givenExpected = "CELL -    text";
             mockedContentComparingUtil.when(
-                    () -> areEqualIgnoringWhitespacesAndCase(eq(givenText), same(givenExpected))
+                    () -> areEqualConsideringOnlyLettersAndDigits(eq(givenText), same(givenExpected))
             ).thenReturn(true);
 
             final boolean actual = isCellTextEqualIgnoringWhitespacesAndCase(givenCell, givenExpected);
@@ -163,7 +163,7 @@ public final class XWPFTableCellUtilTest {
 
             final String givenExpected = "CELL -    text text";
             mockedContentComparingUtil.when(
-                    () -> areEqualIgnoringWhitespacesAndCase(eq(givenText), same(givenExpected))
+                    () -> areEqualConsideringOnlyLettersAndDigits(eq(givenText), same(givenExpected))
             ).thenReturn(false);
 
             final boolean actual = isCellTextEqualIgnoringWhitespacesAndCase(givenCell, givenExpected);

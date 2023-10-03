@@ -6,34 +6,34 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
+//TODO: test
 @UtilityClass
 public final class XWPFContentUtil {
-    private static final String NBSP_OR_SPACE_SYMBOLS_REGEX = "[\\p{Z} ]+";
+    private static final String ALL_SYMBOLS_EXCEPT_LETTERS_AND_DIGITS_REGEX = "[^а-яА-Яa-zA-Z\\dIV]+";
     private static final String EMPTY_STRING = "";
 
-    //TODO: test
-    public static Stream<String> removeDuplicatesIgnoringWhitespacesAndCase(final Stream<String> source) {
-        final Set<String> accumulatedContentsWithoutWhitespacesInUpperCase = new HashSet<>();
+    public static Stream<String> removeDuplicatesConsideringOnlyLettersAndDigits(final Stream<String> source) {
+        final Set<String> accumulatedContentsWithoutNotConsideringSymbols = new HashSet<>();
         return source.filter(
-                sourceContent -> accumulatedContentsWithoutWhitespacesInUpperCase.add(
-                        removeWhitespacesAndTransformToUpperCase(sourceContent)
+                sourceContent -> accumulatedContentsWithoutNotConsideringSymbols.add(
+                        removeAllExceptLettersAndDigitsAndTransformToUpperCase(sourceContent)
                 )
         );
     }
 
-    public static boolean areEqualIgnoringWhitespacesAndCase(final String first, final String second) {
-        final String firstWithoutSpaces = removeAllWhitespaces(first);
-        final String secondWithoutSpaces = removeAllWhitespaces(second);
-        return firstWithoutSpaces.equalsIgnoreCase(secondWithoutSpaces);
+    public static boolean areEqualConsideringOnlyLettersAndDigits(final String first, final String second) {
+        final String firstWithoutNotConsideringSymbols = removeAllExceptLettersAndDigits(first);
+        final String secondWithoutNotConsideringSymbols = removeAllExceptLettersAndDigits(second);
+        return firstWithoutNotConsideringSymbols.equalsIgnoreCase(secondWithoutNotConsideringSymbols);
     }
 
-    private static String removeWhitespacesAndTransformToUpperCase(final String source) {
-        final String sourceWithoutWhitespaces = removeAllWhitespaces(source);
-        return sourceWithoutWhitespaces.toUpperCase();
+    private static String removeAllExceptLettersAndDigitsAndTransformToUpperCase(final String source) {
+        final String sourceWithOnlyLettersAndDigits = removeAllExceptLettersAndDigits(source);
+        return sourceWithOnlyLettersAndDigits.toUpperCase();
     }
 
-    private static String removeAllWhitespaces(final String source) {
-        return source.replaceAll(NBSP_OR_SPACE_SYMBOLS_REGEX, EMPTY_STRING);
+    private static String removeAllExceptLettersAndDigits(final String source) {
+        return source.replaceAll(ALL_SYMBOLS_EXCEPT_LETTERS_AND_DIGITS_REGEX, EMPTY_STRING);
     }
 
 }

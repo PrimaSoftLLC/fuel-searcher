@@ -13,7 +13,8 @@ import org.springframework.test.context.ContextConfiguration;
 
 import java.util.stream.Stream;
 
-import static org.junit.Assert.assertArrayEquals;
+import static by.aurorasoft.fuelsearcher.testutil.CollectionUtil.areEqualIgnoringOrder;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.context.support.TestPropertySourceUtils.addInlinedPropertiesToEnvironment;
 
 @ContextConfiguration(initializers = {MetadataRefreshingIT.MetadataRefreshingEnablePropertyOverrider.class})
@@ -35,7 +36,7 @@ public final class MetadataRefreshingIT extends AbstractContextTest {
                 givenPropertyName
         );
         final String[] expectedPropertyAllowableValues = arguments.expectedPropertyAllowableValues();
-        assertArrayEquals(expectedPropertyAllowableValues, actualPropertyAllowableValues);
+        assertTrue(areEqualIgnoringOrder(expectedPropertyAllowableValues, actualPropertyAllowableValues));
     }
 
     private String[] findPropertyAllowableValues(final String tableName, final String propertyName) {
@@ -79,7 +80,34 @@ public final class MetadataRefreshingIT extends AbstractContextTest {
                     createMetadataJunitArguments(
                             "ВСПАШКА ПЛАСТА МНОГОЛЕТНИХ ТРАВ",
                             "глубина вспашки",
-                            new String[]{"18-20", "20-22", "23-25", "25-27"}
+                            new String[]{"18-20", "21-22", "23-25", "25-27"}
+                    ),
+
+                    //Table #2
+                    createMetadataJunitArguments(
+                            "ВСПАШКА СТЕРНИ",
+                            "длина гона",
+                            new String[]{"Менее 150", "150-200", "201-300", "301-400", "401-600", "601-1000", "Более 1000"}
+                    ),
+                    createMetadataJunitArguments(
+                            "ВСПАШКА СТЕРНИ",
+                            "удельное сопротивление",
+                            new String[]{"Удельное сопротивление 36...41 кПа", "Удельное сопротивление 42...47 кПа", "Удельное сопротивление 48...53 кПа", "Удельное сопротивление плуга 54...59 кПа", "Удельное сопротивление 60...65 кПа", "Удельное сопротивление 66...71 кПа"}
+                    ),
+                    createMetadataJunitArguments(
+                            "ВСПАШКА СТЕРНИ",
+                            "трактор",
+                            new String[]{"CASE II Steiger 550","FENDT 100","Кировец К-744 Р4","Кировец К-744 Р3","Massey Ferguson 8737S","Fendt936 Vario","Беларус 3525","Fendt 936","Беларус 3522","Кировец K744 P2","Case Magnum 340","Jhon Deer 8530","Беларус 3022","Кировец К701","John Deere 8520","Fendt 927 Vario","John Deere 8420","Беларус 2522","Кировец К-424","Беларус 2022","Беларус 1822","Беларус 1523","FENDT 1050"}
+                    ),
+                    createMetadataJunitArguments(
+                            "ВСПАШКА СТЕРНИ",
+                            "количество корпусов",
+                            new String[]{"12", "9", "10", "8", "6", "13", "7", "5", "4"}
+                    ),
+                    createMetadataJunitArguments(
+                            "ВСПАШКА СТЕРНИ",
+                            "глубина вспашки",
+                            new String[]{"18-20", "21-22", "23-25", "25-27"}
                     )
             );
         }

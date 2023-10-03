@@ -9,7 +9,7 @@ import org.apache.poi.xwpf.usermodel.IBodyElement;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFContentUtil.removeDuplicatesIgnoringWhitespacesAndCase;
+import static by.aurorasoft.fuelsearcher.util.XWPFContentUtil.removeDuplicatesConsideringOnlyLettersAndDigits;
 
 @RequiredArgsConstructor
 public abstract class PropertyMetadataSearcher<S extends PropertyMetadataSource> {
@@ -39,7 +39,7 @@ public abstract class PropertyMetadataSearcher<S extends PropertyMetadataSource>
 
     private Stream<String> removeDuplicatedAllowableValuesIfNecessary(final Stream<String> allowableValues) {
         return this.isAllowableValuesDuplicated()
-                ? removeDuplicatesIgnoringWhitespacesAndCase(allowableValues)
+                ? removeDuplicatesConsideringOnlyLettersAndDigits(allowableValues)
                 : allowableValues;
     }
 

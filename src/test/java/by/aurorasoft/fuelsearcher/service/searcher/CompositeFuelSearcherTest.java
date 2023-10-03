@@ -19,7 +19,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.*;
-import static by.aurorasoft.fuelsearcher.util.XWPFContentUtil.areEqualIgnoringWhitespacesAndCase;
+import static by.aurorasoft.fuelsearcher.util.XWPFContentUtil.areEqualConsideringOnlyLettersAndDigits;
 import static by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.extractParagraphText;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -337,7 +337,7 @@ public final class CompositeFuelSearcherTest {
         final XWPFParagraph paragraph = mock(XWPFParagraph.class);
         mockedParagraphUtil.when(() -> extractParagraphText(same(paragraph))).thenReturn(content);
         mockedContentComparingUtil.when(
-                () -> areEqualIgnoringWhitespacesAndCase(same(content), eq(expectedSubTableTitleContent))
+                () -> areEqualConsideringOnlyLettersAndDigits(same(content), eq(expectedSubTableTitleContent))
         ).thenReturn(matchSubTableTitleContent);
         return paragraph;
     }

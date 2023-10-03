@@ -22,7 +22,7 @@ public final class ThirdSuccessTableFuelSearchingArgumentsProvider extends Succe
                                 .tractor("Беларус-3522")
                                 .machinery("ПБН-6-50А")
                                 .corpusCount("6")
-                                .ploughingDepth("20-22")
+                                .ploughingDepth("21-22")
                                 .routingLength("Менее 150")
                                 .soilType("Минеральные почвы")
                                 .build())

@@ -12,7 +12,7 @@ import org.mockito.MockedStatic;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFContentUtil.removeDuplicatesIgnoringWhitespacesAndCase;
+import static by.aurorasoft.fuelsearcher.util.XWPFContentUtil.removeDuplicatesConsideringOnlyLettersAndDigits;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -73,7 +73,7 @@ public final class PropertyMetadataSearcherTest {
 
             final Stream<String> givenUniqueAllowableValues = Stream.of("first-value", "second-value");
             mockedContentUtil.when(
-                    () -> removeDuplicatesIgnoringWhitespacesAndCase(any(Stream.class))
+                    () -> removeDuplicatesConsideringOnlyLettersAndDigits(any(Stream.class))
             ).thenReturn(givenUniqueAllowableValues);
 
             final FuelTable givenFuelTable = mock(FuelTable.class);

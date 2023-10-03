@@ -16,7 +16,7 @@ import java.util.OptionalInt;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFContentUtil.areEqualIgnoringWhitespacesAndCase;
+import static by.aurorasoft.fuelsearcher.util.XWPFContentUtil.areEqualConsideringOnlyLettersAndDigits;
 import static by.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.extractParagraphText;
 import static java.lang.String.format;
 import static java.util.stream.IntStream.iterate;
@@ -58,7 +58,7 @@ public final class CompositeFuelSearcher extends FuelSearcher {
     private OptionalInt findSubTableTitleIndex(final List<IBodyElement> elements, final FuelSpecification specification) {
         final String titleContent = this.findSubTableTitleContent(specification);
         return findTitleIndexes(elements)
-                .filter(i -> areEqualIgnoringWhitespacesAndCase(extractParagraphText(elements.get(i)), titleContent))
+                .filter(i -> areEqualConsideringOnlyLettersAndDigits(extractParagraphText(elements.get(i)), titleContent))
                 .findFirst();
     }
 

@@ -2,7 +2,7 @@ package by.aurorasoft.fuelsearcher.util;
 
 import org.junit.Test;
 
-import static by.aurorasoft.fuelsearcher.util.XWPFContentUtil.areEqualIgnoringWhitespacesAndCase;
+import static by.aurorasoft.fuelsearcher.util.XWPFContentUtil.areEqualConsideringOnlyLettersAndDigits;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -13,7 +13,7 @@ public final class XWPFContentUtilTest {
         final String firstGivenString = "   co\u00A0nT  E N\u00A0t \u00A0   \u00A0";
         final String secondGivenString = "CO   Nte \u00A0\u00A0nT     ";
 
-        final boolean actual = areEqualIgnoringWhitespacesAndCase(firstGivenString, secondGivenString);
+        final boolean actual = areEqualConsideringOnlyLettersAndDigits(firstGivenString, secondGivenString);
         assertTrue(actual);
     }
 
@@ -22,7 +22,7 @@ public final class XWPFContentUtilTest {
         final String firstGivenString = "   co\u00A0nT  E NN\u00A0t \u00A0   \u00A0";
         final String secondGivenString = "CO   Nte \u00A0\u00A0nT     ";
 
-        final boolean actual = areEqualIgnoringWhitespacesAndCase(firstGivenString, secondGivenString);
+        final boolean actual = areEqualConsideringOnlyLettersAndDigits(firstGivenString, secondGivenString);
         assertFalse(actual);
     }
 }
