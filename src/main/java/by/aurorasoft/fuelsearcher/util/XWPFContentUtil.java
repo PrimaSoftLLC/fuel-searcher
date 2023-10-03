@@ -6,17 +6,16 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-//TODO: test
 @UtilityClass
 public final class XWPFContentUtil {
     private static final String ALL_SYMBOLS_EXCEPT_LETTERS_AND_DIGITS_REGEX = "[^а-яА-Яa-zA-Z\\dIV]+";
     private static final String EMPTY_STRING = "";
 
     public static Stream<String> removeDuplicatesConsideringOnlyLettersAndDigits(final Stream<String> source) {
-        final Set<String> accumulatedContentsWithoutNotConsideringSymbols = new HashSet<>();
+        final Set<String> accumulatedUniqueContentsOnlyWithDigitsAndLetters = new HashSet<>();
         return source.filter(
-                sourceContent -> accumulatedContentsWithoutNotConsideringSymbols.add(
-                        removeAllExceptLettersAndDigitsAndTransformToUpperCase(sourceContent)
+                sourceContent -> accumulatedUniqueContentsOnlyWithDigitsAndLetters.add(
+                        removeAllSymbolsExceptLettersAndDigitsAndTransformToUpperCase(sourceContent)
                 )
         );
     }
@@ -27,7 +26,7 @@ public final class XWPFContentUtil {
         return firstWithoutNotConsideringSymbols.equalsIgnoreCase(secondWithoutNotConsideringSymbols);
     }
 
-    private static String removeAllExceptLettersAndDigitsAndTransformToUpperCase(final String source) {
+    private static String removeAllSymbolsExceptLettersAndDigitsAndTransformToUpperCase(final String source) {
         final String sourceWithOnlyLettersAndDigits = removeAllExceptLettersAndDigits(source);
         return sourceWithOnlyLettersAndDigits.toUpperCase();
     }
