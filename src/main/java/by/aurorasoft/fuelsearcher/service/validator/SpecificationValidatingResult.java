@@ -12,7 +12,8 @@ public final class SpecificationValidatingResult {
     private final List<SpecificationPropertyExtractor> failedPropertyExtractors;
 
     public static SpecificationValidatingResult createNotValidValidatingResult(
-            final SpecificationPropertyExtractor failedPropertyExtractor) {
+            final SpecificationPropertyExtractor failedPropertyExtractor
+    ) {
         final List<SpecificationPropertyExtractor> failedPropertyExtractors = singletonList(failedPropertyExtractor);
         return new SpecificationValidatingResult(failedPropertyExtractors);
     }
