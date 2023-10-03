@@ -1,5 +1,6 @@
 package by.aurorasoft.fuelsearcher.service.searchersparser.handler;
 
+import by.aurorasoft.fuelsearcher.model.FuelTable;
 import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata.SubTableTitleMetadataBuilder;
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher.CompositeSearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
@@ -16,7 +17,9 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
+import static by.aurorasoft.fuelsearcher.testutil.ReflectionUtil.setProperty;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
 
 public final class SearchersParsingContextTest {
     private static final String FIELD_NAME_SEARCHERS = "searchers";
@@ -71,6 +74,60 @@ public final class SearchersParsingContextTest {
                 .lastAttributesPredicate(Objects::isNull)
                 .build();
         assertTrue(contextStateMatcher.isMatch(givenContext));
+    }
+
+    @Test
+    public void fuelTableShouldBeAccumulatedBySimpleSearcher() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final SimpleSearcherBuilder givenSearcherBuilder = mock(SimpleSearcherBuilder.class);
+        setSimpleSearcherBuilder(givenContext, givenSearcherBuilder);
+
+        final FuelTable givenTable = mock(FuelTable.class);
+        givenContext.accumulateFuelTable(givenTable);
+
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
+                .searchersPredicate(Collection::isEmpty)
+                .simpleSearcherBuilderPredicate(Objects::nonNull)
+                .compositeSearcherBuilderPredicate(Objects::isNull)
+                .subTableTitleMetadataBuilderPredicate(Objects::isNull)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateMatcher.isMatch(givenContext));
+
+        verify(givenSearcherBuilder, times(1)).table(same(givenTable));
+    }
+
+    @Test
+    public void fuelTableShouldBeAccumulatedByCompositeSearcher() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final CompositeSearcherBuilder givenSearcherBuilder = mock(CompositeSearcherBuilder.class);
+        setCompositeSearcherBuilder(givenContext, givenSearcherBuilder);
+
+        final FuelTable givenTable = mock(FuelTable.class);
+        givenContext.accumulateFuelTable(givenTable);
+
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
+                .searchersPredicate(Collection::isEmpty)
+                .simpleSearcherBuilderPredicate(Objects::isNull)
+                .compositeSearcherBuilderPredicate(Objects::nonNull)
+                .subTableTitleMetadataBuilderPredicate(Objects::isNull)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateMatcher.isMatch(givenContext));
+
+        verify(givenSearcherBuilder, times(1)).table(same(givenTable));
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void fuelTableShouldNotBeAccumulatedBecauseOfNoInitializedBuilder() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final FuelTable givenTable = mock(FuelTable.class);
+        givenContext.accumulateFuelTable(givenTable);
     }
 
     private static final class ContextStateMatcher {
@@ -168,6 +225,24 @@ public final class SearchersParsingContextTest {
                 context,
                 FIELD_NAME_SUB_TABLE_TITLE_METADATA_BUILDER,
                 SubTableTitleMetadataBuilder.class
+        );
+    }
+
+    private static void setSimpleSearcherBuilder(final SearchersParsingContext context,
+                                                 final SimpleSearcherBuilder builder) {
+        setProperty(
+                context,
+                builder,
+                FIELD_NAME_SIMPLE_SEARCHER_BUILDER
+        );
+    }
+
+    private static void setCompositeSearcherBuilder(final SearchersParsingContext context,
+                                                    final CompositeSearcherBuilder builder) {
+        setProperty(
+                context,
+                builder,
+                FIELD_NAME_COMPOSITE_SEARCHER_BUILDER
         );
     }
 }
