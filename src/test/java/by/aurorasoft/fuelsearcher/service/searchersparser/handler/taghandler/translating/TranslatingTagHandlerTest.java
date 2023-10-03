@@ -51,8 +51,8 @@ public final class TranslatingTagHandlerTest {
         assertTrue(givenTagHandler.isAdditionalValuesAccumulated());
     }
 
-    @Test(expected = TestTranslatingTagHandler.NoSuchValueException.class)
     @SuppressWarnings("unchecked")
+    @Test(expected = TestTranslatingTagHandler.NoSuchValueException.class)
     public void endTagShouldNotBeHandledBecauseOfNoSuchDictionaryKeyException() {
         final String givenTagName = "tag-name";
         final Dictionary<TestValue> givenDictionary = mock(Dictionary.class);
