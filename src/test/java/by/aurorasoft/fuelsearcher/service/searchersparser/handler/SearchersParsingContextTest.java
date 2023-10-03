@@ -4,6 +4,7 @@ import by.aurorasoft.fuelsearcher.model.FuelTable;
 import by.aurorasoft.fuelsearcher.model.SubTableTitleMetadata.SubTableTitleMetadataBuilder;
 import by.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher.CompositeSearcherBuilder;
 import by.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
+import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher;
 import by.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleSearcherBuilder;
 import lombok.Builder;
 import org.junit.Test;
@@ -128,6 +129,63 @@ public final class SearchersParsingContextTest {
 
         final FuelTable givenTable = mock(FuelTable.class);
         givenContext.accumulateFuelTable(givenTable);
+    }
+
+    @Test
+    public void fuelTableShouldBeAccumulatedBySimpleSearcherInCaseInitializedTwoSearcherBuilders() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final SimpleSearcherBuilder givenSimpleSearcherBuilder = mock(SimpleSearcherBuilder.class);
+        setSimpleSearcherBuilder(givenContext, givenSimpleSearcherBuilder);
+
+        final CompositeSearcherBuilder givenCompositeSearcherBuilder = mock(CompositeSearcherBuilder.class);
+        setCompositeSearcherBuilder(givenContext, givenCompositeSearcherBuilder);
+
+        final FuelTable givenTable = mock(FuelTable.class);
+        givenContext.accumulateFuelTable(givenTable);
+
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
+                .searchersPredicate(Collection::isEmpty)
+                .simpleSearcherBuilderPredicate(Objects::nonNull)
+                .compositeSearcherBuilderPredicate(Objects::nonNull)
+                .subTableTitleMetadataBuilderPredicate(Objects::isNull)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateMatcher.isMatch(givenContext));
+
+        verify(givenSimpleSearcherBuilder, times(1)).table(same(givenTable));
+        verify(givenCompositeSearcherBuilder, times(0)).table(same(givenTable));
+    }
+
+    @Test
+    public void simpleSearcherShouldBeBuiltAndAccumulated() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        final SimpleSearcherBuilder givenBuilder = mock(SimpleSearcherBuilder.class);
+        setSimpleSearcherBuilder(givenContext, givenBuilder);
+
+        final SimpleFuelSearcher givenBuiltSearcher = mock(SimpleFuelSearcher.class);
+        when(givenBuilder.build()).thenReturn(givenBuiltSearcher);
+
+        givenContext.buildAndAccumulateSimpleSearcher();
+
+        final ContextStateMatcher contextStateMatcher = ContextStateMatcher.builder()
+                .searchersPredicate(actualSearchers -> Objects.equals(List.of(givenBuiltSearcher), actualSearchers))
+                .simpleSearcherBuilderPredicate(Objects::isNull)
+                .compositeSearcherBuilderPredicate(Objects::isNull)
+                .subTableTitleMetadataBuilderPredicate(Objects::isNull)
+                .lastContentPredicate(Objects::isNull)
+                .lastAttributesPredicate(Objects::isNull)
+                .build();
+        assertTrue(contextStateMatcher.isMatch(givenContext));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void simpleSearcherShouldNotBeBuiltAndAccumulatedBecauseOfSimpleSearcherIsNotInitialized() {
+        final SearchersParsingContext givenContext = new SearchersParsingContext();
+
+        givenContext.buildAndAccumulateSimpleSearcher();
     }
 
     private static final class ContextStateMatcher {
