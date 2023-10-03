@@ -35,6 +35,16 @@ public final class FuelHeaderMetadataFactoryTest {
         assertEquals(expectedFuelOffsetsByHeaders, actualFuelOffsetsByHeaders);
     }
 
+    @Test(expected = RuntimeException.class)
+    public void headerMetadataShouldNotBeCreatedBecauseOfDuplicatedHeaderValues() {
+        final SpecificationPropertyExtractor givenPropertyExtractor = mock(SpecificationPropertyExtractor.class);
+        final TestFuelHeaderMetadataFactory givenFactory = new TestFuelHeaderMetadataFactory(givenPropertyExtractor);
+
+        final String[] givenHeaderValues = {"value-1", "value-2", "value-3", "value-3"};
+
+        givenFactory.create(givenHeaderValues);
+    }
+
     @SuppressWarnings("unchecked")
     private static Map<String, Integer> findFuelOffsetsByValues(final FuelHeaderMetadata metadata) {
         return findProperty(

@@ -4,6 +4,8 @@ import by.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import by.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static java.util.function.Function.identity;
@@ -27,8 +29,40 @@ public abstract class FuelHeaderMetadataFactory<E extends SpecificationPropertyE
                 .collect(
                         toMap(
                                 i -> headerValues[i],
-                                identity()
+                                identity(),
+                                (existing, replacement) -> throwDuplicatedHeaderValueException(headerValues),
+                                LinkedHashMap::new
                         )
                 );
+    }
+
+    private static Integer throwDuplicatedHeaderValueException(final String[] headerValues) {
+        final String headerValuesAsString = Arrays.toString(headerValues);
+        throw new DuplicatedHeaderValueException(
+                "Duplicated fuel-header's value. Given values: %s".formatted(headerValuesAsString)
+        );
+    }
+
+    private static final class DuplicatedHeaderValueException extends RuntimeException {
+
+        @SuppressWarnings("unused")
+        public DuplicatedHeaderValueException() {
+
+        }
+
+        public DuplicatedHeaderValueException(final String description) {
+            super(description);
+        }
+
+        @SuppressWarnings("unused")
+        public DuplicatedHeaderValueException(final Exception cause) {
+            super(cause);
+        }
+
+        @SuppressWarnings("unused")
+        public DuplicatedHeaderValueException(final String description, final Exception cause) {
+            super(description, cause);
+        }
+
     }
 }
