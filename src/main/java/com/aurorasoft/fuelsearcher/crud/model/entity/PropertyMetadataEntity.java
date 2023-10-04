@@ -20,7 +20,7 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @AllArgsConstructor
 @Setter
 @Getter
-@ToString(callSuper = true)
+@ToString
 @Builder
 public class PropertyMetadataEntity extends BaseEntity<Long> {
 

@@ -26,9 +26,4 @@ public abstract class BaseEntity<IdType> implements AbstractEntity<IdType> {
     public final int hashCode() {
         return Objects.hashCode(this.getId());
     }
-
-    @Override
-    public String toString() {
-        return this.getClass().getName() + "[id = " + this.getId() + "]";
-    }
 }
