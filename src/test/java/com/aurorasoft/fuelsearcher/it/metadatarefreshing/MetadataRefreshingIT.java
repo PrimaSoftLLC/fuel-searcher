@@ -23,13 +23,12 @@ public final class MetadataRefreshingIT extends AbstractContextTest {
             + ") "
             + "FROM PropertyMetadataEntity e";
 
-    private final DocumentPropertyMetadataViewsProvider expectedViewsProvider
-            = new DocumentPropertyMetadataViewsProvider();
+    private final DocumentPropertyMetadataViewsProvider viewsProvider = new DocumentPropertyMetadataViewsProvider();
 
     @Test
     public void propertyMetadataShouldBeRefreshed() {
         final Set<PropertyMetadataView> actual = this.findPropertyMetadataViews();
-        final Set<PropertyMetadataView> expected = this.expectedViewsProvider.provide();
+        final Set<PropertyMetadataView> expected = this.viewsProvider.provide();
         assertEquals(expected, actual);
     }
 

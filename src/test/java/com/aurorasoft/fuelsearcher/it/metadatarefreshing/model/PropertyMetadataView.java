@@ -1,4 +1,14 @@
 package com.aurorasoft.fuelsearcher.it.metadatarefreshing.model;
 
-public record PropertyMetadataView(String tableName, String propertyName, String[] expectedPropertyAllowableValues) {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Value;
+
+@Value
+@AllArgsConstructor
+@Builder
+public class PropertyMetadataView {
+    String tableName;
+    String propertyName;
+    String[] expectedPropertyAllowableValues;
 }
