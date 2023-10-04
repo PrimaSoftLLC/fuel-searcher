@@ -6,7 +6,7 @@ import static com.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.isNotDefinedDou
 
 public record Fuel(double generationNorm, double consumption) {
     @JsonIgnore
-    public boolean isDefinedFuel() {
+    public boolean isDefined() {
         return !isNotDefinedDouble(this.generationNorm) || !isNotDefinedDouble(this.consumption);
     }
 }

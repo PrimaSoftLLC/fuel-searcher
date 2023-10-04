@@ -28,7 +28,7 @@ public final class FuelTest extends AbstractContextTest {
             mockedUtil.when(() -> isNotDefinedDouble(eq(givenGenerationNorm))).thenReturn(false);
             mockedUtil.when(() -> isNotDefinedDouble(eq(givenConsumption))).thenReturn(false);
 
-            final boolean actual = givenFuel.isDefinedFuel();
+            final boolean actual = givenFuel.isDefined();
             assertTrue(actual);
         }
     }
@@ -44,7 +44,7 @@ public final class FuelTest extends AbstractContextTest {
             mockedUtil.when(() -> isNotDefinedDouble(eq(givenGenerationNorm))).thenReturn(true);
             mockedUtil.when(() -> isNotDefinedDouble(eq(givenConsumption))).thenReturn(false);
 
-            final boolean actual = givenFuel.isDefinedFuel();
+            final boolean actual = givenFuel.isDefined();
             assertTrue(actual);
         }
     }
@@ -60,7 +60,7 @@ public final class FuelTest extends AbstractContextTest {
             mockedUtil.when(() -> isNotDefinedDouble(eq(givenGenerationNorm))).thenReturn(false);
             mockedUtil.when(() -> isNotDefinedDouble(eq(givenConsumption))).thenReturn(true);
 
-            final boolean actual = givenFuel.isDefinedFuel();
+            final boolean actual = givenFuel.isDefined();
             assertTrue(actual);
         }
     }
@@ -76,7 +76,7 @@ public final class FuelTest extends AbstractContextTest {
             mockedUtil.when(() -> isNotDefinedDouble(eq(givenGenerationNorm))).thenReturn(true);
             mockedUtil.when(() -> isNotDefinedDouble(eq(givenConsumption))).thenReturn(true);
 
-            final boolean actual = givenFuel.isDefinedFuel();
+            final boolean actual = givenFuel.isDefined();
             assertFalse(actual);
         }
     }
