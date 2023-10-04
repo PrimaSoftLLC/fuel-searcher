@@ -119,16 +119,16 @@ public final class XWPFTableRowUtilTest {
     }
 
     @Test
-    public void rowShouldBeChildUnitedRowBecauseOfCellWithContentIsNull() {
+    public void rowCellShouldBeNullOrEmptyBecauseOfCellContentIsNull() {
         final XWPFTableRow givenRow = mock(XWPFTableRow.class);
         final int givenContentCellIndex = 3;
 
-        final boolean actual = isChildUnitedRow(givenRow, givenContentCellIndex);
+        final boolean actual = isCellNullOrEmpty(givenRow, givenContentCellIndex);
         assertTrue(actual);
     }
 
     @Test
-    public void rowShouldBeChildUnitedRowBecauseOfCellContentIsEmpty() {
+    public void rowCellShouldBeNullOrEmptyBecauseOfCellContentIsEmpty() {
         try (final MockedStatic<XWPFTableCellUtil> mockedCellUtil = mockStatic(XWPFTableCellUtil.class)) {
             final XWPFTableCell givenCell = mock(XWPFTableCell.class);
             mockedCellUtil.when(() -> isEmpty(same(givenCell))).thenReturn(true);
@@ -137,13 +137,13 @@ public final class XWPFTableRowUtilTest {
             final int givenContentCellIndex = 3;
             when(givenRow.getCell(eq(givenContentCellIndex))).thenReturn(givenCell);
 
-            final boolean actual = isChildUnitedRow(givenRow, givenContentCellIndex);
+            final boolean actual = isCellNullOrEmpty(givenRow, givenContentCellIndex);
             assertTrue(actual);
         }
     }
 
     @Test
-    public void rowShouldNotBeChildUnitedRow() {
+    public void rowCellShouldNotBeNullOrEmpty() {
         try (final MockedStatic<XWPFTableCellUtil> mockedCellUtil = mockStatic(XWPFTableCellUtil.class)) {
             final XWPFTableCell givenCell = mock(XWPFTableCell.class);
             mockedCellUtil.when(() -> isEmpty(same(givenCell))).thenReturn(false);
@@ -152,7 +152,7 @@ public final class XWPFTableRowUtilTest {
             final int givenContentCellIndex = 3;
             when(givenRow.getCell(eq(givenContentCellIndex))).thenReturn(givenCell);
 
-            final boolean actual = isChildUnitedRow(givenRow, givenContentCellIndex);
+            final boolean actual = isCellNullOrEmpty(givenRow, givenContentCellIndex);
             assertFalse(actual);
         }
     }

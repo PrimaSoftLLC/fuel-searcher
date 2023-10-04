@@ -32,12 +32,6 @@ public final class XWPFTableRowUtil {
         return isCellTextMatch(row, cellIndex, expectedRegex, XWPFTableCellUtil::isCellTextMatchRegex);
     }
 
-    //TODO: remove
-    public static boolean isChildUnitedRow(final XWPFTableRow row, final int contentCellIndex) {
-        return isCellNullOrEmpty(row, contentCellIndex);
-    }
-
-    //TODO: test
     public static boolean isCellNullOrEmpty(final XWPFTableRow row, final int contentCellIndex) {
         final XWPFTableCell contentCell = row.getCell(contentCellIndex);
         return contentCell == null || isEmpty(contentCell);

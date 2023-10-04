@@ -11,6 +11,7 @@ import java.util.OptionalInt;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import static com.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellNullOrEmpty;
 import static java.util.stream.IntStream.range;
 
 @UtilityClass
@@ -65,7 +66,7 @@ public final class XWPFTableRowFilteringUtil {
                                                                           final int cellIndex) {
         return rows.stream()
                 .filter(
-                        row -> !XWPFTableRowUtil.isCellNullOrEmpty(
+                        row -> !isCellNullOrEmpty(
                                 row,
                                 cellIndex
                         )
@@ -168,7 +169,7 @@ public final class XWPFTableRowFilteringUtil {
                                                        final int contentCellIndex) {
         final int lastRowNextIndex = rows.size();
         return range(firstRowIndex + 1, rows.size())
-                .dropWhile(rowIndex -> XWPFTableRowUtil.isChildUnitedRow(rows.get(rowIndex), contentCellIndex))
+                .dropWhile(rowIndex -> isCellNullOrEmpty(rows.get(rowIndex), contentCellIndex))
                 .findFirst()
                 .orElse(lastRowNextIndex);
     }
