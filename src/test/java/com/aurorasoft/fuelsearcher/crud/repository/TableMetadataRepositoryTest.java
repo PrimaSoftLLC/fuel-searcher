@@ -26,7 +26,7 @@ public final class TableMetadataRepositoryTest extends AbstractContextTest {
 
         super.startQueryCount();
         final Optional<TableMetadataEntity> optionalActual = this.repository.findById(givenId);
-        super.checkQueryCount(1);
+        super.flushAndCheckQueryCount(1);
 
         assertTrue(optionalActual.isPresent());
         final TableMetadataEntity actual = optionalActual.get();
@@ -51,7 +51,7 @@ public final class TableMetadataRepositoryTest extends AbstractContextTest {
 
         super.startQueryCount();
         this.repository.save(givenMetadata);
-        super.checkQueryCount(2);
+        super.flushAndCheckQueryCount(2);
     }
 
     @Test
@@ -60,7 +60,7 @@ public final class TableMetadataRepositoryTest extends AbstractContextTest {
 
         super.startQueryCount();
         final Optional<TableMetadataEntity> optionalActual = this.repository.findByTableName(givenTableName);
-        super.checkQueryCount(1);
+        super.flushAndCheckQueryCount(1);
 
         assertTrue(optionalActual.isPresent());
         final TableMetadataEntity actual = optionalActual.get();
@@ -84,7 +84,7 @@ public final class TableMetadataRepositoryTest extends AbstractContextTest {
 
         super.startQueryCount();
         final Optional<TableMetadataEntity> optionalActual = this.repository.findByTableName(givenTableName);
-        super.checkQueryCount(1);
+        super.flushAndCheckQueryCount(1);
 
         assertTrue(optionalActual.isEmpty());
     }

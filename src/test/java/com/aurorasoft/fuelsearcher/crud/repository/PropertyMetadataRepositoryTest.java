@@ -21,7 +21,7 @@ public final class PropertyMetadataRepositoryTest extends AbstractContextTest {
 
         super.startQueryCount();
         final Optional<PropertyMetadataEntity> optionalActual = this.repository.findById(givenId);
-        super.checkQueryCount(1);
+        super.flushAndCheckQueryCount(1);
 
         assertTrue(optionalActual.isPresent());
         final PropertyMetadataEntity actual = optionalActual.get();
@@ -44,7 +44,7 @@ public final class PropertyMetadataRepositoryTest extends AbstractContextTest {
 
         super.startQueryCount();
         this.repository.save(givenMetadata);
-        super.checkQueryCount(2);
+        super.flushAndCheckQueryCount(2);
     }
 
     private static void checkEquals(final PropertyMetadataEntity expected, final PropertyMetadataEntity actual) {
