@@ -19,7 +19,8 @@ import static org.springframework.test.context.support.TestPropertySourceUtils.a
 public final class MetadataRefreshingIT extends AbstractContextTest {
     private static final String HQL_QUERY_TO_FIND_ALL_PROPERTY_METADATA_VIEWS = "SELECT new "
             + "by.aurorasoft.fuelsearcher.it.metadatarefreshing.model.PropertyMetadataView("
-            + "e.tableMetadata.tableName, e.propertyName, e.allowableValues) "
+            + "e.tableMetadata.tableName, e.propertyName, e.allowableValues"
+            + ") "
             + "FROM PropertyMetadataEntity e";
 
     private final DocumentPropertyMetadataViewsProvider expectedViewsProvider

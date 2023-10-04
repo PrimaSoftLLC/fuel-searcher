@@ -27,7 +27,8 @@ public final class DocumentPropertyMetadataViewsProvider {
             new FourteenthTablePropertyMetadataViewsProvider(),
             new FifteenthTablePropertyMetadataViewsProvider(),
             new SixteenthTablePropertyMetadataViewsProvider(),
-            new SeventeenthTablePropertyMetadataViewsProvider()
+            new SeventeenthTablePropertyMetadataViewsProvider(),
+            new EighteenthTablePropertyMetadataViewsProvider()
     );
 
     public Set<PropertyMetadataView> provide() {
