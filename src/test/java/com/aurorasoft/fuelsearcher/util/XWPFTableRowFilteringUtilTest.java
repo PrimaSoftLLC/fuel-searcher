@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.OptionalInt;
+import java.util.stream.Stream;
 
 import static com.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.*;
-import static java.util.stream.IntStream.range;
-import static java.util.stream.IntStream.rangeClosed;
+import static java.util.stream.IntStream.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -207,6 +207,65 @@ public final class XWPFTableRowFilteringUtilTest extends AbstractContextTest {
                 givenGroupValueCellIndex
         );
         assertTrue(actual.isEmpty());
+    }
+
+    @Test
+    public void rowsWithNotNullAndNotEmptyCellShouldBeFound() {
+        final List<XWPFTableRow> givenRows = this.extractFirstGroupRows();
+        final Stream<XWPFTableRow> actual = findRowsWithNotNullAndNotEmptyCell(
+                givenRows,
+                1
+        );
+        final List<XWPFTableRow> actualAsList = actual.toList();
+
+        final List<Integer> expectedRowIndexes = iterate(0, i -> i <= 51, i -> i + 4)
+                .boxed()
+                .toList();
+
+        final boolean rowFilteringSuccess = isRowFilteringSuccess(givenRows, actualAsList, expectedRowIndexes);
+        assertTrue(rowFilteringSuccess);
+    }
+
+    @Test
+    public void rowsWithNotNullAndNotEmptyCellShouldNotBeFound() {
+        final List<XWPFTableRow> givenRows = this.extractFirstGroupRows().subList(1, 4);
+
+        final Stream<XWPFTableRow> actual = findRowsWithNotNullAndNotEmptyCell(
+                givenRows,
+                1
+        );
+
+        final boolean actualEmpty = actual.findFirst().isEmpty();
+        assertTrue(actualEmpty);
+    }
+
+    @Test
+    public void rowsWithCellMatchingRegexShouldBeFound() {
+        final List<XWPFTableRow> givenRows = this.extractFirstGroupRows();
+        final Stream<XWPFTableRow> actual = findRowsWithCellMatchingRegex(
+                givenRows,
+                2,
+                "8"
+        );
+        final List<XWPFTableRow> actualAsList = actual.toList();
+
+        final List<Integer> expectedRowIndexes = List.of(4, 24);
+
+        final boolean rowFilteringSuccess = isRowFilteringSuccess(givenRows, actualAsList, expectedRowIndexes);
+        assertTrue(rowFilteringSuccess);
+    }
+
+    @Test
+    public void rowsWithCellMatchingRegexShouldNotBeFound() {
+        final List<XWPFTableRow> givenRows = this.extractFirstGroupRows();
+        final Stream<XWPFTableRow> actual = findRowsWithCellMatchingRegex(
+                givenRows,
+                2,
+                "0"
+        );
+
+        final boolean actualEmpty = actual.findFirst().isEmpty();
+        assertTrue(actualEmpty);
     }
 
     private static List<XWPFTableRow> findSubTableRowsOfFirstTable(final FuelDocument fuelDocument) {

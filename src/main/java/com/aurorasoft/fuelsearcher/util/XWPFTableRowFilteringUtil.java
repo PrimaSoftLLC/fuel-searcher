@@ -8,10 +8,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
+import java.util.function.Predicate;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static com.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellNullOrEmpty;
+import static com.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellTextMatchRegex;
 import static java.util.stream.IntStream.range;
 
 @UtilityClass
@@ -61,30 +63,28 @@ public final class XWPFTableRowFilteringUtil {
                 .toList();
     }
 
-    //TODO: refactor and test
     public static Stream<XWPFTableRow> findRowsWithNotNullAndNotEmptyCell(final List<XWPFTableRow> rows,
                                                                           final int cellIndex) {
-        return rows.stream()
-                .filter(
-                        row -> !isCellNullOrEmpty(
-                                row,
-                                cellIndex
-                        )
-                );
+        return filterRows(
+                rows,
+                row -> !isCellNullOrEmpty(
+                        row,
+                        cellIndex
+                )
+        );
     }
 
-    //TODO: refactor and test
     public static Stream<XWPFTableRow> findRowsWithCellMatchingRegex(final List<XWPFTableRow> rows,
                                                                      final int cellIndex,
                                                                      final String regex) {
-        return rows.stream()
-                .filter(
-                        row -> XWPFTableRowUtil.isCellTextMatchRegex(
-                                row,
-                                cellIndex,
-                                regex
-                        )
-                );
+        return filterRows(
+                rows,
+                row -> isCellTextMatchRegex(
+                        row,
+                        cellIndex,
+                        regex
+                )
+        );
     }
 
     private static OptionalInt findIndexFirstRowByContent(final List<XWPFTableRow> rows,
@@ -198,6 +198,11 @@ public final class XWPFTableRowFilteringUtil {
                 filtrationCellIndex,
                 groupValueRegex
         ).orElse(lastRowNextIndex);
+    }
+
+    private static Stream<XWPFTableRow> filterRows(final List<XWPFTableRow> rows,
+                                                   final Predicate<XWPFTableRow> rowPredicate) {
+        return rows.stream().filter(rowPredicate);
     }
 
     @FunctionalInterface
