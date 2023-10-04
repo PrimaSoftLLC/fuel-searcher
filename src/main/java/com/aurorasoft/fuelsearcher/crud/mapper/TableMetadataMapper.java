@@ -27,7 +27,7 @@ public final class TableMetadataMapper extends AbsMapperEntityDto<TableMetadataE
     }
 
     private List<PropertyMetadata> findDtoPropertiesMetadata(final TableMetadataEntity entity) {
-        final List<PropertyMetadataEntity> sourceEntities = entity.getPropertiesMetadata();
-        return super.mapAll(sourceEntities, PropertyMetadata.class);
+        final List<PropertyMetadataEntity> entities = entity.getPropertiesMetadata();
+        return super.mapAll(entities, PropertyMetadata.class);
     }
 }
