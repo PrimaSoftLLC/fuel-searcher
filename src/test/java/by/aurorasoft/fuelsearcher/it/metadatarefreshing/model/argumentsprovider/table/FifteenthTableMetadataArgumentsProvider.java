@@ -1,10 +1,10 @@
 package by.aurorasoft.fuelsearcher.it.metadatarefreshing.model.argumentsprovider.table;
 
-import by.aurorasoft.fuelsearcher.it.metadatarefreshing.model.PropertyMetadataArguments;
+import by.aurorasoft.fuelsearcher.it.metadatarefreshing.model.PropertyMetadataView;
 
 import java.util.stream.Stream;
 
-public final class FifteenthTableMetadataArgumentsProvider extends TableMetadataArgumentsProvider {
+public final class FifteenthTableMetadataArgumentsProvider extends TablePropertyMetadataViewsProvider {
     private static final String TABLE_NAME = "КОШЕНИЕ СЕЯНЫХ И ЕСТЕСТВЕННЫХ ТРАВ";
 
     public FifteenthTableMetadataArgumentsProvider() {
@@ -12,7 +12,7 @@ public final class FifteenthTableMetadataArgumentsProvider extends TableMetadata
     }
 
     @Override
-    protected Stream<PropertyMetadataArguments> createPropertyMetadataArguments(
+    protected Stream<PropertyMetadataView> createPropertyMetadataArguments(
             final PropertyMetadataArgumentsFactory factory
     ) {
         return Stream.of(

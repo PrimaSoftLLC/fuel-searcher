@@ -1,10 +1,10 @@
 package by.aurorasoft.fuelsearcher.it.metadatarefreshing.model.argumentsprovider.table;
 
-import by.aurorasoft.fuelsearcher.it.metadatarefreshing.model.PropertyMetadataArguments;
+import by.aurorasoft.fuelsearcher.it.metadatarefreshing.model.PropertyMetadataView;
 
 import java.util.stream.Stream;
 
-public final class TenthTableMetadataArgumentsProvider extends TableMetadataArgumentsProvider {
+public final class TenthTableMetadataArgumentsProvider extends TablePropertyMetadataViewsProvider {
     private static final String TABLE_NAME = "ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ОДНОВРЕМЕННЫМ ПОСЕВОМ РАПСА";
 
     public TenthTableMetadataArgumentsProvider() {
@@ -12,7 +12,7 @@ public final class TenthTableMetadataArgumentsProvider extends TableMetadataArgu
     }
 
     @Override
-    protected Stream<PropertyMetadataArguments> createPropertyMetadataArguments(
+    protected Stream<PropertyMetadataView> createPropertyMetadataArguments(
             final PropertyMetadataArgumentsFactory factory
     ) {
         return Stream.of(

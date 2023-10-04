@@ -1,8 +1,8 @@
 package by.aurorasoft.fuelsearcher.it.metadatarefreshing;
 
 import by.aurorasoft.fuelsearcher.base.AbstractContextTest;
-import by.aurorasoft.fuelsearcher.it.metadatarefreshing.model.PropertyMetadataArguments;
-import by.aurorasoft.fuelsearcher.it.metadatarefreshing.model.argumentsprovider.DocumentMetadataArgumentsProvider;
+import by.aurorasoft.fuelsearcher.it.metadatarefreshing.model.PropertyMetadataView;
+import by.aurorasoft.fuelsearcher.it.metadatarefreshing.model.argumentsprovider.DocumentPropertyMetadataViewsProvider;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
@@ -23,8 +23,8 @@ public final class MetadataRefreshingIT extends AbstractContextTest {
     private static final String PARAMETER_NAME_TABLE_NAME = "tableName";
 
     @ParameterizedTest
-    @ArgumentsSource(DocumentMetadataArgumentsProvider.class)
-    public void propertyMetadataShouldBeRefreshed(final PropertyMetadataArguments arguments) {
+    @ArgumentsSource(DocumentPropertyMetadataViewsProvider.class)
+    public void propertyMetadataShouldBeRefreshed(final PropertyMetadataView arguments) {
         final String givenTableName = arguments.tableName();
         final String givenPropertyName = arguments.propertyName();
 
