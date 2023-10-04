@@ -10,20 +10,17 @@ public abstract class TablePropertyMetadataViewsProvider {
     private final String tableName;
 
     public final Stream<PropertyMetadataView> provide() {
-        return this.createPropertyMetadataArguments(this::createPropertyMetadataArguments);
+        return this.createViews(this::createView);
     }
 
-    protected abstract Stream<PropertyMetadataView> createPropertyMetadataArguments(
-            final PropertyMetadataArgumentsFactory factory
-    );
+    protected abstract Stream<PropertyMetadataView> createViews(final PropertyMetadataViewFactory factory);
 
-    private PropertyMetadataView createPropertyMetadataArguments(final String propertyName,
-                                                                 final String[] expectedPropertyAllowableValues) {
+    private PropertyMetadataView createView(final String propertyName, final String[] expectedPropertyAllowableValues) {
         return new PropertyMetadataView(this.tableName, propertyName, expectedPropertyAllowableValues);
     }
 
     @FunctionalInterface
-    protected interface PropertyMetadataArgumentsFactory {
+    protected interface PropertyMetadataViewFactory {
         PropertyMetadataView create(final String propertyName, final String[] expectedPropertyAllowableValues);
     }
 }

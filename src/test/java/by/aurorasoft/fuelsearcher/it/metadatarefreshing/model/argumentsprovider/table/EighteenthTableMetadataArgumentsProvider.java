@@ -13,8 +13,8 @@ public final class EighteenthTableMetadataArgumentsProvider extends TablePropert
     }
 
     @Override
-    protected Stream<PropertyMetadataView> createPropertyMetadataArguments(
-            final PropertyMetadataArgumentsFactory factory
+    protected Stream<PropertyMetadataView> createViews(
+            final PropertyMetadataViewFactory factory
     ) {
         return Stream.of(
 

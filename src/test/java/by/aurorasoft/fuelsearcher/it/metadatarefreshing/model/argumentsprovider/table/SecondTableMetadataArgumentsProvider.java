@@ -12,8 +12,8 @@ public final class SecondTableMetadataArgumentsProvider extends TablePropertyMet
     }
 
     @Override
-    protected Stream<PropertyMetadataView> createPropertyMetadataArguments(
-            final PropertyMetadataArgumentsFactory factory
+    protected Stream<PropertyMetadataView> createViews(
+            final PropertyMetadataViewFactory factory
     ) {
         return Stream.of(
                 factory.create(
