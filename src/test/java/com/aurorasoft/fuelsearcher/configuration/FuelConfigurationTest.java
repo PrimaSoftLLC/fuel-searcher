@@ -55,7 +55,7 @@ public final class FuelConfigurationTest {
         );
         when(givenFactory.create()).thenReturn(givenValidators);
 
-        final List<SpecificationValidator> actual = givenFactory.create();
+        final List<SpecificationValidator> actual = this.configuration.specificationValidators(givenFactory);
         assertSame(givenValidators, actual);
     }
 }
