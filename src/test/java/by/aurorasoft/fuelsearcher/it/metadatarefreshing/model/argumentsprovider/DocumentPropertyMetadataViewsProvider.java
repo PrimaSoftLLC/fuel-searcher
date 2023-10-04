@@ -11,23 +11,23 @@ import static java.util.stream.Collectors.toSet;
 
 public final class DocumentPropertyMetadataViewsProvider {
     private final List<TablePropertyMetadataViewsProvider> tablePropertyMetadataViewsProviders = List.of(
-            new FirstTableMetadataArgumentsProvider(),
-            new SecondTableMetadataArgumentsProvider(),
-            new ThirdTableMetadataArgumentsProvider(),
-            new FourthTableMetadataArgumentsProvider(),
-            new FifthTableMetadataArgumentsProvider(),
-            new SixthTableMetadataArgumentsProvider(),
-            new SeventhTableMetadataArgumentsProvider(),
-            new EighthTableMetadataArgumentsProvider(),
-            new NinthTableMetadataArgumentsProvider(),
-            new TenthTableMetadataArgumentsProvider(),
-            new EleventhTableMetadataArgumentsProvider(),
-            new TwelfthTableMetadataArgumentsProvider(),
-            new ThirteenthTableMetadataArgumentsProvider(),
-            new FourteenthTableMetadataArgumentsProvider(),
-            new FifteenthTableMetadataArgumentsProvider(),
-            new SixteenthTableMetadataArgumentsProvider(),
-            new SeventeenthTableMetadataArgumentsProvider()
+            new FirstTablePropertyMetadataViewsProvider(),
+            new SecondTablePropertyMetadataViewsProvider(),
+            new ThirdTablePropertyMetadataViewsProvider(),
+            new FourthTablePropertyMetadataViewsProvider(),
+            new FifthTablePropertyMetadataViewsProvider(),
+            new SixthTablePropertyMetadataViewsProvider(),
+            new SeventhTablePropertyMetadataViewsProvider(),
+            new EighthTablePropertyMetadataViewsProvider(),
+            new NinthTablePropertyMetadataViewsProvider(),
+            new TenthTablePropertyMetadataViewsProvider(),
+            new EleventhTablePropertyMetadataViewsProvider(),
+            new TwelfthTablePropertyMetadataViewsProvider(),
+            new ThirteenthTablePropertyMetadataViewsProvider(),
+            new FourteenthTablePropertyMetadataViewsProvider(),
+            new FifteenthTablePropertyMetadataViewsProvider(),
+            new SixteenthTablePropertyMetadataViewsProvider(),
+            new SeventeenthTablePropertyMetadataViewsProvider()
     );
 
     public Set<PropertyMetadataView> provide() {

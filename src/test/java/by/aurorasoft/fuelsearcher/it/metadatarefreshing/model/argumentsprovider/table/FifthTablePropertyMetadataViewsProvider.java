@@ -4,17 +4,15 @@ import by.aurorasoft.fuelsearcher.it.metadatarefreshing.model.PropertyMetadataVi
 
 import java.util.stream.Stream;
 
-public final class SixthTableMetadataArgumentsProvider extends TablePropertyMetadataViewsProvider {
-    private static final String TABLE_NAME = "ЛУЩЕНИЕ И ДИСКОВАНИЕ МНОГОЛЕТНИХ ТРАВ";
+public final class FifthTablePropertyMetadataViewsProvider extends TablePropertyMetadataViewsProvider {
+    private static final String TABLE_NAME = "ЛУЩЕНИЕ И ДИСКОВАНИЕ СТЕРНИ";
 
-    public SixthTableMetadataArgumentsProvider() {
+    public FifthTablePropertyMetadataViewsProvider() {
         super(TABLE_NAME);
     }
 
     @Override
-    protected Stream<PropertyMetadataView> createViews(
-            final PropertyMetadataViewFactory factory
-    ) {
+    protected Stream<PropertyMetadataView> createViews(final PropertyMetadataViewFactory factory) {
         return Stream.of(
                 factory.create(
                         "длина гона",

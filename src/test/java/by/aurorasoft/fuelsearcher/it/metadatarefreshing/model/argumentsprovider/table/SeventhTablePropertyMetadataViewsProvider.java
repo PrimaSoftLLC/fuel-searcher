@@ -4,18 +4,16 @@ import by.aurorasoft.fuelsearcher.it.metadatarefreshing.model.PropertyMetadataVi
 
 import java.util.stream.Stream;
 
-public final class SeventhTableMetadataArgumentsProvider extends TablePropertyMetadataViewsProvider {
+public final class SeventhTablePropertyMetadataViewsProvider extends TablePropertyMetadataViewsProvider {
     private static final String TABLE_NAME = "ПРЕДПОСЕВНАЯ ОБРАБОТКА ПОЧВЫ С ПОСЕВОМ СЕЛЬСКОХОЗЯЙСТВЕННЫХ КУЛЬТУР: "
             + "ПШЕНИЦЫ, РЖИ, ЯЧМЕНЯ, ОВСА, ГОРОХА, ЛЮПИНА, ВИКИ, ВИКООВСЯНОЙ СМЕСИ, ЛЬНА";
 
-    public SeventhTableMetadataArgumentsProvider() {
+    public SeventhTablePropertyMetadataViewsProvider() {
         super(TABLE_NAME);
     }
 
     @Override
-    protected Stream<PropertyMetadataView> createViews(
-            final PropertyMetadataViewFactory factory
-    ) {
+    protected Stream<PropertyMetadataView> createViews(final PropertyMetadataViewFactory factory) {
         return Stream.of(
                 factory.create(
                         "длина гона",

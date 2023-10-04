@@ -4,17 +4,15 @@ import by.aurorasoft.fuelsearcher.it.metadatarefreshing.model.PropertyMetadataVi
 
 import java.util.stream.Stream;
 
-public final class ThirteenthTableMetadataArgumentsProvider extends TablePropertyMetadataViewsProvider {
-    private static final String TABLE_NAME = "ВНЕСЕНИЕ ОРГАНИЧЕСКИХ УДОБРЕНИЙ";
+public final class FourteenthTablePropertyMetadataViewsProvider extends TablePropertyMetadataViewsProvider {
+    private static final String TABLE_NAME = "ВНЕСЕНИЕ ЖИДКИХ ОРГАНИЧЕСКИХ УДОБРЕНИЙ";
 
-    public ThirteenthTableMetadataArgumentsProvider() {
+    public FourteenthTablePropertyMetadataViewsProvider() {
         super(TABLE_NAME);
     }
 
     @Override
-    protected Stream<PropertyMetadataView> createViews(
-            final PropertyMetadataViewFactory factory
-    ) {
+    protected Stream<PropertyMetadataView> createViews(final PropertyMetadataViewFactory factory) {
         return Stream.of(
                 factory.create(
                         "норма внесения",
@@ -22,15 +20,11 @@ public final class ThirteenthTableMetadataArgumentsProvider extends TablePropert
                 ),
                 factory.create(
                         "трактор",
-                        new String[]{"БЕЛАРУС 3522", "JOHN DEERE 8430", "БЕЛАРУС 3022", "JOHN DEERE 6930"}
+                        new String[]{"FENDT 936", "CASE IN MAGNUM 340", "JOHN DEERE 6930"}
                 ),
                 factory.create(
                         "механизм",
-                        new String[]{"РОУМ-24", "МТУ-24", "МТУ-20", "РОУМ-14"}
-                ),
-                factory.create(
-                        "класс груза",
-                        new String[]{"Грузы I класса", "Грузы II класса"}
+                        new String[]{"МЖТ-20", "МЖТ-16"}
                 ),
                 factory.create(
                         "группа дорог",
