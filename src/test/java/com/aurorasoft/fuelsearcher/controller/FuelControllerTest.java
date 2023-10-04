@@ -5,7 +5,6 @@ import com.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import com.aurorasoft.fuelsearcher.service.searcher.FuelSearchingManager;
 import com.aurorasoft.fuelsearcher.service.validator.SpecificationValidatingManager;
 import com.aurorasoft.fuelsearcher.service.validator.SpecificationValidatingResult;
-import com.aurorasoft.fuelsearcher.testutil.FuelControllerRequestUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import static com.aurorasoft.fuelsearcher.testutil.FuelControllerRequestUtil.*;
 import static java.util.Arrays.asList;
 import static java.util.Optional.empty;
 import static org.junit.Assert.assertEquals;
@@ -50,7 +50,7 @@ public final class FuelControllerTest {
         final Fuel givenFuel = new Fuel(5.5, 6.6);
         when(this.mockedSearchingManager.find(eq(givenSpecification))).thenReturn(Optional.of(givenFuel));
 
-        final String actualResponse = FuelControllerRequestUtil.doRequest(this.mockMvc, givenSpecification, OK);
+        final String actualResponse = doRequest(this.mockMvc, givenSpecification, OK);
         final String expectedResponse = "{\"generationNorm\":5.5,\"consumption\":6.6}";
         assertEquals(expectedResponse, actualResponse);
     }
@@ -66,8 +66,8 @@ public final class FuelControllerTest {
 
         when(this.mockedSearchingManager.find(eq(givenSpecification))).thenReturn(empty());
 
-        final String actualResponse = FuelControllerRequestUtil.doRequest(this.mockMvc, givenSpecification, NOT_FOUND);
-        assertTrue(FuelControllerRequestUtil.isNoSuchFuelError(actualResponse));
+        final String actualResponse = doRequest(this.mockMvc, givenSpecification, NOT_FOUND);
+        assertTrue(isNoSuchFuelError(actualResponse));
     }
 
     @Test
@@ -84,10 +84,10 @@ public final class FuelControllerTest {
         );
         when(this.mockedValidatingManager.validate(eq(givenSpecification))).thenReturn(givenValidatingResult);
 
-        final String actualResponse = FuelControllerRequestUtil.doRequest(this.mockMvc, givenSpecification, NOT_ACCEPTABLE);
-        assertTrue(FuelControllerRequestUtil.isNotValidSpecificationError(actualResponse));
+        final String actualResponse = doRequest(this.mockMvc, givenSpecification, NOT_ACCEPTABLE);
+        assertTrue(isNotValidSpecificationError(actualResponse));
 
-        final Set<String> actualFailedPropertyNames = FuelControllerRequestUtil.findFailedPropertyNames(actualResponse);
+        final Set<String> actualFailedPropertyNames = findFailedPropertyNames(actualResponse);
         final Set<String> expectedFailedPropertyNames = Set.of(givenFailedPropertyNames);
         assertEquals(expectedFailedPropertyNames, actualFailedPropertyNames);
 
