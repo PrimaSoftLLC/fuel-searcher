@@ -2,7 +2,6 @@ package com.aurorasoft.fuelsearcher.model;
 
 import com.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import com.aurorasoft.fuelsearcher.service.builder.BuilderRequiringAllProperties;
-import com.aurorasoft.fuelsearcher.util.SubTableTitleUtil;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static com.aurorasoft.fuelsearcher.util.SubTableTitleUtil.findTemplateRegex;
+import static com.aurorasoft.fuelsearcher.util.SubTableTitleUtil.findTemplateWithStringFillers;
 import static java.util.stream.IntStream.range;
 import static lombok.AccessLevel.PRIVATE;
 
@@ -31,18 +32,19 @@ public final class SubTableTitleMetadata {
         this.argumentsMetadata = this.findArgumentsMetadata(argumentExtractors);
     }
 
+    public static SubTableTitleMetadataBuilder builder() {
+        return new SubTableTitleMetadataBuilder();
+    }
+
     public Stream<SpecificationPropertyExtractor> findArgumentsExtractors() {
         return this.argumentsMetadata
                 .stream()
                 .map(SubTableTitleArgumentMetadata::getPropertyExtractor);
     }
 
-    public static SubTableTitleMetadataBuilder builder() {
-        return new SubTableTitleMetadataBuilder();
-    }
-
     private List<SubTableTitleArgumentMetadata> findArgumentsMetadata(
-            final List<SpecificationPropertyExtractor> argumentExtractors) {
+            final List<SpecificationPropertyExtractor> argumentExtractors
+    ) {
         return range(0, argumentExtractors.size())
                 .mapToObj(
                         i -> this.new SubTableTitleArgumentMetadata(
@@ -56,8 +58,7 @@ public final class SubTableTitleMetadata {
     public final class SubTableTitleArgumentMetadata extends PropertyMetadataSource {
         private final int index;
 
-        public SubTableTitleArgumentMetadata(final SpecificationPropertyExtractor propertyExtractor,
-                                             final int index) {
+        private SubTableTitleArgumentMetadata(final SpecificationPropertyExtractor propertyExtractor, final int index) {
             super(propertyExtractor);
             this.index = index;
         }
@@ -92,8 +93,8 @@ public final class SubTableTitleMetadata {
 
         @Override
         protected SubTableTitleMetadata buildAfterStateValidation() {
-            final String templateWithStringFillers = SubTableTitleUtil.findTemplateWithStringFillers(this.templateWithPropertyNames);
-            final String templateRegex = SubTableTitleUtil.findTemplateRegex(this.templateWithPropertyNames);
+            final String templateWithStringFillers = findTemplateWithStringFillers(this.templateWithPropertyNames);
+            final String templateRegex = findTemplateRegex(this.templateWithPropertyNames);
             return new SubTableTitleMetadata(templateWithStringFillers, templateRegex, this.argumentExtractors);
         }
 

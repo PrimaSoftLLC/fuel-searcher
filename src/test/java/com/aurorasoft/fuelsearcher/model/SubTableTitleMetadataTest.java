@@ -4,13 +4,13 @@ import com.aurorasoft.fuelsearcher.model.SubTableTitleMetadata.SubTableTitleArgu
 import com.aurorasoft.fuelsearcher.model.SubTableTitleMetadata.SubTableTitleMetadataBuilder;
 import com.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import com.aurorasoft.fuelsearcher.util.SubTableTitleUtil;
-import com.aurorasoft.fuelsearcher.testutil.ReflectionUtil;
 import org.junit.Test;
 import org.mockito.MockedStatic;
 
 import java.util.List;
 import java.util.stream.Stream;
 
+import static com.aurorasoft.fuelsearcher.testutil.ReflectionUtil.*;
 import static com.aurorasoft.fuelsearcher.util.SubTableTitleUtil.findTemplateRegex;
 import static com.aurorasoft.fuelsearcher.util.SubTableTitleUtil.findTemplateWithStringFillers;
 import static java.lang.Integer.MIN_VALUE;
@@ -28,6 +28,12 @@ public final class SubTableTitleMetadataTest {
 
     private static final String FIELD_NAME_BUILDER_TEMPLATE_WITH_PROPERTY_NAMES = "templateWithPropertyNames";
     private static final String FIELD_NAME_BUILDER_ARGUMENT_EXTRACTORS = "argumentExtractors";
+
+    @Test
+    public void builderShouldBeCreated() {
+        final SubTableTitleMetadataBuilder actual = SubTableTitleMetadata.builder();
+        assertNotNull(actual);
+    }
 
     @Test
     public void titleMetadataArgumentExtractorsShouldBeFound() {
@@ -58,12 +64,6 @@ public final class SubTableTitleMetadataTest {
                 secondGivenArgumentMetadataExtractor
         );
         assertEquals(expectedAsList, actualAsList);
-    }
-
-    @Test
-    public void builderShouldBeCreated() {
-        final SubTableTitleMetadataBuilder actual = SubTableTitleMetadata.builder();
-        assertNotNull(actual);
     }
 
     @Test
@@ -217,7 +217,7 @@ public final class SubTableTitleMetadataTest {
     }
 
     private static SubTableTitleMetadata createTitleMetadata() {
-        return ReflectionUtil.createObject(
+        return createObject(
                 SubTableTitleMetadata.class,
                 new Class<?>[]{String.class, String.class, List.class},
                 new Object[]{null, null, emptyList()}
@@ -225,7 +225,7 @@ public final class SubTableTitleMetadataTest {
     }
 
     private static SubTableTitleArgumentMetadata createArgumentMetadata(final SubTableTitleMetadata titleMetadata) {
-        return ReflectionUtil.createObject(
+        return createObject(
                 SubTableTitleArgumentMetadata.class,
                 new Class<?>[]{SubTableTitleMetadata.class, SpecificationPropertyExtractor.class, int.class},
                 new Object[]{titleMetadata, null, MIN_VALUE}
@@ -241,7 +241,7 @@ public final class SubTableTitleMetadataTest {
 
     @SuppressWarnings("SameParameterValue")
     private static void setRegex(final SubTableTitleMetadata titleMetadata, final String regex) {
-        ReflectionUtil.setProperty(
+        setProperty(
                 titleMetadata,
                 regex,
                 FIELD_NAME_TITLE_METADATA_REGEX
@@ -250,7 +250,7 @@ public final class SubTableTitleMetadataTest {
 
     private static void setArgumentsMetadata(final SubTableTitleMetadata titleMetadata,
                                              final List<SubTableTitleArgumentMetadata> argumentsMetadata) {
-        ReflectionUtil.setProperty(
+        setProperty(
                 titleMetadata,
                 argumentsMetadata,
                 FIELD_NAME_TITLE_METADATA_ARGUMENTS_METADATA
@@ -259,7 +259,7 @@ public final class SubTableTitleMetadataTest {
 
     private static void setExtractor(final PropertyMetadataSource propertyMetadataSource,
                                      final SpecificationPropertyExtractor extractor) {
-        ReflectionUtil.setProperty(
+        setProperty(
                 propertyMetadataSource,
                 extractor,
                 FIELD_NAME_PROPERTY_METADATA_SOURCE_PROPERTY_EXTRACTOR
@@ -268,7 +268,7 @@ public final class SubTableTitleMetadataTest {
 
     @SuppressWarnings("SameParameterValue")
     private static void setIndex(final SubTableTitleArgumentMetadata argumentMetadata, final int index) {
-        ReflectionUtil.setProperty(
+        setProperty(
                 argumentMetadata,
                 index,
                 FIELD_NAME_ARGUMENT_METADATA_INDEX
@@ -277,7 +277,7 @@ public final class SubTableTitleMetadataTest {
 
     @SuppressWarnings("SameParameterValue")
     private static void setTemplateWithPropertyNames(final SubTableTitleMetadataBuilder builder, final String template) {
-        ReflectionUtil.setProperty(
+        setProperty(
                 builder,
                 template,
                 FIELD_NAME_BUILDER_TEMPLATE_WITH_PROPERTY_NAMES
@@ -286,7 +286,7 @@ public final class SubTableTitleMetadataTest {
 
     private static void setArgumentExtractors(final SubTableTitleMetadataBuilder builder,
                                               final List<SpecificationPropertyExtractor> extractors) {
-        ReflectionUtil.setProperty(
+        setProperty(
                 builder,
                 extractors,
                 FIELD_NAME_BUILDER_ARGUMENT_EXTRACTORS
@@ -294,7 +294,7 @@ public final class SubTableTitleMetadataTest {
     }
 
     private static String findTemplateWithPropertyNames(final SubTableTitleMetadataBuilder builder) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 builder,
                 FIELD_NAME_BUILDER_TEMPLATE_WITH_PROPERTY_NAMES,
                 String.class
@@ -302,7 +302,7 @@ public final class SubTableTitleMetadataTest {
     }
 
     private static String findRegex(final SubTableTitleMetadata metadata) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 metadata,
                 FIELD_NAME_TITLE_METADATA_REGEX,
                 String.class
@@ -310,7 +310,7 @@ public final class SubTableTitleMetadataTest {
     }
 
     private static int findIndex(final SubTableTitleArgumentMetadata metadata) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 metadata,
                 FIELD_NAME_ARGUMENT_METADATA_INDEX,
                 Integer.class
@@ -318,7 +318,7 @@ public final class SubTableTitleMetadataTest {
     }
 
     private static SpecificationPropertyExtractor findExtractor(final PropertyMetadataSource metadataSource) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 metadataSource,
                 FIELD_NAME_PROPERTY_METADATA_SOURCE_PROPERTY_EXTRACTOR,
                 SpecificationPropertyExtractor.class
@@ -329,7 +329,7 @@ public final class SubTableTitleMetadataTest {
     private static List<SpecificationPropertyExtractor> findArgumentExtractors(
             final SubTableTitleMetadataBuilder builder
     ) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 builder,
                 FIELD_NAME_BUILDER_ARGUMENT_EXTRACTORS,
                 List.class
