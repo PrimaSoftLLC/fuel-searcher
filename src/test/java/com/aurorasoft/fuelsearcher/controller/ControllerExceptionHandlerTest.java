@@ -25,7 +25,7 @@ public final class ControllerExceptionHandlerTest {
     private final ControllerExceptionHandler exceptionHandler = new ControllerExceptionHandler();
 
     @Test
-    public void noSuchFuelExceptionShouldBeHandled() {
+    public void noSuchEntityExceptionShouldBeHandled() {
         final String givenExceptionDescription = "exception-description";
         final NoSuchEntityException givenException = new NoSuchEntityException(givenExceptionDescription);
 

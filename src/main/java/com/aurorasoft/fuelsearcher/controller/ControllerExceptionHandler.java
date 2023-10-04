@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.function.Function;
 
 import static com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING;
 import static java.lang.String.join;
@@ -44,10 +43,10 @@ public final class ControllerExceptionHandler {
 
     private static <E extends Exception> ResponseEntity<RestErrorResponse> createResponseEntity(
             final E exception,
-            final ExceptionMessageProvider<E> messageProvider,
+            final ExceptionMessageExtractor<E> messageExtractor,
             final HttpStatus httpStatus
     ) {
-        final String message = messageProvider.apply(exception);
+        final String message = messageExtractor.extract(exception);
         final RestErrorResponse errorResponse = createErrorResponse(message, httpStatus);
         return new ResponseEntity<>(errorResponse, httpStatus);
     }
@@ -74,7 +73,7 @@ public final class ControllerExceptionHandler {
     }
 
     @FunctionalInterface
-    private interface ExceptionMessageProvider<E extends Exception> extends Function<E, String> {
-
+    private interface ExceptionMessageExtractor<E extends Exception> {
+        String extract(final E exception);
     }
 }
