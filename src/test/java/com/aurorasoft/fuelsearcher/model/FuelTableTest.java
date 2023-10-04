@@ -2,7 +2,7 @@ package com.aurorasoft.fuelsearcher.model;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public final class FuelTableTest {
 
@@ -14,7 +14,7 @@ public final class FuelTableTest {
                 .build();
 
         final String actual = givenTable.findAlias();
-        assertEquals(givenTableName, actual);
+        assertSame(givenTableName, actual);
     }
 
 }
