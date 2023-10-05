@@ -7,8 +7,8 @@ import java.util.List;
 
 public abstract class FilterFactoryDictionary<F extends FilterFactory<?, ?>> extends Dictionary<F> {
 
-    public FilterFactoryDictionary(final List<F> filterFactories) {
-        super(filterFactories);
+    public FilterFactoryDictionary(final List<F> factories) {
+        super(factories);
     }
 
 }
