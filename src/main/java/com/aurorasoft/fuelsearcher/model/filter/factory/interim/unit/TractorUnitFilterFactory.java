@@ -12,7 +12,7 @@ public final class TractorUnitFilterFactory extends UnitFilterFactory<TractorUni
     }
 
     @Override
-    protected TractorUnitFilter create(final TractorExtractor tractorExtractor, int filtrationCellIndex) {
+    protected TractorUnitFilter create(final TractorExtractor tractorExtractor, final int filtrationCellIndex) {
         return new TractorUnitFilter(tractorExtractor, filtrationCellIndex);
     }
 }
