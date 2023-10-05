@@ -4,7 +4,7 @@ import com.aurorasoft.fuelsearcher.service.dictionary.Dictionary;
 import com.aurorasoft.fuelsearcher.service.dictionary.Translatable;
 import com.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsingContext;
 import com.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.translating.TranslatingTagHandler;
-import com.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.translating.exception.NoSuchKeyException;
+import com.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.translating.exception.NoSuchKeyException.NoSuchKeyExceptionFactory;
 
 import java.util.stream.Stream;
 
@@ -12,7 +12,7 @@ public abstract class SimpleTranslatingTagHandler<V extends Translatable> extend
 
     public SimpleTranslatingTagHandler(final String tagName,
                                        final Dictionary<V> dictionary,
-                                       final NoSuchKeyException.NoSuchKeyExceptionFactory<?> noSuchKeyExceptionFactory) {
+                                       final NoSuchKeyExceptionFactory<?> noSuchKeyExceptionFactory) {
         super(tagName, dictionary, noSuchKeyExceptionFactory);
     }
 
