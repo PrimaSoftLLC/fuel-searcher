@@ -22,7 +22,8 @@ public final class SubTableTitleUtilTest {
 
     @Test
     public void propertyNamesShouldBeFound() {
-        final Stream<String> actual = GIVEN_TEMPLATES_WITH_PROPERTY_NAMES.stream()
+        final Stream<String> actual = GIVEN_TEMPLATES_WITH_PROPERTY_NAMES
+                .stream()
                 .flatMap(SubTableTitleUtil::findPropertyNames);
         final List<String> actualAsList = actual.toList();
         final List<String> expectedAsList = List.of(
@@ -47,7 +48,8 @@ public final class SubTableTitleUtilTest {
 
     @Test
     public void templatesWithStringFillersShouldBeFound() {
-        final List<String> actual = GIVEN_TEMPLATES_WITH_PROPERTY_NAMES.stream()
+        final List<String> actual = GIVEN_TEMPLATES_WITH_PROPERTY_NAMES
+                .stream()
                 .map(SubTableTitleUtil::findTemplateWithStringFillers)
                 .toList();
         final List<String> expected = List.of(
@@ -71,7 +73,8 @@ public final class SubTableTitleUtilTest {
 
     @Test
     public void templateRegexesShouldBeFound() {
-        final List<String> actual = GIVEN_TEMPLATES_WITH_PROPERTY_NAMES.stream()
+        final List<String> actual = GIVEN_TEMPLATES_WITH_PROPERTY_NAMES
+                .stream()
                 .map(SubTableTitleUtil::findTemplateRegex)
                 .toList();
         final List<String> expected = List.of(

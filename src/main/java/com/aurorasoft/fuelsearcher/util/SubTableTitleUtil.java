@@ -20,16 +20,16 @@ public final class SubTableTitleUtil {
     private static final String SLASH = "\\";
     private static final String ESCAPED_SLASH = "\\\\";
 
-    private static final List<String> SPECIAL_TEMPLATE_REGEX_SYMBOLS = List.of(
+    private static final List<String> TITLE_REGEX_SPECIAL_SYMBOLS = List.of(
             SLASH, ".", "[", "]", "(", ")", "<", ">", "*", "+", "-", "=", "!", "?", "^", "$", "|"
     );
-    private static final Map<CharSequence, CharSequence> ESCAPED_SYMBOLS_BY_SPECIAL_TEMPLATE_REGEX_SYMBOLS
-            = findEscapedSymbolsBySpecialTemplateRegexSymbols();
-    private static final LookupTranslator TEMPLATE_LOOKUP_TRANSLATOR = new LookupTranslator(
-            ESCAPED_SYMBOLS_BY_SPECIAL_TEMPLATE_REGEX_SYMBOLS
+    private static final Map<CharSequence, CharSequence> ESCAPED_SYMBOLS_BY_TITLE_REGEX_SPECIAL_SYMBOLS
+            = findEscapedSymbolsByTitleRegexSpecialSymbols();
+    private static final LookupTranslator TITLE_LOOKUP_TRANSLATOR = new LookupTranslator(
+            ESCAPED_SYMBOLS_BY_TITLE_REGEX_SPECIAL_SYMBOLS
     );
-    private static final CharSequenceTranslator TEMPLATE_CHAR_SEQUENCE_TRANSLATOR = new AggregateTranslator(
-            TEMPLATE_LOOKUP_TRANSLATOR
+    private static final CharSequenceTranslator TITLE_CHAR_SEQUENCE_TRANSLATOR = new AggregateTranslator(
+            TITLE_LOOKUP_TRANSLATOR
     );
 
     private static final String PROPERTY_NAME_PLACE_REGEX = "\\{([^{}]+)}";
@@ -51,12 +51,14 @@ public final class SubTableTitleUtil {
     }
 
     public static String findTemplateRegex(final String templateWithPropertyNames) {
-        final String templateWithEscapedSpecialSymbols = TEMPLATE_CHAR_SEQUENCE_TRANSLATOR.translate(templateWithPropertyNames);
+        final String templateWithEscapedSpecialSymbols = TITLE_CHAR_SEQUENCE_TRANSLATOR.translate(
+                templateWithPropertyNames
+        );
         return templateWithEscapedSpecialSymbols.replaceAll(PROPERTY_NAME_PLACE_REGEX, PROPERTY_NAME_REGEX);
     }
 
-    private static Map<CharSequence, CharSequence> findEscapedSymbolsBySpecialTemplateRegexSymbols() {
-        return SPECIAL_TEMPLATE_REGEX_SYMBOLS.stream()
+    private static Map<CharSequence, CharSequence> findEscapedSymbolsByTitleRegexSpecialSymbols() {
+        return TITLE_REGEX_SPECIAL_SYMBOLS.stream()
                 .collect(
                         toMap(
                                 identity(),
