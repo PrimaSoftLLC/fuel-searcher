@@ -8,8 +8,8 @@ import java.util.List;
 @Component
 public final class UnitFilterFactoryDictionary extends InterimFilterFactoryDictionary<UnitFilterFactory<?, ?>> {
 
-    public UnitFilterFactoryDictionary(final List<UnitFilterFactory<?, ?>> filterFactories) {
-        super(filterFactories);
+    public UnitFilterFactoryDictionary(final List<UnitFilterFactory<?, ?>> factories) {
+        super(factories);
     }
 
 }
