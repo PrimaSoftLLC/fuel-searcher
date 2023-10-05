@@ -3,7 +3,7 @@ package com.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler;
 import com.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsingContext;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public final class TagHandlerTest {
 
@@ -13,7 +13,7 @@ public final class TagHandlerTest {
         final TagHandler givenTagHandler = new TestTagHandler(givenTagName);
 
         final String actual = givenTagHandler.findAlias();
-        assertEquals(givenTagName, actual);
+        assertSame(givenTagName, actual);
     }
 
     private static final class TestTagHandler extends TagHandler {
