@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 @Component
 public final class YieldFinalFilterFactory extends FinalFilterFactory<YieldFinalFilter, YieldExtractor> {
 
-    public YieldFinalFilterFactory(final YieldExtractor filtrationValueExtractor) {
-        super(filtrationValueExtractor);
+    public YieldFinalFilterFactory(final YieldExtractor yieldExtractor) {
+        super(yieldExtractor);
     }
 
     @Override
