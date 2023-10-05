@@ -38,8 +38,8 @@ public final class XWPFTableCellUtil {
         return !text.equals(NOT_DEFINED_DOUBLE_VALUE_ALIAS) ? parseDouble(text) : NOT_DEFINED_DOUBLE;
     }
 
-    public static boolean isCellTextEqualIgnoringWhitespacesAndCase(final XWPFTableCell cell,
-                                                                    final String givenCompared) {
+    public static boolean isCellTextEqualConsideringOnlyLettersAndDigits(final XWPFTableCell cell,
+                                                                         final String givenCompared) {
         return isCellTextMatch(
                 cell,
                 givenCompared,

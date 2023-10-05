@@ -5,7 +5,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.junit.Test;
 import org.mockito.MockedStatic;
 
-import static com.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.isCellTextEqualIgnoringWhitespacesAndCase;
+import static com.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.isCellTextEqualConsideringOnlyLettersAndDigits;
 import static com.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.isCellTextMatchRegex;
 import static com.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.*;
 import static com.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellTextEqualIgnoringWhitespacesAndCase;
@@ -56,7 +56,7 @@ public final class XWPFTableRowUtilTest {
             final String givenExpected = "cell-text";
 
             mockedCellUtil.when(
-                    () -> isCellTextEqualIgnoringWhitespacesAndCase(same(givenCell), same(givenExpected))
+                    () -> isCellTextEqualConsideringOnlyLettersAndDigits(same(givenCell), same(givenExpected))
             ).thenReturn(true);
 
             final boolean actual = isCellTextEqualIgnoringWhitespacesAndCase(givenRow, givenCellIndex, givenExpected);
@@ -74,7 +74,7 @@ public final class XWPFTableRowUtilTest {
             final String givenExpected = "cell-text";
 
             mockedCellUtil.when(
-                    () -> isCellTextEqualIgnoringWhitespacesAndCase(same(givenCell), same(givenExpected))
+                    () -> isCellTextEqualConsideringOnlyLettersAndDigits(same(givenCell), same(givenExpected))
             ).thenReturn(false);
 
             final boolean actual = isCellTextEqualIgnoringWhitespacesAndCase(givenRow, givenCellIndex, givenExpected);

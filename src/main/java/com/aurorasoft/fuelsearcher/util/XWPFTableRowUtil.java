@@ -23,7 +23,7 @@ public final class XWPFTableRowUtil {
     public static boolean isCellTextEqualIgnoringWhitespacesAndCase(final XWPFTableRow row,
                                                                     final int cellIndex,
                                                                     final String expected) {
-        return isCellTextMatch(row, cellIndex, expected, XWPFTableCellUtil::isCellTextEqualIgnoringWhitespacesAndCase);
+        return isCellTextMatch(row, cellIndex, expected, XWPFTableCellUtil::isCellTextEqualConsideringOnlyLettersAndDigits);
     }
 
     public static boolean isCellTextMatchRegex(final XWPFTableRow row,

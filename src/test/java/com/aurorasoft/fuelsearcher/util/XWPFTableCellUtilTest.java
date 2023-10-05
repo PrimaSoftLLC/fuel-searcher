@@ -138,24 +138,24 @@ public final class XWPFTableCellUtilTest {
     }
 
     @Test
-    public void cellTextShouldBeEqualGivenContentIgnoringWhitespacesAndCase() {
+    public void cellTextShouldBeEqualGivenContentConsideringOnlyLettersAndDigits() {
         try (final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil = mockStatic(XWPFParagraphUtil.class);
              final MockedStatic<XWPFContentUtil> mockedContentComparingUtil = mockStatic(XWPFContentUtil.class)) {
             final String givenText = "cell-text";
             final XWPFTableCell givenCell = createCell(givenText, mockedParagraphUtil);
 
-            final String givenExpected = "CELL -    text";
+            final String givenExpected = "CELL     text";
             mockedContentComparingUtil.when(
                     () -> areEqualConsideringOnlyLettersAndDigits(eq(givenText), same(givenExpected))
             ).thenReturn(true);
 
-            final boolean actual = isCellTextEqualIgnoringWhitespacesAndCase(givenCell, givenExpected);
+            final boolean actual = isCellTextEqualConsideringOnlyLettersAndDigits(givenCell, givenExpected);
             assertTrue(actual);
         }
     }
 
     @Test
-    public void cellTextShouldNotBeEqualGivenContentIgnoringWhitespacesAndCase() {
+    public void cellTextShouldNotBeEqualGivenContentConsideringOnlyLettersAndDigits() {
         try (final MockedStatic<XWPFParagraphUtil> mockedParagraphUtil = mockStatic(XWPFParagraphUtil.class);
              final MockedStatic<XWPFContentUtil> mockedContentComparingUtil = mockStatic(XWPFContentUtil.class)) {
             final String givenText = "cell-text";
@@ -166,7 +166,7 @@ public final class XWPFTableCellUtilTest {
                     () -> areEqualConsideringOnlyLettersAndDigits(eq(givenText), same(givenExpected))
             ).thenReturn(false);
 
-            final boolean actual = isCellTextEqualIgnoringWhitespacesAndCase(givenCell, givenExpected);
+            final boolean actual = isCellTextEqualConsideringOnlyLettersAndDigits(givenCell, givenExpected);
             assertFalse(actual);
         }
     }
