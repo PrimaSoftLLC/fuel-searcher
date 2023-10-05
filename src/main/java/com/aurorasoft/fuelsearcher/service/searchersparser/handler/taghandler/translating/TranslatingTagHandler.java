@@ -41,6 +41,6 @@ public abstract class TranslatingTagHandler<V extends Translatable> extends TagH
 
     private V findTranslatedValue(final String alias) {
         final Optional<V> optionalValue = this.dictionary.find(alias);
-        return optionalValue.orElseThrow(() -> this.noSuchKeyExceptionFactory.apply(alias));
+        return optionalValue.orElseThrow(() -> this.noSuchKeyExceptionFactory.create(alias));
     }
 }
