@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 @Service
 @RequiredArgsConstructor
 @ConditionalOnProperty(prefix = "metadata-refreshing", name = "enable", havingValue = "true")
-public class MetadataRefreshingService {
+public final class MetadataRefreshingService {
     private final TableMetadataService tableMetadataService;
     private final PropertyMetadataService propertyMetadataService;
     private final RefreshedTablesMetadataFactory refreshedTablesMetadataFactory;
