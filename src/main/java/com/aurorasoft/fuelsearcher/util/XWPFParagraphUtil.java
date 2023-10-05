@@ -19,9 +19,11 @@ public final class XWPFParagraphUtil {
     private static final String NEW_LINES_REGEX = "\n+";
     private static final String EMPTY_STRING = "";
 
-    private static final String NBSP_OR_SPACE_SYMBOLS_REGEX = "[\\p{Z} ]+";
-    private static final String NBSP_OR_SPACE_SYMBOLS_IN_START_STRING_REGEX = "^" + NBSP_OR_SPACE_SYMBOLS_REGEX;
-    private static final String NBSP_OR_SPACE_SYMBOLS_IN_END_STRING_REGEX = NBSP_OR_SPACE_SYMBOLS_REGEX + "$";
+    private static final String NBSP_OR_SPACE_SYMBOL_SEQUENCE_REGEX = "[\\p{Z} ]+";
+    private static final String NBSP_OR_SPACE_SYMBOL_SEQUENCE_IN_START_STRING_REGEX = "^"
+            + NBSP_OR_SPACE_SYMBOL_SEQUENCE_REGEX;
+    private static final String NBSP_OR_SPACE_SYMBOL_SEQUENCE_IN_END_STRING_REGEX = NBSP_OR_SPACE_SYMBOL_SEQUENCE_REGEX
+            + "$";
 
     public static boolean isEmptyParagraph(final IBodyElement element) {
         return isMatchingParagraph(element, XWPFParagraphUtil::isEmpty);
@@ -72,8 +74,8 @@ public final class XWPFParagraphUtil {
 
     private static String trimFromNbspAndSpace(final String source) {
         return source
-                .replaceAll(NBSP_OR_SPACE_SYMBOLS_IN_START_STRING_REGEX, EMPTY_STRING)
-                .replaceAll(NBSP_OR_SPACE_SYMBOLS_IN_END_STRING_REGEX, EMPTY_STRING);
+                .replaceAll(NBSP_OR_SPACE_SYMBOL_SEQUENCE_IN_START_STRING_REGEX, EMPTY_STRING)
+                .replaceAll(NBSP_OR_SPACE_SYMBOL_SEQUENCE_IN_END_STRING_REGEX, EMPTY_STRING);
     }
 
     private static void removeAllRuns(final XWPFParagraph paragraph) {
