@@ -1,6 +1,6 @@
 package com.aurorasoft.fuelsearcher.service.factory.filter.interim.group;
 
-import com.aurorasoft.fuelsearcher.model.filter.interim.group.RoadGroupGroupFilter;
+import com.aurorasoft.fuelsearcher.service.filter.interim.group.RoadGroupGroupFilter;
 import com.aurorasoft.fuelsearcher.model.specification.propertyextractor.RoadGroupExtractor;
 import org.springframework.stereotype.Component;
 

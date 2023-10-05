@@ -1,6 +1,6 @@
 package com.aurorasoft.fuelsearcher.service.factory.derivingsearcher.refreshedtablesmetadata.metadatasearcher.filter;
 
-import com.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
+import com.aurorasoft.fuelsearcher.service.filter.conclusive.FinalFilter;
 import com.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.junit.Test;

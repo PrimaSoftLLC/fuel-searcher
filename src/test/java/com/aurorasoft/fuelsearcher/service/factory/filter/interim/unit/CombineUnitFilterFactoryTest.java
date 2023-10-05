@@ -1,6 +1,6 @@
 package com.aurorasoft.fuelsearcher.service.factory.filter.interim.unit;
 
-import com.aurorasoft.fuelsearcher.model.filter.interim.unit.CombineUnitFilter;
+import com.aurorasoft.fuelsearcher.service.filter.interim.unit.CombineUnitFilter;
 import com.aurorasoft.fuelsearcher.model.specification.propertyextractor.CombineExtractor;
 import org.junit.Test;
 

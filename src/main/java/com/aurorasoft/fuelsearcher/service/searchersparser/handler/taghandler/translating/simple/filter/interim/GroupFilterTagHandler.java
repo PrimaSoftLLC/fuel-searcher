@@ -2,7 +2,7 @@ package com.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.t
 
 import com.aurorasoft.fuelsearcher.service.dictionary.filter.interim.GroupFilterFactoryDictionary;
 import com.aurorasoft.fuelsearcher.service.factory.filter.interim.group.GroupFilterFactory;
-import com.aurorasoft.fuelsearcher.model.filter.interim.group.GroupFilter;
+import com.aurorasoft.fuelsearcher.service.filter.interim.group.GroupFilter;
 import com.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsingContext;
 import org.springframework.stereotype.Component;
 

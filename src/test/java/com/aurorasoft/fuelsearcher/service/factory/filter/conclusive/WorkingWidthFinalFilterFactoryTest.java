@@ -1,6 +1,6 @@
 package com.aurorasoft.fuelsearcher.service.factory.filter.conclusive;
 
-import com.aurorasoft.fuelsearcher.model.filter.conclusive.WorkingWidthFinalFilter;
+import com.aurorasoft.fuelsearcher.service.filter.conclusive.WorkingWidthFinalFilter;
 import com.aurorasoft.fuelsearcher.model.specification.propertyextractor.WorkingWidthExtractor;
 import org.junit.Test;
 

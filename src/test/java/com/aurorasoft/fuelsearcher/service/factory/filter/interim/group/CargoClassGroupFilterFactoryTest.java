@@ -1,6 +1,6 @@
 package com.aurorasoft.fuelsearcher.service.factory.filter.interim.group;
 
-import com.aurorasoft.fuelsearcher.model.filter.interim.group.CargoClassGroupFilter;
+import com.aurorasoft.fuelsearcher.service.filter.interim.group.CargoClassGroupFilter;
 import com.aurorasoft.fuelsearcher.model.specification.propertyextractor.CargoClassExtractor;
 import org.junit.Test;
 

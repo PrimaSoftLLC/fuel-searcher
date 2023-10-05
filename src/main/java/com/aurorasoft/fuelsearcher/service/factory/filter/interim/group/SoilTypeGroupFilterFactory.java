@@ -1,6 +1,6 @@
 package com.aurorasoft.fuelsearcher.service.factory.filter.interim.group;
 
-import com.aurorasoft.fuelsearcher.model.filter.interim.group.SoilTypeGroupFilter;
+import com.aurorasoft.fuelsearcher.service.filter.interim.group.SoilTypeGroupFilter;
 import com.aurorasoft.fuelsearcher.model.specification.propertyextractor.SoilTypeExtractor;
 import org.springframework.stereotype.Component;
 

@@ -1,6 +1,6 @@
 package com.aurorasoft.fuelsearcher.service.factory.filter.interim.unit;
 
-import com.aurorasoft.fuelsearcher.model.filter.interim.unit.CorpusCountUnitFilter;
+import com.aurorasoft.fuelsearcher.service.filter.interim.unit.CorpusCountUnitFilter;
 import com.aurorasoft.fuelsearcher.model.specification.propertyextractor.CorpusCountExtractor;
 import org.junit.Test;
 

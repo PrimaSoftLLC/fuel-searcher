@@ -1,6 +1,6 @@
 package com.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.translating.simple.filter;
 
-import com.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
+import com.aurorasoft.fuelsearcher.service.filter.conclusive.FinalFilter;
 import com.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsingContext;
 import org.junit.Test;
 

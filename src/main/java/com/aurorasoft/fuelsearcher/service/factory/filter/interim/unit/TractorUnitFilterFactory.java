@@ -1,6 +1,6 @@
 package com.aurorasoft.fuelsearcher.service.factory.filter.interim.unit;
 
-import com.aurorasoft.fuelsearcher.model.filter.interim.unit.TractorUnitFilter;
+import com.aurorasoft.fuelsearcher.service.filter.interim.unit.TractorUnitFilter;
 import com.aurorasoft.fuelsearcher.model.specification.propertyextractor.TractorExtractor;
 import org.springframework.stereotype.Component;
 

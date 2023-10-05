@@ -1,6 +1,6 @@
 package com.aurorasoft.fuelsearcher.service.factory.filter;
 
-import com.aurorasoft.fuelsearcher.model.filter.Filter;
+import com.aurorasoft.fuelsearcher.service.filter.Filter;
 import com.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import org.junit.Test;
 

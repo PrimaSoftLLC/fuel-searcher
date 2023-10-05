@@ -1,6 +1,6 @@
 package com.aurorasoft.fuelsearcher.service.factory.filter.conclusive;
 
-import com.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
+import com.aurorasoft.fuelsearcher.service.filter.conclusive.FinalFilter;
 import com.aurorasoft.fuelsearcher.service.factory.filter.FilterFactory;
 import com.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 

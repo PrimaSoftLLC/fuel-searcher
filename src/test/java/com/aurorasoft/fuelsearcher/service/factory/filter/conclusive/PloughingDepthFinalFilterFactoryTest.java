@@ -1,6 +1,6 @@
 package com.aurorasoft.fuelsearcher.service.factory.filter.conclusive;
 
-import com.aurorasoft.fuelsearcher.model.filter.conclusive.PloughingDepthFinalFilter;
+import com.aurorasoft.fuelsearcher.service.filter.conclusive.PloughingDepthFinalFilter;
 import com.aurorasoft.fuelsearcher.model.specification.propertyextractor.PloughingDepthExtractor;
 import org.junit.Test;
 

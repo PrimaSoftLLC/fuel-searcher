@@ -1,6 +1,6 @@
 package com.aurorasoft.fuelsearcher.service.factory.filter.conclusive;
 
-import com.aurorasoft.fuelsearcher.model.filter.conclusive.TransportDistanceFinalFilter;
+import com.aurorasoft.fuelsearcher.service.filter.conclusive.TransportDistanceFinalFilter;
 import com.aurorasoft.fuelsearcher.model.specification.propertyextractor.TransportDistanceExtractor;
 import org.springframework.stereotype.Component;
 
