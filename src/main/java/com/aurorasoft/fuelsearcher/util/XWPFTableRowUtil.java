@@ -13,23 +13,41 @@ import static com.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.isEmpty;
 public final class XWPFTableRowUtil {
 
     public static double extractCellDoubleValue(final XWPFTableRow row, final int cellIndex) {
-        return extractCellValue(row, cellIndex, XWPFTableCellUtil::extractDouble);
+        return extractCellValue(
+                row,
+                cellIndex,
+                XWPFTableCellUtil::extractDouble
+        );
     }
 
     public static String extractCellText(final XWPFTableRow row, final int cellIndex) {
-        return extractCellValue(row, cellIndex, XWPFTableCellUtil::extractText);
+        return extractCellValue(
+                row,
+                cellIndex,
+                XWPFTableCellUtil::extractText
+        );
     }
 
     public static boolean isCellTextEqualIgnoringWhitespacesAndCase(final XWPFTableRow row,
                                                                     final int cellIndex,
-                                                                    final String expected) {
-        return isCellTextMatch(row, cellIndex, expected, XWPFTableCellUtil::isCellTextEqualConsideringOnlyLettersAndDigits);
+                                                                    final String compared) {
+        return isCellTextMatch(
+                row,
+                cellIndex,
+                compared,
+                XWPFTableCellUtil::isCellTextEqualConsideringOnlyLettersAndDigits
+        );
     }
 
     public static boolean isCellTextMatchRegex(final XWPFTableRow row,
                                                final int cellIndex,
                                                final String expectedRegex) {
-        return isCellTextMatch(row, cellIndex, expectedRegex, XWPFTableCellUtil::isCellTextMatchRegex);
+        return isCellTextMatch(
+                row,
+                cellIndex,
+                expectedRegex,
+                XWPFTableCellUtil::isCellTextMatchRegex
+        );
     }
 
     public static boolean isCellNullOrEmpty(final XWPFTableRow row, final int contentCellIndex) {
