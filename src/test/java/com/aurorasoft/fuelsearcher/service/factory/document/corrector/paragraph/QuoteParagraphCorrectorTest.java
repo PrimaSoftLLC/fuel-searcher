@@ -1,11 +1,12 @@
 package com.aurorasoft.fuelsearcher.service.factory.document.corrector.paragraph;
 
-import com.aurorasoft.fuelsearcher.testutil.ReflectionUtil;
 import org.junit.Test;
 
 import java.util.stream.Stream;
 
-import static org.junit.Assert.*;
+import static com.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findStaticFieldValue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public final class QuoteParagraphCorrectorTest {
     private static final String FIELD_NAME_REPLACED_REGEX = "REPLACED_REGEX";
@@ -38,7 +39,7 @@ public final class QuoteParagraphCorrectorTest {
     }
 
     private static String findReplacedRegex() {
-        return ReflectionUtil.findStaticFieldValue(
+        return findStaticFieldValue(
                 QuoteParagraphCorrector.class,
                 FIELD_NAME_REPLACED_REGEX,
                 String.class
