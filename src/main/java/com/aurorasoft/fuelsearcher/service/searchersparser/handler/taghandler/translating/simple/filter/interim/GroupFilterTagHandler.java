@@ -13,8 +13,8 @@ public final class GroupFilterTagHandler extends InterimFilterTagHandler<GroupFi
     private static final String TAG_NAME = "filter-by-group";
     private static final int DEFAULT_FILTRATION_CELL_INDEX = 0;
 
-    public GroupFilterTagHandler(final GroupFilterFactoryDictionary filterFactoryDictionary) {
-        super(TAG_NAME, filterFactoryDictionary);
+    public GroupFilterTagHandler(final GroupFilterFactoryDictionary dictionary) {
+        super(TAG_NAME, dictionary);
     }
 
     @Override

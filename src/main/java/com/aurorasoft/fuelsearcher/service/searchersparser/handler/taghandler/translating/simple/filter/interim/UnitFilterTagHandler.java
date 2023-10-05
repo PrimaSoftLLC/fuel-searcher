@@ -14,8 +14,8 @@ import static java.util.OptionalInt.empty;
 public final class UnitFilterTagHandler extends InterimFilterTagHandler<UnitFilter, UnitFilterFactory<?, ?>> {
     private static final String TAG_NAME = "filter-by";
 
-    public UnitFilterTagHandler(final UnitFilterFactoryDictionary filterFactoryDictionary) {
-        super(TAG_NAME, filterFactoryDictionary);
+    public UnitFilterTagHandler(final UnitFilterFactoryDictionary dictionary) {
+        super(TAG_NAME, dictionary);
     }
 
     @Override
