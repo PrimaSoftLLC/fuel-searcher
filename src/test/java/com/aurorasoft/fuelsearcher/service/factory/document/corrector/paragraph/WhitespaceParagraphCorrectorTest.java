@@ -1,10 +1,10 @@
 package com.aurorasoft.fuelsearcher.service.factory.document.corrector.paragraph;
 
-import com.aurorasoft.fuelsearcher.testutil.ReflectionUtil;
 import org.junit.Test;
 
 import java.util.stream.Stream;
 
+import static com.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findStaticFieldValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -39,7 +39,7 @@ public final class WhitespaceParagraphCorrectorTest {
     }
 
     private static String findReplacedRegex() {
-        return ReflectionUtil.findStaticFieldValue(
+        return findStaticFieldValue(
                 WhitespaceParagraphCorrector.class,
                 FIELD_NAME_REPLACED_REGEX,
                 String.class
