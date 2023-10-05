@@ -1,8 +1,8 @@
 package com.aurorasoft.fuelsearcher.service.factory.document.corrector.paragraph;
 
-import com.aurorasoft.fuelsearcher.testutil.ReflectionUtil;
 import org.junit.Test;
 
+import static com.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findStaticFieldValue;
 import static org.junit.Assert.*;
 
 public final class DashParagraphCorrectorTest {
@@ -36,7 +36,7 @@ public final class DashParagraphCorrectorTest {
     }
 
     private static String findReplacedRegex() {
-        return ReflectionUtil.findStaticFieldValue(
+        return findStaticFieldValue(
                 DashParagraphCorrector.class,
                 FIELD_NAME_REPLACED_REGEX,
                 String.class
