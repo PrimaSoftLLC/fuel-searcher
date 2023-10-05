@@ -10,13 +10,13 @@ import java.util.Map;
 public final class RoutingLengthHeaderMetadataFactory
         extends FuelHeaderMetadataFactory<RoutingLengthExtractor, RoutingLengthHeaderMetadata> {
 
-    public RoutingLengthHeaderMetadataFactory(final RoutingLengthExtractor propertyExtractor) {
-        super(propertyExtractor);
+    public RoutingLengthHeaderMetadataFactory(final RoutingLengthExtractor routingLengthExtractor) {
+        super(routingLengthExtractor);
     }
 
     @Override
-    protected RoutingLengthHeaderMetadata create(final RoutingLengthExtractor propertyExtractor,
+    protected RoutingLengthHeaderMetadata create(final RoutingLengthExtractor routingLengthExtractor,
                                                  final Map<String, Integer> fuelOffsetsByHeaders) {
-        return new RoutingLengthHeaderMetadata(propertyExtractor, fuelOffsetsByHeaders);
+        return new RoutingLengthHeaderMetadata(routingLengthExtractor, fuelOffsetsByHeaders);
     }
 }
