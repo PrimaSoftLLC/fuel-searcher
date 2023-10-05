@@ -1,6 +1,6 @@
 package com.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.translating.simple.filter.interim;
 
-import com.aurorasoft.fuelsearcher.model.filter.factory.interim.unit.UnitFilterFactory;
+import com.aurorasoft.fuelsearcher.service.factory.filter.interim.unit.UnitFilterFactory;
 import com.aurorasoft.fuelsearcher.model.filter.interim.unit.UnitFilter;
 import com.aurorasoft.fuelsearcher.service.dictionary.filter.interim.UnitFilterFactoryDictionary;
 import com.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsingContext;

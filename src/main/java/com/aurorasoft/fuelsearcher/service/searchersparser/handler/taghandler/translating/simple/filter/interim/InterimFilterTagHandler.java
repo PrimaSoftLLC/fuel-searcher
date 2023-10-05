@@ -1,7 +1,7 @@
 package com.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.translating.simple.filter.interim;
 
 import com.aurorasoft.fuelsearcher.service.dictionary.filter.interim.InterimFilterFactoryDictionary;
-import com.aurorasoft.fuelsearcher.model.filter.factory.interim.InterimFilterFactory;
+import com.aurorasoft.fuelsearcher.service.factory.filter.interim.InterimFilterFactory;
 import com.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsingContext;
 import com.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.translating.simple.filter.FilterTagHandler;
 import com.aurorasoft.fuelsearcher.model.filter.interim.InterimFilter;

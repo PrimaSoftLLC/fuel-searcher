@@ -1,6 +1,6 @@
 package com.aurorasoft.fuelsearcher.service.dictionary.filter.interim;
 
-import com.aurorasoft.fuelsearcher.model.filter.factory.interim.group.GroupFilterFactory;
+import com.aurorasoft.fuelsearcher.service.factory.filter.interim.group.GroupFilterFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.aurorasoft.fuelsearcher.service.dictionary.filter;
 
 import com.aurorasoft.fuelsearcher.service.dictionary.Dictionary;
-import com.aurorasoft.fuelsearcher.model.filter.factory.FilterFactory;
+import com.aurorasoft.fuelsearcher.service.factory.filter.FilterFactory;
 
 import java.util.List;
 

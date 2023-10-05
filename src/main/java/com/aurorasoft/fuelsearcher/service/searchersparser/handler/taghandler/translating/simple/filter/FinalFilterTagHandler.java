@@ -1,7 +1,7 @@
 package com.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.translating.simple.filter;
 
 import com.aurorasoft.fuelsearcher.model.filter.conclusive.FinalFilter;
-import com.aurorasoft.fuelsearcher.model.filter.factory.conclusive.FinalFilterFactory;
+import com.aurorasoft.fuelsearcher.service.factory.filter.conclusive.FinalFilterFactory;
 import com.aurorasoft.fuelsearcher.service.dictionary.filter.FinalFilterFactoryDictionary;
 import com.aurorasoft.fuelsearcher.service.searchersparser.handler.SearchersParsingContext;
 import org.springframework.stereotype.Component;
