@@ -12,6 +12,7 @@ import java.util.function.Predicate;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import static com.aurorasoft.fuelsearcher.util.XWPFTableCellUtil.isCellTextEqualConsideringOnlyLettersAndDigits;
 import static com.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellNullOrEmpty;
 import static com.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.isCellTextMatchRegex;
 import static java.util.stream.IntStream.range;
@@ -41,7 +42,7 @@ public final class XWPFTableRowFilteringUtil {
     public static OptionalInt findFirstCellIndexByContent(final XWPFTableRow row, final String content) {
         final List<XWPFTableCell> cells = row.getTableCells();
         return range(0, cells.size())
-                .filter(i -> XWPFTableCellUtil.isCellTextEqualConsideringOnlyLettersAndDigits(cells.get(i), content))
+                .filter(i -> isCellTextEqualConsideringOnlyLettersAndDigits(cells.get(i), content))
                 .findFirst();
     }
 
