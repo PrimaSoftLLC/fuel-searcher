@@ -12,7 +12,8 @@ public final class SpreadRateFinalFilterFactory extends FinalFilterFactory<Sprea
     }
 
     @Override
-    protected SpreadRateFinalFilter create(final SpreadRateExtractor spreadRateExtractor, int filtrationCellIndex) {
+    protected SpreadRateFinalFilter create(final SpreadRateExtractor spreadRateExtractor,
+                                           final int filtrationCellIndex) {
         return new SpreadRateFinalFilter(spreadRateExtractor, filtrationCellIndex);
     }
 }
