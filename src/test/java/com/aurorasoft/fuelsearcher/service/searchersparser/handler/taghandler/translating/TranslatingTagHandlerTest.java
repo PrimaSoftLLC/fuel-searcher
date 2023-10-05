@@ -33,7 +33,10 @@ public final class TranslatingTagHandlerTest {
         final List<String> givenAliases = List.of(firstGivenAlias, secondGivenAlias);
 
         final TestTranslatingTagHandler givenTagHandler = new TestTranslatingTagHandler(
-                givenTagName, givenDictionary, givenContext, givenAliases
+                givenTagName,
+                givenDictionary,
+                givenContext,
+                givenAliases
         );
 
         final TestValue firstGivenValue = new TestValue(firstGivenAlias);
@@ -63,7 +66,10 @@ public final class TranslatingTagHandlerTest {
         final List<String> givenAliases = List.of(firstGivenAlias, secondGivenAlias);
 
         final TestTranslatingTagHandler givenTagHandler = new TestTranslatingTagHandler(
-                givenTagName, givenDictionary, givenContext, givenAliases
+                givenTagName,
+                givenDictionary,
+                givenContext,
+                givenAliases
         );
 
         final TestValue firstGivenValue = new TestValue(firstGivenAlias);
