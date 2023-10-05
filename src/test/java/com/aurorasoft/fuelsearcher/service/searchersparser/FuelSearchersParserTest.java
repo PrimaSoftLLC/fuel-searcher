@@ -71,7 +71,8 @@ public final class FuelSearchersParserTest {
         this.searchersParser.parse(givenFilePath);
 
         verify(this.mockedSAXParser, times(1)).parse(
-                same(givenFilePath), same(givenParsingHandler)
+                same(givenFilePath),
+                same(givenParsingHandler)
         );
     }
 
@@ -88,7 +89,8 @@ public final class FuelSearchersParserTest {
         this.searchersParser.parse(givenFilePath);
 
         verify(this.mockedSAXParser, times(1)).parse(
-                same(givenFilePath), same(givenParsingHandler)
+                same(givenFilePath),
+                same(givenParsingHandler)
         );
     }
 
