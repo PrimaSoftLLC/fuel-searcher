@@ -4,11 +4,11 @@ import com.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import com.aurorasoft.fuelsearcher.model.header.SpreadRateHeaderMetadata;
 import com.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import com.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpreadRateExtractor;
-import com.aurorasoft.fuelsearcher.testutil.ReflectionUtil;
 import org.junit.Test;
 
 import java.util.Map;
 
+import static com.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
 import static org.junit.Assert.assertSame;
 
 public final class SpreadRateHeaderMetadataFactoryTest {
@@ -38,7 +38,7 @@ public final class SpreadRateHeaderMetadataFactoryTest {
 
     @SuppressWarnings("unchecked")
     private static Map<String, Integer> findFuelOffsetsByValues(final FuelHeaderMetadata metadata) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 metadata,
                 FIELD_NAME_FUEL_OFFSETS_BY_VALUES,
                 Map.class
