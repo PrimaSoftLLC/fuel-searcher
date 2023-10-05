@@ -1,6 +1,5 @@
 package com.aurorasoft.fuelsearcher.service.factory.document.corrector.paragraph;
 
-import com.aurorasoft.fuelsearcher.testutil.ReflectionUtil;
 import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -9,6 +8,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.regex.MatchResult;
 import java.util.stream.Stream;
 
+import static com.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findStaticFieldValue;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
@@ -49,7 +49,7 @@ public final class RealNumberParagraphCorrectorTest {
     }
 
     private static String findReplacedRegex() {
-        return ReflectionUtil.findStaticFieldValue(
+        return findStaticFieldValue(
                 RealNumberParagraphCorrector.class,
                 FIELD_NAME_REPLACED_REGEX,
                 String.class
