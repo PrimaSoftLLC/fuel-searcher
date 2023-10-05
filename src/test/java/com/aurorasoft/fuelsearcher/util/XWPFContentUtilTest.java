@@ -15,7 +15,7 @@ public final class XWPFContentUtilTest {
     public void duplicatesShouldBeRemovedConsideringOnlyLettersAndDigits() {
         final Stream<String> givenSource = Stream.of(
                 "CASE II Steiger 550",
-                "CASE II     Ste-ige:r 5\u00A050",
+                "CASE II     ste-ige:r 5\u00A050",
                 "CASE II Steger 550",
                 "CAS--E II Steiger 550",
                 "C--ASE II Steiger 55"
@@ -34,7 +34,7 @@ public final class XWPFContentUtilTest {
     @Test
     public void contentsShouldBeEqualConsideringOnlyLettersAndDigits() {
         final String firstGivenContent = "CASE II Steiger 550";
-        final String secondGivenContent = "CASE II     Ste-ige:r 5\u00A050";
+        final String secondGivenContent = "CASE II     ste-ige:r 5\u00A050";
 
         final boolean actual = areEqualConsideringOnlyLettersAndDigits(firstGivenContent, secondGivenContent);
         assertTrue(actual);
