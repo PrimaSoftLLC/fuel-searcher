@@ -1,11 +1,10 @@
 package com.aurorasoft.fuelsearcher.service.searcher;
 
+import com.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import com.aurorasoft.fuelsearcher.service.filter.Filter;
 import com.aurorasoft.fuelsearcher.service.filter.conclusive.FinalFilter;
 import com.aurorasoft.fuelsearcher.service.filter.interim.InterimFilter;
-import com.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import com.aurorasoft.fuelsearcher.service.searcher.FilterChain.FilterChainBuilder;
-import com.aurorasoft.fuelsearcher.testutil.ReflectionUtil;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.junit.Test;
 
@@ -13,6 +12,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import static com.aurorasoft.fuelsearcher.testutil.ReflectionUtil.createObject;
+import static com.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
 import static java.util.Optional.empty;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.same;
@@ -184,7 +185,7 @@ public final class FilterChainTest {
     }
 
     private static FilterChain createChain(final List<InterimFilter> interimFilters, final FinalFilter finalFilter) {
-        return ReflectionUtil.createObject(
+        return createObject(
                 FilterChain.class,
                 new Class<?>[]{List.class, FinalFilter.class},
                 new Object[]{interimFilters, finalFilter}
@@ -193,7 +194,7 @@ public final class FilterChainTest {
 
     @SuppressWarnings("unchecked")
     private static List<InterimFilter> findInterimFilters(final FilterChainBuilder builder) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 builder,
                 FIELD_NAME_INTERIM_FILTERS,
                 List.class
@@ -201,7 +202,7 @@ public final class FilterChainTest {
     }
 
     private static FinalFilter findFinalFilter(final FilterChainBuilder builder) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 builder,
                 FIELD_NAME_FINAL_FILTER,
                 FinalFilter.class
@@ -210,7 +211,7 @@ public final class FilterChainTest {
 
     @SuppressWarnings("unchecked")
     private static List<InterimFilter> findInterimFilters(final FilterChain chain) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 chain,
                 FIELD_NAME_INTERIM_FILTERS,
                 List.class
@@ -218,7 +219,7 @@ public final class FilterChainTest {
     }
 
     private static FinalFilter findFinalFilter(final FilterChain chain) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 chain,
                 FIELD_NAME_FINAL_FILTER,
                 FinalFilter.class
