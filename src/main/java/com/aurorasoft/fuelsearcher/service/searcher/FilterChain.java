@@ -1,10 +1,10 @@
 package com.aurorasoft.fuelsearcher.service.searcher;
 
+import com.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
+import com.aurorasoft.fuelsearcher.service.builder.BuilderRequiringAllProperties;
 import com.aurorasoft.fuelsearcher.service.filter.Filter;
 import com.aurorasoft.fuelsearcher.service.filter.conclusive.FinalFilter;
 import com.aurorasoft.fuelsearcher.service.filter.interim.InterimFilter;
-import com.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
-import com.aurorasoft.fuelsearcher.service.builder.BuilderRequiringAllProperties;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
@@ -12,9 +12,9 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.stream.Stream;
 
+import static java.util.stream.Stream.concat;
 import static lombok.AccessLevel.PRIVATE;
 
 @AllArgsConstructor(access = PRIVATE)
@@ -28,11 +28,11 @@ public final class FilterChain {
 
     public Optional<XWPFTableRow> filter(final List<XWPFTableRow> rows, final FuelSpecification specification) {
         final FinalFilteringFunction filteringFunction = this.createFilteringFunction(specification);
-        return filteringFunction.apply(rows);
+        return filteringFunction.filter(rows);
     }
 
     public Stream<Filter<?>> findFilters() {
-        return Stream.concat(
+        return concat(
                 this.interimFilters.stream(),
                 Stream.of(this.finalFilter)
         );
@@ -61,19 +61,20 @@ public final class FilterChain {
     }
 
     @FunctionalInterface
-    private interface FilteringFunction<R> extends Function<List<XWPFTableRow>, R> {
-
+    private interface FilteringFunction<R> {
+        R filter(final List<XWPFTableRow> rows);
     }
 
     @FunctionalInterface
     private interface InterimFilteringFunction extends FilteringFunction<List<XWPFTableRow>> {
 
+
         default InterimFilteringFunction andThenInterimFunction(final InterimFilteringFunction after) {
-            return rows -> this.andThen(after).apply(rows);
+            return rows -> after.filter(this.filter(rows));
         }
 
         default FinalFilteringFunction andThenFinalFilter(final FinalFilteringFunction after) {
-            return rows -> this.andThen(after).apply(rows);
+            return rows -> after.filter(this.filter(rows));
         }
 
     }
