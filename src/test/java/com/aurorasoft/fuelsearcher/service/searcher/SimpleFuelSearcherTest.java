@@ -5,7 +5,6 @@ import com.aurorasoft.fuelsearcher.model.PropertyMetadataSource;
 import com.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import com.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import com.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleSearcherBuilder;
-import com.aurorasoft.fuelsearcher.testutil.ReflectionUtil;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.junit.Test;
@@ -15,6 +14,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import static com.aurorasoft.fuelsearcher.testutil.ReflectionUtil.createObject;
+import static com.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 import static org.junit.Assert.*;
@@ -143,7 +144,7 @@ public final class SimpleFuelSearcherTest {
     }
 
     private static SimpleFuelSearcher createSearcher() {
-        return ReflectionUtil.createObject(
+        return createObject(
                 SimpleFuelSearcher.class,
                 new Class<?>[]{FuelTable.class, FuelHeaderMetadata.class, FilterChain.class},
                 new Object[]{null, null, null}
@@ -151,7 +152,7 @@ public final class SimpleFuelSearcherTest {
     }
 
     private static FuelTable findTable(final FuelSearcher searcher) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 searcher,
                 FIELD_NAME_TABLE,
                 FuelTable.class
@@ -159,7 +160,7 @@ public final class SimpleFuelSearcherTest {
     }
 
     private static FuelHeaderMetadata findHeaderMetadata(final FuelSearcher searcher) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 searcher,
                 FIELD_NAME_HEADER_METADATA,
                 FuelHeaderMetadata.class
@@ -167,7 +168,7 @@ public final class SimpleFuelSearcherTest {
     }
 
     private static FilterChain findFilterChain(final FuelSearcher searcher) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 searcher,
                 FIELD_NAME_FILTER_CHAIN,
                 FilterChain.class
