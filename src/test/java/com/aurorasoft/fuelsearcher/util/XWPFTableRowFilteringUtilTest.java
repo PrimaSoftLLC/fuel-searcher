@@ -218,9 +218,14 @@ public final class XWPFTableRowFilteringUtilTest extends AbstractContextTest {
         );
         final List<XWPFTableRow> actualAsList = actual.toList();
 
-        final List<Integer> expectedRowIndexes = iterate(0, i -> i <= 51, i -> i + 4)
-                .boxed()
-                .toList();
+        final int indexGroupFirstRow = 0;
+        final int indexGroupLastRow = 51;
+        final int unitedRowsCount = 4;
+        final List<Integer> expectedRowIndexes = iterate(
+                indexGroupFirstRow,
+                i -> i <= indexGroupLastRow,
+                i -> i + unitedRowsCount
+        ).boxed().toList();
 
         final boolean rowFilteringSuccess = isRowFilteringSuccess(givenRows, actualAsList, expectedRowIndexes);
         assertTrue(rowFilteringSuccess);
