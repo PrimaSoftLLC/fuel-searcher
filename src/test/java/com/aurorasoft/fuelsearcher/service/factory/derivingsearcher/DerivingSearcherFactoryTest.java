@@ -50,8 +50,7 @@ public final class DerivingSearcherFactoryTest {
     private static final class TestDerivingSearcherFactory extends DerivingSearcherFactory<Object> {
         private final Object createdDerivedObject;
 
-        public TestDerivingSearcherFactory(final List<FuelSearcher> searchers,
-                                           final Object createdDerivedObject) {
+        public TestDerivingSearcherFactory(final List<FuelSearcher> searchers, final Object createdDerivedObject) {
             super(searchers);
             this.createdDerivedObject = createdDerivedObject;
         }
