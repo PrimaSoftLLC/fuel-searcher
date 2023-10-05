@@ -1,12 +1,12 @@
 package com.aurorasoft.fuelsearcher.service.dictionary;
 
-import com.aurorasoft.fuelsearcher.testutil.ReflectionUtil;
 import org.junit.Test;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
 import static org.junit.Assert.*;
 
 public final class DictionaryTest {
@@ -90,7 +90,7 @@ public final class DictionaryTest {
 
     @SuppressWarnings("unchecked")
     private static Map<String, TestObject> findValuesByAliases(final Dictionary<TestObject> dictionary) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 dictionary,
                 FIELD_NAME_VALUES_BY_ALIAS,
                 Map.class
