@@ -8,7 +8,6 @@ import com.aurorasoft.fuelsearcher.model.specification.propertyextractor.Specifi
 import com.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher.CompositeSearcherBuilder;
 import com.aurorasoft.fuelsearcher.util.XWPFContentUtil;
 import com.aurorasoft.fuelsearcher.util.XWPFParagraphUtil;
-import com.aurorasoft.fuelsearcher.testutil.ReflectionUtil;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
@@ -20,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import static com.aurorasoft.fuelsearcher.testutil.ReflectionUtil.*;
 import static com.aurorasoft.fuelsearcher.util.XWPFContentUtil.areEqualConsideringOnlyLettersAndDigits;
 import static com.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.extractParagraphText;
 import static org.junit.Assert.*;
@@ -246,7 +246,7 @@ public final class CompositeFuelSearcherTest {
     }
 
     private static CompositeFuelSearcher createSearcher(final SubTableTitleMetadata subTableTitleMetadata) {
-        return ReflectionUtil.createObject(
+        return createObject(
                 CompositeFuelSearcher.class,
                 new Class<?>[]{
                         FuelTable.class,
@@ -266,7 +266,7 @@ public final class CompositeFuelSearcherTest {
     @SuppressWarnings("SameParameterValue")
     private static SubTableTitleMetadata createSubTableTitleMetadata(final String template,
                                                                      final List<SpecificationPropertyExtractor> argumentExtractors) {
-        return ReflectionUtil.createObject(
+        return createObject(
                 SubTableTitleMetadata.class,
                 new Class<?>[]{String.class, String.class, List.class},
                 new Object[]{template, null, argumentExtractors}
@@ -281,7 +281,7 @@ public final class CompositeFuelSearcherTest {
     }
 
     private static SubTableTitleMetadata findSubTableTitleMetadata(final CompositeSearcherBuilder builder) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 builder,
                 FIELD_NAME_SUB_TABLE_TITLE_METADATA,
                 SubTableTitleMetadata.class
@@ -289,7 +289,7 @@ public final class CompositeFuelSearcherTest {
     }
 
     private static FuelTable findTable(final FuelSearcher searcher) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 searcher,
                 FIELD_NAME_TABLE,
                 FuelTable.class
@@ -297,7 +297,7 @@ public final class CompositeFuelSearcherTest {
     }
 
     private static FuelHeaderMetadata findHeaderMetadata(final FuelSearcher searcher) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 searcher,
                 FIELD_NAME_HEADER_METADATA,
                 FuelHeaderMetadata.class
@@ -305,7 +305,7 @@ public final class CompositeFuelSearcherTest {
     }
 
     private static FilterChain findFilterChain(final FuelSearcher searcher) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 searcher,
                 FIELD_NAME_FILTER_CHAIN,
                 FilterChain.class
@@ -313,7 +313,7 @@ public final class CompositeFuelSearcherTest {
     }
 
     private static SubTableTitleMetadata findSubTableTitleMetadata(final CompositeFuelSearcher searcher) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 searcher,
                 FIELD_NAME_SUB_TABLE_TITLE_METADATA,
                 SubTableTitleMetadata.class
@@ -322,7 +322,7 @@ public final class CompositeFuelSearcherTest {
 
     private static void setSubTableTitleMetadata(final CompositeSearcherBuilder builder,
                                                  final SubTableTitleMetadata metadata) {
-        ReflectionUtil.setProperty(
+        setProperty(
                 builder,
                 metadata,
                 FIELD_NAME_SUB_TABLE_TITLE_METADATA

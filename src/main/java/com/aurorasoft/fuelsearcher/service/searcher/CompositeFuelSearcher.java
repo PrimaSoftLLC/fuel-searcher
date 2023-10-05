@@ -5,8 +5,6 @@ import com.aurorasoft.fuelsearcher.model.PropertyMetadataSource;
 import com.aurorasoft.fuelsearcher.model.SubTableTitleMetadata;
 import com.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import com.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
-import com.aurorasoft.fuelsearcher.util.XWPFContentUtil;
-import com.aurorasoft.fuelsearcher.util.XWPFParagraphUtil;
 import lombok.NoArgsConstructor;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -18,6 +16,8 @@ import java.util.OptionalInt;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import static com.aurorasoft.fuelsearcher.util.XWPFContentUtil.areEqualConsideringOnlyLettersAndDigits;
+import static com.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.extractParagraphText;
 import static java.lang.String.format;
 import static java.util.stream.IntStream.iterate;
 import static lombok.AccessLevel.PRIVATE;
@@ -58,7 +58,10 @@ public final class CompositeFuelSearcher extends FuelSearcher {
     private OptionalInt findSubTableTitleIndex(final List<IBodyElement> elements, final FuelSpecification specification) {
         final String titleContent = this.findSubTableTitleContent(specification);
         return findTitleIndexes(elements)
-                .filter(i -> XWPFContentUtil.areEqualConsideringOnlyLettersAndDigits(XWPFParagraphUtil.extractParagraphText(elements.get(i)), titleContent))
+                .filter(i -> areEqualConsideringOnlyLettersAndDigits(
+                        extractParagraphText(elements.get(i)),
+                        titleContent)
+                )
                 .findFirst();
     }
 
