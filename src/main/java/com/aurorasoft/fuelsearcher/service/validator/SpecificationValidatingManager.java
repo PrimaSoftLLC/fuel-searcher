@@ -6,6 +6,8 @@ import com.aurorasoft.fuelsearcher.service.dictionary.SpecificationValidatorDict
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import static com.aurorasoft.fuelsearcher.service.validator.SpecificationValidatingResult.createNotValidValidatingResult;
+
 @Service
 @RequiredArgsConstructor
 public final class SpecificationValidatingManager {
@@ -16,6 +18,6 @@ public final class SpecificationValidatingManager {
         return this.tableNameExtractor.find(specification)
                 .flatMap(this.validatorDictionary::find)
                 .map(validator -> validator.validate(specification))
-                .orElseGet(() -> SpecificationValidatingResult.createNotValidValidatingResult(this.tableNameExtractor));
+                .orElseGet(() -> createNotValidValidatingResult(this.tableNameExtractor));
     }
 }
