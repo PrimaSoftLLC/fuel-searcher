@@ -1,12 +1,12 @@
 package com.aurorasoft.fuelsearcher.service.validator;
 
 import com.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
-import com.aurorasoft.fuelsearcher.testutil.ReflectionUtil;
 import org.junit.Test;
 
 import java.util.List;
 
 import static com.aurorasoft.fuelsearcher.service.validator.SpecificationValidatingResult.createNotValidValidatingResult;
+import static com.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
 import static java.util.Collections.emptyList;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -49,7 +49,8 @@ public final class SpecificationValidatingResultTest {
         final SpecificationPropertyExtractor secondGivenExtractor = createPropertyExtractor(secondGivenPropertyName);
 
         final List<SpecificationPropertyExtractor> givenPropertyExtractors = List.of(
-                firstGivenExtractor, secondGivenExtractor
+                firstGivenExtractor,
+                secondGivenExtractor
         );
         final SpecificationValidatingResult givenValidatingResult = new SpecificationValidatingResult(
                 givenPropertyExtractors
@@ -94,7 +95,7 @@ public final class SpecificationValidatingResultTest {
     private static List<SpecificationPropertyExtractor> findFailedPropertyExtractors(
             final SpecificationValidatingResult validatingResult
     ) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 validatingResult,
                 FIELD_NAME_FAILED_PROPERTY_EXTRACTORS,
                 List.class
