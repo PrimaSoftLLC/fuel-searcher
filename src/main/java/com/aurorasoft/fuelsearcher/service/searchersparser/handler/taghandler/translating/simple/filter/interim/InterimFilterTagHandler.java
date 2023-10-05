@@ -13,8 +13,8 @@ public abstract class InterimFilterTagHandler<
         extends FilterTagHandler<FILTER, FILTER_FACTORY> {
 
     public InterimFilterTagHandler(final String tagName,
-                                   final InterimFilterFactoryDictionary<FILTER_FACTORY> filterFactoryDictionary) {
-        super(tagName, filterFactoryDictionary);
+                                   final InterimFilterFactoryDictionary<FILTER_FACTORY> dictionary) {
+        super(tagName, dictionary);
     }
 
     @Override
