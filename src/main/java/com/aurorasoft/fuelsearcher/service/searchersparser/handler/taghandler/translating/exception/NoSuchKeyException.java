@@ -1,7 +1,5 @@
 package com.aurorasoft.fuelsearcher.service.searchersparser.handler.taghandler.translating.exception;
 
-import java.util.function.Function;
-
 public abstract class NoSuchKeyException extends RuntimeException {
     private static final String DESCRIPTION_TEMPLATE = "There is no mapping for '%s'";
 
@@ -26,7 +24,7 @@ public abstract class NoSuchKeyException extends RuntimeException {
     }
 
     @FunctionalInterface
-    public interface NoSuchKeyExceptionFactory<E extends NoSuchKeyException> extends Function<String, E> {
-
+    public interface NoSuchKeyExceptionFactory<E extends NoSuchKeyException> {
+        E create(final String alias);
     }
 }
