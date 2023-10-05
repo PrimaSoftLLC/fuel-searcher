@@ -1,13 +1,13 @@
 package com.aurorasoft.fuelsearcher.service.searchersparser.handler;
 
 import com.aurorasoft.fuelsearcher.service.dictionary.TagHandlerDictionary;
-import com.aurorasoft.fuelsearcher.testutil.ReflectionUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import static com.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
@@ -38,7 +38,7 @@ public final class SearchersParsingHandlerFactoryTest {
     }
 
     private static TagHandlerDictionary findTagHandlerDictionary(final SearchersParsingHandler handler) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 handler,
                 HANDLER_FIELD_NAME_TAG_HANDLER_DICTIONARY,
                 TagHandlerDictionary.class
@@ -46,7 +46,7 @@ public final class SearchersParsingHandlerFactoryTest {
     }
 
     private static SearchersParsingContext findContext(final SearchersParsingHandler handler) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 handler,
                 HANDLER_FIELD_NAME_CONTEXT,
                 SearchersParsingContext.class
