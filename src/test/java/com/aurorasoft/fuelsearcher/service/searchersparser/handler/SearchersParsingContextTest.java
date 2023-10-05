@@ -3,16 +3,15 @@ package com.aurorasoft.fuelsearcher.service.searchersparser.handler;
 import com.aurorasoft.fuelsearcher.model.FuelTable;
 import com.aurorasoft.fuelsearcher.model.SubTableTitleMetadata;
 import com.aurorasoft.fuelsearcher.model.SubTableTitleMetadata.SubTableTitleMetadataBuilder;
-import com.aurorasoft.fuelsearcher.service.filter.conclusive.FinalFilter;
-import com.aurorasoft.fuelsearcher.service.filter.interim.InterimFilter;
 import com.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import com.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
+import com.aurorasoft.fuelsearcher.service.filter.conclusive.FinalFilter;
+import com.aurorasoft.fuelsearcher.service.filter.interim.InterimFilter;
 import com.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher;
 import com.aurorasoft.fuelsearcher.service.searcher.CompositeFuelSearcher.CompositeSearcherBuilder;
 import com.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
 import com.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher;
 import com.aurorasoft.fuelsearcher.service.searcher.SimpleFuelSearcher.SimpleSearcherBuilder;
-import com.aurorasoft.fuelsearcher.testutil.ReflectionUtil;
 import lombok.Builder;
 import org.junit.Test;
 import org.xml.sax.Attributes;
@@ -24,6 +23,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+import static com.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
+import static com.aurorasoft.fuelsearcher.testutil.ReflectionUtil.setProperty;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
@@ -649,7 +650,7 @@ public final class SearchersParsingContextTest {
 
     @SuppressWarnings("unchecked")
     private static List<FuelSearcher> findSearchers(final SearchersParsingContext context) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 context,
                 FIELD_NAME_SEARCHERS,
                 List.class
@@ -657,7 +658,7 @@ public final class SearchersParsingContextTest {
     }
 
     private static SimpleSearcherBuilder findSimpleSearcherBuilder(final SearchersParsingContext context) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 context,
                 FIELD_NAME_SIMPLE_SEARCHER_BUILDER,
                 SimpleSearcherBuilder.class
@@ -665,7 +666,7 @@ public final class SearchersParsingContextTest {
     }
 
     private static CompositeSearcherBuilder findCompositeSearcherBuilder(final SearchersParsingContext context) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 context,
                 FIELD_NAME_COMPOSITE_SEARCHER_BUILDER,
                 CompositeSearcherBuilder.class
@@ -673,7 +674,7 @@ public final class SearchersParsingContextTest {
     }
 
     private static SubTableTitleMetadataBuilder findSubTableTitleMetadataBuilder(final SearchersParsingContext context) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 context,
                 FIELD_NAME_SUB_TABLE_TITLE_METADATA_BUILDER,
                 SubTableTitleMetadataBuilder.class
@@ -682,7 +683,7 @@ public final class SearchersParsingContextTest {
 
     private static void setSimpleSearcherBuilder(final SearchersParsingContext context,
                                                  final SimpleSearcherBuilder builder) {
-        ReflectionUtil.setProperty(
+        setProperty(
                 context,
                 builder,
                 FIELD_NAME_SIMPLE_SEARCHER_BUILDER
@@ -691,7 +692,7 @@ public final class SearchersParsingContextTest {
 
     private static void setCompositeSearcherBuilder(final SearchersParsingContext context,
                                                     final CompositeSearcherBuilder builder) {
-        ReflectionUtil.setProperty(
+        setProperty(
                 context,
                 builder,
                 FIELD_NAME_COMPOSITE_SEARCHER_BUILDER
@@ -700,7 +701,7 @@ public final class SearchersParsingContextTest {
 
     private static void setSubTableTitleMetadataBuilder(final SearchersParsingContext context,
                                                         final SubTableTitleMetadataBuilder builder) {
-        ReflectionUtil.setProperty(
+        setProperty(
                 context,
                 builder,
                 FIELD_NAME_SUB_TABLE_TITLE_METADATA_BUILDER
@@ -708,7 +709,7 @@ public final class SearchersParsingContextTest {
     }
 
     private static void setSearchers(final SearchersParsingContext context, final List<FuelSearcher> searchers) {
-        ReflectionUtil.setProperty(
+        setProperty(
                 context,
                 searchers,
                 FIELD_NAME_SEARCHERS
