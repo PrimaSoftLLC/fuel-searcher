@@ -25,6 +25,6 @@ public abstract class NoSuchKeyException extends RuntimeException {
 
     @FunctionalInterface
     public interface NoSuchKeyExceptionFactory<E extends NoSuchKeyException> {
-        E create(final String alias);
+        E create(final String key);
     }
 }
