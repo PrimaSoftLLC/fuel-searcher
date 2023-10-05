@@ -3,16 +3,14 @@ package com.aurorasoft.fuelsearcher.service.searcher;
 import com.aurorasoft.fuelsearcher.model.Fuel;
 import com.aurorasoft.fuelsearcher.model.FuelTable;
 import com.aurorasoft.fuelsearcher.model.PropertyMetadataSource;
-import com.aurorasoft.fuelsearcher.service.filter.conclusive.FinalFilter;
-import com.aurorasoft.fuelsearcher.service.filter.interim.InterimFilter;
 import com.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import com.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import com.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import com.aurorasoft.fuelsearcher.service.builder.BuilderRequiringAllProperties;
 import com.aurorasoft.fuelsearcher.service.dictionary.Translatable;
+import com.aurorasoft.fuelsearcher.service.filter.conclusive.FinalFilter;
+import com.aurorasoft.fuelsearcher.service.filter.interim.InterimFilter;
 import com.aurorasoft.fuelsearcher.service.searcher.FilterChain.FilterChainBuilder;
-import com.aurorasoft.fuelsearcher.util.StreamUtil;
-import com.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil;
 import com.aurorasoft.fuelsearcher.util.XWPFTableRowUtil;
 import lombok.Getter;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
@@ -23,6 +21,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.ToIntFunction;
 import java.util.stream.Stream;
+
+import static com.aurorasoft.fuelsearcher.util.StreamUtil.concat;
+import static com.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findFirstCellIndexByContent;
 
 @Getter
 public abstract class FuelSearcher implements Translatable {
@@ -56,7 +57,7 @@ public abstract class FuelSearcher implements Translatable {
     }
 
     public final Stream<PropertyMetadataSource> findUsedPropertyMetadataSources() {
-        return StreamUtil.concat(
+        return concat(
                 this.filterChain.findFilters(),
                 Stream.of(this.headerMetadata),
                 this.findAdditionalPropertyMetadataSources()
@@ -85,7 +86,7 @@ public abstract class FuelSearcher implements Translatable {
                                                     final FuelSpecification specification,
                                                     final XWPFTableRow fuelRow) {
         final String fuelHeader = this.findFuelHeader(specification);
-        return XWPFTableRowFilteringUtil.findFirstCellIndexByContent(headerRow, fuelHeader)
+        return findFirstCellIndexByContent(headerRow, fuelHeader)
                 .stream()
                 .map(fuelHeaderCellIndex -> this.findGenerationNormCellIndex(fuelHeaderCellIndex, fuelHeader))
                 .mapToObj(generationNormCellIndex -> createFuelLocation(fuelRow, generationNormCellIndex))
@@ -169,7 +170,7 @@ public abstract class FuelSearcher implements Translatable {
         protected final Stream<Object> findProperties() {
             final Stream<Object> currentProperties = Stream.of(this.table, this.headerMetadata, this.filterChainBuilder);
             final Stream<Object> additionalProperties = this.findAdditionalProperties();
-            return StreamUtil.concat(currentProperties, additionalProperties);
+            return concat(currentProperties, additionalProperties);
         }
 
         @Override

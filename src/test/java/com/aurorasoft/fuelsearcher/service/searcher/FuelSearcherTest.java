@@ -3,17 +3,16 @@ package com.aurorasoft.fuelsearcher.service.searcher;
 import com.aurorasoft.fuelsearcher.model.Fuel;
 import com.aurorasoft.fuelsearcher.model.FuelTable;
 import com.aurorasoft.fuelsearcher.model.PropertyMetadataSource;
-import com.aurorasoft.fuelsearcher.service.filter.Filter;
-import com.aurorasoft.fuelsearcher.service.filter.conclusive.FinalFilter;
-import com.aurorasoft.fuelsearcher.service.filter.interim.InterimFilter;
 import com.aurorasoft.fuelsearcher.model.header.FuelHeaderMetadata;
 import com.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import com.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
+import com.aurorasoft.fuelsearcher.service.filter.Filter;
+import com.aurorasoft.fuelsearcher.service.filter.conclusive.FinalFilter;
+import com.aurorasoft.fuelsearcher.service.filter.interim.InterimFilter;
 import com.aurorasoft.fuelsearcher.service.searcher.FilterChain.FilterChainBuilder;
 import com.aurorasoft.fuelsearcher.service.searcher.FuelSearcher.SearcherBuilder;
 import com.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil;
 import com.aurorasoft.fuelsearcher.util.XWPFTableRowUtil;
-import com.aurorasoft.fuelsearcher.testutil.ReflectionUtil;
 import lombok.Builder;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
@@ -28,6 +27,8 @@ import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.stream.Stream;
 
+import static com.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
+import static com.aurorasoft.fuelsearcher.testutil.ReflectionUtil.setProperty;
 import static com.aurorasoft.fuelsearcher.util.XWPFTableRowFilteringUtil.findFirstCellIndexByContent;
 import static com.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.extractCellDoubleValue;
 import static java.lang.Double.NaN;
@@ -220,7 +221,8 @@ public final class FuelSearcherTest {
             final List<XWPFTableRow> givenRows = List.of(firstGivenRow, secondGivenRow, thirdGivenRow);
             when(givenSubTable.getRows()).thenReturn(givenRows);
 
-            when(givenFilterChain.filter(same(givenRows), same(givenSpecification))).thenReturn(Optional.of(secondGivenRow));
+            when(givenFilterChain.filter(same(givenRows), same(givenSpecification)))
+                    .thenReturn(Optional.of(secondGivenRow));
 
             final String givenHeader = "header2";
             when(givenHeaderExtractor.extract(same(givenSpecification))).thenReturn(givenHeader);
@@ -528,7 +530,7 @@ public final class FuelSearcherTest {
     }
 
     private static FuelTable findTable(final SearcherBuilder<?> builder) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 builder,
                 FIELD_NAME_TABLE,
                 FuelTable.class
@@ -536,7 +538,7 @@ public final class FuelSearcherTest {
     }
 
     private static FuelHeaderMetadata findHeaderMetadata(final SearcherBuilder<?> builder) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 builder,
                 FIELD_NAME_HEADER_METADATA,
                 FuelHeaderMetadata.class
@@ -544,7 +546,7 @@ public final class FuelSearcherTest {
     }
 
     private static FilterChainBuilder findFilterChainBuilder(final SearcherBuilder<?> builder) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 builder,
                 FIELD_NAME_FILTER_CHAIN_BUILDER,
                 FilterChainBuilder.class
@@ -553,7 +555,7 @@ public final class FuelSearcherTest {
 
     @SuppressWarnings("unchecked")
     private static List<InterimFilter> findInterimFilters(final FilterChainBuilder builder) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 builder,
                 FIELD_NAME_INTERIM_FILTERS,
                 List.class
@@ -561,7 +563,7 @@ public final class FuelSearcherTest {
     }
 
     private static FinalFilter findFinalFilter(final FilterChainBuilder builder) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 builder,
                 FIELD_NAME_FINAL_FILTER,
                 FinalFilter.class
@@ -569,7 +571,7 @@ public final class FuelSearcherTest {
     }
 
     private static FuelTable findTable(final FuelSearcher searcher) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 searcher,
                 FIELD_NAME_TABLE,
                 FuelTable.class
@@ -577,7 +579,7 @@ public final class FuelSearcherTest {
     }
 
     private static FuelHeaderMetadata findHeaderMetadata(final FuelSearcher searcher) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 searcher,
                 FIELD_NAME_HEADER_METADATA,
                 FuelHeaderMetadata.class
@@ -585,7 +587,7 @@ public final class FuelSearcherTest {
     }
 
     private static FilterChain findFilterChain(final FuelSearcher searcher) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 searcher,
                 FIELD_NAME_FILTER_CHAIN,
                 FilterChain.class
@@ -593,7 +595,7 @@ public final class FuelSearcherTest {
     }
 
     private static void setFuelTable(final SearcherBuilder<?> builder, final FuelTable table) {
-        ReflectionUtil.setProperty(
+        setProperty(
                 builder,
                 table,
                 FIELD_NAME_TABLE
@@ -601,7 +603,7 @@ public final class FuelSearcherTest {
     }
 
     private static void setHeaderMetadata(final SearcherBuilder<?> builder, final FuelHeaderMetadata metadata) {
-        ReflectionUtil.setProperty(
+        setProperty(
                 builder,
                 metadata,
                 FIELD_NAME_HEADER_METADATA
@@ -610,7 +612,7 @@ public final class FuelSearcherTest {
 
     private static void setFilterChainBuilder(final SearcherBuilder<?> builder,
                                               final FilterChainBuilder filterChainBuilder) {
-        ReflectionUtil.setProperty(
+        setProperty(
                 builder,
                 filterChainBuilder,
                 FIELD_NAME_FILTER_CHAIN_BUILDER
