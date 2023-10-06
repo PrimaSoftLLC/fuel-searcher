@@ -14,11 +14,11 @@ import java.util.Optional;
 import static java.util.stream.Stream.generate;
 
 @Component
-@ConditionalOnProperty(prefix = "metadata-refreshing", name = "enable", havingValue = "false")
+@ConditionalOnProperty(prefix = "metadata", name = "refreshing-enable", havingValue = "false")
 public final class PreparedTablesMetadataLoader implements TablesMetadataLoader {
     private final String filePath;
 
-    public PreparedTablesMetadataLoader(@Value("${metadata-refreshing.file-path}") final String filePath) {
+    public PreparedTablesMetadataLoader(@Value("${metadata.file-path}") final String filePath) {
         this.filePath = filePath;
     }
 

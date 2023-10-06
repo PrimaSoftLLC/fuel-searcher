@@ -1,13 +1,11 @@
 package com.aurorasoft.fuelsearcher.service.documentloading;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.net.URI;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static java.nio.file.Files.readAllBytes;
 
@@ -22,20 +20,18 @@ public final class DocumentLoadingService {
         this.searcherConfigFilePath = searcherConfigFilePath;
     }
 
-    public Resource loadFuelDocument() {
+    public byte[] loadFuelDocument() {
         return load(this.fuelDocumentFilePath);
     }
 
-    public Resource loadSearcherConfigFile() {
+    public byte[] loadSearcherConfigFile() {
         return load(this.searcherConfigFilePath);
     }
 
-    private static Resource load(final String filePath) {
+    private static byte[] load(final String filePath) {
         try {
-            final URI uri = URI.create(filePath);
-            final Path path = Path.of(uri);
-            final byte[] bytes = readAllBytes(path);
-            return new ByteArrayResource(bytes);
+            final Path path = Paths.get(filePath);
+            return readAllBytes(path);
         } catch (final IOException cause) {
             throw new DocumentLoadingException(cause);
         }
