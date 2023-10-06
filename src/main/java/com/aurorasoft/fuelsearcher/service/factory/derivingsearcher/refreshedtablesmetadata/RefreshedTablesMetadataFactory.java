@@ -4,7 +4,7 @@ import com.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata;
 import com.aurorasoft.fuelsearcher.model.FuelTable;
 import com.aurorasoft.fuelsearcher.model.metadata.PropertyMetadata;
 import com.aurorasoft.fuelsearcher.service.factory.derivingsearcher.DerivingSearcherFactory;
-import com.aurorasoft.fuelsearcher.service.factory.derivingsearcher.refreshedtablesmetadata.metadatasearcher.TablePropertyMetadataSearchingManager;
+import com.aurorasoft.fuelsearcher.service.factory.derivingsearcher.refreshedtablesmetadata.metadatasearcher.PropertyMetadataSearchingManager;
 import com.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
 import org.springframework.stereotype.Component;
 
@@ -12,10 +12,10 @@ import java.util.List;
 
 @Component
 public final class RefreshedTablesMetadataFactory extends DerivingSearcherFactory<PropertyMetadata> {
-    private final TablePropertyMetadataSearchingManager propertyMetadataSearchingManager;
+    private final PropertyMetadataSearchingManager propertyMetadataSearchingManager;
 
     public RefreshedTablesMetadataFactory(final List<FuelSearcher> searchers,
-                                          final TablePropertyMetadataSearchingManager propertyMetadataSearchingManager) {
+                                          final PropertyMetadataSearchingManager propertyMetadataSearchingManager) {
         super(searchers);
         this.propertyMetadataSearchingManager = propertyMetadataSearchingManager;
     }

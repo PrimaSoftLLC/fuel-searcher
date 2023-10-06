@@ -4,7 +4,7 @@ import com.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
 import com.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata;
 import com.aurorasoft.fuelsearcher.model.FuelTable;
 import com.aurorasoft.fuelsearcher.model.PropertyMetadataSource;
-import com.aurorasoft.fuelsearcher.service.factory.derivingsearcher.refreshedtablesmetadata.metadatasearcher.TablePropertyMetadataSearchingManager;
+import com.aurorasoft.fuelsearcher.service.factory.derivingsearcher.refreshedtablesmetadata.metadatasearcher.PropertyMetadataSearchingManager;
 import com.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 public final class RefreshedTablesMetadataFactoryTest {
 
     @Mock
-    private TablePropertyMetadataSearchingManager mockedMetadataSearchingManager;
+    private PropertyMetadataSearchingManager mockedMetadataSearchingManager;
 
     private RefreshedTablesMetadataFactory metadataFactory;
 

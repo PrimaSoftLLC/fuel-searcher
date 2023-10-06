@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public final class TablePropertyMetadataSearchingManager {
+public final class PropertyMetadataSearchingManager {
     private static final String EXCEPTION_DESCRIPTION_NOT_SUITABLE_SOURCE
             = "Impossible to find metadata of property by given source '%s'";
 

@@ -27,11 +27,11 @@ public final class PropertyMetadataSearchingManagerTest {
     @Mock
     private PropertyMetadataSearcher<?> thirdMockedSearcher;
 
-    private TablePropertyMetadataSearchingManager searchingManager;
+    private PropertyMetadataSearchingManager searchingManager;
 
     @Before
     public void initializeSearchingManager() {
-        this.searchingManager = new TablePropertyMetadataSearchingManager(
+        this.searchingManager = new PropertyMetadataSearchingManager(
                 List.of(
                         this.firstMockedSearcher,
                         this.secondMockedSearcher,
