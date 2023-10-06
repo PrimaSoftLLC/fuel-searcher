@@ -1,5 +1,7 @@
 package com.aurorasoft.fuelsearcher.controller;
 
+import com.aurorasoft.fuelsearcher.model.LoadedDocument;
+import com.aurorasoft.fuelsearcher.model.LoadedDocument.ContentType;
 import com.aurorasoft.fuelsearcher.service.documentloading.DocumentLoadingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.function.Function;
+
+import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/document")
@@ -21,24 +26,37 @@ public final class DocumentLoadingController {
 
     @GetMapping("/fuel")
     public ResponseEntity<StreamingResponseBody> loadFuelDocument(final HttpServletResponse response) {
-        response.setHeader("Content-disposition", "attachment; filename=fuel-document.docx");
-        return ResponseEntity.ok(
-                outputStream -> outputStream.write(
-                        this.loadingService.loadFuelDocument()
-                )
-        );
-
-//        return this.load(DocumentLoadingService::loadFuelDocument);
+        return this.loadDocument(response, DocumentLoadingService::loadFuelDocument);
     }
 
     @GetMapping("/searcher-config")
     public ResponseEntity<StreamingResponseBody> loadSearcherConfigFile(final HttpServletResponse response) {
-        response.setHeader("Content-disposition", "attachment; filename=searcher-config.xml");
-//        return this.load(DocumentLoadingService::loadSearcherConfigFile);
-        return ResponseEntity.ok(
-                outputStream -> outputStream.write(
-                        this.loadingService.loadSearcherConfigFile()
-                )
-        );
+        return this.loadDocument(response, DocumentLoadingService::loadSearcherConfigFile);
+    }
+
+    private ResponseEntity<StreamingResponseBody> loadDocument(
+            final HttpServletResponse response,
+            final Function<DocumentLoadingService, LoadedDocument> loadingFunction
+    ) {
+        final LoadedDocument loadedDocument = loadingFunction.apply(this.loadingService);
+        setHeader(response, loadedDocument);
+        return ok(outputStream -> outputStream.write(loadedDocument.getBytes()));
+    }
+
+    private static void setHeader(final HttpServletResponse response, final LoadedDocument loadedDocument) {
+        final String headerValue = findHeaderValue(loadedDocument);
+        response.setHeader(HEADER_KEY, headerValue);
+    }
+
+    private static String findHeaderValue(final LoadedDocument loadedDocument) {
+        final String documentName = loadedDocument.getName();
+        final String documentContentType = findContentTypeInLowerCase(loadedDocument);
+        return HEADER_VALUE_TEMPLATE.formatted(documentName, documentContentType);
+    }
+
+    private static String findContentTypeInLowerCase(final LoadedDocument loadedDocument) {
+        final ContentType contentType = loadedDocument.getContentType();
+        final String contentTypeAsString = contentType.name();
+        return contentTypeAsString.toLowerCase();
     }
 }
