@@ -1,4 +1,4 @@
-package com.aurorasoft.fuelsearcher.service.tablesmetadataloader.exception;
+package com.aurorasoft.fuelsearcher.service.metadataloader.exception;
 
 public final class TablesMetadataLoadingException extends RuntimeException {
 

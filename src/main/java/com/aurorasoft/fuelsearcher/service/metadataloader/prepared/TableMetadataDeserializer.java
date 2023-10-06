@@ -1,7 +1,7 @@
-package com.aurorasoft.fuelsearcher.service.tablesmetadataloader.prepared;
+package com.aurorasoft.fuelsearcher.service.metadataloader.prepared;
 
 import com.aurorasoft.fuelsearcher.model.metadata.TableMetadata;
-import com.aurorasoft.fuelsearcher.service.tablesmetadataloader.exception.TablesMetadataLoadingException;
+import com.aurorasoft.fuelsearcher.service.metadataloader.exception.TablesMetadataLoadingException;
 
 import java.io.*;
 import java.util.Optional;

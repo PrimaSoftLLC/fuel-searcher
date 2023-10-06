@@ -1,4 +1,4 @@
-package com.aurorasoft.fuelsearcher.service.tablesmetadataloader;
+package com.aurorasoft.fuelsearcher.service.metadataloader;
 
 import com.aurorasoft.fuelsearcher.model.metadata.TableMetadata;
 
