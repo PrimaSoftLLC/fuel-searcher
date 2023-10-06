@@ -18,6 +18,7 @@ import java.util.Optional;
 public class TableMetadataController {
     private static final String EXCEPTION_DESCRIPTION_NO_SUCH_METADATA = "There is no metadata for table '%s'";
 
+    //TODO: tableMetadataDictionary
     private final TableMetadataService metadataService;
 
     @GetMapping

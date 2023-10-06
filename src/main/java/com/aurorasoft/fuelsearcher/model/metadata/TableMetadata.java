@@ -5,12 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Value
 @AllArgsConstructor
 @Builder
-public class TableMetadata implements Translatable {
+public class TableMetadata implements Translatable, Serializable {
     String tableName;
     List<PropertyMetadata> propertiesMetadata;
 
