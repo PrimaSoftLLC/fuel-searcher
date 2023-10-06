@@ -18,7 +18,7 @@ public final class DocumentLoadingService {
     private static final String FUEL_DOCUMENT_NAME = "fuel-document";
     private static final ContentType FUEL_DOCUMENT_CONTENT_TYPE = DOCX;
 
-    private static final String SEARCHER_CONFIG_FILE_NAME = "searcher-config-file";
+    private static final String SEARCHER_CONFIG_FILE_NAME = "searcher-config";
     private static final ContentType SEARCHER_CONFIG_FILE_CONTENT_TYPE = XML;
 
     private final String fuelDocumentFilePath;
