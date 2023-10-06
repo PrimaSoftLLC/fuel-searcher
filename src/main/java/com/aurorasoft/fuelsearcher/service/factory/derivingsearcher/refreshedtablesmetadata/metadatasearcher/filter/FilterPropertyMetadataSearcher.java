@@ -1,7 +1,7 @@
 package com.aurorasoft.fuelsearcher.service.factory.derivingsearcher.refreshedtablesmetadata.metadatasearcher.filter;
 
 import com.aurorasoft.fuelsearcher.service.filter.Filter;
-import com.aurorasoft.fuelsearcher.service.factory.derivingsearcher.refreshedtablesmetadata.metadatasearcher.PropertyMetadataSearcher;
+import com.aurorasoft.fuelsearcher.service.factory.derivingsearcher.refreshedtablesmetadata.metadatasearcher.TablePropertyMetadataSearcher;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 import static com.aurorasoft.fuelsearcher.util.XWPFTableRowUtil.extractCellText;
 
-public abstract class FilterPropertyMetadataSearcher<F extends Filter<?>> extends PropertyMetadataSearcher<F> {
+public abstract class FilterPropertyMetadataSearcher<F extends Filter<?>> extends TablePropertyMetadataSearcher<F> {
     private static final int LAST_HEADER_ROW_INDEX = 3;
 
     public FilterPropertyMetadataSearcher(final Class<F> filterType) {

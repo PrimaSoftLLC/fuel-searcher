@@ -14,7 +14,7 @@ import static com.aurorasoft.fuelsearcher.util.XWPFParagraphUtil.extractText;
 import static java.util.regex.Pattern.compile;
 
 @Component
-public final class SubTableTitleArgumentMetadataSearcher extends PropertyMetadataSearcher<SubTableTitleArgumentMetadata> {
+public final class SubTableTitleArgumentMetadataSearcher extends TablePropertyMetadataSearcher<SubTableTitleArgumentMetadata> {
 
     public SubTableTitleArgumentMetadataSearcher() {
         super(SubTableTitleArgumentMetadata.class);

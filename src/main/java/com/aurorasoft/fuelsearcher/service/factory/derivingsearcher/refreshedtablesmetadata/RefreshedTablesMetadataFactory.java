@@ -3,6 +3,7 @@ package com.aurorasoft.fuelsearcher.service.factory.derivingsearcher.refreshedta
 import com.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
 import com.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata;
 import com.aurorasoft.fuelsearcher.model.FuelTable;
+import com.aurorasoft.fuelsearcher.model.metadata.TablePropertyMetadata;
 import com.aurorasoft.fuelsearcher.service.factory.derivingsearcher.DerivingSearcherFactory;
 import com.aurorasoft.fuelsearcher.service.factory.derivingsearcher.refreshedtablesmetadata.metadatasearcher.PropertyMetadataSearchingManager;
 import com.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public final class RefreshedTablesMetadataFactory extends DerivingSearcherFactory<TableMetadata> {
+public final class RefreshedTablesMetadataFactory extends DerivingSearcherFactory<TablePropertyMetadata> {
     private final PropertyMetadataSearchingManager propertyMetadataSearchingManager;
 
     public RefreshedTablesMetadataFactory(final List<FuelSearcher> searchers,
