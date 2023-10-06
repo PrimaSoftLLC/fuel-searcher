@@ -24,7 +24,7 @@ public class FuelController {
     private final SpecificationValidatingManager specificationValidatingManager;
 
     @GetMapping
-    public ResponseEntity<Fuel> findFuel(@RequestParam(name = "tableName") final String tableName,
+    public ResponseEntity<Fuel> findFuel(@RequestParam(name = "tableName") final String tableName, //TODO
                                          @RequestParam(name = "tractor", required = false) final String tractor,
                                          @RequestParam(name = "machinery", required = false) final String machinery,
                                          @RequestParam(name = "corpusCount", required = false) final String corpusCount,
