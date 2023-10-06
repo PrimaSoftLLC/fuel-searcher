@@ -7,8 +7,7 @@ import lombok.Value;
 @Value
 @AllArgsConstructor
 @Builder
-public class TablePropertyMetadata {
-    String tableName;
+public class PropertyMetadata {
     String propertyName;
     String[] allowableValues;
 }

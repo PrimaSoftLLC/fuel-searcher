@@ -2,7 +2,7 @@ package com.aurorasoft.fuelsearcher.service.factory.derivingsearcher.refreshedta
 
 import com.aurorasoft.fuelsearcher.model.FuelTable;
 import com.aurorasoft.fuelsearcher.model.PropertyMetadataSource;
-import com.aurorasoft.fuelsearcher.model.metadata.TablePropertyMetadata;
+import com.aurorasoft.fuelsearcher.model.metadata.PropertyMetadata;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 
@@ -19,11 +19,11 @@ public abstract class TablePropertyMetadataSearcher<S extends PropertyMetadataSo
         return this.sourceType.isInstance(source);
     }
 
-    public final TablePropertyMetadata find(final FuelTable table, final PropertyMetadataSource source) {
+    public final PropertyMetadata find(final FuelTable table, final PropertyMetadataSource source) {
         final String tableName = table.name();
         final String propertyName = source.findPropertyName();
         final String[] uniqueAllowableValues = this.findUniqueAllowableValues(table, source);
-        return new TablePropertyMetadata(tableName, propertyName, uniqueAllowableValues);
+        return new PropertyMetadata(tableName, propertyName, uniqueAllowableValues);
     }
 
     protected abstract Stream<String> findAllowableValues(final List<IBodyElement> tableElements, final S source);
