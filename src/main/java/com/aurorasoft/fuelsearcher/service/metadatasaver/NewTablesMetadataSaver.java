@@ -3,6 +3,8 @@ package com.aurorasoft.fuelsearcher.service.metadatasaver;
 import com.aurorasoft.fuelsearcher.model.metadata.TableMetadata;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.event.ContextClosedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedOutputStream;
@@ -23,6 +25,7 @@ public final class NewTablesMetadataSaver {
         this.newTablesMetadata = newTablesMetadata;
     }
 
+    @EventListener(ContextClosedEvent.class)
     public void save() {
         try (final ObjectOutputStream outputStream = this.createObjectOutputStream()) {
             this.newTablesMetadata.forEach(newTableMetadata -> save(newTableMetadata, outputStream));
