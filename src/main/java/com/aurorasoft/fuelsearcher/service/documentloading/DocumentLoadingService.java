@@ -1,5 +1,7 @@
 package com.aurorasoft.fuelsearcher.service.documentloading;
 
+import com.aurorasoft.fuelsearcher.model.LoadedDocument;
+import com.aurorasoft.fuelsearcher.model.LoadedDocument.ContentType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -7,10 +9,18 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static com.aurorasoft.fuelsearcher.model.LoadedDocument.ContentType.DOCX;
+import static com.aurorasoft.fuelsearcher.model.LoadedDocument.ContentType.XML;
 import static java.nio.file.Files.readAllBytes;
 
 @Service
 public final class DocumentLoadingService {
+    private static final String FUEL_DOCUMENT_NAME = "fuel-document";
+    private static final ContentType FUEL_DOCUMENT_CONTENT_TYPE = DOCX;
+
+    private static final String SEARCHER_CONFIG_FILE_NAME = "searcher-config-file";
+    private static final ContentType SEARCHER_CONFIG_FILE_CONTENT_TYPE = XML;
+
     private final String fuelDocumentFilePath;
     private final String searcherConfigFilePath;
 
@@ -20,15 +30,28 @@ public final class DocumentLoadingService {
         this.searcherConfigFilePath = searcherConfigFilePath;
     }
 
-    public byte[] loadFuelDocument() {
-        return load(this.fuelDocumentFilePath);
+    public LoadedDocument loadFuelDocument() {
+        return load(
+                this.fuelDocumentFilePath,
+                FUEL_DOCUMENT_NAME,
+                FUEL_DOCUMENT_CONTENT_TYPE
+        );
     }
 
-    public byte[] loadSearcherConfigFile() {
-        return load(this.searcherConfigFilePath);
+    public LoadedDocument loadSearcherConfigFile() {
+        return load(
+                this.searcherConfigFilePath,
+                SEARCHER_CONFIG_FILE_NAME,
+                SEARCHER_CONFIG_FILE_CONTENT_TYPE
+        );
     }
 
-    private static byte[] load(final String filePath) {
+    private static LoadedDocument load(final String filePath, final String name, final ContentType contentType) {
+        final byte[] bytes = loadAsBytes(filePath);
+        return new LoadedDocument(bytes, name, contentType);
+    }
+
+    private static byte[] loadAsBytes(final String filePath) {
         try {
             final Path path = Paths.get(filePath);
             return readAllBytes(path);
