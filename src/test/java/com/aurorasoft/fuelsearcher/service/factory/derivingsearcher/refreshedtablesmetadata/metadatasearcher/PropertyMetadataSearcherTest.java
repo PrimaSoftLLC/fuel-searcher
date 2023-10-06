@@ -124,7 +124,7 @@ public final class PropertyMetadataSearcherTest {
 
     }
 
-    private static final class TestPropertyMetadataSearcher extends TablePropertyMetadataSearcher<TestSource> {
+    private static final class TestPropertyMetadataSearcher extends PropertyMetadataSearcher<TestSource> {
         private final List<String> allowableValues;
         private final boolean allowableValuesDuplicated;
 

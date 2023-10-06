@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 import static com.aurorasoft.fuelsearcher.util.XWPFContentUtil.removeDuplicatesConsideringOnlyLettersAndDigits;
 
 @RequiredArgsConstructor
-public abstract class TablePropertyMetadataSearcher<S extends PropertyMetadataSource> {
+public abstract class PropertyMetadataSearcher<S extends PropertyMetadataSource> {
     private final Class<S> sourceType;
 
     public final boolean isAbleToFind(final PropertyMetadataSource source) {
@@ -20,10 +20,9 @@ public abstract class TablePropertyMetadataSearcher<S extends PropertyMetadataSo
     }
 
     public final PropertyMetadata find(final FuelTable table, final PropertyMetadataSource source) {
-        final String tableName = table.name();
         final String propertyName = source.findPropertyName();
         final String[] uniqueAllowableValues = this.findUniqueAllowableValues(table, source);
-        return new PropertyMetadata(tableName, propertyName, uniqueAllowableValues);
+        return new PropertyMetadata(propertyName, uniqueAllowableValues);
     }
 
     protected abstract Stream<String> findAllowableValues(final List<IBodyElement> tableElements, final S source);

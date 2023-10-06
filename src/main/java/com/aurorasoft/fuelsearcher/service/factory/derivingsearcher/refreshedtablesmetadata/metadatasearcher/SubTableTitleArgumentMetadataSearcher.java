@@ -15,7 +15,7 @@ import static java.util.regex.Pattern.compile;
 
 @Component
 public final class SubTableTitleArgumentMetadataSearcher
-        extends TablePropertyMetadataSearcher<SubTableTitleArgumentMetadata> {
+        extends PropertyMetadataSearcher<SubTableTitleArgumentMetadata> {
 
     public SubTableTitleArgumentMetadataSearcher() {
         super(SubTableTitleArgumentMetadata.class);

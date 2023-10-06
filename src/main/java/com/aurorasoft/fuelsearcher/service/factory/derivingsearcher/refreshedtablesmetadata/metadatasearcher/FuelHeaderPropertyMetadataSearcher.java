@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 import static java.util.Arrays.stream;
 
 @Component
-public final class FuelHeaderPropertyMetadataSearcher extends TablePropertyMetadataSearcher<FuelHeaderMetadata> {
+public final class FuelHeaderPropertyMetadataSearcher extends PropertyMetadataSearcher<FuelHeaderMetadata> {
 
     public FuelHeaderPropertyMetadataSearcher() {
         super(FuelHeaderMetadata.class);

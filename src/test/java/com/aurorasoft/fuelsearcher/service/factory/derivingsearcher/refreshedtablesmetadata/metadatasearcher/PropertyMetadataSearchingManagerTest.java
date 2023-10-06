@@ -19,13 +19,13 @@ import static org.mockito.Mockito.*;
 public final class PropertyMetadataSearchingManagerTest {
 
     @Mock
-    private TablePropertyMetadataSearcher<?> firstMockedSearcher;
+    private PropertyMetadataSearcher<?> firstMockedSearcher;
 
     @Mock
-    private TablePropertyMetadataSearcher<?> secondMockedSearcher;
+    private PropertyMetadataSearcher<?> secondMockedSearcher;
 
     @Mock
-    private TablePropertyMetadataSearcher<?> thirdMockedSearcher;
+    private PropertyMetadataSearcher<?> thirdMockedSearcher;
 
     private TablePropertyMetadataSearchingManager searchingManager;
 

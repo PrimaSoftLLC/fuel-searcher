@@ -14,7 +14,7 @@ public final class TablePropertyMetadataSearchingManager {
     private static final String EXCEPTION_DESCRIPTION_NOT_SUITABLE_SOURCE
             = "Impossible to find metadata of property by given source '%s'";
 
-    private final List<TablePropertyMetadataSearcher<?>> searchers;
+    private final List<PropertyMetadataSearcher<?>> searchers;
 
     public PropertyMetadata find(final FuelTable table, final PropertyMetadataSource source) {
         return this.searchers.stream()
