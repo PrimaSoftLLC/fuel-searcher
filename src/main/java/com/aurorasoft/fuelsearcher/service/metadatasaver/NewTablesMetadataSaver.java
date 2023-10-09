@@ -2,7 +2,6 @@ package com.aurorasoft.fuelsearcher.service.metadatasaver;
 
 import com.aurorasoft.fuelsearcher.model.metadata.TableMetadata;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -14,7 +13,6 @@ import java.io.ObjectOutputStream;
 import java.util.List;
 
 @Component
-@ConditionalOnProperty(prefix = "metadata-refreshing", name = "enable", havingValue = "true")
 public final class NewTablesMetadataSaver {
     private final String filePath;
     private final List<TableMetadata> newTablesMetadata;
