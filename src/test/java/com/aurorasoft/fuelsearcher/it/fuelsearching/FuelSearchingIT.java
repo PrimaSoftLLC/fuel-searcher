@@ -1,10 +1,10 @@
 package com.aurorasoft.fuelsearcher.it.fuelsearching;
 
 import com.aurorasoft.fuelsearcher.base.AbstractContextTest;
+import com.aurorasoft.fuelsearcher.it.fuelsearching.argumentsprovider.FuelSearchingArgumentsProvidingUtil;
 import com.aurorasoft.fuelsearcher.model.Fuel;
 import com.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import com.aurorasoft.fuelsearcher.testutil.FuelControllerRequestUtil;
-import com.aurorasoft.fuelsearcher.it.fuelsearching.argumentsprovider.FuelSearchingArgumentsProvidingUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -21,7 +21,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import static com.aurorasoft.fuelsearcher.testutil.FuelControllerRequestUtil.*;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.http.HttpStatus.*;
 
 @AutoConfigureMockMvc
