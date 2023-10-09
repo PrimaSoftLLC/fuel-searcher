@@ -1,4 +1,4 @@
-package com.aurorasoft.fuelsearcher.service.searchingcontext;
+package com.aurorasoft.fuelsearcher.service.setting;
 
 import com.aurorasoft.fuelsearcher.model.FuelDocument;
 import com.aurorasoft.fuelsearcher.service.dictionary.FuelSearcherDictionary;
@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 @Builder
-public final class FuelSearchingContext {
+public final class FuelSearchingSetting {
     private final FuelDocument document;
     private final FuelSearcherDictionary searcherDictionary;
     private final SpecificationValidatorDictionary specificationValidatorDictionary;
