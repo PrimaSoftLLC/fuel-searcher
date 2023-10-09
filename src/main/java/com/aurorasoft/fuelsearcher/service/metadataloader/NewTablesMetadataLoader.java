@@ -10,7 +10,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-@ConditionalOnProperty(prefix = "metadata", name = "refreshing-enable", havingValue = "true")
+@ConditionalOnProperty(prefix = "metadata", name = "refresh-on-start", havingValue = "true")
 public final class NewTablesMetadataLoader implements TablesMetadataLoader {
     private final RefreshedTablesMetadataFactory refreshedTablesMetadataFactory;
 
