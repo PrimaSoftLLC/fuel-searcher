@@ -1,5 +1,5 @@
 fuel-document:
-  path: ./src/main/resources/postanovlenie128.2022.docx
+  path: ./src/main/resources/fuel-document.docx
 
 fuel-searcher-config:
   path: ./src/main/resources/fuel-searchers.xml

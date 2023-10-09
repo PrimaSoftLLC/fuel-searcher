@@ -17,7 +17,7 @@ public final class NewTablesMetadataSaver {
     private final String filePath;
     private final List<TableMetadata> newTablesMetadata;
 
-    public NewTablesMetadataSaver(@Value("${metadata-refreshing.file-path}") final String filePath,
+    public NewTablesMetadataSaver(@Value("${metadata.file-path}") final String filePath,
                                   final List<TableMetadata> newTablesMetadata) {
         this.filePath = filePath;
         this.newTablesMetadata = newTablesMetadata;
