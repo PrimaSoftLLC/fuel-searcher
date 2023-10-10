@@ -38,7 +38,6 @@ public final class DownloadingFileService {
         );
     }
 
-    //TODO: test
     public DownloadedFile downloadSearcherConfigFile() {
         return load(
                 this.searcherConfigFilePath,
