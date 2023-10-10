@@ -12,9 +12,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static com.aurorasoft.fuelsearcher.model.DownloadedFile.ContentType.DOCX;
+import static com.aurorasoft.fuelsearcher.model.DownloadedFile.ContentType.XML;
 import static com.aurorasoft.fuelsearcher.testutil.ControllerRequestUtil.doRequest;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.HttpStatus.OK;
 
@@ -25,8 +25,12 @@ public final class DownloadingFileControllerTest {
 
     private static final String CONTROLLER_URL = "/document";
 
-    private static final String PATH_TO_DOWNLOAD_FUEL_DOCUMENT = "/fuel";
+    private static final String PATH_TO_DOWNLOAD_FUEL_DOCUMENT = "/fuel-document";
     private static final String URL_TO_DOWNLOAD_FUEL_DOCUMENT = CONTROLLER_URL + PATH_TO_DOWNLOAD_FUEL_DOCUMENT;
+
+    private static final String PATH_TO_DOWNLOAD_SEARCHER_CONFIG_FILE = "/searcher-config";
+    private static final String URL_TO_DOWNLOAD_SEARCHER_CONFIG_FILE = CONTROLLER_URL
+            + PATH_TO_DOWNLOAD_SEARCHER_CONFIG_FILE;
 
     @MockBean
     private DownloadingFileService mockedDownloadingService;
@@ -50,9 +54,36 @@ public final class DownloadingFileControllerTest {
                 URL_TO_DOWNLOAD_FUEL_DOCUMENT,
                 OK
         );
+        assertNull(response.getContentType());
 
         final String actualHeaderValue = response.getHeader(HEADER_KEY);
         final String expectedHeaderValue = "attachment; filename=fuel-document.docx";
+        assertEquals(expectedHeaderValue, actualHeaderValue);
+
+        final byte[] actualContent = response.getContentAsByteArray();
+        assertArrayEquals(givenBytes, actualContent);
+    }
+
+    @Test
+    public void searcherConfigFileShouldBeDownloaded()
+            throws Exception {
+        final byte[] givenBytes = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        final DownloadedFile givenDownloadedFile = DownloadedFile.builder()
+                .bytes(givenBytes)
+                .name("searcher-config")
+                .contentType(XML)
+                .build();
+        when(this.mockedDownloadingService.downloadSearcherConfigFile()).thenReturn(givenDownloadedFile);
+
+        final MockHttpServletResponse response = doRequest(
+                this.mockMvc,
+                URL_TO_DOWNLOAD_SEARCHER_CONFIG_FILE,
+                OK
+        );
+        assertNull(response.getContentType());
+
+        final String actualHeaderValue = response.getHeader(HEADER_KEY);
+        final String expectedHeaderValue = "attachment; filename=searcher-config.xml";
         assertEquals(expectedHeaderValue, actualHeaderValue);
 
         final byte[] actualContent = response.getContentAsByteArray();

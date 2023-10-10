@@ -24,7 +24,7 @@ public final class DownloadingFileController {
 
     private final DownloadingFileService downloadingService;
 
-    @GetMapping("/fuel")
+    @GetMapping("/fuel-document")
     public ResponseEntity<StreamingResponseBody> downloadFuelDocument(final HttpServletResponse response) {
         return downloadFile(response, this.downloadingService::downloadFuelDocument);
     }
