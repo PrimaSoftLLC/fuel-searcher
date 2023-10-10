@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/tableMetadata")
 @RequiredArgsConstructor
@@ -22,8 +20,8 @@ public final class TableMetadataController {
 
     @GetMapping
     public ResponseEntity<TableMetadata> findByTableName(@RequestParam(name = "tableName") final String tableName) {
-        final Optional<TableMetadata> optionalMetadata = this.metadataDictionary.find(tableName);
-        return optionalMetadata.map(ResponseEntity::ok)
+        return this.metadataDictionary.find(tableName)
+                .map(ResponseEntity::ok)
                 .orElseThrow(
                         () -> new NoSuchEntityException(
                                 EXCEPTION_DESCRIPTION_NO_SUCH_METADATA.formatted(tableName)

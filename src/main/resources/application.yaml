@@ -7,3 +7,7 @@ fuel-searcher-config:
 metadata:
   refresh-on-start: true
   file-path: ./src/main/resources/tables-metadata.txt
+
+server:
+  servlet:
+    context-path: /fuel-searcher
