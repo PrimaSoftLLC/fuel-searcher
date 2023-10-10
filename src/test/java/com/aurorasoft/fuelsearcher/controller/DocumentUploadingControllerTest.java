@@ -26,7 +26,7 @@ import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(DocumentUploadingService.class)
+@WebMvcTest(DocumentUploadingController.class)
 public final class DocumentUploadingControllerTest {
     private static final String CONTROLLER_URL = "/uploadingDocument";
 
