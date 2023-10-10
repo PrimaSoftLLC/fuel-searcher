@@ -1,7 +1,7 @@
 package com.aurorasoft.fuelsearcher.controller;
 
-import com.aurorasoft.fuelsearcher.model.LoadedDocument;
-import com.aurorasoft.fuelsearcher.model.LoadedDocument.ContentType;
+import com.aurorasoft.fuelsearcher.model.DownloadedFile;
+import com.aurorasoft.fuelsearcher.model.DownloadedFile.ContentType;
 import com.aurorasoft.fuelsearcher.service.documentloading.DocumentLoadingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -36,25 +36,25 @@ public final class DocumentLoadingController {
 
     private ResponseEntity<StreamingResponseBody> loadDocument(
             final HttpServletResponse response,
-            final Function<DocumentLoadingService, LoadedDocument> loadingFunction
+            final Function<DocumentLoadingService, DownloadedFile> loadingFunction
     ) {
-        final LoadedDocument loadedDocument = loadingFunction.apply(this.loadingService);
+        final DownloadedFile loadedDocument = loadingFunction.apply(this.loadingService);
         setHeader(response, loadedDocument);
         return ok(outputStream -> outputStream.write(loadedDocument.getBytes()));
     }
 
-    private static void setHeader(final HttpServletResponse response, final LoadedDocument loadedDocument) {
+    private static void setHeader(final HttpServletResponse response, final DownloadedFile loadedDocument) {
         final String headerValue = findHeaderValue(loadedDocument);
         response.setHeader(HEADER_KEY, headerValue);
     }
 
-    private static String findHeaderValue(final LoadedDocument loadedDocument) {
+    private static String findHeaderValue(final DownloadedFile loadedDocument) {
         final String documentName = loadedDocument.getName();
         final String documentContentType = findContentTypeInLowerCase(loadedDocument);
         return HEADER_VALUE_TEMPLATE.formatted(documentName, documentContentType);
     }
 
-    private static String findContentTypeInLowerCase(final LoadedDocument loadedDocument) {
+    private static String findContentTypeInLowerCase(final DownloadedFile loadedDocument) {
         final ContentType contentType = loadedDocument.getContentType();
         final String contentTypeAsString = contentType.name();
         return contentTypeAsString.toLowerCase();

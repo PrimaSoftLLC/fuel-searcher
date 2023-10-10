@@ -3,6 +3,7 @@ package com.aurorasoft.fuelsearcher.model;
 import com.aurorasoft.fuelsearcher.service.dictionary.Translatable;
 import lombok.Builder;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 

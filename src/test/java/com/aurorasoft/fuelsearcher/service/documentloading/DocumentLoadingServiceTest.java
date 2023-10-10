@@ -1,14 +1,14 @@
 package com.aurorasoft.fuelsearcher.service.documentloading;
 
 import com.aurorasoft.fuelsearcher.base.AbstractContextTest;
-import com.aurorasoft.fuelsearcher.model.LoadedDocument;
+import com.aurorasoft.fuelsearcher.model.DownloadedFile;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static com.aurorasoft.fuelsearcher.model.LoadedDocument.ContentType.DOCX;
+import static com.aurorasoft.fuelsearcher.model.DownloadedFile.ContentType.DOCX;
 import static com.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
 import static java.nio.file.Files.readAllBytes;
 import static org.junit.Assert.assertEquals;
@@ -37,8 +37,8 @@ public final class DocumentLoadingServiceTest extends AbstractContextTest {
     @Test
     public void fuelDocumentShouldBeLoaded()
             throws Exception {
-        final LoadedDocument actual = this.loadingService.loadFuelDocument();
-        final LoadedDocument expected = LoadedDocument.builder()
+        final DownloadedFile actual = this.loadingService.loadFuelDocument();
+        final DownloadedFile expected = DownloadedFile.builder()
                 .name("fuel-document")
                 .bytes(readFuelDocument())
                 .contentType(DOCX)

@@ -1,7 +1,7 @@
 package com.aurorasoft.fuelsearcher.service.documentloading;
 
-import com.aurorasoft.fuelsearcher.model.LoadedDocument;
-import com.aurorasoft.fuelsearcher.model.LoadedDocument.ContentType;
+import com.aurorasoft.fuelsearcher.model.DownloadedFile;
+import com.aurorasoft.fuelsearcher.model.DownloadedFile.ContentType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static com.aurorasoft.fuelsearcher.model.LoadedDocument.ContentType.DOCX;
-import static com.aurorasoft.fuelsearcher.model.LoadedDocument.ContentType.XML;
+import static com.aurorasoft.fuelsearcher.model.DownloadedFile.ContentType.DOCX;
+import static com.aurorasoft.fuelsearcher.model.DownloadedFile.ContentType.XML;
 import static java.nio.file.Files.readAllBytes;
 
 @Service
@@ -30,7 +30,7 @@ public final class DocumentLoadingService {
         this.searcherConfigFilePath = searcherConfigFilePath;
     }
 
-    public LoadedDocument loadFuelDocument() {
+    public DownloadedFile loadFuelDocument() {
         return load(
                 this.fuelDocumentFilePath,
                 FUEL_DOCUMENT_NAME,
@@ -38,7 +38,8 @@ public final class DocumentLoadingService {
         );
     }
 
-    public LoadedDocument loadSearcherConfigFile() {
+    //TODO: test
+    public DownloadedFile loadSearcherConfigFile() {
         return load(
                 this.searcherConfigFilePath,
                 SEARCHER_CONFIG_FILE_NAME,
@@ -46,9 +47,9 @@ public final class DocumentLoadingService {
         );
     }
 
-    private static LoadedDocument load(final String filePath, final String name, final ContentType contentType) {
+    private static DownloadedFile load(final String filePath, final String name, final ContentType contentType) {
         final byte[] bytes = loadAsBytes(filePath);
-        return new LoadedDocument(bytes, name, contentType);
+        return new DownloadedFile(bytes, name, contentType);
     }
 
     private static byte[] loadAsBytes(final String filePath) {
