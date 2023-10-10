@@ -24,12 +24,12 @@ public final class DownloadingFileController {
 
     private final DownloadingFileService downloadingService;
 
-    @GetMapping("/fuel-document")
+    @GetMapping("/fuelDocument")
     public ResponseEntity<StreamingResponseBody> downloadFuelDocument(final HttpServletResponse response) {
         return downloadFile(response, this.downloadingService::downloadFuelDocument);
     }
 
-    @GetMapping("/searcher-config")
+    @GetMapping("/searcherConfig")
     public ResponseEntity<StreamingResponseBody> downloadSearcherConfigFile(final HttpServletResponse response) {
         return downloadFile(response, this.downloadingService::downloadSearcherConfigFile);
     }

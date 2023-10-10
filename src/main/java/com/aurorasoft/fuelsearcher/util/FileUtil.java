@@ -12,34 +12,33 @@ import static java.nio.file.Files.write;
 @UtilityClass
 public final class FileUtil {
 
-    public static void rewriteFile(final MultipartFile file, final String filePath) {
+    public static void writeFile(final MultipartFile file, final String filePath) {
         try {
-            System.out.println(new String(file.getBytes()));
             final Path path = Paths.get(filePath);
             write(path, file.getBytes());
         } catch (final IOException cause) {
-            throw new FileRewritingException(cause);
+            throw new FileWritingException(cause);
         }
     }
 
-    private static final class FileRewritingException extends RuntimeException {
+    private static final class FileWritingException extends RuntimeException {
 
         @SuppressWarnings("unused")
-        public FileRewritingException() {
+        public FileWritingException() {
 
         }
 
         @SuppressWarnings("unused")
-        public FileRewritingException(final String description) {
+        public FileWritingException(final String description) {
             super(description);
         }
 
-        public FileRewritingException(final Exception cause) {
+        public FileWritingException(final Exception cause) {
             super(cause);
         }
 
         @SuppressWarnings("unused")
-        public FileRewritingException(final String description, final Exception cause) {
+        public FileWritingException(final String description, final Exception cause) {
             super(description, cause);
         }
     }

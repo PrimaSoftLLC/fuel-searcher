@@ -21,8 +21,6 @@ public final class FuelController {
     private static final String EXCEPTION_DESCRIPTION_NO_SUCH_FUEL = "Fuel with given properties doesn't exist";
 
     private final FuelSearchingManager searchingManager;
-
-    //TODO: вынести в FuelSearchingManager
     private final SpecificationValidatingManager specificationValidatingManager;
 
     @GetMapping

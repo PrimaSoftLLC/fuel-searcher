@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import static com.aurorasoft.fuelsearcher.util.ApplicationRestartingUtil.restartApplication;
-import static com.aurorasoft.fuelsearcher.util.FileUtil.rewriteFile;
+import static com.aurorasoft.fuelsearcher.util.FileUtil.writeFile;
 
 @Service
 public final class DocumentUploadingService {
@@ -19,8 +19,8 @@ public final class DocumentUploadingService {
     }
 
     public void upload(final MultipartFile fuelDocument, final MultipartFile searcherConfigFile) {
-        rewriteFile(fuelDocument, this.fuelDocumentPath);
-        rewriteFile(searcherConfigFile, this.searcherConfigFilePath);
+        writeFile(fuelDocument, this.fuelDocumentPath);
+        writeFile(searcherConfigFile, this.searcherConfigFilePath);
         restartApplication();
     }
 }

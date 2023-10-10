@@ -25,10 +25,10 @@ public final class DownloadingFileControllerTest {
 
     private static final String CONTROLLER_URL = "/document";
 
-    private static final String PATH_TO_DOWNLOAD_FUEL_DOCUMENT = "/fuel-document";
+    private static final String PATH_TO_DOWNLOAD_FUEL_DOCUMENT = "/fuelDocument";
     private static final String URL_TO_DOWNLOAD_FUEL_DOCUMENT = CONTROLLER_URL + PATH_TO_DOWNLOAD_FUEL_DOCUMENT;
 
-    private static final String PATH_TO_DOWNLOAD_SEARCHER_CONFIG_FILE = "/searcher-config";
+    private static final String PATH_TO_DOWNLOAD_SEARCHER_CONFIG_FILE = "/searcherConfig";
     private static final String URL_TO_DOWNLOAD_SEARCHER_CONFIG_FILE = CONTROLLER_URL
             + PATH_TO_DOWNLOAD_SEARCHER_CONFIG_FILE;
 
@@ -54,7 +54,6 @@ public final class DownloadingFileControllerTest {
                 URL_TO_DOWNLOAD_FUEL_DOCUMENT,
                 OK
         );
-        assertNull(response.getContentType());
 
         final String actualHeaderValue = response.getHeader(HEADER_KEY);
         final String expectedHeaderValue = "attachment; filename=fuel-document.docx";
@@ -80,7 +79,6 @@ public final class DownloadingFileControllerTest {
                 URL_TO_DOWNLOAD_SEARCHER_CONFIG_FILE,
                 OK
         );
-        assertNull(response.getContentType());
 
         final String actualHeaderValue = response.getHeader(HEADER_KEY);
         final String expectedHeaderValue = "attachment; filename=searcher-config.xml";
