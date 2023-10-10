@@ -3,7 +3,6 @@ package com.aurorasoft.fuelsearcher.controller;
 import com.aurorasoft.fuelsearcher.controller.exception.NoSuchEntityException;
 import com.aurorasoft.fuelsearcher.controller.exception.NotValidSpecificationException;
 import com.aurorasoft.fuelsearcher.service.validator.SpecificationValidatingResult;
-import com.aurorasoft.fuelsearcher.testutil.ReflectionUtil;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +10,11 @@ import org.springframework.http.ResponseEntity;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.aurorasoft.fuelsearcher.testutil.ReflectionUtil.findProperty;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.springframework.http.HttpStatus.NOT_ACCEPTABLE;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.*;
 
 public final class ControllerExceptionHandlerTest {
     private static final String FIELD_NAME_ERROR_RESPONSE_HTTP_STATUS = "httpStatus";
@@ -26,8 +25,8 @@ public final class ControllerExceptionHandlerTest {
 
     @Test
     public void noSuchEntityExceptionShouldBeHandled() {
-        final String givenExceptionDescription = "exception-description";
-        final NoSuchEntityException givenException = new NoSuchEntityException(givenExceptionDescription);
+        final String givenDescription = "exception-description";
+        final NoSuchEntityException givenException = new NoSuchEntityException(givenDescription);
 
         final ResponseEntity<?> actual = this.exceptionHandler.handleException(givenException);
         final HttpStatus expectedHttpStatus = NOT_FOUND;
@@ -39,7 +38,7 @@ public final class ControllerExceptionHandlerTest {
         assertSame(expectedHttpStatus, actualErrorResponseHttpStatus);
 
         final String actualErrorResponseMessage = findErrorResponseMessage(actualErrorResponse);
-        assertSame(givenExceptionDescription, actualErrorResponseMessage);
+        assertSame(givenDescription, actualErrorResponseMessage);
 
         final LocalDateTime actualErrorResponseDateTime = findErrorResponseDateTime(actualErrorResponse);
         assertNotNull(actualErrorResponseDateTime);
@@ -70,8 +69,29 @@ public final class ControllerExceptionHandlerTest {
         assertNotNull(actualErrorResponseDateTime);
     }
 
+    @Test
+    public void exceptionShouldBeHandled() {
+        final String givenDescription = "exception-description";
+        final Exception givenException = new Exception(givenDescription);
+
+        final ResponseEntity<?> actual = this.exceptionHandler.handleException(givenException);
+        final HttpStatus expectedHttpStatus = INTERNAL_SERVER_ERROR;
+        assertSame(expectedHttpStatus, actual.getStatusCode());
+
+        final Object actualErrorResponse = actual.getBody();
+
+        final HttpStatus actualErrorResponseHttpStatus = findErrorResponseHttpStatus(actualErrorResponse);
+        assertSame(expectedHttpStatus, actualErrorResponseHttpStatus);
+
+        final String actualErrorResponseMessage = findErrorResponseMessage(actualErrorResponse);
+        assertSame(givenDescription, actualErrorResponseMessage);
+
+        final LocalDateTime actualErrorResponseDateTime = findErrorResponseDateTime(actualErrorResponse);
+        assertNotNull(actualErrorResponseDateTime);
+    }
+
     private static HttpStatus findErrorResponseHttpStatus(final Object errorResponse) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 errorResponse,
                 FIELD_NAME_ERROR_RESPONSE_HTTP_STATUS,
                 HttpStatus.class
@@ -79,7 +99,7 @@ public final class ControllerExceptionHandlerTest {
     }
 
     private static String findErrorResponseMessage(final Object errorResponse) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 errorResponse,
                 FIELD_NAME_ERROR_RESPONSE_MESSAGE,
                 String.class
@@ -87,7 +107,7 @@ public final class ControllerExceptionHandlerTest {
     }
 
     private static LocalDateTime findErrorResponseDateTime(final Object errorResponse) {
-        return ReflectionUtil.findProperty(
+        return findProperty(
                 errorResponse,
                 FIELD_NAME_ERROR_RESPONSE_DATE_TIME,
                 LocalDateTime.class
