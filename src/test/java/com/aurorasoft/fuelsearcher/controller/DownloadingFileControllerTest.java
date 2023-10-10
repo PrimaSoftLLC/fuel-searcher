@@ -14,7 +14,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import static com.aurorasoft.fuelsearcher.model.DownloadedFile.ContentType.DOCX;
 import static com.aurorasoft.fuelsearcher.model.DownloadedFile.ContentType.XML;
 import static com.aurorasoft.fuelsearcher.testutil.ControllerRequestUtil.doRequest;
-import static org.junit.Assert.*;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.HttpStatus.OK;
 
@@ -31,6 +33,8 @@ public final class DownloadingFileControllerTest {
     private static final String PATH_TO_DOWNLOAD_SEARCHER_CONFIG_FILE = "/searcherConfig";
     private static final String URL_TO_DOWNLOAD_SEARCHER_CONFIG_FILE = CONTROLLER_URL
             + PATH_TO_DOWNLOAD_SEARCHER_CONFIG_FILE;
+
+    private static final long MILLISECOND_TIMEOUT_TO_GET_RESPONSE_CONTENT = 100;
 
     @MockBean
     private DownloadingFileService mockedDownloadingService;
@@ -59,7 +63,7 @@ public final class DownloadingFileControllerTest {
         final String expectedHeaderValue = "attachment; filename=fuel-document.docx";
         assertEquals(expectedHeaderValue, actualHeaderValue);
 
-        final byte[] actualContent = response.getContentAsByteArray();
+        final byte[] actualContent = findContent(response);
         assertArrayEquals(givenBytes, actualContent);
     }
 
@@ -84,7 +88,16 @@ public final class DownloadingFileControllerTest {
         final String expectedHeaderValue = "attachment; filename=searcher-config.xml";
         assertEquals(expectedHeaderValue, actualHeaderValue);
 
-        final byte[] actualContent = response.getContentAsByteArray();
+        final byte[] actualContent = findContent(response);
         assertArrayEquals(givenBytes, actualContent);
+    }
+
+    private static byte[] findContent(final MockHttpServletResponse response) {
+        try {
+            MILLISECONDS.sleep(MILLISECOND_TIMEOUT_TO_GET_RESPONSE_CONTENT);
+            return response.getContentAsByteArray();
+        } catch (final InterruptedException cause) {
+            throw new RuntimeException(cause);
+        }
     }
 }

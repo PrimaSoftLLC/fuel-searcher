@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.function.Supplier;
 
 import static org.springframework.http.ResponseEntity.ok;
@@ -38,8 +40,7 @@ public final class DownloadingFileController {
                                                                       final Supplier<DownloadedFile> fileSupplier) {
         final DownloadedFile file = fileSupplier.get();
         setHeader(response, file);
-        final byte[] fileBytes = file.getBytes();
-        return ok(outputStream -> outputStream.write(fileBytes));
+        return ok(outputStream -> writeAndFlush(outputStream, file));
     }
 
     private static void setHeader(final HttpServletResponse response, final DownloadedFile file) {
@@ -57,5 +58,12 @@ public final class DownloadingFileController {
         final ContentType contentType = file.getContentType();
         final String contentTypeAsString = contentType.name();
         return contentTypeAsString.toLowerCase();
+    }
+
+    private static void writeAndFlush(final OutputStream outputStream, final DownloadedFile file)
+            throws IOException {
+        final byte[] fileBytes = file.getBytes();
+        outputStream.write(fileBytes);
+        outputStream.flush();
     }
 }
