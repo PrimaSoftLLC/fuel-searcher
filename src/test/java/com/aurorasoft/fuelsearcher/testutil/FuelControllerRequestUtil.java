@@ -13,7 +13,6 @@ import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.aurorasoft.fuelsearcher.testutil.ControllerRequestUtil.doRequestAndGetContentAsJson;
 import static java.util.regex.Pattern.compile;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
@@ -65,7 +64,7 @@ public final class FuelControllerRequestUtil {
                                    final HttpStatus expectedHttpStatus)
             throws Exception {
         final RequestBuilder requestBuilder = createRequestBuilder(specification);
-        return doRequestAndGetContentAsJson(mockMvc, requestBuilder, expectedHttpStatus);
+        return ControllerRequestUtil.doRequestAndGetContentAsString(mockMvc, requestBuilder, expectedHttpStatus);
     }
 
     public static boolean isNoSuchFuelError(final String response) {

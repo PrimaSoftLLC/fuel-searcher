@@ -11,7 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
-import static com.aurorasoft.fuelsearcher.testutil.ControllerRequestUtil.doRequestAndGetContentAsJson;
+import static com.aurorasoft.fuelsearcher.testutil.ControllerRequestUtil.doRequestAndGetContentAsString;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.HttpStatus.OK;
@@ -35,7 +35,7 @@ public final class FuelTableControllerTest {
         final List<String> givenTableNames = List.of("first-table", "second-table", "third-table");
         when(this.mockedTableService.findTableNames()).thenReturn(givenTableNames);
 
-        final String actual = doRequestAndGetContentAsJson(this.mockMvc, URL_TO_FIND_TABLE_NAMES, OK);
+        final String actual = doRequestAndGetContentAsString(this.mockMvc, URL_TO_FIND_TABLE_NAMES, OK);
         final String expected = "[\"first-table\",\"second-table\",\"third-table\"]";
         assertEquals(expected, actual);
     }

@@ -23,16 +23,16 @@ public final class ControllerRequestUtil {
         return doRequest(mockMvc, get(url), expectedHttpStatus);
     }
 
-    public static String doRequestAndGetContentAsJson(final MockMvc mockMvc,
-                                                      final String url,
-                                                      final HttpStatus expectedHttpStatus)
+    public static String doRequestAndGetContentAsString(final MockMvc mockMvc,
+                                                        final String url,
+                                                        final HttpStatus expectedHttpStatus)
             throws Exception {
-        return doRequestAndGetContentAsJson(mockMvc, get(url), expectedHttpStatus);
+        return doRequestAndGetContentAsString(mockMvc, get(url), expectedHttpStatus);
     }
 
-    public static String doRequestAndGetContentAsJson(final MockMvc mockMvc,
-                                                      final RequestBuilder requestBuilder,
-                                                      final HttpStatus expectedHttpStatus)
+    public static String doRequestAndGetContentAsString(final MockMvc mockMvc,
+                                                        final RequestBuilder requestBuilder,
+                                                        final HttpStatus expectedHttpStatus)
             throws Exception {
         return doRequest(
                 mockMvc,
