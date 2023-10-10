@@ -8,12 +8,12 @@ import static com.aurorasoft.fuelsearcher.util.ApplicationRestartingUtil.restart
 import static com.aurorasoft.fuelsearcher.util.FileUtil.rewriteFile;
 
 @Service
-public final class FileUploadingService {
+public final class DocumentUploadingService {
     private final String fuelDocumentPath;
     private final String searcherConfigFilePath;
 
-    public FileUploadingService(@Value("${fuel-document.path}") final String fuelDocumentPath,
-                                @Value("{fuel-searcher-config.path}") final String searcherConfigFilePath) {
+    public DocumentUploadingService(@Value("${fuel-document.path}") final String fuelDocumentPath,
+                                    @Value("${fuel-searcher-config.path}") final String searcherConfigFilePath) {
         this.fuelDocumentPath = fuelDocumentPath;
         this.searcherConfigFilePath = searcherConfigFilePath;
     }

@@ -15,7 +15,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/tableMetadata")
 @RequiredArgsConstructor
-public class TableMetadataController {
+public final class TableMetadataController {
     private static final String EXCEPTION_DESCRIPTION_NO_SUCH_METADATA = "There is no metadata for table '%s'";
 
     private final TableMetadataDictionary metadataDictionary;

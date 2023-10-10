@@ -14,7 +14,7 @@ import static org.springframework.http.ResponseEntity.ok;
 @RestController
 @RequestMapping("/fuelTable")
 @RequiredArgsConstructor
-public class FuelTableController {
+public final class FuelTableController {
     private final FuelTableService tableService;
 
     @GetMapping("/tableNames")

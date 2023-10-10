@@ -14,6 +14,7 @@ public final class FileUtil {
 
     public static void rewriteFile(final MultipartFile file, final String filePath) {
         try {
+            System.out.println(new String(file.getBytes()));
             final Path path = Paths.get(filePath);
             write(path, file.getBytes());
         } catch (final IOException cause) {

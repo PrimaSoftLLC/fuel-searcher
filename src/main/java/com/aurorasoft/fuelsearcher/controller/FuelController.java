@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/fuel")
 @RequiredArgsConstructor
-public class FuelController {
+public final class FuelController {
     private static final String EXCEPTION_DESCRIPTION_NO_SUCH_FUEL = "Fuel with given properties doesn't exist";
 
     private final FuelSearchingManager searchingManager;
@@ -26,7 +26,7 @@ public class FuelController {
     private final SpecificationValidatingManager specificationValidatingManager;
 
     @GetMapping
-    public ResponseEntity<Fuel> findFuel(@RequestParam(name = "tableName") final String tableName, //TODO
+    public ResponseEntity<Fuel> findFuel(@RequestParam(name = "tableName") final String tableName,
                                          @RequestParam(name = "tractor", required = false) final String tractor,
                                          @RequestParam(name = "machinery", required = false) final String machinery,
                                          @RequestParam(name = "corpusCount", required = false) final String corpusCount,
