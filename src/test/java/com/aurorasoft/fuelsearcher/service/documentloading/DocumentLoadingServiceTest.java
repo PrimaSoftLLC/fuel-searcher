@@ -21,7 +21,7 @@ public final class DocumentLoadingServiceTest extends AbstractContextTest {
     private static final String FIELD_NAME_SEARCHER_CONFIG_FILE_PATH = "searcherConfigFilePath";
 
     @Autowired
-    private DocumentLoadingService loadingService;
+    private DownloadingFileService loadingService;
 
     @Test
     public void filePathsShouldBeInjected() {
@@ -37,7 +37,7 @@ public final class DocumentLoadingServiceTest extends AbstractContextTest {
     @Test
     public void fuelDocumentShouldBeLoaded()
             throws Exception {
-        final DownloadedFile actual = this.loadingService.loadFuelDocument();
+        final DownloadedFile actual = this.loadingService.downloadFuelDocument();
         final DownloadedFile expected = DownloadedFile.builder()
                 .name("fuel-document")
                 .bytes(readFuelDocument())

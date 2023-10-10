@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
-//TODO: rename load to download
 @Value
 @AllArgsConstructor
 @Builder

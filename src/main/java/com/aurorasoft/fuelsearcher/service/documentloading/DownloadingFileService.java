@@ -14,7 +14,7 @@ import static com.aurorasoft.fuelsearcher.model.DownloadedFile.ContentType.XML;
 import static java.nio.file.Files.readAllBytes;
 
 @Service
-public final class DocumentLoadingService {
+public final class DownloadingFileService {
     private static final String FUEL_DOCUMENT_NAME = "fuel-document";
     private static final ContentType FUEL_DOCUMENT_CONTENT_TYPE = DOCX;
 
@@ -24,13 +24,13 @@ public final class DocumentLoadingService {
     private final String fuelDocumentFilePath;
     private final String searcherConfigFilePath;
 
-    public DocumentLoadingService(@Value("${fuel-document.path}") final String fuelDocumentFilePath,
+    public DownloadingFileService(@Value("${fuel-document.path}") final String fuelDocumentFilePath,
                                   @Value("${fuel-searcher-config.path}") final String searcherConfigFilePath) {
         this.fuelDocumentFilePath = fuelDocumentFilePath;
         this.searcherConfigFilePath = searcherConfigFilePath;
     }
 
-    public DownloadedFile loadFuelDocument() {
+    public DownloadedFile downloadFuelDocument() {
         return load(
                 this.fuelDocumentFilePath,
                 FUEL_DOCUMENT_NAME,
@@ -39,7 +39,7 @@ public final class DocumentLoadingService {
     }
 
     //TODO: test
-    public DownloadedFile loadSearcherConfigFile() {
+    public DownloadedFile downloadSearcherConfigFile() {
         return load(
                 this.searcherConfigFilePath,
                 SEARCHER_CONFIG_FILE_NAME,

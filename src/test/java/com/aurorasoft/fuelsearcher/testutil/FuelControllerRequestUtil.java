@@ -64,7 +64,7 @@ public final class FuelControllerRequestUtil {
                                    final HttpStatus expectedHttpStatus)
             throws Exception {
         final RequestBuilder requestBuilder = createRequestBuilder(specification);
-        return ControllerRequestUtil.doRequest(mockMvc, requestBuilder, expectedHttpStatus);
+        return ControllerRequestUtil.doRequestAndGetContentAsJson(mockMvc, requestBuilder, expectedHttpStatus);
     }
 
     public static boolean isNoSuchFuelError(final String response) {
