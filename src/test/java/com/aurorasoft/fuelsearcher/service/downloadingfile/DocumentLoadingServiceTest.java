@@ -1,4 +1,4 @@
-package com.aurorasoft.fuelsearcher.service.documentloading;
+package com.aurorasoft.fuelsearcher.service.downloadingfile;
 
 import com.aurorasoft.fuelsearcher.base.AbstractContextTest;
 import com.aurorasoft.fuelsearcher.model.DownloadedFile;

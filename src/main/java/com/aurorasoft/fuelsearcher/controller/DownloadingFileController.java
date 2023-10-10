@@ -2,7 +2,7 @@ package com.aurorasoft.fuelsearcher.controller;
 
 import com.aurorasoft.fuelsearcher.model.DownloadedFile;
 import com.aurorasoft.fuelsearcher.model.DownloadedFile.ContentType;
-import com.aurorasoft.fuelsearcher.service.documentloading.DownloadingFileService;
+import com.aurorasoft.fuelsearcher.service.downloadingfile.DownloadingFileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

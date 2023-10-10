@@ -1,7 +1,7 @@
 package com.aurorasoft.fuelsearcher.controller;
 
 import com.aurorasoft.fuelsearcher.model.DownloadedFile;
-import com.aurorasoft.fuelsearcher.service.documentloading.DownloadingFileService;
+import com.aurorasoft.fuelsearcher.service.downloadingfile.DownloadingFileService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
