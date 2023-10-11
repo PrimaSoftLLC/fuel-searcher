@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/tableMetadata")
 @RequiredArgsConstructor
 public final class TableMetadataController {
-    private static final String EXCEPTION_DESCRIPTION_NO_SUCH_METADATA = "There is no metadata for table '%s'";
-
     private final TableMetadataDictionary metadataDictionary;
 
     @GetMapping
@@ -24,7 +22,7 @@ public final class TableMetadataController {
                 .map(ResponseEntity::ok)
                 .orElseThrow(
                         () -> new NoSuchEntityException(
-                                EXCEPTION_DESCRIPTION_NO_SUCH_METADATA.formatted(tableName)
+                                "There is no metadata for table '%s'".formatted(tableName)
                         )
                 );
     }
