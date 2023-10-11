@@ -1,67 +1,55 @@
 package com.aurorasoft.fuelsearcher.service.downloadingfile;
 
-import com.aurorasoft.fuelsearcher.base.AbstractContextTest;
 import com.aurorasoft.fuelsearcher.model.DownloadedFile;
+import com.aurorasoft.fuelsearcher.util.FileUtil;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import org.mockito.MockedStatic;
 
 import static com.aurorasoft.fuelsearcher.model.DownloadedFile.ContentType.DOCX;
 import static com.aurorasoft.fuelsearcher.model.DownloadedFile.ContentType.XML;
-import static java.nio.file.Files.readAllBytes;
+import static com.aurorasoft.fuelsearcher.util.FileUtil.readAsBytes;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.same;
+import static org.mockito.Mockito.mockStatic;
 
-public final class DownloadingFileServiceTest extends AbstractContextTest {
+public final class DownloadingFileServiceTest {
+    private static final String GIVEN_FUEL_DOCUMENT_PATH = "fuel-document.docx";
+    private static final String GIVEN_SEARCHER_CONFIG_FILE_PATH = "searcher-config.xml";
 
-    @Value("${fuel-document.path}")
-    private String fuelDocumentFilePath;
-
-    @Value("${fuel-searcher-config.path}")
-    private String searcherConfigFilePath;
-
-    @Autowired
-    private DownloadingFileService loadingService;
-
-    @Test
-    public void fuelDocumentShouldBeLoaded()
-            throws Exception {
-        final DownloadedFile actual = this.loadingService.downloadFuelDocument();
-        final DownloadedFile expected = DownloadedFile.builder()
-                .name("fuel-document")
-                .bytes(readFuelDocument())
-                .contentType(DOCX)
-                .build();
-        assertEquals(expected, actual);
-    }
+    private final DownloadingFileService loadingService = new DownloadingFileService(
+            GIVEN_FUEL_DOCUMENT_PATH,
+            GIVEN_SEARCHER_CONFIG_FILE_PATH
+    );
 
     @Test
-    public void searcherConfigFileShouldBeLoaded()
-            throws Exception {
-        final DownloadedFile actual = this.loadingService.downloadSearcherConfigFile();
-        final DownloadedFile expected = DownloadedFile.builder()
-                .name("searcher-config")
-                .bytes(readFuelSearcherConfigFile())
-                .contentType(XML)
-                .build();
-        assertEquals(expected, actual);
+    public void fuelDocumentShouldBeLoaded() {
+        try (final MockedStatic<FileUtil> mockedFileUtil = mockStatic(FileUtil.class)) {
+            final byte[] givenBytes = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+            mockedFileUtil.when(() -> readAsBytes(same(GIVEN_FUEL_DOCUMENT_PATH))).thenReturn(givenBytes);
+
+            final DownloadedFile actual = this.loadingService.downloadFuelDocument();
+            final DownloadedFile expected = DownloadedFile.builder()
+                    .name("fuel-document")
+                    .bytes(givenBytes)
+                    .contentType(DOCX)
+                    .build();
+            assertEquals(expected, actual);
+        }
     }
 
-    private byte[] readFuelDocument()
-            throws Exception {
-        return readFile(this.fuelDocumentFilePath);
-    }
+    @Test
+    public void searcherConfigFileShouldBeLoaded() {
+        try (final MockedStatic<FileUtil> mockedFileUtil = mockStatic(FileUtil.class)) {
+            final byte[] givenBytes = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+            mockedFileUtil.when(() -> readAsBytes(same(GIVEN_SEARCHER_CONFIG_FILE_PATH))).thenReturn(givenBytes);
 
-    private byte[] readFuelSearcherConfigFile()
-            throws Exception {
-        return readFile(this.searcherConfigFilePath);
-    }
-
-    private static byte[] readFile(final String filePath)
-            throws Exception {
-        final Path path = Paths.get(filePath);
-        return readAllBytes(path);
+            final DownloadedFile actual = this.loadingService.downloadSearcherConfigFile();
+            final DownloadedFile expected = DownloadedFile.builder()
+                    .name("searcher-config")
+                    .bytes(givenBytes)
+                    .contentType(XML)
+                    .build();
+            assertEquals(expected, actual);
+        }
     }
 }

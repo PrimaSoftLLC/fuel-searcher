@@ -17,18 +17,18 @@ public final class DownloadingFileService {
     private static final String SEARCHER_CONFIG_FILE_NAME = "searcher-config";
     private static final ContentType SEARCHER_CONFIG_FILE_CONTENT_TYPE = XML;
 
-    private final String fuelDocumentFilePath;
+    private final String fuelDocumentPath;
     private final String searcherConfigFilePath;
 
-    public DownloadingFileService(@Value("${fuel-document.path}") final String fuelDocumentFilePath,
+    public DownloadingFileService(@Value("${fuel-document.path}") final String fuelDocumentPath,
                                   @Value("${fuel-searcher-config.path}") final String searcherConfigFilePath) {
-        this.fuelDocumentFilePath = fuelDocumentFilePath;
+        this.fuelDocumentPath = fuelDocumentPath;
         this.searcherConfigFilePath = searcherConfigFilePath;
     }
 
     public DownloadedFile downloadFuelDocument() {
         return load(
-                this.fuelDocumentFilePath,
+                this.fuelDocumentPath,
                 FUEL_DOCUMENT_NAME,
                 FUEL_DOCUMENT_CONTENT_TYPE
         );
