@@ -35,6 +35,15 @@ public final class FileUtil {
         }
     }
 
+    public static byte[] readAsBytes(final String filePath) {
+        try {
+            final Path path = Paths.get(filePath);
+            return readAllBytes(path);
+        } catch (final IOException cause) {
+            throw new FileException(cause);
+        }
+    }
+
     private static final class FileException extends RuntimeException {
 
         @SuppressWarnings("unused")

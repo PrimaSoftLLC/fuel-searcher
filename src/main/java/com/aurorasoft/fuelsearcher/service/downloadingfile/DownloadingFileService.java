@@ -5,13 +5,9 @@ import com.aurorasoft.fuelsearcher.model.DownloadedFile.ContentType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import static com.aurorasoft.fuelsearcher.model.DownloadedFile.ContentType.DOCX;
 import static com.aurorasoft.fuelsearcher.model.DownloadedFile.ContentType.XML;
-import static java.nio.file.Files.readAllBytes;
+import static com.aurorasoft.fuelsearcher.util.FileUtil.readAsBytes;
 
 @Service
 public final class DownloadingFileService {
@@ -47,38 +43,7 @@ public final class DownloadingFileService {
     }
 
     private static DownloadedFile load(final String filePath, final String name, final ContentType contentType) {
-        final byte[] bytes = loadAsBytes(filePath);
+        final byte[] bytes = readAsBytes(filePath);
         return new DownloadedFile(bytes, name, contentType);
-    }
-
-    private static byte[] loadAsBytes(final String filePath) {
-        try {
-            final Path path = Paths.get(filePath);
-            return readAllBytes(path);
-        } catch (final IOException cause) {
-            throw new DocumentLoadingException(cause);
-        }
-    }
-
-    private static final class DocumentLoadingException extends RuntimeException {
-
-        @SuppressWarnings("unused")
-        public DocumentLoadingException() {
-
-        }
-
-        @SuppressWarnings("unused")
-        public DocumentLoadingException(final String description) {
-            super(description);
-        }
-
-        public DocumentLoadingException(final Exception cause) {
-            super(cause);
-        }
-
-        @SuppressWarnings("unused")
-        public DocumentLoadingException(final String description, final Exception cause) {
-            super(description, cause);
-        }
     }
 }
