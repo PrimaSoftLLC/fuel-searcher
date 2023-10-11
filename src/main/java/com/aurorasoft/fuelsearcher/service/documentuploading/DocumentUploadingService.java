@@ -8,7 +8,6 @@ import static com.aurorasoft.fuelsearcher.util.ApplicationRestartingUtil.restart
 import static com.aurorasoft.fuelsearcher.util.FileUtil.removeFileIfExists;
 import static com.aurorasoft.fuelsearcher.util.FileUtil.writeFile;
 
-//TODO: refactor tests
 @Service
 public final class DocumentUploadingService {
     private final String fuelDocumentPath;

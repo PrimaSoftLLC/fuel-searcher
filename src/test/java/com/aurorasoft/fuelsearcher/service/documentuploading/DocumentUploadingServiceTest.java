@@ -7,6 +7,7 @@ import org.mockito.MockedStatic;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
+import static com.aurorasoft.fuelsearcher.util.FileUtil.removeFileIfExists;
 import static com.aurorasoft.fuelsearcher.util.FileUtil.writeFile;
 import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.mockStatic;
@@ -15,10 +16,12 @@ import static org.mockito.Mockito.times;
 public final class DocumentUploadingServiceTest {
     private static final String GIVEN_FUEL_DOCUMENT_PATH = "fuel-document.docx";
     private static final String GIVEN_SEARCHER_CONFIG_FILE_PATH = "searcher-config.xml";
+    private static final String GIVEN_TABLES_METADATA_FILE_PATH = "tables-metadata.txt";
 
     private final DocumentUploadingService uploadingService = new DocumentUploadingService(
             GIVEN_FUEL_DOCUMENT_PATH,
-            GIVEN_SEARCHER_CONFIG_FILE_PATH
+            GIVEN_SEARCHER_CONFIG_FILE_PATH,
+            GIVEN_TABLES_METADATA_FILE_PATH
     );
 
     @Test
@@ -39,6 +42,10 @@ public final class DocumentUploadingServiceTest {
             );
             mockedFileUtil.verify(
                     () -> writeFile(same(givenSearcherConfigFilePath), same(GIVEN_SEARCHER_CONFIG_FILE_PATH)),
+                    times(1)
+            );
+            mockedFileUtil.verify(
+                    () -> removeFileIfExists(same(GIVEN_TABLES_METADATA_FILE_PATH)),
                     times(1)
             );
             mockedRestartingUtil.verify(
