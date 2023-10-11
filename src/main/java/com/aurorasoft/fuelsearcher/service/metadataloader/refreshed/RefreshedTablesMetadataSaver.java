@@ -4,11 +4,10 @@ import com.aurorasoft.fuelsearcher.model.metadata.TableMetadata;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.List;
+
+import static com.aurorasoft.fuelsearcher.util.OutputStreamUtil.*;
 
 @Component
 public final class RefreshedTablesMetadataSaver {
@@ -18,47 +17,32 @@ public final class RefreshedTablesMetadataSaver {
         this.preparedMetadataFilePath = preparedMetadataFilePath;
     }
 
-    public void save(final List<TableMetadata> newTablesMetadata) {
-        try (final ObjectOutputStream outputStream = this.createObjectOutputStream()) {
-            newTablesMetadata.forEach(newTableMetadata -> save(newTableMetadata, outputStream));
+    public void save(final List<TableMetadata> refreshedTablesMetadata) {
+        try (final ObjectOutputStream outputStream = createObjectOutputStream(this.preparedMetadataFilePath)) {
+            writeObjects(outputStream, refreshedTablesMetadata);
         } catch (final IOException cause) {
-            throw new NewTablesMetadataSavingException(cause);
+            throw new MetadataSavingException(cause);
         }
     }
 
-    private ObjectOutputStream createObjectOutputStream()
-            throws IOException {
-        final FileOutputStream fileOutputStream = new FileOutputStream(this.preparedMetadataFilePath);
-        final BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
-        return new ObjectOutputStream(bufferedOutputStream);
-    }
-
-    private static void save(final TableMetadata metadata, final ObjectOutputStream outputStream) {
-        try {
-            outputStream.writeObject(metadata);
-        } catch (final IOException cause) {
-            throw new NewTablesMetadataSavingException(cause);
-        }
-    }
-
-    private static final class NewTablesMetadataSavingException extends RuntimeException {
+    private static final class MetadataSavingException extends RuntimeException {
 
         @SuppressWarnings("unused")
-        public NewTablesMetadataSavingException() {
+        public MetadataSavingException() {
 
         }
 
         @SuppressWarnings("unused")
-        public NewTablesMetadataSavingException(final String description) {
+        public MetadataSavingException(final String description) {
             super(description);
         }
 
-        public NewTablesMetadataSavingException(final Exception cause) {
+        public MetadataSavingException(final Exception cause) {
             super(cause);
         }
 
         @SuppressWarnings("unused")
-        public NewTablesMetadataSavingException(final String description, final Exception cause) {
+        public MetadataSavingException(final String description, final Exception cause) {
             super(description, cause);
         }
     }
