@@ -15,7 +15,8 @@ public final class FileUtil {
     public static void writeFile(final MultipartFile file, final String filePath) {
         try {
             final Path path = Paths.get(filePath);
-            write(path, file.getBytes());
+            final byte[] fileBytes = file.getBytes();
+            write(path, fileBytes);
         } catch (final IOException cause) {
             throw new FileException(cause);
         }
