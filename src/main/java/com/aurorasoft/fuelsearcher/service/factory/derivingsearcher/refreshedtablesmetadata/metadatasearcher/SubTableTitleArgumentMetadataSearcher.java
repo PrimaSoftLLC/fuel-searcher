@@ -48,31 +48,31 @@ public final class SubTableTitleArgumentMetadataSearcher
         final Pattern pattern = compile(regex);
         final Matcher matcher = pattern.matcher(title);
         if (!matcher.matches()) {
-            throw new SubTableTitleArgumentMetadataSearchingException(
+            throw new ArgumentMetadataSearchingException(
                     "Searching argument's metadata was failed for title of sub table: '%s'".formatted(title)
             );
         }
         return matcher;
     }
 
-    private static final class SubTableTitleArgumentMetadataSearchingException extends RuntimeException {
+    private static final class ArgumentMetadataSearchingException extends RuntimeException {
 
         @SuppressWarnings("unused")
-        public SubTableTitleArgumentMetadataSearchingException() {
+        public ArgumentMetadataSearchingException() {
 
         }
 
-        public SubTableTitleArgumentMetadataSearchingException(final String description) {
+        public ArgumentMetadataSearchingException(final String description) {
             super(description);
         }
 
         @SuppressWarnings("unused")
-        public SubTableTitleArgumentMetadataSearchingException(final Exception cause) {
+        public ArgumentMetadataSearchingException(final Exception cause) {
             super(cause);
         }
 
         @SuppressWarnings("unused")
-        public SubTableTitleArgumentMetadataSearchingException(final String description, final Exception cause) {
+        public ArgumentMetadataSearchingException(final String description, final Exception cause) {
             super(description, cause);
         }
 
