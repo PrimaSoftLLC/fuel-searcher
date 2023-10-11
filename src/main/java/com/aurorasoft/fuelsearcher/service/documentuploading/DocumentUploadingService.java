@@ -21,6 +21,7 @@ public final class DocumentUploadingService {
     public void upload(final MultipartFile fuelDocument, final MultipartFile searcherConfigFile) {
         writeFile(fuelDocument, this.fuelDocumentPath);
         writeFile(searcherConfigFile, this.searcherConfigFilePath);
+
         restartApplication();
     }
 }

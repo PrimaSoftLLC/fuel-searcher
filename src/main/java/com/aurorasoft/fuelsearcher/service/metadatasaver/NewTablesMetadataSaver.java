@@ -23,7 +23,6 @@ public final class NewTablesMetadataSaver {
         this.newTablesMetadata = newTablesMetadata;
     }
 
-    @EventListener(ContextClosedEvent.class)
     public void save() {
         try (final ObjectOutputStream outputStream = this.createObjectOutputStream()) {
             this.newTablesMetadata.forEach(newTableMetadata -> save(newTableMetadata, outputStream));

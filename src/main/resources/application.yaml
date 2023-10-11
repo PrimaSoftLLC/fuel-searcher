@@ -5,7 +5,6 @@ fuel-searcher-config:
   path: ./src/main/resources/searcher-config.xml
 
 metadata:
-  refresh-on-start: true
   file-path: ./src/main/resources/tables-metadata.txt
 
 server:

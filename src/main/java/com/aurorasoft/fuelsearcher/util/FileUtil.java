@@ -4,9 +4,11 @@ import lombok.experimental.UtilityClass;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static java.nio.file.Files.exists;
 import static java.nio.file.Files.write;
 
 @UtilityClass
@@ -19,6 +21,11 @@ public final class FileUtil {
         } catch (final IOException cause) {
             throw new FileWritingException(cause);
         }
+    }
+
+    public static boolean isFileExist(final String filePath) {
+        final Path path = Paths.get(filePath);
+        return exists(path);
     }
 
     private static final class FileWritingException extends RuntimeException {
