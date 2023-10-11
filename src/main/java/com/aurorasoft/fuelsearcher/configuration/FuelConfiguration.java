@@ -19,14 +19,12 @@ import java.util.List;
 @PropertySource(value = "classpath:fuel-header-metadata.properties", encoding = "UTF-8")
 public class FuelConfiguration {
 
-    //TODO: put path in parser and factory test
     @Bean
     public FuelDocument fuelDocument(final FuelDocumentFactory factory,
                                      @Value("${fuel-document.path}") final String filePath) {
         return factory.create(filePath);
     }
 
-    //TODO: put path in parser and refactor test
     @Bean
     public List<FuelSearcher> fuelSearchers(final FuelSearchersParser parser,
                                             @Value("${fuel-searcher-config.path}") final String filePath) {
@@ -38,7 +36,6 @@ public class FuelConfiguration {
         return factory.create();
     }
 
-    //TODO: refactor test
     @Bean
     public List<TableMetadata> tablesMetadata(final TablesMetadataLoadingManager loadingManager) {
         return loadingManager.load();
