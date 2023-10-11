@@ -12,9 +12,9 @@ import java.util.List;
 @Order(2)
 @Component
 @RequiredArgsConstructor
-public final class NewTablesMetadataLoader implements TablesMetadataLoader {
+public final class RefreshedTablesMetadataLoader implements TablesMetadataLoader {
     private final RefreshedTablesMetadataFactory refreshedMetadataFactory;
-    private final NewTablesMetadataSaver newMetadataSaver;
+    private final RefreshedTablesMetadataSaver refreshedMetadataSaver;
 
     @Override
     public boolean isAbleToLoad() {
@@ -23,8 +23,8 @@ public final class NewTablesMetadataLoader implements TablesMetadataLoader {
 
     @Override
     public List<TableMetadata> load() {
-        final List<TableMetadata> tablesMetadata = this.refreshedMetadataFactory.create();
-        this.newMetadataSaver.save(tablesMetadata);
-        return tablesMetadata;
+        final List<TableMetadata> refreshedTablesMetadata = this.refreshedMetadataFactory.create();
+        this.refreshedMetadataSaver.save(refreshedTablesMetadata);
+        return refreshedTablesMetadata;
     }
 }

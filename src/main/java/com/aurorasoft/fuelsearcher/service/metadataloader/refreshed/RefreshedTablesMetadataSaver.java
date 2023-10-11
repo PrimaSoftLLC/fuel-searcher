@@ -11,10 +11,10 @@ import java.io.ObjectOutputStream;
 import java.util.List;
 
 @Component
-public final class NewTablesMetadataSaver {
+public final class RefreshedTablesMetadataSaver {
     private final String filePath;
 
-    public NewTablesMetadataSaver(@Value("${metadata.file-path}") final String filePath) {
+    public RefreshedTablesMetadataSaver(@Value("${metadata.file-path}") final String filePath) {
         this.filePath = filePath;
     }
 
