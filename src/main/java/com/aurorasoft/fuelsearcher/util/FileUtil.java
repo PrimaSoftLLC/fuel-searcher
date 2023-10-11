@@ -4,12 +4,10 @@ import lombok.experimental.UtilityClass;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static java.nio.file.Files.exists;
-import static java.nio.file.Files.write;
+import static java.nio.file.Files.*;
 
 @UtilityClass
 public final class FileUtil {
@@ -19,7 +17,7 @@ public final class FileUtil {
             final Path path = Paths.get(filePath);
             write(path, file.getBytes());
         } catch (final IOException cause) {
-            throw new FileWritingException(cause);
+            throw new FileException(cause);
         }
     }
 
@@ -28,24 +26,33 @@ public final class FileUtil {
         return exists(path);
     }
 
-    private static final class FileWritingException extends RuntimeException {
+    public static void removeFileIfExists(final String filePath) {
+        try {
+            final Path path = Paths.get(filePath);
+            deleteIfExists(path);
+        } catch (final IOException cause) {
+            throw new FileException(cause);
+        }
+    }
+
+    private static final class FileException extends RuntimeException {
 
         @SuppressWarnings("unused")
-        public FileWritingException() {
+        public FileException() {
 
         }
 
         @SuppressWarnings("unused")
-        public FileWritingException(final String description) {
+        public FileException(final String description) {
             super(description);
         }
 
-        public FileWritingException(final Exception cause) {
+        public FileException(final Exception cause) {
             super(cause);
         }
 
         @SuppressWarnings("unused")
-        public FileWritingException(final String description, final Exception cause) {
+        public FileException(final String description, final Exception cause) {
             super(description, cause);
         }
     }

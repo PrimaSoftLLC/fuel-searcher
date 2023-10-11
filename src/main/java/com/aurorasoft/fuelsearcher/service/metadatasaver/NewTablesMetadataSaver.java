@@ -2,8 +2,6 @@ package com.aurorasoft.fuelsearcher.service.metadatasaver;
 
 import com.aurorasoft.fuelsearcher.model.metadata.TableMetadata;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.event.ContextClosedEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedOutputStream;
@@ -15,17 +13,14 @@ import java.util.List;
 @Component
 public final class NewTablesMetadataSaver {
     private final String filePath;
-    private final List<TableMetadata> newTablesMetadata;
 
-    public NewTablesMetadataSaver(@Value("${metadata.file-path}") final String filePath,
-                                  final List<TableMetadata> newTablesMetadata) {
+    public NewTablesMetadataSaver(@Value("${metadata.file-path}") final String filePath) {
         this.filePath = filePath;
-        this.newTablesMetadata = newTablesMetadata;
     }
 
-    public void save() {
+    public void save(final List<TableMetadata> newTablesMetadata) {
         try (final ObjectOutputStream outputStream = this.createObjectOutputStream()) {
-            this.newTablesMetadata.forEach(newTableMetadata -> save(newTableMetadata, outputStream));
+            newTablesMetadata.forEach(newTableMetadata -> save(newTableMetadata, outputStream));
         } catch (final IOException cause) {
             throw new NewTablesMetadataSavingException(cause);
         }

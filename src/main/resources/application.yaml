@@ -9,4 +9,4 @@ metadata:
 
 server:
   servlet:
-    context-path: /fuel-searcher
+    context-path: /fuelSearcher
