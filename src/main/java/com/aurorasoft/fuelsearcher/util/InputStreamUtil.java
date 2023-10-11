@@ -42,10 +42,12 @@ public final class InputStreamUtil {
 
     private static final class InputStreamException extends RuntimeException {
 
+        @SuppressWarnings("unused")
         public InputStreamException() {
 
         }
 
+        @SuppressWarnings("unused")
         public InputStreamException(final String description) {
             super(description);
         }
@@ -54,6 +56,7 @@ public final class InputStreamUtil {
             super(cause);
         }
 
+        @SuppressWarnings("unused")
         public InputStreamException(final String description, final Exception cause) {
             super(description, cause);
         }
