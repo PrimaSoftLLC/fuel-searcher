@@ -27,30 +27,30 @@ public abstract class SpecificationPropertyExtractor implements Translatable {
     public final String extract(final FuelSpecification specification) {
         final Optional<String> optionalProperty = this.find(specification);
         return optionalProperty.orElseThrow(
-                () -> new SpecificationPropertyExtractingException(
+                () -> new PropertyExtractingException(
                         "Specification property '%s' isn't defined".formatted(this.propertyName)
                 )
         );
     }
 
-    private static final class SpecificationPropertyExtractingException extends RuntimeException {
+    private static final class PropertyExtractingException extends RuntimeException {
 
         @SuppressWarnings("unused")
-        public SpecificationPropertyExtractingException() {
+        public PropertyExtractingException() {
 
         }
 
-        public SpecificationPropertyExtractingException(final String description) {
+        public PropertyExtractingException(final String description) {
             super(description);
         }
 
         @SuppressWarnings("unused")
-        public SpecificationPropertyExtractingException(final Exception cause) {
+        public PropertyExtractingException(final Exception cause) {
             super(cause);
         }
 
         @SuppressWarnings("unused")
-        public SpecificationPropertyExtractingException(final String description, final Exception cause) {
+        public PropertyExtractingException(final String description, final Exception cause) {
             super(description, cause);
         }
 
