@@ -25,9 +25,12 @@ public final class TableMetadataDeserializer implements AutoCloseable {
     }
 
     @Override
-    public void close()
-            throws IOException {
-        this.objectInputStream.close();
+    public void close() {
+        try {
+            this.objectInputStream.close();
+        } catch (final IOException cause) {
+            throw new TablesMetadataLoadingException(cause);
+        }
     }
 
     private static ObjectInputStream createInputStream(final String filePath) {
