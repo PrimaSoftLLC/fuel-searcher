@@ -18,30 +18,7 @@ public abstract class BuilderRequiringAllProperties<T> {
         final Stream<Object> properties = this.findProperties();
         final boolean validState = properties.noneMatch(Objects::isNull);
         if (!validState) {
-            throw new NotDefinedPropertyException();
+            throw new IllegalStateException();
         }
-    }
-
-    private static final class NotDefinedPropertyException extends RuntimeException {
-
-        public NotDefinedPropertyException() {
-
-        }
-
-        @SuppressWarnings("unused")
-        public NotDefinedPropertyException(final String description) {
-            super(description);
-        }
-
-        @SuppressWarnings("unused")
-        public NotDefinedPropertyException(final Exception cause) {
-            super(cause);
-        }
-
-        @SuppressWarnings("unused")
-        public NotDefinedPropertyException(final String description, final Exception cause) {
-            super(description, cause);
-        }
-
     }
 }

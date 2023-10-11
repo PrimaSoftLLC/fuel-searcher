@@ -12,10 +12,10 @@ import java.util.List;
 
 @Component
 public final class RefreshedTablesMetadataSaver {
-    private final String filePath;
+    private final String preparedMetadataFilePath;
 
-    public RefreshedTablesMetadataSaver(@Value("${metadata.file-path}") final String filePath) {
-        this.filePath = filePath;
+    public RefreshedTablesMetadataSaver(@Value("${metadata.file-path}") final String preparedMetadataFilePath) {
+        this.preparedMetadataFilePath = preparedMetadataFilePath;
     }
 
     public void save(final List<TableMetadata> newTablesMetadata) {
@@ -28,7 +28,7 @@ public final class RefreshedTablesMetadataSaver {
 
     private ObjectOutputStream createObjectOutputStream()
             throws IOException {
-        final FileOutputStream fileOutputStream = new FileOutputStream(this.filePath);
+        final FileOutputStream fileOutputStream = new FileOutputStream(this.preparedMetadataFilePath);
         final BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
         return new ObjectOutputStream(bufferedOutputStream);
     }
