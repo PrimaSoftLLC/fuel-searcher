@@ -1,4 +1,4 @@
-package com.aurorasoft.fuelsearcher.service.metadatasaver;
+package com.aurorasoft.fuelsearcher.service.metadataloader.refreshed;
 
 import com.aurorasoft.fuelsearcher.model.metadata.TableMetadata;
 import org.springframework.beans.factory.annotation.Value;

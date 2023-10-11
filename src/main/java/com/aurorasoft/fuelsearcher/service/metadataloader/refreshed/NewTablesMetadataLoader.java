@@ -1,8 +1,8 @@
-package com.aurorasoft.fuelsearcher.service.metadataloader;
+package com.aurorasoft.fuelsearcher.service.metadataloader.refreshed;
 
 import com.aurorasoft.fuelsearcher.model.metadata.TableMetadata;
 import com.aurorasoft.fuelsearcher.service.factory.derivingsearcher.refreshedtablesmetadata.RefreshedTablesMetadataFactory;
-import com.aurorasoft.fuelsearcher.service.metadatasaver.NewTablesMetadataSaver;
+import com.aurorasoft.fuelsearcher.service.metadataloader.TablesMetadataLoader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
