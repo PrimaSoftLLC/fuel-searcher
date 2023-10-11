@@ -1,7 +1,6 @@
 package com.aurorasoft.fuelsearcher.service.metadataloader;
 
 import com.aurorasoft.fuelsearcher.model.metadata.TableMetadata;
-import com.aurorasoft.fuelsearcher.service.metadataloader.exception.TablesMetadataLoadingException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,7 +51,7 @@ public final class TablesMetadataLoadingManagerTest {
         verify(this.thirdMockedLoader, times(0)).isAbleToLoad();
     }
 
-    @Test(expected = TablesMetadataLoadingException.class)
+    @Test(expected = RuntimeException.class)
     public void tablesMetadataShouldNotBeLoaded() {
         when(this.firstMockedLoader.isAbleToLoad()).thenReturn(false);
         when(this.secondMockedLoader.isAbleToLoad()).thenReturn(false);

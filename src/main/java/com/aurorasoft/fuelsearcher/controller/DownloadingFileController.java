@@ -60,6 +60,7 @@ public final class DownloadingFileController {
         return contentTypeAsString.toLowerCase();
     }
 
+    //TODO: to OutputStreamUtil
     private static void writeAndFlush(final OutputStream outputStream, final DownloadedFile file)
             throws IOException {
         final byte[] fileBytes = file.getBytes();

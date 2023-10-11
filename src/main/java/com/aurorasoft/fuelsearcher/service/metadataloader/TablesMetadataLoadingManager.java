@@ -1,7 +1,6 @@
 package com.aurorasoft.fuelsearcher.service.metadataloader;
 
 import com.aurorasoft.fuelsearcher.model.metadata.TableMetadata;
-import com.aurorasoft.fuelsearcher.service.metadataloader.exception.TablesMetadataLoadingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +16,28 @@ public final class TablesMetadataLoadingManager {
                 .filter(TablesMetadataLoader::isAbleToLoad)
                 .findFirst()
                 .map(TablesMetadataLoader::load)
-                .orElseThrow(
-                        () -> new TablesMetadataLoadingException("There is no loader which is able to load metadata")
-                );
+                .orElseThrow(NoSuitableMetadataLoaderException::new);
+    }
+
+    private static final class NoSuitableMetadataLoaderException extends RuntimeException {
+
+        public NoSuitableMetadataLoaderException() {
+
+        }
+
+        @SuppressWarnings("unused")
+        public NoSuitableMetadataLoaderException(final String description) {
+            super(description);
+        }
+
+        @SuppressWarnings("unused")
+        public NoSuitableMetadataLoaderException(final Exception cause) {
+            super(cause);
+        }
+
+        @SuppressWarnings("unused")
+        public NoSuitableMetadataLoaderException(final String description, final Exception cause) {
+            super(description, cause);
+        }
     }
 }
