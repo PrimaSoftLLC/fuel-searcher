@@ -11,8 +11,7 @@ import java.nio.file.Paths;
 
 import static com.aurorasoft.fuelsearcher.util.FileUtil.*;
 import static java.nio.file.Files.*;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.*;
 
@@ -136,6 +135,38 @@ public final class FileUtilTest {
             mockedStaticFiles.when(() -> deleteIfExists(same(givenPath))).thenThrow(IOException.class);
 
             removeFileIfExists(givenFilePath);
+        }
+    }
+
+    @Test
+    public void fileShouldBeReadAsBytes() {
+        try (final MockedStatic<Paths> mockedStaticPaths = mockStatic(Paths.class);
+             final MockedStatic<Files> mockedStaticFiles = mockStatic(Files.class)) {
+            final String givenFilePath = "file.txt";
+
+            final Path givenPath = mock(Path.class);
+            mockedStaticPaths.when(() -> Paths.get(givenFilePath)).thenReturn(givenPath);
+
+            final byte[] givenBytes = {1, 2, 3, 4, 5};
+            mockedStaticFiles.when(() -> readAllBytes(same(givenPath))).thenReturn(givenBytes);
+
+            final byte[] actual = readAsBytes(givenFilePath);
+            assertSame(givenBytes, actual);
+        }
+    }
+
+    @Test(expected = Exception.class)
+    public void fileShouldNotBeReadAsBytes() {
+        try (final MockedStatic<Paths> mockedStaticPaths = mockStatic(Paths.class);
+             final MockedStatic<Files> mockedStaticFiles = mockStatic(Files.class)) {
+            final String givenFilePath = "file.txt";
+
+            final Path givenPath = mock(Path.class);
+            mockedStaticPaths.when(() -> Paths.get(givenFilePath)).thenReturn(givenPath);
+
+            mockedStaticFiles.when(() -> readAllBytes(same(givenPath))).thenThrow(IOException.class);
+
+            readAsBytes(givenFilePath);
         }
     }
 }
