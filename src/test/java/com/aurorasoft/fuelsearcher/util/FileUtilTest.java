@@ -9,10 +9,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static com.aurorasoft.fuelsearcher.util.FileUtil.isFileExist;
-import static com.aurorasoft.fuelsearcher.util.FileUtil.writeFile;
-import static java.nio.file.Files.exists;
-import static java.nio.file.Files.write;
+import static com.aurorasoft.fuelsearcher.util.FileUtil.*;
+import static java.nio.file.Files.*;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.same;
@@ -108,6 +106,36 @@ public final class FileUtilTest {
 
             final boolean actual = isFileExist(givenFilePath);
             assertFalse(actual);
+        }
+    }
+
+    @Test
+    public void fileShouldBeRemovedIfExists() {
+        try (final MockedStatic<Paths> mockedStaticPaths = mockStatic(Paths.class);
+             final MockedStatic<Files> mockedStaticFiles = mockStatic(Files.class)) {
+            final String givenFilePath = "file.txt";
+
+            final Path givenPath = mock(Path.class);
+            mockedStaticPaths.when(() -> Paths.get(givenFilePath)).thenReturn(givenPath);
+
+            removeFileIfExists(givenFilePath);
+
+            mockedStaticFiles.verify(() -> deleteIfExists(same(givenPath)), times(1));
+        }
+    }
+
+    @Test(expected = Exception.class)
+    public void fileShouldNotBeRemovedIfExists() {
+        try (final MockedStatic<Paths> mockedStaticPaths = mockStatic(Paths.class);
+             final MockedStatic<Files> mockedStaticFiles = mockStatic(Files.class)) {
+            final String givenFilePath = "file.txt";
+
+            final Path givenPath = mock(Path.class);
+            mockedStaticPaths.when(() -> Paths.get(givenFilePath)).thenReturn(givenPath);
+
+            mockedStaticFiles.when(() -> deleteIfExists(same(givenPath))).thenThrow(IOException.class);
+
+            removeFileIfExists(givenFilePath);
         }
     }
 }
