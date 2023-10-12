@@ -36,7 +36,7 @@ public final class InputStreamUtil {
         } catch (final EOFException endDeserializationException) {
             return empty();
         } catch (final IOException | ClassNotFoundException cause) {
-            throw new RuntimeException(cause);
+            throw new InputStreamException(cause);
         }
     }
 
