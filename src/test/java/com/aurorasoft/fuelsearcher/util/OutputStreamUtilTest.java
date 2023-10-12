@@ -1,49 +1,48 @@
 package com.aurorasoft.fuelsearcher.util;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.io.TempDir;
 import org.mockito.ArgumentCaptor;
+import org.mockito.MockedConstruction;
 
-import java.io.File;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import static com.aurorasoft.fuelsearcher.util.OutputStreamUtil.*;
-import static java.io.File.pathSeparator;
-import static java.nio.file.Files.createFile;
-import static java.nio.file.Files.delete;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 public final class OutputStreamUtilTest {
-    private static final String NAME_TEMP_FILE = "temp.txt";
 
-    @TempDir
-    private static Path PARENT_PATH_TEMP_FILE;
+    @Test
+    public void objectInputStreamShouldBeCreated() {
+        try (final MockedConstruction<FileOutputStream> mockedConstructionFileOutputStream = mockConstruction(FileOutputStream.class);
+             final MockedConstruction<BufferedOutputStream> mockedConstructionBufferedOutputStream = mockConstruction(BufferedOutputStream.class);
+             final MockedConstruction<ObjectOutputStream> mockedConstructionObjectOutputStream = mockConstruction(ObjectOutputStream.class)) {
+            final String givenFilePath = "temp.txt";
 
-    @BeforeClass
-    public static void createTempFile()
-            throws IOException {
-        createFile(Paths.get(PARENT_PATH_TEMP_FILE.toString() + pathSeparator + NAME_TEMP_FILE));
+            final ObjectOutputStream actual = createObjectOutputStream(givenFilePath);
+
+            final List<FileOutputStream> constructedFileOutputStreams = mockedConstructionFileOutputStream.constructed();
+            assertEquals(1, constructedFileOutputStreams.size());
+
+            final List<BufferedOutputStream> constructedBufferedOutputStreams = mockedConstructionBufferedOutputStream
+                    .constructed();
+            assertEquals(1, constructedBufferedOutputStreams.size());
+
+            final List<ObjectOutputStream> constructedObjectOutputStreams = mockedConstructionObjectOutputStream
+                    .constructed();
+            assertEquals(1, constructedObjectOutputStreams.size());
+            final ObjectOutputStream expected = constructedObjectOutputStreams.get(0);
+            assertSame(expected, actual);
+        }
     }
 
-    @AfterClass
-    public static void deleteTempFile()
-            throws IOException {
-        delete(Paths.get(PARENT_PATH_TEMP_FILE.toString() + pathSeparator + NAME_TEMP_FILE));
-    }
-
-    @org.junit.jupiter.api.Test
-    public void objectOutputStreamShouldBeCreated() {
-        final ObjectOutputStream actual = createObjectOutputStream(NAME_TEMP_FILE);
-        Assertions.assertNotNull(actual);
-    }
-
-    @org.junit.jupiter.api.Test
+    @Test
     public void objectsShouldBeWritten()
             throws Exception {
         final ObjectOutputStream givenOutputStream = mock(ObjectOutputStream.class);
@@ -62,7 +61,7 @@ public final class OutputStreamUtilTest {
         Assertions.assertEquals(givenObjects, actualCapturedObjects);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test(expected = Exception.class)
     public void objectsShouldNotBeWritten()
             throws Exception {
         final ObjectOutputStream givenOutputStream = mock(ObjectOutputStream.class);
@@ -77,7 +76,7 @@ public final class OutputStreamUtilTest {
         writeObjects(givenOutputStream, givenObjects);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void objectShouldBeWritten()
             throws Exception {
         final ObjectOutputStream givenOutputStream = mock(ObjectOutputStream.class);
@@ -88,7 +87,7 @@ public final class OutputStreamUtilTest {
         verify(givenOutputStream, times(1)).writeObject(same(givenObject));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test(expected = Exception.class)
     public void objectShouldNotBeWritten()
             throws Exception {
         final ObjectOutputStream givenOutputStream = mock(ObjectOutputStream.class);

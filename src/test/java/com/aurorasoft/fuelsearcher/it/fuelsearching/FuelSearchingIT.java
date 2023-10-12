@@ -1,6 +1,5 @@
 package com.aurorasoft.fuelsearcher.it.fuelsearching;
 
-import com.aurorasoft.fuelsearcher.base.AbstractContextTest;
 import com.aurorasoft.fuelsearcher.it.fuelsearching.argumentsprovider.FuelSearchingArgumentsProvidingUtil;
 import com.aurorasoft.fuelsearcher.model.Fuel;
 import com.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
@@ -12,6 +11,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -24,8 +24,9 @@ import static com.aurorasoft.fuelsearcher.testutil.FuelControllerRequestUtil.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.http.HttpStatus.*;
 
+@SpringBootTest
 @AutoConfigureMockMvc
-public final class FuelSearchingIT extends AbstractContextTest {
+public final class FuelSearchingIT {
 
     @Autowired
     private MockMvc mockMvc;
