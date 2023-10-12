@@ -1,6 +1,5 @@
 package com.aurorasoft.fuelsearcher.it.fuelsearching;
 
-import com.aurorasoft.fuelsearcher.it.fuelsearching.argumentsprovider.FuelSearchingArgumentsProvidingUtil;
 import com.aurorasoft.fuelsearcher.model.Fuel;
 import com.aurorasoft.fuelsearcher.model.specification.FuelSpecification;
 import com.aurorasoft.fuelsearcher.testutil.FuelControllerRequestUtil;
@@ -20,6 +19,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+import static com.aurorasoft.fuelsearcher.it.fuelsearching.argumentsprovider.FuelSearchingArgumentsProvidingUtil.*;
 import static com.aurorasoft.fuelsearcher.testutil.FuelControllerRequestUtil.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.http.HttpStatus.*;
@@ -69,15 +69,15 @@ public final class FuelSearchingIT {
     }
 
     private static Stream<Arguments> successFuelSearchingArgumentsProvider() {
-        return FuelSearchingArgumentsProvidingUtil.provideSuccessFuelSearchingArguments();
+        return provideSuccessFuelSearchingArguments();
     }
 
     private static Stream<Arguments> notFoundFuelSearchingArgumentsProvider() {
-        return FuelSearchingArgumentsProvidingUtil.provideNotFoundFuelSearchingArguments();
+        return provideNotFoundFuelSearchingArguments();
     }
 
     private static Stream<Arguments> notAcceptableFuelSearchingArgumentsProvider() {
-        return FuelSearchingArgumentsProvidingUtil.provideNotAcceptableFuelSearchingArguments();
+        return provideNotAcceptableFuelSearchingArguments();
     }
 
     private void testSearching(final FuelSpecification specification,
