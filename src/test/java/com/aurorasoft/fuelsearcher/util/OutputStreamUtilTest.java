@@ -14,8 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import static com.aurorasoft.fuelsearcher.util.OutputStreamUtil.createObjectOutputStream;
-import static com.aurorasoft.fuelsearcher.util.OutputStreamUtil.writeObjects;
+import static com.aurorasoft.fuelsearcher.util.OutputStreamUtil.*;
 import static java.nio.file.Files.createFile;
 import static java.nio.file.Files.delete;
 import static org.junit.Assert.assertEquals;
@@ -79,5 +78,27 @@ public final class OutputStreamUtilTest {
         doThrow(IOException.class).when(givenOutputStream).writeObject(same(secondGivenObject));
 
         writeObjects(givenOutputStream, givenObjects);
+    }
+
+    @Test
+    public void objectShouldBeWritten()
+            throws Exception {
+        final ObjectOutputStream givenOutputStream = mock(ObjectOutputStream.class);
+        final Object givenObject = new Object();
+
+        writeObject(givenOutputStream, givenObject);
+
+        verify(givenOutputStream, times(1)).writeObject(same(givenObject));
+    }
+
+    @Test(expected = Exception.class)
+    public void objectShouldNotBeWritten()
+            throws Exception {
+        final ObjectOutputStream givenOutputStream = mock(ObjectOutputStream.class);
+        final Object givenObject = new Object();
+
+        doThrow(IOException.class).when(givenOutputStream).writeObject(same(givenObject));
+
+        writeObject(givenOutputStream, givenObject);
     }
 }
