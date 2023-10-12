@@ -1,38 +1,18 @@
 package com.aurorasoft.fuelsearcher.util;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 
 import static com.aurorasoft.fuelsearcher.util.InputStreamUtil.*;
-import static java.nio.file.Files.createFile;
-import static java.nio.file.Files.delete;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public final class InputStreamUtilTest {
-    private static final String NAME_TEMP_FILE = "temp.txt";
-    private static final Path PATH_TEMP_FILE = Paths.get(NAME_TEMP_FILE);
-
-    @BeforeClass
-    public static void createTempFile()
-            throws IOException {
-        createFile(PATH_TEMP_FILE);
-    }
-
-    @AfterClass
-    public static void deleteTempFile()
-            throws IOException {
-        delete(PATH_TEMP_FILE);
-    }
 
     @Test
     public void objectInputStreamShouldBeCreated() {
