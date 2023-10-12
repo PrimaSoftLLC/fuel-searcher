@@ -31,7 +31,7 @@ public final class FuelDocumentLoader {
         try (final XWPFDocument document = loadXWPFDocument(filePath)) {
             return this.createFuelDocument(document);
         } catch (final IOException cause) {
-            throw new FuelDocumentLoadingException(cause);
+            throw new DocumentLoadingException(cause);
         }
     }
 
@@ -171,24 +171,24 @@ public final class FuelDocumentLoader {
     }
 
 
-    private static final class FuelDocumentLoadingException extends RuntimeException {
+    private static final class DocumentLoadingException extends RuntimeException {
 
         @SuppressWarnings("unused")
-        public FuelDocumentLoadingException() {
+        public DocumentLoadingException() {
 
         }
 
         @SuppressWarnings("unused")
-        public FuelDocumentLoadingException(final String description) {
+        public DocumentLoadingException(final String description) {
             super(description);
         }
 
-        public FuelDocumentLoadingException(final Exception cause) {
+        public DocumentLoadingException(final Exception cause) {
             super(cause);
         }
 
         @SuppressWarnings("unused")
-        public FuelDocumentLoadingException(final String description, final Exception cause) {
+        public DocumentLoadingException(final String description, final Exception cause) {
             super(description, cause);
         }
     }
