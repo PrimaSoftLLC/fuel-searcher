@@ -2,12 +2,11 @@ package com.aurorasoft.fuelsearcher.util;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.io.TempDir;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.junit.MockitoJUnitRunner;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.nio.file.Path;
@@ -15,39 +14,36 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import static com.aurorasoft.fuelsearcher.util.OutputStreamUtil.*;
+import static java.io.File.pathSeparator;
 import static java.nio.file.Files.createFile;
 import static java.nio.file.Files.delete;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
 public final class OutputStreamUtilTest {
     private static final String NAME_TEMP_FILE = "temp.txt";
-    private static final Path PATH_TEMP_FILE = Paths.get(NAME_TEMP_FILE);
+
+    @TempDir
+    private static Path PARENT_PATH_TEMP_FILE;
 
     @BeforeClass
     public static void createTempFile()
             throws IOException {
-        createFile(PATH_TEMP_FILE);
+        createFile(Paths.get(PARENT_PATH_TEMP_FILE.toString() + pathSeparator + NAME_TEMP_FILE));
     }
 
     @AfterClass
     public static void deleteTempFile()
             throws IOException {
-        delete(PATH_TEMP_FILE);
+        delete(Paths.get(PARENT_PATH_TEMP_FILE.toString() + pathSeparator + NAME_TEMP_FILE));
     }
 
-    @Captor
-    private ArgumentCaptor<Object> objectArgumentCaptor;
-
-    @Test
+    @org.junit.jupiter.api.Test
     public void objectOutputStreamShouldBeCreated() {
         final ObjectOutputStream actual = createObjectOutputStream(NAME_TEMP_FILE);
-        assertNotNull(actual);
+        Assertions.assertNotNull(actual);
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void objectsShouldBeWritten()
             throws Exception {
         final ObjectOutputStream givenOutputStream = mock(ObjectOutputStream.class);
@@ -59,13 +55,14 @@ public final class OutputStreamUtilTest {
 
         writeObjects(givenOutputStream, givenObjects);
 
-        verify(givenOutputStream, times(3)).writeObject(this.objectArgumentCaptor.capture());
+        final ArgumentCaptor<Object> objectArgumentCaptor = ArgumentCaptor.forClass(Object.class);
+        verify(givenOutputStream, times(3)).writeObject(objectArgumentCaptor.capture());
 
-        final List<Object> actualCapturedObjects = this.objectArgumentCaptor.getAllValues();
-        assertEquals(givenObjects, actualCapturedObjects);
+        final List<Object> actualCapturedObjects = objectArgumentCaptor.getAllValues();
+        Assertions.assertEquals(givenObjects, actualCapturedObjects);
     }
 
-    @Test(expected = Exception.class)
+    @org.junit.jupiter.api.Test
     public void objectsShouldNotBeWritten()
             throws Exception {
         final ObjectOutputStream givenOutputStream = mock(ObjectOutputStream.class);
@@ -80,7 +77,7 @@ public final class OutputStreamUtilTest {
         writeObjects(givenOutputStream, givenObjects);
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void objectShouldBeWritten()
             throws Exception {
         final ObjectOutputStream givenOutputStream = mock(ObjectOutputStream.class);
@@ -91,7 +88,7 @@ public final class OutputStreamUtilTest {
         verify(givenOutputStream, times(1)).writeObject(same(givenObject));
     }
 
-    @Test(expected = Exception.class)
+    @org.junit.jupiter.api.Test
     public void objectShouldNotBeWritten()
             throws Exception {
         final ObjectOutputStream givenOutputStream = mock(ObjectOutputStream.class);

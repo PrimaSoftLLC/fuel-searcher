@@ -1,11 +1,10 @@
 package com.aurorasoft.fuelsearcher.util;
 
 import org.junit.Test;
+import org.mockito.MockedConstruction;
 
-import java.io.EOFException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
+import java.io.*;
+import java.util.List;
 import java.util.Optional;
 
 import static com.aurorasoft.fuelsearcher.util.InputStreamUtil.*;
@@ -16,17 +15,26 @@ public final class InputStreamUtilTest {
 
     @Test
     public void objectInputStreamShouldBeCreated() {
-        final String givenFilePath = "./src/test/resources/tables-metadata.txt";
+        try (final MockedConstruction<FileInputStream> mockedConstructionFileInputStream = mockConstruction(FileInputStream.class);
+             final MockedConstruction<BufferedInputStream> mockedConstructionBufferedInputStream = mockConstruction(BufferedInputStream.class);
+             final MockedConstruction<ObjectInputStream> mockedConstructionObjectInputStream = mockConstruction(ObjectInputStream.class)) {
+            final String givenFilePath = "temp.txt";
 
-        final ObjectInputStream actual = createObjectInputStream(givenFilePath);
-        assertNotNull(actual);
-    }
+            final ObjectInputStream actual = createObjectInputStream(givenFilePath);
 
-    @Test(expected = Exception.class)
-    public void objectInputStreamShouldNotBeCreated() {
-        final String givenFilePath = "./src/test/resources/not-exist.txt";
+            final List<FileInputStream> constructedFileInputStreams = mockedConstructionFileInputStream.constructed();
+            assertEquals(1, constructedFileInputStreams.size());
 
-        createObjectInputStream(givenFilePath);
+            final List<BufferedInputStream> constructedBufferedInputStreams = mockedConstructionBufferedInputStream
+                    .constructed();
+            assertEquals(1, constructedBufferedInputStreams.size());
+
+            final List<ObjectInputStream> constructedObjectInputStreams = mockedConstructionObjectInputStream
+                    .constructed();
+            assertEquals(1, constructedObjectInputStreams.size());
+            final ObjectInputStream expected = constructedObjectInputStreams.get(0);
+            assertSame(expected, actual);
+        }
     }
 
     @Test
