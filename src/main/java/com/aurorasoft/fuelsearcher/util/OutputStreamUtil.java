@@ -35,10 +35,12 @@ public final class OutputStreamUtil {
 
     private static final class OutputStreamException extends RuntimeException {
 
+        @SuppressWarnings("unused")
         public OutputStreamException() {
 
         }
 
+        @SuppressWarnings("unused")
         public OutputStreamException(final String description) {
             super(description);
         }
@@ -47,6 +49,7 @@ public final class OutputStreamUtil {
             super(cause);
         }
 
+        @SuppressWarnings("unused")
         public OutputStreamException(final String description, final Exception cause) {
             super(description, cause);
         }
