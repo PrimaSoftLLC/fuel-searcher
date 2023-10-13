@@ -21,28 +21,28 @@ public final class RefreshedTablesMetadataSaver {
         try (final ObjectOutputStream outputStream = createObjectOutputStream(this.preparedMetadataFilePath)) {
             writeObjects(outputStream, refreshedTablesMetadata);
         } catch (final IOException cause) {
-            throw new MetadataSavingException(cause);
+            throw new SavingException(cause);
         }
     }
 
-    private static final class MetadataSavingException extends RuntimeException {
+    private static final class SavingException extends RuntimeException {
 
         @SuppressWarnings("unused")
-        public MetadataSavingException() {
+        public SavingException() {
 
         }
 
         @SuppressWarnings("unused")
-        public MetadataSavingException(final String description) {
+        public SavingException(final String description) {
             super(description);
         }
 
-        public MetadataSavingException(final Exception cause) {
+        public SavingException(final Exception cause) {
             super(cause);
         }
 
         @SuppressWarnings("unused")
-        public MetadataSavingException(final String description, final Exception cause) {
+        public SavingException(final String description, final Exception cause) {
             super(description, cause);
         }
     }
