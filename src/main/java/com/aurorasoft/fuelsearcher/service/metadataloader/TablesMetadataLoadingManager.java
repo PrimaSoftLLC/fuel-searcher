@@ -16,27 +16,27 @@ public final class TablesMetadataLoadingManager {
                 .filter(TablesMetadataLoader::isAbleToLoad)
                 .findFirst()
                 .map(TablesMetadataLoader::load)
-                .orElseThrow(NoSuitableMetadataLoaderException::new);
+                .orElseThrow(NoSuitableLoaderException::new);
     }
 
-    private static final class NoSuitableMetadataLoaderException extends RuntimeException {
+    private static final class NoSuitableLoaderException extends RuntimeException {
 
-        public NoSuitableMetadataLoaderException() {
+        public NoSuitableLoaderException() {
 
         }
 
         @SuppressWarnings("unused")
-        public NoSuitableMetadataLoaderException(final String description) {
+        public NoSuitableLoaderException(final String description) {
             super(description);
         }
 
         @SuppressWarnings("unused")
-        public NoSuitableMetadataLoaderException(final Exception cause) {
+        public NoSuitableLoaderException(final Exception cause) {
             super(cause);
         }
 
         @SuppressWarnings("unused")
-        public NoSuitableMetadataLoaderException(final String description, final Exception cause) {
+        public NoSuitableLoaderException(final String description, final Exception cause) {
             super(description, cause);
         }
     }
