@@ -17,7 +17,7 @@ public final class ExpectedDocumentMetadataProvider {
             new FifthTablePropertyMetadataViewsProvider(),
             new SixthTablePropertyMetadataViewsProvider(),
             new SeventhTablePropertyMetadataViewsProvider(),
-            new EighthTablePropertyMetadataViewsProvider(),
+            new EighthTableMetadataProvider(),
             new NinthTablePropertyMetadataViewsProvider(),
             new TenthTablePropertyMetadataViewsProvider(),
             new EleventhTablePropertyMetadataViewsProvider(),
