@@ -25,7 +25,7 @@ public final class ExpectedDocumentMetadataProvider {
             new ThirteenthTablePropertyMetadataViewsProvider(),
             new ExpectedFourteenthTableMetadataProvider(),
             new ExpectedFifteenthTableMetadataProvider(),
-            new SixteenthTablePropertyMetadataViewsProvider(),
+            new ExpectedSixteenthTableMetadataProvider(),
             new ExpectedSeventeenthTableMetadataProvider(),
             new ExpectedEighteenthTableMetadataProvider(),
             new ExpectedNineteenthTableMetadataProvider(),
