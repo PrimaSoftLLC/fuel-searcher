@@ -4,10 +4,10 @@ import com.aurorasoft.fuelsearcher.model.metadata.PropertyMetadata;
 
 import java.util.List;
 
-public final class EighteenthTablePropertyMetadataViewsProvider extends ExpectedTableMetadataProvider {
+public final class EighteenthTableMetadataProvider extends ExpectedTableMetadataProvider {
     private static final String TABLE_NAME = "СГРЕБАНИЕ СЕНА В ВАЛКИ";
 
-    public EighteenthTablePropertyMetadataViewsProvider() {
+    public EighteenthTableMetadataProvider() {
         super(TABLE_NAME);
     }
 
