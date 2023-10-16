@@ -27,7 +27,7 @@ public final class DownloadingFileService {
     }
 
     public DownloadedFile downloadFuelDocument() {
-        return load(
+        return download(
                 this.fuelDocumentPath,
                 FUEL_DOCUMENT_NAME,
                 FUEL_DOCUMENT_CONTENT_TYPE
@@ -35,14 +35,14 @@ public final class DownloadingFileService {
     }
 
     public DownloadedFile downloadSearcherConfigFile() {
-        return load(
+        return download(
                 this.searcherConfigFilePath,
                 SEARCHER_CONFIG_FILE_NAME,
                 SEARCHER_CONFIG_FILE_CONTENT_TYPE
         );
     }
 
-    private static DownloadedFile load(final String filePath, final String name, final ContentType contentType) {
+    private static DownloadedFile download(final String filePath, final String name, final ContentType contentType) {
         final byte[] bytes = readAsBytes(filePath);
         return new DownloadedFile(bytes, name, contentType);
     }
