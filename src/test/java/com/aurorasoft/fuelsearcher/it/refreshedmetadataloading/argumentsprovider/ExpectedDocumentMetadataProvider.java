@@ -10,7 +10,7 @@ import static java.util.stream.Collectors.toSet;
 
 public final class ExpectedDocumentMetadataProvider {
     private final List<ExpectedTableMetadataProvider> tableMetadataProviders = List.of(
-            new FirstTablePropertyMetadataViewsProvider(),
+            new ExpectedFirstTableMetadataProvider(),
             new SecondTablePropertyMetadataViewsProvider(),
             new ThirdTablePropertyMetadataViewsProvider(),
             new FourthTablePropertyMetadataViewsProvider(),
