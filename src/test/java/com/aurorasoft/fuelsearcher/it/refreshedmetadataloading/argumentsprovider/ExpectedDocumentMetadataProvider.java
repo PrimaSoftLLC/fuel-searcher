@@ -36,7 +36,7 @@ public final class ExpectedDocumentMetadataProvider {
             new ExpectedTwentyFourthTableMetadataProvider(),
             new ExpectedTwentyFifthTableMetadataProvider(),
             new TwentySixthTablePropertyMetadataViewsProvider(),
-            new TwentySeventhTablePropertyMetadataViewsProvider()
+            new ExpectedTwentySeventhTableMetadataProvider()
     );
 
     public Set<TableMetadata> provide() {
