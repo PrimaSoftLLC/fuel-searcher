@@ -2,18 +2,18 @@ package com.aurorasoft.fuelsearcher.it.refreshedmetadataloading.argumentsprovide
 
 import com.aurorasoft.fuelsearcher.model.metadata.PropertyMetadata;
 
-import java.util.List;
+import java.util.Set;
 
-public final class EighthTableMetadataProvider extends ExpectedTableMetadataProvider {
+public final class ExpectedEighthTableMetadataProvider extends ExpectedTableMetadataProvider {
     private static final String TABLE_NAME = "ПОСЕВ КУКУРУЗЫ, ПОДСОЛНЕЧНИКА";
 
-    public EighthTableMetadataProvider() {
+    public ExpectedEighthTableMetadataProvider() {
         super(TABLE_NAME);
     }
 
     @Override
-    protected List<PropertyMetadata> providePropertiesMetadata() {
-        return List.of(
+    protected Set<PropertyMetadata> providePropertiesMetadata() {
+        return Set.of(
                 PropertyMetadata.builder()
                         .propertyName("длина гона")
                         .allowableValues(new String[]{"Менее 150", "150-200", "201-300", "301-400", "401-600", "601-1000", "Более 1000"})

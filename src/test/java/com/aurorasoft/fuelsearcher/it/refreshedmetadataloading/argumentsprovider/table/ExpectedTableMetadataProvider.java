@@ -4,16 +4,16 @@ import com.aurorasoft.fuelsearcher.model.metadata.PropertyMetadata;
 import com.aurorasoft.fuelsearcher.model.metadata.TableMetadata;
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 public abstract class ExpectedTableMetadataProvider {
     private final String tableName;
 
     public final TableMetadata provide() {
-        final List<PropertyMetadata> propertiesMetadata = this.providePropertiesMetadata();
+        final Set<PropertyMetadata> propertiesMetadata = this.providePropertiesMetadata();
         return new TableMetadata(this.tableName, propertiesMetadata);
     }
 
-    protected abstract List<PropertyMetadata> providePropertiesMetadata();
+    protected abstract Set<PropertyMetadata> providePropertiesMetadata();
 }

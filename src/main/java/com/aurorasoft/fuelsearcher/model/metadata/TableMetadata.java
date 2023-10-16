@@ -6,14 +6,14 @@ import lombok.Builder;
 import lombok.Value;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 @Value
 @AllArgsConstructor
 @Builder
 public class TableMetadata implements Translatable, Serializable {
     String tableName;
-    List<PropertyMetadata> propertiesMetadata;
+    Set<PropertyMetadata> propertiesMetadata;
 
     @Override
     public String findAlias() {
