@@ -12,7 +12,7 @@ public final class ExpectedDocumentMetadataProvider {
     private final List<ExpectedTableMetadataProvider> tableMetadataProviders = List.of(
             new ExpectedFirstTableMetadataProvider(),
             new ExpectedSecondTableMetadataProvider(),
-            new ThirdTablePropertyMetadataViewsProvider(),
+            new ExpectedThirdTableMetadataProvider(),
             new ExpectedFourthTableMetadataProvider(),
             new ExpectedFifthTableMetadataProvider(),
             new ExpectedSixthTableMetadataProvider(),
