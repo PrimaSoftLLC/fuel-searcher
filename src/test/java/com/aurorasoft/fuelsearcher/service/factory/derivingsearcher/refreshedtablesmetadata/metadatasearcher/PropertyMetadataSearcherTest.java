@@ -1,8 +1,8 @@
 package com.aurorasoft.fuelsearcher.service.factory.derivingsearcher.refreshedtablesmetadata.metadatasearcher;
 
-import com.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
 import com.aurorasoft.fuelsearcher.model.FuelTable;
 import com.aurorasoft.fuelsearcher.model.PropertyMetadataSource;
+import com.aurorasoft.fuelsearcher.model.metadata.PropertyMetadata;
 import com.aurorasoft.fuelsearcher.model.specification.propertyextractor.SpecificationPropertyExtractor;
 import com.aurorasoft.fuelsearcher.util.XWPFContentUtil;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
@@ -100,7 +100,10 @@ public final class PropertyMetadataSearcherTest {
         );
 
         final FuelTable givenFuelTable = mock(FuelTable.class);
-        final PropertyMetadataSource givenSource = new PropertyMetadataSource(null) {
+
+        final String givenPropertyName = "property-name";
+        final SpecificationPropertyExtractor givenPropertyExtractor = createPropertyExtractor(givenPropertyName);
+        final PropertyMetadataSource givenSource = new PropertyMetadataSource(givenPropertyExtractor) {
         };
 
         givenSearcher.find(givenFuelTable, givenSource);

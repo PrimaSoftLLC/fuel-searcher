@@ -1,24 +1,12 @@
-spring:
-  datasource:
-    url: jdbc:tc:postgresql:11.1:///integration-tests-db
-  jpa:
-    hibernate:
-      ddl-auto: none
-    show-sql: true
-    properties:
-      hibernate:
-        generate_statistics: true
-        jdbc:
-          batch_size: 500
-  sql:
-    init:
-      mode: always
-
 fuel-document:
-  path: ./src/test/resources/postanovlenie128.2022.docx
+  path: ./src/test/resources/fuel-document.docx
 
 fuel-searcher-config:
-  path : ./src/test/resources/fuel-searchers.xml
+  path: ./src/test/resources/searcher-config.xml
 
-metadata-refreshing:
-  enable: false
+metadata:
+  file-path: ./src/test/resources/tables-metadata.txt
+
+server:
+  servlet:
+    context-path: /fuelSearcher

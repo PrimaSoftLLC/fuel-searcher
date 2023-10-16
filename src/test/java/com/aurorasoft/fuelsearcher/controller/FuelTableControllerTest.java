@@ -11,19 +11,18 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
-import static com.aurorasoft.fuelsearcher.testutil.ControllerRequestUtil.doRequest;
+import static com.aurorasoft.fuelsearcher.testutil.ControllerRequestUtil.doRequestAndGetContentAsString;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.HttpStatus.OK;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(FuelTableController.class)
 public final class FuelTableControllerTest {
-    private static final String URL_CONTROLLER = "/fuelTable";
+    private static final String CONTROLLER_URL = "/fuelTable";
 
     private static final String PATH_TO_FIND_TABLE_NAMES = "/tableNames";
-    private static final String URL_TO_FIND_TABLE_NAMES = URL_CONTROLLER + PATH_TO_FIND_TABLE_NAMES;
+    private static final String URL_TO_FIND_TABLE_NAMES = CONTROLLER_URL + PATH_TO_FIND_TABLE_NAMES;
 
     @MockBean
     private FuelTableService mockedTableService;
@@ -36,7 +35,7 @@ public final class FuelTableControllerTest {
         final List<String> givenTableNames = List.of("first-table", "second-table", "third-table");
         when(this.mockedTableService.findTableNames()).thenReturn(givenTableNames);
 
-        final String actual = doRequest(this.mockMvc, get(URL_TO_FIND_TABLE_NAMES), OK);
+        final String actual = doRequestAndGetContentAsString(this.mockMvc, URL_TO_FIND_TABLE_NAMES, OK);
         final String expected = "[\"first-table\",\"second-table\",\"third-table\"]";
         assertEquals(expected, actual);
     }

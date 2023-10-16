@@ -1,9 +1,9 @@
 package com.aurorasoft.fuelsearcher.service.factory.derivingsearcher.refreshedtablesmetadata;
 
-import com.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
-import com.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata;
 import com.aurorasoft.fuelsearcher.model.FuelTable;
 import com.aurorasoft.fuelsearcher.model.PropertyMetadataSource;
+import com.aurorasoft.fuelsearcher.model.metadata.PropertyMetadata;
+import com.aurorasoft.fuelsearcher.model.metadata.TableMetadata;
 import com.aurorasoft.fuelsearcher.service.factory.derivingsearcher.refreshedtablesmetadata.metadatasearcher.PropertyMetadataSearchingManager;
 import com.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
 import org.junit.Before;
@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.List;
+import java.util.Set;
 
 import static java.util.Arrays.stream;
 import static org.junit.Assert.assertEquals;
@@ -48,15 +48,15 @@ public final class RefreshedTablesMetadataFactoryTest {
                 thirdGivenPropertyMetadataSource
         );
 
-        final PropertyMetadata firstGivenPropertyMetadata = createPropertyMetadata(255L);
+        final PropertyMetadata firstGivenPropertyMetadata = createPropertyMetadata("property-1");
         when(this.mockedMetadataSearchingManager.find(same(givenTable), same(firstGivenPropertyMetadataSource)))
                 .thenReturn(firstGivenPropertyMetadata);
 
-        final PropertyMetadata secondGivenPropertyMetadata = createPropertyMetadata(256L);
+        final PropertyMetadata secondGivenPropertyMetadata = createPropertyMetadata("property-2");
         when(this.mockedMetadataSearchingManager.find(same(givenTable), same(secondGivenPropertyMetadataSource)))
                 .thenReturn(secondGivenPropertyMetadata);
 
-        final PropertyMetadata thirdGivenPropertyMetadata = createPropertyMetadata(257L);
+        final PropertyMetadata thirdGivenPropertyMetadata = createPropertyMetadata("property-3");
         when(this.mockedMetadataSearchingManager.find(same(givenTable), same(thirdGivenPropertyMetadataSource)))
                 .thenReturn(thirdGivenPropertyMetadata);
 
@@ -64,7 +64,7 @@ public final class RefreshedTablesMetadataFactoryTest {
         final TableMetadata expected = TableMetadata.builder()
                 .tableName(givenTableName)
                 .propertiesMetadata(
-                        List.of(
+                        Set.of(
                                 firstGivenPropertyMetadata,
                                 secondGivenPropertyMetadata,
                                 thirdGivenPropertyMetadata
@@ -85,9 +85,9 @@ public final class RefreshedTablesMetadataFactoryTest {
         return searcher;
     }
 
-    private static PropertyMetadata createPropertyMetadata(final Long id) {
+    private static PropertyMetadata createPropertyMetadata(final String propertyName) {
         return PropertyMetadata.builder()
-                .id(id)
+                .propertyName(propertyName)
                 .build();
     }
 }

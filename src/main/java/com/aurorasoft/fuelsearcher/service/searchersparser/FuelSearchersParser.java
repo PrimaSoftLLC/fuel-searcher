@@ -23,28 +23,28 @@ public final class FuelSearchersParser {
             this.saxParser.parse(filePath, parsingHandler);
             return parsingHandler.findParsedSearchers();
         } catch (final SAXException | IOException cause) {
-            throw new FuelSearchersParsingException(cause);
+            throw new ParsingException(cause);
         }
     }
 
-    private static final class FuelSearchersParsingException extends RuntimeException {
+    private static final class ParsingException extends RuntimeException {
 
         @SuppressWarnings("unused")
-        public FuelSearchersParsingException() {
+        public ParsingException() {
 
         }
 
         @SuppressWarnings("unused")
-        public FuelSearchersParsingException(final String description) {
+        public ParsingException(final String description) {
             super(description);
         }
 
-        public FuelSearchersParsingException(final Exception cause) {
+        public ParsingException(final Exception cause) {
             super(cause);
         }
 
         @SuppressWarnings("unused")
-        public FuelSearchersParsingException(final String description, final Exception cause) {
+        public ParsingException(final String description, final Exception cause) {
             super(description, cause);
         }
 

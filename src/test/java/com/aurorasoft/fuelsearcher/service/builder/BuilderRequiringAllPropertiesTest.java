@@ -23,7 +23,7 @@ public final class BuilderRequiringAllPropertiesTest {
         assertEquals(expected, actual);
     }
 
-    @Test(expected = Exception.class)
+    @Test(expected = IllegalStateException.class)
     public void objectShouldNotBeBuiltBecauseOfNotDefinedProperty() {
         final TestBuilderRequiringAllProperties givenBuilder = new TestBuilderRequiringAllProperties();
 

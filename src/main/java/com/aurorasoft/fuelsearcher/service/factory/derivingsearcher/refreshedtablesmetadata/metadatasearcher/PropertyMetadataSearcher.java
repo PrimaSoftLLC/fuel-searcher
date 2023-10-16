@@ -1,8 +1,8 @@
 package com.aurorasoft.fuelsearcher.service.factory.derivingsearcher.refreshedtablesmetadata.metadatasearcher;
 
-import com.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
 import com.aurorasoft.fuelsearcher.model.FuelTable;
 import com.aurorasoft.fuelsearcher.model.PropertyMetadataSource;
+import com.aurorasoft.fuelsearcher.model.metadata.PropertyMetadata;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 
@@ -19,19 +19,23 @@ public abstract class PropertyMetadataSearcher<S extends PropertyMetadataSource>
         return this.sourceType.isInstance(source);
     }
 
-    public final PropertyMetadata find(final FuelTable fuelTable, final PropertyMetadataSource source) {
-        final S concreteSource = this.sourceType.cast(source);
+    public final PropertyMetadata find(final FuelTable table, final PropertyMetadataSource source) {
         final String propertyName = source.findPropertyName();
-        final String[] uniqueAllowableValues = this.findUniqueAllowableValues(fuelTable, concreteSource);
-        return this.createMetadata(propertyName, uniqueAllowableValues);
+        final String[] uniqueAllowableValues = this.findUniqueAllowableValues(table, source);
+        return new PropertyMetadata(propertyName, uniqueAllowableValues);
     }
 
     protected abstract Stream<String> findAllowableValues(final List<IBodyElement> tableElements, final S source);
 
     protected abstract boolean isAllowableValuesDuplicated();
 
-    private String[] findUniqueAllowableValues(final FuelTable fuelTable, final S source) {
-        final List<IBodyElement> tableElements = fuelTable.elements();
+    private String[] findUniqueAllowableValues(final FuelTable table, final PropertyMetadataSource source) {
+        final S concreteSource = this.sourceType.cast(source);
+        return this.findUniqueAllowableValuesByConcreteSource(table, concreteSource);
+    }
+
+    private String[] findUniqueAllowableValuesByConcreteSource(final FuelTable table, final S source) {
+        final List<IBodyElement> tableElements = table.elements();
         final Stream<String> allowableValues = this.findAllowableValues(tableElements, source);
         final Stream<String> uniqueAllowableValues = this.removeDuplicatedAllowableValuesIfNecessary(allowableValues);
         return uniqueAllowableValues.toArray(String[]::new);
@@ -41,12 +45,5 @@ public abstract class PropertyMetadataSearcher<S extends PropertyMetadataSource>
         return this.isAllowableValuesDuplicated()
                 ? removeDuplicatesConsideringOnlyLettersAndDigits(allowableValues)
                 : allowableValues;
-    }
-
-    private PropertyMetadata createMetadata(final String propertyName, final String[] allowableValues) {
-        return PropertyMetadata.builder()
-                .propertyName(propertyName)
-                .allowableValues(allowableValues)
-                .build();
     }
 }

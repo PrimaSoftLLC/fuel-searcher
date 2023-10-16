@@ -1,14 +1,17 @@
 package com.aurorasoft.fuelsearcher.service.factory.derivingsearcher.refreshedtablesmetadata;
 
-import com.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
-import com.aurorasoft.fuelsearcher.crud.model.dto.TableMetadata;
 import com.aurorasoft.fuelsearcher.model.FuelTable;
+import com.aurorasoft.fuelsearcher.model.metadata.PropertyMetadata;
+import com.aurorasoft.fuelsearcher.model.metadata.TableMetadata;
 import com.aurorasoft.fuelsearcher.service.factory.derivingsearcher.DerivingSearcherFactory;
 import com.aurorasoft.fuelsearcher.service.factory.derivingsearcher.refreshedtablesmetadata.metadatasearcher.PropertyMetadataSearchingManager;
 import com.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
+
+import static java.util.stream.Collectors.toSet;
 
 @Component
 public final class RefreshedTablesMetadataFactory extends DerivingSearcherFactory<TableMetadata> {
@@ -23,22 +26,14 @@ public final class RefreshedTablesMetadataFactory extends DerivingSearcherFactor
     @Override
     protected TableMetadata createDerivedObject(final FuelSearcher searcher) {
         final String tableName = searcher.findTableName();
-        final List<PropertyMetadata> propertiesMetadata = this.findPropertiesMetadata(searcher);
-        return createTableMetadata(tableName, propertiesMetadata);
+        final Set<PropertyMetadata> propertiesMetadata = this.findPropertiesMetadata(searcher);
+        return new TableMetadata(tableName, propertiesMetadata);
     }
 
-    private List<PropertyMetadata> findPropertiesMetadata(final FuelSearcher searcher) {
+    private Set<PropertyMetadata> findPropertiesMetadata(final FuelSearcher searcher) {
         final FuelTable table = searcher.getTable();
         return searcher.findUsedPropertyMetadataSources()
                 .map(metadataSource -> this.propertyMetadataSearchingManager.find(table, metadataSource))
-                .toList();
-    }
-
-    private static TableMetadata createTableMetadata(final String tableName,
-                                                     final List<PropertyMetadata> propertiesMetadata) {
-        return TableMetadata.builder()
-                .tableName(tableName)
-                .propertiesMetadata(propertiesMetadata)
-                .build();
+                .collect(toSet());
     }
 }

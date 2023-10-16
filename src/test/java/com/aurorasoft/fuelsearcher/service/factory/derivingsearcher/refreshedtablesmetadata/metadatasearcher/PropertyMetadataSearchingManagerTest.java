@@ -1,8 +1,8 @@
 package com.aurorasoft.fuelsearcher.service.factory.derivingsearcher.refreshedtablesmetadata.metadatasearcher;
 
-import com.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
 import com.aurorasoft.fuelsearcher.model.FuelTable;
 import com.aurorasoft.fuelsearcher.model.PropertyMetadataSource;
+import com.aurorasoft.fuelsearcher.model.metadata.PropertyMetadata;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -38,31 +38,8 @@ public abstract class FuelHeaderMetadataFactory<E extends SpecificationPropertyE
 
     private static Integer throwDuplicatedHeaderValueException(final String[] headerValues) {
         final String headerValuesAsString = Arrays.toString(headerValues);
-        throw new DuplicatedHeaderValueException(
+        throw new IllegalArgumentException(
                 "Duplicated fuel-header's value. Given values: %s".formatted(headerValuesAsString)
         );
-    }
-
-    private static final class DuplicatedHeaderValueException extends RuntimeException {
-
-        @SuppressWarnings("unused")
-        public DuplicatedHeaderValueException() {
-
-        }
-
-        public DuplicatedHeaderValueException(final String description) {
-            super(description);
-        }
-
-        @SuppressWarnings("unused")
-        public DuplicatedHeaderValueException(final Exception cause) {
-            super(cause);
-        }
-
-        @SuppressWarnings("unused")
-        public DuplicatedHeaderValueException(final String description, final Exception cause) {
-            super(description, cause);
-        }
-
     }
 }

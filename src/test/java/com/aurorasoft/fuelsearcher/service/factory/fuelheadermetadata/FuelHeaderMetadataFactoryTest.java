@@ -36,7 +36,7 @@ public final class FuelHeaderMetadataFactoryTest {
         assertTrue(actualFuelOffsetsByHeaders instanceof LinkedHashMap<String, Integer>);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void headerMetadataShouldNotBeCreatedBecauseOfDuplicatedHeaderValues() {
         final SpecificationPropertyExtractor givenPropertyExtractor = mock(SpecificationPropertyExtractor.class);
         final TestFuelHeaderMetadataFactory givenFactory = new TestFuelHeaderMetadataFactory(givenPropertyExtractor);

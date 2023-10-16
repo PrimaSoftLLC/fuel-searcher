@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/fuel")
 @RequiredArgsConstructor
-public class FuelController {
-    private static final String EXCEPTION_DESCRIPTION_NO_SUCH_FUEL = "Fuel with given properties doesn't exist";
-
+public final class FuelController {
     private final FuelSearchingManager searchingManager;
     private final SpecificationValidatingManager specificationValidatingManager;
 
@@ -71,7 +69,7 @@ public class FuelController {
         this.validateSpecification(specification);
         return this.searchingManager.find(specification)
                 .map(ResponseEntity::ok)
-                .orElseThrow(() -> new NoSuchEntityException(EXCEPTION_DESCRIPTION_NO_SUCH_FUEL));
+                .orElseThrow(() -> new NoSuchEntityException("Fuel with given properties doesn't exist"));
     }
 
     private void validateSpecification(final FuelSpecification specification) {

@@ -1,8 +1,8 @@
 package com.aurorasoft.fuelsearcher.service.factory.derivingsearcher.refreshedtablesmetadata.metadatasearcher;
 
-import com.aurorasoft.fuelsearcher.crud.model.dto.PropertyMetadata;
 import com.aurorasoft.fuelsearcher.model.FuelTable;
 import com.aurorasoft.fuelsearcher.model.PropertyMetadataSource;
+import com.aurorasoft.fuelsearcher.model.metadata.PropertyMetadata;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +16,11 @@ public final class PropertyMetadataSearchingManager {
 
     private final List<PropertyMetadataSearcher<?>> searchers;
 
-    public PropertyMetadata find(final FuelTable fuelTable, final PropertyMetadataSource source) {
+    public PropertyMetadata find(final FuelTable table, final PropertyMetadataSource source) {
         return this.searchers.stream()
                 .filter(searcher -> searcher.isAbleToFind(source))
                 .findFirst()
-                .map(searcher -> searcher.find(fuelTable, source))
+                .map(searcher -> searcher.find(table, source))
                 .orElseThrow(
                         () -> new IllegalArgumentException(
                                 EXCEPTION_DESCRIPTION_NOT_SUITABLE_SOURCE.formatted(source)

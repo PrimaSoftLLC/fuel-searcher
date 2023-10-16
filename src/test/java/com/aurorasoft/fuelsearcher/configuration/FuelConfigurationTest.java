@@ -1,8 +1,10 @@
 package com.aurorasoft.fuelsearcher.configuration;
 
 import com.aurorasoft.fuelsearcher.model.FuelDocument;
+import com.aurorasoft.fuelsearcher.model.metadata.TableMetadata;
 import com.aurorasoft.fuelsearcher.service.factory.derivingsearcher.SpecificationValidatorsFactory;
 import com.aurorasoft.fuelsearcher.service.factory.document.FuelDocumentFactory;
+import com.aurorasoft.fuelsearcher.service.metadataloader.TablesMetadataLoadingManager;
 import com.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
 import com.aurorasoft.fuelsearcher.service.searchersparser.FuelSearchersParser;
 import com.aurorasoft.fuelsearcher.service.validator.SpecificationValidator;
@@ -57,5 +59,19 @@ public final class FuelConfigurationTest {
 
         final List<SpecificationValidator> actual = this.configuration.specificationValidators(givenFactory);
         assertSame(givenValidators, actual);
+    }
+
+    @Test
+    public void tablesMetadataShouldBeLoaded() {
+        final TablesMetadataLoadingManager givenLoadingManager = mock(TablesMetadataLoadingManager.class);
+
+        final List<TableMetadata> givenTablesMetadata = List.of(
+                mock(TableMetadata.class),
+                mock(TableMetadata.class)
+        );
+        when(givenLoadingManager.load()).thenReturn(givenTablesMetadata);
+
+        final List<TableMetadata> actual = this.configuration.tablesMetadata(givenLoadingManager);
+        assertSame(givenTablesMetadata, actual);
     }
 }

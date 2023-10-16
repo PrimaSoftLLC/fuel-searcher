@@ -1,8 +1,10 @@
 package com.aurorasoft.fuelsearcher.configuration;
 
 import com.aurorasoft.fuelsearcher.model.FuelDocument;
+import com.aurorasoft.fuelsearcher.model.metadata.TableMetadata;
 import com.aurorasoft.fuelsearcher.service.factory.derivingsearcher.SpecificationValidatorsFactory;
 import com.aurorasoft.fuelsearcher.service.factory.document.FuelDocumentFactory;
+import com.aurorasoft.fuelsearcher.service.metadataloader.TablesMetadataLoadingManager;
 import com.aurorasoft.fuelsearcher.service.searcher.FuelSearcher;
 import com.aurorasoft.fuelsearcher.service.searchersparser.FuelSearchersParser;
 import com.aurorasoft.fuelsearcher.service.validator.SpecificationValidator;
@@ -34,4 +36,8 @@ public class FuelConfiguration {
         return factory.create();
     }
 
+    @Bean
+    public List<TableMetadata> tablesMetadata(final TablesMetadataLoadingManager loadingManager) {
+        return loadingManager.load();
+    }
 }

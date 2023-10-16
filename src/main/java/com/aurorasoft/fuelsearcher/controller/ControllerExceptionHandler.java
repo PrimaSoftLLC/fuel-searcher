@@ -15,8 +15,7 @@ import java.util.List;
 import static com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING;
 import static java.lang.String.join;
 import static java.time.LocalDateTime.now;
-import static org.springframework.http.HttpStatus.NOT_ACCEPTABLE;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.*;
 
 @ControllerAdvice
 public final class ControllerExceptionHandler {
@@ -38,6 +37,15 @@ public final class ControllerExceptionHandler {
                 exception,
                 ControllerExceptionHandler::findMessage,
                 NOT_ACCEPTABLE
+        );
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<RestErrorResponse> handleException(final Exception exception) {
+        return createResponseEntity(
+                exception,
+                Exception::getMessage,
+                INTERNAL_SERVER_ERROR
         );
     }
 
