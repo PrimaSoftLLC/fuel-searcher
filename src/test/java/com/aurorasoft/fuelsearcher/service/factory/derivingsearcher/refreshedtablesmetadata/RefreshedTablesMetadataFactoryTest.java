@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.List;
+import java.util.Set;
 
 import static java.util.Arrays.stream;
 import static org.junit.Assert.assertEquals;
@@ -64,7 +64,7 @@ public final class RefreshedTablesMetadataFactoryTest {
         final TableMetadata expected = TableMetadata.builder()
                 .tableName(givenTableName)
                 .propertiesMetadata(
-                        List.of(
+                        Set.of(
                                 firstGivenPropertyMetadata,
                                 secondGivenPropertyMetadata,
                                 thirdGivenPropertyMetadata
