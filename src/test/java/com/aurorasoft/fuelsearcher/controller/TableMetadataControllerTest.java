@@ -13,8 +13,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import static com.aurorasoft.fuelsearcher.testutil.ControllerRequestUtil.doRequestAndGetContentAsString;
 import static java.util.Optional.empty;
@@ -42,16 +43,21 @@ public final class TableMetadataControllerTest {
     public void metadataShouldBeFoundByTableName()
             throws Exception {
         final String givenTableName = "table-name";
-        final List<PropertyMetadata> givenPropertiesMetadata = List.of(
-                PropertyMetadata.builder()
-                        .propertyName("first-property")
-                        .allowableValues(new String[]{"first-value", "second-value"})
-                        .build(),
-                PropertyMetadata.builder()
-                        .propertyName("second-property")
-                        .allowableValues(new String[]{"third-value", "fourth-value"})
-                        .build()
-        );
+
+        final PropertyMetadata firstGivenPropertyMetadata = PropertyMetadata.builder()
+                .propertyName("first-property")
+                .allowableValues(new String[]{"first-value", "second-value"})
+                .build();
+        final PropertyMetadata secondGivenPropertyMetadata = PropertyMetadata.builder()
+                .propertyName("second-property")
+                .allowableValues(new String[]{"third-value", "fourth-value"})
+                .build();
+        final Set<PropertyMetadata> givenPropertiesMetadata = new LinkedHashSet<>(){
+            {
+                super.add(firstGivenPropertyMetadata);
+                super.add(secondGivenPropertyMetadata);
+            }
+        };
         final TableMetadata givenMetadata = TableMetadata.builder()
                 .tableName(givenTableName)
                 .propertiesMetadata(givenPropertiesMetadata)
