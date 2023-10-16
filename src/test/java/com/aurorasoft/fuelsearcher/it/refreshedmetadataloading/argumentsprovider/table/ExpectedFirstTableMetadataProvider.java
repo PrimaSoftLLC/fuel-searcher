@@ -36,7 +36,7 @@ public final class ExpectedFirstTableMetadataProvider extends ExpectedTableMetad
                         .build(),
                 PropertyMetadata.builder()
                         .propertyName("глубина вспашки")
-                        .allowableValues(new String[]{"9", "8", "13", "12", "10"})
+                        .allowableValues(new String[]{"18-20", "21-22", "23-25", "25-27"})
                         .build()
         );
     }
