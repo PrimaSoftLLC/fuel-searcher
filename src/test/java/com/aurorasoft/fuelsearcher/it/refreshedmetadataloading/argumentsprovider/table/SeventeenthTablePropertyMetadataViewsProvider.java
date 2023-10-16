@@ -2,7 +2,7 @@ package com.aurorasoft.fuelsearcher.it.refreshedmetadataloading.argumentsprovide
 
 import java.util.stream.Stream;
 
-public final class SeventeenthTablePropertyMetadataViewsProvider extends TableMetadataProvider {
+public final class SeventeenthTablePropertyMetadataViewsProvider extends ExpectedTableMetadataProvider {
     private static final String TABLE_NAME = "ВОРОШЕНИЕ СЕНА";
 
     public SeventeenthTablePropertyMetadataViewsProvider() {

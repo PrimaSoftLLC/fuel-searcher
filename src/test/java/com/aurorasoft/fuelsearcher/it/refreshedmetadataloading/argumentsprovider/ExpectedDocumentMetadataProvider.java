@@ -8,8 +8,8 @@ import java.util.Set;
 
 import static java.util.stream.Collectors.toSet;
 
-public final class DocumentMetadataProvider {
-    private final List<TableMetadataProvider> tableMetadataProviders = List.of(
+public final class ExpectedDocumentMetadataProvider {
+    private final List<ExpectedTableMetadataProvider> tableMetadataProviders = List.of(
             new FirstTablePropertyMetadataViewsProvider(),
             new SecondTablePropertyMetadataViewsProvider(),
             new ThirdTablePropertyMetadataViewsProvider(),
@@ -41,7 +41,7 @@ public final class DocumentMetadataProvider {
 
     public Set<TableMetadata> provide() {
         return this.tableMetadataProviders.stream()
-                .map(TableMetadataProvider::provide)
+                .map(ExpectedTableMetadataProvider::provide)
                 .collect(toSet());
     }
 }

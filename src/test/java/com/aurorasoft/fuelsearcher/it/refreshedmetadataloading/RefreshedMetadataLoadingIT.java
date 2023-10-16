@@ -1,6 +1,6 @@
 package com.aurorasoft.fuelsearcher.it.refreshedmetadataloading;
 
-import com.aurorasoft.fuelsearcher.it.refreshedmetadataloading.argumentsprovider.DocumentMetadataProvider;
+import com.aurorasoft.fuelsearcher.it.refreshedmetadataloading.argumentsprovider.ExpectedDocumentMetadataProvider;
 import com.aurorasoft.fuelsearcher.model.metadata.TableMetadata;
 import com.aurorasoft.fuelsearcher.util.FileUtil;
 import org.junit.Test;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.mockStatic;
 
 @SpringBootTest
 public final class RefreshedMetadataLoadingIT {
-    private final DocumentMetadataProvider expectedMetadataProvider = new DocumentMetadataProvider();
+    private final ExpectedDocumentMetadataProvider expectedMetadataProvider = new ExpectedDocumentMetadataProvider();
 
     @Autowired
     private List<TableMetadata> loadedTablesMetadata;

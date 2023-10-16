@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @RequiredArgsConstructor
-public abstract class TableMetadataProvider {
+public abstract class ExpectedTableMetadataProvider {
     private final String tableName;
 
     public final TableMetadata provide() {

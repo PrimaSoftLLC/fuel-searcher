@@ -1,8 +1,10 @@
 package com.aurorasoft.fuelsearcher.it.refreshedmetadataloading.argumentsprovider.table;
 
-import java.util.stream.Stream;
+import com.aurorasoft.fuelsearcher.model.metadata.PropertyMetadata;
 
-public final class EighteenthTablePropertyMetadataViewsProvider extends TableMetadataProvider {
+import java.util.List;
+
+public final class EighteenthTablePropertyMetadataViewsProvider extends ExpectedTableMetadataProvider {
     private static final String TABLE_NAME = "СГРЕБАНИЕ СЕНА В ВАЛКИ";
 
     public EighteenthTablePropertyMetadataViewsProvider() {
@@ -10,24 +12,24 @@ public final class EighteenthTablePropertyMetadataViewsProvider extends TableMet
     }
 
     @Override
-    protected Stream<PropertyMetadataView> providePropertiesMetadata(final PropertyMetadataViewFactory factory) {
-        return Stream.of(
-                factory.create(
-                        "длина гона",
-                        new String[]{"Менее 150", "150-200", "201-300", "301-400", "401-600", "601-1000", "Более 1000"}
-                ),
-                factory.create(
-                        "трактор",
-                        new String[]{"Беларус 920.2", "Беларус 80/82.1+"}
-                ),
-                factory.create(
-                        "механизм",
-                        new String[]{"Krone Swadro 807", "MILLENNIUM V18-7GW", "Claas Liner 1650 Twin"}
-                ),
-                factory.create(
-                        "ширина захвата",
-                        new String[]{"6.2", "10.5", "6.8"}
-                )
+    protected List<PropertyMetadata> providePropertiesMetadata() {
+        return List.of(
+                PropertyMetadata.builder()
+                        .propertyName("длина гона")
+                        .allowableValues(new String[]{"Менее 150", "150-200", "201-300", "301-400", "401-600", "601-1000", "Более 1000"})
+                        .build(),
+                PropertyMetadata.builder()
+                        .propertyName("трактор")
+                        .allowableValues(new String[]{"Беларус 920.2", "Беларус 80/82.1+"})
+                        .build(),
+                PropertyMetadata.builder()
+                        .propertyName("механизм")
+                        .allowableValues(new String[]{"Krone Swadro 807", "MILLENNIUM V18-7GW", "Claas Liner 1650 Twin"})
+                        .build(),
+                PropertyMetadata.builder()
+                        .propertyName("ширина захвата")
+                        .allowableValues(new String[]{"6.2", "10.5", "6.8"})
+                        .build()
         );
     }
 }
